@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paquetes del motor: primera y tercera persona listas para multijugador · Nova Engine</title>
+<meta name="description" content="Los paquetes del motor son contenido listo para usar que viene con Nova Engine: le das a Instalar y se copian a
+tu proyecto los scripts, el personaje, sus animaciones, el prefab del jugador y una escena de prueba. Funcio">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Paquetes del motor: primera y tercera persona listas para multijugador · Nova Engine">
+<meta property="og:description" content="Los paquetes del motor son contenido listo para usar que viene con Nova Engine: le das a Instalar y se copian a
+tu proyecto los scripts, el personaje, sus animaciones, el prefab del jugador y una escena de prueba. Funcio">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/paquetes.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/paquetes.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html" aria-current="page">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="paquetes-del-motor-primera-y-tercera-persona-listas-para-multijugador">Paquetes del motor: primera y tercera persona listas para multijugador</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#1-instalar-un-paquete">1. Instalar un paquete</a></li><li class="n2"><a href="#2-probarlo-solo-con-amigos-y-con-servidor-dedicado">2. Probarlo: solo, con amigos y con servidor dedicado</a></li><li class="n2"><a href="#3-qué-se-copia-a-tu-proyecto">3. Qué se copia a tu proyecto</a></li><li class="n2"><a href="#3b-los-brazos-de-primera-persona-viewmodel">3b. Los brazos de primera persona (viewmodel)</a></li><li class="n2"><a href="#4-cómo-funciona-en-red">4. Cómo funciona en red</a></li><li class="n2"><a href="#5-cambiar-el-personaje-por-uno-tuyo">5. Cambiar el personaje por uno tuyo</a></li><li class="n2"><a href="#6-ampliar-el-movimiento">6. Ampliar el movimiento</a></li><li class="n2"><a href="#7-actualizar-un-paquete-sin-perder-tus-cambios">7. Actualizar un paquete sin perder tus cambios</a></li><li class="n2"><a href="#8-animación-en-red-para-cualquier-juego">8. Animación en red para cualquier juego</a></li></ul></details><p>Los <strong>paquetes del motor</strong> son contenido listo para usar que viene con Nova Engine: le das a <strong>Instalar</strong> y se copian a
+tu proyecto los scripts, el personaje, sus animaciones, el prefab del jugador y una escena de prueba. Funcionan sin
+Internet (van dentro del motor instalado) y están preparados para el multijugador desde el principio.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Paquete</th>
+  <th>Qué trae</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Primera persona (multijugador)</strong></td>
+  <td>Tú ves unos <strong>brazos de primera persona</strong> (viewmodel) pegados a la cámara, como en los FPS, y los demás te ven entero y animado. Andar, correr, agacharse, saltar, mirar con el ratón o el mando (los demás ven hacia dónde miras) y usar con <strong>E</strong>. Desde la 1.1.0; la vista de la 1.0.0 (tu cuerpo sin cabeza) sigue como opción</td>
+</tr>
+<tr>
+  <td><strong>Tercera persona (multijugador)</strong></td>
+  <td>El mismo personaje y movimiento con la cámara por encima del hombro, con colisión (no atraviesa paredes); el cuerpo se gira hacia donde andas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los dos comparten un núcleo, <strong>Personaje (núcleo común)</strong>, que se instala solo con cualquiera de ellos: el maniquí
+animado, su controlador de animación, el script <code>PersonajeRed</code> y el mapa de prueba. Puedes instalar los dos paquetes en
+el mismo proyecto.</p>
+<p>Contenido:</p>
+<ol>
+<li><a href="#1-instalar-un-paquete">Instalar un paquete</a></li>
+<li><a href="#2-probarlo-solo-con-amigos-y-con-servidor-dedicado">Probarlo: solo, con amigos y con servidor dedicado</a></li>
+<li><a href="#3-qué-se-copia-a-tu-proyecto">Qué se copia a tu proyecto</a> y <a href="#3b-los-brazos-de-primera-persona-viewmodel">los brazos de primera persona</a></li>
+<li><a href="#4-cómo-funciona-en-red">Cómo funciona en red</a></li>
+<li><a href="#5-cambiar-el-personaje-por-uno-tuyo">Cambiar el personaje por uno tuyo</a></li>
+<li><a href="#6-ampliar-el-movimiento">Ampliar el movimiento</a></li>
+<li><a href="#7-actualizar-un-paquete-sin-perder-tus-cambios">Actualizar un paquete sin perder tus cambios</a></li>
+<li><a href="#8-animación-en-red-para-cualquier-juego">Animación en red para cualquier juego</a></li>
+<li><span class="enlace-interno-quitado">Para quien desarrolla el motor</span></li>
+</ol>
+<h2 id="1-instalar-un-paquete">1. Instalar un paquete<a class="ancla" href="#1-instalar-un-paquete" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>En un proyecto que ya tienes:</strong> en el editor, menú <strong>Paquetes &gt; Paquetes del motor...</strong>. Cada paquete sale con su
+imagen, su descripción, su versión y un botón:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Botón</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Instalar</strong></td>
+  <td>Copia el paquete (y el núcleo, si falta) a tu proyecto</td>
+</tr>
+<tr>
+  <td><strong>Actualizar</strong></td>
+  <td>Hay una versión nueva en el motor: actualiza lo que no has tocado (<a href="#7-actualizar-un-paquete-sin-perder-tus-cambios">sección 7</a>)</td>
+</tr>
+<tr>
+  <td><strong>Instalado</strong></td>
+  <td>Ya lo tienes en esta versión. Al lado, <strong>Reparar</strong> vuelve a copiar lo que falte y <strong>Abrir la escena de prueba</strong> la abre</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todo va a carpetas propias, <code>assets/Nova/...</code> y <code>scripts/Nova/...</code>, así que no choca con lo tuyo aunque tengas un
+<code>Jugador.luau</code> o un <code>Jugador.prefab</code>. Los botones salen desactivados (con el motivo al pasar el ratón) si no hay
+proyecto abierto, si el juego está en marcha o si en una sesión de <a href="edicion-en-equipo.html">edición en equipo</a> tu rol es
+«Solo ver».</p>
+<p><strong>En un proyecto nuevo:</strong> en Nova Hub, <strong>Nuevo proyecto</strong> con la plantilla <strong>Primera persona (multijugador)</strong> o
+<strong>Tercera persona (multijugador)</strong>. Crea un proyecto vacío con el paquete ya instalado y su escena de prueba como escena
+inicial: ábrelo y pulsa <strong>Jugar</strong>.</p>
+<p><strong>En la edición en equipo:</strong> instalar escribe ficheros normales del proyecto; llegan a los demás como cualquier otro
+fichero (los scripts Lua se recargan solos en sus editores). Basta con que lo instale una persona.</p>
+<h2 id="2-probarlo-solo-con-amigos-y-con-servidor-dedicado">2. Probarlo: solo, con amigos y con servidor dedicado<a class="ancla" href="#2-probarlo-solo-con-amigos-y-con-servidor-dedicado" aria-label="Enlace a esta sección">#</a></h2>
+<p>Abre la escena de prueba (<code>assets/Nova/PrimeraPersona/PruebaPrimeraPersona.scene</code> o
+<code>assets/Nova/TerceraPersona/PruebaTerceraPersona.scene</code>): un suelo con rejilla de 1 m, rampas de 15 y 30 grados,
+escalones de 20 cm (se suben solos) y uno de 50 cm (hay que saltar), cajas, un túnel de 1,4 m (solo se pasa agachado),
+una pared y un botón.</p>
+<p>Controles (los de <a href="editor.html#controles-acciones-y-ejes">Ajustes del proyecto &gt; Controles</a>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Acción</th>
+  <th>Teclado y ratón</th>
+  <th>Mando</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Andar</td>
+  <td>WASD o flechas (<code>MoverX</code>, <code>MoverY</code>)</td>
+  <td>Stick izquierdo</td>
+</tr>
+<tr>
+  <td>Correr</td>
+  <td>Mayús izquierda (<code>Correr</code>)</td>
+  <td>LB o pulsar el stick izquierdo</td>
+</tr>
+<tr>
+  <td>Saltar</td>
+  <td>Espacio (<code>Saltar</code>)</td>
+  <td>A</td>
+</tr>
+<tr>
+  <td>Agacharse (mantener)</td>
+  <td>C o Ctrl izquierda (<code>Agacharse</code>)</td>
+  <td>B</td>
+</tr>
+<tr>
+  <td>Mirar</td>
+  <td>Ratón</td>
+  <td>Stick derecho</td>
+</tr>
+<tr>
+  <td>Usar</td>
+  <td>E (<code>Accion</code>), mirando un Interactuable</td>
+  <td>X</td>
+</tr>
+<tr>
+  <td>Soltar el ratón</td>
+  <td>Esc (un clic lo vuelve a capturar)</td>
+  <td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Si tu proyecto tiene sus propios controles y no trae la acción <code>Agacharse</code>, añádela en <strong>Ajustes del proyecto &gt;
+Controles</strong> (los proyectos sin controles propios ya la tienen).</p>
+<p>Funciona igual en todos los modos del menú <strong>Jugar</strong>:</p>
+<ul>
+<li><strong>Jugar (solo)</strong>: una partida de un jugador.</li>
+<li><strong>Jugar como anfitrión</strong> y <strong>Anfitrión + clientes</strong>: tú juegas y los demás entran; cada <code>NovaGame.exe</code> cliente es un
+jugador más. Los demás ven tu personaje animado igual que tú ves el suyo.</li>
+<li><strong>Jugar en equipo</strong> (edición en equipo): cada editor de la sesión entra con su personaje.</li>
+<li><strong>Servidor dedicado</strong>: <code>NovaServer.exe --project &lt;tu proyecto&gt;</code> con la escena de prueba como escena inicial
+(<a href="servidor-dedicado.html">servidor-dedicado.md</a>) y los jugadores con <code>NovaGame.exe --connect &lt;ip&gt;</code>.</li>
+</ul>
+<p>A cada jugador que entra lo hace aparecer la entidad <strong>Aparición de jugadores</strong> de la escena (componente
+<code>PlayerSpawner</code> con el prefab del jugador, en un círculo de 2,5 m). El script <code>Partida.luau</code> (en la entidad
+<strong>Partida</strong>) avisa de quién entra y sale y enseña los controles; quítalo cuando tengas tu propio HUD.</p>
+<h2 id="3-qué-se-copia-a-tu-proyecto">3. Qué se copia a tu proyecto<a class="ancla" href="#3-qué-se-copia-a-tu-proyecto" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">assets/Nova/Personaje/                       núcleo común
+  Maniqui.glb                                el personaje (Quaternius, CC0): malla completa, sin cabeza, solo brazos y 10 animaciones
+  Personaje.controller                       quieto/andar/trotar/esprintar, agachado, salto, en el aire y aterrizar
+  Mapa/                                      rejilla y materiales del mapa de prueba
+scripts/Nova/Personaje/
+  PersonajeRed.luau                          el personaje: controles, movimiento, red y animación
+  Partida.luau                               avisos y controles de la escena de prueba
+  BotonPrueba.luau                           el botón de la escena de prueba (Interactuable)
+assets/Nova/PrimeraPersona/                  (o TerceraPersona/)
+  JugadorPrimeraPersona.prefab               el prefab del jugador
+  BrazosPrimeraPersona.prefab                los brazos de primera persona (solo Primera persona, 1.1.0)
+  PruebaPrimeraPersona.scene                 la escena de prueba
+scripts/Nova/PrimeraPersona/
+  CamaraPrimeraPersona.luau                  (o scripts/Nova/TerceraPersona/CamaraTerceraPersona.luau)
+  BrazosFP.luau                              cómo se mueven los brazos (solo Primera persona, 1.1.0)
+paquetes.json                                lo instalado: versión y huella de cada fichero</code></pre></div>
+<p>El <strong>prefab del jugador</strong> (<code>Jugador</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Componente</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Controlador de personaje</td>
+  <td>Radio 0,3 m, altura 1,8 m, escalones de 35 cm, pendientes de 45°, 5,5 m/s corriendo, salto de 4,8 m/s</td>
+</tr>
+<tr>
+  <td>Animador</td>
+  <td><code>Maniqui.glb</code> con <code>Personaje.controller</code></td>
+</tr>
+<tr>
+  <td>IK</td>
+  <td>Objetivo <strong>Mirar</strong>: la columna, el cuello y la cabeza miran arriba o abajo con el cabeceo (25° por hueso como mucho)</td>
+</tr>
+<tr>
+  <td>Identidad de red, Transform de red</td>
+  <td>Es un objeto de red con dueño (lo crea el servidor)</td>
+</tr>
+<tr>
+  <td>Animador de red</td>
+  <td>Parámetros <code>velocidad</code>, <code>enSuelo</code> y <code>agachado</code> (y el disparador <code>saltar</code>), con <strong>Lo anima el dueño</strong> marcado</td>
+</tr>
+<tr>
+  <td>Script <code>PersonajeRed</code></td>
+  <td>Con <strong>Modo</strong> = Primera persona o Tercera persona</td>
+</tr>
+<tr>
+  <td>Hijos <strong>Cuerpo</strong> y <strong>CuerpoSinCabeza</strong></td>
+  <td>Las dos mallas del maniquí: la completa (para los demás, y para ti solo su sombra en primera persona) y la sin cabeza (para ti con la vista «Cuerpo completo»)</td>
+</tr>
+</tbody>
+</table></div>
+<p>En la escena, la <strong>Cámara</strong> lleva <code>CamaraPrimeraPersona</code> (en los ojos; con la vista de brazos, pone los brazos como hijos
+suyos) o <code>CamaraTerceraPersona</code> (distancia, hombro, altura, radio de colisión y suavizado en sus campos).</p>
+<p>Los campos de <code>PersonajeRed</code> que se pueden cambiar en el Inspector del prefab:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Modo</td>
+  <td>Primera persona</td>
+  <td>Primera persona: cámara en los ojos y el cuerpo mira a donde miras. Tercera persona: cámara por encima del hombro y el cuerpo gira hacia donde andas</td>
+</tr>
+<tr>
+  <td>Vista en primera persona</td>
+  <td>Brazos (viewmodel)</td>
+  <td>Lo que ves de ti en primera persona: <strong>Brazos (viewmodel)</strong> (unos brazos pegados a la cámara; tu cuerpo no se ve) o <strong>Cuerpo completo</strong> (tu cuerpo sin cabeza, como en la 1.0.0). Los demás te ven siempre entero (<a href="#3b-los-brazos-de-primera-persona-viewmodel">sección 3b</a>)</td>
+</tr>
+<tr>
+  <td>Sombra propia</td>
+  <td>sí</td>
+  <td>Con los brazos: tu cuerpo, que no ves, hace sombra igualmente</td>
+</tr>
+<tr>
+  <td>Velocidad andando / corriendo / agachado</td>
+  <td>2 / 5,5 / 1,3 m/s</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Aceleración / Frenada</td>
+  <td>16 / 22 m/s²</td>
+  <td>La inercia al arrancar y frenar</td>
+</tr>
+<tr>
+  <td>Altura de pie / agachado</td>
+  <td>1,8 / 1,2 m</td>
+  <td>La cápsula (agachado cabe por el túnel)</td>
+</tr>
+<tr>
+  <td>Sensibilidad, Velocidad con el mando, Invertir el eje Y</td>
+  <td>1, 180°/s, no</td>
+  <td>Mirar</td>
+</tr>
+<tr>
+  <td>Altura de los ojos (de pie / agachado)</td>
+  <td>1,65 / 1,1 m</td>
+  <td>Donde va la cámara</td>
+</tr>
+<tr>
+  <td>Cabeceo máximo</td>
+  <td>80°</td>
+  <td>Lo más que se mira arriba o abajo</td>
+</tr>
+<tr>
+  <td><code>cabeceo</code>, <code>agachado</code></td>
+  <td></td>
+  <td>Estado que reparte el servidor (solo lectura)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3b-los-brazos-de-primera-persona-viewmodel">3b. Los brazos de primera persona (viewmodel)<a class="ancla" href="#3b-los-brazos-de-primera-persona-viewmodel" aria-label="Enlace a esta sección">#</a></h2>
+<p>Desde la 1.1.0 del paquete <strong>Primera persona</strong>, en tu propia vista solo ves unos <strong>brazos y manos</strong> pegados a la cámara,
+como en los FPS: tu cuerpo no se dibuja para ti (solo su sombra) y los demás te ven entero, animado, en tercera persona.
+Los brazos son solo de tu máquina: no son un objeto de red y nada de ellos viaja.</p>
+<p>Cómo están hechos (<code>assets/Nova/PrimeraPersona/BrazosPrimeraPersona.prefab</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Pieza</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Raíz <code>BrazosPrimeraPersona</code></td>
+  <td>El maniquí girado hacia donde mira la cámara, con los hombros un poco por debajo de ella. Lleva la <strong>Capa de vista</strong> (<a href="render.html#12-capa-de-vista-el-arma-en-primera-persona">render.md</a>): los brazos se dibujan por delante de todo (nunca atraviesan una pared), con su campo de visión (68°) y su plano cercano (1 cm), y sin sombra en el mundo</td>
+</tr>
+<tr>
+  <td>Animador</td>
+  <td><code>Maniqui.glb</code> con el clip quieto (la postura de los dedos y la respiración de los hombros)</td>
+</tr>
+<tr>
+  <td>IK</td>
+  <td>Dos extremidades, <strong>ManoDer</strong> y <strong>ManoIzq</strong>: cada mano va a su objetivo (<code>ObjetivoManoDer</code>, <code>ObjetivoManoIzq</code>) y el codo hacia su pista (<code>PistaCodoDer</code>, <code>PistaCodoIzq</code>). Mueve esas entidades con el gizmo para cambiar la postura</td>
+</tr>
+<tr>
+  <td>Hijo <strong>Brazos</strong></td>
+  <td>La malla de solo brazos del maniquí (malla 2 de <code>Maniqui.glb</code>)</td>
+</tr>
+<tr>
+  <td>Hijo <strong>AnclaArma</strong></td>
+  <td><strong>Enganche a hueso</strong> en la mano derecha (<code>DEF-hand.R</code>): el punto donde poner un arma</td>
+</tr>
+<tr>
+  <td>Script <code>BrazosFP</code></td>
+  <td>Cómo se mueven: respiración al estar quieto, bob y balanceo al andar (más al correr, con los brazos más bajos), suben en el aire y bajan de golpe al aterrizar, bajan un poco agachado y se quedan atrás al girar con el ratón (sway). Todo suavizado y sin red. Sus campos (bob, balanceo, respiración, inercia del ratón y su máximo, suavizado) se cambian en el Inspector del prefab</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>CamaraPrimeraPersona</code> crea los brazos como hijos de la cámara cuando encuentra a tu personaje (campo <strong>Brazos</strong> de la
+cámara; vacío = el prefab del paquete) y los apaga si eliges <strong>Vista en primera persona = Cuerpo completo</strong>.</p>
+<p><strong>Poner un arma</strong>: arrastra el modelo del arma dentro de <strong>AnclaArma</strong> (en tu copia del prefab de los brazos) y ajusta su
+posición y giro con el gizmo para que encaje en la mano. Como cuelga de la Capa de vista, tampoco atraviesa paredes. Para
+que los demás la vean en tu personaje, pon otra copia del arma en el prefab del jugador con un <strong>Enganche a hueso</strong> en
+<code>DEF-hand.R</code> (como hijo de la raíz del jugador, que es la que tiene el Animador). Si quieres que la mano izquierda la sujete, crea dentro del arma una
+entidad «Agarre» y pon <code>ObjetivoManoIzq</code> como hija suya (o cambia el objetivo de <strong>ManoIzq</strong> del IK a esa entidad).</p>
+<p><strong>Tus propios brazos</strong>: cambia la malla del hijo <strong>Brazos</strong> y el modelo del Animador por los de tu modelo (una malla solo
+con los brazos y las manos, con el mismo esqueleto: <code>preparar_maniqui.py</code> del código fuente del motor muestra cómo
+sacarla de un personaje), y en el IK los huesos de tus manos.</p>
+<h2 id="4-cómo-funciona-en-red">4. Cómo funciona en red<a class="ancla" href="#4-cómo-funciona-en-red" aria-label="Enlace a esta sección">#</a></h2>
+<p>El mismo <code>PersonajeRed.luau</code> se ejecuta en todas las máquinas y cada parte pregunta a quién le toca:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Quién</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>El dueño</strong> (el PC de ese jugador, <code>self:IsLocalPlayer()</code>)</td>
+  <td>Lee el teclado, el ratón y el mando y escribe la entrada del Controlador de personaje (<code>Move</code>, <code>Face</code>, <code>Jump</code>). Pone los parámetros del Animador. Manda al servidor hacia dónde mira (<code>Mirar</code>, sin fiabilidad, como mucho 15 veces por segundo) y si va agachado (<code>Agachar</code>)</td>
+</tr>
+<tr>
+  <td><strong>El servidor</strong> (dedicado o el anfitrión)</td>
+  <td>Simula el personaje con la misma entrada (la versión que vale), cambia su cápsula al agacharse y reparte <code>cabeceo</code> y <code>agachado</code> a los demás. Si alguien se cae del mapa, lo devuelve a donde apareció</td>
+</tr>
+<tr>
+  <td><strong>Todos</strong></td>
+  <td>Ven a los demás interpolados y animados; el IK mueve la columna y la cabeza con el cabeceo de cada uno</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los brazos de primera persona (<a href="#3b-los-brazos-de-primera-persona-viewmodel">sección 3b</a>) no son de la red: cada uno ve
+solo los suyos y se mueven con lo que ya tiene su máquina (velocidad, suelo, agachado y hacia dónde mira).</p>
+<ul>
+<li><strong>Movimiento autoritativo con predicción</strong>: el motor predice tu movimiento al momento en tu PC, lo manda al servidor y
+corrige si hace falta (<a href="multijugador.html#9-movimiento-predicho-con-charactercontroller">multijugador.md</a>). El servidor
+descarta entradas no válidas y no deja ir más rápido de lo que permite el prefab.</li>
+<li><strong>Sin tirones con la inercia</strong>: la aceleración y la frenada las calcula el dueño y viajan <strong>dentro de la entrada</strong> (la
+dirección ya suavizada, como fracción de la velocidad corriendo). El servidor simula exactamente lo mismo y no hay
+correcciones por la inercia. No uses «Aceleración en el suelo» del Controlador de personaje a la vez.</li>
+<li><strong>Los demás, interpolados</strong>: posición y giro llegan por el Transform de red, y su <code>velocity</code> es lo que se mueven
+(sirve para animarlos o para sonidos de pasos en cualquier máquina).</li>
+<li><strong>Animación de todos, también la del anfitrión</strong>: el Animador de red tiene <strong>Lo anima el dueño</strong>. Los parámetros los
+pone solo el dueño; si es un cliente, el motor se los manda al servidor, que los reparte a los demás. El jugador del
+anfitrión ya es el servidor, así que lo suyo sale tal cual. Ver la <a href="#8-animación-en-red-para-cualquier-juego">sección 8</a>.</li>
+</ul>
+<p><strong>Ancho de banda</strong> (medido en la prueba <code>paquetes:</code> del motor, un cliente con otro jugador que corre, se agacha, salta y
+mira): unos <strong>2-3 KB/s de bajada y 4 KB/s de subida</strong> por cliente con todo (entradas predichas a 60 Hz con
+redundancia, el cabeceo, el Animador de red y la sincronización del motor). Lo que añade el paquete sobre un personaje
+predicho sencillo es poco: el cabeceo (15 veces por segundo como mucho y solo si cambia más de medio grado) y los
+parámetros del Animador (como mucho 20 por segundo y solo si cambian; la velocidad va redondeada a 5 cm/s).</p>
+<h2 id="5-cambiar-el-personaje-por-uno-tuyo">5. Cambiar el personaje por uno tuyo<a class="ancla" href="#5-cambiar-el-personaje-por-uno-tuyo" aria-label="Enlace a esta sección">#</a></h2>
+<p>El maniquí es de <a href="https://quaternius.com" rel="noopener">Quaternius</a> (CC0: puedes usarlo en tu juego, también comercial, sin
+mencionarlo). Para poner tu personaje:</p>
+<ol>
+<li>Importa tu modelo (glTF/GLB o FBX, <a href="modelos-y-animaciones.html">modelos-y-animaciones.md</a>) con sus animaciones o
+usa las del maniquí con el <strong>retargeting</strong> entre humanoides (<a href="modelos-y-animaciones.html#animaciones-de-otros-personajes-retargeting">modelos-y-animaciones.md</a>).</li>
+<li>Haz una copia de <code>Personaje.controller</code> (por ejemplo en <code>assets/MiJuego/</code>) y cambia los nombres de los clips por los
+de tu modelo. Los parámetros (<code>velocidad</code>, <code>enSuelo</code>, <code>agachado</code>, <code>saltar</code>) déjalos igual: son los que pone el script.</li>
+<li>En tu copia del prefab del jugador: el <strong>Animador</strong> con tu modelo y tu controlador; en los hijos <strong>Cuerpo</strong> y
+<strong>CuerpoSinCabeza</strong>, las mallas de tu modelo.</li>
+<li><strong>Primera persona</strong>: con la vista <strong>Brazos (viewmodel)</strong> (la de por defecto) cambia también los brazos
+(<a href="#3b-los-brazos-de-primera-persona-viewmodel">sección 3b</a>) o deja los del maniquí. Con la vista <strong>Cuerpo completo</strong>
+hace falta una malla sin cabeza: si tu modelo no la tiene, en Blender duplica la malla y borra la cabeza (o usa
+<code>paquetes/herramientas/preparar_maniqui.py</code> del código fuente del motor como guía: quita los triángulos que dependen
+de los huesos de la cabeza y del cuello). Sin ella, deja <strong>CuerpoSinCabeza</strong> vacío y verás solo la sombra de tu cuerpo.</li>
+<li>En el <strong>IK</strong> del prefab, el objetivo <strong>Mirar</strong> con los huesos de la columna, el cuello y la cabeza de tu modelo (el
+botón <strong>Apuntar con la columna</strong> del Inspector los adivina).</li>
+<li>Ajusta la <strong>Altura de los ojos</strong> de <code>PersonajeRed</code> y el radio y la altura del Controlador de personaje a tu modelo.</li>
+<li>En <strong>Aparición de jugadores</strong>, tu prefab.</li>
+</ol>
+<p>No edites el prefab del paquete directamente si quieres poder actualizarlo sin conflictos: arrástralo a la escena,
+cámbialo y guárdalo como prefab tuyo (clic derecho en la Jerarquía &gt; <strong>Crear prefab</strong>, en tu carpeta), y pon ese en
+<strong>Aparición de jugadores</strong>.</p>
+<h2 id="6-ampliar-el-movimiento">6. Ampliar el movimiento<a class="ancla" href="#6-ampliar-el-movimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>PersonajeRed.luau</code> es un script normal de tu proyecto: léelo (está comentado) y cámbialo, o mejor, cópialo a tu
+carpeta (<code>scripts/MiJuego/MiPersonaje.luau</code>) y pon la copia en tu prefab. Reglas para que siga funcionando en red:</p>
+<ul>
+<li><strong>Solo el dueño lee los controles</strong> (<code>if EsMio(self) then ... end</code>) y nunca muevas el Transform del personaje a
+mano: escribe la entrada con <code>Move</code>, <code>Face</code> y <code>Jump</code>. Para teletransportarlo, <code>Network.Teleport</code> en el servidor; para
+empujarlo, <code>personaje:Push(velocidad)</code> en el servidor.</li>
+<li><strong>Lo que cambia la velocidad va en la entrada</strong>: un sprint con aguante, un andar lento al apuntar o una inercia
+distinta se calculan en el dueño y se pasan con la longitud de la dirección de <code>Move</code> (como hace <code>LeerMover</code>). Así el
+servidor simula lo mismo.</li>
+<li><strong>Lo que tienen que ver los demás</strong> (una postura, un estado) va en un campo <code>--[Replicated(condition = &quot;SkipOwner&quot;)]</code>
+que el servidor cambia cuando el dueño se lo pide con una función <code>--[Server]</code> (mira <code>Mirar</code> y <code>Agachar</code>). En el
+anfitrión, <code>self:Mirar(...)</code> se ejecuta al momento en la misma máquina.</li>
+<li><strong>Animaciones nuevas</strong>: añade el parámetro al controlador, ponlo con <code>self._animador:SetFloat(...)</code> en <code>Animar</code> (solo
+en el dueño) y añádelo a la lista <strong>Parámetros</strong> del Animador de red (o déjala vacía: entonces van todos).</li>
+<li><strong>Interactuar</strong>: la escena de prueba usa el componente <strong>Interactuable</strong> del motor con <code>OnInteract(jugador)</code>
+(<a href="lobby-y-escenas.html#7-interactuables">lobby-y-escenas.md</a>): mira el botón y pulsa E. Para que algo sea usable, añade
+Interactuable a la entidad y un script con <code>OnInteract</code> (se ejecuta en el servidor, ya validado).</li>
+</ul>
+<h2 id="7-actualizar-un-paquete-sin-perder-tus-cambios">7. Actualizar un paquete sin perder tus cambios<a class="ancla" href="#7-actualizar-un-paquete-sin-perder-tus-cambios" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>paquetes.json</code>, en la raíz del proyecto, guarda la versión de cada paquete instalado y la huella de cada fichero tal y
+como se copió. Cuando el motor trae una versión nueva, la ventana dice <strong>Hay una versión nueva</strong> y el botón pasa a
+<strong>Actualizar</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fichero</th>
+  <th>Qué pasa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>No lo has tocado</td>
+  <td>Se actualiza</td>
+</tr>
+<tr>
+  <td>Lo has cambiado</td>
+  <td><strong>No se pisa</strong>: la versión nueva se guarda al lado, <code>&lt;fichero&gt;.nuevo</code> (por ejemplo <code>PersonajeRed.luau.nuevo</code>), y la ventana lo dice. Compáralos y quédate con lo que quieras; si copias el <code>.nuevo</code> encima, la próxima vez vuelve a contar como del paquete</td>
+</tr>
+<tr>
+  <td>Lo has borrado</td>
+  <td>No se vuelve a poner</td>
+</tr>
+<tr>
+  <td>Tenías uno tuyo con el mismo nombre</td>
+  <td>No se pisa: la versión del paquete va al <code>.nuevo</code></td>
+</tr>
+<tr>
+  <td>La versión nueva ya no lo trae</td>
+  <td>Se quita si no lo habías tocado; si lo cambiaste, se queda</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los <code>.nuevo</code> no son assets (el editor no les crea <code>.meta</code>) ni scripts (no se cargan). Los finales de línea no cuentan
+como cambio (git en Windows puede cambiarlos sin que toques nada).</p>
+<p>Si un paquete que comparte el núcleo común tiene una versión nueva del núcleo, también sale <strong>Actualizar</strong> aunque su
+propia versión no cambie (al pulsarlo se actualiza el núcleo).</p>
+<p><strong>De la 1.0.0 a la 1.1.0 (brazos de primera persona)</strong>: <strong>Actualizar</strong> en <strong>Primera persona</strong> trae
+<code>BrazosPrimeraPersona.prefab</code>, <code>BrazosFP.luau</code>, el <code>Maniqui.glb</code> con la malla de brazos y los cambios de <code>PersonajeRed.luau</code>
+y <code>CamaraPrimeraPersona.luau</code>. Si habías cambiado alguno de esos dos scripts, el tuyo se queda y el nuevo va a su
+<code>.nuevo</code>: sin la cámara nueva no salen los brazos (verás solo la sombra de tu cuerpo; pon <strong>Vista en primera persona =
+Cuerpo completo</strong> si quieres seguir como antes, o pasa tus cambios al <code>.nuevo</code>). El prefab del jugador y la escena de
+prueba no cambian. <strong>Tercera persona</strong> se queda en la 1.0.0 (solo cambia su núcleo).</p>
+<h2 id="8-animación-en-red-para-cualquier-juego">8. Animación en red para cualquier juego<a class="ancla" href="#8-animación-en-red-para-cualquier-juego" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lo que usan los paquetes sirve para cualquier personaje (0.9.16):</p>
+<ul>
+<li><strong>Animador de red &gt; Lo anima el dueño</strong> (<code>NetworkAnimator.ownerAuthority</code>): el script pone los parámetros del Animador
+<strong>solo en la máquina del dueño</strong> (<code>self:IsLocalPlayer()</code>). Un cliente dueño se los manda al servidor (sin fiabilidad,
+cuando cambian, como mucho 20 veces por segundo y uno cada medio segundo aunque no cambien) y el servidor los reparte a
+los demás como si fueran suyos; los disparadores (<code>SetTrigger</code>) también. El jugador del anfitrión ya es el servidor:
+sus parámetros salen tal cual. Sin marcar (como antes), el servidor reparte lo que tenga su propio Animador: el script
+tiene que calcular los parámetros también en el servidor.</li>
+<li><strong>El Animador puede estar en un hijo</strong>: el Animador de red (en la entidad con la Identidad de red) replica el Animador
+de la propia entidad o, si no tiene, el de la primera descendiente que lo tenga (un personaje con el modelo en un
+hijo «Modelo»).</li>
+<li><strong><code>CharacterController.velocity</code> de los demás</strong>: en una máquina que no simula un personaje (el de otro jugador o el
+del anfitrión visto desde un cliente), <code>velocity</code> es lo que se mueve su posición interpolada, suavizada. Antes de la
+0.9.16 se quedaba en 0 y un script que animaba con <code>velocity</code> en cada máquina veía quietos a los demás: los clientes no
+veían andar al jugador del anfitrión, aunque el anfitrión sí veía a los clientes (su servidor los simula).</li>
+</ul>
+<p>Receta para un personaje propio:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el dueño: los parámetros (el Animador de red, con «Lo anima el dueño», los lleva a los demás)</span>
+<span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+    <span class="hl-k">local</span> v = <span class="hl-b">self</span>._cc.velocity
+    <span class="hl-b">self</span>._animador:<span class="hl-f">SetFloat</span>(<span class="hl-s">"velocidad"</span>, <span class="hl-t">math</span>.<span class="hl-f">floor</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(v.x, <span class="hl-n">0</span>, v.z)) * <span class="hl-n">20</span> + <span class="hl-n">0.5</span>) / <span class="hl-n">20</span>)
+    <span class="hl-b">self</span>._animador:<span class="hl-f">SetBool</span>(<span class="hl-s">"enSuelo"</span>, <span class="hl-b">self</span>._cc.grounded)
+<span class="hl-k">end</span></code></pre></div>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="lobby-y-escenas.html"><small>Anterior</small>Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a><a class="sig" href="servidor-dedicado.html"><small>Siguiente</small>Servidor dedicado (NovaServer.exe)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#1-instalar-un-paquete">1. Instalar un paquete</a></li><li class="n2"><a href="#2-probarlo-solo-con-amigos-y-con-servidor-dedicado">2. Probarlo: solo, con amigos y con servidor dedicado</a></li><li class="n2"><a href="#3-qué-se-copia-a-tu-proyecto">3. Qué se copia a tu proyecto</a></li><li class="n2"><a href="#3b-los-brazos-de-primera-persona-viewmodel">3b. Los brazos de primera persona (viewmodel)</a></li><li class="n2"><a href="#4-cómo-funciona-en-red">4. Cómo funciona en red</a></li><li class="n2"><a href="#5-cambiar-el-personaje-por-uno-tuyo">5. Cambiar el personaje por uno tuyo</a></li><li class="n2"><a href="#6-ampliar-el-movimiento">6. Ampliar el movimiento</a></li><li class="n2"><a href="#7-actualizar-un-paquete-sin-perder-tus-cambios">7. Actualizar un paquete sin perder tus cambios</a></li><li class="n2"><a href="#8-animación-en-red-para-cualquier-juego">8. Animación en red para cualquier juego</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

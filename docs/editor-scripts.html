@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor de scripts integrado · Nova Engine</title>
+<meta name="description" content="Desde la 0.9.25 los scripts Lua se escriben dentro del editor, como en Roblox Studio: sin abrir VS Code ni nada más.
+La ventana Scripts tiene pestañas, resaltado de Luau con los colores del tema, autocompletado de toda l">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Editor de scripts integrado · Nova Engine">
+<meta property="og:description" content="Desde la 0.9.25 los scripts Lua se escriben dentro del editor, como en Roblox Studio: sin abrir VS Code ni nada más.
+La ventana Scripts tiene pestañas, resaltado de Luau con los colores del tema, autocompletado de toda l">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/editor-scripts.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/editor-scripts.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html" aria-current="page">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="editor-de-scripts-integrado">Editor de scripts integrado</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#paso-a-paso-tu-primer-script-en-el-editor">Paso a paso: tu primer script en el editor</a></li><li class="n2"><a href="#abrir-un-script">Abrir un script</a></li><li class="n2"><a href="#escribir">Escribir</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#avisos-y-arreglo-rápido">Avisos y arreglo rápido</a></li><li class="n2"><a href="#información-firma-definición-referencias-y-renombrar">Información, firma, definición, referencias y renombrar</a></li><li class="n2"><a href="#buscar">Buscar</a></li><li class="n2"><a href="#depurador">Depurador</a></li><li class="n2"><a href="#arrastrar-desde-la-jerarquía-y-contenido">Arrastrar desde la Jerarquía y Contenido</a></li><li class="n2"><a href="#guardar-recargar-y-cambios-de-fuera">Guardar, recargar y cambios de fuera</a></li><li class="n2"><a href="#edición-en-equipo">Edición en equipo</a></li><li class="n2"><a href="#preferencias">Preferencias</a></li><li class="n2"><a href="#atajos-de-teclado">Atajos de teclado</a></li><li class="n2"><a href="#cómo-funciona-por-dentro">Cómo funciona por dentro</a></li><li class="n2"><a href="#límites">Límites</a></li><li class="n2"><a href="#para-las-pruebas">Para las pruebas</a></li></ul></details><p>Desde la 0.9.25 los scripts Lua se escriben <strong>dentro del editor</strong>, como en Roblox Studio: sin abrir VS Code ni nada más.
+La ventana <strong>Scripts</strong> tiene pestañas, resaltado de Luau con los colores del tema, autocompletado de toda la API y de tus
+scripts, avisos mientras escribes (con arreglo rápido), buscar en el fichero y en todo el proyecto, ir a la definición,
+renombrar y un <strong>depurador</strong> con puntos de parada, variables y paso a paso.</p>
+<p>VS Code sigue disponible para quien lo prefiera (ver <a href="#preferencias">Abrir scripts con</a>).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="#paso-a-paso-tu-primer-script-en-el-editor">Paso a paso: tu primer script en el editor</a></li>
+<li><a href="#abrir-un-script">Abrir un script</a></li>
+<li><a href="#escribir">Escribir</a></li>
+<li><a href="#autocompletado">Autocompletado</a></li>
+<li><a href="#avisos-y-arreglo-rápido">Avisos y arreglo rápido</a></li>
+<li><a href="#información-firma-definición-referencias-y-renombrar">Información, firma, definición, referencias y renombrar</a></li>
+<li><a href="#buscar">Buscar</a></li>
+<li><a href="#depurador">Depurador</a></li>
+<li><a href="#arrastrar-desde-la-jerarquía-y-contenido">Arrastrar desde la Jerarquía y Contenido</a></li>
+<li><a href="#guardar-recargar-y-cambios-de-fuera">Guardar, recargar y cambios de fuera</a></li>
+<li><a href="#edición-en-equipo">Edición en equipo</a></li>
+<li><a href="#preferencias">Preferencias</a></li>
+<li><a href="#atajos-de-teclado">Atajos de teclado</a></li>
+<li><a href="#cómo-funciona-por-dentro">Cómo funciona por dentro</a></li>
+<li><a href="#límites">Límites</a></li>
+</ul>
+<h2 id="paso-a-paso-tu-primer-script-en-el-editor">Paso a paso: tu primer script en el editor<a class="ancla" href="#paso-a-paso-tu-primer-script-en-el-editor" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><strong>Scripts &gt; Nuevo script...</strong> (o el botón <strong>+</strong> de la ventana Scripts) y ponle un nombre, por ejemplo <code>Rotador</code>. Sale
+con la plantilla de siempre y se abre en la ventana <strong>Scripts</strong>.</li>
+<li>Escribe dentro de <code>Update</code>: <code>self.transform:</code> y verás las funciones de <code>Transform</code> (<code>Rotate</code>, <code>LookAt</code>...). Elige con
+las flechas y pulsa <strong>Intro</strong> o <strong>Tab</strong>.</li>
+<li>Añade un campo con un atributo: escribe <code>--[</code> encima de <code>Rotador.velocidad = 90</code> y elige <code>Range</code>.</li>
+<li>Pulsa <strong>Ctrl+S</strong>: se guarda y el motor lo recarga al momento, también si estás jugando.</li>
+<li>Para ver qué pasa: clic en el margen izquierdo de una línea de <code>Update</code> (sale un punto rojo), pulsa <strong>Jugar</strong> y el
+juego se para ahí. En la ventana <strong>Depurador</strong> ves <code>self</code>, <code>dt</code> y lo demás. <strong>F10</strong> avanza una línea; <strong>F5</strong> sigue.</li>
+</ol>
+<h2 id="abrir-un-script">Abrir un script<a class="ancla" href="#abrir-un-script" aria-label="Enlace a esta sección">#</a></h2>
+<p>Se abre en la ventana <strong>Scripts</strong> (si la preferencia «Abrir scripts con» es el editor de Nova, que es lo que viene):</p>
+<ul>
+<li>doble clic en un <code>.luau</code> de <strong>Contenido</strong>;</li>
+<li><strong>Abrir script</strong> en el Inspector (en el componente Scripts);</li>
+<li>un <strong>error de Lua de la Consola</strong>: pasa el ratón por encima (se subraya) y haz clic; abre el fichero en esa línea;</li>
+<li>el aviso de una recarga con error (abajo a la derecha);</li>
+<li><strong>Ctrl+P</strong> dentro de la ventana Scripts: escribe parte del nombre (búsqueda difusa: <code>inv</code> encuentra
+<code>Inventario.luau</code>, <code>ia/en</code> encuentra <code>ia/Enemigo.luau</code>) y pulsa Intro. <code>Jugador:40</code> abre en la línea 40.</li>
+</ul>
+<p>Cada script va en su pestaña. Una pestaña con cambios sin guardar lleva un punto; al cerrarla con cambios se pregunta.
+<strong>Ctrl+Tab</strong> cambia de pestaña y <strong>Ctrl+W</strong> la cierra (también clic con la rueda).</p>
+<p>La ventana <strong>Scripts</strong> sale la primera vez junto a la vista de la escena; se puede acoplar donde quieras como cualquier
+otra (<strong>Ventana &gt; Scripts</strong>). Igual las ventanas <strong>Depurador</strong> y <strong>Buscar en el proyecto</strong>.</p>
+<h2 id="escribir">Escribir<a class="ancla" href="#escribir" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Números de línea</strong>, la línea actual resaltada, <strong>guías de sangría</strong> y <strong>plegado de bloques</strong>: el triángulo del margen
+pliega <code>function...end</code>, <code>if...end</code>, <code>do...end</code>, <code>repeat...until</code>, las tablas <code>{ ... }</code> y los comentarios largos.</li>
+<li><strong>Deshacer y rehacer</strong> propios del texto (<strong>Ctrl+Z</strong>, <strong>Ctrl+Y</strong> o <strong>Ctrl+Mayús+Z</strong>): lo que escribes seguido es un
+paso.</li>
+<li><strong>Varios cursores</strong>: <strong>Alt+clic</strong> pone otro cursor (y lo quita si ya había uno); <strong>Ctrl+D</strong> selecciona la palabra y,
+pulsándolo otra vez, la siguiente igual; <strong>Ctrl+Alt+Arriba/Abajo</strong> añade un cursor en la línea de arriba o de abajo.
+Lo que escribes sale en todos. Al pegar tantas líneas como cursores, una en cada uno. <strong>Escape</strong> deja solo uno.</li>
+<li><strong>Líneas</strong>: <strong>Alt+Arriba/Abajo</strong> mueve la línea (o las seleccionadas), <strong>Mayús+Alt+Abajo</strong> o <strong>Ctrl+Mayús+D</strong> la
+duplica, <strong>Ctrl+Mayús+K</strong> la borra, <strong>Ctrl+/</strong> comenta o descomenta (en el teclado español también <strong>Ctrl+Mayús+7</strong>),
+<strong>Tab</strong> y <strong>Mayús+Tab</strong> sangran y desangran las líneas seleccionadas. <strong>Ctrl+C</strong> sin selección copia la línea entera
+(y <strong>Ctrl+V</strong> la pega encima de la del cursor).</li>
+<li><strong>Parejas</strong>: <code>(</code>, <code>[</code>, <code>{</code> y las comillas se cierran solas; escribir el cierre que ya está lo salta; borrar la apertura
+de una pareja vacía borra las dos. Con texto seleccionado, <code>(</code> o una comilla lo rodea.</li>
+<li><strong><code>end</code> automático</strong>: Intro tras <code>function ...(...)</code>, <code>then</code> o <code>do</code> escribe también el <code>end</code> (y <code>until</code> tras <code>repeat</code>)
+con la sangría, solo si falta. Al escribir <code>end</code>, <code>else</code>, <code>elseif</code> o <code>until</code> en una línea sangrada, se coloca a la
+altura de su bloque.</li>
+<li><strong>Zoom</strong> con <strong>Ctrl+rueda</strong> (o <strong>Ctrl+=</strong> y <strong>Ctrl+-</strong>; <strong>Ctrl+0</strong> lo deja como estaba). La fuente es la monoespaciada
+del tema (Cascadia Mono o Consolas).</li>
+<li>Va fluido con ficheros de miles de líneas (las pruebas lo miden con 5000).</li>
+</ul>
+<h2 id="autocompletado">Autocompletado<a class="ancla" href="#autocompletado" aria-label="Enlace a esta sección">#</a></h2>
+<p>Sale solo mientras escribes (y siempre con <strong>Ctrl+Espacio</strong>). Las flechas eligen, <strong>Intro</strong> o <strong>Tab</strong> lo escribe y
+<strong>Escape</strong> lo cierra. A la derecha, el tipo o la firma; debajo, la ayuda en español (la de <code>nova.docs.json</code>, la misma que
+ve VS Code, o el comentario de encima de tu función o campo).</p>
+<ul>
+<li><strong>La API del motor y los globales</strong>: <code>Physics.</code>, <code>Network.</code>, <code>Scene.</code>, <code>Input.</code>, <code>Vec3.</code>, <code>math.</code>, <code>string.</code>...</li>
+<li><strong><code>self.</code> y <code>self:</code></strong>: los campos de tu script (con su tipo: <code>velocidad: number</code>, <code>_controlador: CharacterController?</code>),
+sus funciones y lo que tiene todo script (<code>entity</code>, <code>transform</code>, <code>GetComponent</code>, <code>Destroy</code>, <code>IsServer</code>...). Y lo que sale
+de ellos: <code>self._controlador:</code> ofrece <code>Move</code>, <code>Jump</code>...</li>
+<li><strong>Locales y módulos</strong>: las variables del fichero y, tras <code>local Util = require(&quot;./Util&quot;)</code>, <code>Util.</code> con las funciones
+del módulo.</li>
+<li><strong>Entre comillas</strong>: en <code>GetComponent(&quot;</code>, <code>AddComponent(&quot;</code>, <code>HasComponent(&quot;</code>, <code>RemoveComponent(&quot;</code> y
+<code>Scene.FindWithComponent(&quot;</code>, los componentes (también los de tu DLL de C++); en <code>GetScript(&quot;</code> y <code>AddScript(&quot;</code>, tus
+scripts; en <code>Global(&quot;</code>, los scripts <code>[Global]</code>; en <code>require(&quot;</code>, los módulos con su ruta (<code>./Util</code>, <code>../comun/Util</code>,
+<code>@scripts/Util</code>). Y lo que devuelven tiene su tipo: tras <code>local inventario = jugador:GetScript(&quot;Inventario&quot;)</code>,
+<code>inventario:</code> completa las funciones de tu <code>Inventario.luau</code>; <code>self:GetComponent(&quot;RigidBody&quot;).velocity</code> es un <code>Vec3</code>.</li>
+<li><strong>Textos conocidos (0.9.28)</strong>: dentro de las comillas de cualquier función de la API que recibe un texto con valores
+conocidos: <code>Asset(&quot;</code> (los tipos y las rutas), <code>Spawn(&quot;</code> y <code>Scene.Instantiate(&quot;</code> (prefabs), <code>Scene.Load(&quot;</code> (escenas),
+<code>DataTable(&quot;</code>, <code>DataAsset(&quot;</code>, <code>Enum(&quot;</code> y sus valores, <code>Scene.Find(&quot;</code>, <code>Scene.FindByPath(&quot;</code> y <code>UI(&quot;</code> (de la escena
+abierta, por partes: <code>&quot;HUD/&quot;</code> → sus hijos), etiquetas, <code>CVar(&quot;</code> y <code>ExecuteCommand(&quot;</code>, teclas, acciones y ejes de los
+controles, el animador de la entidad que lleva el script (<code>anim:Play(&quot;</code> → sus estados; <code>:SetFloat(&quot;</code> → sus
+parámetros), huesos y sockets, clips de la Animación, cadenas de IK, claves de idiomas, claves de <code>PlayerPrefs</code> y
+<code>SaveGame</code>, eventos, interfaces y preajustes. Y los valores de los tipos de <code>nova.d.luau</code> que son una lista de textos
+(<code>Audio.SetBusVolume(&quot;Music&quot;</code>). La lista completa está en <a href="scripts-lua.html#textos-entre-comillas-y-funciones-del-motor">scripts-lua.md</a>.</li>
+<li><strong>Atributos</strong>: al escribir <code>--[</code> salen <code>Replicated</code>, <code>Server</code>, <code>Client</code>, <code>Multicast</code>, <code>Range</code>, <code>Tooltip</code>, <code>Header</code>,
+<code>Hide</code>, <code>ReadOnly</code>, <code>NoSave</code>, <code>Global</code>... con su ayuda; dentro de los paréntesis de <code>Replicated(</code>, sus opciones
+(<code>onChange</code>, <code>condition</code>), y en <code>Server(</code>, <code>rate</code> y <code>reliable</code>. Dentro de sus comillas, los valores:
+<code>condition = &quot;</code> (<code>All</code>, <code>OwnerOnly</code>, <code>SkipOwner</code>, <code>Observers</code>) y <code>onChange = &quot;</code> o <code>Validate(&quot;</code> (tus funciones).</li>
+<li><strong><code>function MiScript:</code></strong> sugiere las funciones que llama el motor y que aún no tienes, con los tipos que les pasa el
+motor (<code>Awake</code>, <code>Start</code>, <code>Update(dt: number)</code>, <code>OnCollisionEnter(choque: Collision)</code>, <code>OnTriggerEnter(otra: Entity)</code>,
+<code>OnInteract(jugador: number)</code>, <code>OnBreak(nivel: number, punto: Vec3)</code>, <code>OnValidate(motivo: string)</code>...) y, en una
+línea vacía, escribe también el cuerpo y su <code>end</code>. Al pasar el ratón por una, dice cuándo llega y qué recibe.</li>
+</ul>
+<p>Los tipos nuevos que añada el motor (o los componentes de tu DLL) salen solos: el editor usa el mismo <code>nova.d.luau</code> que
+genera para VS Code.</p>
+<h2 id="avisos-y-arreglo-rápido">Avisos y arreglo rápido<a class="ancla" href="#avisos-y-arreglo-rápido" aria-label="Enlace a esta sección">#</a></h2>
+<p>Mientras escribes (unas décimas después de parar), el texto se subraya:</p>
+<ul>
+<li><strong>en rojo</strong>, los errores: de sintaxis (<code>Falta end (para cerrar function de la línea 3)</code>), de tipos (<code>Se esperaba number y es string</code>), una variable o un global que no existe (<code>«Fisics» no existe... (¿querías decir «Physics»?)</code>);</li>
+<li><strong>en amarillo</strong>, los avisos: una función o un campo que no tiene un script o un componente (<code>El script «Inventario» no tiene «Meterr» (¿querías decir «Meter»?)</code>), <code>GetComponent(&quot;Inventario&quot;)</code> con un script, <code>GetScript(&quot;RigidBody&quot;)</code> con un
+componente, un componente que no existe, <code>Global(&quot;X&quot;)</code> de un script que no es <code>[Global]</code>, los atributos desconocidos o
+mal puestos (los mismos avisos que da el motor en la Consola), <code>os</code> o <code>loadstring</code> (no existen en los scripts), código
+al que nunca se llega, una función del motor declarada con otros tipos (<code>OnInteract(player: Entity)</code>: el motor le pasa
+un número y ni la puede llamar; la bombilla lo cambia por <code>player: number</code>), con parámetros de más o con <code>.</code> en lugar
+de <code>:</code>, <code>Scene.Instantiate(prefab, Vec3.zero, padre)</code> (la posición es del mundo; la bombilla la cambia por <code>nil</code>) y un
+valor que no existe en una lista cerrada (<code>Input.WasKeyPressed(&quot;Espacios&quot;)</code> → «¿querías decir «Espacio»?»)...;</li>
+<li><strong>con puntos grises</strong>, lo que es solo informativo (una variable que no se usa, un nombre casi igual al de una función
+del motor: <code>OnStart</code>, cuando el motor llama a <code>Start</code>).</li>
+</ul>
+<p>Pasa el ratón por encima para leerlo. Si tiene arreglo, sale una <strong>bombilla</strong> en el margen de la línea del cursor: haz
+clic en ella o pulsa <strong>Ctrl+.</strong> y elige (por ejemplo «Cambiar por GetScript» o «Cambiar por «Meter»»).</p>
+<p>Arriba de la ventana, el número de errores y avisos del fichero.</p>
+<h2 id="información-firma-definición-referencias-y-renombrar">Información, firma, definición, referencias y renombrar<a class="ancla" href="#información-firma-definición-referencias-y-renombrar" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Ratón encima</strong> de algo: su tipo o su firma (<code>function Physics.Raycast(origin: Vec3, ...)</code>) y su ayuda. Encima de un
+componente o un script entre comillas, su ayuda; encima de un atributo, lo que hace.</li>
+<li><strong>Ayuda de firma</strong>: al escribir <code>(</code> o <code>,</code> en una llamada sale la firma con el parámetro que toca resaltado
+(<strong>Ctrl+Mayús+Espacio</strong> la vuelve a enseñar).</li>
+<li><strong>Ir a la definición</strong> (<strong>F12</strong> o <strong>Ctrl+clic</strong>): de una variable a donde se declara; de <code>self.x</code> o <code>inventario:Meter</code>
+a ese campo o esa función en su fichero (también de otros scripts); de <code>Util.Redondear</code> al módulo; de
+<code>GetScript(&quot;Inventario&quot;)</code> o <code>require(&quot;./Util&quot;)</code> al fichero. Si es de la API del motor, enseña su documentación.</li>
+<li><strong>Buscar referencias</strong> (<strong>Mayús+F12</strong>): los usos en todo el proyecto, en la ventana <strong>Buscar en el proyecto</strong>; clic para
+ir a cada uno.</li>
+<li><strong>Renombrar símbolo</strong> (<strong>F2</strong>): pide el nombre nuevo y enseña <strong>todos los cambios antes de aplicarlos</strong>, con una casilla
+en cada uno; los que no se saben seguro (de tipo desconocido) salen sin marcar. Vale para variables locales y para los
+campos y funciones de tus scripts y módulos (no para la API del motor). Los ficheros abiertos quedan sin guardar para
+que lo revises; los cerrados se escriben.</li>
+<li><strong>Símbolos del fichero</strong> (<strong>Ctrl+Mayús+O</strong>): las funciones, campos y locales del script para saltar a uno.</li>
+<li><strong>Ir a la línea</strong> (<strong>Ctrl+G</strong>).</li>
+</ul>
+<h2 id="buscar">Buscar<a class="ancla" href="#buscar" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Ctrl+F</strong>: buscar en el fichero, con <strong>Aa</strong> (mayúsculas), <strong>ab</strong> (palabra entera) y <strong>.</strong>* (expresión regular).
+<strong>Intro</strong> o <strong>F3</strong> va a la siguiente, <strong>Mayús+Intro</strong> o <strong>Mayús+F3</strong> a la anterior. <strong>Ctrl+H</strong> (o «Reemplazar...»)
+reemplaza una o todas; con regex, <code>$1</code> es el primer grupo.</li>
+<li><strong>Ctrl+Mayús+F</strong>: buscar y reemplazar en <strong>todo el proyecto</strong> (los scripts de <code>scripts/</code>, con lo que tengas sin guardar).
+La lista sale agrupada por fichero con la línea y lo encontrado resaltado; clic para abrirlo ahí. <strong>Reemplazar todo</strong>
+cambia los ficheros cerrados en el disco y deja los abiertos sin guardar.</li>
+<li><strong>Ctrl+P</strong>: abrir un script por su nombre (búsqueda difusa).</li>
+</ul>
+<h2 id="depurador">Depurador<a class="ancla" href="#depurador" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><strong>Puntos de parada</strong>: clic en el margen izquierdo de una línea (o <strong>F9</strong>). <strong>Clic derecho</strong> en el margen: ponerle una
+<strong>condición</strong> (por ejemplo <code>self.vida &lt; 10</code>: solo para cuando se cumple), desactivarlo o quitarlo. Un rombo es un punto
+con condición; uno hueco, desactivado. Se guardan con el proyecto en tu PC (<code>.nova/puntos-parada.json</code>).</li>
+<li>Pulsa <strong>Jugar</strong>. Cuando un script llega a esa línea, <strong>el juego se para</strong> (la partida no avanza; el editor sí
+responde), la línea sale en amarillo con una flecha y se abre la ventana <strong>Depurador</strong>:<ul>
+<li><strong>Variables</strong>: los <strong>locales</strong> (con <code>self</code> primero) y los <strong>upvalues</strong> de la función, en un árbol: despliega <code>self</code>
+para ver los campos del script y sus <code>self._x</code>, o una tabla para ver lo que tiene.</li>
+<li><strong>Inspección</strong>: escribe expresiones (<code>self.vida * 2</code>, <code>#self._objetos</code>, <code>Vec3.Length(direccion)</code>) y ves su valor en
+cada parada.</li>
+<li><strong>Pila de llamadas</strong>: las funciones por las que se llegó ahí; clic en una para ver sus variables y su línea.</li>
+<li><strong>Puntos de parada</strong>: todos, con su condición, para activarlos, quitarlos o ir a ellos.</li>
+</ul>
+</li>
+<li>Sigue con <strong>F5</strong> (continuar), <strong>F10</strong> (paso: la siguiente línea), <strong>F11</strong> (entrar en la función que se llama) o
+<strong>Mayús+F11</strong> (salir de la función). <strong>Mayús+F5</strong> para el juego. El botón <strong>Pausar</strong> para en la siguiente línea de
+Lua que se ejecute.</li>
+</ol>
+<p>Con un paso al final de <code>Update</code>, el juego vuelve al motor y se para en la primera línea de la siguiente llamada a ese
+script (el <code>Update</code> del frame siguiente).</p>
+<p><strong>Dónde funciona</strong>: en los scripts que corren dentro de este editor, jugando solo y como <strong>anfitrión</strong> (el servidor y tu
+jugador están en el editor). Ver <a href="#límites">Límites</a>.</p>
+<h2 id="arrastrar-desde-la-jerarquía-y-contenido">Arrastrar desde la Jerarquía y Contenido<a class="ancla" href="#arrastrar-desde-la-jerarquía-y-contenido" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Una <strong>entidad</strong> de la Jerarquía soltada en el código escribe <code>Scene.FindByPath(&quot;Nivel/Puerta&quot;)</code> con su ruta.</li>
+<li>Un <strong>asset</strong> de Contenido escribe <code>Asset(&quot;modelos/Caja.glb&quot;)</code>.</li>
+<li>Otro <strong>script Lua</strong> escribe su <code>require(&quot;./Util&quot;)</code>.</li>
+</ul>
+<h2 id="guardar-recargar-y-cambios-de-fuera">Guardar, recargar y cambios de fuera<a class="ancla" href="#guardar-recargar-y-cambios-de-fuera" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Ctrl+S</strong> guarda el script y el motor lo <strong>recarga en caliente</strong> (también jugando): sale «Recargado Jugador.luau» abajo
+a la derecha, o el error con su línea (ver <a href="scripts-lua.html#8-errores-y-recarga-en-caliente">scripts-lua.md</a>).
+<strong>Ctrl+Mayús+S</strong> guarda todos.</li>
+<li>Si el fichero <strong>cambia fuera del editor</strong> (VS Code, git, una sincronización): sin cambios aquí, se recarga solo; con
+cambios sin guardar, sale una barra para <strong>Recargar</strong> (perdiendo los tuyos) o <strong>Mantener mis cambios</strong>.</li>
+<li>Al cerrar el editor o abrir otro proyecto con scripts sin guardar, se pregunta.</li>
+<li>Se respetan los finales de línea del fichero (<code>\r\n</code> o <code>\n</code>) y su sangría (si ya usa tabuladores, Tab escribe
+tabuladores).</li>
+</ul>
+<h2 id="edición-en-equipo">Edición en equipo<a class="ancla" href="#edición-en-equipo" aria-label="Enlace a esta sección">#</a></h2>
+<p>Desde la 0.9.31, en una sesión de <a href="edicion-en-equipo.html">edición en equipo</a> los scripts Lua de <code>scripts/</code> se <strong>escriben a
+la vez</strong>, como en el «Collaborative Editing» de Roblox Studio
+(<a href="edicion-en-equipo.html#editar-el-mismo-script-a-la-vez-edición-conjunta">todo el detalle</a>):</p>
+<ul>
+<li>Si otra persona abre el mismo script, <strong>cada pulsación de cada uno llega al otro al momento</strong> y lo que escribís a la vez
+se mezcla sin perder nada.</li>
+<li><strong>Su cursor y su selección</strong> salen en el código con su color de la sesión y su nombre encima (un rato después de moverse,
+o con el ratón encima de su línea). La pestaña lleva un punto de su color; encima del código, «Editando con Ana».</li>
+<li><strong>Ctrl+S</strong> pide al servidor del equipo que lo guarde ya; si no, <strong>se guarda solo</strong> cuando el grupo deja de escribir (1,5 s)
+y se recarga en todos. Encima del código pone si está guardado. Con un error de sintaxis a medio escribir no se guarda
+solo («sin guardar: línea 12: ...»): se espera a que compile, y nadie recarga el script roto.</li>
+<li><strong>Ctrl+Z</strong> deshace solo lo tuyo; <strong>Ctrl+Y</strong> lo vuelve a poner.</li>
+<li>Al abrir un script que otros ya editan, ves lo que tienen (también lo no guardado). Mientras llega, unas décimas, no se
+puede escribir.</li>
+<li>Si alguien lo tiene abierto en <strong>VS Code</strong>, sale «Luis lo está editando en VS Code: sus cambios llegan al guardar»: lo que
+guarde se mezcla con lo vuestro.</li>
+<li>Cerrar la pestaña de un script compartido no pregunta nada: lo que escribiste ya está en el servidor.</li>
+</ul>
+<p>Fuera de <code>scripts/</code> (o con un script C++) sigue el aviso de antes: «Ana también está editando este script: guardad por
+turnos (el último que guarda gana)».</p>
+<h2 id="preferencias">Preferencias<a class="ancla" href="#preferencias" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Editar &gt; Preferencias del editor &gt; Editor de scripts (Lua)</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preferencia</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Abrir scripts con</td>
+  <td><strong>Editor de Nova</strong> (por defecto), <strong>Visual Studio Code</strong> o <strong>El editor de código de arriba</strong> (la preferencia «Editor de código»). Los scripts C++ siguen con «Editor de código»</td>
+</tr>
+<tr>
+  <td>Tamaño de la fuente</td>
+  <td>También con Ctrl+rueda en el editor</td>
+</tr>
+<tr>
+  <td>Ancho del tabulador / Sangrar con espacios</td>
+  <td>Tab escribe espacios hasta la siguiente parada o un tabulador</td>
+</tr>
+<tr>
+  <td>Ajuste de línea</td>
+  <td>Las líneas largas siguen en la siguiente fila (Arriba/Abajo van por filas)</td>
+</tr>
+<tr>
+  <td>Cerrar paréntesis y comillas solos</td>
+  <td>Las parejas</td>
+</tr>
+<tr>
+  <td>Escribir el end al pulsar Intro</td>
+  <td>El <code>end</code> automático</td>
+</tr>
+<tr>
+  <td>Guías de sangría</td>
+  <td>Las líneas verticales de la sangría</td>
+</tr>
+<tr>
+  <td>Formato al guardar</td>
+  <td>Quita los espacios del final de las líneas y deja un salto de línea al final. No hay formateador de Luau con licencia MIT que incluir (StyLua es MPL), así que no reordena el código</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los colores salen del tema del editor (<strong>Nova</strong>, <strong>Clásico</strong> o <strong>Claro</strong>; <code>sdk/ui/NovaPalette.h</code>).</p>
+<h2 id="atajos-de-teclado">Atajos de teclado<a class="ancla" href="#atajos-de-teclado" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Atajo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ctrl+S / Ctrl+Mayús+S</td>
+  <td>Guardar / guardar todos</td>
+</tr>
+<tr>
+  <td>Ctrl+Z / Ctrl+Y (o Ctrl+Mayús+Z)</td>
+  <td>Deshacer / rehacer el texto</td>
+</tr>
+<tr>
+  <td>Ctrl+X, Ctrl+C, Ctrl+V</td>
+  <td>Cortar, copiar y pegar (sin selección: la línea)</td>
+</tr>
+<tr>
+  <td>Ctrl+A / Ctrl+L</td>
+  <td>Seleccionar todo / la línea</td>
+</tr>
+<tr>
+  <td>Alt+clic</td>
+  <td>Otro cursor</td>
+</tr>
+<tr>
+  <td>Ctrl+D</td>
+  <td>La palabra y la siguiente igual (varios cursores)</td>
+</tr>
+<tr>
+  <td>Ctrl+Alt+Arriba/Abajo</td>
+  <td>Cursor en la línea de arriba/abajo</td>
+</tr>
+<tr>
+  <td>Escape</td>
+  <td>Un solo cursor (o cerrar lo que esté abierto)</td>
+</tr>
+<tr>
+  <td>Alt+Arriba/Abajo</td>
+  <td>Mover líneas</td>
+</tr>
+<tr>
+  <td>Mayús+Alt+Abajo, Ctrl+Mayús+D</td>
+  <td>Duplicar líneas</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+K</td>
+  <td>Borrar líneas</td>
+</tr>
+<tr>
+  <td>Ctrl+/ (Ctrl+Mayús+7)</td>
+  <td>Comentar o descomentar</td>
+</tr>
+<tr>
+  <td>Tab / Mayús+Tab</td>
+  <td>Sangrar / desangrar</td>
+</tr>
+<tr>
+  <td>Ctrl+Intro / Ctrl+Mayús+Intro</td>
+  <td>Línea nueva debajo / encima</td>
+</tr>
+<tr>
+  <td>Ctrl+Espacio</td>
+  <td>Autocompletar</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+Espacio</td>
+  <td>Ayuda de firma</td>
+</tr>
+<tr>
+  <td>F12, Ctrl+clic</td>
+  <td>Ir a la definición</td>
+</tr>
+<tr>
+  <td>Mayús+F12</td>
+  <td>Buscar referencias</td>
+</tr>
+<tr>
+  <td>F2</td>
+  <td>Renombrar símbolo</td>
+</tr>
+<tr>
+  <td>Ctrl+.</td>
+  <td>Arreglo rápido (la bombilla)</td>
+</tr>
+<tr>
+  <td>Ctrl+F / Ctrl+H</td>
+  <td>Buscar / reemplazar en el fichero</td>
+</tr>
+<tr>
+  <td>F3 / Mayús+F3</td>
+  <td>Siguiente / anterior</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+F</td>
+  <td>Buscar en el proyecto</td>
+</tr>
+<tr>
+  <td>Ctrl+P</td>
+  <td>Abrir un script por su nombre</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+O</td>
+  <td>Símbolos del fichero</td>
+</tr>
+<tr>
+  <td>Ctrl+G</td>
+  <td>Ir a la línea</td>
+</tr>
+<tr>
+  <td>Ctrl+Tab / Ctrl+W</td>
+  <td>Siguiente pestaña / cerrar pestaña</td>
+</tr>
+<tr>
+  <td>Ctrl+rueda, Ctrl+= / Ctrl+-, Ctrl+0</td>
+  <td>Zoom</td>
+</tr>
+<tr>
+  <td>F9</td>
+  <td>Punto de parada</td>
+</tr>
+<tr>
+  <td>F5 / F10 / F11 / Mayús+F11</td>
+  <td>Depurador: continuar / paso / entrar / salir</td>
+</tr>
+<tr>
+  <td>Mayús+F5</td>
+  <td>Detener el juego (con el depurador parado)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con la ventana Scripts enfocada, sus atajos mandan sobre los del editor (Ctrl+P abre un script en lugar de jugar,
+Ctrl+D es la siguiente coincidencia y no duplicar la entidad).</p>
+<h2 id="cómo-funciona-por-dentro">Cómo funciona por dentro<a class="ancla" href="#cómo-funciona-por-dentro" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>El texto</strong> es un widget propio de ImGui (<code>editor/scripts/CodeView.cpp</code> y <code>TextDocument.cpp</code>): no usa ninguna
+librería de terceros.</li>
+<li><strong>El análisis</strong> es el de <strong>Luau</strong> (<code>Luau.Analysis</code>, MIT, de la misma copia de Luau 0.741 que usa el motor, en
+<code>third_party/luau</code>), en un hilo aparte para que escribir nunca espere. Lee el mismo <code>nova.d.luau</code> y <code>nova.docs.json</code>
+que el editor genera para VS Code (la API, todos los componentes, también los de tu DLL, y los tipos de tus scripts) y
+los ficheros del proyecto, con lo que tienes sin guardar. El modo de tipos es el de <code>.luaurc</code> (<code>nonstrict</code>).</li>
+<li><strong><code>self</code></strong>: dentro de <code>function X:F()</code> luau-lsp no sabe qué es <code>self</code>. Aquí el script se analiza con el tipo de su clase
+(sus campos y funciones de ahora mismo, aunque <code>nova.d.luau</code> aún no lo sepa), inyectado en la línea de
+<code>local X = Script()</code> sin mover nada más; por eso <code>self.</code> completa y Luau avisa de <code>self:Funcion()</code> que no existe.</li>
+<li><strong>Los textos entre comillas</strong> salen de la tabla del motor (<code>engine/nova/lua/LuaCompletions.cpp</code>, la misma que lee VS
+Code de <code>nova.autocompletado.json</code>) y de un índice del proyecto (<code>editor/scripts/ProjectIndex.cpp</code>): las rutas de
+<code>assets/</code>, las escenas y prefabs, los controladores, los modelos glTF, los <code>.meta</code>, las tablas de idiomas y de datos,
+las etiquetas, los controles y lo que ya usan tus scripts. Se lee una vez y después solo lo que cambia (un vigilante
+de la carpeta del proyecto avisa); la escena abierta se manda al analizador cuando cambia. Con 5000 assets el índice
+inicial tarda menos de 100 ms y el autocompletado unos milisegundos.</li>
+<li><strong>Los avisos del motor</strong> son los de la extensión de VS Code (nombres entre comillas, <code>Global</code> de un script que no es
+<code>[Global]</code>...) y los del compilador de Nova (los atributos), así que dicen lo mismo que la Consola.</li>
+<li><strong>El depurador</strong> usa los ganchos de depuración de Luau (<code>lua_breakpoint</code> y <code>debugbreak</code>): los puntos de parada parchean
+la instrucción de esa línea; los pasos ponen puntos temporales en las líneas de los ficheros de la pila (o de todos, al
+entrar), porque <code>lua_singlestep</code> solo vale al empezar una llamada. Mientras está parado, el editor dibuja sus frames
+dentro del gancho y la partida no se actualiza. En el editor, los scripts se compilan con los nombres de los locales
+(nivel de depuración 2); el juego publicado, no.</li>
+</ul>
+<h2 id="límites">Límites<a class="ancla" href="#límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Depurador</strong>:<ul>
+<li>para los scripts de <strong>este proceso</strong>: el editor jugando solo y como anfitrión (en «Anfitrión + clientes», el servidor
+y tu jugador; no las copias de <code>NovaGame.exe</code>). Los scripts de <strong>NovaServer</strong> o de otro editor de la sesión de «Jugar
+en equipo» no paran;</li>
+<li>mientras está parado, la red no se atiende: los clientes conectados pueden desconectarse por tiempo si la parada es
+larga;</li>
+<li>un punto de parada en código que se ejecuta mientras el editor dibuja su interfaz (<code>OnGUI</code> y los eventos de la
+interfaz del juego) no para el juego (sale un aviso en la Consola);</li>
+<li>las variables se ven pero no se cambian desde el depurador (sí con una expresión que lo haga en Inspección:
+<code>self.vida = 100</code> no vale, pero una función tuya que lo cambie sí);</li>
+<li>una función con <code>--!native</code> vuelve al intérprete en cuanto tiene un punto de parada (Luau no para en código nativo).</li>
+</ul>
+</li>
+<li><strong>Autocompletado</strong>: un campo cuyo tipo no se puede deducir sale como <code>any</code> (anota la función o usa <code>::</code>); los tipos
+locales de otro script no existen fuera de él. Los textos entre comillas se miran en la línea del cursor (una llamada
+partida en varias líneas no los ofrece). Los clips y huesos de los modelos solo se leen de los glTF (<code>.glb</code>, <code>.gltf</code>):
+de un FBX salen los del controlador, no los del fichero.</li>
+<li><strong>Formato al guardar</strong>: solo espacios finales y salto de línea final (no hay formateador de Luau MIT).</li>
+<li><strong>Edición en equipo</strong>: la edición conjunta es para los scripts Lua de <code>scripts/</code> en este editor (los C++ y VS Code van
+enteros al guardar, mezclados con lo del grupo); «Formato al guardar» no se aplica a un script compartido. Ver
+<a href="edicion-en-equipo.html#editar-el-mismo-script-a-la-vez-edición-conjunta">Límites de la edición conjunta</a>.</li>
+</ul>
+<h2 id="para-las-pruebas">Para las pruebas<a class="ancla" href="#para-las-pruebas" aria-label="Enlace a esta sección">#</a></h2>
+<p>El editor sin ventana (<code>--hidden --mute</code>) entiende estas acciones de <code>--acciones</code> (en los textos, <code>\s</code> es un espacio,
+<code>\c</code> una coma, <code>\q</code> unas comillas y <code>\n</code> Intro): <code>scripts-abrir:&lt;ruta&gt;[:línea]</code>, <code>scripts-contenido:&lt;ruta&gt;</code> (como el
+doble clic en Contenido), <code>scripts-ir:&lt;línea&gt;:&lt;col&gt;</code>, <code>scripts-escribir:&lt;texto&gt;</code>, <code>scripts-ctrl-espacio</code>,
+<code>scripts-aceptar</code>, <code>scripts-esperar-analisis</code>, <code>scripts-sugerencia:&lt;nombre&gt;</code>, <code>scripts-diagnostico:&lt;código&gt;</code>,
+<code>scripts-bombilla</code>, <code>scripts-hay-arreglo</code>, <code>scripts-arreglar</code>, <code>scripts-raton:&lt;línea&gt;:&lt;col&gt;</code>, <code>scripts-f12</code>,
+<code>scripts-referencias</code>, <code>scripts-renombrar:&lt;nombre&gt;</code>, <code>scripts-renombrar-aplicar</code>, <code>scripts-buscar:&lt;texto&gt;</code>,
+<code>scripts-buscar-proyecto:&lt;texto&gt;</code>, <code>scripts-resultados</code>, <code>scripts-ctrlp:&lt;texto&gt;</code>, <code>scripts-ctrlp-abrir</code>,
+<code>scripts-pestana:&lt;ruta&gt;</code>, <code>scripts-linea:&lt;n&gt;</code>, <code>scripts-texto:&lt;texto&gt;</code>, <code>scripts-guardar</code>, <code>scripts-guardado</code>,
+<code>scripts-soltar-entidad:&lt;nombre&gt;</code>, <code>scripts-soltar-asset:&lt;ruta&gt;</code>, <code>scripts-cambio-externo:&lt;texto&gt;</code>,
+<code>scripts-comprobar-disco</code>, <code>consola-error</code>, <code>depurar-punto:&lt;ruta&gt;:&lt;línea&gt;[:condición]</code>, <code>depurar-parado[:línea]</code>,
+<code>depurar-no-parado</code>, <code>depurar-variable:&lt;nombre&gt;[=valor]</code>, <code>depurar-evaluar:&lt;expresión&gt;=&lt;valor&gt;</code>,
+<code>depurar-inspeccionar:&lt;expresión&gt;</code>, <code>depurar-pila:&lt;función&gt;</code>, <code>depurar-paso</code>, <code>depurar-entrar</code>, <code>depurar-salir</code> y
+<code>depurar-continuar</code>. Las usa <code>tests/test_editor_scripts.cpp</code>; las capturas quedan en <code>capturas-editor-scripts/</code>.</p>
+<p>La edición conjunta se prueba con <code>--equipo-conjunto &lt;ruta&gt;</code>, <code>--equipo-conjunto-texto &lt;texto&gt;</code>,
+<code>--equipo-conjunto-linea &lt;n&gt;</code> y <code>--equipo-conjunto-esperar &lt;n&gt;</code> (ver <a href="edicion-en-equipo.html#10-servidor-del-proyecto-sin-ventana">edicion-en-equipo.md</a>):
+<code>tests/test_scripts_conjunto_procesos.cpp</code> lanza el servidor del equipo y dos editores sin ventana que escriben a la vez en
+el mismo script. Por dentro, la pestaña compartida es un <code>CoLink</code> (<code>ScriptEditorImpl.h</code>): el <code>TextDocument</code> le pasa cada
+cambio propio (<code>SetCollab</code>) y recibe los de los demás con <code>ApplyExternal</code>; <code>CodeView</code> dibuja sus cursores
+(<code>RemoteCursor</code>).</p>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="editor.html"><small>Anterior</small>El editor (NovaEditor.exe)</a><a class="sig" href="scripts-lua.html"><small>Siguiente</small>Scripts en Lua</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#paso-a-paso-tu-primer-script-en-el-editor">Paso a paso: tu primer script en el editor</a></li><li class="n2"><a href="#abrir-un-script">Abrir un script</a></li><li class="n2"><a href="#escribir">Escribir</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#avisos-y-arreglo-rápido">Avisos y arreglo rápido</a></li><li class="n2"><a href="#información-firma-definición-referencias-y-renombrar">Información, firma, definición, referencias y renombrar</a></li><li class="n2"><a href="#buscar">Buscar</a></li><li class="n2"><a href="#depurador">Depurador</a></li><li class="n2"><a href="#arrastrar-desde-la-jerarquía-y-contenido">Arrastrar desde la Jerarquía y Contenido</a></li><li class="n2"><a href="#guardar-recargar-y-cambios-de-fuera">Guardar, recargar y cambios de fuera</a></li><li class="n2"><a href="#edición-en-equipo">Edición en equipo</a></li><li class="n2"><a href="#preferencias">Preferencias</a></li><li class="n2"><a href="#atajos-de-teclado">Atajos de teclado</a></li><li class="n2"><a href="#cómo-funciona-por-dentro">Cómo funciona por dentro</a></li><li class="n2"><a href="#límites">Límites</a></li><li class="n2"><a href="#para-las-pruebas">Para las pruebas</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

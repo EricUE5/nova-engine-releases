@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emparejamiento y servidores bajo demanda · Nova Engine</title>
+<meta name="description" content="El emparejamiento junta a jugadores que no se conocen (o a una escuadra con otros) en una partida y los conecta
+solos. Es parte de Nova Datos, el mismo servicio de los datos persistentes:">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Emparejamiento y servidores bajo demanda · Nova Engine">
+<meta property="og:description" content="El emparejamiento junta a jugadores que no se conocen (o a una escuadra con otros) en una partida y los conecta
+solos. Es parte de Nova Datos, el mismo servicio de los datos persistentes:">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/emparejamiento.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/emparejamiento.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html" aria-current="page">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="emparejamiento-y-servidores-bajo-demanda">Emparejamiento y servidores bajo demanda</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-cómo-funciona">1. Cómo funciona</a></li><li class="n2"><a href="#2-los-modos">2. Los modos</a></li><li class="n2"><a href="#3-buscar-partida-desde-el-juego">3. Buscar partida desde el juego</a></li><li class="n2"><a href="#4-ejemplo-cola-de-incursión-con-escuadra">4. Ejemplo: cola de incursión con escuadra</a></li><li class="n2"><a href="#5-el-servidor-de-la-partida">5. El servidor de la partida</a></li><li class="n2"><a href="#6-el-lanzador-nova-flota">6. El lanzador: nova-flota</a></li><li class="n2"><a href="#7-sin-lanzadores-un-jugador-de-anfitrión">7. Sin lanzadores: un jugador de anfitrión</a></li><li class="n2"><a href="#8-probarlo-en-tu-pc">8. Probarlo en tu PC</a></li><li class="n3"><a href="#en-la-red-de-casa-sin-desplegar">En la red de casa (sin desplegar)</a></li><li class="n2"><a href="#9-límites-del-plan-gratuito">9. Límites del plan gratuito</a></li><li class="n2"><a href="#10-seguridad">10. Seguridad</a></li><li class="n2"><a href="#11-problemas">11. Problemas</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>El <strong>emparejamiento</strong> junta a jugadores que no se conocen (o a una escuadra con otros) en una partida y los conecta
+solos. Es parte de <strong>Nova Datos</strong>, el mismo servicio de los <a href="datos-persistentes.html">datos persistentes</a>:</p>
+<ul>
+<li><strong>La cola</strong> vive en el servicio: los jugadores entran con un modo, una región y su grupo, y el emparejador forma
+partidas de 2 a N jugadores.</li>
+<li><strong><code>nova-flota.exe</code></strong>, el lanzador, corre en tus PC o VPS: cuando se forma una partida, arranca <code>NovaServer.exe</code> con
+el juego publicado y el modo pedido, y lo cierra al acabar. Así solo hay servidores encendidos cuando hay partidas.</li>
+<li><strong>Sin lanzadores</strong>, si el modo lo permite, uno de los jugadores hace de <strong>anfitrión</strong> (por Nova Enlace o por Steam)
+y los demás se conectan a él: la «partida rápida» de un juego como <em>Mi Juego</em>.</li>
+<li>Cada jugador que entra en un servidor del emparejamiento trae un <strong>ticket firmado</strong> de esa partida: el servidor
+echa a quien no venga de ella.</li>
+</ul>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-cómo-funciona">Cómo funciona</a></li>
+<li><a href="#2-los-modos">Los modos</a></li>
+<li><a href="#3-buscar-partida-desde-el-juego">Buscar partida desde el juego</a></li>
+<li><a href="#4-ejemplo-cola-de-incursión-con-escuadra">Ejemplo: cola de incursión con escuadra</a></li>
+<li><a href="#5-el-servidor-de-la-partida">El servidor de la partida</a></li>
+<li><a href="#6-el-lanzador-nova-flota">El lanzador: nova-flota</a></li>
+<li><a href="#7-sin-lanzadores-un-jugador-de-anfitrión">Sin lanzadores: un jugador de anfitrión</a></li>
+<li><a href="#8-probarlo-en-tu-pc">Probarlo en tu PC</a></li>
+<li><a href="#9-límites-del-plan-gratuito">Límites del plan gratuito</a></li>
+<li><a href="#10-seguridad">Seguridad</a></li>
+<li><a href="#11-problemas">Problemas</a></li>
+</ol>
+<h2 id="1-cómo-funciona">1. Cómo funciona<a class="ancla" href="#1-cómo-funciona" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto"> Jugadores (NovaGame)          Nova Datos (Cloudflare)              Tus PC o VPS
+ ───────────────────           ───────────────────────              ────────────
+ Matchmaking.Join  ──────────▶  cola: modo, región, grupo
+   "en_cola"       ◀──────────  forma la partida ──── orden ────▶  nova-flota
+   "encontrada"                                                      arranca NovaServer.exe --partida &lt;id&gt;
+                                 «lista en 1.2.3.4:27100» ◀──────── lee el puerto
+   "conectando"    ◀──────────  dirección + ticket
+   se conecta solo ─────────────────────────────────────────────▶  NovaServer comprueba el ticket
+   "conectada"                                                      playerAccount → Persistence...
+                                 fin de la partida ◀──────────────  Matchmaking.EndMatch()
+                                                       ─ parar ──▶  la plaza queda libre</code></pre></div>
+<p>Primero haz la sección 6 de <a href="datos-persistentes.html#6-desplegar-el-servicio-modo-remoto">datos-persistentes.md</a>
+(desplegar el servicio y poner su URL en <strong>Ajustes del proyecto &gt; Datos</strong>). El emparejamiento necesita la URL del
+servicio aunque los datos estén en modo local.</p>
+<h2 id="2-los-modos">2. Los modos<a class="ancla" href="#2-los-modos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada modo de juego tiene su cola. Se configuran en <code>datos-server\wrangler.toml</code>, en el bloque de tu juego (y se
+despliega otra vez con <code>desplegar.cmd</code> &gt; 1):</p>
+<div class="codigo"><div class="codigo-cab"><span>TOML</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-toml"><span class="hl-k">[vars.JUEGOS.nakwon.modos.incursion]</span>
+min = <span class="hl-n">4</span>             <span class="hl-c"># jugadores para empezar si se espera esperaMax</span>
+max = <span class="hl-n">12</span>            <span class="hl-c"># plazas de la partida: si se llena, empieza al momento</span>
+esperaMax = <span class="hl-n">60</span>      <span class="hl-c"># segundos esperando antes de empezar con min</span>
+esperaRegion = <span class="hl-n">30</span>   <span class="hl-c"># segundos antes de aceptar otras regiones con buen ping</span>
+maxPing = <span class="hl-n">150</span>       <span class="hl-c"># ms: el ping que se acepta a otra región</span>
+anfitrionJugador = false
+<span class="hl-k">
+[vars.JUEGOS.mijuego.modos.rapida]</span>
+min = <span class="hl-n">3</span>
+max = <span class="hl-n">8</span>
+esperaMax = <span class="hl-n">20</span>
+anfitrionJugador = true        <span class="hl-c"># sin lanzadores: un jugador de anfitrión</span>
+transporteAnfitrion = <span class="hl-s">"relay"</span>  <span class="hl-c"># "relay" (Nova Enlace, código) o "steam" (relés de Valve)</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ajuste</th>
+  <th>Por defecto</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>min</code></td>
+  <td>2</td>
+  <td>Jugadores con los que empieza si la entrada más antigua ya esperó <code>esperaMax</code></td>
+</tr>
+<tr>
+  <td><code>max</code></td>
+  <td>8</td>
+  <td>Plazas. Con <code>max</code> jugadores empieza al momento</td>
+</tr>
+<tr>
+  <td><code>esperaMax</code></td>
+  <td>30</td>
+  <td>Segundos de espera antes de conformarse con <code>min</code></td>
+</tr>
+<tr>
+  <td><code>esperaRegion</code></td>
+  <td>20</td>
+  <td>Segundos antes de juntar a jugadores de otras regiones si su ping a ella es menor que <code>maxPing</code></td>
+</tr>
+<tr>
+  <td><code>maxPing</code></td>
+  <td>150</td>
+  <td>Milisegundos</td>
+</tr>
+<tr>
+  <td><code>anfitrionJugador</code></td>
+  <td><code>false</code></td>
+  <td>Sin lanzadores libres, uno de los jugadores hace de anfitrión (sección 7)</td>
+</tr>
+<tr>
+  <td><code>transporteAnfitrion</code></td>
+  <td><code>&quot;relay&quot;</code></td>
+  <td>Por dónde abre la partida el anfitrión jugador</td>
+</tr>
+</tbody>
+</table></div>
+<p>El emparejador junta primero a los que más llevan esperando. Un <strong>grupo</strong> (escuadra) entra entero en la misma
+partida y cuenta como varios jugadores.</p>
+<h2 id="3-buscar-partida-desde-el-juego">3. Buscar partida desde el juego<a class="ancla" href="#3-buscar-partida-desde-el-juego" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Matchmaking.Join(opciones)</code></td>
+  <td>Entra en la cola. Devuelve <code>true</code> o <code>false</code> y el motivo. Opciones: <code>modo</code> (obligatorio), <code>region</code> (<code>&quot;eu&quot;</code>, <code>&quot;us&quot;</code>, <code>&quot;sa&quot;</code>, <code>&quot;asia&quot;</code>, <code>&quot;oce&quot;</code>...; sin decirla, la que corresponde a la conexión del jugador), <code>grupo</code> (las cuentas de la escuadra), <code>ping</code> (<code>{ eu = 35, us = 120 }</code>, el ping aproximado a cada región si lo mides) y <code>autoConectar</code> (<code>true</code> por defecto)</td>
+</tr>
+<tr>
+  <td><code>Matchmaking.Cancel()</code></td>
+  <td>Deja la cola. Si vas en grupo, se cancela para todo el grupo</td>
+</tr>
+<tr>
+  <td><code>Matchmaking.GetStatus()</code></td>
+  <td>Cómo va la búsqueda (tabla de abajo)</td>
+</tr>
+<tr>
+  <td><code>Matchmaking.OnStatus(function(estado, info) end)</code></td>
+  <td>Tu función, con cada cambio (y con el estado de ahora al registrarla). También llega el evento <code>matchmaking:status</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Matchmaking.GetStatus()</code> devuelve <code>{ estado, partida, modo, region, rol, direccion, esperando, aviso, error, espera, jugadores, enCola, faltan }</code>. <code>enCola</code> (desde la 0.9.13; 0 con un servicio anterior): cuántos jugadores
+buscan ese modo en esa región ahora mismo, contando los grupos (con <code>&quot;en_cola&quot;</code> y <code>&quot;esperando_grupo&quot;</code>), para
+enseñar «12 jugadores buscando». Los estados:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>estado</code></th>
+  <th>Qué pasa</th>
+  <th>Qué enseñar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>&quot;nada&quot;</code></td>
+  <td>No está buscando</td>
+  <td>El botón «Buscar partida»</td>
+</tr>
+<tr>
+  <td><code>&quot;entrando&quot;</code></td>
+  <td>Entrando con la cuenta (Steam o propia)</td>
+  <td>«Conectando...»</td>
+</tr>
+<tr>
+  <td><code>&quot;esperando_grupo&quot;</code></td>
+  <td>Faltan miembros del grupo por entrar en la cola (<code>faltan</code>: sus cuentas)</td>
+  <td>«Esperando a tu escuadra»</td>
+</tr>
+<tr>
+  <td><code>&quot;en_cola&quot;</code></td>
+  <td>Buscando. <code>espera</code>: segundos; <code>aviso</code>: por ejemplo «Sin servidores libres»</td>
+  <td>«Buscando... 0:35» y «Cancelar»</td>
+</tr>
+<tr>
+  <td><code>&quot;encontrada&quot;</code></td>
+  <td>Partida formada (<code>jugadores</code>); <code>esperando = &quot;servidor&quot;</code> mientras arranca</td>
+  <td>«¡Partida encontrada!»</td>
+</tr>
+<tr>
+  <td><code>&quot;conectando&quot;</code></td>
+  <td>Conectándose al servidor (o abriendo la partida, el anfitrión)</td>
+  <td>Pantalla de carga</td>
+</tr>
+<tr>
+  <td><code>&quot;conectada&quot;</code></td>
+  <td>Dentro de la partida</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td><code>&quot;cancelada&quot;</code></td>
+  <td>La búsqueda se canceló (<code>error</code>: por qué; por ejemplo, otro miembro del grupo canceló)</td>
+  <td>El motivo</td>
+</tr>
+<tr>
+  <td><code>&quot;terminada&quot;</code></td>
+  <td>La partida terminó</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td><code>&quot;error&quot;</code></td>
+  <td>Algo falló (<code>error</code>: el motivo)</td>
+  <td>El motivo y «Reintentar»</td>
+</tr>
+</tbody>
+</table></div>
+<p>Al llegar a <code>&quot;conectando&quot;</code> el motor se conecta <strong>solo</strong> (como <code>Network.Connect</code>): la escena se recarga y los
+scripts de la escena nueva siguen recibiendo los avisos. Con <code>autoConectar = false</code>, conéctate tú con
+<code>Network.Connect(Matchmaking.GetStatus().direccion)</code> cuando el estado sea <code>&quot;encontrada&quot;</code> y haya <code>direccion</code>.</p>
+<h2 id="4-ejemplo-cola-de-incursión-con-escuadra">4. Ejemplo: cola de incursión con escuadra<a class="ancla" href="#4-ejemplo-cola-de-incursión-con-escuadra" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un menú con «Buscar incursión». Si el jugador está en un lobby de Steam con su escuadra, <strong>cada miembro</strong> busca con
+la misma lista de cuentas: la entrada no empieza a buscar hasta que están todos (nadie puede meter a otro en una
+cola).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">MenuIncursion</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">formato</span>(segundos)
+    <span class="hl-k">return</span> <span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%d:%02d"</span>, segundos // <span class="hl-n">60</span>, segundos % <span class="hl-n">60</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Las cuentas de la escuadra: los miembros del lobby de Steam (o solo yo)</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">miEscuadra</span>()
+    <span class="hl-k">local</span> grupo = {}
+    <span class="hl-k">for</span> _, miembro <span class="hl-k">in</span> <span class="hl-t">Steam</span>.<span class="hl-f">GetLobbyMembers</span>() <span class="hl-k">do</span>
+        <span class="hl-t">table</span>.<span class="hl-f">insert</span>(grupo, <span class="hl-s">"steam:"</span> .. miembro.id)
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> grupo
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuIncursion</span>:<span class="hl-f">Start</span>()
+    <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Buscar"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-k">local</span> ok, err = <span class="hl-t">Matchmaking</span>.<span class="hl-f">Join</span>({ modo = <span class="hl-s">"incursion"</span>, region = <span class="hl-s">"eu"</span>, grupo = <span class="hl-f">miEscuadra</span>() })
+        <span class="hl-k">if</span> <span class="hl-k">not</span> ok <span class="hl-k">then</span> <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Estado"</span>):<span class="hl-f">SetText</span>(err) <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Cancelar"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>() <span class="hl-t">Matchmaking</span>.<span class="hl-f">Cancel</span>() <span class="hl-k">end</span>)
+
+    <span class="hl-t">Matchmaking</span>.<span class="hl-f">OnStatus</span>(<span class="hl-k">function</span>(estado, info)
+        <span class="hl-k">local</span> texto = <span class="hl-s">""</span>
+        <span class="hl-k">if</span> estado == <span class="hl-s">"esperando_grupo"</span> <span class="hl-k">then</span>
+            texto = <span class="hl-s">"Esperando a tu escuadra ("</span> .. #info.faltan .. <span class="hl-s">")"</span>
+        <span class="hl-k">elseif</span> estado == <span class="hl-s">"en_cola"</span> <span class="hl-k">then</span>
+            texto = <span class="hl-s">"Buscando incursión... "</span> .. <span class="hl-f">formato</span>(info.espera)
+            <span class="hl-k">if</span> info.aviso <span class="hl-k">then</span> texto ..= <span class="hl-s">"\n"</span> .. info.aviso <span class="hl-k">end</span>
+        <span class="hl-k">elseif</span> estado == <span class="hl-s">"encontrada"</span> <span class="hl-k">then</span>
+            texto = <span class="hl-s">"¡Incursión encontrada! "</span> .. info.jugadores .. <span class="hl-s">" jugadores"</span>
+        <span class="hl-k">elseif</span> estado == <span class="hl-s">"conectando"</span> <span class="hl-k">then</span>
+            texto = <span class="hl-s">"Entrando en la zona..."</span>
+        <span class="hl-k">elseif</span> estado == <span class="hl-s">"cancelada"</span> <span class="hl-k">or</span> estado == <span class="hl-s">"error"</span> <span class="hl-k">then</span>
+            texto = <span class="hl-f">tostring</span>(info.<span class="hl-t">error</span>)
+        <span class="hl-k">end</span>
+        <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Estado"</span>):<span class="hl-f">SetText</span>(texto)
+        <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Cancelar"</span>):<span class="hl-f">SetVisible</span>(estado == <span class="hl-s">"en_cola"</span> <span class="hl-k">or</span> estado == <span class="hl-s">"esperando_grupo"</span>)
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MenuIncursion</span></code></pre></div>
+<p><code>OnStatus</code> avisa con cada cambio de estado; para el contador de la espera, lee <code>Matchmaking.GetStatus().espera</code>
+en tu <code>Update</code> (el servicio lo actualiza cada pocos segundos).</p>
+<h2 id="5-el-servidor-de-la-partida">5. El servidor de la partida<a class="ancla" href="#5-el-servidor-de-la-partida" aria-label="Enlace a esta sección">#</a></h2>
+<p>El servidor que arranca <code>nova-flota</code> sabe de qué partida es y comprueba solo a los jugadores: quien no presenta el
+ticket de esa partida en 20 segundos (o trae el de otra) es expulsado. Para el juego:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Matchmaking.GetMatch()</code></td>
+  <td>En el servidor: <code>{ partida, modo }</code> de la partida del emparejamiento, o <code>nil</code> si no es de una</td>
+</tr>
+<tr>
+  <td><code>Matchmaking.EndMatch(opciones?, function(ok, error) end?)</code></td>
+  <td>La partida terminó: el servicio se lo dice a los jugadores (estado <code>&quot;terminada&quot;</code>) y al lanzador. Con <code>salir</code> (por defecto <code>true</code>), el servidor dedicado se cierra a los 3 segundos y la plaza queda libre</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>NovaServer.exe</code> recibe también el modo como argumento del juego: <code>Application.GetArg(&quot;modo&quot;)</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">ServidorIncursion</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">local</span> vivos = <span class="hl-n">0</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ServidorIncursion</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> partida = <span class="hl-t">Matchmaking</span>.<span class="hl-f">GetMatch</span>()
+    <span class="hl-k">if</span> partida <span class="hl-k">then</span> <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Partida "</span> .. partida.partida .. <span class="hl-s">" del modo "</span> .. partida.modo) <span class="hl-k">end</span>
+
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"playerAccount"</span>, <span class="hl-k">function</span>(jugador, cuenta)
+        vivos += <span class="hl-n">1</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-f">GetPlayerName</span>(jugador) .. <span class="hl-s">" es "</span> .. cuenta)
+    <span class="hl-k">end</span>)
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"playerDropped"</span>, <span class="hl-k">function</span>()
+        vivos -= <span class="hl-n">1</span>
+        <span class="hl-c">-- Sin nadie dentro: la partida acaba y la plaza queda para otra</span>
+        <span class="hl-k">if</span> vivos &lt;= <span class="hl-n">0</span> <span class="hl-k">and</span> <span class="hl-t">Matchmaking</span>.<span class="hl-f">GetMatch</span>() <span class="hl-k">then</span> <span class="hl-t">Matchmaking</span>.<span class="hl-f">EndMatch</span>() <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ServidorIncursion</span></code></pre></div>
+<h2 id="6-el-lanzador-nova-flota">6. El lanzador: nova-flota<a class="ancla" href="#6-el-lanzador-nova-flota" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>nova-flota.exe</code> está en la carpeta <code>bin\</code> del motor y, al publicar un juego con los datos en modo remoto, junto a
+<code>NovaServer.exe</code> en la carpeta publicada. Se ejecuta en cada PC o VPS que vaya a alojar partidas (Windows).</p>
+<ol>
+<li><p>Copia la carpeta del juego publicado (con <code>NovaServer.exe</code> y <code>nova-flota.exe</code>) al PC o VPS.</p>
+</li>
+<li><p>Pon la <strong>clave de servidor</strong> del juego (la de <code>desplegar.cmd</code> &gt; 2) en un fichero <code>clave-datos.txt</code> junto a
+<code>nova-flota.exe</code>, o en la variable de entorno <code>NOVA_DATOS_CLAVE</code>. <code>nova-flota</code> se la pasa a los servidores que
+arranca por el entorno (nunca en la línea de comandos).</p>
+</li>
+<li><p>Crea <code>flota.json</code> junto a <code>nova-flota.exe</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"url"</span>: <span class="hl-s">"https://nova-datos.TU-SUBDOMINIO.workers.dev"</span>,
+  <span class="hl-k">"juego"</span>: <span class="hl-s">"nakwon"</span>,
+  <span class="hl-k">"id"</span>: <span class="hl-s">"vps-madrid-1"</span>,
+  <span class="hl-k">"region"</span>: <span class="hl-s">"eu"</span>,
+  <span class="hl-k">"capacidad"</span>: <span class="hl-n">3</span>,
+  <span class="hl-k">"direccion"</span>: <span class="hl-s">"203.0.113.25"</span>,
+  <span class="hl-k">"bind"</span>: <span class="hl-s">"0.0.0.0"</span>,
+  <span class="hl-k">"puertos"</span>: [<span class="hl-n">27100</span>, <span class="hl-n">27109</span>],
+  <span class="hl-k">"argumentos"</span>: [<span class="hl-s">"--max-players"</span>, <span class="hl-s">"12"</span>]
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>url</code></td>
+  <td>—</td>
+  <td>La del servicio</td>
+</tr>
+<tr>
+  <td><code>juego</code></td>
+  <td>—</td>
+  <td>El id del juego</td>
+</tr>
+<tr>
+  <td><code>id</code></td>
+  <td>el nombre del PC</td>
+  <td>Nombre de este lanzador (único entre tus máquinas)</td>
+</tr>
+<tr>
+  <td><code>region</code></td>
+  <td><code>&quot;eu&quot;</code></td>
+  <td>Región de este PC</td>
+</tr>
+<tr>
+  <td><code>capacidad</code></td>
+  <td>1</td>
+  <td>Partidas a la vez (cada una es un <code>NovaServer.exe</code>)</td>
+</tr>
+<tr>
+  <td><code>direccion</code></td>
+  <td><code>&quot;127.0.0.1&quot;</code></td>
+  <td>La IP pública (o el nombre) con la que los jugadores llegan a este PC</td>
+</tr>
+<tr>
+  <td><code>servidor</code></td>
+  <td><code>NovaServer.exe</code> junto a <code>nova-flota.exe</code></td>
+  <td>Otro servidor</td>
+</tr>
+<tr>
+  <td><code>proyecto</code></td>
+  <td>—</td>
+  <td>Carpeta del proyecto (solo para probar sin publicar; el juego publicado no la necesita)</td>
+</tr>
+<tr>
+  <td><code>bind</code></td>
+  <td><code>&quot;0.0.0.0&quot;</code></td>
+  <td>Interfaz de red de los servidores</td>
+</tr>
+<tr>
+  <td><code>puertos</code></td>
+  <td>puerto libre</td>
+  <td>Rango de puertos UDP para los servidores (ábrelos en el cortafuegos y el router)</td>
+</tr>
+<tr>
+  <td><code>argumentos</code></td>
+  <td>—</td>
+  <td>Más argumentos para cada <code>NovaServer.exe</code></td>
+</tr>
+</tbody>
+</table></div>
+</li>
+<li><p>Abre <code>nova-flota.exe</code>. Sale algo así:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">nova-flota: lanzador 'vps-madrid-1' para 'nakwon' (3 plaza(s), región eu). Escribe estado o salir.
+Conectado con el servicio https://nova-datos.tu-subdominio.workers.dev (juego nakwon, ...)
+Arrancando la partida 3f9a1c0e5b7d2a44 (modo incursion)
+Partida 3f9a1c0e5b7d2a44 (incursion) lista en 203.0.113.25:27100
+Partida 3f9a1c0e5b7d2a44 terminada (el servidor se cerró): plaza libre</code></pre></div>
+<p>Comandos: <code>estado</code> (las partidas en marcha) y <code>salir</code> (cierra las partidas avisando a los jugadores). Si
+<code>nova-flota</code> se cierra de golpe, sus servidores se cierran con él.</p>
+</li>
+</ol>
+<p>Cada servidor escribe su registro en <code>%LOCALAPPDATA%\nova-flota\&lt;juego&gt;\partida-&lt;id&gt;.log</code>. Los puertos y el
+cortafuegos son los de cualquier servidor dedicado: <a href="servidor-dedicado.html#puertos-firewall-y-router">servidor-dedicado.md</a>.
+Para que arranque solo con Windows, usa el Programador de tareas (como en
+<a href="servidor-dedicado.html#arrancarlo-solo-y-reiniciarlo-si-se-cae">servidor-dedicado.md</a>).</p>
+<p>Puedes tener varios lanzadores (en varias regiones): el emparejador elige uno de la región de la partida con plazas
+libres; si no hay, uno de otra región con buen ping para todos. Si un lanzador deja de dar señales 45 segundos, sus
+partidas sin arrancar vuelven a la cola y van a otro.</p>
+<h2 id="7-sin-lanzadores-un-jugador-de-anfitrión">7. Sin lanzadores: un jugador de anfitrión<a class="ancla" href="#7-sin-lanzadores-un-jugador-de-anfitrión" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con <code>anfitrionJugador = true</code>, si no hay ningún lanzador con plazas, el emparejador elige como anfitrión al jugador
+con mejor ping a la región: su juego abre la partida solo (por <strong>Nova Enlace</strong>, con un código, o por <strong>Steam</strong>) y los
+demás se conectan a ella. Para el juego es igual: los mismos estados, con <code>info.rol = &quot;anfitrion&quot;</code> en el anfitrión.</p>
+<p>Es lo que necesita una <strong>partida rápida con desconocidos</strong> como la de <em>Mi Juego</em>, sin servidores propios:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">PartidaRapida</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">PartidaRapida</span>:<span class="hl-f">Start</span>()
+    <span class="hl-f">UI</span>(<span class="hl-s">"Menu/PartidaRapida"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-c">-- Mismo botón para todos: el servicio decide quién abre la partida</span>
+        <span class="hl-t">Matchmaking</span>.<span class="hl-f">Join</span>({ modo = <span class="hl-s">"rapida"</span> })
+    <span class="hl-k">end</span>)
+    <span class="hl-t">Matchmaking</span>.<span class="hl-f">OnStatus</span>(<span class="hl-k">function</span>(estado, info)
+        <span class="hl-k">if</span> estado == <span class="hl-s">"conectada"</span> <span class="hl-k">then</span>
+            <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Estado"</span>):<span class="hl-f">SetText</span>(info.rol == <span class="hl-s">"anfitrion"</span> <span class="hl-k">and</span> <span class="hl-s">"Eres el anfitrión"</span> <span class="hl-k">or</span> <span class="hl-s">"Dentro"</span>)
+        <span class="hl-k">elseif</span> estado == <span class="hl-s">"en_cola"</span> <span class="hl-k">then</span>
+            <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Estado"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"Buscando gente... "</span> .. info.espera .. <span class="hl-s">" s"</span>)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PartidaRapida</span></code></pre></div>
+<p>Ten en cuenta que el anfitrión jugador <strong>no tiene la clave de servidor</strong>: en modo remoto su <code>Persistence</code> solo
+toca <strong>sus</strong> documentos, con las reglas de un jugador (<a href="datos-persistentes.html#5-lo-que-puede-hacer-el-jugador-sin-servidor">datos-persistentes.md</a>),
+no los de los demás, y el servidor no comprueba los tickets de entrada. Para partidas con progresión o dinero,
+usa lanzadores.</p>
+<h2 id="8-probarlo-en-tu-pc">8. Probarlo en tu PC<a class="ancla" href="#8-probarlo-en-tu-pc" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo en un solo PC, sin desplegar nada y sin Steam (con el Steam simulado):</p>
+<ol>
+<li><p>El servicio local:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">node datos-server\local\servidor-local.js --steam-simulado</code></pre></div>
+<p>Tiene un juego <code>prueba</code> con los modos <code>incursion</code> (2 a 4 jugadores) y <code>rapida</code> (con anfitrión jugador). La
+consola enseña su clave de servidor de pruebas.</p>
+</li>
+<li><p>En el proyecto: <strong>Ajustes del proyecto &gt; Datos</strong>: Modo <strong>Remoto</strong>, URL <code>http://127.0.0.1:8788</code>, id <code>prueba</code>.</p>
+</li>
+<li><p><code>flota.json</code> con <code>&quot;url&quot;: &quot;http://127.0.0.1:8788&quot;</code>, <code>&quot;juego&quot;: &quot;prueba&quot;</code>, <code>&quot;proyecto&quot;</code> con la carpeta de tu proyecto
+y <code>&quot;servidor&quot;</code> con la ruta de <code>NovaServer.exe</code>; la clave de pruebas en <code>NOVA_DATOS_CLAVE</code> o <code>clave-datos.txt</code>.
+Abre <code>nova-flota.exe</code>.</p>
+</li>
+<li><p>Dos jugadores: <code>NovaGame.exe --project &lt;tu juego&gt; --steam-simulado Ana</code> y otro con <code>--steam-simulado Luis</code>, y
+en los dos «Buscar partida».</p>
+</li>
+</ol>
+<h3 id="en-la-red-de-casa-sin-desplegar">En la red de casa (sin desplegar)<a class="ancla" href="#en-la-red-de-casa-sin-desplegar" aria-label="Enlace a esta sección">#</a></h3>
+<p>Para jugar con alguien de tu misma red (wifi o cable) o por Tailscale, el servicio local puede escuchar en la red:
+<code>node datos-server\local\servidor-local.js --host 0.0.0.0 --puerto 8788 --config config.json</code>. Pon en Ajustes del
+proyecto &gt; Datos la URL <code>http://&lt;IP de tu PC&gt;:8788</code> (por ejemplo <code>http://192.168.1.40:8788</code>) y en <code>flota.json</code> esa misma
+URL y <code>&quot;direccion&quot;</code> con esa IP. Con direcciones privadas (192.168.x.x, 10.x.x.x, 172.16-31.x.x, Tailscale 100.64-127.x.x
+y nombres <code>.local</code>) se admite <code>http://</code>, <strong>sin cifrar</strong>: úsalo solo en tu red. Por Internet, el servicio tiene que ir con
+<code>https://</code> (desplegado en Cloudflare).</p>
+<h2 id="9-límites-del-plan-gratuito">9. Límites del plan gratuito<a class="ancla" href="#9-límites-del-plan-gratuito" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las cifras del plan gratuito de Cloudflare están en
+<a href="datos-persistentes.html#8-límites">datos-persistentes.md</a>. Lo que gasta el emparejamiento:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Quién</th>
+  <th>Peticiones (Worker y Durable Objects)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Un jugador en la cola</td>
+  <td>2 al entrar (cuenta y cola) y 1 cada 15 s mientras espera (la consulta espera en el servicio a que algo cambie): 1 minuto en cola son unas 6</td>
+</tr>
+<tr>
+  <td>Una partida que se forma</td>
+  <td>1 por jugador al recibir la dirección; 1-2 del servidor al terminar</td>
+</tr>
+<tr>
+  <td>Un lanzador encendido</td>
+  <td>1 cada 20 s (su escucha espera en el servicio a que haya una orden) más 1 por cada cambio de una partida: unas 4.300 al día por lanzador, aunque no haya partidas</td>
+</tr>
+<tr>
+  <td>El emparejador</td>
+  <td>1 cada 5 s solo mientras hay alguien buscando (la alarma de la cola)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Por ejemplo, 2.000 búsquedas al día de 1 minuto y dos lanzadores encendidos todo el día son unas 25.000 peticiones:
+un cuarto del plan gratuito. El objeto del juego está despierto mientras hay alguien en la cola o un lanzador
+encendido (la duración del plan gratuito da para tenerlo despierto todo el día).</p>
+<h2 id="10-seguridad">10. Seguridad<a class="ancla" href="#10-seguridad" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Los lanzadores</strong> firman sus peticiones con la clave de servidor del juego (como los servidores): nadie puede
+hacerse pasar por un lanzador para recibir partidas.</li>
+<li><strong>Las partidas</strong> solo aceptan a sus jugadores: cada uno trae un <strong>ticket</strong> firmado por el servicio con su cuenta y
+el id de la partida; el servidor lo comprueba con el servicio y expulsa a quien no lo trae en 20 s o trae el de
+otra partida.</li>
+<li><strong>Los grupos</strong> necesitan que cada miembro entre por su cuenta con la misma lista: nadie puede meter a otro en una
+cola ni arrastrarlo a una partida.</li>
+<li><strong>Las direcciones</strong> de los servidores solo se dan a los jugadores de esa partida. Con anfitrión jugador, la
+dirección es un código de Nova Enlace o un SteamID (nunca la IP del anfitrión).</li>
+<li><strong>Abusos</strong>: cada cuenta está en una sola búsqueda a la vez; entrar con tickets o firmas malas bloquea la IP un
+rato.</li>
+</ul>
+<h2 id="11-problemas">11. Problemas<a class="ancla" href="#11-problemas" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Lo que ves</th>
+  <th>Qué pasa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>«El emparejamiento necesita la URL del servicio»</td>
+  <td>Pon la URL en <strong>Ajustes del proyecto &gt; Datos</strong></td>
+</tr>
+<tr>
+  <td>«El modo 'x' no está en los modos de emparejamiento del juego»</td>
+  <td>Añádelo en <code>wrangler.toml</code> y vuelve a desplegar</td>
+</tr>
+<tr>
+  <td>Siempre en cola con «Sin servidores libres»</td>
+  <td>No hay ningún lanzador encendido con plazas (o todos están llenos). Mira la consola de <code>nova-flota</code></td>
+</tr>
+<tr>
+  <td>«El servidor no arrancó: buscando otro»</td>
+  <td><code>nova-flota</code> no pudo arrancar <code>NovaServer.exe</code> (la consola de <code>nova-flota</code> enseña sus últimas líneas): ¿falta la clave, el proyecto o un puerto libre?</td>
+</tr>
+<tr>
+  <td>«No vienes de esta partida del emparejamiento»</td>
+  <td>Un jugador entró en el servidor sin el ticket de la partida (por ejemplo, con la IP a mano)</td>
+</tr>
+<tr>
+  <td>«Falta la clave de servidor del juego» en <code>nova-flota</code></td>
+  <td>Pon <code>clave-datos.txt</code> junto a <code>nova-flota.exe</code> o la variable <code>NOVA_DATOS_CLAVE</code></td>
+</tr>
+<tr>
+  <td>Los jugadores no llegan al servidor</td>
+  <td><code>direccion</code> de <code>flota.json</code> no es la IP pública del PC, o el cortafuegos o el router no dejan pasar los puertos</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="datos-persistentes.html">datos-persistentes.md</a>: el servicio, las cuentas y <code>Persistence</code>.</li>
+<li><a href="servidor-dedicado.html">servidor-dedicado.md</a>: <code>NovaServer.exe</code>, puertos y VPS.</li>
+<li><a href="enlace.html">enlace.md</a>: Nova Enlace (el anfitrión jugador por código).</li>
+<li><a href="steam.html">steam.md</a>: lobbies de Steam (la escuadra antes de buscar).</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="datos-persistentes.html"><small>Anterior</small>Datos persistentes con cuentas (Nova Datos)</a><a class="sig" href="steam.html"><small>Siguiente</small>Steam en Nova Engine</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-cómo-funciona">1. Cómo funciona</a></li><li class="n2"><a href="#2-los-modos">2. Los modos</a></li><li class="n2"><a href="#3-buscar-partida-desde-el-juego">3. Buscar partida desde el juego</a></li><li class="n2"><a href="#4-ejemplo-cola-de-incursión-con-escuadra">4. Ejemplo: cola de incursión con escuadra</a></li><li class="n2"><a href="#5-el-servidor-de-la-partida">5. El servidor de la partida</a></li><li class="n2"><a href="#6-el-lanzador-nova-flota">6. El lanzador: nova-flota</a></li><li class="n2"><a href="#7-sin-lanzadores-un-jugador-de-anfitrión">7. Sin lanzadores: un jugador de anfitrión</a></li><li class="n2"><a href="#8-probarlo-en-tu-pc">8. Probarlo en tu PC</a></li><li class="n3"><a href="#en-la-red-de-casa-sin-desplegar">En la red de casa (sin desplegar)</a></li><li class="n2"><a href="#9-límites-del-plan-gratuito">9. Límites del plan gratuito</a></li><li class="n2"><a href="#10-seguridad">10. Seguridad</a></li><li class="n2"><a href="#11-problemas">11. Problemas</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enlace con Nova IA · Nova Engine</title>
+<meta name="description" content="El enlace con Nova IA deja que una app de tu PC (por ejemplo Nova IA, la app local que crea scripts y prefabs con
+Ollama) coloque prefabs del proyecto en la escena abierta del editor, igual que si los arrastraras tú desd">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Enlace con Nova IA · Nova Engine">
+<meta property="og:description" content="El enlace con Nova IA deja que una app de tu PC (por ejemplo Nova IA, la app local que crea scripts y prefabs con
+Ollama) coloque prefabs del proyecto en la escena abierta del editor, igual que si los arrastraras tú desd">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/enlace-ia.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/enlace-ia.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo" open><summary>Integraciones</summary><ul><li><a href="enlace-ia.html" aria-current="page">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="enlace-con-nova-ia">Enlace con Nova IA</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#1-activarlo-y-desactivarlo">1. Activarlo y desactivarlo</a></li><li class="n2"><a href="#2-el-fichero-del-enlace">2. El fichero del enlace</a></li><li class="n2"><a href="#3-seguridad">3. Seguridad</a></li><li class="n2"><a href="#4-órdenes">4. Órdenes</a></li><li class="n3"><a href="#get-estado">GET /estado</a></li><li class="n3"><a href="#post-colocar">POST /colocar</a></li><li class="n3"><a href="#post-seleccionar">POST /seleccionar</a></li><li class="n3"><a href="#post-mover">POST /mover</a></li><li class="n3"><a href="#post-quitar">POST /quitar</a></li><li class="n2"><a href="#5-respuestas-y-errores">5. Respuestas y errores</a></li><li class="n2"><a href="#6-en-una-sesión-de-equipo">6. En una sesión de equipo</a></li><li class="n2"><a href="#7-ejemplo-en-powershell">7. Ejemplo en PowerShell</a></li></ul></details><p>El <strong>enlace con Nova IA</strong> deja que una app de tu PC (por ejemplo <strong>Nova IA</strong>, la app local que crea scripts y prefabs con
+Ollama) coloque prefabs del proyecto <strong>en la escena abierta del editor</strong>, igual que si los arrastraras tú desde Contenido
+al visor: con su paso de <strong>Ctrl+Z</strong> y, si estás en una <a href="edicion-en-equipo.html">sesión de equipo</a>, para todos.</p>
+<p>Escribir el <code>.scene</code> desde fuera no sirve: con la escena abierta el editor no lo vuelve a leer (y al guardar lo pisa) y,
+en una sesión de equipo, la escena es la del servidor. Por eso las apps hablan con el propio editor.</p>
+<ol>
+<li><a href="#1-activarlo-y-desactivarlo">Activarlo y desactivarlo</a></li>
+<li><a href="#2-el-fichero-del-enlace">El fichero del enlace</a></li>
+<li><a href="#3-seguridad">Seguridad</a></li>
+<li><a href="#4-órdenes">Órdenes</a></li>
+<li><a href="#5-respuestas-y-errores">Respuestas y errores</a></li>
+<li><a href="#6-en-una-sesión-de-equipo">En una sesión de equipo</a></li>
+<li><a href="#7-ejemplo-en-powershell">Ejemplo en PowerShell</a></li>
+<li><span class="enlace-interno-quitado">Para quien desarrolla el motor</span></li>
+</ol>
+<h2 id="1-activarlo-y-desactivarlo">1. Activarlo y desactivarlo<a class="ancla" href="#1-activarlo-y-desactivarlo" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Editar &gt; Preferencias del editor... &gt; Enlace con Nova IA (apps locales)</strong>, activado de serie. Debajo pone en qué puerto
+escucha. Desactivado, el editor no abre ningún puerto ni escribe el fichero del enlace.</p>
+<p>El enlace se abre al abrir un proyecto y se cierra al cerrar el editor. Sin ventana (<code>--hidden</code>, <code>--capture</code>, las pruebas)
+o publicando desde la línea de comandos no se abre, salvo con <code>--enlace-ia</code>.</p>
+<h2 id="2-el-fichero-del-enlace">2. El fichero del enlace<a class="ancla" href="#2-el-fichero-del-enlace" aria-label="Enlace a esta sección">#</a></h2>
+<p>Al abrir un proyecto, el editor escribe <code>&lt;carpeta del proyecto&gt;\.nova\enlace-ia.json</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"pid"</span>: <span class="hl-n">12345</span>, <span class="hl-k">"puerto"</span>: <span class="hl-n">51234</span>, <span class="hl-k">"token"</span>: <span class="hl-s">"3f9c0d...32 caracteres hexadecimales"</span>, <span class="hl-k">"version"</span>: <span class="hl-s">"0.9.35"</span>, <span class="hl-k">"proyecto"</span>: <span class="hl-s">"C:/Juegos/MiJuego"</span>}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>pid</code></td>
+  <td>El proceso de NovaEditor.exe que escucha. Si ya no existe (el editor se cerró por un fallo), el fichero es viejo: no lo uses</td>
+</tr>
+<tr>
+  <td><code>puerto</code></td>
+  <td>Puerto TCP en <code>127.0.0.1</code>. Es uno libre que elige el sistema en cada arranque. Conéctate a <code>127.0.0.1</code> y no a <code>localhost</code> (que puede ir antes a <code>::1</code>, donde no escucha)</td>
+</tr>
+<tr>
+  <td><code>token</code></td>
+  <td>La clave de las peticiones (cabecera <code>X-Nova-Token</code>). Nueva en cada arranque del editor</td>
+</tr>
+<tr>
+  <td><code>version</code></td>
+  <td>Versión del motor</td>
+</tr>
+<tr>
+  <td><code>proyecto</code></td>
+  <td>La carpeta que tiene abierta el editor (con <code>/</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Se borra al cerrar el editor y al cambiar de proyecto (solo si lo escribió ese mismo editor: con dos editores abiertos en
+el mismo proyecto, vale el último que lo abrió).</li>
+<li>En una sesión de equipo, la carpeta abierta es <strong>tu carpeta de trabajo</strong> de la sesión (la copia del proyecto que
+descarga el editor, ver <a href="edicion-en-equipo.html">edicion-en-equipo.md</a>), así que el fichero está ahí y no en el proyecto
+original. La app puede buscarlo con la ruta <code>proyecto</code> de <code>GET /estado</code>, o leer el de la carpeta que conozca.</li>
+<li><code>.nova/</code> nunca se sincroniza con el equipo ni va a la publicación: el token no sale de tu PC.</li>
+</ul>
+<h2 id="3-seguridad">3. Seguridad<a class="ancla" href="#3-seguridad" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Solo este PC</strong>: el servidor escucha únicamente en <code>127.0.0.1</code> (no en la red local ni en Internet).</li>
+<li><strong>Token obligatorio</strong> en la cabecera <code>X-Nova-Token</code>, comparado en tiempo constante. Sin él o con otro: <strong>403</strong>.</li>
+<li><strong>Host</strong>: tiene que ser <code>127.0.0.1:&lt;puerto&gt;</code> o <code>localhost:&lt;puerto&gt;</code>; si no, <strong>403</strong> (contra el <em>DNS rebinding</em>).</li>
+<li><strong>Nada de navegadores</strong>: cualquier petición con cabecera <code>Origin</code> o <code>Sec-Fetch-Site</code> se rechaza con <strong>403</strong>, aunque traiga el
+token (las apps en Node.js o Electron pueden usar <code>fetch</code> desde el proceso principal: manda <code>Sec-Fetch-Mode</code>, que sí vale;
+desde una página o el renderer de Electron lleva <code>Origin</code> y no entra). El editor no manda cabeceras CORS: una página web no puede leer las respuestas.</li>
+<li><strong>Límites</strong>: cabeceras de 8 KB y cuerpo de 64 KB como mucho (<strong>431</strong>/<strong>413</strong>), solo <code>Content-Length</code> (sin
+<code>Transfer-Encoding</code>), solo JSON (<code>Content-Type: application/json</code>, si no <strong>415</strong>), 5 segundos para mandar la petición
+entera (<strong>408</strong>) y 4 conexiones a la vez (la de más recibe <strong>503</strong>). Una petición por conexión: el editor responde y cierra.
+Sin token se contesta en cuanto llegan las cabeceras, sin esperar al cuerpo; con <code>Expect: 100-continue</code> (Windows
+PowerShell 5.1 lo manda en cada POST) el editor contesta <code>100 Continue</code>.</li>
+<li><strong>Ninguna orden ejecuta código, scripts ni comandos de consola</strong>: solo existen las órdenes de abajo.</li>
+<li><strong>Rutas de prefab</strong>: relativas al proyecto y dentro de <code>assets/</code> (<code>assets/Prefabs/Puerta.prefab</code>; también vale con <code>\</code>).
+Se rechazan las rutas absolutas, con unidad (<code>C:</code>), con <code>..</code> o <code>.</code>, con nombres reservados de Windows, las que no acaban
+en <code>.prefab</code> y las que pasan por un enlace simbólico o una unión que saca de <code>assets/</code>.</li>
+<li>Todo se hace en el hilo principal del editor, entre frames (como cuando sueltas algo en el visor), nunca en otro hilo.</li>
+<li>Quien pueda leer tu carpeta del proyecto puede leer el token: es lo mismo que poder escribir en tus escenas.</li>
+</ul>
+<h2 id="4-órdenes">4. Órdenes<a class="ancla" href="#4-órdenes" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todas responden JSON. <code>&lt;uuid&gt;</code> es el identificador de una entidad (16 caracteres hexadecimales, como en los <code>.scene</code>).</p>
+<h3 id="get-estado"><code>GET /estado</code><a class="ancla" href="#get-estado" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"ok"</span>: <span class="hl-b">true</span>, <span class="hl-k">"proyecto"</span>: <span class="hl-s">"C:/Juegos/MiJuego"</span>, <span class="hl-k">"escena"</span>: <span class="hl-s">"assets/scenes/Banco.scene"</span>, <span class="hl-k">"jugando"</span>: <span class="hl-b">false</span>, <span class="hl-k">"equipo"</span>: <span class="hl-b">false</span>, <span class="hl-k">"version"</span>: <span class="hl-s">"0.9.35"</span>}</code></pre></div>
+<p><code>escena</code> es <code>null</code> si la escena abierta no se ha guardado nunca. <code>equipo</code> es <code>true</code> en una sesión de equipo.</p>
+<h3 id="post-colocar"><code>POST /colocar</code><a class="ancla" href="#post-colocar" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"prefab"</span>: <span class="hl-s">"assets/Prefabs/PuertaBanco.prefab"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">4</span>, <span class="hl-n">0</span>, <span class="hl-n">-2</span>], <span class="hl-k">"nombre"</span>: <span class="hl-s">"Puerta principal"</span>}</code></pre></div>
+<p>Hace <strong>exactamente lo mismo que soltar el prefab en el visor</strong>: lo instancia, lo pone en la posición con la base de su caja
+apoyada en ella (como <strong>Bajar al suelo</strong>), crea el paso de deshacer <strong>«Instanciar prefab (Nova IA)»</strong> (en una sesión de
+equipo viaja a todos) y lo deja seleccionado. Sale en la barra de estado y en un aviso: «Nova IA ha colocado PuertaBanco».</p>
+<ul>
+<li><code>posicion</code> (opcional): el punto del suelo donde va, <code>[x, y, z]</code> en metros. Sin ella, <strong>delante de la cámara del visor</strong>,
+a unos 3,5 m, apoyado en lo que haya debajo (mallas y terreno; si no hay nada, el plano Y = 0).</li>
+<li><code>nombre</code> (opcional): el nombre de la entidad (1 a 128 caracteres). Sin él, el del prefab.</li>
+<li>Si el prefab acaba de crearse y aún no tiene <code>.meta</code>, el editor lo importa antes (como si apareciera en Contenido).</li>
+</ul>
+<p>Respuesta:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"ok"</span>: <span class="hl-b">true</span>, <span class="hl-k">"entidad"</span>: <span class="hl-s">"4f2a9c1e07b3d655"</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"Puerta principal"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">4</span>, <span class="hl-n">0.5</span>, <span class="hl-n">-2</span>]}</code></pre></div>
+<p><code>posicion</code> es la del origen de la entidad en el mundo, ya apoyada (un cubo de 1 m queda en <code>y = 0.5</code>).</p>
+<p>Se rechaza si se está jugando («Detén el juego para colocar cosas»), si no hay proyecto abierto, si el prefab no existe o no
+es un prefab, si la escena de la sesión de equipo aún se está abriendo o si tu rol en la sesión es <strong>Solo ver</strong>.</p>
+<h3 id="post-seleccionar"><code>POST /seleccionar</code><a class="ancla" href="#post-seleccionar" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"entidad"</span>: <span class="hl-s">"4f2a9c1e07b3d655"</span>}</code></pre></div>
+<p>La selecciona en el editor. Responde <code>{&quot;ok&quot;: true, &quot;entidad&quot;: &quot;...&quot;, &quot;nombre&quot;: &quot;...&quot;, &quot;posicion&quot;: [...]}</code>.</p>
+<h3 id="post-mover"><code>POST /mover</code><a class="ancla" href="#post-mover" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"entidad"</span>: <span class="hl-s">"4f2a9c1e07b3d655"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">6</span>, <span class="hl-n">0.5</span>, <span class="hl-n">-2</span>], <span class="hl-k">"rotacion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">90</span>, <span class="hl-n">0</span>]}</code></pre></div>
+<p>Pone la entidad en esa posición del mundo (sin apoyarla) y, si viene, con esa rotación (grados, como en el Inspector). Con
+su paso de deshacer («Mover Puerta principal (Nova IA)»). Se puede mover cualquier entidad de la escena, salvo la que esté
+editando otra persona de la sesión de equipo (bloqueo). Responde como <code>/seleccionar</code> más <code>&quot;rotacion&quot;</code>.</p>
+<h3 id="post-quitar"><code>POST /quitar</code><a class="ancla" href="#post-quitar" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"entidad"</span>: <span class="hl-s">"4f2a9c1e07b3d655"</span>}</code></pre></div>
+<p>La borra (con sus hijos y su paso de deshacer, «Quitar ... (Nova IA)»). <strong>Solo</strong> las que ha colocado el enlace desde que se
+abrió el editor (las demás, <strong>403</strong>), y no las que esté editando otra persona de la sesión.</p>
+<h2 id="5-respuestas-y-errores">5. Respuestas y errores<a class="ancla" href="#5-respuestas-y-errores" aria-label="Enlace a esta sección">#</a></h2>
+<p>Bien: HTTP <strong>200</strong> con <code>{&quot;ok&quot;: true, ...}</code>. Mal: <code>{&quot;ok&quot;: false, &quot;error&quot;: &quot;&lt;mensaje en español&gt;&quot;}</code> con uno de estos códigos:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Código</th>
+  <th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>400</td>
+  <td>Petición o JSON no válidos, falta un campo, ruta de prefab no válida o fuera de <code>assets/</code>, <code>posicion</code> mal</td>
+</tr>
+<tr>
+  <td>403</td>
+  <td>Token, Host, navegador (Origin), rol <strong>Solo ver</strong> o <code>/quitar</code> de algo que no colocó el enlace</td>
+</tr>
+<tr>
+  <td>404</td>
+  <td>Orden desconocida, el prefab no existe o la entidad no está en la escena</td>
+</tr>
+<tr>
+  <td>405</td>
+  <td>Método equivocado (<code>GET /colocar</code>)</td>
+</tr>
+<tr>
+  <td>408 / 411 / 413 / 415 / 431 / 501 / 503</td>
+  <td>Límites de la petición (ver <a href="#3-seguridad">Seguridad</a>)</td>
+</tr>
+<tr>
+  <td>409</td>
+  <td>Se está jugando, no hay proyecto, la escena de la sesión aún se abre u otra persona edita esa entidad</td>
+</tr>
+<tr>
+  <td>422</td>
+  <td>El fichero no es un prefab, no se puede leer o está vacío</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="6-en-una-sesión-de-equipo">6. En una sesión de equipo<a class="ancla" href="#6-en-una-sesión-de-equipo" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>El enlace funciona igual: lo que coloca, mueve o quita llega a todos como si lo hubieras hecho a mano, y cada persona
+puede deshacer lo suyo.</li>
+<li>Si Nova IA acaba de escribir el prefab en tu carpeta de trabajo, el paso espera a que el servidor tenga el prefab y su
+<code>.meta</code> antes de salir (así los demás nunca ven una entidad con un prefab que no tienen).</li>
+<li>Cada editor de la sesión tiene su propio enlace (su puerto y su token) en su carpeta de trabajo.</li>
+</ul>
+<h2 id="7-ejemplo-en-powershell">7. Ejemplo en PowerShell<a class="ancla" href="#7-ejemplo-en-powershell" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>PowerShell</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-powershell"><span class="hl-c"># Lee el enlace del proyecto abierto en el editor</span>
+<span class="hl-t">$enlace</span> = Get-Content <span class="hl-s">"C:\Juegos\MiJuego\.nova\enlace-ia.json"</span> -Raw | ConvertFrom-Json
+<span class="hl-k">if</span> (-not (Get-Process -Id <span class="hl-t">$enlace</span>.pid -ErrorAction SilentlyContinue)) { throw <span class="hl-s">"El editor ya no está abierto"</span> }
+<span class="hl-t">$base</span> = <span class="hl-s">"http://127.0.0.1:$($enlace.puerto)"</span>
+<span class="hl-t">$cabeceras</span> = @{ <span class="hl-s">"X-Nova-Token"</span> = <span class="hl-t">$enlace</span>.token }
+
+<span class="hl-c"># ¿Qué tiene abierto?</span>
+Invoke-RestMethod <span class="hl-s">"$base/estado"</span> -Headers <span class="hl-t">$cabeceras</span>
+
+<span class="hl-c"># Colocar la puerta delante de la cámara del visor</span>
+<span class="hl-t">$cuerpo</span> = @{ prefab = <span class="hl-s">"assets/Prefabs/PuertaBanco.prefab"</span>; nombre = <span class="hl-s">"Puerta principal"</span> } | ConvertTo-Json
+<span class="hl-k">try</span> {
+    <span class="hl-t">$r</span> = Invoke-RestMethod <span class="hl-s">"$base/colocar"</span> -Method Post -Headers <span class="hl-t">$cabeceras</span> -ContentType <span class="hl-s">"application/json; charset=utf-8"</span> `
+                           -Body ([Text.Encoding]::UTF8.GetBytes(<span class="hl-t">$cuerpo</span>))
+    <span class="hl-s">"Colocada: $($r.nombre) ($($r.entidad)) en $($r.posicion -join ', ')"</span>
+} <span class="hl-k">catch</span> {
+    <span class="hl-c"># Los errores llegan con su código (409, 404...) y el motivo en el JSON</span>
+    (<span class="hl-t">$_</span>.ErrorDetails.Message | ConvertFrom-Json).error
+}
+
+<span class="hl-c"># Moverla un poco y girarla</span>
+<span class="hl-t">$mover</span> = @{ entidad = <span class="hl-t">$r</span>.entidad; posicion = @(6, 0.5, -2); rotacion = @(0, 90, 0) } | ConvertTo-Json
+Invoke-RestMethod <span class="hl-s">"$base/mover"</span> -Method Post -Headers <span class="hl-t">$cabeceras</span> -ContentType <span class="hl-s">"application/json"</span> -Body <span class="hl-t">$mover</span></code></pre></div>
+<p>En Windows PowerShell 5.1, manda el cuerpo como bytes UTF-8 (como arriba) si lleva tildes o eñes.</p>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="terceros.html"><small>Anterior</small>Licencias de terceros</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#1-activarlo-y-desactivarlo">1. Activarlo y desactivarlo</a></li><li class="n2"><a href="#2-el-fichero-del-enlace">2. El fichero del enlace</a></li><li class="n2"><a href="#3-seguridad">3. Seguridad</a></li><li class="n2"><a href="#4-órdenes">4. Órdenes</a></li><li class="n3"><a href="#get-estado">GET /estado</a></li><li class="n3"><a href="#post-colocar">POST /colocar</a></li><li class="n3"><a href="#post-seleccionar">POST /seleccionar</a></li><li class="n3"><a href="#post-mover">POST /mover</a></li><li class="n3"><a href="#post-quitar">POST /quitar</a></li><li class="n2"><a href="#5-respuestas-y-errores">5. Respuestas y errores</a></li><li class="n2"><a href="#6-en-una-sesión-de-equipo">6. En una sesión de equipo</a></li><li class="n2"><a href="#7-ejemplo-en-powershell">7. Ejemplo en PowerShell</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

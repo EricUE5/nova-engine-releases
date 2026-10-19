@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Índice de la documentación · Nova Engine</title>
+<meta name="description" content="Por dónde empezar y en qué orden leer. Cada documento enlaza a los demás cuando hace falta.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Índice de la documentación · Nova Engine">
+<meta property="og:description" content="Por dónde empezar y en qué orden leer. Cada documento enlaza a los demás cuando hace falta.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/indice.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/indice.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html" aria-current="page">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="índice-de-la-documentación">Índice de la documentación</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#orden-de-lectura-recomendado">Orden de lectura recomendado</a></li><li class="n2"><a href="#según-lo-que-quieras-hacer">Según lo que quieras hacer</a></li><li class="n2"><a href="#los-ejemplos-de-la-documentación-se-comprueban">Los ejemplos de la documentación se comprueban</a></li></ul></details><p>Por dónde empezar y en qué orden leer. Cada documento enlaza a los demás cuando hace falta.</p>
+<p>Los juegos de Nova Engine se programan en <strong>Lua</strong> (Luau): los scripts no se compilan, se recargan al guardarlos y
+no hace falta Visual Studio. Todas las guías usan Lua. Los scripts en C++ siguen disponibles como opción avanzada
+(al final de esta lista).</p>
+<p>La documentación está en español. El editor y Nova Hub se pueden usar en español o en inglés (<em>The documentation is
+in Spanish; the editor and Nova Hub are also available in English</em>): ver <a href="editor.html#idioma-del-editor">Idioma del editor</a>.</p>
+<p>Si has instalado el motor con <code>NovaEngine-Setup.exe</code>, empieza por <a href="instalar.html">instalar.md</a>: Nova Hub, proyectos
+nuevos desde plantillas («Vacío (Lua)» es la de por defecto), las actualizaciones y cómo desinstalar.</p>
+<p>¿Buscas algo concreto? Usa el <strong>buscador</strong> de arriba (<strong>Ctrl+K</strong> o <strong>/</strong>): entiende palabras
+normales («guardar partida», «saltar», «enemigo que persigue») aunque te equivoques al escribir. Todas las funciones de
+los scripts, con su firma y ejemplos, están en la <a href="lua.html">Referencia de Lua</a>.</p>
+<h2 id="orden-de-lectura-recomendado">Orden de lectura recomendado<a class="ancla" href="#orden-de-lectura-recomendado" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>#</th>
+  <th>Documento</th>
+  <th>Qué aprendes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td><a href="empezar.html">empezar.md</a></td>
+  <td>Tu primer proyecto y tu primer script en Lua (sin Visual Studio), los ejemplos y, si compilas el motor, cómo compilarlo y ejecutar las pruebas</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><a href="editor.html">editor.md</a></td>
+  <td>Paneles, atajos, gizmos, modo juego (también en red), scripts en Contenido, ajustes del proyecto y controles</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><a href="scripts-lua.html">scripts-lua.md</a></td>
+  <td>La lógica del juego en Lua: atributos, campos en el Inspector, la API completa, errores y recarga, el multijugador con atributos, «Rey de la arena», FiveM y VS Code</td>
+</tr>
+<tr>
+  <td>3b</td>
+  <td><a href="editor-scripts.html">editor-scripts.md</a></td>
+  <td><strong>Editor de scripts integrado</strong> (como Roblox Studio): escribir los scripts dentro del editor con autocompletado, avisos y arreglo rápido, buscar en el proyecto, ir a la definición, renombrar y el depurador con puntos de parada y paso a paso; todos los atajos</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><a href="escenas-y-componentes.html">escenas-y-componentes.md</a></td>
+  <td>Entidades, jerarquía, los componentes del motor y cómo usarlos desde los scripts, ficheros <code>.scene</code> y datos propios</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><a href="interfaz-ui.html">interfaz-ui.md</a></td>
+  <td>El HUD y los menús con el creador visual: panel Interfaz, anclajes, widgets, estilos y temas, la biblioteca de estilos (militar desgastado, metal, papel, sci-fi...), barras segmentadas, efectos, animaciones, eventos y la API <code>UI()</code></td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><a href="render-y-materiales.html">render-y-materiales.md</a></td>
+  <td>Luces y sus sombras, materiales <code>.mat</code>, cielo, niebla, postproceso y ajustes de render del proyecto</td>
+</tr>
+<tr>
+  <td>6a</td>
+  <td><a href="materiales-nodos.html">materiales-nodos.md</a></td>
+  <td><strong>Materiales por nodos</strong> (como el Material Editor de Unreal o el Shader Graph de Unity): la ventana del grafo, los nodos, la salida PBR, la vista previa, los parámetros por instancia y <code>SetParam</code> en Lua, y los ejemplos de agua, lava, roca triplanar y holograma</td>
+</tr>
+<tr>
+  <td>6b</td>
+  <td><a href="render.html">render.md</a></td>
+  <td>Render realista: reflejos en pantalla, antialiasing temporal (TAA), cielo HDRI y de noche con estrellas y luna, texturas comprimidas BC7/BC5/BC4 y sombras de contacto</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><a href="modelos-y-animaciones.html">modelos-y-animaciones.md</a></td>
+  <td>Importar glTF/GLB, Animator y controladores de animación: capas con máscara, árboles de mezcla 2D, enganches a huesos, IK, root motion, eventos, red, el panel Animación y la receta del shooter en tercera persona</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><a href="prefabs.html">prefabs.md</a></td>
+  <td>Crear, instanciar, aplicar y revertir prefabs</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><a href="fisicas.html">fisicas.md</a></td>
+  <td>Colisionadores, cuerpos rígidos, personajes, articulaciones, flotación en el agua, choques y consultas desde los scripts</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><a href="audio.html">audio.md</a></td>
+  <td>Sonidos, fuentes y oyente, buses y opciones de volumen</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><a href="multijugador.html">multijugador.md</a></td>
+  <td>Tutorial completo de un juego en red en Lua y referencia de la red</td>
+</tr>
+<tr>
+  <td>11b</td>
+  <td><a href="lobby-y-escenas.html">lobby-y-escenas.md</a></td>
+  <td>Juegos por rondas: sala (lobby) con «Listo» e invitaciones, cambio de escena para todos con pantalla de carga, <code>GetOwner(id)</code>, objetos Interactuables y el chat de la partida (ejemplo «Fiesta»)</td>
+</tr>
+<tr>
+  <td>11c</td>
+  <td><a href="paquetes.html">paquetes.md</a></td>
+  <td>Paquetes del motor: <strong>Primera persona</strong> y <strong>Tercera persona</strong> listas para multijugador con un clic (menú <strong>Paquetes</strong>): qué traen, cómo funcionan en red (predicción, inercia, la animación de todos, también la del anfitrión), cambiar el personaje, ampliar el movimiento y actualizar sin perder tus cambios</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><a href="servidor-dedicado.html">servidor-dedicado.md</a></td>
+  <td><code>NovaServer.exe</code>: configuración, puertos, router, VPS y logs</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><a href="enlace.html">enlace.md</a></td>
+  <td>Nova Enlace: partidas y edición en equipo por Internet con un código, sin abrir puertos ni VPN (también con CG-NAT)</td>
+</tr>
+<tr>
+  <td>13b</td>
+  <td><a href="seguridad-red.html">seguridad-red.md</a></td>
+  <td>Seguridad de la red: lo que hace el motor solo (cifrado, límites, anti-trampas), los ajustes, funciones <code>[Server]</code> seguras, la API <code>Security</code>, el registro y buenas prácticas (el servidor decide)</td>
+</tr>
+<tr>
+  <td>13c</td>
+  <td><a href="datos-persistentes.html">datos-persistentes.md</a></td>
+  <td>Nova Datos: datos de cada jugador entre partidas (alijo, dinero, progresión) con cuentas de Steam o propias, versiones y transacciones atómicas, modo local y desplegar el servicio</td>
+</tr>
+<tr>
+  <td>13d</td>
+  <td><a href="emparejamiento.html">emparejamiento.md</a></td>
+  <td>Emparejamiento: colas por modo y región con escuadras, servidores bajo demanda con <code>nova-flota.exe</code> y un jugador de anfitrión para la partida rápida</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><a href="publicar-juego.html">publicar-juego.md</a></td>
+  <td>La carpeta publicada (assets empaquetados, scripts Lua solo en bytecode, icono y versión del exe), <code>NovaGame.exe</code>, licencias</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><a href="publicar.html">publicar.md</a></td>
+  <td>Subir el juego a Steam: la ventana Publicar juego, comprobaciones, depots y scripts de SteamPipe, steamcmd, el servidor dedicado como depot aparte</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><a href="steam.html">steam.md</a></td>
+  <td>Steam en el juego: nombre y avatar, lobbies con invitaciones de amigos, partidas por Steam sin abrir puertos, estado para los amigos, logros, estadísticas y tablas, el overlay, el Steam simulado para probar y la tabla <code>Steam</code> en Lua</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><a href="edicion-en-equipo.html">edicion-en-equipo.md</a></td>
+  <td>Editar el mismo proyecto con más gente a la vez: sesiones, presencia, bloqueos, ficheros, scripts Lua en vivo, chat, interfaz y jugar en equipo</td>
+</tr>
+</tbody>
+</table></div>
+<p>Para un juego de un jugador bastan los nueve primeros más físicas, audio y publicar (el 15 si va a Steam). Para uno
+multijugador, lee también el 11, el 12, el 13 y el 13b (y el 16 si va a Steam). Si trabajáis varias personas en el
+mismo proyecto, el 17 (y el 13 para hacerlo por Internet con un código).</p>
+<p>Además:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Documento</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><a href="idiomas.html">idiomas.md</a></td>
+  <td>Textos en varios idiomas: la tabla del panel <strong>Idiomas</strong>, CSV para quien traduce, <code>Loc(&quot;clave&quot;)</code> en Lua, el componente <strong>Texto traducido</strong>, el idioma de Steam o de Windows y las fuentes con sus caracteres</td>
+</tr>
+<tr>
+  <td><a href="errores.html">errores.md</a></td>
+  <td>Informe de errores: lo que se guarda si el juego se cierra solo, el aviso al volver a abrirlo, recibir los informes en tu servidor, leer un <code>.dmp</code> con los símbolos y el aviso de errores de los scripts</td>
+</tr>
+<tr>
+  <td><a href="nubes.html">nubes.md</a></td>
+  <td>Nubes volumétricas: preajustes (cúmulos, nublado, tormenta, atardecer), sombras en el suelo, reflejos, calidad y rendimiento, cambios de tiempo desde Lua y el mismo cielo para todos en red</td>
+</tr>
+<tr>
+  <td><a href="terreno.html">terreno.md</a></td>
+  <td>Terrenos grandes: generarlos con un clic (montañas, islas, cañones, dunas, con erosión), esculpir, pintar capas, agua y la API Lua <code>Terrain</code> (también para excavar en red)</td>
+</tr>
+<tr>
+  <td><a href="vegetacion.html">vegetacion.md</a></td>
+  <td>Vegetación pintada en el terreno: árboles y rocas con colisión, LOD e impostores, hierba y flores con viento, 17 modelos integrados, repartir por reglas y, desde Lua, plantar, talar y segar en red (<code>Terrain.PlaceTree</code>, <code>RemoveTreesAt</code>, <code>SetDetailDensity</code>, <code>SetWind</code>)</td>
+</tr>
+<tr>
+  <td><a href="datos.html">datos.md</a></td>
+  <td>Datos de juego como en Unity y UE5: <strong>Struct</strong> (tipos de datos con sus campos), listas y diccionarios en el Inspector (añadir, quitar, arrastrar para ordenar, deshacer), <strong>Data Assets</strong> (<code>.datos</code>, como un ScriptableObject), <strong>Data Tables</strong> (<code>.tabla</code>, una hoja de cálculo con CSV y pegar de Excel), <strong>enums</strong> compartidos y <strong>curvas</strong>; paso a paso con el botín de un juego de robos (<code>game/botin_lua</code>)</td>
+</tr>
+<tr>
+  <td><a href="ejemplo-inventario.html">ejemplo-inventario.md</a></td>
+  <td>Un inventario como el de Rust, en red y con el servidor al mando, paso a paso (<code>game/inventario_lua</code>)</td>
+</tr>
+<tr>
+  <td><a href="decals.html">decals.md</a></td>
+  <td>Decals (calcomanías): agujeros de bala según la superficie, sangre, quemaduras, grietas, huellas, pintadas y flechas de carretera, desde Lua (<code>Decals.Spawn</code>, <code>Decals.BulletHole</code>) o colocados con un clic en el editor; en red con <code>[Multicast]</code></td>
+</tr>
+<tr>
+  <td><a href="niebla-volumetrica.html">niebla-volumetrica.md</a></td>
+  <td>Niebla y luz volumétrica: rayos de sol entre los árboles, el cono de una linterna en una habitación con polvo, el halo de una farola, volúmenes de niebla con forma y el tiempo que cambia desde Lua (<code>Environment.TransitionFog</code>)</td>
+</tr>
+<tr>
+  <td><a href="iluminacion-horneada.html">iluminacion-horneada.md</a></td>
+  <td>Iluminación global horneada: lightmaps de las mallas estáticas y sondas de luz para lo que se mueve; la luz del sol que entra por la ventana y rebota por la casa, sombras suaves, luces Horneadas que no cuestan nada al jugar, el panel <strong>Iluminación</strong> (hornear, vistas, estadísticas) y <code>Lighting.*</code> en Lua</td>
+</tr>
+<tr>
+  <td><a href="animar-huesos.html">animar-huesos.md</a></td>
+  <td>Animar personajes en el editor: la ventana <strong>Animar huesos</strong> (visor propio, girar y mover huesos con el gizmo, IK para posar, copiar, espejar y reiniciar la pose), claves por hueso con Grabar, curvas, «Editar una copia» de un clip importado, eventos («Paso», «SoltarCargador») que llegan a Lua y el clip en el Animador y en otros humanoides</td>
+</tr>
+<tr>
+  <td><a href="animacion-objetos.html">animacion-objetos.md</a></td>
+  <td>Animar objetos sin huesos con claves: el panel <strong>Línea de tiempo</strong> (curvas, eventos, vista previa y modo Grabar), el componente <strong>Animación</strong>, <code>anim:Play(&quot;AbrirPuerta&quot;)</code> desde Lua, puertas y ascensores en red, plataformas que llevan al personaje, las piezas animadas de los glTF/FBX y cinemáticas sencillas</td>
+</tr>
+<tr>
+  <td><a href="ia-arboles.html">ia-arboles.md</a></td>
+  <td>IA con árboles de comportamiento: la ventana del árbol (cajas conectadas, paleta, deshacer y depuración en vivo al jugar), Secuencia, Selector, Paralelo, decoradores y condiciones que abortan al cambiar la pizarra, tareas (mover, patrullar, mirar, animar...), servicios y subárboles, la <strong>pizarra</strong>, los <strong>Sentidos</strong> (vista con paredes que tapan, oído con <code>AI.MakeNoise</code> y memoria), tareas propias en Lua (<code>AI.Task</code>) y el ejemplo <strong>Zombi</strong> (plantilla «IA (Lua)»)</td>
+</tr>
+<tr>
+  <td><a href="enlace-ia.html">enlace-ia.md</a></td>
+  <td>Enlace con Nova IA: que una app de tu PC (Nova IA) coloque, mueva y quite prefabs en la escena abierta del editor como si los soltaras en el visor, con deshacer y en equipo; el contrato HTTP (<code>/estado</code>, <code>/colocar</code>...), la seguridad y un ejemplo en PowerShell</td>
+</tr>
+<tr>
+  <td><a href="navegacion.html">navegacion.md</a></td>
+  <td>Navegación: hornear por dónde se puede andar, agentes que van solos a su destino (rodean, se esquivan, saltan huecos), <code>Navigation.FindPath</code>, <code>Raycast</code> y <code>RandomPoint</code> desde Lua, áreas con costes (carreteras, barro, agua), obstáculos que se mueven y un guardia que patrulla, persigue y huye</td>
+</tr>
+<tr>
+  <td><a href="vehiculos.html">vehiculos.md</a></td>
+  <td>Vehículos: coches, motos, tanques, helicópteros y aviones con físicas (ruedas, suspensión, motor y marchas; colectivo, estabilización y efecto suelo), subir y bajar con F, asientos, cámara de vehículo, sonido del motor, <code>Vehicles.*</code> y <code>SetInput</code> en Lua, el multijugador (el servidor simula, el conductor predice) y la plantilla «Vehículos (Lua)»</td>
+</tr>
+<tr>
+  <td><a href="destruccion.html">destruccion.md</a></td>
+  <td>Destrucción de objetos como Chaos de UE5: la ventana <strong>Fracturar</strong> (Voronoi uniforme y agrupado, planos, radial y rejilla de ladrillos, por niveles, con caras interiores y vista previa), el asset <code>.destructible</code>, el componente <strong>Destructible</strong> (umbrales de daño, golpes de físicas, anclaje y conectividad, restos que se desvanecen), campos de destrucción, <code>Destruction.Explode</code> y <code>OnBreak</code> en Lua, el multijugador (el servidor decide, quien entra tarde lo ve roto) y el ejemplo con puerta, ventana, pared y barril explosivo (<code>game/destruccion_lua</code>)</td>
+</tr>
+<tr>
+  <td><a href="voz.html">voz.md</a></td>
+  <td>Chat de voz: voz de proximidad que sale del personaje (con oclusión), canales sin distancia para llamadas, intercomunicadores y radios con su efecto, silenciar, opciones del jugador (micrófono, pulsar para hablar, volúmenes) y la API Lua <code>Voice</code></td>
+</tr>
+<tr>
+  <td><a href="particulas.html">particulas.md</a></td>
+  <td>Partículas: fuego, humo, chispas, explosiones, fogonazos, sangre, lluvia, nieve, magia... con preajustes, módulos como en Unity, vista previa en el editor, <code>Effects.Spawn</code> desde Lua y efectos en red</td>
+</tr>
+<tr>
+  <td><a href="splines-carreteras-rios.html">splines-carreteras-rios.md</a></td>
+  <td>Splines, carreteras (carriles, arcenes, aceras, cruces y colisión), ríos y lagos con olas, espuma y vista bajo el agua, aplanar y tallar el terreno, la API Lua <code>Water</code> y rutas para coches, barcos y cámaras desde Lua</td>
+</tr>
+<tr>
+  <td><a href="matematicas.html">matematicas.md</a></td>
+  <td>Matemáticas en Lua: vectores, rotaciones, matrices y colores con la API de Unity; rayos, planos, cajas, esferas y lo que ve la cámara; geometría (polígonos, triangulación, curvas); ruido procedural (<code>Noise</code>) para generar mundos; y lo que cuesta cada cosa</td>
+</tr>
+<tr>
+  <td><a href="utilidades-lua.html">utilidades-lua.md</a></td>
+  <td>Utilidades de código como en UE5 y Unity: <strong>Gameplay Tags</strong> jerárquicas (ventana Etiquetas de juego, selector en el Inspector, red), <strong>interfaces</strong> (<code>Interface</code>, <code>Implements</code>, <code>Interfaces.Call</code>), <strong>eventos del Inspector</strong> (<code>Event()</code>, como UnityEvent) y <code>Connect</code>, <strong>temporizadores</strong> con mango (<code>Timer</code>) y <strong>pools</strong> (también de objetos de red) con su medida; ejemplos: botín recogible, puerta con evento, balas con pool y estados con etiquetas</td>
+</tr>
+<tr>
+  <td><a href="nativas-juego.html">nativas-juego.md</a></td>
+  <td>Funciones nativas de juego para Lua: lotes de rayos y de líneas de visión, <code>Spatial</code> (lo más cercano entre miles), <code>Task</code> (esperar sin parar el juego), <code>Tween</code>, <code>Easing</code> y <code>Curve</code>, <code>Pool</code>, <code>Json</code>, posiciones por lotes y cuánto más rápidas son</td>
+</tr>
+<tr>
+  <td><a href="herramientas-lua.html">herramientas-lua.md</a></td>
+  <td>Herramientas de prueba y de editor al estilo UE5: la <strong>consola</strong> dentro del juego (º o F1) con comandos y trucos (<code>RegisterCommand</code>, <code>tp</code>, <code>god</code>, <code>timescale</code>, permisos de admin en red), las <strong>variables de consola</strong> (<code>CVar</code>, replicadas por el servidor), <code>OnValidate</code> (el script que coloca cosas en el editor sin jugar, con deshacer), <strong>botones</strong> en el Inspector (<code>--[Button]</code>), el panel <strong>Problemas</strong> (validación de datos al guardar y publicar, <code>--[Required]</code>) y el <strong>Visual Logger</strong> (grabar la partida y rebobinarla por entidad, <code>VLog</code>)</td>
+</tr>
+<tr>
+  <td><a href="rendimiento.html">rendimiento.md</a></td>
+  <td>Rendimiento: niveles de detalle (LOD) automáticos al importar modelos, oclusión (lo tapado no se dibuja: interiores y ciudades), copias de una misma malla en un dibujo, luces y sombras por distancia, los preajustes de calidad (Bajo para una GPU antigua; <code>Application.SetQuality</code> desde Lua), <code>--!native</code> para que Lua vaya de 2 a 5 veces más rápido y el perfilador</td>
+</tr>
+<tr>
+  <td><a href="instalar.html">instalar.md</a></td>
+  <td>El motor instalado: instalador, Nova Hub, plantillas, actualizaciones, desinstalar y el compilador de C++ (opcional)</td>
+</tr>
+<tr>
+  <td><a href="scripts-cpp.html">scripts-cpp.md</a></td>
+  <td><strong>Scripts en C++ (avanzado, opcional)</strong>: para código nativo (rendimiento, componentes y sistemas propios, librerías externas, Steam); hace falta Visual Studio</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="según-lo-que-quieras-hacer">Según lo que quieras hacer<a class="ancla" href="#según-lo-que-quieras-hacer" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Quiero...</th>
+  <th>Lee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ver el motor funcionando en cinco minutos</td>
+  <td><a href="empezar.html#abrir-el-editor">empezar.md</a> y <a href="multijugador.html#1-prueba-el-ejemplo-en-cinco-minutos">multijugador.md</a></td>
+</tr>
+<tr>
+  <td>Programar el juego sin compilar ni instalar Visual Studio</td>
+  <td><a href="empezar.html#4-tu-primer-script">empezar.md</a> y <a href="scripts-lua.html#2-tu-primer-script-en-cinco-minutos">scripts-lua.md</a></td>
+</tr>
+<tr>
+  <td>Escribir y depurar los scripts sin salir del editor</td>
+  <td><a href="editor-scripts.html">editor-scripts.md</a> (paso a paso, atajos y <a href="editor-scripts.html#depurador">depurador</a>)</td>
+</tr>
+<tr>
+  <td>Un juego en red en Lua, con el servidor al mando</td>
+  <td><a href="multijugador.html#4-tutorial-arena-de-monedas">multijugador.md</a> y <a href="scripts-lua.html#10-tutorial-rey-de-la-arena">scripts-lua.md</a></td>
+</tr>
+<tr>
+  <td>Un inventario como el de Rust (casillas, ropa, cajas de botín, tirar y coger), en red</td>
+  <td><a href="ejemplo-inventario.html">ejemplo-inventario.md</a></td>
+</tr>
+<tr>
+  <td>Traer lo que sé (o mi código) de FiveM</td>
+  <td><a href="scripts-lua.html#11-si-vienes-de-fivem">scripts-lua.md</a></td>
+</tr>
+<tr>
+  <td>Un mundo abierto con montañas, islas o dunas (o excavar el suelo en la partida)</td>
+  <td><a href="terreno.html">terreno.md</a></td>
+</tr>
+<tr>
+  <td>Un bosque, hierba y flores que se mueven con el viento (y talar árboles en la partida)</td>
+  <td><a href="vegetacion.html">vegetacion.md</a></td>
+</tr>
+<tr>
+  <td>Nubes, un cielo de tormenta o un atardecer (y que el tiempo cambie en la partida)</td>
+  <td><a href="nubes.html">nubes.md</a></td>
+</tr>
+<tr>
+  <td>Mover un personaje con el teclado</td>
+  <td><a href="scripts-lua.html#entrada">scripts-lua.md</a> y <a href="fisicas.html#personaje-sencillo-un-jugador-o-multijugador">fisicas.md</a></td>
+</tr>
+<tr>
+  <td>Cambiar los controles (teclas, mando)</td>
+  <td><a href="editor.html#controles-acciones-y-ejes">editor.md</a></td>
+</tr>
+<tr>
+  <td>Que algo caiga, choque o se pueda empujar</td>
+  <td><a href="fisicas.html#primeros-pasos">fisicas.md</a></td>
+</tr>
+<tr>
+  <td>Poner música y efectos de sonido</td>
+  <td><a href="audio.html#sonidos-en-el-proyecto">audio.md</a></td>
+</tr>
+<tr>
+  <td>Hacer un menú o un marcador en pantalla</td>
+  <td><a href="interfaz-ui.html">interfaz-ui.md</a> (o, para depurar, <a href="scripts-lua.html#interfaz-mínima-ongui">OnGUI</a>)</td>
+</tr>
+<tr>
+  <td>Cambiar el color o el material de un objeto desde un script</td>
+  <td><a href="scripts-lua.html#materiales-y-visibilidad">scripts-lua.md</a></td>
+</tr>
+<tr>
+  <td>Que las luces de una habitación hagan sombra (bombillas, antorchas, linternas)</td>
+  <td><a href="render-y-materiales.html#sombras">render-y-materiales.md</a></td>
+</tr>
+<tr>
+  <td>Poner fuego, humo, una explosión, el fogonazo de un arma o lluvia</td>
+  <td><a href="particulas.html">particulas.md</a> (y <a href="particulas.html#10-multijugador">en red</a>)</td>
+</tr>
+<tr>
+  <td>Hacer una carretera, un río o un lago</td>
+  <td><a href="splines-carreteras-rios.html">splines-carreteras-rios.md</a></td>
+</tr>
+<tr>
+  <td>Dejar agujeros de bala, sangre o quemaduras (o poner pintadas y grietas en el mapa)</td>
+  <td><a href="decals.html">decals.md</a></td>
+</tr>
+<tr>
+  <td>Rayos de sol entre los árboles, niebla en un valle, humo en una sala o el haz de una linterna</td>
+  <td><a href="niebla-volumetrica.html">niebla-volumetrica.md</a></td>
+</tr>
+<tr>
+  <td>Interiores realistas: la luz que entra por las ventanas y rebota por la casa, sin poner luces de relleno a mano (lightmaps y sondas de luz)</td>
+  <td><a href="iluminacion-horneada.html">iluminacion-horneada.md</a></td>
+</tr>
+<tr>
+  <td>Una puerta que se abre, un ascensor, una plataforma que va y viene o una luz que parpadea (sin programar el movimiento)</td>
+  <td><a href="animacion-objetos.html">animacion-objetos.md</a></td>
+</tr>
+<tr>
+  <td>Crear una animación de un personaje (saludar, recargar) o corregir una importada, y que suene un paso cuando el pie toca el suelo</td>
+  <td><a href="animar-huesos.html">animar-huesos.md</a></td>
+</tr>
+<tr>
+  <td>Enemigos o bots que piensen: patrullar, oír y ver al jugador, perseguirlo, atacar y buscarlo cuando lo pierden (zombis, guardias)</td>
+  <td><a href="ia-arboles.html">ia-arboles.md</a> (y la plantilla «IA (Lua)»)</td>
+</tr>
+<tr>
+  <td>Que los bots o los enemigos vayan solos a un sitio (rodeando, sin chocar entre ellos), patrullen o persigan al jugador</td>
+  <td><a href="navegacion.html">navegacion.md</a></td>
+</tr>
+<tr>
+  <td>Coches, motos o helicópteros que se conduzcan (y subir y bajar de ellos, también en red)</td>
+  <td><a href="vehiculos.html">vehiculos.md</a> (y la plantilla «Vehículos (Lua)»)</td>
+</tr>
+<tr>
+  <td>Romper cosas: puertas que se astillan, cristales, paredes de ladrillo, cajas y barriles que explotan (también en red)</td>
+  <td><a href="destruccion.html">destruccion.md</a> (y el ejemplo <code>game/destruccion_lua</code>)</td>
+</tr>
+<tr>
+  <td>Que un coche, un barco o una cámara sigan una ruta</td>
+  <td><a href="splines-carreteras-rios.html#8-desde-los-scripts-lua">splines-carreteras-rios.md</a></td>
+</tr>
+<tr>
+  <td>Que una barca o un barril floten con las olas (o bucear)</td>
+  <td><a href="fisicas.html#flotación-buoyancy">fisicas.md</a> y <a href="splines-carreteras-rios.html#6-ríos-y-lagos">splines-carreteras-rios.md</a></td>
+</tr>
+<tr>
+  <td>Que el juego vaya fluido en un PC modesto (o saber qué lo frena)</td>
+  <td><a href="rendimiento.html">rendimiento.md</a> (el perfilador, los preajustes de calidad y <code>--!native</code>)</td>
+</tr>
+<tr>
+  <td>Guardar la partida o las opciones del jugador</td>
+  <td><a href="scripts-lua.html#datos-guardados">scripts-lua.md</a> (<code>PlayerPrefs</code> y <code>SaveGame</code>)</td>
+</tr>
+<tr>
+  <td>Generar un mapa con ruido, repartir cosas por una zona o saber si algo sale en pantalla</td>
+  <td><a href="matematicas.html">matematicas.md</a> (<code>Noise</code>, <code>Geometry</code>, <code>Frustum</code>)</td>
+</tr>
+<tr>
+  <td>Jugar con amigos</td>
+  <td><a href="multijugador.html">multijugador.md</a></td>
+</tr>
+<tr>
+  <td>Que los jugadores se oigan hablar (proximidad, llamadas, radios)</td>
+  <td><a href="voz.html">voz.md</a></td>
+</tr>
+<tr>
+  <td>Una sala para invitar amigos, pulsar «Listo» y empezar; cambiar de mapa con pantalla de carga</td>
+  <td><a href="lobby-y-escenas.html">lobby-y-escenas.md</a></td>
+</tr>
+<tr>
+  <td>Jugar o editar en equipo por Internet con un código, sin abrir puertos ni VPN</td>
+  <td><a href="enlace.html">enlace.md</a></td>
+</tr>
+<tr>
+  <td>Los datos del juego fuera del código: objetos con su precio y su peso, armas, botín, recompensas (en tablas, en assets o importados de Excel)</td>
+  <td><a href="datos.html">datos.md</a> (y el ejemplo <code>game/botin_lua</code>)</td>
+</tr>
+<tr>
+  <td>Guardar el alijo, el dinero o la progresión de cada jugador entre partidas (sin que nadie se dé objetos)</td>
+  <td><a href="datos-persistentes.html">datos-persistentes.md</a></td>
+</tr>
+<tr>
+  <td>Una cola para buscar partida con desconocidos (o con mi escuadra) y que se arranquen servidores solos</td>
+  <td><a href="emparejamiento.html">emparejamiento.md</a></td>
+</tr>
+<tr>
+  <td>Montar un servidor que esté siempre encendido</td>
+  <td><a href="servidor-dedicado.html">servidor-dedicado.md</a> (con <code>--relay</code>, también por código: <a href="enlace.html#4-partidas-con-código">enlace.md</a>)</td>
+</tr>
+<tr>
+  <td>Subir el juego a Steam</td>
+  <td><a href="publicar.html">publicar.md</a> (y <a href="steam.html">steam.md</a> para lobbies y logros)</td>
+</tr>
+<tr>
+  <td>Que mis amigos de Steam entren con una invitación, logros y estadísticas, o probar Steam con varios jugadores en mi PC</td>
+  <td><a href="steam.html">steam.md</a> (y <a href="lobby-y-escenas.html#36-invitar">lobby-y-escenas.md</a> para la sala)</td>
+</tr>
+<tr>
+  <td>Que no hagan trampas en mi juego en red (o echar y banear a quien moleste)</td>
+  <td><a href="seguridad-red.html">seguridad-red.md</a></td>
+</tr>
+<tr>
+  <td>Tener el juego en varios idiomas</td>
+  <td><a href="idiomas.html">idiomas.md</a></td>
+</tr>
+<tr>
+  <td>Saber por qué se le cierra el juego a un jugador</td>
+  <td><a href="errores.html">errores.md</a></td>
+</tr>
+<tr>
+  <td>Instalar el motor, crear proyectos con Nova Hub, actualizar o desinstalar</td>
+  <td><a href="instalar.html">instalar.md</a></td>
+</tr>
+<tr>
+  <td>Editar el mismo proyecto con más gente a la vez</td>
+  <td><a href="edicion-en-equipo.html">edicion-en-equipo.md</a></td>
+</tr>
+<tr>
+  <td>Montar el HUD o los menús entre varias personas</td>
+  <td><a href="interfaz-ui.html#crear-la-interfaz-en-equipo">interfaz-ui.md</a></td>
+</tr>
+<tr>
+  <td>Escribir una parte en C++ (código nativo, componentes propios, librerías externas)</td>
+  <td><a href="scripts-cpp.html">scripts-cpp.md</a> (avanzado, opcional)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="los-ejemplos-de-la-documentación-se-comprueban">Los ejemplos de la documentación se comprueban<a class="ancla" href="#los-ejemplos-de-la-documentación-se-comprueban" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los bloques de Lua de todos los documentos se comprueban en las pruebas automáticas: los scripts completos se
+compilan y se cargan sin avisos, los extractos siguen estando en los ejemplos y cada función de la API que nombran
+existe. El tutorial de <a href="multijugador.html">multijugador.md</a> se juega con un servidor dedicado y dos clientes, con
+sus scripts copiados del propio documento. Los ejemplos de C++ de <a href="scripts-cpp.html">scripts-cpp.md</a> se compilan con
+el motor (target <code>doc_snippets</code>) y su tutorial en C++ también se juega en una prueba. El «Rey de la arena» y el
+<a href="ejemplo-inventario.html">inventario tipo Rust</a> se juegan en red en las pruebas. Si un cambio del motor rompe un
+ejemplo, la compilación o las pruebas fallan.</p>
+<nav class="ant-sig" aria-label="Páginas"><span></span><a class="sig" href="instalar.html"><small>Siguiente</small>Instalar Nova Engine</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#orden-de-lectura-recomendado">Orden de lectura recomendado</a></li><li class="n2"><a href="#según-lo-que-quieras-hacer">Según lo que quieras hacer</a></li><li class="n2"><a href="#los-ejemplos-de-la-documentación-se-comprueban">Los ejemplos de la documentación se comprueban</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

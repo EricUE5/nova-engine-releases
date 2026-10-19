@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decals (calcomanías) · Nova Engine</title>
+<meta name="description" content="Un decal es una textura que se proyecta sobre lo que hay dentro de una caja: el agujero que deja un disparo,
+sangre en el suelo, la quemadura de una explosión, una grieta, huellas, la rodada de un coche,
+una mancha, un c">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Decals (calcomanías) · Nova Engine">
+<meta property="og:description" content="Un decal es una textura que se proyecta sobre lo que hay dentro de una caja: el agujero que deja un disparo,
+sangre en el suelo, la quemadura de una explosión, una grieta, huellas, la rodada de un coche,
+una mancha, un c">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/decals.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/decals.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html" aria-current="page">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="decals-calcomanías">Decals (calcomanías)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-tu-primer-agujero-de-bala-en-cinco-minutos">1. Tu primer agujero de bala en cinco minutos</a></li><li class="n2"><a href="#2-desde-los-scripts-lua">2. Desde los scripts Lua</a></li><li class="n3"><a href="#crear-un-decal">Crear un decal</a></li><li class="n3"><a href="#ejemplos">Ejemplos</a></li><li class="n3"><a href="#máximo-y-limpieza">Máximo y limpieza</a></li><li class="n2"><a href="#3-los-preajustes">3. Los preajustes</a></li><li class="n3"><a href="#cómo-elige-el-agujero-de-bala-automático">Cómo elige el agujero de bala automático</a></li><li class="n2"><a href="#4-multijugador-el-patrón-multicast">4. Multijugador: el patrón [Multicast]</a></li><li class="n2"><a href="#5-impactos-decal--partículas">5. Impactos: decal + partículas</a></li><li class="n2"><a href="#6-colocarlos-en-el-editor">6. Colocarlos en el editor</a></li><li class="n3"><a href="#el-componente-calcomanía">El componente Calcomanía</a></li><li class="n2"><a href="#7-capas-a-qué-afecta-cada-decal">7. Capas: a qué afecta cada decal</a></li><li class="n2"><a href="#8-materiales-de-decal-decal">8. Materiales de decal (.decal)</a></li><li class="n2"><a href="#9-desde-c">9. Desde C++</a></li><li class="n2"><a href="#10-cómo-funciona-y-cuánto-cuesta">10. Cómo funciona y cuánto cuesta</a></li><li class="n2"><a href="#11-referencia-de-la-api-de-lua">11. Referencia de la API de Lua</a></li><li class="n2"><a href="#12-detalles-y-límites">12. Detalles y límites</a></li></ul></details><p>Un <strong>decal</strong> es una textura que se proyecta sobre lo que hay dentro de una caja: el <strong>agujero</strong> que deja un disparo,
+<strong>sangre</strong> en el suelo, la <strong>quemadura</strong> de una explosión, una <strong>grieta</strong>, <strong>huellas</strong>, la <strong>rodada</strong> de un coche,
+una <strong>mancha</strong>, un <strong>charco</strong>, una <strong>pintada</strong> o las <strong>flechas</strong> pintadas en una carretera. No es una malla pegada encima:
+cambia el color, el relieve (las normales), la rugosidad, el metal y la emisión de la propia superficie, así que se
+ilumina igual que ella (sol, sombras, luces locales y reflejos).</p>
+<p>Hay dos formas de usarlos:</p>
+<ul>
+<li><strong>En partida, desde los scripts</strong> (<code>Decals.Spawn</code>, <code>Decals.BulletHole</code>): los que se crean al jugar. Hay un máximo
+a la vez; al pasarlo, los más viejos se desvanecen y dejan sitio. Pueden <strong>seguir a una entidad</strong> (un agujero en una
+puerta se mueve con la puerta) y tener una vida con desvanecido.</li>
+<li><strong>Colocados en la escena</strong> (componente <strong>Calcomanía</strong>): decorado del mapa. Se colocan con un clic en una
+superficie, se guardan con la escena, funcionan en los prefabs, se deshacen con Ctrl+Z y se editan en equipo.</li>
+</ul>
+<p>Todos los preajustes traen sus texturas <strong>hechas con código</strong> (sin descargar nada). Para los tuyos, crea un
+<strong>material de decal</strong> (<code>.decal</code>) en Contenido con tus texturas.</p>
+<blockquote>
+<p>Los decals son <strong>visuales y locales</strong>: no se replican por la red. En multijugador, el servidor decide el impacto y
+avisa a todos con una función <code>[Multicast]</code> (<a href="#4-multijugador-el-patrón-multicast">sección 4</a>).</p>
+</blockquote>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-tu-primer-agujero-de-bala-en-cinco-minutos">Tu primer agujero de bala en cinco minutos</a></li>
+<li><a href="#2-desde-los-scripts-lua">Desde los scripts Lua</a></li>
+<li><a href="#3-los-preajustes">Los preajustes</a></li>
+<li><a href="#4-multijugador-el-patrón-multicast">Multijugador: el patrón <code>[Multicast]</code></a></li>
+<li><a href="#5-impactos-decal--partículas">Impactos: decal + partículas</a></li>
+<li><a href="#6-colocarlos-en-el-editor">Colocarlos en el editor</a></li>
+<li><a href="#7-capas-a-qué-afecta-cada-decal">Capas: a qué afecta cada decal</a></li>
+<li><a href="#8-materiales-de-decal-decal">Materiales de decal (<code>.decal</code>)</a></li>
+<li><a href="#9-desde-c">Desde C++</a></li>
+<li><a href="#10-cómo-funciona-y-cuánto-cuesta">Cómo funciona y cuánto cuesta</a></li>
+<li><a href="#11-referencia-de-la-api-de-lua">Referencia de la API de Lua</a></li>
+<li><a href="#12-detalles-y-límites">Detalles y límites</a></li>
+</ol>
+<h2 id="1-tu-primer-agujero-de-bala-en-cinco-minutos">1. Tu primer agujero de bala en cinco minutos<a class="ancla" href="#1-tu-primer-agujero-de-bala-en-cinco-minutos" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Pon en la escena unas paredes con <strong>Colisionador</strong> (el rayo de las físicas tiene que tocarlas).</li>
+<li>Crea un script Lua (<strong>Contenido &gt; Crear &gt; Script...</strong>) con este código y añádelo a la cámara o al jugador:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Clic izquierdo: dispara hacia donde apunta el ratón y deja un agujero según lo que toca</span>
+<span class="hl-k">local</span> <span class="hl-t">DecalsDisparo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(1, 500), Tooltip("Metros")]</span>
+<span class="hl-t">DecalsDisparo</span>.alcance = <span class="hl-n">150</span>
+
+<span class="hl-k">function</span> <span class="hl-t">DecalsDisparo</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Input</span>.<span class="hl-f">WasMousePressed</span>(<span class="hl-s">"RatonIzq"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> origen, direccion = <span class="hl-t">Camera</span>.<span class="hl-f">MouseRay</span>()
+    <span class="hl-k">local</span> golpe = origen <span class="hl-k">and</span> <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(origen, direccion, <span class="hl-b">self</span>.alcance, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">if</span> golpe <span class="hl-k">then</span>
+        <span class="hl-c">-- Metal, madera, hormigón o vidrio según la superficie; si lo tocado se mueve, el agujero va con ello</span>
+        <span class="hl-t">Decals</span>.<span class="hl-f">BulletHole</span>(golpe)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">DecalsDisparo</span></code></pre></div>
+<ol start="3">
+<li>Pulsa <strong>Jugar</strong> y haz clic en las paredes.</li>
+</ol>
+<p><code>Decals.BulletHole</code> recibe directamente el resultado de <code>Physics.Raycast</code> (<code>point</code>, <code>normal</code> y <code>entity</code>). Para
+elegir el agujero mira de qué está hecha la superficie (<a href="#cómo-elige-el-agujero-de-bala-automático">sección 3</a>).</p>
+<h2 id="2-desde-los-scripts-lua">2. Desde los scripts Lua<a class="ancla" href="#2-desde-los-scripts-lua" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="crear-un-decal">Crear un decal<a class="ancla" href="#crear-un-decal" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> id = <span class="hl-t">Decals</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"sangre"</span>, golpe.point, golpe.normal, <span class="hl-n">0.8</span>)</code></pre></div>
+<p><code>Decals.Spawn(preajuste, posición, normal, tamaño, giro, vida, desvanecido, padre)</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Parámetro</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>preajuste</code></td>
+  <td>El nombre de un preajuste (<code>&quot;sangre&quot;</code>, <code>&quot;quemadura&quot;</code>... <a href="#3-los-preajustes">sección 3</a>), la ruta de un material <code>.decal</code> (<code>&quot;decals/Musgo.decal&quot;</code>) o un <code>Asset</code></td>
+</tr>
+<tr>
+  <td><code>posición</code></td>
+  <td>Punto del mundo donde se pone (normalmente <code>golpe.point</code>)</td>
+</tr>
+<tr>
+  <td><code>normal</code></td>
+  <td>Hacia dónde mira la superficie (<code>golpe.normal</code>): el decal se proyecta en contra</td>
+</tr>
+<tr>
+  <td><code>tamaño</code></td>
+  <td>Lado en metros (el alto, proporcional al preajuste) o un <code>Vec2</code> con ancho y alto. <code>nil</code> = el tamaño típico del preajuste</td>
+</tr>
+<tr>
+  <td><code>giro</code></td>
+  <td>Grados alrededor de la normal. Si no se da, los preajustes que lo admiten (agujeros, sangre, manchas) salen con un giro al azar</td>
+</tr>
+<tr>
+  <td><code>vida</code></td>
+  <td>Segundos hasta que desaparece. <code>0</code> = hasta que se recicle o se quite. Por defecto, la del preajuste (las huellas y las rodadas, 20 s; el resto, 0)</td>
+</tr>
+<tr>
+  <td><code>desvanecido</code></td>
+  <td>Segundos que tarda en desvanecerse al final de la vida</td>
+</tr>
+<tr>
+  <td><code>padre</code></td>
+  <td>Una entidad a la que sigue (si se mueve, el decal se mueve con ella; si se destruye, el decal también)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Devuelve un número que identifica al decal (0 si no se pudo crear). Con él puedes quitarlo:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Decals</span>.<span class="hl-f">Remove</span>(id)       <span class="hl-c">-- al momento</span>
+<span class="hl-t">Decals</span>.<span class="hl-f">Remove</span>(id, <span class="hl-n">1.5</span>)  <span class="hl-c">-- desvaneciéndose durante 1,5 s</span></code></pre></div>
+<p>En lugar de los parámetros del final se puede pasar una <strong>tabla de opciones</strong>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Decals</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"pintada"</span>, punto, normal, <span class="hl-t">Vec2</span>.<span class="hl-f">new</span>(<span class="hl-n">2.4</span>, <span class="hl-n">1.2</span>), {
+    rotation = <span class="hl-n">0</span>,                 <span class="hl-c">-- grados alrededor de la normal</span>
+    lifetime = <span class="hl-n">60</span>, fadeTime = <span class="hl-n">5</span>,  <span class="hl-c">-- vida y desvanecido</span>
+    parent = camion,              <span class="hl-c">-- lo sigue</span>
+    color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">0.2</span>, <span class="hl-n">0.8</span>, <span class="hl-n">1</span>),
+    opacity = <span class="hl-n">0.8</span>,
+    variant = <span class="hl-n">1</span>,                  <span class="hl-c">-- variante del preajuste (sangre 1..4, grieta 1..2, flecha 1..3); nil = al azar</span>
+    layers = { <span class="hl-s">"Static"</span>, <span class="hl-s">"Dynamic"</span> }, <span class="hl-c">-- a qué afecta (sección 7)</span>
+    staticOnly = <span class="hl-b">false</span>,           <span class="hl-c">-- solo lo que no se mueve</span>
+    sortOrder = <span class="hl-n">0</span>,                <span class="hl-c">-- con varios encima: el de orden mayor queda arriba</span>
+    depth = <span class="hl-n">0.4</span>,                  <span class="hl-c">-- grosor de la caja (hasta dónde proyecta)</span>
+    fadeDistance = <span class="hl-n">40</span>,            <span class="hl-c">-- metros a la cámara donde deja de verse</span>
+})</code></pre></div>
+<h3 id="ejemplos">Ejemplos<a class="ancla" href="#ejemplos" aria-label="Enlace a esta sección">#</a></h3>
+<p>Sangre en un enemigo al recibir un disparo (los personajes no reciben decals salvo que se pida, y con <code>parent</code> el
+decal se mueve con él):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Decals</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"sangre"</span>, golpe.point, golpe.normal, <span class="hl-n">0.35</span>, {
+    parent = golpe.entity,
+    layers = { <span class="hl-s">"Characters"</span> },
+    lifetime = <span class="hl-n">20</span>,
+    fadeTime = <span class="hl-n">3</span>,
+})</code></pre></div>
+<p>La quemadura de una explosión en el suelo y un charco de sangre al morir:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Decals</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"quemadura"</span>, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(centro.x, <span class="hl-n">0</span>, centro.z), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>), <span class="hl-n">4</span>)
+<span class="hl-t">Decals</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"sangre"</span>, <span class="hl-b">self</span>.entity.position, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>), <span class="hl-n">1.6</span>, { variant = <span class="hl-n">2</span> }) <span class="hl-c">-- 2 = charco</span></code></pre></div>
+<p>Huellas al andar (alineadas con hacia dónde mira el personaje):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Deja huellas cada 0,7 m mientras el personaje anda; duran 20 s</span>
+<span class="hl-k">local</span> <span class="hl-t">DecalsHuellas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">DecalsHuellas</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._ultima = <span class="hl-b">self</span>.entity.position
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">DecalsHuellas</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> p = <span class="hl-b">self</span>.entity.position
+    <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Distance</span>(p, <span class="hl-b">self</span>._ultima) &lt; <span class="hl-n">0.7</span> <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._ultima = p
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(p + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0.5</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, -<span class="hl-n">1</span>, <span class="hl-n">0</span>), <span class="hl-n">2</span>, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">if</span> golpe <span class="hl-k">then</span>
+        <span class="hl-k">local</span> delante = <span class="hl-b">self</span>.entity.rotation * <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>) <span class="hl-c">-- los personajes miran hacia +Z</span>
+        <span class="hl-k">local</span> giro = <span class="hl-t">math</span>.<span class="hl-f">deg</span>(<span class="hl-t">math</span>.<span class="hl-f">atan2</span>(-delante.x, -delante.z)) <span class="hl-c">-- la punta de las huellas, hacia donde anda</span>
+        <span class="hl-t">Decals</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"huellas"</span>, golpe.point, golpe.normal, <span class="hl-n">0.5</span>, { rotation = giro, lifetime = <span class="hl-n">20</span>, fadeTime = <span class="hl-n">4</span> })
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">DecalsHuellas</span></code></pre></div>
+<h3 id="máximo-y-limpieza">Máximo y limpieza<a class="ancla" href="#máximo-y-limpieza" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Decals</span>.<span class="hl-f">SetMax</span>(<span class="hl-n">400</span>)     <span class="hl-c">-- por defecto 256 a la vez</span>
+<span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%d decals"</span>, <span class="hl-t">Decals</span>.<span class="hl-f">Count</span>()))
+<span class="hl-t">Decals</span>.<span class="hl-f">Clear</span>()         <span class="hl-c">-- todos fuera (al cambiar de ronda, por ejemplo)</span></code></pre></div>
+<p>Al pasar del máximo, el decal más viejo <strong>se desvanece en medio segundo</strong> y deja su sitio. Al parar el juego (o
+cargar otra escena) se quitan todos.</p>
+<h2 id="3-los-preajustes">3. Los preajustes<a class="ancla" href="#3-los-preajustes" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todos tienen sus texturas de color, relieve, rugosidad y metal hechas con código (512 × 512 píxeles), pensadas para
+verse bien de cerca.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Nombre</th>
+  <th>En el editor</th>
+  <th>Variantes</th>
+  <th>Tamaño típico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>agujero_bala</code></td>
+  <td>Agujero de bala (automático)</td>
+  <td>elige una de las cuatro siguientes según la superficie</td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>bala_hormigon</code></td>
+  <td>Agujero de bala (hormigón o piedra)</td>
+  <td></td>
+  <td>0,2 m</td>
+</tr>
+<tr>
+  <td><code>bala_metal</code></td>
+  <td>Agujero de bala (metal)</td>
+  <td></td>
+  <td>0,12 m</td>
+</tr>
+<tr>
+  <td><code>bala_madera</code></td>
+  <td>Agujero de bala (madera)</td>
+  <td></td>
+  <td>0,14 m</td>
+</tr>
+<tr>
+  <td><code>bala_vidrio</code></td>
+  <td>Impacto en vidrio (grietas)</td>
+  <td></td>
+  <td>0,28 m</td>
+</tr>
+<tr>
+  <td><code>sangre</code></td>
+  <td>Sangre</td>
+  <td>1 Salpicadura, 2 Charco, 3 Gotas, 4 Reguero</td>
+  <td>1 m</td>
+</tr>
+<tr>
+  <td><code>quemadura</code></td>
+  <td>Quemadura de explosión</td>
+  <td></td>
+  <td>3 m</td>
+</tr>
+<tr>
+  <td><code>grieta</code></td>
+  <td>Grieta</td>
+  <td>1 Larga, 2 En estrella</td>
+  <td>1 m</td>
+</tr>
+<tr>
+  <td><code>huellas</code></td>
+  <td>Huellas de pisadas</td>
+  <td></td>
+  <td>0,5 × 0,8 m</td>
+</tr>
+<tr>
+  <td><code>rodada</code></td>
+  <td>Rodada de neumático</td>
+  <td></td>
+  <td>0,4 × 2,5 m</td>
+</tr>
+<tr>
+  <td><code>mancha</code></td>
+  <td>Mancha de suciedad</td>
+  <td></td>
+  <td>1,5 m</td>
+</tr>
+<tr>
+  <td><code>charco</code></td>
+  <td>Charco</td>
+  <td></td>
+  <td>2 m</td>
+</tr>
+<tr>
+  <td><code>pintada</code></td>
+  <td>Pintada (grafiti)</td>
+  <td></td>
+  <td>2,4 × 1,2 m</td>
+</tr>
+<tr>
+  <td><code>flecha</code></td>
+  <td>Flecha de carretera</td>
+  <td>1 Recta, 2 Izquierda, 3 Derecha</td>
+  <td>1,6 × 5 m</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Decals.Presets()</code> devuelve la lista de nombres.</p>
+<h3 id="cómo-elige-el-agujero-de-bala-automático">Cómo elige el agujero de bala automático<a class="ancla" href="#cómo-elige-el-agujero-de-bala-automático" aria-label="Enlace a esta sección">#</a></h3>
+<p>El motor no tiene materiales físicos, así que <code>agujero_bala</code> deduce de qué está hecha la superficie (y si no lo
+sabe, hormigón). Mira la entidad tocada y, si no dice nada, sus padres, por este orden:</p>
+<ol>
+<li>El componente <strong>Receptor de decals</strong> con <strong>Superficie</strong> (Hormigón o piedra, Metal, Madera, Vidrio).</li>
+<li>Sus <strong>etiquetas</strong> (componente Etiquetas): <code>metal</code>, <code>madera</code>, <code>vidrio</code>, <code>hormigon</code>, <code>piedra</code>.</li>
+<li>El <strong>material</strong> que se dibuja: transparente → vidrio; con un nombre que contiene madera/wood, metal/acero/hierro,
+vidrio/cristal o hormigón/piedra/ladrillo → ese; si no, con <strong>Metal</strong> de 0,5 o más → metal.</li>
+<li>El terreno y las carreteras → hormigón.</li>
+<li>El nombre de la entidad (<code>Ventana</code>, <code>Puerta de madera</code>, <code>Coche</code>...).</li>
+</ol>
+<p>También puedes decidirlo tú: <code>Decals.BulletHole(punto, normal, &quot;madera&quot;)</code>, o la opción <code>surface</code> de <code>Decals.Spawn</code>.
+<code>Decals.SurfaceOf(entidad)</code> dice lo que ha deducido.</p>
+<h2 id="4-multijugador-el-patrón-multicast">4. Multijugador: el patrón <code>[Multicast]</code><a class="ancla" href="#4-multijugador-el-patrón-multicast" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los decals no se replican: cada máquina pinta los suyos. Para que todos vean el mismo agujero, el <strong>servidor</strong> hace
+el raycast (es quien decide si el disparo ha dado) y llama a una función <code>[Multicast]</code> con el punto, la normal y lo
+tocado; esa función se ejecuta en el servidor y en todos los clientes, y cada uno crea su decal:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- El servidor decide el impacto; todas las máquinas pintan el agujero (y las partículas y el sonido)</span>
+<span class="hl-k">local</span> <span class="hl-t">DecalsArma</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">DecalsArma</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasMousePressed</span>(<span class="hl-s">"RatonIzq"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">local</span> origen, direccion = <span class="hl-t">Camera</span>.<span class="hl-f">MouseRay</span>()
+        <span class="hl-k">if</span> origen <span class="hl-k">then</span>
+            <span class="hl-b">self</span>:<span class="hl-f">Disparar</span>(origen, direccion) <span class="hl-c">-- [Server]: viaja al servidor</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-a">--[Server(rate = 10)]</span>
+<span class="hl-k">function</span> <span class="hl-t">DecalsArma</span>:<span class="hl-f">Disparar</span>(origen: <span class="hl-t">Vector3</span>, direccion: <span class="hl-t">Vector3</span>)
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(origen, direccion, <span class="hl-n">150</span>, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">if</span> golpe <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Impacto</span>(golpe.point, golpe.normal, golpe.entity) <span class="hl-c">-- [Multicast]: a todos</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-a">--[Multicast(reliable = false)]</span>
+<span class="hl-k">function</span> <span class="hl-t">DecalsArma</span>:<span class="hl-f">Impacto</span>(punto: <span class="hl-t">Vector3</span>, normal: <span class="hl-t">Vector3</span>, tocado: <span class="hl-t">Entity</span>)
+    <span class="hl-t">Decals</span>.<span class="hl-f">BulletHole</span>({ point = punto, normal = normal, entity = tocado })
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">DecalsArma</span></code></pre></div>
+<ul>
+<li><code>reliable = false</code>: si un impacto se pierde por la red no pasa nada (es un efecto) y no retrasa lo demás.</li>
+<li>Las entidades valen en todas las máquinas (mismo UUID), así que el agujero sigue a la misma puerta en todas.</li>
+<li>En un servidor dedicado la función también se ejecuta, pero allí no se dibuja nada (el pool existe y no molesta).</li>
+<li>Quien entra después <strong>no ve</strong> los decals que ya había: son efectos pasajeros. Si algo tiene que verlo todo el que
+entra (una pintada que forma parte de la partida), guárdalo en un campo replicado o en una
+<a href="multijugador.html">tabla replicada</a> y crea el decal en <code>OnRep</code>/al entrar.</li>
+</ul>
+<h2 id="5-impactos-decal--partículas">5. Impactos: decal + partículas<a class="ancla" href="#5-impactos-decal--partículas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un impacto suele ser <strong>decal + partículas + sonido</strong> en el mismo sitio. Ponlos juntos en la misma función (la
+<code>[Multicast]</code> de arriba en multijugador): el decal con <code>Decals.BulletHole</code> o <code>Decals.Spawn</code>, las chispas o el polvo
+con el sistema de partículas y el sonido con <code>Audio.PlayOneShot(sonido, punto)</code>. Elige las partículas según la
+superficie con <code>Decals.SurfaceOf(golpe.entity)</code> (chispas en <code>&quot;metal&quot;</code>, astillas en <code>&quot;madera&quot;</code>, polvo en
+<code>&quot;hormigon&quot;</code>, esquirlas en <code>&quot;vidrio&quot;</code>), igual que el agujero.</p>
+<p>Desde C++ (y desde el propio sistema de partículas) hay una función para esto, <code>SpawnImpactDecal</code>
+(<a href="#9-desde-c">sección 9</a>).</p>
+<h2 id="6-colocarlos-en-el-editor">6. Colocarlos en el editor<a class="ancla" href="#6-colocarlos-en-el-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Entidad &gt; Efectos &gt; Decal</strong> (o el <strong>+</strong> de la Jerarquía) tiene todos los preajustes por categorías. El decal
+nuevo aparece donde mira la cámara del visor y queda en modo <strong>Colocar con clic</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Acción</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Colocarlo</td>
+  <td>Clic en una superficie del visor <strong>Escena</strong>: va a ese punto, alineado con ella</td>
+</tr>
+<tr>
+  <td>Poner copias</td>
+  <td><strong>Mayús+clic</strong> en otras superficies (sigue en el modo)</td>
+</tr>
+<tr>
+  <td>Terminar</td>
+  <td><strong>Esc</strong></td>
+</tr>
+<tr>
+  <td>Volver a colocarlo</td>
+  <td>Botón <strong>Colocar con clic</strong> del Inspector</td>
+</tr>
+<tr>
+  <td>Elegir un decal</td>
+  <td>Clic sobre él en el visor (elige el decal, no la pared de debajo)</td>
+</tr>
+<tr>
+  <td>Moverlo, girarlo, escalarlo</td>
+  <td>Con el gizmo, como cualquier entidad (la escala también agranda la caja)</td>
+</tr>
+</tbody>
+</table></div>
+<p>En el visor, los decals cercanos muestran su caja en azul; el elegido, en naranja con una flecha hacia donde
+proyecta y una raya verde hacia su &quot;arriba&quot;. Con <strong>agujero automático</strong>, al colocarlo con clic se queda con el de la
+superficie tocada.</p>
+<h3 id="el-componente-calcomanía">El componente Calcomanía<a class="ancla" href="#el-componente-calcomanía" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Preajuste (lista de arriba)</td>
+  <td>Qué decal es. Al cambiarlo, el tamaño pasa al típico del nuevo si no lo habías tocado</td>
+</tr>
+<tr>
+  <td><strong>Colocar con clic</strong> / <strong>Capas</strong></td>
+  <td>Ver arriba y la <a href="#7-capas-a-qué-afecta-cada-decal">sección 7</a></td>
+</tr>
+<tr>
+  <td>Material de decal</td>
+  <td>Un <code>.decal</code> de Contenido: manda sobre el preajuste</td>
+</tr>
+<tr>
+  <td>Variante</td>
+  <td>De los preajustes con varias: 1..n; 0 = una según la entidad (cada copia, una distinta)</td>
+</tr>
+<tr>
+  <td>Tamaño</td>
+  <td>Ancho y alto de la caja en metros</td>
+</tr>
+<tr>
+  <td>Grosor</td>
+  <td>Hasta dónde proyecta, por delante y por detrás de la entidad. Pon el justo para no pintar lo que hay detrás</td>
+</tr>
+<tr>
+  <td>Tinte, Opacidad</td>
+  <td>Multiplican el color y la opacidad del material</td>
+</tr>
+<tr>
+  <td>Ángulo inicial / final</td>
+  <td>Grados entre la superficie y la dirección de proyección: hasta el inicial se ve entero, desde el final no se ve. Así no se estira en las caras perpendiculares</td>
+</tr>
+<tr>
+  <td>Distancia inicial / final</td>
+  <td>Metros a la cámara: se desvanece entre las dos y desde la final no se dibuja (0 = siempre)</td>
+</tr>
+<tr>
+  <td>Orden</td>
+  <td>Con varios decals encima: el de orden mayor queda arriba (a igual orden, los de la partida van encima de los colocados)</td>
+</tr>
+<tr>
+  <td>Solo estáticos</td>
+  <td>Solo lo que no se mueve: ni objetos con física dinámica ni personajes. Para la sangre del suelo que no debe manchar a quien pasa por encima</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los decals colocados se guardan en la escena, funcionan en los <strong>prefabs</strong>, se deshacen con <strong>Ctrl+Z</strong> y se
+editan en <strong>equipo</strong> como cualquier componente. Desde Lua son el componente <code>&quot;Decal&quot;</code>:
+<code>self.entity:GetComponent(&quot;Decal&quot;).opacity = 0.5</code>.</p>
+<h2 id="7-capas-a-qué-afecta-cada-decal">7. Capas: a qué afecta cada decal<a class="ancla" href="#7-capas-a-qué-afecta-cada-decal" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada objeto está en una <strong>capa</strong> y cada decal tiene la lista de capas a las que afecta:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Capa (Lua)</th>
+  <th>Qué hay en ella</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Static</code> (Estáticos)</td>
+  <td>Mallas sin cuerpo rígido (o con uno estático)</td>
+</tr>
+<tr>
+  <td><code>Dynamic</code> (Dinámicos)</td>
+  <td>Mallas con un cuerpo rígido dinámico o cinemático (cajas, puertas), o con un padre que lo tiene</td>
+</tr>
+<tr>
+  <td><code>Characters</code> (Personajes)</td>
+  <td>Mallas con huesos y entidades con controlador de personaje</td>
+</tr>
+<tr>
+  <td><code>Terrain</code> (Terreno)</td>
+  <td>Los terrenos</td>
+</tr>
+<tr>
+  <td><code>Roads</code> (Carreteras)</td>
+  <td>Carreteras y cruces</td>
+</tr>
+<tr>
+  <td><code>User1</code>, <code>User2</code>, <code>User3</code></td>
+  <td>Libres: las pones con el <strong>Receptor de decals</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Por defecto un decal afecta a <strong>todo menos a los personajes</strong> (<code>Decals.Layer.Default</code>). Un decal creado con
+<code>parent</code> afecta además a la capa de su padre (sangre sobre un personaje, un agujero en una puerta).</p>
+<p>El componente <strong>Receptor de decals</strong> (Añadir componente &gt; Efectos) cambia la capa de una entidad y de sus hijos,
+la saca de los decals (<strong>Recibe decals</strong> desmarcado: armas en primera persona, objetos de la interfaz 3D) y dice
+de qué está hecha (<strong>Superficie</strong>).</p>
+<p>Lo <strong>transparente</strong> (materiales en modo Mezcla) y el <strong>agua</strong> nunca reciben decals.</p>
+<h2 id="8-materiales-de-decal-decal">8. Materiales de decal (<code>.decal</code>)<a class="ancla" href="#8-materiales-de-decal-decal" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Contenido &gt; Crear &gt; Material de decal</strong> crea un <code>.decal</code>. En el Inspector:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Color</td>
+  <td>Textura de color (RGB) y opacidad (alfa). Sin ella, el decal es un color liso con la forma de la caja</td>
+</tr>
+<tr>
+  <td>Normales</td>
+  <td>Mapa de normales en espacio tangente, como el de los materiales (verde = arriba)</td>
+</tr>
+<tr>
+  <td>Rugosidad y metal</td>
+  <td>Rugosidad en el canal G y metal en el B (como los materiales glTF)</td>
+</tr>
+<tr>
+  <td>Emisión</td>
+  <td>Textura de emisión (multiplica el color de emisión): neones, pantallas, marcas que brillan</td>
+</tr>
+<tr>
+  <td>Tinte, Color e intensidad de emisión, Rugosidad, Metal, Intensidad del relieve</td>
+  <td>Factores de las texturas</td>
+</tr>
+<tr>
+  <td>Cambia el color / el relieve / rugosidad y metal</td>
+  <td>Qué toca de la superficie. Solo relieve y rugosidad, sin color: un charco mojado, metal abollado</td>
+</tr>
+</tbody>
+</table></div>
+<p>Se usa en el campo <strong>Material de decal</strong> de una Calcomanía o desde Lua: <code>Decals.Spawn(&quot;decals/Musgo.decal&quot;, ...)</code>.
+Los cambios del Inspector (y de las texturas) se ven al momento.</p>
+<h2 id="9-desde-c">9. Desde C++<a class="ancla" href="#9-desde-c" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>C++</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-cpp"><span class="hl-c">// Dispara hacia delante (-Z de la entidad) y deja un agujero según la superficie; sangre en los personajes</span>
+<span class="hl-a">#include</span> <span class="hl-s">"nova/decal/Decal.h"</span>
+<span class="hl-a">#include</span> <span class="hl-s">"nova/physics/PhysicsComponents.h"</span>
+<span class="hl-a">#include</span> <span class="hl-s">"nova/scripting/Behaviour.h"</span>
+
+<span class="hl-k">class</span> DecalsImpactos : <span class="hl-k">public</span> nova::Behaviour {
+<span class="hl-k">public</span>:
+    <span class="hl-k">float</span> alcance = <span class="hl-n">150.0f</span>;
+
+    <span class="hl-k">void</span> Disparar()
+    {
+        nova::Scene&amp; escena = GetScene();
+        <span class="hl-k">const</span> nova::Vec3 origen = escena.GetWorldPosition(GetEntity());
+        <span class="hl-k">const</span> nova::Vec3 direccion = escena.GetWorldRotation(GetEntity()).Forward();
+        nova::RaycastHit golpe;
+        <span class="hl-k">if</span> (!Raycast(origen, direccion, alcance, golpe, {nova::PhysicsLayer::All, GetEntity()})) <span class="hl-k">return</span>;
+        <span class="hl-k">if</span> (escena.Has&lt;nova::CharacterController&gt;(golpe.entity)) {
+            <span class="hl-c">// Sangre que sigue al personaje (los personajes solo reciben decals si se pide su capa)</span>
+            nova::DecalSpawnParams p;
+            p.preset = <span class="hl-s">"sangre"</span>;
+            p.position = golpe.point;
+            p.normal = golpe.normal;
+            p.size = {<span class="hl-n">0.35f</span>, <span class="hl-n">0.0f</span>};
+            p.parent = golpe.entity;
+            p.layers = nova::DecalLayer::Characters;
+            p.lifetime = <span class="hl-n">20.0f</span>;
+            p.fadeTime = <span class="hl-n">3.0f</span>;
+            nova::Decals(escena).Spawn(p);
+        } <span class="hl-k">else</span> {
+            <span class="hl-c">// Agujero de hormigón, metal, madera o vidrio según lo tocado, que lo sigue si se mueve</span>
+            nova::SpawnImpactDecal(escena, <span class="hl-s">"agujero_bala"</span>, golpe.point, golpe.normal, golpe.entity);
+        }
+    }
+};
+
+NOVA_BEHAVIOUR(DecalsImpactos)
+{
+    NOVA_FIELD(alcance).Range(<span class="hl-n">1.0f</span>, <span class="hl-n">500.0f</span>);
+}</code></pre></div>
+<p><code>Decals(scene)</code> es una interfaz virtual (<code>IDecalWorld</code>: <code>Spawn</code>, <code>Remove</code>, <code>IsAlive</code>, <code>Clear</code>, <code>Count</code>,
+<code>SetMaxDecals</code>, <code>MaxDecals</code>), como <code>Physics()</code> o <code>Audio()</code>, así que la DLL del juego no arrastra el código del motor.
+Sin el sistema de decals (una escena que nunca se ha actualizado) devuelve una implementación vacía.</p>
+<p>Los componentes son <code>nova::Decal</code> y <code>nova::DecalReceiver</code>; las capas, <code>nova::DecalLayer::Static</code>, etc.</p>
+<h2 id="10-cómo-funciona-y-cuánto-cuesta">10. Cómo funciona y cuánto cuesta<a class="ancla" href="#10-cómo-funciona-y-cuánto-cuesta" aria-label="Enlace a esta sección">#</a></h2>
+<p>Nova Engine dibuja en <strong>forward+</strong> (sin G-buffer), así que los decals no pueden pintarse encima de la imagen ya
+iluminada sin perder la luz. Se aplican <strong>dentro</strong> del sombreado de cada superficie, antes de la luz, como en los
+motores forward modernos (&quot;clustered decals&quot;):</p>
+<ol>
+<li>En la CPU se recortan los decals por la vista, por la distancia (desvanecido y distancia final) y por el tamaño en
+pantalla (menos de un píxel no se dibuja), se ordenan por <strong>Orden</strong> y por antigüedad y se suben a la GPU. Las
+texturas de todos están en tres arrays de texturas (color, normal+rugosidad+metal y emisión), con mips.</li>
+<li>Tras la prepasada de profundidad, un compute shader reparte las cajas de los decals en los mismos <strong>mosaicos de
+16 × 16 píxeles</strong> que las luces, usando la profundidad mínima y máxima de lo que hay en cada mosaico, y guarda por
+mosaico una máscara de bits (un bit por decal, en orden de dibujo).</li>
+<li>Al sombrear cada píxel, el shader recorre solo los decals de su mosaico: los que contienen el punto cambian el
+color, la normal, la rugosidad, el metal y la emisión de la superficie, con el desvanecido por ángulo, por los
+bordes de la caja y por distancia, y la prueba de capas.</li>
+</ol>
+<p>Medido en una RTX 5060 Ti a <strong>1920 × 1080</strong> con sol y sombras (<code>nova_tests &quot;decals rendimiento&quot;</code>, release):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Escena</th>
+  <th>GPU por frame</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Sin decals</td>
+  <td>0,45 ms</td>
+</tr>
+<tr>
+  <td>1 decal (coste fijo: el reparto lee la profundidad de todos los mosaicos)</td>
+  <td>0,53 ms</td>
+</tr>
+<tr>
+  <td>500 decals repartidos por el suelo y las paredes (472 en pantalla, 19 tipos de textura)</td>
+  <td>0,83 ms → <strong>0,76 µs por decal</strong> (0,6 µs cada uno más allá del primero)</td>
+</tr>
+<tr>
+  <td>500 decals amontonados en poco sitio (el peor caso: muchos por mosaico)</td>
+  <td>0,99 ms</td>
+</tr>
+<tr>
+  <td>500 decals fuera de la vista</td>
+  <td>0,46 ms (se recortan en la CPU)</td>
+</tr>
+<tr>
+  <td>Solo el reparto en mosaicos, con 1 y con 500 decals</td>
+  <td>0,07 ms y 0,19 ms</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sin ningún decal visible no se hace nada (ni el reparto).</p>
+<p>En la CPU, reunir 500 decals cuesta 0,02 ms y recortarlos, ordenarlos y subirlos unos 0,6 ms por vista.</p>
+<p><strong>Ajuste del proyecto</strong>: <code>texturasDecals</code> en la sección <code>render</code> de <code>project.nova</code> (por defecto 512) es el lado de
+las capas de los arrays. Cada tipo de decal en uso ocupa una capa de color y otra de normal (unos 1,4 MB cada una a
+512); con 256 ocupan la cuarta parte y se ven más borrosos de cerca.</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"render"</span>: {
+  <span class="hl-k">"texturasDecals"</span>: <span class="hl-n">512</span>
+}</code></pre></div>
+<h2 id="11-referencia-de-la-api-de-lua">11. Referencia de la API de Lua<a class="ancla" href="#11-referencia-de-la-api-de-lua" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Decals.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Spawn(preajuste, posición, normal, tamaño?, giro?, vida?, desvanecido?, padre?)</code></td>
+  <td>Crea un decal; devuelve su número (0 si no se pudo)</td>
+</tr>
+<tr>
+  <td><code>Spawn(preajuste, posición, normal, tamaño?, opciones)</code></td>
+  <td>Igual, con una tabla de opciones (<code>rotation</code>, <code>lifetime</code>, <code>fadeTime</code>, <code>parent</code>, <code>color</code>, <code>opacity</code>, <code>variant</code>, <code>surface</code>, <code>layers</code>, <code>staticOnly</code>, <code>sortOrder</code>, <code>depth</code>, <code>fadeDistance</code>)</td>
+</tr>
+<tr>
+  <td><code>BulletHole(golpe, opciones?)</code></td>
+  <td>Agujero de bala según la superficie de <code>golpe.entity</code>, que la sigue. <code>golpe</code>: el resultado de <code>Physics.Raycast</code></td>
+</tr>
+<tr>
+  <td><code>BulletHole(posición, normal, superficie?)</code></td>
+  <td>Igual, con la superficie dada (<code>&quot;hormigon&quot;</code>, <code>&quot;metal&quot;</code>, <code>&quot;madera&quot;</code>, <code>&quot;vidrio&quot;</code>) o una tabla de opciones (también <code>size</code>)</td>
+</tr>
+<tr>
+  <td><code>Remove(id, desvanecido?)</code></td>
+  <td>Lo quita (desvaneciéndose si se dan segundos). <code>false</code> si ya no existía</td>
+</tr>
+<tr>
+  <td><code>IsAlive(id)</code></td>
+  <td><code>true</code> si existe (y no se está quitando)</td>
+</tr>
+<tr>
+  <td><code>Clear()</code></td>
+  <td>Quita todos al momento</td>
+</tr>
+<tr>
+  <td><code>Count()</code></td>
+  <td>Cuántos hay</td>
+</tr>
+<tr>
+  <td><code>SetMax(n)</code> / <code>GetMax()</code></td>
+  <td>Máximo a la vez (256 por defecto; hasta 4096)</td>
+</tr>
+<tr>
+  <td><code>Presets()</code></td>
+  <td>Lista de los nombres de los preajustes</td>
+</tr>
+<tr>
+  <td><code>SurfaceOf(entidad)</code></td>
+  <td>De qué está hecha: <code>&quot;hormigon&quot;</code>, <code>&quot;metal&quot;</code>, <code>&quot;madera&quot;</code> o <code>&quot;vidrio&quot;</code></td>
+</tr>
+<tr>
+  <td><code>Layer.Static</code>, <code>.Dynamic</code>, <code>.Characters</code>, <code>.Terrain</code>, <code>.Roads</code>, <code>.User1..3</code>, <code>.Default</code>, <code>.All</code></td>
+  <td>Bits de las capas (para <code>layers</code>, también como lista de nombres)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todo está declarado en <code>nova.d.luau</code> (autocompletado y tipos en VS Code).</p>
+<h2 id="12-detalles-y-límites">12. Detalles y límites<a class="ancla" href="#12-detalles-y-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Se dibujan como mucho <strong>1024 decals a la vez</strong> en cada vista (los más cercanos); el pool de la partida tiene 256
+por defecto. Los colocados no tienen límite propio.</li>
+<li>Lo <strong>transparente</strong> y el <strong>agua</strong> no reciben decals. El preajuste <code>bala_vidrio</code> es para vidrios <strong>opacos</strong> (un
+cristal oscuro y brillante, ventanas de edificios y coches); en un vidrio en modo Mezcla no se ve.</li>
+<li>La <strong>vegetación</strong> del terreno (hierba, arbustos instanciados) tampoco recibe decals.</li>
+<li>En un personaje que se anima, el decal sigue a la entidad (no a cada hueso): con movimientos amplios &quot;resbala&quot; un
+poco sobre la malla. Para heridas que deban quedarse en su sitio, que duren poco.</li>
+<li>El grosor de la caja importa: si es mayor que la pared, pinta también la cara de detrás (si su ángulo lo permite).</li>
+<li>Quien entra en una partida no ve los decals que ya había (<a href="#4-multijugador-el-patrón-multicast">sección 4</a>).</li>
+<li>Los decals de la partida se quitan al parar el juego y al cargar otra escena.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="particulas.html"><small>Anterior</small>Partículas</a><a class="sig" href="rendimiento.html"><small>Siguiente</small>Rendimiento</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-tu-primer-agujero-de-bala-en-cinco-minutos">1. Tu primer agujero de bala en cinco minutos</a></li><li class="n2"><a href="#2-desde-los-scripts-lua">2. Desde los scripts Lua</a></li><li class="n3"><a href="#crear-un-decal">Crear un decal</a></li><li class="n3"><a href="#ejemplos">Ejemplos</a></li><li class="n3"><a href="#máximo-y-limpieza">Máximo y limpieza</a></li><li class="n2"><a href="#3-los-preajustes">3. Los preajustes</a></li><li class="n3"><a href="#cómo-elige-el-agujero-de-bala-automático">Cómo elige el agujero de bala automático</a></li><li class="n2"><a href="#4-multijugador-el-patrón-multicast">4. Multijugador: el patrón [Multicast]</a></li><li class="n2"><a href="#5-impactos-decal--partículas">5. Impactos: decal + partículas</a></li><li class="n2"><a href="#6-colocarlos-en-el-editor">6. Colocarlos en el editor</a></li><li class="n3"><a href="#el-componente-calcomanía">El componente Calcomanía</a></li><li class="n2"><a href="#7-capas-a-qué-afecta-cada-decal">7. Capas: a qué afecta cada decal</a></li><li class="n2"><a href="#8-materiales-de-decal-decal">8. Materiales de decal (.decal)</a></li><li class="n2"><a href="#9-desde-c">9. Desde C++</a></li><li class="n2"><a href="#10-cómo-funciona-y-cuánto-cuesta">10. Cómo funciona y cuánto cuesta</a></li><li class="n2"><a href="#11-referencia-de-la-api-de-lua">11. Referencia de la API de Lua</a></li><li class="n2"><a href="#12-detalles-y-límites">12. Detalles y límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

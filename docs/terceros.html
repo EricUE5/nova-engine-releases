@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Código y recursos de terceros · Nova Engine</title>
+<meta name="description" content="Nova Engine usa estas librerías y recursos. Todas permiten usarlas en juegos que se venden; en los juegos
+publicados hay que incluir sus avisos de licencia (por ejemplo en los créditos o en un fichero junto al juego).">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Código y recursos de terceros · Nova Engine">
+<meta property="og:description" content="Nova Engine usa estas librerías y recursos. Todas permiten usarlas en juegos que se venden; en los juegos
+publicados hay que incluir sus avisos de licencia (por ejemplo en los créditos o en un fichero junto al juego).">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/terceros.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/terceros.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo" open><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html" aria-current="page">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="código-y-recursos-de-terceros">Código y recursos de terceros</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#fuentes">Fuentes</a></li><li class="n3"><a href="#fuentes-de-la-biblioteca-de-estilos-de-la-interfaz">Fuentes de la biblioteca de estilos de la interfaz</a></li><li class="n2"><a href="#luau">Luau</a></li><li class="n2"><a href="#opus">Opus</a></li><li class="n2"><a href="#ufbx">ufbx</a></li><li class="n2"><a href="#modelos-de-ejemplo-assetssamples">Modelos de ejemplo (assets/samples)</a></li><li class="n2"><a href="#personaje-de-los-paquetes-del-motor-paquetespersonaje">Personaje de los paquetes del motor (paquetes/personaje)</a></li><li class="n2"><a href="#steamworks">Steamworks</a></li><li class="n2"><a href="#textos-completos-de-las-licencias">Textos completos de las licencias</a></li><li class="n3"><a href="#dear-imgui">Dear ImGui</a></li><li class="n3"><a href="#jolt-physics">Jolt Physics</a></li><li class="n3"><a href="#cgltf">cgltf</a></li><li class="n3"><a href="#ufbx-1">ufbx</a></li><li class="n3"><a href="#stb-stb_image-stb_truetype-y-stb_rect_pack">stb (stb_image, stb_truetype y stb_rect_pack)</a></li><li class="n3"><a href="#miniaudio">miniaudio</a></li><li class="n3"><a href="#luau-1">Luau</a></li><li class="n3"><a href="#lua-51-partes-de-luau">Lua 5.1 (partes de Luau)</a></li><li class="n3"><a href="#opus-1">Opus</a></li><li class="n3"><a href="#fuentes-de-la-biblioteca-de-estilos">Fuentes de la biblioteca de estilos</a></li><li class="n2"><a href="#xatlas">xatlas</a></li></ul></details><p>Nova Engine usa estas librerías y recursos. Todas permiten usarlas en juegos que se venden; en los juegos
+publicados hay que incluir sus avisos de licencia (por ejemplo en los créditos o en un fichero junto al juego).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Versión</th>
+  <th>Para qué</th>
+  <th>Licencia</th>
+  <th>Carpeta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><a href="https://github.com/ocornut/imgui" rel="noopener">Dear ImGui</a></td>
+  <td>v1.92.9b-docking</td>
+  <td>Interfaz del editor</td>
+  <td>MIT</td>
+  <td><code>third_party/imgui</code></td>
+</tr>
+<tr>
+  <td><a href="https://github.com/jrouwe/JoltPhysics" rel="noopener">Jolt Physics</a></td>
+  <td>v5.6.0</td>
+  <td>Físicas</td>
+  <td>MIT</td>
+  <td><code>third_party/jolt</code></td>
+</tr>
+<tr>
+  <td><a href="https://github.com/jkuhlmann/cgltf" rel="noopener">cgltf</a></td>
+  <td>v1.15</td>
+  <td>Cargar modelos glTF / GLB</td>
+  <td>MIT</td>
+  <td><code>third_party/cgltf</code></td>
+</tr>
+<tr>
+  <td><a href="https://github.com/ufbx/ufbx" rel="noopener">ufbx</a></td>
+  <td>v0.23.1</td>
+  <td>Importar modelos FBX y OBJ</td>
+  <td>MIT o dominio público (a elegir; © 2020 Samuli Raivio)</td>
+  <td><code>third_party/ufbx</code></td>
+</tr>
+<tr>
+  <td><a href="https://github.com/nothings/stb" rel="noopener">stb_image</a></td>
+  <td>master</td>
+  <td>Cargar texturas PNG/JPG</td>
+  <td>Dominio público / MIT</td>
+  <td><code>third_party/stb</code></td>
+</tr>
+<tr>
+  <td><a href="https://github.com/mackron/miniaudio" rel="noopener">miniaudio</a></td>
+  <td>0.11.25</td>
+  <td>Audio</td>
+  <td>Dominio público / MIT-0</td>
+  <td><code>third_party/miniaudio</code></td>
+</tr>
+<tr>
+  <td><a href="https://github.com/luau-lang/luau" rel="noopener">Luau</a></td>
+  <td>0.741</td>
+  <td>Scripts en Lua: máquina virtual y compilador (y, solo en el editor, Analysis: tipos y autocompletado del editor de scripts)</td>
+  <td>MIT (© Roblox Corporation; partes de Lua 5.1, MIT, © Lua.org, PUC-Rio)</td>
+  <td><code>third_party/luau</code></td>
+</tr>
+<tr>
+  <td><a href="https://opus-codec.org" rel="noopener">Opus</a></td>
+  <td>1.5.2</td>
+  <td>Códec del chat de voz</td>
+  <td>BSD de 3 cláusulas (© Xiph.Org, Skype, Octasic, Jean-Marc Valin, Timothy B. Terriberry, CSIRO, Gregory Maxwell, Mark Borgerding, Erik de Castro Lopo, Mozilla, Amazon)</td>
+  <td><code>third_party/opus</code></td>
+</tr>
+<tr>
+  <td><a href="https://github.com/nothings/stb" rel="noopener">stb_truetype y stb_rect_pack</a></td>
+  <td>las de ImGui</td>
+  <td>Letras de la interfaz del juego (glifos SDF y atlas)</td>
+  <td>Dominio público / MIT</td>
+  <td><code>third_party/imgui</code> (<code>imstb_truetype.h</code>, <code>imstb_rectpack.h</code>)</td>
+</tr>
+<tr>
+  <td><a href="https://github.com/jpcy/xatlas" rel="noopener">xatlas</a></td>
+  <td>master (commit <code>f700c77</code>, 25-07-2022)</td>
+  <td>Segundo juego de UV de los lightmaps de la iluminación horneada (<code>nova/lighting/UvUnwrap.cpp</code>)</td>
+  <td>MIT (© 2018-2020 Jonathan Young)</td>
+  <td><code>third_party/xatlas</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="fuentes">Fuentes<a class="ancla" href="#fuentes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fuente</th>
+  <th>Autor</th>
+  <th>Para qué</th>
+  <th>Licencia</th>
+  <th>Dónde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/Roboto" rel="noopener">Roboto</a> Medium</td>
+  <td>Christian Robertson</td>
+  <td>Fuente integrada de la interfaz del juego (va dentro del motor y de todos los juegos)</td>
+  <td>Apache 2.0</td>
+  <td><code>engine/resources/fonts/Roboto-Medium.ttf</code> (copia de <code>third_party/imgui/misc/fonts</code>)</td>
+</tr>
+<tr>
+  <td>Karla Regular</td>
+  <td>Jonathan Pinhorn</td>
+  <td>Solo el HUD del ejemplo multijugador</td>
+  <td>SIL Open Font License 1.1</td>
+  <td><code>game/multiplayer_sample/assets/fuentes/Karla-Regular.ttf</code> (copia de <code>third_party/imgui/misc/fonts</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los créditos de las dos están en <code>third_party/imgui/docs/FONTS.md</code>. Si un juego usa Karla (u otra fuente
+OFL), la licencia permite incluirla, pero no venderla sola ni usar su nombre para una versión modificada.</p>
+<h3 id="fuentes-de-la-biblioteca-de-estilos-de-la-interfaz">Fuentes de la biblioteca de estilos de la interfaz<a class="ancla" href="#fuentes-de-la-biblioteca-de-estilos-de-la-interfaz" aria-label="Enlace a esta sección">#</a></h3>
+<p>Van dentro del motor y de todos los juegos (como Roboto), sin modificar, para los estilos de la biblioteca
+(<code>nova/ui/UiSkins.h</code>; ver «Biblioteca de estilos» en <code>docs/interfaz-ui.md</code>). Descargadas de su repositorio oficial
+(<a href="https://github.com/google/fonts" rel="noopener">google/fonts</a>); cada una con su licencia al lado y, abajo, en «Textos completos de
+las licencias». Las texturas de la biblioteca no son de terceros: las genera el motor por código.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fuente</th>
+  <th>Autor</th>
+  <th>Estilo</th>
+  <th>Licencia</th>
+  <th>Dónde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/Stardos+Stencil" rel="noopener">Stardos Stencil</a> Bold</td>
+  <td>Vernon Adams</td>
+  <td>Militar desgastado</td>
+  <td>SIL OFL 1.1 (nombre reservado «Stardos Stencil»)</td>
+  <td><code>engine/resources/fonts/estilos/StardosStencil-Bold.ttf</code></td>
+</tr>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/Black+Ops+One" rel="noopener">Black Ops One</a></td>
+  <td>James Grieshaber y Eben Sorkin</td>
+  <td>Metal oxidado</td>
+  <td>SIL OFL 1.1</td>
+  <td><code>engine/resources/fonts/estilos/BlackOpsOne-Regular.ttf</code></td>
+</tr>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/Special+Elite" rel="noopener">Special Elite</a></td>
+  <td>Astigmatic (Brian J. Bonislawsky)</td>
+  <td>Papel viejo</td>
+  <td>Apache 2.0</td>
+  <td><code>engine/resources/fonts/estilos/SpecialElite-Regular.ttf</code></td>
+</tr>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/Orbitron" rel="noopener">Orbitron</a></td>
+  <td>Matt McInerney</td>
+  <td>Sci-fi holográfico</td>
+  <td>SIL OFL 1.1 (nombre reservado «Orbitron»)</td>
+  <td><code>engine/resources/fonts/estilos/Orbitron.ttf</code> (<code>Orbitron[wght].ttf</code>)</td>
+</tr>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/Creepster" rel="noopener">Creepster</a></td>
+  <td>Font Diner, Inc</td>
+  <td>Terror</td>
+  <td>SIL OFL 1.1 (nombre reservado «Creepster»)</td>
+  <td><code>engine/resources/fonts/estilos/Creepster-Regular.ttf</code></td>
+</tr>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/MedievalSharp" rel="noopener">MedievalSharp</a></td>
+  <td>wmk69</td>
+  <td>Madera medieval</td>
+  <td>SIL OFL 1.1 (nombre reservado «MedievalSharp»)</td>
+  <td><code>engine/resources/fonts/estilos/MedievalSharp.ttf</code></td>
+</tr>
+<tr>
+  <td><a href="https://fonts.google.com/specimen/Press+Start+2P" rel="noopener">Press Start 2P</a></td>
+  <td>Cody «CodeMan38» Boisclair</td>
+  <td>Pixel art</td>
+  <td>SIL OFL 1.1 (nombre reservado «Press Start 2P»)</td>
+  <td><code>engine/resources/fonts/estilos/PressStart2P-Regular.ttf</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="luau">Luau<a class="ancla" href="#luau" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los juegos que usan scripts Lua llevan la máquina virtual de Luau dentro del ejecutable. Aviso de su licencia
+MIT (texto completo al final de este fichero, de <code>third_party/luau/LICENSE.txt</code> y <code>third_party/luau/lua_LICENSE.txt</code>):</p>
+<ul>
+<li>Copyright (c) 2019-2025 Roblox Corporation</li>
+<li>Copyright (c) 1994-2019 Lua.org, PUC-Rio</li>
+</ul>
+<p>El editor (no los juegos) compila además <strong>Luau.Analysis</strong> y <strong>Luau.Config</strong> de la misma copia (<code>third_party/luau/Analysis</code>
+y <code>Config</code>, MIT, mismos avisos de arriba) para el editor de scripts integrado: comprobación de tipos, autocompletado y
+lint (<code>luau_analysis</code> en <code>third_party/CMakeLists.txt</code>; ver <code>docs/editor-scripts.md</code>). Sin cambios en esa parte.</p>
+<p>Cambio propio en la copia de Luau (la licencia MIT lo permite): en <code>Compiler/src/Builtins.cpp</code>, las funciones de <code>Vec3</code>
+que dan exactamente lo mismo que las de la librería <code>vector</code> (<code>Dot</code>, <code>Cross</code>, <code>Length</code>, <code>Min</code>, <code>Max</code>, <code>Lerp</code>, <code>Floor</code>,
+<code>Ceil</code>, <code>Abs</code> y <code>Clamp</code>) se compilan con su misma instrucción rápida. Está marcado con «Nova Engine» y lo comprueba
+<code>tests/test_mates.cpp</code>; al actualizar Luau hay que volver a ponerlo.</p>
+<h2 id="opus">Opus<a class="ancla" href="#opus" aria-label="Enlace a esta sección">#</a></h2>
+<p>El chat de voz (<code>docs/voz.md</code>) comprime la voz con Opus 1.5.2, que va dentro del motor y de todos los juegos. Su
+licencia BSD pide incluir el aviso de copyright, la lista de condiciones y la renuncia de garantía en la
+documentación o los créditos del juego publicado: el texto completo va al final de este fichero (de
+<code>third_party/opus/COPYING</code>; los autores, en <code>third_party/opus/AUTHORS</code>). Opus está cubierto además por licencias de
+patentes gratuitas de Xiph.Org, Microsoft y Broadcom (enlazadas al final del mismo texto).</p>
+<p>Copia sin cambios: solo las fuentes de C necesarias (<code>celt</code>, <code>silk</code>, <code>silk/float</code>, <code>src</code> sin multistream ni proyección
+e <code>include</code>), del <code>opus-1.5.2.tar.gz</code> oficial (sha256 <code>65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1</code>),
+compiladas con una lista propia en <code>third_party/CMakeLists.txt</code> (coma flotante, sin SIMD específico ni redes neuronales).</p>
+<h2 id="ufbx">ufbx<a class="ancla" href="#ufbx" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lee los <code>.fbx</code> (binarios y de texto, 6.x y 7.x) y los <code>.obj</code> con su <code>.mtl</code> en el editor y en los juegos que
+llevan modelos FBX (va dentro del motor). Licencia al final de este fichero (de <code>third_party/ufbx/LICENSE</code>): se puede usar como MIT
+(Copyright (c) 2020 Samuli Raivio) o como dominio público; con la opción de dominio público no hace falta
+incluir ningún aviso. Sin cambios propios en la copia (<code>ufbx.c</code> y <code>ufbx.h</code> tal cual).</p>
+<h2 id="modelos-de-ejemplo-assetssamples">Modelos de ejemplo (<code>assets/samples</code>)<a class="ancla" href="#modelos-de-ejemplo-assetssamples" aria-label="Enlace a esta sección">#</a></h2>
+<p>De <a href="https://github.com/KhronosGroup/glTF-Sample-Assets" rel="noopener">glTF Sample Assets</a> de Khronos. Ver los
+<code>*.LICENSE.md</code> junto a cada modelo:</p>
+<ul>
+<li><code>Fox.glb</code>: zorro animado (andar, correr). CC-BY 4.0.</li>
+<li><code>CesiumMan.glb</code>: personaje animado (andar). CC-BY 4.0.</li>
+</ul>
+<p>Si se usan en un juego publicado, hay que mencionar a sus autores como dicen sus licencias.</p>
+<h2 id="personaje-de-los-paquetes-del-motor-paquetespersonaje">Personaje de los paquetes del motor (<code>paquetes/personaje</code>)<a class="ancla" href="#personaje-de-los-paquetes-del-motor-paquetespersonaje" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Autor</th>
+  <th>Licencia</th>
+  <th>De dónde</th>
+  <th>Dónde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Maniquí animado (malla, esqueleto y 10 animaciones: quieto, andar, trotar, esprintar, agachado quieto y andando, empezar a saltar, en el aire, aterrizar e interactuar)</td>
+  <td><a href="https://quaternius.com" rel="noopener">Quaternius</a></td>
+  <td><a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener">CC0 1.0</a> (dominio público)</td>
+  <td>«Universal Animation Library [Standard]», <a href="https://opengameart.org/content/universal-animation-library" rel="noopener">https://opengameart.org/content/universal-animation-library</a> (<code>universal_animation_librarystandard.zip</code>, <code>Godot/AnimationLibrary_Godot_Standard.glb</code>; también en <a href="https://quaternius.com/packs/universalanimationlibrary.html" rel="noopener">https://quaternius.com/packs/universalanimationlibrary.html</a>)</td>
+  <td><code>paquetes/personaje/contenido/assets/Nova/Personaje/Maniqui.glb</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Maniqui.glb</code> es una copia recortada que hace <code>paquetes/herramientas/preparar_maniqui.py</code>: solo esas 10 animaciones,
+otros colores en sus dos materiales, una segunda malla sin cabeza ni cuello (la vista «Cuerpo completo» de la primera
+persona) y una tercera solo con los brazos y las manos (los brazos de primera persona, viewmodel, desde la 1.1.0 del
+paquete; misma fuente y misma licencia, no hay recursos nuevos). Con CC0 no hace falta mencionar al autor, aunque se agradece. Los paquetes no llevan nada de Mixamo; la
+rejilla del suelo, los materiales, el controlador de animación, los prefabs y las escenas los genera el motor
+(<code>nova_paquetesgen</code>).</p>
+<h2 id="steamworks">Steamworks<a class="ancla" href="#steamworks" aria-label="Enlace a esta sección">#</a></h2>
+<p>El SDK de Steamworks <strong>no</strong> está incluido (no se puede redistribuir). Se descarga desde
+<a href="https://partner.steamgames.com" rel="noopener">https://partner.steamgames.com</a> con una cuenta de Steamworks y se deja en <code>C:\\SteamworksSDK\sdk</code> (o en la
+carpeta de la variable <code>NOVA_STEAMWORKS_SDK</code>, o en <code>third_party/steamworks/</code>; ver <code>docs/steam.md</code>).</p>
+<ul>
+<li><strong><code>steam_api64.dll</code></strong> (Valve Corporation, del SDK de Steamworks, <code>redistributable_bin/win64</code>): es el único fichero
+del SDK que se distribuye. La compilación lo copia junto a los ejecutables del motor y «Publicar juego» lo copia
+junto al juego si el proyecto usa Steam. Se usa y redistribuye según el acuerdo de acceso al SDK de Steamworks de
+Valve (Steamworks SDK Access Agreement); no lo modifiques. El resto del SDK (cabeceras, bibliotecas,
+herramientas) no se publica con el motor ni con los juegos.</li>
+</ul>
+<h2 id="textos-completos-de-las-licencias">Textos completos de las licencias<a class="ancla" href="#textos-completos-de-las-licencias" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las licencias de las librerías piden que su aviso y su texto acompañen a los programas que las llevan (el motor y
+los juegos publicados). Van aquí copiados tal cual de su fichero en <code>third_party/</code> (el LICENCIAS.txt que el editor
+pone junto a un juego publicado lleva este fichero entero). <code>tests/test_terceros.cpp</code> comprueba que siguen iguales
+que los de <code>third_party/</code>: al actualizar una librería, copia aquí su licencia nueva.</p>
+<h3 id="dear-imgui">Dear ImGui<a class="ancla" href="#dear-imgui" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/imgui/LICENSE.txt</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">The MIT License (MIT)
+
+Copyright (c) 2014-2026 Omar Cornut
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</code></pre></div>
+<h3 id="jolt-physics">Jolt Physics<a class="ancla" href="#jolt-physics" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/jolt/LICENSE</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright 2021 Jorrit Rouwe
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</code></pre></div>
+<h3 id="cgltf">cgltf<a class="ancla" href="#cgltf" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/cgltf/LICENSE</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright (c) 2018-2021 Johannes Kuhlmann
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</code></pre></div>
+<h3 id="ufbx-1">ufbx<a class="ancla" href="#ufbx-1" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/ufbx/LICENSE</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">------------------------------------------------------------------------------
+This software is available under 2 licenses -- choose whichever you prefer.
+------------------------------------------------------------------------------
+ALTERNATIVE A - MIT License
+Copyright (c) 2020 Samuli Raivio
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+------------------------------------------------------------------------------
+ALTERNATIVE B - Public Domain (www.unlicense.org)
+This is free and unencumbered software released into the public domain.
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
+software, either in source code form or as a compiled binary, for any purpose,
+commercial or non-commercial, and by any means.
+In jurisdictions that recognize copyright laws, the author or authors of this
+software dedicate any and all copyright interest in the software to the public
+domain. We make this dedication for the benefit of the public at large and to
+the detriment of our heirs and successors. We intend this dedication to be an
+overt act of relinquishment in perpetuity of all present and future rights to
+this software under copyright law.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+----------------------------------------</code></pre></div>
+<h3 id="stb-stb_image-stb_truetype-y-stb_rect_pack">stb (stb_image, stb_truetype y stb_rect_pack)<a class="ancla" href="#stb-stb_image-stb_truetype-y-stb_rect_pack" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/stb/LICENSE</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">This software is available under 2 licenses -- choose whichever you prefer.
+------------------------------------------------------------------------------
+ALTERNATIVE A - MIT License
+Copyright (c) 2017 Sean Barrett
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+------------------------------------------------------------------------------
+ALTERNATIVE B - Public Domain (www.unlicense.org)
+This is free and unencumbered software released into the public domain.
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
+software, either in source code form or as a compiled binary, for any purpose,
+commercial or non-commercial, and by any means.
+In jurisdictions that recognize copyright laws, the author or authors of this
+software dedicate any and all copyright interest in the software to the public
+domain. We make this dedication for the benefit of the public at large and to
+the detriment of our heirs and successors. We intend this dedication to be an
+overt act of relinquishment in perpetuity of all present and future rights to
+this software under copyright law.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</code></pre></div>
+<h3 id="miniaudio">miniaudio<a class="ancla" href="#miniaudio" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/miniaudio/LICENSE</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">This software is available as a choice of the following licenses. Choose
+whichever you prefer.
+
+===============================================================================
+ALTERNATIVE 1 - Public Domain (www.unlicense.org)
+===============================================================================
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
+software, either in source code form or as a compiled binary, for any purpose,
+commercial or non-commercial, and by any means.
+
+In jurisdictions that recognize copyright laws, the author or authors of this
+software dedicate any and all copyright interest in the software to the public
+domain. We make this dedication for the benefit of the public at large and to
+the detriment of our heirs and successors. We intend this dedication to be an
+overt act of relinquishment in perpetuity of all present and future rights to
+this software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to &lt;http://unlicense.org/&gt;
+
+===============================================================================
+ALTERNATIVE 2 - MIT No Attribution
+===============================================================================
+Copyright 2025 David Reid
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</code></pre></div>
+<h3 id="luau-1">Luau<a class="ancla" href="#luau-1" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/luau/LICENSE.txt</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">MIT License
+
+Copyright (c) 2019-2025 Roblox Corporation
+Copyright (c) 1994–2019 Lua.org, PUC-Rio.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</code></pre></div>
+<h3 id="lua-51-partes-de-luau">Lua 5.1 (partes de Luau)<a class="ancla" href="#lua-51-partes-de-luau" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/luau/lua_LICENSE.txt</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright © 1994–2019 Lua.org, PUC-Rio.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. </code></pre></div>
+<h3 id="opus-1">Opus<a class="ancla" href="#opus-1" aria-label="Enlace a esta sección">#</a></h3>
+<p>De <code>third_party/opus/COPYING</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright 2001-2023 Xiph.Org, Skype Limited, Octasic,
+                    Jean-Marc Valin, Timothy B. Terriberry,
+                    CSIRO, Gregory Maxwell, Mark Borgerding,
+                    Erik de Castro Lopo, Mozilla, Amazon
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+- Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+- Neither the name of Internet Society, IETF or IETF Trust, nor the
+names of specific contributors, may be used to endorse or promote
+products derived from this software without specific prior written
+permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Opus is subject to the royalty-free patent licenses which are
+specified at:
+
+Xiph.Org Foundation:
+https://datatracker.ietf.org/ipr/1524/
+
+Microsoft Corporation:
+https://datatracker.ietf.org/ipr/1914/
+
+Broadcom Corporation:
+https://datatracker.ietf.org/ipr/1526/</code></pre></div>
+<h3 id="fuentes-de-la-biblioteca-de-estilos">Fuentes de la biblioteca de estilos<a class="ancla" href="#fuentes-de-la-biblioteca-de-estilos" aria-label="Enlace a esta sección">#</a></h3>
+<p>Copiadas tal cual de su fichero en <code>engine/resources/fonts/estilos/</code>.</p>
+<h4 id="stardos-stencil">Stardos Stencil<a class="ancla" href="#stardos-stencil" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright (c) 2011 by vernon adams (vern@newtypography.co.uk),
+with Reserved Font Names "Stardos" and "Stardos Stencil".
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</code></pre></div>
+<h4 id="black-ops-one">Black Ops One<a class="ancla" href="#black-ops-one" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright 2022 The Black-Ops Project Authors (https://github.com/googlefonts/googlefonts-project-template)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</code></pre></div>
+<h4 id="special-elite">Special Elite<a class="ancla" href="#special-elite" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.</code></pre></div>
+<h4 id="orbitron">Orbitron<a class="ancla" href="#orbitron" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright 2018 The Orbitron Project Authors (https://github.com/theleagueof/orbitron), with Reserved Font Name: "Orbitron"
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</code></pre></div>
+<h4 id="creepster">Creepster<a class="ancla" href="#creepster" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright (c) 2011, Font Diner, Inc (diner@fontdiner.com),
+with Reserved Font Names "Creepster"
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</code></pre></div>
+<h4 id="medievalsharp">MedievalSharp<a class="ancla" href="#medievalsharp" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright (c) 2011, wmk69 (wmk69@o2.pl),
+with Reserved Font Name MedievalSharp.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+
+SIL OPEN FONT LICENSE
+
+Version 1.1 - 26 February 2007
+
+
+PREAMBLE
+
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded,
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+
+DEFINITIONS
+
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting — in part or in whole — any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+
+PERMISSION &amp; CONDITIONS
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+
+TERMINATION
+
+This license becomes null and void if any of the above conditions are
+not met.
+
+
+DISCLAIMER
+
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</code></pre></div>
+<h4 id="press-start-2p">Press Start 2P<a class="ancla" href="#press-start-2p" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">Copyright 2012 The Press Start 2P Project Authors (cody@zone38.net), with Reserved Font Name "Press Start 2P".
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</code></pre></div>
+<h2 id="xatlas">xatlas<a class="ancla" href="#xatlas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Corta las mallas en islas y las coloca sin solapes para los lightmaps de la iluminación horneada
+(<code>docs/iluminacion-horneada.md</code>). Va dentro del motor y del editor (el juego publicado solo lee los lightmaps ya
+horneados, pero la librería está enlazada en el motor). Copia sin cambios de <code>source/xatlas/xatlas.cpp</code>, <code>xatlas.h</code> y
+<code>LICENSE</code> del repositorio oficial (commit <code>f700c7790aaa030e794b52ba7791a05c085faf0c</code>). Licencia MIT:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">MIT License
+
+Copyright (c) 2018-2020 Jonathan Young
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</code></pre></div>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="errores.html"><small>Anterior</small>Informe de errores</a><a class="sig" href="enlace-ia.html"><small>Siguiente</small>Enlace con Nova IA</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#fuentes">Fuentes</a></li><li class="n3"><a href="#fuentes-de-la-biblioteca-de-estilos-de-la-interfaz">Fuentes de la biblioteca de estilos de la interfaz</a></li><li class="n2"><a href="#luau">Luau</a></li><li class="n2"><a href="#opus">Opus</a></li><li class="n2"><a href="#ufbx">ufbx</a></li><li class="n2"><a href="#modelos-de-ejemplo-assetssamples">Modelos de ejemplo (assets/samples)</a></li><li class="n2"><a href="#personaje-de-los-paquetes-del-motor-paquetespersonaje">Personaje de los paquetes del motor (paquetes/personaje)</a></li><li class="n2"><a href="#steamworks">Steamworks</a></li><li class="n2"><a href="#textos-completos-de-las-licencias">Textos completos de las licencias</a></li><li class="n3"><a href="#dear-imgui">Dear ImGui</a></li><li class="n3"><a href="#jolt-physics">Jolt Physics</a></li><li class="n3"><a href="#cgltf">cgltf</a></li><li class="n3"><a href="#ufbx-1">ufbx</a></li><li class="n3"><a href="#stb-stb_image-stb_truetype-y-stb_rect_pack">stb (stb_image, stb_truetype y stb_rect_pack)</a></li><li class="n3"><a href="#miniaudio">miniaudio</a></li><li class="n3"><a href="#luau-1">Luau</a></li><li class="n3"><a href="#lua-51-partes-de-luau">Lua 5.1 (partes de Luau)</a></li><li class="n3"><a href="#opus-1">Opus</a></li><li class="n3"><a href="#fuentes-de-la-biblioteca-de-estilos">Fuentes de la biblioteca de estilos</a></li><li class="n2"><a href="#xatlas">xatlas</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

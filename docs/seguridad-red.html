@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seguridad de la red · Nova Engine</title>
+<meta name="description" content="Cómo protege Nova Engine tus partidas en red contra los tramposos y los abusos, qué puedes ajustar sin escribir
+código y qué te toca a ti en los scripts Lua. Si vas a publicar un juego multijugador (en Steam o donde sea)">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Seguridad de la red · Nova Engine">
+<meta property="og:description" content="Cómo protege Nova Engine tus partidas en red contra los tramposos y los abusos, qué puedes ajustar sin escribir
+código y qué te toca a ti en los scripts Lua. Si vas a publicar un juego multijugador (en Steam o donde sea)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/seguridad-red.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/seguridad-red.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html" aria-current="page">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="seguridad-de-la-red">Seguridad de la red</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-lo-que-hace-el-motor-solo">1. Lo que hace el motor solo</a></li><li class="n2"><a href="#2-cifrado-de-la-conexión">2. Cifrado de la conexión</a></li><li class="n2"><a href="#3-límites-por-jugador-y-qué-pasa-al-pasarse">3. Límites por jugador y qué pasa al pasarse</a></li><li class="n2"><a href="#4-ajustes">4. Ajustes</a></li><li class="n2"><a href="#5-funciones-server-seguras">5. Funciones [Server] seguras</a></li><li class="n3"><a href="#validate-y-kickafter">validate y kickAfter</a></li><li class="n2"><a href="#6-buenas-prácticas-en-lua">6. Buenas prácticas en Lua</a></li><li class="n2"><a href="#7-la-api-security">7. La API Security</a></li><li class="n2"><a href="#8-clientes-modificados-la-huella-del-contenido">8. Clientes modificados: la huella del contenido</a></li><li class="n2"><a href="#9-el-registro-de-seguridad-y-el-servidor-dedicado">9. El registro de seguridad y el servidor dedicado</a></li><li class="n2"><a href="#10-lo-que-no-evita-límites-honestos">10. Lo que no evita (límites honestos)</a></li><li class="n2"><a href="#11-compatibilidad-y-coste">11. Compatibilidad y coste</a></li></ul></details><p>Cómo protege Nova Engine tus partidas en red contra los tramposos y los abusos, qué puedes ajustar sin escribir
+código y qué te toca a ti en los scripts Lua. Si vas a publicar un juego multijugador (en Steam o donde sea), lee
+al menos las secciones 1, 6 y 9.</p>
+<p>La regla de oro, antes que nada: <strong>el servidor decide</strong>. Los puntos, el daño, las compras, quién gana una ronda, quién
+miente y quién no: todo eso se calcula en el servidor con lo que el servidor sabe. Un cliente solo <strong>pide</strong> cosas
+(«quiero votar a Ana», «quiero comprar 3 pociones»); el servidor comprueba si puede y lo hace (o no). Nunca aceptes
+de un cliente un resultado ya calculado («he ganado 500 puntos»).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-lo-que-hace-el-motor-solo">Lo que hace el motor solo</a></li>
+<li><a href="#2-cifrado-de-la-conexión">Cifrado de la conexión</a></li>
+<li><a href="#3-límites-por-jugador-y-qué-pasa-al-pasarse">Límites por jugador y qué pasa al pasarse</a></li>
+<li><a href="#4-ajustes">Ajustes</a></li>
+<li><a href="#5-funciones-server-seguras">Funciones <code>[Server]</code> seguras</a></li>
+<li><a href="#6-buenas-prácticas-en-lua">Buenas prácticas en Lua</a></li>
+<li><a href="#7-la-api-security">La API <code>Security</code></a></li>
+<li><a href="#8-clientes-modificados-la-huella-del-contenido">Clientes modificados: la huella del contenido</a></li>
+<li><a href="#9-el-registro-de-seguridad-y-el-servidor-dedicado">El registro de seguridad y el servidor dedicado</a></li>
+<li><a href="#10-lo-que-no-evita-límites-honestos">Lo que no evita (límites honestos)</a></li>
+<li><a href="#11-compatibilidad-y-coste">Compatibilidad y coste</a></li>
+</ol>
+<h2 id="1-lo-que-hace-el-motor-solo">1. Lo que hace el motor solo<a class="ancla" href="#1-lo-que-hace-el-motor-solo" aria-label="Enlace a esta sección">#</a></h2>
+<p>Sin tocar nada, en cualquier partida en red:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ataque</th>
+  <th>Qué hace el motor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Leer o falsificar paquetes en la misma Wi-Fi (o por el camino)</td>
+  <td>Por UDP directo la conexión va <strong>cifrada y autenticada</strong> (sección 2). Un paquete cambiado, inventado o repetido se tira</td>
+</tr>
+<tr>
+  <td>Teletransportarse, correr más, volar, atravesar paredes con el personaje</td>
+  <td>El servidor <strong>simula él mismo</strong> el movimiento del <code>CharacterController</code> (el cliente solo envía «adelante, salto, giro»); nunca acepta una posición del cliente. El cliente que hace trampas en su máquina ve cómo el servidor le devuelve a su sitio</td>
+</tr>
+<tr>
+  <td>Acelerar el juego (programas que aceleran el reloj)</td>
+  <td>El servidor procesa como mucho una entrada por tick y <strong>detecta</strong> a quien envía más (con margen por el ping y los tirones de la red; mide también con el reloj real, así que un anfitrión que va a pocos FPS no culpa a sus jugadores)</td>
+</tr>
+<tr>
+  <td>Llamar a funciones <code>[Server]</code> de algo de otro jugador (su personaje, su inventario)</td>
+  <td>Rechazado: solo el dueño de la entidad (salvo <code>[AnyCaller]</code> o los scripts <code>[Global]</code>, sección 5)</td>
+</tr>
+<tr>
+  <td>Inundar al servidor (paquetes, mensajes, bytes, RPC)</td>
+  <td>Límites por jugador; lo que sobra se descarta y, si dura, se expulsa (o se avisa, o se banea: tú eliges)</td>
+</tr>
+<tr>
+  <td>Argumentos raros: tipos equivocados, textos enormes, tablas gigantes, NaN</td>
+  <td>Los tipos de los parámetros se comprueban siempre; los textos, tablas y argumentos tienen tamaño máximo; NaN e infinitos se rechazan</td>
+</tr>
+<tr>
+  <td>Llenar el servidor con muchas conexiones desde un mismo PC</td>
+  <td>Como mucho 4 conexiones a la vez desde la misma IP (ajustable)</td>
+</tr>
+<tr>
+  <td>Suplantar a otro jugador o la dirección de alguien</td>
+  <td>El saludo de la conexión comprueba que quien conecta recibe de verdad en su dirección (como el SYN-cookie de TCP)</td>
+</tr>
+<tr>
+  <td>Usar el servidor para atacar a otro (amplificación)</td>
+  <td>El servidor nunca responde a un desconocido con más bytes de los que recibe</td>
+</tr>
+<tr>
+  <td>Repetir paquetes viejos capturados</td>
+  <td>Cada paquete cifrado lleva un contador que se acepta una sola vez</td>
+</tr>
+<tr>
+  <td>Cliente con los scripts o assets cambiados</td>
+  <td>Cada cliente envía la <strong>huella</strong> de su contenido al unirse; el servidor avisa (o lo rechaza, si lo eliges) (sección 8)</td>
+</tr>
+<tr>
+  <td>Mensajes malformados</td>
+  <td>Se descartan sin que nada se caiga (el motor se prueba con millones de paquetes aleatorios)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todo lo que el motor detecta queda en el <strong>registro de seguridad</strong> del servidor y llega a tus scripts con
+<code>Security.OnCheatSuspected</code> (secciones 7 y 9). Los contadores de infracciones <strong>se olvidan con el tiempo</strong>: un jugador
+legítimo con mala conexión (paquetes que llegan tarde, carreras normales de la red) no acumula infracciones para
+siempre; una ráfaga de trampas sí llega al límite enseguida.</p>
+<h2 id="2-cifrado-de-la-conexión">2. Cifrado de la conexión<a class="ancla" href="#2-cifrado-de-la-conexión" aria-label="Enlace a esta sección">#</a></h2>
+<p>Por <strong>UDP directo</strong> (IP y puerto, red local, servidor dedicado) cada partida intercambia claves al conectar
+(X25519) y cifra y autentica todos los paquetes (AES-256-GCM, de Windows: no hace falta instalar nada). Eso quiere
+decir que:</p>
+<ul>
+<li>nadie en la misma Wi-Fi o en el camino puede leer lo que se envía (el chat, los campos <code>OwnerOnly</code>, tu inventario,
+las cartas de tu mano) ni el nombre del jugador;</li>
+<li>nadie puede inyectar órdenes falsas en tu nombre ni echarte de la partida con un paquete inventado;</li>
+<li>un paquete capturado no se puede volver a enviar;</li>
+<li>la contraseña de la partida nunca viaja, ni siquiera cifrada: el cliente demuestra que la conoce.</li>
+</ul>
+<p>Por <strong>Steam</strong> no se cifra otra vez: Steam ya cifra y autentica la conexión de extremo a extremo. Por <strong>Nova Enlace</strong>
+(partidas por código) tampoco por defecto: el tráfico ya va con TLS entre cada PC y el relé; si quieres que ni el
+relé pueda leerlo, marca <strong>Cifrar también por Nova Enlace</strong> (cuesta 30 bytes por paquete).</p>
+<p>Un cliente que se conecta por IP <strong>exige</strong> el cifrado: si un servidor por IP no cifra (otra versión, o alguien en
+medio que intenta quitar el cifrado), no se conecta y lo dice. La opción <strong>Nunca</strong> existe solo para pruebas.</p>
+<h2 id="3-límites-por-jugador-y-qué-pasa-al-pasarse">3. Límites por jugador y qué pasa al pasarse<a class="ancla" href="#3-límites-por-jugador-y-qué-pasa-al-pasarse" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Límite</th>
+  <th>Por defecto</th>
+  <th>Qué cuenta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Conexiones por IP</td>
+  <td>4</td>
+  <td>Conexiones a la vez desde la misma IP (los amigos de una misma casa comparten IP: súbelo si hace falta). Este PC no cuenta</td>
+</tr>
+<tr>
+  <td>Paquetes por segundo</td>
+  <td>300</td>
+  <td>Paquetes que envía cada jugador (uno normal envía unos 60: como mucho un envío por tick de red, vaya a los fps que vaya)</td>
+</tr>
+<tr>
+  <td>Mensajes por segundo</td>
+  <td>1000</td>
+  <td>Mensajes dentro de esos paquetes</td>
+</tr>
+<tr>
+  <td>Subida (bytes por segundo)</td>
+  <td>256 KB/s</td>
+  <td>Lo que envía cada jugador</td>
+</tr>
+<tr>
+  <td>RPC por segundo</td>
+  <td>60 (ráfagas de 120)</td>
+  <td>Todas sus funciones <code>[Server]</code> juntas. Cada función puede tener su propio límite: <code>--[Server, RateLimit(5)]</code></td>
+</tr>
+<tr>
+  <td>Argumentos</td>
+  <td>8 KB</td>
+  <td>Tamaño de los argumentos de una función <code>[Server]</code> o de un evento (<code>TriggerServerEvent</code>)</td>
+</tr>
+<tr>
+  <td>Texto en argumentos</td>
+  <td>4096 bytes</td>
+  <td>Un texto dentro de esos argumentos</td>
+</tr>
+<tr>
+  <td>Elementos de una tabla</td>
+  <td>64</td>
+  <td>Pares de una tabla dentro de esos argumentos</td>
+</tr>
+<tr>
+  <td>Eventos de red</td>
+  <td>30 por segundo</td>
+  <td><code>TriggerServerEvent</code> de cada jugador</td>
+</tr>
+</tbody>
+</table></div>
+<p>Lo que pasa de un límite <strong>se descarta siempre</strong>. Si un jugador se pasa <strong>sin parar</strong> (3 segundos seguidos por encima
+de los límites de tráfico, o cientos de RPC descartadas), se aplica <strong>Al pasarse de un límite</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Descartar</td>
+  <td>Solo descarta lo que sobra (y lo apunta en el registro)</td>
+</tr>
+<tr>
+  <td>Avisar</td>
+  <td>Descarta, lo apunta y avisa a tus scripts (<code>OnCheatSuspected</code>)</td>
+</tr>
+<tr>
+  <td>Expulsar (por defecto)</td>
+  <td>Lo anterior y lo expulsa («demasiado tráfico»)</td>
+</tr>
+<tr>
+  <td>Banear</td>
+  <td>Lo anterior y no le deja volver durante los <strong>minutos de baneo</strong> (10 por defecto): su IP, o su cuenta de Steam si entró por Steam</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Al sospechar trampas</strong> funciona igual para lo que huele a trampa: llamadas sobre algo de otro jugador (60 seguidas),
+entradas de movimiento no válidas (60), argumentos rechazados (20), juego acelerado (dos ventanas de 5 s con más de
+un 25 % de entradas de más) y las sospechas que reporta tu juego con <code>Security.Report</code> (5, ajustable). Por defecto,
+<strong>Expulsar</strong>.</p>
+<p>El anfitrión (el jugador que aloja la partida en su PC) nunca se expulsa ni se banea a sí mismo.</p>
+<h2 id="4-ajustes">4. Ajustes<a class="ancla" href="#4-ajustes" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ajustes del proyecto &gt; Red &gt; Seguridad</strong>. Se guardan en <code>project.nova</code> (<code>&quot;red&quot;: { &quot;seguridad&quot;: { ... } }</code>) y
+<code>NovaServer.exe</code> los puede cambiar con la sección <code>&quot;seguridad&quot;</code> de <code>servidor.json</code> (solo las claves que pongas):</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"seguridad"</span>: {
+    <span class="hl-k">"cifrado"</span>: <span class="hl-s">"auto"</span>,
+    <span class="hl-k">"conexionesPorIp"</span>: <span class="hl-n">4</span>,
+    <span class="hl-k">"alPasarseDelLimite"</span>: <span class="hl-s">"expulsar"</span>,
+    <span class="hl-k">"alSospechar"</span>: <span class="hl-s">"banear"</span>,
+    <span class="hl-k">"minutosBaneo"</span>: <span class="hl-n">30</span>,
+    <span class="hl-k">"comprobarContenido"</span>: <span class="hl-s">"rechazar"</span>,
+    <span class="hl-k">"assetsClave"</span>: [<span class="hl-s">"prefabs/Jugador.prefab"</span>, <span class="hl-s">"scenes/Ascensor.scene"</span>],
+    <span class="hl-k">"canales"</span>: { <span class="hl-k">"chat"</span>: { <span class="hl-k">"mensajesPorSegundo"</span>: <span class="hl-n">2</span>, <span class="hl-k">"maxBytes"</span>: <span class="hl-n">300</span> } }
+  }
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>cifrado</code></td>
+  <td><code>&quot;auto&quot;</code></td>
+  <td><code>&quot;auto&quot;</code> (cifrar por UDP directo), <code>&quot;siempre&quot;</code> o <code>&quot;nunca&quot;</code> (solo pruebas)</td>
+</tr>
+<tr>
+  <td><code>cifrarEnlace</code></td>
+  <td><code>false</code></td>
+  <td>Cifrar también por Nova Enlace, de extremo a extremo</td>
+</tr>
+<tr>
+  <td><code>conexionesPorIp</code></td>
+  <td><code>4</code></td>
+  <td>0 = sin límite</td>
+</tr>
+<tr>
+  <td><code>paquetesPorSegundo</code></td>
+  <td><code>300</code></td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>mensajesPorSegundo</code></td>
+  <td><code>1000</code></td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>bytesPorSegundo</code></td>
+  <td><code>262144</code></td>
+  <td>Subida de cada jugador (0 = sin límite)</td>
+</tr>
+<tr>
+  <td><code>rpcPorSegundo</code> / <code>rafagaRpc</code></td>
+  <td><code>60</code> / <code>120</code></td>
+  <td>Todas las <code>[Server]</code> de un jugador</td>
+</tr>
+<tr>
+  <td><code>maxBytesArgumentos</code></td>
+  <td><code>8192</code></td>
+  <td>Como mucho 8192</td>
+</tr>
+<tr>
+  <td><code>maxTextoArgumento</code></td>
+  <td><code>4096</code></td>
+  <td>Como mucho 4096</td>
+</tr>
+<tr>
+  <td><code>maxElementosTabla</code></td>
+  <td><code>64</code></td>
+  <td>Como mucho 64</td>
+</tr>
+<tr>
+  <td><code>canales</code></td>
+  <td><code>voz</code> y <code>chat</code> de serie</td>
+  <td>Límites propios para <code>Security.AllowRate(jugador, &quot;canal&quot;)</code> y para los sistemas del motor que los usan: <code>mensajesPorSegundo</code>, <code>bytesPorSegundo</code> y <code>maxBytes</code> por mensaje. El chat de voz (<code>&quot;voz&quot;</code>: 60 paquetes y 40 000 bytes por segundo, 576 bytes por paquete) y el chat de la partida (<code>&quot;chat&quot;</code>: 5 mensajes y 8 192 bytes por segundo) ya traen los suyos, holgados para un jugador normal; si los pones aquí, mandan los tuyos</td>
+</tr>
+<tr>
+  <td><code>alPasarseDelLimite</code></td>
+  <td><code>&quot;expulsar&quot;</code></td>
+  <td><code>&quot;descartar&quot;</code>, <code>&quot;avisar&quot;</code>, <code>&quot;expulsar&quot;</code> o <code>&quot;banear&quot;</code></td>
+</tr>
+<tr>
+  <td><code>alSospechar</code></td>
+  <td><code>&quot;expulsar&quot;</code></td>
+  <td>Igual</td>
+</tr>
+<tr>
+  <td><code>minutosBaneo</code></td>
+  <td><code>10</code></td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>detectarJuegoAcelerado</code></td>
+  <td><code>true</code></td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>toleranciaVelocidad</code></td>
+  <td><code>1.25</code></td>
+  <td>Cuántas entradas de más se toleran (1,25 = un 25 %)</td>
+</tr>
+<tr>
+  <td><code>umbralSospechas</code></td>
+  <td><code>5</code></td>
+  <td>Sospechas de <code>Security.Report</code> (peso 1) antes de aplicar <code>alSospechar</code></td>
+</tr>
+<tr>
+  <td><code>comprobarContenido</code></td>
+  <td><code>&quot;avisar&quot;</code></td>
+  <td><code>&quot;no&quot;</code>, <code>&quot;avisar&quot;</code> o <code>&quot;rechazar&quot;</code> (sección 8)</td>
+</tr>
+<tr>
+  <td><code>assetsClave</code></td>
+  <td><code>[]</code></td>
+  <td>Rutas dentro de <code>assets/</code> que entran en la huella además de los scripts</td>
+</tr>
+<tr>
+  <td><code>registro</code></td>
+  <td><code>&quot;&quot;</code></td>
+  <td>Fichero del registro de seguridad. En <code>NovaServer.exe</code>, vacío = <code>seguridad.log</code> junto a <code>servidor.log</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Desde un script del servidor, <code>Security.GetSettings()</code> devuelve estos mismos valores.</p>
+<h2 id="5-funciones-server-seguras">5. Funciones <code>[Server]</code> seguras<a class="ancla" href="#5-funciones-server-seguras" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una función <code>[Server]</code> la llama un cliente y se ejecuta en el servidor: es la puerta de entrada de los tramposos. El
+motor ya comprueba el número y el tipo de los argumentos (con las anotaciones de Luau: <code>cantidad: integer</code>), quién la
+llama y cuántas veces por segundo. Con atributos le pides más:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">TiendaSegura</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">local</span> precios = { pocion = <span class="hl-n">10</span>, flecha = <span class="hl-n">1</span> }
+<span class="hl-k">local</span> dinero = {} <span class="hl-c">-- jugador -&gt; monedas (solo en el servidor: el cliente no decide cuánto tiene)</span>
+
+<span class="hl-a">--[Server, RateLimit(2), ArgRange("cantidad", 1, 10), MaxLength("nota", 60), Validate("PuedeComprar")]</span>
+<span class="hl-k">function</span> <span class="hl-t">TiendaSegura</span>:<span class="hl-f">Comprar</span>(articulo: <span class="hl-t">string</span>, cantidad: integer, nota: <span class="hl-t">string</span>)
+    <span class="hl-c">-- Aqui solo se llega si todo lo de arriba se cumple</span>
+    dinero[source] -= precios[articulo] * cantidad
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s compra %d x %s (%s)"</span>, <span class="hl-f">GetPlayerName</span>(source), cantidad, articulo, nota))
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">TiendaSegura</span>:<span class="hl-f">PuedeComprar</span>(articulo, cantidad, nota)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> precios[articulo] <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"artículo que no existe: "</span> .. articulo <span class="hl-k">end</span>
+    <span class="hl-k">if</span> (dinero[source] <span class="hl-k">or</span> <span class="hl-n">0</span>) &lt; precios[articulo] * cantidad <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"no le llega el dinero"</span> <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-b">true</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">TiendaSegura</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Atributo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>RateLimit(n)</code></td>
+  <td>Como mucho <code>n</code> llamadas por segundo de cada jugador (lo mismo que <code>[Server(rate = n)]</code>); las demás se descartan</td>
+</tr>
+<tr>
+  <td><code>ArgRange(&quot;param&quot;, min, max)</code></td>
+  <td>El parámetro (un número) tiene que estar entre <code>min</code> y <code>max</code></td>
+</tr>
+<tr>
+  <td><code>MaxLength(&quot;param&quot;, n)</code></td>
+  <td>El parámetro (un texto o una tabla) como mucho <code>n</code> caracteres (o elementos)</td>
+</tr>
+<tr>
+  <td><code>Validate(&quot;Funcion&quot;)</code></td>
+  <td>Llama antes a esa función de la clase con los mismos argumentos (y <code>source</code>): si devuelve <code>false</code> (y opcionalmente el motivo), no se ejecuta</td>
+</tr>
+<tr>
+  <td><code>OwnerOnly</code></td>
+  <td>Solo el dueño de la entidad. Es lo que ya pasa en los scripts de una entidad: escríbelo si quieres dejarlo claro (sin <code>[Server]</code>, <code>OwnerOnly</code> dice otra cosa: dónde se ejecuta la función, <a href="scripts-lua.html#914-dónde-se-ejecuta-una-función">scripts-lua.md</a>)</td>
+</tr>
+<tr>
+  <td><code>AnyCaller</code></td>
+  <td>Cualquier jugador, no solo el dueño (puertas, botones, cofres del mapa). <strong>Valida tú quién llama y desde dónde</strong> con <code>source</code></td>
+</tr>
+<tr>
+  <td><code>Cooldown(segundos)</code></td>
+  <td>Como mucho una llamada cada tantos segundos <strong>de cada jugador</strong> (las demás se ignoran sin ir al registro). Va después de las comprobaciones: una llamada rechazada no lo gasta</td>
+</tr>
+</tbody>
+</table></div>
+<p>Además, si la clase tiene una función <code>ValidateArgs(rpc, ...)</code>, se llama antes de <strong>todas</strong> sus <code>[Server]</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Ascensor</span>:<span class="hl-f">ValidateArgs</span>(rpc, ...)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.estado ~= <span class="hl-s">"votando"</span> <span class="hl-k">and</span> rpc == <span class="hl-s">"Votar"</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"no es momento de votar"</span> <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-b">true</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Una llamada rechazada <strong>no se ejecuta</strong>. Si viene de un cliente, queda en el registro de seguridad («argumentos»,
+con el motivo), llega a <code>OnCheatSuspected</code> y cuenta para <strong>Al sospechar trampas</strong> (20 seguidas). Las comprobaciones
+también se hacen en el servidor y sin red: un error tuyo se ve igual jugando solo.</p>
+<h3 id="validate-y-kickafter"><code>validate</code> y <code>kickAfter</code><a class="ancla" href="#validate-y-kickafter" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>validate</code> es la forma corta de <code>Validate</code>, como el <code>WithValidation</code> de Unreal, y con <code>kickAfter</code> echa a quien insiste:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">MochilaSegura</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">MochilaSegura</span>.casillas = <span class="hl-n">30</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-a">--[Server(validate = "PuedeSoltar", kickAfter = 5), Cooldown(0.25)]</span>
+<span class="hl-k">function</span> <span class="hl-t">MochilaSegura</span>:<span class="hl-f">Soltar</span>(casilla: integer, cantidad: integer)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s suelta %d de la casilla %d"</span>, <span class="hl-f">GetPlayerName</span>(source) <span class="hl-k">or</span> <span class="hl-s">"?"</span>, cantidad, casilla))
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Los mismos parámetros que Soltar (y 'source', el jugador que llama)</span>
+<span class="hl-k">function</span> <span class="hl-t">MochilaSegura</span>:<span class="hl-f">PuedeSoltar</span>(casilla, cantidad)
+    <span class="hl-k">if</span> casilla &lt; <span class="hl-n">1</span> <span class="hl-k">or</span> casilla &gt; <span class="hl-b">self</span>.casillas <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"casilla que no existe"</span> <span class="hl-k">end</span>
+    <span class="hl-k">if</span> cantidad &lt; <span class="hl-n">1</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"cantidad imposible"</span> <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-b">true</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MochilaSegura</span></code></pre></div>
+<ul>
+<li><p>Antes de ejecutar una llamada que llega de un cliente, el servidor llama a <code>self:PuedeSoltar(&lt;mismos argumentos&gt;)</code>,
+con <code>source</code> = el jugador. Si devuelve <code>false</code> (con el motivo como segundo valor, si quieres) <strong>o da un error</strong>, la
+llamada se rechaza: no se ejecuta.</p>
+</li>
+<li><p>El rechazo queda en el registro de seguridad con el tipo <strong>«validacion»</strong>, la función, el jugador y cuántas veces le
+ha pasado ya:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">2026-10-19 21:14:03 | jugador 2 (Luis) 127.0.0.1:50211 | validacion | descartado | validación fallida: MochilaSegura:Soltar de jugador 2 (Luis): casilla que no existe (rechazo 1 de 5)</code></pre></div>
+<p>Llega igual a <code>Security.OnCheatSuspected</code> y cuenta para <strong>Al sospechar trampas</strong>. El registro apunta como mucho cinco
+avisos por segundo de cada jugador; el contador cuenta todos.</p>
+</li>
+<li><p><code>kickAfter = N</code>: al N-ésimo rechazo de un jugador en esa función, el servidor lo <strong>expulsa</strong> («validación fallida
+demasiadas veces (MochilaSegura:Soltar)», también en su pantalla) y su contador vuelve a cero. Sin <code>kickAfter</code> solo
+se registra.</p>
+</li>
+<li><p>El compilador avisa si la función no existe o tiene otro número de parámetros (con <code>...</code> vale cualquiera), y de
+<code>kickAfter</code> sin <code>validate</code>. <code>validate</code> y <code>kickAfter</code> solo sirven en <code>[Server]</code>.</p>
+</li>
+<li><p>Las llamadas del propio servidor (o del anfitrión) también se validan, pero no van al registro: salen como aviso en
+la Consola («llamada rechazada»).</p>
+</li>
+<li><p>Orden: <code>rate</code>, dueño, argumentos (<code>ArgRange</code>, <code>MaxLength</code>), <code>validate</code>, <code>ValidateArgs</code> y, al final, <code>Cooldown</code>.</p>
+</li>
+</ul>
+<p>Quién puede llamar a una <code>[Server]</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Script</th>
+  <th>Por defecto</th>
+  <th>Con <code>[AnyCaller]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>De una entidad (un personaje, un objeto)</td>
+  <td>Solo su dueño</td>
+  <td>Cualquier jugador</td>
+</tr>
+<tr>
+  <td><code>[Global]</code> (sin entidad)</td>
+  <td>Cualquier jugador</td>
+  <td>(igual)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Dentro, <code>source</code> es el id del jugador que la llamó (0 = el propio servidor).</p>
+<h2 id="6-buenas-prácticas-en-lua">6. Buenas prácticas en Lua<a class="ancla" href="#6-buenas-prácticas-en-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>1. El servidor calcula los resultados.</strong> Mal:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Server]</span>
+<span class="hl-k">function</span> <span class="hl-t">Ronda</span>:<span class="hl-f">TerminarRonda</span>(misPuntos: number)   <span class="hl-c">-- ¡el cliente dice cuántos puntos tiene!</span>
+    <span class="hl-b">self</span>.puntos[source] = misPuntos
+<span class="hl-k">end</span></code></pre></div>
+<p>Bien: el cliente pide una acción y el servidor lleva la cuenta.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Server, RateLimit(1), Validate("PuedeVotar")]</span>
+<span class="hl-k">function</span> <span class="hl-t">Ronda</span>:<span class="hl-f">Votar</span>(sospechoso: integer)
+    <span class="hl-b">self</span>.votos[source] = sospechoso
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">TodosHanVotado</span>() <span class="hl-k">then</span> <span class="hl-b">self</span>:<span class="hl-f">Resolver</span>() <span class="hl-k">end</span>   <span class="hl-c">-- el servidor reparte los puntos</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Ronda</span>:<span class="hl-f">PuedeVotar</span>(sospechoso)
+    <span class="hl-k">return</span> <span class="hl-b">self</span>.estado == <span class="hl-s">"votando"</span> <span class="hl-k">and</span> <span class="hl-b">self</span>.vivos[source] <span class="hl-k">and</span> <span class="hl-b">self</span>.vivos[sospechoso] <span class="hl-k">and</span> sospechoso ~= source
+<span class="hl-k">end</span></code></pre></div>
+<p><strong>2. Comprueba siempre quién y desde dónde.</strong> En un <code>[Global]</code> o con <code>[AnyCaller]</code> cualquiera puede llamar: mira
+<code>source</code>, si está vivo, si está cerca (<code>Vec3.Distance(personaje.position, puerta.position) &lt; 3</code>), si le toca.</p>
+<p><strong>3. Los tiempos los cuenta el servidor.</strong> Un «enfriamiento» que solo existe en el cliente no existe: guarda en el
+servidor cuándo hizo cada uno la última acción (<code>Time.time</code>).</p>
+<p><strong>4. No envíes secretos a quien no debe verlos.</strong> Lo que llega a un cliente lo puede leer él (con un programa, aunque
+el juego no lo enseñe). Las cartas de cada jugador, el papel del mentiroso o lo que hay en un cofre cerrado van en
+campos <code>--[Replicated(condition = &quot;OwnerOnly&quot;)]</code>, en tablas con <code>condition = &quot;Observers&quot;</code> o con <code>[Client]</code> a ese
+jugador; nunca en un campo que reciben todos.</p>
+<p><strong>5. No mezcles la lógica con los efectos.</strong> <code>[Multicast]</code> para sonidos y partículas; la lógica de la partida, en el
+servidor.</p>
+<p><strong>6. Usa los límites.</strong> <code>RateLimit</code> en las <code>[Server]</code> que se pueden pulsar muchas veces; <code>Security.AllowRate</code> en los
+eventos de chat (<code>if not Security.AllowRate(source, &quot;chat&quot;, 2) then return end</code>).</p>
+<p><strong>7. Reporta lo raro.</strong> Si tu juego detecta algo imposible (pedir 1000 puntos, abrir un cofre desde la otra punta
+del mapa), <code>Security.Report(source, &quot;distancia&quot;, &quot;abrió un cofre a 80 m&quot;)</code>: queda en el registro y, si se repite,
+se aplica lo que hayas elegido.</p>
+<p><strong>8. El movimiento del personaje ya es seguro; el tuyo no.</strong> El <code>CharacterController</code> en red lo simula el servidor.
+Si tu juego mueve otras cosas con posiciones que envía el cliente (un vehículo, un objeto arrastrado), compruébalas
+con <code>Security.ValidateMove</code> (sección 7).</p>
+<h2 id="7-la-api-security">7. La API <code>Security</code><a class="ancla" href="#7-la-api-security" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las funciones que cambian algo solo funcionan en el servidor (en un cliente son un error que lo explica).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Security.Kick(jugador, motivo?)</code></td>
+  <td>Expulsa (ve el motivo). <code>true</code> si estaba conectado</td>
+</tr>
+<tr>
+  <td><code>Security.Ban(jugador, minutos?, motivo?)</code></td>
+  <td>Expulsa y banea temporalmente (sin minutos, los de los ajustes)</td>
+</tr>
+<tr>
+  <td><code>Security.Unban(direccion)</code></td>
+  <td>Quita un baneo (<code>&quot;81.34.10.2&quot;</code>, como sale en <code>GetBans</code>)</td>
+</tr>
+<tr>
+  <td><code>Security.GetBans()</code></td>
+  <td><code>{ { address, reason, minutesLeft } }</code></td>
+</tr>
+<tr>
+  <td><code>Security.Report(jugador, tipo, detalle?, peso?)</code></td>
+  <td>Sospecha del juego: registro, <code>OnCheatSuspected</code> y, al llegar al umbral, <code>alSospechar</code>. Devuelve lo que se hizo: <code>&quot;descartado&quot;</code> (aún no llega), <code>&quot;aviso&quot;</code>, <code>&quot;expulsado&quot;</code> o <code>&quot;baneado&quot;</code></td>
+</tr>
+<tr>
+  <td><code>Security.GetSuspicion(jugador)</code></td>
+  <td>Sospechas acumuladas (bajan solas con el tiempo)</td>
+</tr>
+<tr>
+  <td><code>Security.GetLog(n?)</code></td>
+  <td>Los últimos <code>n</code> sucesos (50): <code>{ time, date, player, name, address, kind, action, detail }</code></td>
+</tr>
+<tr>
+  <td><code>Security.OnCheatSuspected(fn)</code></td>
+  <td><code>fn(jugador, tipo, detalle, accion, nombre)</code> en el servidor con cada suceso. Es el evento <code>cheatSuspected</code></td>
+</tr>
+<tr>
+  <td><code>Security.AllowRate(jugador, canal, porSegundo?)</code></td>
+  <td>Límite propio por jugador y canal: <code>true</code> si cabe. Sin número, los de <code>canales</code> de los ajustes; con una tabla, <code>{ perSecond, bytesPerSecond, maxBytes, bytes }</code></td>
+</tr>
+<tr>
+  <td><code>Security.ValidateMove(entidad, posicion, opciones?)</code></td>
+  <td>Movimiento que decide un cliente: velocidad, subida y paredes. <code>true</code>, o <code>false</code> y el motivo</td>
+</tr>
+<tr>
+  <td><code>Security.IsEncrypted(jugador?)</code></td>
+  <td>Si la conexión va cifrada (en el servidor, la de ese jugador; en un cliente, la suya)</td>
+</tr>
+<tr>
+  <td><code>Security.GetSettings()</code></td>
+  <td>Los ajustes de la sección 4</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tipos de suceso del motor (<code>tipo</code> en <code>OnCheatSuspected</code> y en el registro): <code>velocidad</code> (juego acelerado), <code>dueno</code>
+(algo de otro jugador), <code>rpc</code> y <code>trafico</code> (límites), <code>argumentos</code> (rechazados o malformados), <code>entradas</code>
+(movimiento no válido), <code>contenido</code> (cliente modificado), <code>conexiones</code> (demasiadas desde una IP), <code>baneado</code> (un
+baneado intenta entrar), <code>malformado</code>, <code>movimiento</code> (de <code>ValidateMove</code>) y los tuyos de <code>Security.Report</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">Vigilante</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Vigilante</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-t">Security</span>.<span class="hl-f">OnCheatSuspected</span>(<span class="hl-k">function</span>(jugador, tipo, detalle, accion, nombre)
+        <span class="hl-t">Log</span>.<span class="hl-f">Warn</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Sospecha: %s (%d) %s: %s -&gt; %s"</span>, nombre, jugador, tipo, detalle, accion))
+        <span class="hl-k">if</span> tipo == <span class="hl-s">"velocidad"</span> <span class="hl-k">then</span>
+            <span class="hl-f">TriggerClientEvent</span>(<span class="hl-s">"aviso"</span>, -<span class="hl-n">1</span>, nombre .. <span class="hl-s">" ha sido expulsado por hacer trampas"</span>)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Vigilante</span></code></pre></div>
+<p><code>Security.ValidateMove(entidad, posicion, opciones)</code> comprueba que de donde está la entidad (o <code>from</code>) a
+<code>posicion</code> no va más rápido que <code>maxSpeed</code> (con margen por el tiempo desde la última comprobación, el ping del
+dueño y <code>tolerance</code>), que no sube más de <code>maxRise</code> y que no atraviesa lo estático. En el servidor, lo rechazado
+cuenta como sospecha «movimiento» del dueño (<code>report = false</code> para no contarlo).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Por defecto</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>maxSpeed</code></td>
+  <td>la de correr del <code>CharacterController</code> (o 10 m/s)</td>
+  <td>Metros por segundo</td>
+</tr>
+<tr>
+  <td><code>dt</code></td>
+  <td>el tiempo desde la última comprobación buena de esa entidad</td>
+  <td>Segundos</td>
+</tr>
+<tr>
+  <td><code>latency</code></td>
+  <td>0,1 s + la mitad del ping del dueño</td>
+  <td>Margen por la red</td>
+</tr>
+<tr>
+  <td><code>tolerance</code></td>
+  <td>1,25</td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>maxRise</code></td>
+  <td>2</td>
+  <td>Metros que puede subir</td>
+</tr>
+<tr>
+  <td><code>walls</code></td>
+  <td><code>true</code></td>
+  <td>Rayo contra lo estático</td>
+</tr>
+<tr>
+  <td><code>from</code></td>
+  <td>la posición de la entidad</td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>report</code></td>
+  <td><code>true</code> en el servidor</td>
+  <td></td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Server, RateLimit(30)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Coche</span>:<span class="hl-f">Posicion</span>(p: <span class="hl-t">Vector3</span>, r: <span class="hl-t">Quat</span>)
+    <span class="hl-k">local</span> ok, porque = <span class="hl-t">Security</span>.<span class="hl-f">ValidateMove</span>(<span class="hl-b">self</span>.entity, p, { maxSpeed = <span class="hl-n">45</span> })
+    <span class="hl-k">if</span> ok <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.entity.position = p
+        <span class="hl-b">self</span>.entity.rotation = r
+    <span class="hl-k">else</span>
+        <span class="hl-b">self</span>:<span class="hl-f">To</span>(source):<span class="hl-f">Corregir</span>(<span class="hl-b">self</span>.entity.position)   <span class="hl-c">-- el servidor manda: vuelve a donde estaba</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span></code></pre></div>
+<h2 id="8-clientes-modificados-la-huella-del-contenido">8. Clientes modificados: la huella del contenido<a class="ancla" href="#8-clientes-modificados-la-huella-del-contenido" aria-label="Enlace a esta sección">#</a></h2>
+<p>Al unirse, cada cliente envía (cifrada) una <strong>huella</strong> (SHA-256) de sus scripts Lua y de los <strong>assets clave</strong> que
+elijas. El servidor la compara con la suya:</p>
+<ul>
+<li><strong>No comprobar</strong>: nada.</li>
+<li><strong>Avisar</strong> (por defecto): entra, pero queda en el registro («contenido») y llega a <code>OnCheatSuspected</code>.</li>
+<li><strong>Rechazar</strong>: no entra («tu copia del juego no coincide con la del servidor»).</li>
+</ul>
+<p>Sirve contra quien cambia ficheros del juego (un script con más vida, un prefab con otro tamaño) y contra versiones
+mezcladas. <strong>No</strong> sirve contra quien modifica el propio ejecutable: ese puede enviar la huella buena. Por eso la
+regla de oro sigue siendo que el servidor decide.</p>
+<p><strong>Qué fichero es distinto</strong> (0.9.33). Si la huella no coincide, el servidor le pide al jugador la lista de su huella
+(ruta y huella de cada script y asset clave, la versión del motor y la de su compilador de scripts) y el aviso dice qué
+es distinto, con como mucho 5 ficheros y «y N más»:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">2026-10-18 21:14:03 | jugador 2 (Luis) relé #2 | contenido | aviso | Luis: 2 ficheros distintos: scripts/Inventory.luau (distinto), assets/Items/FPCubo.prefab (falta en Luis) — versión del motor igual (0.9.32)</code></pre></div>
+<ul>
+<li><strong>distinto</strong>: los dos lo tienen, con otro contenido; <strong>falta en Luis</strong>: solo lo tiene el servidor; <strong>solo lo tiene
+Luis</strong>: un script o asset clave que el servidor no tiene.</li>
+<li>La versión del motor: «igual (0.9.32)», «distinta (Luis 0.9.30, servidor 0.9.31): con otra versión cambian los scripts
+compilados» o «igual (0.9.32), pero no es la misma compilación del motor (compilador de scripts distinto)» (por ejemplo,
+un motor compilado desde el código fuente frente al instalado).</li>
+<li>Con <strong>Rechazar</strong>, el jugador rechazado lo ve también: «tu copia del juego no coincide con la del servidor (...): 2
+ficheros no coinciden con los del servidor: scripts/Inventory.luau (distinto), assets/Items/FPCubo.prefab (te falta) —
+versión del motor igual (0.9.32)». Con <strong>Avisar</strong>, lo ve en su consola («Red: el servidor avisa de que tu copia no es
+la suya: ...»).</li>
+<li><strong>La lista solo informa</strong>: entrar o no se decide antes, con la huella. Un cliente que miente en su lista solo cambia
+el texto del aviso.</li>
+<li>En la edición en equipo, <strong>Jugar en equipo</strong> sincroniza solo estos ficheros con el servidor del equipo antes de entrar
+(<a href="edicion-en-equipo.html#8-jugar-en-equipo">edicion-en-equipo.md</a>).</li>
+</ul>
+<p>Si publicas actualizaciones, sube también el servidor: con <strong>Rechazar</strong>, los clientes con la versión anterior no
+entran (y lo dicen).</p>
+<h2 id="9-el-registro-de-seguridad-y-el-servidor-dedicado">9. El registro de seguridad y el servidor dedicado<a class="ancla" href="#9-el-registro-de-seguridad-y-el-servidor-dedicado" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada suceso queda en el <strong>registro de seguridad</strong> del servidor: fecha, jugador (id, nombre y dirección), tipo, lo que
+se hizo y el detalle:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">2026-10-10 21:14:03 | jugador 3 (Zorro) 81.34.10.2:51022 | velocidad | expulsado | juego acelerado: 118 entradas por segundo (el servidor simula 60)
+2026-10-10 21:20:47 | jugador 5 (Ana) 88.1.20.7:60211 | argumentos | descartado | Votar: no es momento de votar</code></pre></div>
+<ul>
+<li>En el editor y en el anfitrión: en el registro del motor (Consola) y en <code>Security.GetLog</code>.</li>
+<li>En <code>NovaServer.exe</code>: además en <code>seguridad.log</code>, junto a <code>servidor.log</code> (no se vacía al arrancar; al pasar de 10 MB
+se guarda como <code>seguridad.log.1</code>). Comandos de la consola: <code>seguridad [n]</code> (últimos sucesos y si cada conexión va
+cifrada), <code>ban &lt;id&gt; [minutos] [motivo]</code>, <code>bans</code> y <code>unban &lt;dirección&gt;</code>
+(<a href="servidor-dedicado.html#comandos-de-la-consola">servidor-dedicado.md</a>).</li>
+</ul>
+<p>Los baneos duran mientras el servidor esté encendido; si quieres baneos permanentes, guárdalos tú (por ejemplo, con
+<code>SaveGame</code> y <code>Security.Ban</code> al empezar) o usa los baneos de Steam.</p>
+<h2 id="10-lo-que-no-evita-límites-honestos">10. Lo que no evita (límites honestos)<a class="ancla" href="#10-lo-que-no-evita-límites-honestos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Aimbots y wallhacks</strong>: un cliente siempre puede leer lo que le llega. Lo mitigas no enviando lo que no debe ver
+(sección 6.4, la relevancia de la red y <code>SetObservers</code>) y con <code>Physics.RaycastRewind</code> para comprobar los disparos
+(<a href="multijugador.html">multijugador.md</a>).</li>
+<li><strong>Un ejecutable modificado</strong> puede enviar la huella buena (sección 8): no hay anti-trampas de cliente.</li>
+<li><strong>Un intermediario activo</strong> (alguien que controla tu red y se hace pasar por el servidor) puede abrir dos
+conexiones cifradas, una con cada lado, si la partida no tiene contraseña: el cifrado protege de quien escucha,
+inyecta o repite, no de quien suplanta al servidor entero. Con contraseña, ese intermediario tendría que adivinarla
+(usa una larga). Por Steam esto no pasa (Steam autentica a los dos lados).</li>
+<li><strong>IP compartida</strong>: los baneos y el límite de conexiones van por IP; varios jugadores detrás del mismo router
+comparten IP (sube <strong>Conexiones por IP</strong> si juegan juntos desde casa).</li>
+<li><strong>Lógica de tu juego</strong>: el motor no sabe qué es imposible en tu juego. Eso son las secciones 5 y 6.</li>
+</ul>
+<h2 id="11-compatibilidad-y-coste">11. Compatibilidad y coste<a class="ancla" href="#11-compatibilidad-y-coste" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Protocolo de red 2</strong> (Nova Engine 0.9.6): un cliente o servidor anterior no se puede conectar a uno nuevo; se
+rechaza con «versión de la biblioteca de red distinta (actualiza el juego)». Publica a la vez el juego y el
+servidor.</li>
+<li><strong>CPU</strong>: cifrar y descifrar un paquete de 600 bytes cuesta menos de 1 microsegundo (medido: 0,93 µs). Con 8
+jugadores (unos 720 paquetes por segundo en el servidor) son 0,7 ms de CPU por segundo: un 0,07 % de un núcleo.
+Conectar cuesta unos 2 ms una vez por jugador.</li>
+<li><strong>Ancho de banda</strong>: 21 bytes más por paquete que sin cifrar (30 en total con la etiqueta de autenticación): unos
+1,3 KB/s por jugador a 60 paquetes por segundo.</li>
+<li><strong>Requisitos</strong>: Windows 10 o más nuevo (lo que ya pide el motor).</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="enlace.html"><small>Anterior</small>Nova Enlace: por Internet con un código</a><a class="sig" href="datos-persistentes.html"><small>Siguiente</small>Datos persistentes con cuentas (Nova Datos)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-lo-que-hace-el-motor-solo">1. Lo que hace el motor solo</a></li><li class="n2"><a href="#2-cifrado-de-la-conexión">2. Cifrado de la conexión</a></li><li class="n2"><a href="#3-límites-por-jugador-y-qué-pasa-al-pasarse">3. Límites por jugador y qué pasa al pasarse</a></li><li class="n2"><a href="#4-ajustes">4. Ajustes</a></li><li class="n2"><a href="#5-funciones-server-seguras">5. Funciones [Server] seguras</a></li><li class="n3"><a href="#validate-y-kickafter">validate y kickAfter</a></li><li class="n2"><a href="#6-buenas-prácticas-en-lua">6. Buenas prácticas en Lua</a></li><li class="n2"><a href="#7-la-api-security">7. La API Security</a></li><li class="n2"><a href="#8-clientes-modificados-la-huella-del-contenido">8. Clientes modificados: la huella del contenido</a></li><li class="n2"><a href="#9-el-registro-de-seguridad-y-el-servidor-dedicado">9. El registro de seguridad y el servidor dedicado</a></li><li class="n2"><a href="#10-lo-que-no-evita-límites-honestos">10. Lo que no evita (límites honestos)</a></li><li class="n2"><a href="#11-compatibilidad-y-coste">11. Compatibilidad y coste</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

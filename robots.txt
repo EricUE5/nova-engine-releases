@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ericue5.github.io/nova-engine-releases/sitemap.xml

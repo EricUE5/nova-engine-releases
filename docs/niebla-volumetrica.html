@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Niebla y luz volumétrica · Nova Engine</title>
+<meta name="description" content="La niebla de Nova Engine puede recibir la luz y las sombras: rayos de sol entre los árboles o las columnas, el
+cono de una linterna en una habitación con polvo, el halo de una farola de noche, un valle con niebla al aman">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Niebla y luz volumétrica · Nova Engine">
+<meta property="og:description" content="La niebla de Nova Engine puede recibir la luz y las sombras: rayos de sol entre los árboles o las columnas, el
+cono de una linterna en una habitación con polvo, el halo de una farola de noche, un valle con niebla al aman">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/niebla-volumetrica.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/niebla-volumetrica.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html" aria-current="page">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="niebla-y-luz-volumétrica">Niebla y luz volumétrica</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-poner-niebla-en-una-escena">1. Poner niebla en una escena</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-ajustes-de-la-niebla">3. Ajustes de la niebla</a></li><li class="n2"><a href="#4-rayos-de-sol-conos-y-halos-la-luz-de-cada-luz">4. Rayos de sol, conos y halos: la luz de cada luz</a></li><li class="n2"><a href="#5-volúmenes-de-niebla">5. Volúmenes de niebla</a></li><li class="n2"><a href="#6-desde-los-scripts-lua">6. Desde los scripts Lua</a></li><li class="n3"><a href="#la-niebla-se-levanta-al-amanecer">La niebla se levanta al amanecer</a></li><li class="n3"><a href="#una-linterna-que-se-enciende-con-la-l">Una linterna que se enciende con la L</a></li><li class="n3"><a href="#humo-que-se-disipa">Humo que se disipa</a></li><li class="n2"><a href="#7-multijugador-la-misma-niebla-para-todos">7. Multijugador: la misma niebla para todos</a></li><li class="n2"><a href="#8-en-el-editor-vista-previa-deshacer-y-edición-en-equipo">8. En el editor: vista previa, deshacer y edición en equipo</a></li><li class="n2"><a href="#9-calidad-y-rendimiento">9. Calidad y rendimiento</a></li><li class="n2"><a href="#10-transparentes-agua-y-partículas">10. Transparentes, agua y partículas</a></li><li class="n2"><a href="#11-límites-conocidos">11. Límites conocidos</a></li></ul></details><p>La niebla de Nova Engine puede <strong>recibir la luz y las sombras</strong>: rayos de sol entre los árboles o las columnas, el
+cono de una linterna en una habitación con polvo, el halo de una farola de noche, un valle con niebla al amanecer.
+Además puedes poner <strong>volúmenes de niebla</strong> con forma (caja, esfera o elipsoide) para el humo de una sala, la bruma de
+un valle o la niebla sobre un lago, y cambiar el tiempo poco a poco desde Lua (<code>Environment.TransitionFog</code>).</p>
+<p>Es una sola niebla: la exponencial con altura del componente <strong>Entorno</strong> de siempre. Con <strong>Luz volumétrica</strong>
+activada se calcula en una rejilla 3D pegada a la cámara que sabe qué está a la sombra; más lejos sigue la misma
+niebla sin sombras, sin cortes. Afecta igual a todo lo que se dibuja: objetos opacos, cielo, agua, transparentes y
+partículas.</p>
+<p>Novedad de la versión 0.9.0. Las escenas que ya tenías se ven igual: la luz volumétrica viene apagada.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-poner-niebla-en-una-escena">Poner niebla en una escena</a></li>
+<li><a href="#2-preajustes">Preajustes</a></li>
+<li><a href="#3-ajustes-de-la-niebla">Ajustes de la niebla</a></li>
+<li><a href="#4-rayos-de-sol-conos-y-halos-la-luz-de-cada-luz">Rayos de sol, conos y halos: la luz de cada luz</a></li>
+<li><a href="#5-volúmenes-de-niebla">Volúmenes de niebla</a></li>
+<li><a href="#6-desde-los-scripts-lua">Desde los scripts Lua</a></li>
+<li><a href="#7-multijugador-la-misma-niebla-para-todos">Multijugador: la misma niebla para todos</a></li>
+<li><a href="#8-en-el-editor-vista-previa-deshacer-y-edición-en-equipo">En el editor: vista previa, deshacer y edición en equipo</a></li>
+<li><a href="#9-calidad-y-rendimiento">Calidad y rendimiento</a></li>
+<li><a href="#10-transparentes-agua-y-partículas">Transparentes, agua y partículas</a></li>
+<li><a href="#11-límites-conocidos">Límites conocidos</a></li>
+<li><span class="enlace-interno-quitado">Para quien programa el motor (C++ y HLSL)</span></li>
+</ol>
+<h2 id="1-poner-niebla-en-una-escena">1. Poner niebla en una escena<a class="ancla" href="#1-poner-niebla-en-una-escena" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Selecciona la entidad con el componente <strong>Entorno</strong> (o créalo: <strong>Entidad &gt; Entorno (cielo y niebla)</strong>).</li>
+<li>En la sección <strong>Niebla y luz volumétrica</strong> del Inspector, elige un <strong>Preajuste</strong> (por ejemplo <strong>Bosque con rayos
+de sol</strong>).</li>
+<li>Retoca lo que quieras. Pon la <strong>Altura base</strong> a la altura del suelo de tu escena: la niebla es más densa por
+debajo de ella.</li>
+</ol>
+<p>Para ver rayos de sol hace falta una <strong>Luz direccional</strong> con <strong>Proyectar sombras</strong> y algo que le haga sombra (árboles,
+columnas, una ventana). Se ven mejor con el sol bajo y mirando hacia él.</p>
+<p>Los cambios se ven al momento en los visores <strong>Escena</strong> y <strong>Juego</strong>. En el editor el ruido de la niebla se mueve con
+el tiempo que lleva abierta la escena (pon <strong>Velocidad del viento</strong> a 0 si la quieres quieta mientras editas);
+jugando, con el reloj de la partida.</p>
+<h2 id="2-preajustes">2. Preajustes<a class="ancla" href="#2-preajustes" aria-label="Enlace a esta sección">#</a></h2>
+<p>El desplegable <strong>Preajuste</strong> cambia todos los ajustes de una vez (con deshacer). Conserva la <strong>Altura base</strong> y la
+<strong>Dirección del viento</strong>, que son de tu escena y no del tiempo que hace. Si has retocado algo, pone <em>Personalizada</em>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preajuste</th>
+  <th>Cómo es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Ninguna</strong></td>
+  <td>Sin niebla ni luz volumétrica (los volúmenes de niebla tampoco se ven)</td>
+</tr>
+<tr>
+  <td><strong>Neblina</strong></td>
+  <td>Bruma ligera que se pierde en la distancia, con un brillo suave alrededor del sol</td>
+</tr>
+<tr>
+  <td><strong>Niebla matinal</strong></td>
+  <td>Niebla densa pegada al suelo que se aclara al subir: valles al amanecer</td>
+</tr>
+<tr>
+  <td><strong>Bosque con rayos de sol</strong></td>
+  <td>Aire limpio con algo de humedad y la luz muy hacia delante: rayos marcados entre árboles o columnas (mejor con el sol bajo)</td>
+</tr>
+<tr>
+  <td><strong>Polvo industrial</strong></td>
+  <td>Polvo en suspensión de color cálido con manchas: naves, minas, desiertos</td>
+</tr>
+<tr>
+  <td><strong>Tormenta</strong></td>
+  <td>Niebla gris y densa que el viento mueve deprisa</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-ajustes-de-la-niebla">3. Ajustes de la niebla<a class="ancla" href="#3-ajustes-de-la-niebla" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todos tienen una explicación al pasar el ratón por encima. Son campos del Entorno: se guardan en la escena, se copian
+y pegan con el menú del componente, se deshacen y se leen y escriben desde los scripts. Los que no tienen efecto con
+los valores actuales aparecen desactivados (por ejemplo, la anisotropía sin luz volumétrica).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Inspector</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>fogEnabled</code></td>
+  <td>Niebla</td>
+  <td>true</td>
+  <td>Niebla exponencial con altura en toda la escena</td>
+</tr>
+<tr>
+  <td><code>fogColor</code></td>
+  <td>Color (albedo)</td>
+  <td>blanco</td>
+  <td>Tiñe la luz que dispersa la niebla (la del cielo y la de las luces). Cálido para polvo</td>
+</tr>
+<tr>
+  <td><code>fogDensity</code></td>
+  <td>Densidad</td>
+  <td>0.012</td>
+  <td>Niebla a la altura base: 0,01 es bruma ligera; 0,05, niebla espesa; 0,2, no se ve a unos metros</td>
+</tr>
+<tr>
+  <td><code>fogHeight</code></td>
+  <td>Altura base</td>
+  <td>0</td>
+  <td>Altura (m) a la que la niebla tiene su densidad; por debajo es más densa</td>
+</tr>
+<tr>
+  <td><code>fogHeightFalloff</code></td>
+  <td>Caída con la altura</td>
+  <td>0.12</td>
+  <td>Lo rápido que se aclara al subir: 0 = igual a cualquier altura; 0,2 = pegada al suelo</td>
+</tr>
+<tr>
+  <td><code>fogStart</code></td>
+  <td>Inicio</td>
+  <td>10</td>
+  <td>Metros alrededor de la cámara sin niebla (para ver rayos cerca, 0)</td>
+</tr>
+<tr>
+  <td><code>fogAmbient</code></td>
+  <td>Luz del cielo</td>
+  <td>1</td>
+  <td>Luz del cielo que dispersa la niebla. Bájala en interiores oscuros o de noche</td>
+</tr>
+<tr>
+  <td><code>fogVolumetric</code></td>
+  <td>Luz volumétrica</td>
+  <td>false</td>
+  <td>La niebla recibe la luz y las sombras (rayos, conos, halos). Hace falta para los volúmenes de niebla</td>
+</tr>
+<tr>
+  <td><code>fogAnisotropy</code></td>
+  <td>Anisotropía</td>
+  <td>0.4</td>
+  <td>Hacia dónde dispersa la luz: 0 = igual en todas direcciones; 0,7 = mucho hacia delante (brillante al mirar hacia la luz)</td>
+</tr>
+<tr>
+  <td><code>fogMaxDistance</code></td>
+  <td>Distancia máxima</td>
+  <td>120</td>
+  <td>Metros que cubre la luz volumétrica; más lejos la niebla sigue igual, sin sombras</td>
+</tr>
+<tr>
+  <td><code>fogNoiseStrength</code></td>
+  <td>Ruido</td>
+  <td>0.35</td>
+  <td>Manchas en la niebla (con luz volumétrica): 0 = uniforme; 1 = jirones con huecos</td>
+</tr>
+<tr>
+  <td><code>fogNoiseScale</code></td>
+  <td>Escala del ruido</td>
+  <td>12</td>
+  <td>Metros de cada mancha</td>
+</tr>
+<tr>
+  <td><code>fogWindSpeed</code></td>
+  <td>Velocidad del viento</td>
+  <td>1</td>
+  <td>Metros por segundo a los que el viento mueve las manchas</td>
+</tr>
+<tr>
+  <td><code>fogWindDirection</code></td>
+  <td>Dirección del viento</td>
+  <td>0</td>
+  <td>Grados hacia los que sopla: 0 = hacia +X, 90 = hacia +Z</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sin <strong>Luz volumétrica</strong>, la niebla es la de siempre: toma el color del cielo cerca del horizonte en cada dirección.
+Con ella, la niebla recibe la luz media del cielo y la del sol y las luces, cada una con sus sombras; el <strong>Color</strong>
+tiñe las dos.</p>
+<h2 id="4-rayos-de-sol-conos-y-halos-la-luz-de-cada-luz">4. Rayos de sol, conos y halos: la luz de cada luz<a class="ancla" href="#4-rayos-de-sol-conos-y-halos-la-luz-de-cada-luz" aria-label="Enlace a esta sección">#</a></h2>
+<p>La <strong>Luz direccional</strong>, la <strong>Luz puntual</strong> y el <strong>Foco</strong> tienen un campo <strong>Intensidad volumétrica</strong>
+(<code>volumetricIntensity</code>, 1 por defecto): cuánto iluminan la niebla.</p>
+<ul>
+<li><strong>0</strong>: la luz no se ve en la niebla (sigue iluminando las superficies). Útil para luces de relleno.</li>
+<li><strong>Más de 1</strong>: el haz de una linterna o el halo de una lámpara se ve más sin que la luz ilumine más el suelo.</li>
+<li>Si la luz <strong>proyecta sombras</strong>, los objetos recortan su luz en la niebla: la sombra de una viga dentro del cono
+de un foco, las columnas entre el sol y la cámara, una ventana que deja pasar un haz.</li>
+</ul>
+<p>Consejos:</p>
+<ul>
+<li>Los rayos de sol se ven sobre todo <strong>mirando hacia el sol</strong> y con <strong>Anisotropía</strong> alta (0,6 a 0,8).</li>
+<li>En una habitación oscura, baja la <strong>Luz del cielo</strong> de la niebla (si no, el polvo brilla con la luz del cielo de
+fuera) y sube la <strong>Intensidad volumétrica</strong> de la linterna.</li>
+<li>Una linterna se ve mejor de lado que desde detrás: la niebla dispersa poco hacia atrás.</li>
+<li>Solo las luces que tienen sombra en el atlas (las de más prioridad, ver
+<a href="render-y-materiales.html#sombras">render-y-materiales.md</a>) recortan su luz en la niebla; el sol, hasta su
+<strong>Distancia de sombras</strong>.</li>
+</ul>
+<h2 id="5-volúmenes-de-niebla">5. Volúmenes de niebla<a class="ancla" href="#5-volúmenes-de-niebla" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Volumen de niebla</strong> (<code>FogVolume</code>, <strong>Entidad &gt; Volumen de niebla</strong> o <strong>Añadir componente &gt; Render</strong>)
+pone niebla con forma en una zona. Se ve con la <strong>Luz volumétrica</strong> del Entorno activa (aunque la <strong>Niebla</strong> global
+esté apagada) y recibe la luz y las sombras como la niebla global.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Inspector</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>shape</code></td>
+  <td>Forma</td>
+  <td>Caja</td>
+  <td><code>&quot;Caja&quot;</code>, <code>&quot;Esfera&quot;</code> o <code>&quot;Elipsoide&quot;</code>. La rotación y la escala de la entidad también cuentan</td>
+</tr>
+<tr>
+  <td><code>size</code></td>
+  <td>Tamaño</td>
+  <td>10, 4, 10</td>
+  <td>Metros de ancho, alto y fondo (caja y elipsoide)</td>
+</tr>
+<tr>
+  <td><code>radius</code></td>
+  <td>Radio</td>
+  <td>5</td>
+  <td>Metros (esfera)</td>
+</tr>
+<tr>
+  <td><code>density</code></td>
+  <td>Densidad</td>
+  <td>0.08</td>
+  <td>Niebla en el centro: 0,02 = bruma; 0,1 = niebla espesa; 0,5 = humo que casi no deja ver</td>
+</tr>
+<tr>
+  <td><code>color</code></td>
+  <td>Color (albedo)</td>
+  <td>blanco</td>
+  <td>Tiñe la luz que dispersa (gris oscuro para humo)</td>
+</tr>
+<tr>
+  <td><code>edgeFalloff</code></td>
+  <td>Borde suave</td>
+  <td>0.35</td>
+  <td>Parte del tamaño en la que se desvanece hacia el borde (0 = borde duro)</td>
+</tr>
+<tr>
+  <td><code>noiseStrength</code></td>
+  <td>Ruido</td>
+  <td>0.35</td>
+  <td>Manchas dentro del volumen (las mueve el viento del Entorno)</td>
+</tr>
+<tr>
+  <td><code>noiseScale</code></td>
+  <td>Escala del ruido</td>
+  <td>6</td>
+  <td>Metros de cada mancha</td>
+</tr>
+<tr>
+  <td><code>priority</code></td>
+  <td>Prioridad</td>
+  <td>0</td>
+  <td>0: se suma a la niebla del Entorno y a otros volúmenes. Mayor que 0: dentro manda sobre lo de menos prioridad</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con <strong>Prioridad</strong> mayor que 0 y <strong>Densidad</strong> 0, un volumen deja un <strong>hueco sin niebla</strong>: el interior de una casa en un
+pueblo con niebla, la cabina de un coche. A igual prioridad (mayor que 0), manda el que va después en la escena.</p>
+<p>En el visor, cada volumen se dibuja con su forma (caja o tres círculos); el seleccionado, por encima de todo y con una
+segunda forma por dentro donde empieza el borde suave. Se mueve, gira y escala con el gizmo como cualquier entidad.</p>
+<p>Ejemplos:</p>
+<ul>
+<li><strong>Bruma en un valle</strong>: elipsoide de 40 x 8 x 80 m en el fondo del valle, densidad 0,05, borde suave 0,6, ruido 0,6.</li>
+<li><strong>Humo en una habitación</strong>: caja del tamaño de la sala, densidad 0,25, color gris oscuro, ruido 0,7 con escala 2.</li>
+<li><strong>Niebla sobre un lago</strong>: caja plana (60 x 3 x 60 m) apoyada en el agua, densidad 0,08, borde suave 0,5.</li>
+</ul>
+<p>Caben 64 volúmenes en la rejilla a la vez (los de más prioridad y más cerca de la cámara); fuera de la distancia
+máxima de la luz volumétrica no se ven.</p>
+<h2 id="6-desde-los-scripts-lua">6. Desde los scripts Lua<a class="ancla" href="#6-desde-los-scripts-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>La niebla del Entorno activo se cambia con la tabla <code>Environment</code>. Los ajustes van en una tabla con nombres cortos
+(<code>density</code>, <code>volumetric</code>...); <code>SetFog</code> y <code>TransitionFog</code> solo cambian lo que pasas.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Environment.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>GetFog()</code></td>
+  <td>Tabla con los ajustes: <code>enabled</code>, <code>volumetric</code>, <code>color</code>, <code>density</code>, <code>height</code>, <code>heightFalloff</code>, <code>start</code>, <code>ambient</code>, <code>anisotropy</code>, <code>maxDistance</code>, <code>noiseStrength</code>, <code>noiseScale</code>, <code>windSpeed</code>, <code>windDirection</code></td>
+</tr>
+<tr>
+  <td><code>SetFog(ajustes)</code></td>
+  <td>Cambia la niebla al momento: <code>Environment.SetFog({ volumetric = true, density = 0.03 })</code></td>
+</tr>
+<tr>
+  <td><code>SetFogPreset(nombre)</code></td>
+  <td>Aplica un preajuste (sin importar mayúsculas): <code>&quot;Niebla matinal&quot;</code>, <code>&quot;Tormenta&quot;</code>...</td>
+</tr>
+<tr>
+  <td><code>TransitionFog(preajuste o ajustes, segundos)</code></td>
+  <td>Cambio suave en esos segundos (el tiempo que cambia: la niebla que se levanta, una tormenta que llega). Hacia <code>&quot;Ninguna&quot;</code> se desvanece y se apaga al final</td>
+</tr>
+<tr>
+  <td><code>IsFogTransitioning()</code></td>
+  <td><code>true</code> mientras dura una transición</td>
+</tr>
+<tr>
+  <td><code>GetFogPreset()</code></td>
+  <td>El preajuste que coincide con la niebla actual (o <code>nil</code> si está personalizada)</td>
+</tr>
+<tr>
+  <td><code>GetFogPresets()</code></td>
+  <td>Los nombres de los preajustes</td>
+</tr>
+<tr>
+  <td><code>GetFogTime()</code></td>
+  <td>Segundos del reloj de la niebla (el que mueve el viento)</td>
+</tr>
+<tr>
+  <td><code>CreateFogVolume(posición, ajustes?)</code></td>
+  <td>Crea una entidad con un volumen de niebla y la devuelve: <code>{ name, shape, size, radius, density, color, edgeFalloff, noiseStrength, noiseScale, priority }</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Cada campo también se lee y se escribe en los componentes: <code>entorno.fogDensity</code>, <code>foco.volumetricIntensity</code>,
+<code>volumen.density</code>... (<code>entidad:GetComponent(&quot;Environment&quot;)</code>, <code>&quot;SpotLight&quot;</code>, <code>&quot;FogVolume&quot;</code>).</p>
+<h3 id="la-niebla-se-levanta-al-amanecer">La niebla se levanta al amanecer<a class="ancla" href="#la-niebla-se-levanta-al-amanecer" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">NieblaDelAmanecer</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(1, 600), Tooltip("Segundos hasta que la niebla empieza a levantarse")]</span>
+<span class="hl-t">NieblaDelAmanecer</span>.espera = <span class="hl-n">30</span>
+<span class="hl-a">--[Range(1, 600), Tooltip("Segundos que tarda en levantarse")]</span>
+<span class="hl-t">NieblaDelAmanecer</span>.duracion = <span class="hl-n">90</span>
+
+<span class="hl-k">function</span> <span class="hl-t">NieblaDelAmanecer</span>:<span class="hl-f">Start</span>()
+    <span class="hl-t">Environment</span>.<span class="hl-f">SetFogPreset</span>(<span class="hl-s">"Niebla matinal"</span>)
+    <span class="hl-b">self</span>._tiempo = <span class="hl-n">0</span>
+    <span class="hl-b">self</span>._levantada = <span class="hl-b">false</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">NieblaDelAmanecer</span>:<span class="hl-f">Update</span>(dt)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._levantada <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._tiempo += dt
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._tiempo &gt;= <span class="hl-b">self</span>.espera <span class="hl-k">then</span>
+        <span class="hl-c">-- Queda una bruma ligera; con "Ninguna" desapareceria del todo</span>
+        <span class="hl-t">Environment</span>.<span class="hl-f">TransitionFog</span>(<span class="hl-s">"Neblina"</span>, <span class="hl-b">self</span>.duracion)
+        <span class="hl-b">self</span>._levantada = <span class="hl-b">true</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">NieblaDelAmanecer</span></code></pre></div>
+<h3 id="una-linterna-que-se-enciende-con-la-l">Una linterna que se enciende con la L<a class="ancla" href="#una-linterna-que-se-enciende-con-la-l" aria-label="Enlace a esta sección">#</a></h3>
+<p>Ponlo en la entidad que tiene el <strong>Foco</strong> de la linterna.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">LinternaConNiebla</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0, 20), Tooltip("Intensidad de la luz")]</span>
+<span class="hl-t">LinternaConNiebla</span>.intensidad = <span class="hl-n">60</span>
+<span class="hl-a">--[Range(0, 10), Tooltip("Lo que se ve el haz en la niebla")]</span>
+<span class="hl-t">LinternaConNiebla</span>.haz = <span class="hl-n">2</span>
+
+<span class="hl-k">function</span> <span class="hl-t">LinternaConNiebla</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._luz = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpotLight"</span>)
+    <span class="hl-b">self</span>._encendida = <span class="hl-b">true</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">LinternaConNiebla</span>:<span class="hl-f">Update</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._luz <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"L"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._encendida = <span class="hl-k">not</span> <span class="hl-b">self</span>._encendida
+        <span class="hl-b">self</span>._luz.intensity = <span class="hl-k">if</span> <span class="hl-b">self</span>._encendida <span class="hl-k">then</span> <span class="hl-b">self</span>.intensidad <span class="hl-k">else</span> <span class="hl-n">0</span>
+        <span class="hl-b">self</span>._luz.volumetricIntensity = <span class="hl-k">if</span> <span class="hl-b">self</span>._encendida <span class="hl-k">then</span> <span class="hl-b">self</span>.haz <span class="hl-k">else</span> <span class="hl-n">0</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">LinternaConNiebla</span></code></pre></div>
+<h3 id="humo-que-se-disipa">Humo que se disipa<a class="ancla" href="#humo-que-se-disipa" aria-label="Enlace a esta sección">#</a></h3>
+<p>Crea humo en la sala donde está la entidad y lo va quitando poco a poco (el Entorno necesita la <strong>Luz volumétrica</strong>).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">HumoQueSeDisipa</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0, 2), Tooltip("Densidad del humo al principio")]</span>
+<span class="hl-t">HumoQueSeDisipa</span>.densidad = <span class="hl-n">0.25</span>
+<span class="hl-a">--[Range(1, 120), Tooltip("Segundos que tarda en irse")]</span>
+<span class="hl-t">HumoQueSeDisipa</span>.disipacion = <span class="hl-n">20</span>
+
+<span class="hl-k">function</span> <span class="hl-t">HumoQueSeDisipa</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> humo = <span class="hl-t">Environment</span>.<span class="hl-f">CreateFogVolume</span>(<span class="hl-b">self</span>.transform.position, {
+        name = <span class="hl-s">"Humo"</span>,
+        shape = <span class="hl-s">"Caja"</span>,
+        size = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">8</span>, <span class="hl-n">3</span>, <span class="hl-n">10</span>),
+        density = <span class="hl-b">self</span>.densidad,
+        color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">0.35</span>, <span class="hl-n">0.35</span>, <span class="hl-n">0.37</span>),
+        edgeFalloff = <span class="hl-n">0.3</span>,
+        noiseStrength = <span class="hl-n">0.7</span>,
+        noiseScale = <span class="hl-n">2</span>,
+    })
+    <span class="hl-b">self</span>._volumen = humo:<span class="hl-f">GetComponent</span>(<span class="hl-s">"FogVolume"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">HumoQueSeDisipa</span>:<span class="hl-f">Update</span>(dt)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._volumen <span class="hl-k">and</span> <span class="hl-b">self</span>._volumen.density &gt; <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._volumen.density = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>._volumen.density - <span class="hl-b">self</span>.densidad * dt / <span class="hl-b">self</span>.disipacion)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">HumoQueSeDisipa</span></code></pre></div>
+<p>Los errores son claros: una clave que no existe dice cuáles valen, un preajuste desconocido lista los que hay, y sin
+Entorno en la escena lo dice.</p>
+<h2 id="7-multijugador-la-misma-niebla-para-todos">7. Multijugador: la misma niebla para todos<a class="ancla" href="#7-multijugador-la-misma-niebla-para-todos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Los campos de la niebla del Entorno y de los <strong>Volumen de niebla</strong> se replican como cualquier campo replicado: si la
+entidad tiene <strong>Identidad de red</strong> (<code>NetworkIdentity</code>), el servidor manda y los clientes reciben sus cambios (también
+los de <code>TransitionFog</code>, que avanza en el servidor). Cambiar la niebla en un cliente da un error que lo explica:
+llámalo en el servidor.</li>
+<li>El ruido que mueve el viento usa el <strong>reloj de la partida</strong> (el tick del servidor, igual en todas las máquinas) y un
+ancla del viento replicada: todos ven las mismas manchas en el mismo sitio, también si el viento cambia a mitad de
+partida.</li>
+<li>Sin Identidad de red, cada máquina lleva su propia niebla (sirve para un efecto local, como una pantalla de humo que
+solo ve un jugador).</li>
+<li>La <strong>Intensidad volumétrica</strong> de las luces es un campo más de la luz: como el resto de sus campos, no se replica
+solo (cámbiala en todos con un <code>[Multicast]</code>, como su intensidad).</li>
+</ul>
+<h2 id="8-en-el-editor-vista-previa-deshacer-y-edición-en-equipo">8. En el editor: vista previa, deshacer y edición en equipo<a class="ancla" href="#8-en-el-editor-vista-previa-deshacer-y-edición-en-equipo" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La niebla se ve en los visores <strong>Escena</strong> y <strong>Juego</strong> mientras la ajustas; cada visor lleva su propia rejilla.</li>
+<li>El <strong>Preajuste</strong> y cada campo se deshacen con Ctrl+Z y llegan a los demás en la <strong>edición en equipo</strong> como cualquier
+cambio del Inspector.</li>
+<li>Debajo del preajuste, <strong>Calidad</strong> dice la de <strong>Proyecto &gt; Render</strong> y lo que tardó la GPU en el último frame.</li>
+<li><strong>Entidad &gt; Volumen de niebla</strong> crea un volumen delante de la cámara; también desde el <strong>+</strong> de la Jerarquía.</li>
+</ul>
+<h2 id="9-calidad-y-rendimiento">9. Calidad y rendimiento<a class="ancla" href="#9-calidad-y-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ajustes del proyecto &gt; Render &gt; Calidad de la niebla volumétrica</strong> elige el tamaño de la rejilla (se guarda en
+<code>project.nova</code> como <code>&quot;calidadNiebla&quot;</code>). El alto sigue la proporción de la vista; con vistas pequeñas, como mucho un
+froxel por píxel. En el render por software (WARP) siempre es <strong>Baja</strong>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Calidad</th>
+  <th>Rejilla (16:9)</th>
+  <th>GPU a 1080p (RTX 5060 Ti)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Baja</td>
+  <td>96 x 54 x 48</td>
+  <td>0,04 ms</td>
+</tr>
+<tr>
+  <td>Media</td>
+  <td>128 x 72 x 64</td>
+  <td>0,07 ms</td>
+</tr>
+<tr>
+  <td>Alta (por defecto)</td>
+  <td>160 x 90 x 64</td>
+  <td>0,12 ms</td>
+</tr>
+<tr>
+  <td>Ultra</td>
+  <td>240 x 135 x 128</td>
+  <td>0,46 ms</td>
+</tr>
+</tbody>
+</table></div>
+<p>Medido por la prueba de rendimiento con el sol con sombras y ocho luces locales (cuatro con sombra) que iluminan la
+niebla. El frame entero cuesta unos <strong>0,15 ms más</strong> en Alta que sin luz volumétrica (la rejilla y la niebla de cada
+píxel). Sin <strong>Luz volumétrica</strong> no cuesta nada más que la niebla de siempre.</p>
+<p>Más calidad da conos y bordes de sombra más nítidos (cada froxel mide unos 12 píxeles a 1080p en Alta); bajar la
+<strong>Distancia máxima</strong> reparte los mismos cortes en menos metros (más detalle cerca).</p>
+<p>Cada frame la niebla prueba otro punto dentro de cada froxel (con ruido azul) y se mezcla con la del frame anterior
+(reproyectada si la cámara se mueve): así no hay bandas entre cortes ni parpadeo con la cámara quieta. Una luz que se
+mueve muy deprisa deja una estela corta.</p>
+<h2 id="10-transparentes-agua-y-partículas">10. Transparentes, agua y partículas<a class="ancla" href="#10-transparentes-agua-y-partículas" aria-label="Enlace a esta sección">#</a></h2>
+<p>La niebla se aplica a cada píxel con su propia distancia: los objetos opacos, el cielo (los rayos de sol se ven contra
+el cielo), el agua y los materiales transparentes reciben exactamente la misma niebla que un objeto opaco a la misma
+distancia. Un shader propio (o las partículas) la aplica con una línea (ver <span class="enlace-interno-quitado">la sección 12</span>).</p>
+<h2 id="11-límites-conocidos">11. Límites conocidos<a class="ancla" href="#11-límites-conocidos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La rejilla es de baja resolución: un haz más fino que un froxel se ve ancho y suave, y en el borde de un objeto
+delante de un haz muy brillante se puede colar un poco de luz.</li>
+<li>La luz del cielo de la niebla no tiene sombras: dentro de una casa, baja la <strong>Luz del cielo</strong> (o usa un volumen con
+prioridad para quitar la niebla de fuera).</li>
+<li>Las sombras del sol en la niebla llegan hasta su <strong>Distancia de sombras</strong>; las de las luces locales, solo en las que
+tienen sombra en el atlas.</li>
+<li>Las vistas ortográficas usan la niebla sin luz volumétrica.</li>
+<li>Solo cuenta el primer Entorno activo de la escena; 64 volúmenes como mucho a la vez.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="iluminacion-horneada.html"><small>Anterior</small>Iluminación horneada: lightmaps y sondas de luz</a><a class="sig" href="nubes.html"><small>Siguiente</small>Nubes volumétricas</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-poner-niebla-en-una-escena">1. Poner niebla en una escena</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-ajustes-de-la-niebla">3. Ajustes de la niebla</a></li><li class="n2"><a href="#4-rayos-de-sol-conos-y-halos-la-luz-de-cada-luz">4. Rayos de sol, conos y halos: la luz de cada luz</a></li><li class="n2"><a href="#5-volúmenes-de-niebla">5. Volúmenes de niebla</a></li><li class="n2"><a href="#6-desde-los-scripts-lua">6. Desde los scripts Lua</a></li><li class="n3"><a href="#la-niebla-se-levanta-al-amanecer">La niebla se levanta al amanecer</a></li><li class="n3"><a href="#una-linterna-que-se-enciende-con-la-l">Una linterna que se enciende con la L</a></li><li class="n3"><a href="#humo-que-se-disipa">Humo que se disipa</a></li><li class="n2"><a href="#7-multijugador-la-misma-niebla-para-todos">7. Multijugador: la misma niebla para todos</a></li><li class="n2"><a href="#8-en-el-editor-vista-previa-deshacer-y-edición-en-equipo">8. En el editor: vista previa, deshacer y edición en equipo</a></li><li class="n2"><a href="#9-calidad-y-rendimiento">9. Calidad y rendimiento</a></li><li class="n2"><a href="#10-transparentes-agua-y-partículas">10. Transparentes, agua y partículas</a></li><li class="n2"><a href="#11-límites-conocidos">11. Límites conocidos</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

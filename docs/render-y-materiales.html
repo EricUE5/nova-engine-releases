@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Render y materiales · Nova Engine</title>
+<meta name="description" content="Este documento resume cómo dibuja Nova Engine cada frame, cómo se escriben los materiales (.mat), qué hace
+cada campo del componente Entorno y cómo usar las luces. Está pensado para que sepas qué esperar del
+renderizador">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Render y materiales · Nova Engine">
+<meta property="og:description" content="Este documento resume cómo dibuja Nova Engine cada frame, cómo se escriben los materiales (.mat), qué hace
+cada campo del componente Entorno y cómo usar las luces. Está pensado para que sepas qué esperar del
+renderizador">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/render-y-materiales.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/render-y-materiales.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html" aria-current="page">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="render-y-materiales">Render y materiales</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#resumen-del-renderizador">Resumen del renderizador</a></li><li class="n3"><a href="#pasadas-de-un-frame">Pasadas de un frame</a></li><li class="n3"><a href="#formas-de-depuración-y-rejilla">Formas de depuración y rejilla</a></li><li class="n3"><a href="#render-a-textura-y-modo-sin-ventana">Render a textura y modo sin ventana</a></li><li class="n2"><a href="#shaders">Shaders</a></li><li class="n2"><a href="#materiales-mat">Materiales (.mat)</a></li><li class="n2"><a href="#texturas">Texturas</a></li><li class="n2"><a href="#componente-entorno">Componente Entorno</a></li><li class="n2"><a href="#luces">Luces</a></li><li class="n2"><a href="#sombras">Sombras</a></li><li class="n3"><a href="#modos-de-sombra-de-las-mallas">Modos de sombra de las mallas</a></li><li class="n3"><a href="#sol">Sol</a></li><li class="n3"><a href="#luces-puntuales-y-focos">Luces puntuales y focos</a></li><li class="n3"><a href="#ajustes-de-render-del-proyecto">Ajustes de render del proyecto</a></li><li class="n3"><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li class="n3"><a href="#rendimiento">Rendimiento</a></li><li class="n3"><a href="#desde-un-script">Desde un script</a></li><li class="n2"><a href="#consejos-para-texturas-y-materiales">Consejos para texturas y materiales</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Este documento resume cómo dibuja Nova Engine cada frame, cómo se escriben los materiales (<code>.mat</code>), qué hace
+cada campo del componente Entorno y cómo usar las luces. Está pensado para que sepas qué esperar del
+renderizador y cómo preparar tus texturas.</p>
+<h2 id="resumen-del-renderizador">Resumen del renderizador<a class="ancla" href="#resumen-del-renderizador" aria-label="Enlace a esta sección">#</a></h2>
+<p>El renderizador (<code>engine/nova/render/Renderer.h</code>) usa Direct3D 11 con un esquema <strong>forward+</strong>: primero dibuja
+la profundidad, después reparte las luces en mosaicos de la pantalla y por último sombrea cada objeto con solo
+las luces de su mosaico.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Característica</th>
+  <th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Luces por mosaicos</td>
+  <td>Mosaicos de 16x16 píxeles; hasta 256 luces puntuales y focos por frame, y hasta 63 por mosaico. Un compute shader (<code>lightcull.hlsl</code>) prueba cada luz contra el frustum de cada mosaico</td>
+</tr>
+<tr>
+  <td>Sombreado</td>
+  <td>PBR metal-rugosidad con distribución GGX (como glTF 2.0)</td>
+</tr>
+<tr>
+  <td>Mapas de normales</td>
+  <td>Espacio tangente, convención glTF/OpenGL (<strong>verde hacia arriba</strong>, Y+). Si el modelo no trae tangentes, se calculan al importar</td>
+</tr>
+<tr>
+  <td>Emisión</td>
+  <td>Color de emisión por intensidad, multiplicado por la textura de emisión</td>
+</tr>
+<tr>
+  <td>Recorte</td>
+  <td>Modo <strong>Recorte</strong>: descarta los píxeles con alfa menor que el umbral (también en las sombras)</td>
+</tr>
+<tr>
+  <td>Transparencia</td>
+  <td>Modo <strong>Mezcla</strong>: se dibuja después de los opacos, ordenado de atrás hacia delante, sin escribir profundidad y sin proyectar sombras</td>
+</tr>
+<tr>
+  <td>Sol</td>
+  <td>La primera luz direccional activa, con 1 a 4 cascadas de sombras (por defecto 4 de 2048x2048; de 256 a 4096, y 1024 como mucho en WARP) y filtrado PCF de suavidad ajustable</td>
+</tr>
+<tr>
+  <td>Sombras de luces locales</td>
+  <td>Luces puntuales (las 6 caras de un cubo) y focos (una perspectiva) con profundidad lineal en un atlas compartido de 4096x4096. Hasta 8 luces con sombra a la vez (ajustable), elegidas por cercanía a la cámara e intensidad; cada mapa solo se redibuja si se mueven la luz o los objetos que le hacen sombra</td>
+</tr>
+<tr>
+  <td>Cielo</td>
+  <td>Procedural por dispersión atmosférica (Rayleigh + Mie y absorción de ozono). Sigue a la luz direccional</td>
+</tr>
+<tr>
+  <td>Luz ambiente (IBL)</td>
+  <td>A partir del cielo: irradiancia difusa, especular prefiltrado por rugosidad (6 niveles) y tabla BRDF. Solo se regenera cuando cambian el sol o los parámetros del cielo</td>
+</tr>
+<tr>
+  <td>Oclusión ambiental (SSAO)</td>
+  <td>En pantalla, a media resolución, a partir de la profundidad; oscurece solo la luz ambiente de los objetos opacos</td>
+</tr>
+<tr>
+  <td>Niebla</td>
+  <td>Exponencial con altura; sin luz volumétrica toma el color del cielo cerca del horizonte en cada dirección. Con <strong>Luz volumétrica</strong>, una rejilla de froxels pegada a la cámara con las sombras del sol y de las luces (rayos de sol, conos de los focos, halos), ruido que mueve el viento y volúmenes de niebla locales; más lejos, la misma niebla sin sombras (<a href="niebla-volumetrica.html">niebla-volumetrica.md</a>)</td>
+</tr>
+<tr>
+  <td>Nubes</td>
+  <td>Volumétricas, a media o a un cuarto de resolución con acumulación temporal; hacen sombra, salen en los reflejos y en la luz ambiente y se funden con la niebla (ver <a href="nubes.html">nubes.md</a>)</td>
+</tr>
+<tr>
+  <td>HDR y postproceso</td>
+  <td>Render en coma flotante de 16 bits, bloom de 6 niveles, exposición, tonemapping ACES, viñeta, conversión a sRGB y FXAA</td>
+</tr>
+<tr>
+  <td>Profundidad</td>
+  <td><strong>Z invertida</strong> (cerca = 1, lejos = 0) con búfer D32_FLOAT, para más precisión a distancia</td>
+</tr>
+<tr>
+  <td>Animación</td>
+  <td>Skinning en GPU (hasta 4 huesos por vértice)</td>
+</tr>
+<tr>
+  <td>Ayudas</td>
+  <td>Líneas y formas de <code>DebugDraw</code> y rejilla infinita del editor</td>
+</tr>
+</tbody>
+</table></div>
+<p>El sol, las luces puntuales y los focos proyectan sombras (ver <a href="#sombras">Sombras</a>).</p>
+<h3 id="pasadas-de-un-frame">Pasadas de un frame<a class="ancla" href="#pasadas-de-un-frame" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Renderer::Render</code> hace, en orden:</p>
+<ol>
+<li>Comprueba si algún shader ha cambiado (compilaciones de desarrollo).</li>
+<li>Prepara las nubes (ruidos la primera vez, constantes y su mapa de sombras) y regenera el cielo y los mapas de
+IBL si han cambiado el sol, el Entorno o, con nubes, cuando estas han avanzado (guarda en caché hasta 3 entornos
+distintos).</li>
+<li>Sube las matrices de los huesos y las luces locales.</li>
+<li>Dibuja los mapas de sombras de las cascadas del sol y, en el atlas, las caras de las luces puntuales y focos
+con sombra que han cambiado desde el frame anterior.</li>
+<li>Niebla volumétrica (si el Entorno tiene <strong>Luz volumétrica</strong>): la luz y la niebla de cada froxel de la rejilla y su
+integración de delante a atrás (dos compute shaders, ver <a href="niebla-volumetrica.html">niebla-volumetrica.md</a>).</li>
+<li>Recorta los objetos por el frustum de la cámara; ordena los opacos de delante hacia atrás y los
+transparentes de atrás hacia delante.</li>
+<li>Prepasada de profundidad de los opacos.</li>
+<li>Asignación de luces a mosaicos (compute shader).</li>
+<li>Oclusión ambiental (SSAO) a media resolución, con desenfoque.</li>
+<li>Pasada principal de los opacos en HDR (con la niebla de cada píxel).</li>
+<li>Cielo de fondo (donde no hay geometría), con la niebla que tiene delante.</li>
+<li>Agua (ríos, lagos y mar), con la misma niebla.</li>
+<li>Nubes: profundidad a baja resolución, rayos, acumulación temporal y composición detrás de la geometría.</li>
+<li>Objetos transparentes (con la misma niebla).</li>
+<li>Postproceso: bloom, exposición, ACES, viñeta, sRGB y FXAA.</li>
+<li>Líneas de depuración y rejilla (si la vista las pide).</li>
+</ol>
+<p>El renderizador no conoce la escena: recibe una lista de objetos, huesos, luces, sol y entorno que se construye
+a partir de la escena en cada frame (por dentro: <span class="enlace-interno-quitado">arquitectura.md</span>).</p>
+<h3 id="formas-de-depuración-y-rejilla">Formas de depuración y rejilla<a class="ancla" href="#formas-de-depuración-y-rejilla" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las líneas y formas de depuración se acumulan durante el frame y el renderizador las dibuja al final. Las usan
+los scripts Lua (<code>Debug.DrawLine</code>, <code>Debug.DrawSphere</code>... jugando: ver
+<a href="scripts-lua.html#dibujo-de-depuración">scripts-lua.md</a>), los scripts y sistemas de C++ y el editor (gizmos, iconos
+de luces y cámaras). La rejilla infinita del suelo es un pase aparte que solo activa el visor Escena. En el
+juego publicado no se dibujan, salvo las de los scripts Lua si uno lo pide con <code>Debug.SetVisibleInGame(true)</code>.</p>
+<h3 id="render-a-textura-y-modo-sin-ventana">Render a textura y modo sin ventana<a class="ancla" href="#render-a-textura-y-modo-sin-ventana" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cada vista tiene sus propios objetivos de render: HDR, profundidad, bloom, mosaicos y la imagen final. Así
+funcionan los visores Escena y Juego, las miniaturas del editor y las capturas sin ventana: no hace falta
+ninguna ventana para renderizar, y las pruebas automáticas y las opciones <code>--hidden</code> de <code>NovaGame.exe</code> y
+<code>NovaEditor.exe</code> lo usan (cómo se hace desde C++, para quien desarrolla el motor:
+<span class="enlace-interno-quitado">arquitectura.md</span>).</p>
+<p>Si no hay GPU compatible con Direct3D 11, el motor usa <strong>WARP</strong> (render por software) automáticamente; también
+se puede forzar con la opción <code>--warp</code> o, en las pruebas, con la variable de entorno <code>NOVA_FORCE_WARP=1</code>. En
+WARP los mapas de sombras (sol de 1024 como mucho, atlas de 2048) y el cielo usan menos resolución.</p>
+<p>Para depurar el render, la capa de depuración de Direct3D 11 se activa con la opción <code>--d3d-debug</code> del editor
+o, en las pruebas, con <code>NOVA_D3D_DEBUG=1</code>. Necesita las &quot;Herramientas de gráficos&quot; opcionales de Windows; si no
+están, el motor sigue sin ella. Sus avisos y errores pasan al log (y a la Consola del editor) en cada frame.</p>
+<h2 id="shaders">Shaders<a class="ancla" href="#shaders" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los shaders están en <code>engine/shaders</code> y se compilan <strong>en tiempo de ejecución</strong> con <code>D3DCompile</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fichero</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>common.hlsli</code></td>
+  <td>Constantes del frame, conversión sRGB, niebla analítica (incluye <code>fog.hlsli</code>)</td>
+</tr>
+<tr>
+  <td><code>fog.hlsli</code></td>
+  <td>La niebla de todos los shaders: <code>FogAt</code> / <code>ApplyFog</code> (rejilla volumétrica y cola analítica; <a href="niebla-volumetrica.html">niebla-volumetrica.md</a>)</td>
+</tr>
+<tr>
+  <td><code>volumetric_fog.hlsl</code></td>
+  <td>Niebla volumétrica: luz de cada froxel e integración (compute)</td>
+</tr>
+<tr>
+  <td><code>pbr.hlsli</code></td>
+  <td>BRDF, luces locales, sombras en cascada y del atlas de luces locales, IBL</td>
+</tr>
+<tr>
+  <td><code>forward.hlsl</code></td>
+  <td>Prepasada, pasada principal, sombras (del sol y lineales de las luces locales) e IDs de selección. Variantes con <code>SKINNED</code>, <code>ALPHA_TEST</code> y <code>TRANSPARENT</code></td>
+</tr>
+<tr>
+  <td><code>lightcull.hlsl</code></td>
+  <td>Asignación de luces a mosaicos (compute)</td>
+</tr>
+<tr>
+  <td><code>ssao.hlsl</code></td>
+  <td>Oclusión ambiental y su desenfoque</td>
+</tr>
+<tr>
+  <td><code>sky.hlsl</code></td>
+  <td>Cielo procedural y disco solar</td>
+</tr>
+<tr>
+  <td><code>ibl.hlsl</code></td>
+  <td>Irradiancia, especular prefiltrado y tabla BRDF</td>
+</tr>
+<tr>
+  <td><code>post.hlsl</code></td>
+  <td>Bloom, tonemapping ACES, viñeta y FXAA</td>
+</tr>
+<tr>
+  <td><code>debug.hlsl</code></td>
+  <td>Líneas, triángulos y rejilla del editor</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Caché</strong>: el bytecode se guarda en disco, indexado por un hash del código (incluidos los <code>#include</code>), el
+punto de entrada, el perfil y los defines. En compilaciones de desarrollo la caché está en
+<code>build\&lt;preset&gt;\shadercache</code>; en el juego publicado, en <code>%LOCALAPPDATA%\&lt;nombre del juego&gt;\shadercache</code>.</li>
+<li><strong>Recarga en caliente</strong> (solo <code>debug</code> y <code>release</code>): los shaders se leen directamente de <code>engine/shaders</code>.
+Edita un <code>.hlsl</code> con el editor abierto y, al guardar, se recompila y se sustituye en menos de un segundo. Si
+la compilación falla, se conserva la versión anterior y el error aparece en la Consola.</li>
+<li>La compilación copia <code>engine/shaders</code> a <code>build\&lt;preset&gt;\bin\shaders</code> (target <code>nova_shaders</code>); de ahí los toma
+el juego publicado.</li>
+</ul>
+<h2 id="materiales-mat">Materiales (.mat)<a class="ancla" href="#materiales-mat" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un material de proyecto es un fichero JSON con estos campos. Se crea desde <strong>Contenido &gt; Crear &gt; Material</strong> y se
+edita en el Inspector (los cambios se guardan solos). Los modelos glTF traen sus propios materiales; un <code>.mat</code>
+sirve para sustituirlos o para las primitivas del motor. Desde un script Lua, cada malla puede tener además
+<strong>materiales propios</strong> que solo cambian esa entidad: <code>malla:SetColor(Color.red)</code>,
+<code>malla:SetMaterialValue(&quot;roughness&quot;, 0.2)</code>, <code>malla:SetMaterial(&quot;materials/Oro.mat&quot;)</code>... (ver
+<a href="scripts-lua.html#materiales-y-visibilidad">scripts-lua.md</a>).</p>
+<p>Para materiales con texturas animadas, mezclas, Fresnel, triplanar o efectos propios, usa un <strong>material por nodos</strong>
+(<strong>Contenido &gt; Crear &gt; Material por nodos</strong>): un <code>.mat</code> con un grafo que se edita como en Unreal o Unity y que tiene
+parámetros por instancia (<code>malla:SetParam</code>). Ver <a href="materiales-nodos.html">materiales-nodos.md</a>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Inspector</th>
+  <th>Por defecto</th>
+  <th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>baseColor</code></td>
+  <td>Color base</td>
+  <td>1, 1, 1, 1</td>
+  <td>Color RGBA en espacio <strong>lineal</strong>; el alfa se usa en Recorte y Mezcla</td>
+</tr>
+<tr>
+  <td><code>baseColorMap</code></td>
+  <td>Textura de color</td>
+  <td>ninguna</td>
+  <td>Textura sRGB, se multiplica por <code>baseColor</code></td>
+</tr>
+<tr>
+  <td><code>metallic</code></td>
+  <td>Metálico</td>
+  <td>0</td>
+  <td>0 = no metal, 1 = metal. Se multiplica por el canal B de la textura metal/rugosidad</td>
+</tr>
+<tr>
+  <td><code>roughness</code></td>
+  <td>Rugosidad</td>
+  <td>0.5</td>
+  <td>0 = espejo, 1 = mate. Se multiplica por el canal G de la textura metal/rugosidad</td>
+</tr>
+<tr>
+  <td><code>metallicRoughnessMap</code></td>
+  <td>Textura metal/rugosidad</td>
+  <td>ninguna</td>
+  <td>Textura lineal: <strong>G = rugosidad, B = metal</strong> (convención glTF)</td>
+</tr>
+<tr>
+  <td><code>normalMap</code></td>
+  <td>Mapa de normales</td>
+  <td>ninguna</td>
+  <td>Textura lineal en espacio tangente, verde hacia arriba</td>
+</tr>
+<tr>
+  <td><code>normalScale</code></td>
+  <td>Intensidad de normales</td>
+  <td>1</td>
+  <td>Multiplica la inclinación del mapa de normales</td>
+</tr>
+<tr>
+  <td><code>occlusionMap</code></td>
+  <td>Oclusión</td>
+  <td>ninguna</td>
+  <td>Textura lineal; se lee el canal R</td>
+</tr>
+<tr>
+  <td><code>occlusionStrength</code></td>
+  <td>Fuerza de oclusión</td>
+  <td>1</td>
+  <td>0 = sin oclusión, 1 = completa</td>
+</tr>
+<tr>
+  <td><code>emissive</code></td>
+  <td>Emisión</td>
+  <td>0, 0, 0</td>
+  <td>Color de emisión (admite HDR)</td>
+</tr>
+<tr>
+  <td><code>emissiveIntensity</code></td>
+  <td>Intensidad de emisión</td>
+  <td>1</td>
+  <td>Multiplica <code>emissive</code></td>
+</tr>
+<tr>
+  <td><code>emissiveMap</code></td>
+  <td>Textura de emisión</td>
+  <td>ninguna</td>
+  <td>Textura sRGB, se multiplica por <code>emissive</code></td>
+</tr>
+<tr>
+  <td><code>alphaMode</code></td>
+  <td>Transparencia</td>
+  <td>Opaco</td>
+  <td><code>Opaco</code>, <code>Recorte</code> o <code>Mezcla</code></td>
+</tr>
+<tr>
+  <td><code>alphaCutoff</code></td>
+  <td>Umbral de recorte</td>
+  <td>0.5</td>
+  <td>Solo en Recorte</td>
+</tr>
+<tr>
+  <td><code>doubleSided</code></td>
+  <td>Doble cara</td>
+  <td>false</td>
+  <td>Dibuja las dos caras (sin descarte de caras traseras)</td>
+</tr>
+<tr>
+  <td><code>uvScale</code></td>
+  <td>Escala UV</td>
+  <td>1, 1</td>
+  <td>Repite las texturas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las texturas se guardan como referencias a un asset (<code>{&quot;id&quot;: ..., &quot;path&quot;: ...}</code>) o <code>null</code>. Este es el material real
+<code>game/sample_lua/assets/materials/Caja.mat</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"baseColor"</span>: [<span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>],
+  <span class="hl-k">"baseColorMap"</span>: {
+    <span class="hl-k">"id"</span>: <span class="hl-s">"252ac5f589bd52aa"</span>,
+    <span class="hl-k">"path"</span>: <span class="hl-s">"textures/caja_color.png"</span>
+  },
+  <span class="hl-k">"metallic"</span>: <span class="hl-n">0</span>,
+  <span class="hl-k">"roughness"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"metallicRoughnessMap"</span>: {
+    <span class="hl-k">"id"</span>: <span class="hl-s">"9676a6722cf79a01"</span>,
+    <span class="hl-k">"path"</span>: <span class="hl-s">"textures/caja_mr.png"</span>
+  },
+  <span class="hl-k">"normalMap"</span>: {
+    <span class="hl-k">"id"</span>: <span class="hl-s">"357d97d7d083d5de"</span>,
+    <span class="hl-k">"path"</span>: <span class="hl-s">"textures/caja_normal.png"</span>
+  },
+  <span class="hl-k">"normalScale"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"occlusionMap"</span>: <span class="hl-b">null</span>,
+  <span class="hl-k">"occlusionStrength"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"emissive"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>],
+  <span class="hl-k">"emissiveIntensity"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"emissiveMap"</span>: <span class="hl-b">null</span>,
+  <span class="hl-k">"alphaMode"</span>: <span class="hl-s">"Opaco"</span>,
+  <span class="hl-k">"alphaCutoff"</span>: <span class="hl-n">0.5</span>,
+  <span class="hl-k">"doubleSided"</span>: <span class="hl-b">false</span>,
+  <span class="hl-k">"uvScale"</span>: [<span class="hl-n">1</span>, <span class="hl-n">1</span>]
+}</code></pre></div>
+<p>El ejemplo incluye también <code>Cristal.mat</code> (Mezcla con alfa 0,35), <code>Lampara.mat</code> (emisión naranja de intensidad
+5), <code>Cromo.mat</code>, <code>Oro.mat</code>, <code>Piedra.mat</code>, <code>PinturaAzul.mat</code>, <code>PlasticoRojo.mat</code> y <code>Suelo.mat</code>.</p>
+<p>Cómo asignar un material:</p>
+<ul>
+<li>Arrastra el <code>.mat</code> desde <strong>Contenido</strong> hasta el objeto en el visor Escena.</li>
+<li>O, en el Inspector, añade elementos a <strong>Materiales</strong> del componente Malla (uno por submalla, en orden) y
+arrastra el material a cada hueco.</li>
+</ul>
+<p>Si un objeto no tiene material propio ni del modelo, se usa el material por defecto (gris claro, rugosidad
+0,6).</p>
+<h2 id="texturas">Texturas<a class="ancla" href="#texturas" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Formatos: PNG, JPG, TGA y BMP (se cargan como RGBA de 8 bits). Se generan mipmaps al cargar.</li>
+<li>El motor decide el espacio de color según el uso: <strong>Textura de color</strong> y <strong>Textura de emisión</strong> se leen como
+sRGB; <strong>metal/rugosidad</strong>, <strong>normales</strong> y <strong>oclusión</strong> como datos lineales. No hace falta configurarlo, pero sí
+exportarlas bien desde tu programa de texturas.</li>
+<li>Si cambias una textura en disco, se recarga sola.</li>
+</ul>
+<h2 id="componente-entorno">Componente Entorno<a class="ancla" href="#componente-entorno" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Entorno</strong> (<code>Environment</code>) controla el cielo, la luz ambiente, la niebla, el postproceso y las
+<strong>nubes</strong> (su sección <strong>Nubes</strong>, con preajustes, está explicada en <a href="nubes.html">nubes.md</a>). Solo se usa el primero
+activo de la escena; sin ninguno se usan los valores por defecto.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Inspector</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>skyIntensity</code></td>
+  <td>Intensidad del cielo</td>
+  <td>1</td>
+  <td>Brillo del cielo y, con él, de la luz ambiente y los reflejos</td>
+</tr>
+<tr>
+  <td><code>haze</code></td>
+  <td>Bruma</td>
+  <td>1</td>
+  <td>Turbidez de la atmósfera (dispersión Mie). Más alto, cielo más blanquecino y halo del sol más grande</td>
+</tr>
+<tr>
+  <td><code>groundColor</code></td>
+  <td>Color del suelo</td>
+  <td>0.35, 0.32, 0.28</td>
+  <td>Color del hemisferio inferior del cielo; tiñe la luz que llega desde abajo</td>
+</tr>
+<tr>
+  <td><code>sunDiskSize</code></td>
+  <td>Tamaño del sol</td>
+  <td>1</td>
+  <td>Multiplicador del tamaño del disco solar (0 lo oculta)</td>
+</tr>
+<tr>
+  <td><code>ambientIntensity</code></td>
+  <td>Luz ambiente</td>
+  <td>1</td>
+  <td>Multiplica la luz difusa que llega del cielo (irradiancia)</td>
+</tr>
+<tr>
+  <td><code>reflectionIntensity</code></td>
+  <td>Reflejos</td>
+  <td>1</td>
+  <td>Multiplica los reflejos del cielo (especular prefiltrado)</td>
+</tr>
+<tr>
+  <td><code>fogEnabled</code></td>
+  <td>Niebla</td>
+  <td>true</td>
+  <td>Niebla exponencial con altura en toda la escena</td>
+</tr>
+<tr>
+  <td><code>fogColor</code></td>
+  <td>Color (albedo)</td>
+  <td>1, 1, 1</td>
+  <td>Tiñe la luz que dispersa la niebla (sin luz volumétrica, el color del cielo cerca del horizonte)</td>
+</tr>
+<tr>
+  <td><code>fogDensity</code></td>
+  <td>Densidad</td>
+  <td>0.012</td>
+  <td>Densidad a la altura base</td>
+</tr>
+<tr>
+  <td><code>fogHeight</code></td>
+  <td>Altura base</td>
+  <td>0</td>
+  <td>Altura de referencia (metros): por debajo la niebla es más densa</td>
+</tr>
+<tr>
+  <td><code>fogHeightFalloff</code></td>
+  <td>Caída con la altura</td>
+  <td>0.12</td>
+  <td>Cuánto disminuye la niebla al subir</td>
+</tr>
+<tr>
+  <td><code>fogStart</code></td>
+  <td>Inicio</td>
+  <td>10</td>
+  <td>Distancia a la cámara sin niebla (metros)</td>
+</tr>
+<tr>
+  <td><code>fogAmbient</code></td>
+  <td>Luz del cielo</td>
+  <td>1</td>
+  <td>Luz del cielo que dispersa la niebla</td>
+</tr>
+<tr>
+  <td><code>fogVolumetric</code></td>
+  <td>Luz volumétrica</td>
+  <td>false</td>
+  <td>La niebla recibe la luz y las sombras: rayos de sol, conos de los focos, halos y volúmenes de niebla</td>
+</tr>
+<tr>
+  <td><code>fogAnisotropy</code>, <code>fogMaxDistance</code>, <code>fogNoiseStrength</code>, <code>fogNoiseScale</code>, <code>fogWindSpeed</code>, <code>fogWindDirection</code></td>
+  <td>Anisotropía, Distancia máxima, Ruido, Escala del ruido, Velocidad y Dirección del viento</td>
+  <td>0.4, 120, 0.35, 12, 1, 0</td>
+  <td>Ajustes de la luz volumétrica: ver <a href="niebla-volumetrica.html#3-ajustes-de-la-niebla">niebla-volumetrica.md</a></td>
+</tr>
+<tr>
+  <td><code>windDirection</code>, <code>windSpeed</code>, <code>windGusts</code></td>
+  <td>Dirección del viento, Velocidad del viento, Ráfagas</td>
+  <td>30, 4, 0.5</td>
+  <td>El viento que mueve la hierba, las hojas y los árboles del terreno (grados hacia donde sopla, m/s y 0 a 1). Ver <a href="vegetacion.html#6-viento">vegetacion.md</a></td>
+</tr>
+<tr>
+  <td><code>exposure</code></td>
+  <td>Exposición (EV)</td>
+  <td>0</td>
+  <td>Compensación en pasos: +1 duplica el brillo, -1 lo divide a la mitad</td>
+</tr>
+<tr>
+  <td><code>bloomIntensity</code></td>
+  <td>Bloom</td>
+  <td>0.06</td>
+  <td>Fuerza del resplandor de las zonas brillantes (0 lo desactiva)</td>
+</tr>
+<tr>
+  <td><code>bloomThreshold</code></td>
+  <td>Umbral de bloom</td>
+  <td>1</td>
+  <td>Brillo a partir del cual hay bloom</td>
+</tr>
+<tr>
+  <td><code>fxaa</code></td>
+  <td>FXAA</td>
+  <td>true</td>
+  <td>Suavizado de bordes en pantalla</td>
+</tr>
+<tr>
+  <td><code>vignette</code></td>
+  <td>Viñeta</td>
+  <td>0.25</td>
+  <td>Oscurecimiento de las esquinas (0 la desactiva)</td>
+</tr>
+<tr>
+  <td><code>ssao</code></td>
+  <td>Oclusión ambiental (SSAO)</td>
+  <td>true</td>
+  <td>Oscurece la luz ambiente en rincones y contactos</td>
+</tr>
+<tr>
+  <td><code>ssaoRadius</code></td>
+  <td>Radio SSAO</td>
+  <td>0.6</td>
+  <td>Radio de búsqueda en metros</td>
+</tr>
+<tr>
+  <td><code>ssaoIntensity</code></td>
+  <td>Intensidad SSAO</td>
+  <td>1</td>
+  <td>Fuerza del oscurecimiento</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sin luz direccional en la escena, el cielo se calcula con un sol por defecto, pero no hay luz directa ni
+sombras. Girar el sol regenera el cielo y el IBL, así que animarlo cada frame es caro (sobre todo en WARP).</p>
+<h2 id="luces">Luces<a class="ancla" href="#luces" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todas las luces se crean desde <strong>Entidad &gt; Luz</strong> y usan el color en espacio lineal multiplicado por su
+intensidad. Las intensidades son <strong>unidades aproximadas, no físicas</strong>: ajústalas a ojo junto con la exposición
+del Entorno.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Luz</th>
+  <th>Componente</th>
+  <th>Dirección</th>
+  <th>Atenuación</th>
+  <th>Valores del ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Direccional (sol)</td>
+  <td><code>DirectionalLight</code></td>
+  <td>Eje -Z de la entidad</td>
+  <td>Ninguna</td>
+  <td>Intensidad 4</td>
+</tr>
+<tr>
+  <td>Puntual</td>
+  <td><code>PointLight</code></td>
+  <td>Todas</td>
+  <td>Inversa del cuadrado de la distancia, suavizada hasta llegar a 0 en <code>range</code></td>
+  <td>Faroles: intensidad 18, alcance 9 m</td>
+</tr>
+<tr>
+  <td>Foco</td>
+  <td><code>SpotLight</code></td>
+  <td>Eje -Z de la entidad</td>
+  <td>Como la puntual, más el cono entre <code>innerAngle</code> y <code>outerAngle</code></td>
+  <td>Intensidad 40, alcance 8 m, ángulos 20° y 30°</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las tres tienen <strong>Intensidad volumétrica</strong> (<code>volumetricIntensity</code>, 1 por defecto): cuánto iluminan la niebla con la
+<strong>Luz volumétrica</strong> del Entorno (el cono de una linterna, el halo de una farola, los rayos de sol; 0 = nada). Ver
+<a href="niebla-volumetrica.html#4-rayos-de-sol-conos-y-halos-la-luz-de-cada-luz">niebla-volumetrica.md</a>.</p>
+<p>Consejos:</p>
+<ul>
+<li>Usa <code>range</code> lo más pequeño posible: cuanto menor es, menos mosaicos ocupa la luz y más barata es.</li>
+<li>Una luz que se queda corta parece &quot;cortada&quot; en el borde del alcance: sube <code>range</code> o baja la intensidad.</li>
+<li>Si una zona tiene más de 63 luces que se solapan en el mismo mosaico de 16x16 píxeles, las que sobran no se
+aplican en ese mosaico.</li>
+<li>Para el sol, ajusta <strong>Distancia de sombras</strong>: más pequeña da sombras más nítidas cerca de la cámara.</li>
+<li>Si ves rayas en las superficies iluminadas (&quot;acné&quot;), sube un poco <strong>Sesgo de sombra</strong> o <strong>Sesgo normal</strong>; si
+las sombras se separan de los objetos, bájalos. Más en <a href="#sombras">Sombras</a>.</li>
+</ul>
+<h2 id="sombras">Sombras<a class="ancla" href="#sombras" aria-label="Enlace a esta sección">#</a></h2>
+<p>Proyectan sombra los objetos con <strong>Sombras: Activadas</strong> o <strong>Solo sombra</strong> (componentes Malla y Malla con huesos)
+que son opacos o de <strong>Recorte</strong>; los de <strong>Mezcla</strong> no proyectan. Un objeto con <strong>Recibe sombras</strong> desactivado no
+se oscurece con ninguna sombra (la luz le llega igual).</p>
+<h3 id="modos-de-sombra-de-las-mallas">Modos de sombra de las mallas<a class="ancla" href="#modos-de-sombra-de-las-mallas" aria-label="Enlace a esta sección">#</a></h3>
+<p>La opción <strong>Sombras</strong> de la Malla y de la Malla con huesos tiene tres modos:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Sombras</th>
+  <th>Se dibuja</th>
+  <th>Proyecta sombra</th>
+  <th>Campos (scripts y ficheros)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Activadas</td>
+  <td>Sí</td>
+  <td>Sí</td>
+  <td><code>castShadows = true</code>, <code>shadowOnly = false</code></td>
+</tr>
+<tr>
+  <td>Desactivadas</td>
+  <td>Sí</td>
+  <td>No</td>
+  <td><code>castShadows = false</code></td>
+</tr>
+<tr>
+  <td>Solo sombra</td>
+  <td>No (tampoco se selecciona con el ratón en la vista)</td>
+  <td>Sí</td>
+  <td><code>castShadows = true</code>, <code>shadowOnly = true</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Solo sombra</strong> es para el cuerpo del jugador en primera persona: desde dentro no se ve, pero su sombra sí cae
+en el suelo y en las paredes, con el sol (cascadas) y con las luces puntuales y los focos (atlas). Pasar de
+Activadas a Solo sombra no rehace las sombras estáticas (la sombra es la misma); a o desde Desactivadas, sí.</p>
+<p><strong>Visibilidad en red</strong> decide quién ve la malla en una partida en red, según el <strong>propietario</strong> (el dueño de la
+Identidad de red de la entidad o de su ancestro más cercano, es decir, el jugador de ese personaje):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Visibilidad en red</th>
+  <th>El propietario</th>
+  <th>Los demás</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Todos</td>
+  <td>La ve</td>
+  <td>La ven</td>
+</tr>
+<tr>
+  <td>Oculto para el propietario</td>
+  <td>Solo su sombra (como Solo sombra)</td>
+  <td>La ven entera</td>
+</tr>
+<tr>
+  <td>Solo el propietario</td>
+  <td>La ve</td>
+  <td>Ni la ven ni ven su sombra</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con eso, un personaje de un juego en primera persona lleva su cuerpo con <strong>Oculto para el propietario</strong> y sus
+brazos con el arma con <strong>Solo el propietario</strong>: cada jugador ve sus brazos y la sombra de su cuerpo, y a los demás
+enteros. Sin red (un jugador clásico) no hay propietario: usa <strong>Solo sombra</strong>. Desde un script:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> cuerpo = <span class="hl-b">self</span>.entity:<span class="hl-f">FindChild</span>(<span class="hl-s">"Cuerpo"</span>)
+<span class="hl-k">local</span> malla = <span class="hl-k">if</span> cuerpo <span class="hl-k">then</span> cuerpo:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SkinnedMeshRenderer"</span>) <span class="hl-k">else</span> <span class="hl-b">nil</span>
+<span class="hl-k">if</span> malla <span class="hl-k">and</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+    malla.shadowOnly = <span class="hl-b">true</span> <span class="hl-c">-- lo mismo a mano (solo en esta máquina)</span>
+<span class="hl-k">end</span></code></pre></div>
+<h3 id="sol">Sol<a class="ancla" href="#sol" aria-label="Enlace a esta sección">#</a></h3>
+<p>El sol reparte la distancia de sombras (<strong>Distancia de sombras</strong>, metros desde la cámara) entre 1 y 4
+<strong>Cascadas</strong>: la primera cubre lo más cercano con más detalle. Cada cascada es un mapa de <strong>Resolución</strong> x
+<strong>Resolución</strong> texeles (2048 por defecto). Las sombras se desvanecen al final de la distancia.</p>
+<ul>
+<li>Sombras borrosas cerca de la cámara: baja <strong>Distancia de sombras</strong>, sube <strong>Cascadas</strong> o <strong>Resolución</strong>.</li>
+<li><strong>Suavidad</strong> es el radio del filtro PCF en texeles: 0 da bordes duros (y más baratos) y 6 muy suaves.</li>
+<li><strong>Sesgo de sombra</strong> se mide en profundidad de la cascada y <strong>Sesgo normal</strong> desplaza el punto a lo largo de la
+normal (0,02 equivale a un texel de la cascada).</li>
+</ul>
+<h3 id="luces-puntuales-y-focos">Luces puntuales y focos<a class="ancla" href="#luces-puntuales-y-focos" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con <strong>Proyectar sombras</strong> activado (lo está por defecto), la luz no atraviesa paredes ni objetos: detrás de
+ellos queda en sombra. Cada luz guarda su mapa en un <strong>atlas</strong> compartido (una textura de profundidad de
+4096 x 4096) con la distancia a la luz dividida por su alcance (profundidad lineal):</p>
+<ul>
+<li><strong>Foco</strong>: una perspectiva un poco más ancha que su <strong>Ángulo exterior</strong> (hasta 85°; si el cono es más
+abierto, la parte que pasa de 85° no tiene sombra).</li>
+<li><strong>Luz puntual</strong>: las 6 caras de un cubo (+X, -X, +Y, -Y, +Z, -Z), cada una algo más ancha que 90° para que el
+filtro no lea la cara de al lado. Ocupa 6 veces más atlas y cuesta 6 veces más dibujarla que un foco.</li>
+<li>En estas sombras los objetos se dibujan por las dos caras: una pared hecha con un <strong>Plano</strong> (una sola cara)
+también tapa la luz por detrás.</li>
+</ul>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Proyectar sombras</td>
+  <td>Sí</td>
+  <td>Activa la sombra de la luz</td>
+</tr>
+<tr>
+  <td>Resolución</td>
+  <td>512 (puntual, por cara), 1024 (foco)</td>
+  <td>Texeles de lado del mapa. Como mucho, medio atlas; si no cabe, se reduce (ver más abajo)</td>
+</tr>
+<tr>
+  <td>Sesgo de sombra</td>
+  <td>1</td>
+  <td>En texeles del mapa: acerca la comparación a la luz. Súbelo si ves rayas (acné) en superficies iluminadas</td>
+</tr>
+<tr>
+  <td>Sesgo normal</td>
+  <td>1,5</td>
+  <td>En texeles: desplaza el punto a lo largo de su normal. Quita el acné en superficies inclinadas respecto a la luz</td>
+</tr>
+<tr>
+  <td>Suavidad</td>
+  <td>1</td>
+  <td>Radio del filtro PCF (12 muestras) en texeles: 0 = bordes duros, 6 = muy suaves</td>
+</tr>
+<tr>
+  <td>Plano cercano</td>
+  <td>0,05 m</td>
+  <td>Lo que está más cerca de la luz que esto no proyecta sombra</td>
+</tr>
+</tbody>
+</table></div>
+<p>Como los sesgos se miden en texeles, valen igual cerca y lejos de la luz y con cualquier resolución: los valores
+por defecto sirven para casi todo.</p>
+<h4 id="prioridad-y-límite">Prioridad y límite<a class="ancla" href="#prioridad-y-límite" aria-label="Enlace a esta sección">#</a></h4>
+<p>En cada vista (Escena, Juego, juego publicado) solo tienen sombra las luces que tocan lo que se ve, y como
+mucho <strong>Luces con sombra a la vez</strong> de los <a href="#ajustes-de-render-del-proyecto">ajustes del proyecto</a> (8 por
+defecto). Si hay más, ganan las de más aporte a la cámara (intensidad x alcance² / distancia²): las cercanas e
+intensas. Las demás iluminan sin sombra (y la atraviesan).</p>
+<p>Si las sombras pedidas no caben en el atlas, se reduce a la mitad la resolución de la luz que más tiene (a
+igualdad, la menos prioritaria) hasta que quepan todas, con 64 texeles como mínimo; solo si ni así caben, las
+menos prioritarias se quedan sin sombra. Las luces que ya no se usan (de otra vista o que se han quedado sin
+sombra) conservan su sitio hasta que lo necesita otra. El atlas solo se crea cuando hay alguna luz local con
+sombra: ocupa 64 MB de vídeo con 4096 x 4096 (16 MB con 2048, 256 MB con 8192).</p>
+<h4 id="sombras-estáticas">Sombras estáticas<a class="ancla" href="#sombras-estáticas" aria-label="Enlace a esta sección">#</a></h4>
+<p>Cada cara del atlas recuerda una huella de su luz (posición, dirección, alcance, plano cercano, resolución) y de
+los objetos que la tocan (malla, material, transformación y huesos). Si nada ha cambiado, se reutiliza tal cual
+y no se dibuja: una escena quieta solo dibuja sus sombras locales una vez, aunque haya varias vistas. Al mover
+la luz se redibujan todas sus caras; al mover un objeto, solo las caras que lo ven. Las mallas con huesos que
+se están animando cambian cada frame, así que sus caras se redibujan siempre.</p>
+<p>Las <strong>Estadísticas</strong> del visor Escena muestran cuántas luces tienen sombra y cuántas caras se han redibujado y
+reutilizado en el frame.</p>
+<h3 id="ajustes-de-render-del-proyecto">Ajustes de render del proyecto<a class="ancla" href="#ajustes-de-render-del-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p>En <strong>Editar &gt; Ajustes del proyecto... &gt; Render</strong> (sección <code>render</code> de <code>project.nova</code>). Se aplican al momento en
+los visores del editor, en <code>NovaGame.exe</code> y en el juego publicado:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ajuste</th>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Luces con sombra a la vez</td>
+  <td><code>sombrasLocalesMax</code></td>
+  <td>8</td>
+  <td>Luces puntuales y focos con sombra en cada vista (0 las desactiva todas)</td>
+</tr>
+<tr>
+  <td>Atlas de sombras</td>
+  <td><code>atlasSombras</code></td>
+  <td>4096</td>
+  <td>Lado del atlas: 1024, 2048, 4096 u 8192 (en WARP, 2048 como mucho)</td>
+</tr>
+<tr>
+  <td>Reutilizar sombras estáticas</td>
+  <td><code>reutilizarSombras</code></td>
+  <td>true</td>
+  <td>Si se desactiva, todas las caras se redibujan en cada frame</td>
+</tr>
+<tr>
+  <td>Calidad del agua</td>
+  <td><code>calidadAgua</code></td>
+  <td>2</td>
+  <td>0 = baja, 1 = media, 2 = alta: densidad de la rejilla del mar, mapa de contacto de la espuma y rayos de luz bajo el agua (ver <a href="splines-carreteras-rios.html#6-ríos-y-lagos">splines-carreteras-rios.md</a>)</td>
+</tr>
+<tr>
+  <td>Calidad de las nubes</td>
+  <td><code>calidadNubes</code></td>
+  <td><code>&quot;Alta&quot;</code></td>
+  <td><code>&quot;Baja&quot;</code>, <code>&quot;Media&quot;</code>, <code>&quot;Alta&quot;</code> o <code>&quot;Ultra&quot;</code>: resolución y pasos de las nubes volumétricas (ver <a href="nubes.html#6-calidad-y-rendimiento">nubes.md</a>)</td>
+</tr>
+<tr>
+  <td>Calidad de la vegetación</td>
+  <td><code>calidadVegetacion</code></td>
+  <td><code>&quot;Alta&quot;</code></td>
+  <td><code>&quot;Baja&quot;</code>, <code>&quot;Media&quot;</code>, <code>&quot;Alta&quot;</code> o <code>&quot;Ultra&quot;</code>: cuánta hierba y a qué distancias se ven la hierba y los árboles (ver <a href="vegetacion.html#10-calidad-y-rendimiento">vegetacion.md</a>)</td>
+</tr>
+<tr>
+  <td>Texturas de los decals</td>
+  <td><code>texturasDecals</code></td>
+  <td>512</td>
+  <td>Lado de las texturas de los <a href="decals.html">decals</a> en la GPU: 256, 512, 1024 o 2048</td>
+</tr>
+<tr>
+  <td>Calidad de la niebla volumétrica</td>
+  <td><code>calidadNiebla</code></td>
+  <td><code>&quot;Alta&quot;</code></td>
+  <td>Rejilla de la luz volumétrica: <code>&quot;Baja&quot;</code>, <code>&quot;Media&quot;</code>, <code>&quot;Alta&quot;</code> o <code>&quot;Ultra&quot;</code> (en WARP, Baja). Ver <a href="niebla-volumetrica.html#9-calidad-y-rendimiento">niebla-volumetrica.md</a></td>
+</tr>
+<tr>
+  <td>Preajuste de calidad</td>
+  <td><code>preajuste</code></td>
+  <td><code>&quot;Alto&quot;</code></td>
+  <td><code>&quot;Bajo&quot;</code>, <code>&quot;Medio&quot;</code>, <code>&quot;Alto&quot;</code>, <code>&quot;Ultra&quot;</code> o <code>&quot;Personalizado&quot;</code>: el último preajuste aplicado. Los ajustes de rendimiento (<code>lod</code>, <code>sesgoLod</code>, <code>oclusion</code>, <code>instancias</code>, <code>distanciaLuces</code>...) están en <a href="rendimiento.html">rendimiento.md</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"render"</span>: {
+  <span class="hl-k">"calidadNiebla"</span>: <span class="hl-s">"Alta"</span>,
+  <span class="hl-k">"sombrasLocalesMax"</span>: <span class="hl-n">8</span>,
+  <span class="hl-k">"atlasSombras"</span>: <span class="hl-n">4096</span>,
+  <span class="hl-k">"reutilizarSombras"</span>: <span class="hl-b">true</span>,
+  <span class="hl-k">"calidadAgua"</span>: <span class="hl-n">2</span>,
+  <span class="hl-k">"calidadNubes"</span>: <span class="hl-s">"Alta"</span>
+}</code></pre></div>
+<h3 id="problemas-frecuentes">Problemas frecuentes<a class="ancla" href="#problemas-frecuentes" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué se ve</th>
+  <th>Qué hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Rayas o manchas en superficies iluminadas (acné)</td>
+  <td>Sube <strong>Sesgo de sombra</strong> o <strong>Sesgo normal</strong></td>
+</tr>
+<tr>
+  <td>La sombra empieza separada del objeto (se &quot;despega&quot;)</td>
+  <td>Baja <strong>Sesgo de sombra</strong> y <strong>Sesgo normal</strong></td>
+</tr>
+<tr>
+  <td>Todo queda a oscuras alrededor de una luz</td>
+  <td>La luz está dentro de un objeto que proyecta sombra (la bombilla o la carcasa de una lámpara): desactiva <strong>Proyecta sombras</strong> en ese objeto o sube <strong>Plano cercano</strong> de la luz</td>
+</tr>
+<tr>
+  <td>La luz atraviesa una pared</td>
+  <td>Comprueba <strong>Proyectar sombras</strong> de la luz, <strong>Proyecta sombras</strong> de la pared (y que no sea de <strong>Mezcla</strong>) y que el límite de <strong>Luces con sombra a la vez</strong> no la deje fuera</td>
+</tr>
+<tr>
+  <td>Bordes de sombra pixelados</td>
+  <td>Sube <strong>Resolución</strong> o <strong>Suavidad</strong></td>
+</tr>
+<tr>
+  <td>Las sombras de algunas luces se ven peor que lo pedido</td>
+  <td>El atlas no tiene sitio y se ha bajado su resolución: sube <strong>Atlas de sombras</strong> o baja la resolución de otras luces</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="rendimiento">Rendimiento<a class="ancla" href="#rendimiento" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con 4 luces puntuales y 4 focos con sombra (28 caras del atlas) sobre 36 objetos, a 1280 x 720 en una GeForce
+RTX 5060 Ti (compilación <code>release</code>), un frame cuesta unos 0,6 ms reutilizando las sombras y unos 1,2 ms
+redibujando todas las caras en cada frame (prueba <code>sombras: rendimiento</code>). Para ahorrar:</p>
+<ul>
+<li>Usa focos en vez de luces puntuales cuando la luz solo va hacia un lado (1 cara en vez de 6).</li>
+<li>Baja la <strong>Resolución</strong> de las luces pequeñas o lejanas y el <strong>Alcance</strong> de todas (menos objetos por cara).</li>
+<li>Desactiva <strong>Proyectar sombras</strong> en luces de relleno que no lo necesitan y <strong>Proyecta sombras</strong> en objetos
+pequeños.</li>
+</ul>
+<h3 id="desde-un-script">Desde un script<a class="ancla" href="#desde-un-script" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los campos de las luces y de las mallas (<code>castShadows</code>, <code>receiveShadows</code>, <code>shadowOnly</code>, <code>ownerVisibility</code>,
+<code>shadowResolution</code>, <code>shadowSoftness</code>...) se leen y se escriben desde un script con <code>GetComponent</code> y se aplican en el frame
+siguiente. Un script también puede dar a una malla un material propio (<code>SetColor</code>, <code>SetEmissive</code>...) sin que
+cambien sus sombras. Esta linterna (un Foco en la misma entidad) se enciende con F y activa o quita sus sombras
+con G:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Linterna: un foco que se enciende con F; G activa o quita sus sombras y la carcasa no las recibe.</span>
+<span class="hl-k">local</span> <span class="hl-t">LinternaSombras</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0, 500)]</span>
+<span class="hl-t">LinternaSombras</span>.intensidad = <span class="hl-n">40</span>
+<span class="hl-a">--[Range(0, 6)]</span>
+<span class="hl-t">LinternaSombras</span>.suavidad = <span class="hl-n">2</span>
+
+<span class="hl-k">function</span> <span class="hl-t">LinternaSombras</span>:<span class="hl-f">Start</span>()
+    <span class="hl-c">-- La carcasa (una malla en la misma entidad), de color propio y sin sombras encima</span>
+    <span class="hl-k">local</span> carcasa = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"MeshRenderer"</span>)
+    <span class="hl-k">if</span> carcasa <span class="hl-k">then</span>
+        carcasa:<span class="hl-f">SetEmissive</span>(<span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.9</span>, <span class="hl-n">0.6</span>, <span class="hl-n">1</span>), <span class="hl-n">2</span>)
+        carcasa.receiveShadows = <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">LinternaSombras</span>:<span class="hl-f">Update</span>(dt)
+    <span class="hl-k">local</span> foco = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpotLight"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> foco <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"F"</span>) <span class="hl-k">then</span>
+        foco.intensity = <span class="hl-k">if</span> foco.intensity &gt; <span class="hl-n">0</span> <span class="hl-k">then</span> <span class="hl-n">0</span> <span class="hl-k">else</span> <span class="hl-b">self</span>.intensidad
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"G"</span>) <span class="hl-k">then</span>
+        foco.castShadows = <span class="hl-k">not</span> foco.castShadows
+    <span class="hl-k">end</span>
+    foco.shadowSoftness = <span class="hl-b">self</span>.suavidad
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">LinternaSombras</span></code></pre></div>
+<h2 id="consejos-para-texturas-y-materiales">Consejos para texturas y materiales<a class="ancla" href="#consejos-para-texturas-y-materiales" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Color base y emisión</strong> en sRGB (lo normal al pintar o fotografiar). <strong>Normales, metal/rugosidad y oclusión</strong>
+son datos: expórtalos sin corrección de color.</li>
+<li>En la textura metal/rugosidad, <strong>G = rugosidad</strong> y <strong>B = metal</strong>. El canal R no se usa ahí, pero el mapa de
+oclusión lee el R: puedes asignar una misma textura &quot;ORM&quot; (oclusión, rugosidad, metal) a <strong>Oclusión</strong> y a
+<strong>Textura metal/rugosidad</strong>.</li>
+<li>Con una textura metal/rugosidad, deja <strong>Metálico</strong> y <strong>Rugosidad</strong> en 1 para usar los valores de la textura
+tal cual (los dos factores la multiplican).</li>
+<li>Los mapas de normales deben seguir la convención <strong>OpenGL</strong> (verde hacia arriba). Si tu programa los exporta
+en convención DirectX, invierte el canal verde.</li>
+<li>La textura de emisión se multiplica por <strong>Emisión</strong>: si <strong>Emisión</strong> es negro, la textura no se ve.</li>
+<li>Los colores del Inspector de materiales y luces están en espacio lineal: un gris medio sRGB (128) equivale a
+unos 0,22 lineales.</li>
+</ul>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><p><a href="nubes.html">nubes.md</a>: nubes volumétricas, su sombra y los cambios de tiempo desde Lua.</p>
+</li>
+<li><p><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a> (rayos de sol, conos de luz, volúmenes de niebla y el tiempo desde Lua)</p>
+</li>
+<li><p><a href="iluminacion-horneada.html">Iluminación horneada</a> (lightmaps y sondas de luz: la luz que rebota en los interiores)</p>
+</li>
+<li><p><a href="escenas-y-componentes.html">Escenas y componentes</a></p>
+</li>
+<li><p><a href="scripts-lua.html">Scripts en Lua</a> (materiales propios por entidad, luces y entorno desde los scripts)</p>
+</li>
+<li><p><a href="modelos-y-animaciones.html">Modelos y animaciones</a></p>
+</li>
+<li><p><span class="enlace-interno-quitado">Arquitectura</span> (el renderizador por dentro, para quien desarrolla el motor)</p>
+</li>
+<li><p><a href="editor.html">Editor</a></p>
+</li>
+<li><p><a href="publicar-juego.html">Publicar el juego</a></p>
+</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="scripts-cpp.html"><small>Anterior</small>Scripts en C++ (avanzado, opcional)</a><a class="sig" href="materiales-nodos.html"><small>Siguiente</small>Materiales por nodos</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#resumen-del-renderizador">Resumen del renderizador</a></li><li class="n3"><a href="#pasadas-de-un-frame">Pasadas de un frame</a></li><li class="n3"><a href="#formas-de-depuración-y-rejilla">Formas de depuración y rejilla</a></li><li class="n3"><a href="#render-a-textura-y-modo-sin-ventana">Render a textura y modo sin ventana</a></li><li class="n2"><a href="#shaders">Shaders</a></li><li class="n2"><a href="#materiales-mat">Materiales (.mat)</a></li><li class="n2"><a href="#texturas">Texturas</a></li><li class="n2"><a href="#componente-entorno">Componente Entorno</a></li><li class="n2"><a href="#luces">Luces</a></li><li class="n2"><a href="#sombras">Sombras</a></li><li class="n3"><a href="#modos-de-sombra-de-las-mallas">Modos de sombra de las mallas</a></li><li class="n3"><a href="#sol">Sol</a></li><li class="n3"><a href="#luces-puntuales-y-focos">Luces puntuales y focos</a></li><li class="n3"><a href="#ajustes-de-render-del-proyecto">Ajustes de render del proyecto</a></li><li class="n3"><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li class="n3"><a href="#rendimiento">Rendimiento</a></li><li class="n3"><a href="#desde-un-script">Desde un script</a></li><li class="n2"><a href="#consejos-para-texturas-y-materiales">Consejos para texturas y materiales</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

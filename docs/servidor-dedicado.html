@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Servidor dedicado (NovaServer.exe) · Nova Engine</title>
+<meta name="description" content="NovaServer.exe es el servidor dedicado de Nova Engine: un programa de consola, sin ventana de juego, sin
+GPU y sin sonido, que carga tu proyecto y sus scripts y simula la partida para que los jugadores se
+conecten a él. ">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Servidor dedicado (NovaServer.exe) · Nova Engine">
+<meta property="og:description" content="NovaServer.exe es el servidor dedicado de Nova Engine: un programa de consola, sin ventana de juego, sin
+GPU y sin sonido, que carga tu proyecto y sus scripts y simula la partida para que los jugadores se
+conecten a él. ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/servidor-dedicado.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/servidor-dedicado.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html" aria-current="page">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="servidor-dedicado-novaserverexe">Servidor dedicado (NovaServer.exe)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#anfitrión-o-servidor-dedicado">Anfitrión o servidor dedicado</a></li><li class="n2"><a href="#arrancar-el-servidor">Arrancar el servidor</a></li><li class="n2"><a href="#configuración-servidorjson-y-argumentos">Configuración: servidor.json y argumentos</a></li><li class="n2"><a href="#comandos-de-la-consola">Comandos de la consola</a></li><li class="n2"><a href="#puertos-firewall-y-router">Puertos, firewall y router</a></li><li class="n3"><a href="#el-puerto">El puerto</a></li><li class="n3"><a href="#firewall-de-windows">Firewall de Windows</a></li><li class="n3"><a href="#el-router-alojar-en-casa">El router (alojar en casa)</a></li><li class="n2"><a href="#en-otro-pc-o-en-un-vps">En otro PC o en un VPS</a></li><li class="n3"><a href="#qué-necesita">Qué necesita</a></li><li class="n3"><a href="#un-servidor-alquilado-vps">Un servidor alquilado (VPS)</a></li><li class="n3"><a href="#arrancarlo-solo-y-reiniciarlo-si-se-cae">Arrancarlo solo y reiniciarlo si se cae</a></li><li class="n2"><a href="#logs">Logs</a></li><li class="n2"><a href="#actualizar-el-servidor">Actualizar el servidor</a></li><li class="n2"><a href="#publicar-juego-la-carpeta-con-el-servidor">Publicar juego: la carpeta con el servidor</a></li><li class="n2"><a href="#errores-comunes">Errores comunes</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p><code>NovaServer.exe</code> es el servidor dedicado de Nova Engine: un programa de consola, sin ventana de juego, sin
+GPU y sin sonido, que carga tu proyecto y sus scripts y simula la partida para que los jugadores se
+conecten a él. Este documento explica cómo arrancarlo y configurarlo, sus comandos, qué hay que abrir en el
+firewall y en el router, cómo dejarlo funcionando en otro PC o en un servidor alquilado (VPS), dónde están
+los logs, cómo actualizarlo y qué incluye «Publicar juego».</p>
+<p>Cómo se programa un juego multijugador (y por qué el mismo código sirve para el anfitrión y para el servidor
+dedicado) está en <a href="multijugador.html">multijugador.md</a>. Las partidas a través de Steam, en <a href="steam.html">steam.md</a>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#anfitrión-o-servidor-dedicado">Anfitrión o servidor dedicado</a></li>
+<li><a href="#arrancar-el-servidor">Arrancar el servidor</a></li>
+<li><a href="#configuración-servidorjson-y-argumentos">Configuración: servidor.json y argumentos</a></li>
+<li><a href="#comandos-de-la-consola">Comandos de la consola</a></li>
+<li><a href="#puertos-firewall-y-router">Puertos, firewall y router</a></li>
+<li><a href="#en-otro-pc-o-en-un-vps">En otro PC o en un VPS</a></li>
+<li><a href="#logs">Logs</a></li>
+<li><a href="#actualizar-el-servidor">Actualizar el servidor</a></li>
+<li><a href="#publicar-juego-la-carpeta-con-el-servidor">Publicar juego: la carpeta con el servidor</a></li>
+<li><a href="#errores-comunes">Errores comunes</a></li>
+</ol>
+<h2 id="anfitrión-o-servidor-dedicado">Anfitrión o servidor dedicado<a class="ancla" href="#anfitrión-o-servidor-dedicado" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th></th>
+  <th>Anfitrión (<code>NovaGame.exe</code> con «Crear partida» o <code>--host</code>)</th>
+  <th>Servidor dedicado (<code>NovaServer.exe</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Quién lo ejecuta</td>
+  <td>Uno de los jugadores, mientras juega</td>
+  <td>Un PC o un servidor alquilado, sin nadie jugando en él</td>
+</tr>
+<tr>
+  <td>Si se cierra</td>
+  <td>Se acaba la partida para todos</td>
+  <td>Igual, pero no depende de que un jugador siga conectado</td>
+</tr>
+<tr>
+  <td>Ventaja</td>
+  <td>Ninguna configuración; el anfitrión no tiene retraso</td>
+  <td>Todo el PC para la simulación; nadie tiene ventaja; puede estar siempre encendido</td>
+</tr>
+<tr>
+  <td>Necesita</td>
+  <td>Abrir el puerto en el router del anfitrión (o Steam)</td>
+  <td>Abrir el puerto en el servidor</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los scripts son los mismos: en el servidor dedicado <code>IsServer()</code> es verdadero, <code>IsClient()</code> es falso, no hay
+jugador local (<code>Network.GetLocalPlayer()</code> es <code>nil</code>), <code>OnGUI</code> no se llama y <code>Audio.</code>, <code>GUI.</code> y <code>UI()</code> no hacen
+nada (ver <a href="multijugador.html#6-autoridad-quién-ejecuta-qué">multijugador.md</a>).</p>
+<h2 id="arrancar-el-servidor">Arrancar el servidor<a class="ancla" href="#arrancar-el-servidor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con el motor instalado, <code>NovaServer.exe</code> está en la carpeta <code>bin\</code> del motor; desde el código fuente se compila
+con el resto (<code>tools\build.cmd</code>) y queda en <code>build\&lt;preset&gt;\bin\</code>, junto a <code>NovaGame.exe</code>. Para probar el ejemplo
+multijugador en Lua («Rey de la arena», puerto 7778):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaServer.exe --project game\multiplayer_lua</code></pre></div>
+<p>Al arrancar escribe algo así:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">Servidor listo: 'Rey de la arena' en 0.0.0.0:7778 (8 jugadores como mucho, escena scenes/Arena.scene). Escribe help para ver los comandos.</code></pre></div>
+<p>Y para conectarse desde el mismo PC:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaGame.exe --project game\multiplayer_lua --connect 127.0.0.1:7778 --name Ana</code></pre></div>
+<p>(o, en el editor, <strong>Jugar &gt; Conectar a...</strong> con <code>127.0.0.1:7778</code>).</p>
+<p>Qué hace al arrancar:</p>
+<ol>
+<li>Abre el proyecto: el de <code>--project</code> o, sin él, <code>&lt;carpeta del exe&gt;\data</code> (la estructura del juego
+publicado).</li>
+<li>Carga los scripts Lua del proyecto: los <code>.luau</code> de <code>scripts\</code> o, en un juego publicado, su bytecode
+(<code>data\scripts\*.luauc</code>). Si el proyecto tiene scripts C++ (<code>scriptModule</code> de <code>project.nova</code>), carga también su
+DLL, que busca <strong>junto al exe</strong>; sin ella el servidor arranca, pero esos scripts no se ejecutan (aviso en el
+log).</li>
+<li>Lee la configuración (sección siguiente), carga la escena y empieza a jugarla con una sesión de red de
+servidor dedicado.</li>
+<li>Simula a paso fijo (el <strong>Paso fijo</strong> del proyecto, 60 Hz por defecto) y atiende los comandos de la consola.</li>
+</ol>
+<p>Termina con código 0 al cerrarse normalmente, 1 si no encuentra el proyecto, la configuración o la escena (o
+un puerto no es válido), y 2 si no puede abrir el puerto.</p>
+<h2 id="configuración-servidorjson-y-argumentos">Configuración: servidor.json y argumentos<a class="ancla" href="#configuración-servidorjson-y-argumentos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada ajuste se toma, de menos a más prioridad, de:</p>
+<ol>
+<li>la sección <code>red</code> de <code>project.nova</code> (<strong>Ajustes del proyecto &gt; Red</strong>: puerto, plazas, nombre del servidor,
+versión del protocolo y relevancia);</li>
+<li>el fichero <code>servidor.json</code>;</li>
+<li>los argumentos de la línea de comandos.</li>
+</ol>
+<p><code>servidor.json</code> se busca en este orden: el fichero de <code>--config</code>, <code>&lt;carpeta del proyecto&gt;\servidor.json</code> y
+<code>&lt;carpeta del exe&gt;\servidor.json</code>. No es obligatorio. Ejemplo con todas las claves:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"nombre"</span>: <span class="hl-s">"Arena de Nova (Madrid)"</span>,
+  <span class="hl-k">"puerto"</span>: <span class="hl-n">7777</span>,
+  <span class="hl-k">"ip"</span>: <span class="hl-s">"0.0.0.0"</span>,
+  <span class="hl-k">"maxJugadores"</span>: <span class="hl-n">16</span>,
+  <span class="hl-k">"contrasena"</span>: <span class="hl-s">""</span>,
+  <span class="hl-k">"escena"</span>: <span class="hl-s">"scenes/Arena.scene"</span>,
+  <span class="hl-k">"lan"</span>: <span class="hl-b">true</span>,
+  <span class="hl-k">"relevancia"</span>: <span class="hl-n">0</span>,
+  <span class="hl-k">"log"</span>: <span class="hl-s">"C:/Servidores/Arena/servidor.log"</span>,
+  <span class="hl-k">"seguridad"</span>: { <span class="hl-k">"alSospechar"</span>: <span class="hl-s">"banear"</span>, <span class="hl-k">"minutosBaneo"</span>: <span class="hl-n">30</span>, <span class="hl-k">"comprobarContenido"</span>: <span class="hl-s">"rechazar"</span> }
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Argumento</th>
+  <th>Por defecto</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>nombre</code></td>
+  <td><code>--name &lt;nombre&gt;</code></td>
+  <td><code>nombreServidor</code> del proyecto (o el nombre del juego)</td>
+  <td>Nombre que se ve en la lista de partidas de la red local</td>
+</tr>
+<tr>
+  <td><code>puerto</code></td>
+  <td><code>--port N</code></td>
+  <td><code>puerto</code> del proyecto (7777)</td>
+  <td>Puerto UDP en el que escucha. Entre 1 y 65535: si no, el servidor no arranca y dice de dónde sale el valor. Solo con <code>--port</code>, 0 = uno libre que elige el sistema (lo escribe en la línea «Servidor listo»; útil para pruebas automáticas con varios servidores a la vez)</td>
+</tr>
+<tr>
+  <td><code>ip</code></td>
+  <td><code>--bind &lt;ip&gt;</code></td>
+  <td><code>0.0.0.0</code></td>
+  <td>Interfaz de red: <code>0.0.0.0</code> acepta conexiones de todas; <code>127.0.0.1</code> solo de este PC</td>
+</tr>
+<tr>
+  <td><code>maxJugadores</code></td>
+  <td><code>--max-players N</code></td>
+  <td><code>maxJugadores</code> del proyecto (16 si el proyecto no tiene sección <code>red</code>)</td>
+  <td>Plazas</td>
+</tr>
+<tr>
+  <td><code>contrasena</code></td>
+  <td><code>--password &lt;clave&gt;</code></td>
+  <td>sin contraseña</td>
+  <td>Contraseña de la partida. No viaja en claro: el cliente demuestra que la conoce</td>
+</tr>
+<tr>
+  <td><code>escena</code></td>
+  <td><code>--scene &lt;ruta&gt;</code></td>
+  <td>escena inicial del proyecto</td>
+  <td>Mapa, relativo a <code>assets/</code></td>
+</tr>
+<tr>
+  <td><code>lan</code></td>
+  <td>—</td>
+  <td><code>true</code></td>
+  <td>Responder a las búsquedas de partidas en la red local</td>
+</tr>
+<tr>
+  <td><code>relevancia</code></td>
+  <td><code>--relevance &lt;metros&gt;</code></td>
+  <td><code>relevancia</code> del proyecto (0)</td>
+  <td>Distancia a la que cada jugador recibe las entidades (0 = todas a todos). Con mundos grandes ahorra ancho de banda</td>
+</tr>
+<tr>
+  <td><code>log</code></td>
+  <td><code>--log &lt;fichero&gt;</code></td>
+  <td><code>%LOCALAPPDATA%\&lt;nombre del juego&gt;\servidor.log</code></td>
+  <td>Fichero de log (sección 7)</td>
+</tr>
+<tr>
+  <td><code>enlace</code></td>
+  <td><code>--relay</code></td>
+  <td><code>false</code></td>
+  <td>Nova Enlace: además crea una sala en el relé y escribe su código (<code>NOVA-7K2F-Q9XM</code>) en la consola; los jugadores entran con él desde cualquier sitio, sin abrir puertos. Los de la red local siguen entrando por el puerto UDP (<a href="enlace.html">enlace.md</a>)</td>
+</tr>
+<tr>
+  <td><code>enlaceUrl</code></td>
+  <td><code>--relay-url &lt;url&gt;</code></td>
+  <td><code>enlaceUrl</code> del proyecto (o el relé de serie)</td>
+  <td>Otro relé de Nova Enlace</td>
+</tr>
+<tr>
+  <td><code>seguridad</code></td>
+  <td>—</td>
+  <td>la de <strong>Ajustes del proyecto &gt; Red &gt; Seguridad</strong></td>
+  <td>Cifrado, límites por jugador, qué hacer con quien se pasa (avisar, expulsar o banear), anti-trampas, clientes modificados y el fichero del registro de seguridad. Solo cambia las claves que pongas; todas en <a href="seguridad-red.html#4-ajustes">seguridad-red.md</a>. El registro va a <code>seguridad.log</code>, junto a <code>servidor.log</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Nova Datos</strong> (datos persistentes y emparejamiento): <code>&quot;datos&quot;: { &quot;modo&quot;, &quot;url&quot;, &quot;juego&quot; }</code> en <code>servidor.json</code>, o
+<code>--datos-local</code>, <code>--datos-remoto</code>, <code>--datos-url &lt;url&gt;</code> y <code>--datos-juego &lt;id&gt;</code>. La clave de servidor del juego nunca va
+aquí: variable <code>NOVA_DATOS_CLAVE</code> o <code>clave-datos.txt</code> junto a <code>NovaServer.exe</code>. <code>--partida &lt;id&gt;</code> y <code>--partida-modo &lt;modo&gt;</code> los pone <code>nova-flota.exe</code> a los servidores del emparejamiento (solo entran los jugadores de esa partida). Ver
+<a href="datos-persistentes.html#7-el-servidor-dedicado-y-su-clave">datos-persistentes.md</a> y <a href="emparejamiento.html">emparejamiento.md</a>.</p>
+<p>Otros argumentos: <code>--project &lt;carpeta&gt;</code> (proyecto a cargar), <code>--config &lt;fichero&gt;</code> (otro <code>servidor.json</code>) y
+<code>--help</code> (muestra la ayuda y sale). Los argumentos que el servidor no conoce, y todo lo que va después de <code>--</code>, son
+<strong>del juego</strong>: los scripts los leen con <code>Application.GetArgs()</code> y <code>Application.GetArg(&quot;modo&quot;)</code>
+(<code>NovaServer.exe --port 7777 -- --modo torneo --rondas=5</code>; ver
+<a href="scripts-lua.html#argumentos-de-la-línea-de-órdenes">scripts-lua.md</a>).</p>
+<p>Ejemplo: dos servidores del mismo juego en el mismo PC, cada uno con su mapa, su puerto y su log:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaServer.exe --name <span class="hl-s">"Arena 1"</span> --port 7777 --log arena1.log
+NovaServer.exe --name <span class="hl-s">"Arena 2"</span> --port 7778 --scene scenes/Arena2.scene --log arena2.log</code></pre></div>
+<p>Cada servidor necesita su propio puerto y su propio fichero de log (un log abierto por un servidor no lo puede
+escribir otro). Las búsquedas en la red local preguntan al puerto del proyecto y a los tres siguientes, así
+que los servidores que deban verse en la LAN tienen que usar puertos de ese rango.</p>
+<h2 id="comandos-de-la-consola">Comandos de la consola<a class="ancla" href="#comandos-de-la-consola" aria-label="Enlace a esta sección">#</a></h2>
+<p>Se escriben en la ventana del servidor y se confirman con Intro:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Comando</th>
+  <th>Alias</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>status</code></td>
+  <td><code>estado</code></td>
+  <td>Estado, jugadores, entidades, tick, tiempo encendido, tráfico y la lista de jugadores con su id, nombre, dirección y ping</td>
+</tr>
+<tr>
+  <td><code>kick &lt;id&gt; [motivo]</code></td>
+  <td><code>expulsar</code></td>
+  <td>Expulsa a un jugador (el id sale en <code>status</code>). El jugador ve el motivo</td>
+</tr>
+<tr>
+  <td><code>ban &lt;id&gt; [minutos] [motivo]</code></td>
+  <td><code>banear</code></td>
+  <td>Expulsa y banea temporalmente a un jugador (su IP, o su cuenta de Steam si entró por Steam). Sin minutos, los de <code>minutosBaneo</code> (10). Ve el motivo y cuánto le queda si intenta volver</td>
+</tr>
+<tr>
+  <td><code>bans</code></td>
+  <td><code>baneos</code></td>
+  <td>Baneos en vigor: dirección, minutos que quedan y motivo</td>
+</tr>
+<tr>
+  <td><code>unban &lt;dirección&gt;</code></td>
+  <td><code>desbanear</code></td>
+  <td>Quita un baneo (la dirección como sale en <code>bans</code>, por ejemplo <code>81.34.10.2</code>)</td>
+</tr>
+<tr>
+  <td><code>seguridad [n]</code></td>
+  <td><code>security</code></td>
+  <td>Los últimos <code>n</code> sucesos del registro de seguridad (20 por defecto) y si la conexión de cada jugador va cifrada (<a href="seguridad-red.html">seguridad-red.md</a>)</td>
+</tr>
+<tr>
+  <td><code>say &lt;texto&gt;</code></td>
+  <td><code>decir</code></td>
+  <td>Mensaje para todos los jugadores: les aparece abajo a la izquierda como <code>[Servidor] texto</code>. También queda en la consola y en el log del servidor</td>
+</tr>
+<tr>
+  <td><code>codigo</code></td>
+  <td><code>code</code>, <code>código</code></td>
+  <td>Con <code>--relay</code>: el código de Nova Enlace de la partida (también sale al crearse la sala y en <code>status</code>)</td>
+</tr>
+<tr>
+  <td><code>quit</code></td>
+  <td><code>exit</code>, <code>salir</code></td>
+  <td>Cierra el servidor (avisa antes a los jugadores)</td>
+</tr>
+<tr>
+  <td><code>help</code></td>
+  <td><code>ayuda</code>, <code>?</code></td>
+  <td>Lista de comandos</td>
+</tr>
+<tr>
+  <td><code>comandos</code></td>
+  <td><code>commands</code></td>
+  <td>Los comandos de la consola del juego (0.9.27): <code>cvars</code>, <code>timescale</code>, <code>admin &lt;id&gt;</code>, <code>tp</code>... y los <code>RegisterCommand</code> de tus scripts. Se escriben aquí tal cual (<code>dinero 500</code>, <code>zombis.velocidad 4</code>), con todos los permisos (<a href="herramientas-lua.html">herramientas-lua.md</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Ctrl+C</strong> o cerrar la ventana también cierran el servidor de forma ordenada (y cerrar la sesión o apagar
+Windows): los jugadores reciben «[Servidor] El servidor se cierra» y vuelven al menú con el motivo «el servidor
+se cerró». Al cerrar la ventana, Windows deja unos 5 segundos: el servidor espera a terminar de cerrarse (hasta
+4,5 s) antes de dejar que Windows lo termine.</p>
+<p>Ejemplo de <code>status</code> con dos jugadores:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">Estado: Servidor dedicado: 2 jugador(es) | 2 jugador(es) | 12 entidades de red | 64 entidades en la escena | tick 5321 | 89 s
+Tráfico: envía 4.1 KB/s, recibe 9.6 KB/s, ping medio 38 ms
+  [1] Ana  192.168.1.34:52110  35 ms
+  [2] Beto  192.168.1.40:61022  41 ms</code></pre></div>
+<p>La partida no se pausa nunca: el servidor sigue simulando aunque no haya nadie conectado.</p>
+<h2 id="puertos-firewall-y-router">Puertos, firewall y router<a class="ancla" href="#puertos-firewall-y-router" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="el-puerto">El puerto<a class="ancla" href="#el-puerto" aria-label="Enlace a esta sección">#</a></h3>
+<p>El servidor escucha en <strong>un puerto UDP</strong> (7777 por defecto). Los clientes no necesitan abrir nada: sus
+conexiones salen hacia el servidor y el router las deja volver.</p>
+<h3 id="firewall-de-windows">Firewall de Windows<a class="ancla" href="#firewall-de-windows" aria-label="Enlace a esta sección">#</a></h3>
+<p>La primera vez que el servidor (o un anfitrión) escucha en <code>0.0.0.0</code>, Windows pregunta si se permite el acceso:
+acepta en las redes que vayas a usar. En un servidor sin nadie delante, crea la regla de entrada desde una
+consola <strong>como administrador</strong>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">netsh advfirewall firewall add rule name=<span class="hl-s">"Mi juego (servidor)"</span> dir=<span class="hl-k">in</span> action=allow protocol=UDP localport=7777</code></pre></div>
+<p>O solo para el ejecutable (sirve para cualquier puerto):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">netsh advfirewall firewall add rule name=<span class="hl-s">"Mi juego (servidor)"</span> dir=<span class="hl-k">in</span> action=allow program=<span class="hl-s">"C:\Servidores\MiJuego\NovaServer.exe"</span></code></pre></div>
+<h3 id="el-router-alojar-en-casa">El router (alojar en casa)<a class="ancla" href="#el-router-alojar-en-casa" aria-label="Enlace a esta sección">#</a></h3>
+<p>Para que jugadores de fuera de tu casa lleguen a un servidor (o a un anfitrión) que está en tu red, el router
+tiene que reenviar el puerto al PC del servidor (<em>port forwarding</em>):</p>
+<ol>
+<li>Dale al PC del servidor una <strong>IP local fija</strong> (en el router, «reserva DHCP» o «IP estática», por ejemplo
+<code>192.168.1.50</code>).</li>
+<li>En la página de configuración del router, en «Redirección de puertos», «NAT» o «Servidores virtuales», crea
+una regla: protocolo <strong>UDP</strong>, puerto externo <strong>7777</strong>, IP interna <code>192.168.1.50</code>, puerto interno <strong>7777</strong>.</li>
+<li>Busca tu <strong>IP pública</strong> (en la página del router o en cualquier web de «cuál es mi IP») y dásela a los
+jugadores: se conectan a <code>IP-pública:7777</code>.</li>
+<li>Prueba desde fuera de tu red (por ejemplo, con un portátil conectado a los datos del móvil). Desde dentro de
+tu propia red usa la IP local: muchos routers no permiten conectarse a la IP pública desde dentro.</li>
+</ol>
+<p>Si la IP que muestra el router como «WAN» es distinta de tu IP pública, tu operador usa CG-NAT y no puedes
+abrir puertos: arranca el servidor con <code>--relay</code> (Nova Enlace: los jugadores entran con un código, sin abrir nada;
+<a href="enlace.html">enlace.md</a>), usa un VPS o las conexiones de Steam (<a href="steam.html">steam.md</a>).</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaServer.exe --relay</code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">Servidor listo: 'Arena' en 0.0.0.0:7777 (16 jugadores como mucho, escena scenes/Arena.scene). Escribe help para ver los comandos.
+Nova Enlace: creando la sala en el relé... (el código saldrá aquí)
+Código de la partida: NOVA-7K2F-Q9XM  (los jugadores lo escriben en Unirse, desde cualquier sitio; docs/enlace.md)</code></pre></div>
+<p>Si el relé no contesta al arrancar (sin Internet o un fallo pasajero de Cloudflare), la partida ya funciona en la red
+local y el servidor lo vuelve a intentar solo (a los 15 s, a los 30 s y después cada minuto) con el aviso
+«Red: Nova Enlace: ...; se reintentará en 15 s»: el código sale en cuanto el relé contesta.</p>
+<p>Nova solo usa IPv4. La IP pública de una conexión doméstica puede cambiar: un servicio de DNS dinámico da un
+nombre fijo, pero de momento el juego se conecta por IP (escribe la IP, no el nombre).</p>
+<h2 id="en-otro-pc-o-en-un-vps">En otro PC o en un VPS<a class="ancla" href="#en-otro-pc-o-en-un-vps" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="qué-necesita">Qué necesita<a class="ancla" href="#qué-necesita" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>Windows 10/11 o Windows Server de 64 bits (<code>NovaServer.exe</code> es un programa de Windows). No necesita tarjeta
+gráfica ni de sonido.</li>
+<li>El runtime de Visual C++ 2015-2022 (x64): «Publicar juego» copia sus DLL junto a los ejecutables cuando usa
+binarios optimizados (los del motor instalado o los <code>shipping</code>); si no, instala el «Microsoft Visual C++
+Redistributable (x64)».</li>
+<li>Los ficheros del juego publicado (sección 9). Del juego publicado basta con:</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">NovaServer.exe
+msvcp140.dll, vcruntime140.dll, vcruntime140_1.dll
+data\                        juego.novapak: assets, scripts Lua compilados y ajustes del juego
+servidor.json                tu configuración (opcional)
+&lt;modulo&gt;.dll                 solo si el juego tiene scripts C++ (scriptModule)</code></pre></div>
+<p>No hacen falta <code>&lt;Nombre del juego&gt;.exe</code> ni <code>shaders\</code>.</p>
+<h3 id="un-servidor-alquilado-vps">Un servidor alquilado (VPS)<a class="ancla" href="#un-servidor-alquilado-vps" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Alquila un VPS con Windows en una región cercana a tus jugadores (el ping depende sobre todo de la
+distancia). Para un juego pequeño basta con 2 núcleos y 2-4 GB de RAM.</li>
+<li>Conéctate por Escritorio remoto y copia la carpeta del servidor (por ejemplo a <code>C:\Servidores\MiJuego</code>).</li>
+<li>Abre el puerto UDP <strong>en el panel del proveedor</strong> (suele llamarse firewall, <em>security group</em> o reglas de red)
+<strong>y</strong> en el Firewall de Windows del VPS.</li>
+<li>Arranca <code>NovaServer.exe</code> y conéctate desde tu PC a <code>IP-del-VPS:7777</code>.</li>
+</ol>
+<h3 id="arrancarlo-solo-y-reiniciarlo-si-se-cae">Arrancarlo solo y reiniciarlo si se cae<a class="ancla" href="#arrancarlo-solo-y-reiniciarlo-si-se-cae" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un <code>.bat</code> junto a <code>NovaServer.exe</code> que lo vuelve a arrancar si se cierra por un error (con <code>quit</code> termina con
+código 0 y el bucle acaba):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">@<span class="hl-k">echo</span> off
+<span class="hl-c">rem servidor.bat: arranca el servidor y lo reinicia si se cierra por un error</span>
+<span class="hl-k">cd</span> /d <span class="hl-s">"%~dp0"</span>
+:bucle
+NovaServer.exe --log servidor.log
+<span class="hl-k">if</span> <span class="hl-t">%errorlevel%</span>==0 <span class="hl-k">goto</span> fin
+copy /y servidor.log servidor-anterior.log &gt;nul
+<span class="hl-k">echo</span> El servidor se ha cerrado con el codigo <span class="hl-t">%errorlevel%</span>. Se reinicia en 10 segundos...
+timeout /t 10 &gt;nul
+<span class="hl-k">goto</span> bucle
+:fin</code></pre></div>
+<p>Para que arranque al encender el equipo, crea una tarea en el <strong>Programador de tareas</strong> de Windows: desencadenador
+«Al iniciar el sistema», acción «Iniciar un programa» con <code>servidor.bat</code>, y marca «Ejecutar tanto si el usuario
+inició sesión como si no». Ten en cuenta que así el servidor no tiene consola: no podrás escribir comandos, y
+detener la tarea cierra el proceso de golpe (los jugadores se desconectan por «tiempo de espera agotado»). Si
+quieres usar los comandos, déjalo abierto en una sesión de Escritorio remoto.</p>
+<h2 id="logs">Logs<a class="ancla" href="#logs" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La consola muestra los mensajes de nivel Info o superior.</li>
+<li>El log completo va a <code>%LOCALAPPDATA%\&lt;nombre del juego&gt;\servidor.log</code> (el nombre del juego es <code>name</code> de
+<code>project.nova</code>), o al fichero de <code>--log</code> o de la clave <code>log</code>. Se <strong>vacía en cada arranque</strong>: guarda una copia
+si quieres conservarlo (el <code>.bat</code> de arriba lo hace).</li>
+<li>Si otro servidor del mismo juego ya está escribiendo en ese fichero, este usa <code>servidor-2.log</code>,
+<code>servidor-3.log</code>... (la consola lo dice al arrancar). Para saber cuál es cuál, mejor un <code>--log</code> para cada uno.</li>
+<li>Se escribe al momento (aunque el proceso se cierre de golpe, el log queda completo).</li>
+<li>Qué aparece: arranque y configuración, jugadores que entran y salen (con el motivo), expulsiones, mensajes
+<code>say</code>, avisos de red (por ejemplo, conexiones rechazadas por versión o contraseña), los errores de los scripts
+Lua (con fichero y línea) y todo lo que tus scripts escriban con <code>Log.Info</code>, <code>Log.Warn</code> o <code>Log.Error</code> (o
+<code>print</code>). Escribe en el log lo que te interese de la partida (quién gana, trampas detectadas...).</li>
+<li><strong>Registro de seguridad</strong>: <code>seguridad.log</code>, junto a <code>servidor.log</code> (o el fichero de <code>&quot;registro&quot;</code> en la sección
+<code>seguridad</code>). Una línea por suceso: fecha, jugador (id, nombre y dirección), tipo (<code>velocidad</code>, <code>rpc</code>, <code>dueno</code>,
+<code>argumentos</code>, <code>contenido</code>, <code>trafico</code>, <code>baneo</code>... o el que dé tu juego con <code>Security.Report</code>), lo que se hizo
+(<code>descartado</code>, <code>aviso</code>, <code>expulsado</code>, <code>baneado</code>) y el detalle. <strong>No se vacía</strong> al arrancar; al pasar de 10 MB se
+guarda como <code>seguridad.log.1</code>. También en la consola (<code>seguridad</code>) y en tus scripts (<code>Security.GetLog</code>). Ver
+<a href="seguridad-red.html">seguridad-red.md</a>.</li>
+</ul>
+<h2 id="actualizar-el-servidor">Actualizar el servidor<a class="ancla" href="#actualizar-el-servidor" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Avisa a los jugadores (<code>say El servidor se reinicia en 5 minutos</code>).</li>
+<li><code>quit</code>.</li>
+<li>Sustituye <code>NovaServer.exe</code> y <code>data\</code> (con los scripts) por los de la versión nueva, y la DLL de scripts si el
+juego tiene scripts C++. Conserva tu <code>servidor.json</code>.</li>
+<li>Arráncalo otra vez.</li>
+</ol>
+<p>Servidor y jugadores tienen que tener <strong>la misma versión</strong> del juego: si cambian los campos replicados, las
+funciones de red (o los tipos de sus parámetros) o la versión del protocolo (<strong>Ajustes del proyecto &gt; Red</strong>), los clientes
+viejos se rechazan con «versión incompatible» (detalles en
+<a href="multijugador.html#16-errores-comunes">multijugador.md</a>). En Steam los jugadores se actualizan solos; el servidor
+dedicado lo actualizas tú cada vez que publiques una versión.</p>
+<p>Guarda <code>servidor.json</code> <strong>junto a <code>NovaServer.exe</code></strong>, no dentro de <code>data\</code>: «Publicar juego» borra y vuelve a crear
+<code>data\</code> en cada publicación. Si junto a <code>NovaServer.exe</code> no hay ninguno, «Publicar juego» deja una plantilla con
+los ajustes del proyecto (nombre, puerto, plazas, contraseña vacía, escena, relevancia y LAN); si ya hay uno, no
+lo toca.</p>
+<h2 id="publicar-juego-la-carpeta-con-el-servidor">Publicar juego: la carpeta con el servidor<a class="ancla" href="#publicar-juego-la-carpeta-con-el-servidor" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Archivo &gt; Publicar juego...</strong> (o <code>NovaEditor.exe --project &lt;proyecto&gt; --publish &lt;carpeta&gt;</code>) copia
+<code>NovaServer.exe</code> junto al juego (con el motor instalado, el de su carpeta <code>bin\</code>; desde el código fuente, el de
+<code>build\shipping\bin</code> si hay compilación shipping; ver <a href="publicar-juego.html">publicar-juego.md</a>):</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">&lt;carpeta de salida&gt;\
+  &lt;Nombre del juego&gt;.exe     el juego (NovaGame.exe renombrado)
+  NovaServer.exe             el servidor dedicado
+  servidor.json              plantilla de su configuración (solo si no existía)
+  shaders\                   solo para el juego
+  data\                      juego.novapak (assets, bytecode de los scripts Lua y ajustes): lo usan los dos
+  &lt;modulo&gt;.dll               solo con scripts C++: los usan los dos
+  msvcp140.dll ...           runtime de C++
+  LICENCIAS.txt</code></pre></div>
+<p>En la carpeta publicada, <code>NovaServer.exe</code> sin argumentos ya encuentra <code>data\</code> (y la DLL, si la hay).</p>
+<p>Puedes distribuir el servidor de dos formas:</p>
+<ul>
+<li><strong>Dentro del juego</strong>: los jugadores que quieran montar su servidor ya lo tienen en la carpeta del juego.</li>
+<li><strong>Aparte</strong> (para tu VPS o como herramienta para la comunidad): copia solo los ficheros de la lista de la
+sección 6. En Steam se suele publicar como una aplicación aparte de tipo «servidor dedicado»; ver
+<a href="steam.html">steam.md</a>.</li>
+</ul>
+<h2 id="errores-comunes">Errores comunes<a class="ancla" href="#errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Mensaje o síntoma</th>
+  <th>Causa y solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>No se pudo arrancar el servidor: No se pudo abrir el puerto UDP 7777 (¿está en uso?)</code></td>
+  <td>Ya hay otro servidor, o un anfitrión, usando ese puerto en este PC. Ciérralo o usa otro puerto (<code>--port</code>)</td>
+</tr>
+<tr>
+  <td><code>No se encuentra el proyecto en ...</code></td>
+  <td>Falta <code>data\</code> junto al exe, o la ruta de <code>--project</code> es incorrecta</td>
+</tr>
+<tr>
+  <td><code>No se pudo cargar la escena ...</code></td>
+  <td>La clave <code>escena</code> o <code>--scene</code> no existe dentro de <code>assets/</code></td>
+</tr>
+<tr>
+  <td><code>No se pudo leer la configuración ...</code></td>
+  <td><code>servidor.json</code> no es JSON válido (el mensaje dice la línea)</td>
+</tr>
+<tr>
+  <td><code>Puerto no válido en ...: N (debe estar entre 1 y 65535)</code></td>
+  <td>El puerto de <code>project.nova</code>, de <code>servidor.json</code> (<code>puerto</code> o, con Steam, <code>puertoConsultas</code>) o de <code>--port</code>/<code>--query-port</code> está fuera de rango o no es un número</td>
+</tr>
+<tr>
+  <td><code>ERROR Lua: scripts/X.luau:12: ...</code> en la consola o el log</td>
+  <td>Un error en un script Lua (fichero y línea): corrígelo, publica otra vez y actualiza el servidor</td>
+</tr>
+<tr>
+  <td><code>El juego no tiene su módulo de scripts (...)</code> en el log</td>
+  <td>Solo en juegos con scripts C++: falta su DLL junto a <code>NovaServer.exe</code>. El servidor funciona, pero sin esos scripts</td>
+</tr>
+<tr>
+  <td>Los clientes ven «el servidor no responde»</td>
+  <td>Firewall de Windows o del proveedor, falta la redirección de puertos en el router, IP o puerto equivocados, o CG-NAT</td>
+</tr>
+<tr>
+  <td>Los clientes ven «versión incompatible»</td>
+  <td>El servidor y el cliente son de versiones distintas del juego (o de proyectos con distinto nombre)</td>
+</tr>
+<tr>
+  <td>Los clientes ven «contraseña incorrecta» o «servidor lleno»</td>
+  <td>Lo que dicen: revisa <code>contrasena</code> y <code>maxJugadores</code></td>
+</tr>
+<tr>
+  <td>La partida no sale en la lista de la red local</td>
+  <td><code>&quot;lan&quot;: false</code>, otra subred, el firewall bloquea UDP o el puerto está fuera del rango que se busca</td>
+</tr>
+<tr>
+  <td>Dos servidores en el mismo PC: ¿cuál es su log?</td>
+  <td>El segundo escribe en <code>servidor-2.log</code> (y así): dale a cada uno el suyo con <code>--log</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="multijugador.html">Multijugador</a></li>
+<li><a href="steam.html">Steam</a></li>
+<li><a href="publicar-juego.html">Publicar el juego</a></li>
+<li><span class="enlace-interno-quitado">Red a bajo nivel (<code>nova_net</code>)</span></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="paquetes.html"><small>Anterior</small>Paquetes del motor: primera y tercera persona listas para multijugador</a><a class="sig" href="enlace.html"><small>Siguiente</small>Nova Enlace: por Internet con un código</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#anfitrión-o-servidor-dedicado">Anfitrión o servidor dedicado</a></li><li class="n2"><a href="#arrancar-el-servidor">Arrancar el servidor</a></li><li class="n2"><a href="#configuración-servidorjson-y-argumentos">Configuración: servidor.json y argumentos</a></li><li class="n2"><a href="#comandos-de-la-consola">Comandos de la consola</a></li><li class="n2"><a href="#puertos-firewall-y-router">Puertos, firewall y router</a></li><li class="n3"><a href="#el-puerto">El puerto</a></li><li class="n3"><a href="#firewall-de-windows">Firewall de Windows</a></li><li class="n3"><a href="#el-router-alojar-en-casa">El router (alojar en casa)</a></li><li class="n2"><a href="#en-otro-pc-o-en-un-vps">En otro PC o en un VPS</a></li><li class="n3"><a href="#qué-necesita">Qué necesita</a></li><li class="n3"><a href="#un-servidor-alquilado-vps">Un servidor alquilado (VPS)</a></li><li class="n3"><a href="#arrancarlo-solo-y-reiniciarlo-si-se-cae">Arrancarlo solo y reiniciarlo si se cae</a></li><li class="n2"><a href="#logs">Logs</a></li><li class="n2"><a href="#actualizar-el-servidor">Actualizar el servidor</a></li><li class="n2"><a href="#publicar-juego-la-carpeta-con-el-servidor">Publicar juego: la carpeta con el servidor</a></li><li class="n2"><a href="#errores-comunes">Errores comunes</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

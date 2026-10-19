@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materiales por nodos · Nova Engine</title>
+<meta name="description" content="Un material por nodos se hace conectando cajas en un grafo, como el Material Editor de Unreal Engine 5 o el
+Shader Graph de Unity: texturas, números, matemáticas, tiempo, Fresnel... y todo llega al nodo Salida PBR. El
+mo">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Materiales por nodos · Nova Engine">
+<meta property="og:description" content="Un material por nodos se hace conectando cajas en un grafo, como el Material Editor de Unreal Engine 5 o el
+Shader Graph de Unity: texturas, números, matemáticas, tiempo, Fresnel... y todo llega al nodo Salida PBR. El
+mo">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/materiales-nodos.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/materiales-nodos.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html" aria-current="page">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="materiales-por-nodos">Materiales por nodos</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#crear-y-abrir-un-material-por-nodos">Crear y abrir un material por nodos</a></li><li class="n2"><a href="#la-ventana-material-por-nodos">La ventana Material por nodos</a></li><li class="n2"><a href="#atajos">Atajos</a></li><li class="n2"><a href="#tipos-y-conexiones">Tipos y conexiones</a></li><li class="n2"><a href="#el-nodo-salida-pbr">El nodo Salida PBR</a></li><li class="n2"><a href="#catálogo-de-nodos">Catálogo de nodos</a></li><li class="n2"><a href="#parámetros-por-instancia">Parámetros por instancia</a></li><li class="n2"><a href="#desde-lua">Desde Lua</a></li><li class="n2"><a href="#ejemplos">Ejemplos</a></li><li class="n2"><a href="#cómo-funciona-por-dentro">Cómo funciona por dentro</a></li><li class="n2"><a href="#en-el-juego-publicado">En el juego publicado</a></li><li class="n2"><a href="#límites">Límites</a></li></ul></details><p>Un <strong>material por nodos</strong> se hace conectando cajas en un grafo, como el <em>Material Editor</em> de Unreal Engine 5 o el
+<em>Shader Graph</em> de Unity: texturas, números, matemáticas, tiempo, Fresnel... y todo llega al nodo <strong>Salida PBR</strong>. El
+motor convierte el grafo en HLSL, lo mete en su shader PBR y lo compila: el material tiene las mismas luces, sombras,
+niebla, iluminación horneada, calcomanías, reflejos y capa de vista que un material normal.</p>
+<p>Las capturas están en <code>capturas-materiales-nodos/</code> (en la carpeta del código), hechas con el render sin ventana del motor
+por las pruebas: los cuatro ejemplos juntos (<code>ejemplos.png</code>), cada uno por separado (<code>agua.png</code>, <code>lava.png</code>, <code>roca.png</code>,
+<code>holograma.png</code>) y la ventana <strong>Material por nodos</strong> con el grafo de la lava (<code>editor.png</code>).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="#crear-y-abrir-un-material-por-nodos">Crear y abrir un material por nodos</a></li>
+<li><a href="#la-ventana-material-por-nodos">La ventana Material por nodos</a></li>
+<li><a href="#atajos">Atajos</a></li>
+<li><a href="#tipos-y-conexiones">Tipos y conexiones</a></li>
+<li><a href="#el-nodo-salida-pbr">El nodo Salida PBR</a></li>
+<li><a href="#catálogo-de-nodos">Catálogo de nodos</a></li>
+<li><a href="#parámetros-por-instancia">Parámetros por instancia</a></li>
+<li><a href="#desde-lua">Desde Lua</a></li>
+<li><a href="#ejemplos">Ejemplos</a></li>
+<li><a href="#cómo-funciona-por-dentro">Cómo funciona por dentro</a></li>
+<li><a href="#en-el-juego-publicado">En el juego publicado</a></li>
+<li><a href="#límites">Límites</a></li>
+</ul>
+<h2 id="crear-y-abrir-un-material-por-nodos">Crear y abrir un material por nodos<a class="ancla" href="#crear-y-abrir-un-material-por-nodos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Contenido &gt; Crear &gt; Material por nodos</strong> crea <code>MaterialNodos.mat</code> en la carpeta abierta y lo abre. Empieza con la
+salida PBR y un <strong>Parámetro color</strong> llamado «Color» conectado al color base.</li>
+<li><strong>Doble clic</strong> en un material por nodos del Contenido lo abre en su ventana. También <strong>Ventana &gt; Mundo &gt; Material por
+nodos</strong>, que lista los del proyecto.</li>
+<li>El Inspector de un material por nodos enseña si es opaco o transparente, sus parámetros y el botón <strong>Abrir en el
+editor de nodos</strong>.</li>
+</ul>
+<p>Un material por nodos es un <code>.mat</code> como los demás con una clave más, <code>&quot;grafo&quot;</code>. Por eso vale en cualquier sitio que pida
+un material (las ranuras de una Malla, <code>SetMaterial</code> en Lua, los modelos, publicar, la edición en equipo) y los <code>.mat</code> de
+siempre no cambian. Si cambias en el Inspector la escala UV de un material por nodos, el grafo se conserva.</p>
+<h2 id="la-ventana-material-por-nodos">La ventana Material por nodos<a class="ancla" href="#la-ventana-material-por-nodos" aria-label="Enlace a esta sección">#</a></h2>
+<p>La ventana se puede acoplar donde quieras o dejar flotando, como las demás.</p>
+<ul>
+<li><strong>Lienzo</strong> (a la izquierda): la rueda acerca y aleja (hacia donde está el ratón); el botón central o el derecho
+arrastrando desplazan. Los nodos tienen la cabecera del color de su categoría y los pines del color de su tipo (gris:
+escalar, verde: Vec2, ámbar: Vec3, violeta: Vec4). Una entrada sin conectar enseña su valor al lado.</li>
+<li><strong>Conectar</strong>: arrastra desde un pin hasta otro. Si sueltas en el vacío se abre el menú de añadir con los nodos que
+encajan, y el nodo nuevo queda conectado. Arrastrar desde una entrada ya conectada suelta el cable y lo lleva a otra.</li>
+<li><strong>Añadir un nodo</strong>: clic derecho en el vacío, <strong>Espacio</strong> o el botón <strong>Añadir nodo</strong>. El buscador encuentra por el
+nombre en español o en inglés y por palabras sueltas («add», «lerp», «ruido»); <strong>Intro</strong> añade el primero.</li>
+<li><strong>Errores en el nodo</strong>: un nodo con un problema (tipos que no encajan, un ciclo, un parámetro sin nombre o repetido)
+sale con el borde rojo y un aviso; al pasar el ratón se ve el motivo. Los cables que llegan a él también salen en rojo.</li>
+<li><strong>Comentarios</strong>: recuadros con texto. Arrastrando su cabecera se mueven con los nodos que tienen dentro; la esquina de
+abajo a la derecha cambia su tamaño; el texto se edita en la pestaña <strong>Nodo</strong>.</li>
+<li><strong>Reroute</strong>: doble clic en un cable mete un punto de paso para ordenarlo. <strong>Alt+clic</strong> en un cable lo quita.</li>
+<li><strong>Minimapa</strong> (abajo a la derecha, se puede quitar): todo el grafo y el trozo que se ve; clic o arrastrar para ir.</li>
+</ul>
+<p>A la derecha:</p>
+<ul>
+<li><strong>Vista previa</strong>: el material en una esfera, un cubo, un plano o el modelo que elijas, con la luz del motor (sol,
+cielo, sombras y bloom). Gira (se puede parar) y se actualiza al momento con cada cambio, también los nodos de tiempo.</li>
+<li><strong>Nodo</strong>: las propiedades del nodo elegido (valores, nombre del parámetro, textura, uso de la textura, modo de la
+salida...) y el valor de sus entradas sin conectar. Las texturas se eligen de la lista o se arrastran desde el Contenido.</li>
+<li><strong>Parámetros</strong>: los parámetros expuestos del material, con su tipo y su valor por defecto (clic: elige su nodo).</li>
+<li><strong>Errores</strong>: los del grafo (clic: lleva al nodo) y los de compilar el HLSL, si los hubiera.</li>
+<li><strong>HLSL</strong>: el código que genera el grafo (se puede copiar).</li>
+</ul>
+<p>Cada cambio queda en el historial del editor: <strong>Ctrl+Z</strong> y <strong>Ctrl+Y</strong> deshacen y rehacen (también en la edición en
+equipo, donde el cambio llega a los demás). El fichero se guarda solo y las mallas que usan el material lo ven al
+momento.</p>
+<h2 id="atajos">Atajos<a class="ancla" href="#atajos" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Atajo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Clic derecho / Espacio</td>
+  <td>Añadir un nodo (con buscador)</td>
+</tr>
+<tr>
+  <td>Arrastrar desde un pin</td>
+  <td>Conectar</td>
+</tr>
+<tr>
+  <td>Clic, Ctrl+clic, Mayús+clic</td>
+  <td>Elegir un nodo, añadir o quitar de la selección</td>
+</tr>
+<tr>
+  <td>Arrastrar en el vacío</td>
+  <td>Elegir con un recuadro</td>
+</tr>
+<tr>
+  <td>Supr</td>
+  <td>Borrar la selección (la salida PBR no se borra)</td>
+</tr>
+<tr>
+  <td>Ctrl+C / Ctrl+V / Ctrl+D</td>
+  <td>Copiar, pegar (donde está el ratón) y duplicar</td>
+</tr>
+<tr>
+  <td>Ctrl+A</td>
+  <td>Elegir todo</td>
+</tr>
+<tr>
+  <td>Ctrl+G</td>
+  <td>Comentario alrededor de la selección</td>
+</tr>
+<tr>
+  <td>F</td>
+  <td>Encuadrar todo el grafo</td>
+</tr>
+<tr>
+  <td>Doble clic en un cable</td>
+  <td>Meter un reroute</td>
+</tr>
+<tr>
+  <td>Alt+clic en un cable</td>
+  <td>Quitar el cable</td>
+</tr>
+<tr>
+  <td>Rueda</td>
+  <td>Zoom</td>
+</tr>
+<tr>
+  <td>Botón central o derecho arrastrando</td>
+  <td>Desplazar</td>
+</tr>
+<tr>
+  <td>Ctrl+Z / Ctrl+Y</td>
+  <td>Deshacer y rehacer</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="tipos-y-conexiones">Tipos y conexiones<a class="ancla" href="#tipos-y-conexiones" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada pin es un escalar (<strong>Float</strong>) o un vector de 2, 3 o 4 componentes (<strong>Vec2</strong>, <strong>Vec3</strong>, <strong>Vec4</strong>).</p>
+<ul>
+<li>Un <strong>escalar vale en cualquier entrada</strong>: se repite en todas las componentes.</li>
+<li>Un <strong>vector más largo vale en una entrada más corta</strong>: se quedan sus primeras componentes (un color RGBA en el color
+base se queda con el RGB).</li>
+<li>Al revés no: un Vec2 en una entrada Vec3 es un error («los tipos no encajan»). Usa <strong>Unir</strong> para añadir componentes o
+<strong>Dividir canales</strong> para sacarlas.</li>
+<li>Las matemáticas tienen pines <strong>dinámicos</strong>: toman el tipo más largo de lo que les llega (un escalar por un Vec3 da un
+Vec3). Si les llegan dos vectores distintos (un Vec2 y un Vec3), es un error.</li>
+<li>No se puede crear un <strong>ciclo</strong> (que la salida de un nodo vuelva a entrar en él): la conexión no se hace. Si un fichero
+trae uno, los nodos del ciclo salen con error.</li>
+</ul>
+<p>Con errores, el material no se compila: en el juego se ve como un material normal (con sus campos clásicos) y el
+registro dice por qué.</p>
+<h2 id="el-nodo-salida-pbr">El nodo Salida PBR<a class="ancla" href="#el-nodo-salida-pbr" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Entrada</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Color base</td>
+  <td>Vec3</td>
+  <td>0,8</td>
+  <td>El color (lineal)</td>
+</tr>
+<tr>
+  <td>Metálico</td>
+  <td>Float</td>
+  <td>0</td>
+  <td>0 = no metal, 1 = metal</td>
+</tr>
+<tr>
+  <td>Rugosidad</td>
+  <td>Float</td>
+  <td>0,5</td>
+  <td>0 = espejo, 1 = mate</td>
+</tr>
+<tr>
+  <td>Normal</td>
+  <td>Vec3</td>
+  <td>(0, 0, 1)</td>
+  <td>Normal en <strong>espacio tangente</strong> (la de un mapa de normales o la de <strong>Mezcla de normales</strong>)</td>
+</tr>
+<tr>
+  <td>Emisivo</td>
+  <td>Vec3</td>
+  <td>0</td>
+  <td>Luz propia (con bloom si pasa de 1)</td>
+</tr>
+<tr>
+  <td>Opacidad</td>
+  <td>Float</td>
+  <td>1</td>
+  <td>Para el modo transparente y el recorte</td>
+</tr>
+<tr>
+  <td>Oclusión</td>
+  <td>Float</td>
+  <td>1</td>
+  <td>Oscurece la luz ambiente</td>
+</tr>
+</tbody>
+</table></div>
+<p>Propiedades: <strong>Modo</strong> (Opaco o Transparente), <strong>Recorte alfa</strong> con su <strong>Umbral</strong> (los píxeles con menos opacidad no se
+dibujan, también en las sombras: hojas, rejas) y <strong>Doble cara</strong>. Al guardar, el <code>.mat</code> se queda con el <code>alphaMode</code>, el
+<code>alphaCutoff</code> y el <code>doubleSided</code> que dicen estas propiedades: el renderizador ordena y dibuja el material como uno normal
+de ese modo.</p>
+<h2 id="catálogo-de-nodos">Catálogo de nodos<a class="ancla" href="#catálogo-de-nodos" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Categoría</th>
+  <th>Nodos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Constantes</td>
+  <td>Escalar, Vector 2, Vector 3, Vector 4, Color</td>
+</tr>
+<tr>
+  <td>Parámetros</td>
+  <td>Parámetro escalar, Parámetro vector, Parámetro color, Parámetro textura (ver <a href="#parámetros-por-instancia">Parámetros por instancia</a>)</td>
+</tr>
+<tr>
+  <td>Texturas</td>
+  <td><strong>Textura (Sample2D)</strong> con su entrada UV; <strong>Triplanar</strong> (la textura proyectada desde los tres ejes del mundo y mezclada por la normal, sin UV ni costuras; con un nombre, su textura es un parámetro)</td>
+</tr>
+<tr>
+  <td>Entradas</td>
+  <td>Coordenadas UV (con escala y desplazamiento), Tiempo (con su seno y coseno), Posición en el mundo, Normal en el mundo, Dirección de la cámara, Fresnel, Color de vértice</td>
+</tr>
+<tr>
+  <td>Matemáticas</td>
+  <td>Sumar, Restar, Multiplicar, Dividir, Potencia, Mínimo, Máximo, Mezcla lineal (lerp), Limitar (clamp), Saturar, Seno, Coseno, Valor absoluto, Uno menos, Parte decimal, Paso (step), Paso suave (smoothstep), Producto escalar, Normalizar</td>
+</tr>
+<tr>
+  <td>Canales</td>
+  <td>Dividir canales (split), Unir (append), Combinar canales</td>
+</tr>
+<tr>
+  <td>UV y procedurales</td>
+  <td>Desplazar UV (panner), Rotar UV, Ruido (suave, sin texturas), Mezcla de normales</td>
+</tr>
+<tr>
+  <td>Utilidades</td>
+  <td>Reroute</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notas:</p>
+<ul>
+<li>Las texturas tienen un <strong>Uso</strong>: <em>Color</em> (sRGB), <em>Lineal</em> (datos: rugosidad, máscaras) o <em>Normal</em> (mapa de normales:
+el nodo saca la normal en espacio tangente, lista para la entrada Normal). Sin textura, el nodo lee blanco (o la normal
+plana).</li>
+<li>Las entradas UV, Tiempo, Posición y Normal sin conectar usan las del píxel (el UV de la malla, el tiempo del juego...).</li>
+<li><strong>Color de vértice</strong> da blanco: las mallas del motor y las importadas todavía no guardan color por vértice.</li>
+<li>En la ventana, en inglés, los nodos se llaman como en Unreal y Unity (<em>Add</em>, <em>Lerp</em>, <em>Panner</em>, <em>Split Channels</em>...);
+en el fichero se guardan siempre con su nombre español.</li>
+</ul>
+<h2 id="parámetros-por-instancia">Parámetros por instancia<a class="ancla" href="#parámetros-por-instancia" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los nodos de la categoría <strong>Parámetros</strong> exponen un valor con nombre. Cada material tiene su valor por defecto y cada
+entidad puede tener el suyo <strong>sin duplicar el shader</strong>: todas las mallas con el mismo grafo usan el mismo shader
+compilado y cada una lleva sus valores (un búfer pequeño de constantes y sus texturas).</p>
+<ul>
+<li>En el Inspector, debajo de una <strong>Malla</strong> (o una <strong>Malla con huesos</strong>) cuyos materiales por nodos tienen parámetros sale
+<strong>Cambiar parámetros en esta entidad</strong>, que añade el componente <strong>Parámetros de material</strong>. En él, cada parámetro tiene
+una casilla (marcada: esta entidad usa su propio valor; sin marcar: el del material) y su control (número, color, cuatro
+números o textura). Tiene deshacer y rehacer, se guarda con la escena y en los prefabs.</li>
+<li>Los parámetros valen para todas las ranuras de la malla cuyo material tenga un parámetro con ese nombre.</li>
+<li>En red, el componente se replica (una copia en texto, como las etiquetas): lo que cambia el servidor lo ven los
+clientes.</li>
+</ul>
+<h2 id="desde-lua">Desde Lua<a class="ancla" href="#desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> malla = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"MeshRenderer"</span>)
+malla:<span class="hl-f">SetParam</span>(<span class="hl-s">"Intensidad"</span>, <span class="hl-n">10</span>)                    <span class="hl-c">-- Parámetro escalar</span>
+malla:<span class="hl-f">SetParam</span>(<span class="hl-s">"Color de la lava"</span>, <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">0.2</span>, <span class="hl-n">0.6</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>)) <span class="hl-c">-- Parámetro color</span>
+malla:<span class="hl-f">SetParam</span>(<span class="hl-s">"Desplazamiento"</span>, <span class="hl-t">Vec4</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>))        <span class="hl-c">-- Parámetro vector (también Vec2 y Vec3)</span>
+malla:<span class="hl-f">SetParam</span>(<span class="hl-s">"Textura"</span>, <span class="hl-s">"texturas/musgo.png"</span>)    <span class="hl-c">-- Parámetro textura (Asset o ruta)</span>
+<span class="hl-f">print</span>(malla:<span class="hl-f">GetParam</span>(<span class="hl-s">"Intensidad"</span>))                 <span class="hl-c">-- el de esta entidad o el del material</span></code></pre></div>
+<ul>
+<li><code>SetParam</code> escribe en el componente <strong>Parámetros de material</strong> de la entidad (lo crea si no lo tiene): no copia el
+material ni el shader, se guarda si la escena se guarda y se replica en red si lo hace el servidor.</li>
+<li>Si ningún material de la malla tiene ese parámetro, el error dice cuáles hay.</li>
+<li><code>GetParam</code> devuelve un número (escalar), un <code>Color</code> (color), un <code>Vec4</code> (vector) o un <code>Asset</code> (textura).</li>
+<li>Lo mismo en <code>SkinnedMeshRenderer</code>. Están en <code>nova.d.luau</code> (autocompletado) y en la <a href="lua.html">Referencia de Lua</a>.</li>
+</ul>
+<h2 id="ejemplos">Ejemplos<a class="ancla" href="#ejemplos" aria-label="Enlace a esta sección">#</a></h2>
+<p>El proyecto <strong>Ejemplo 3D (Lua)</strong> (<code>game/sample_lua</code>) trae cuatro en <code>assets/materials/nodos/</code> (doble clic para abrirlos):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Material</th>
+  <th>Qué enseña</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Agua.mat</code></td>
+  <td>Transparente. Dos <strong>Ruido</strong> que se mueven con <strong>Desplazar UV</strong> en direcciones distintas dan la normal de las olas; el color y la opacidad van de <em>Color profundo</em> a <em>Color claro</em> con <strong>Fresnel</strong> (más claro y opaco de canto)</td>
+</tr>
+<tr>
+  <td><code>Lava.mat</code></td>
+  <td>Opaca y <strong>emisiva animada</strong>: dos ruidos desplazados y un <strong>Paso suave</strong> separan la costra de las grietas; las grietas brillan con <em>Color de la lava</em> × <em>Intensidad</em> y laten con <strong>Tiempo</strong></td>
+</tr>
+<tr>
+  <td><code>RocaTriplanar.mat</code></td>
+  <td><strong>Triplanar</strong> con <code>textures/roca_color.png</code> (sin UV: vale en cualquier forma), tintada con <em>Tinte</em>; lo oscuro de la textura es más rugoso y ocluido</td>
+</tr>
+<tr>
+  <td><code>Holograma.mat</code></td>
+  <td>Transparente, a doble cara: <strong>Fresnel</strong> cian en los bordes y líneas de barrido que suben con el tiempo (<strong>Posición en el mundo</strong>, <strong>Parte decimal</strong> y <strong>Paso</strong>); <em>Brillo</em> y <em>Color</em> son parámetros</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cómo-funciona-por-dentro">Cómo funciona por dentro<a class="ancla" href="#cómo-funciona-por-dentro" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><p>El grafo (<code>nova/render/MaterialGraph.h</code>) se ordena de las entradas a la salida, se comprueban los tipos y los ciclos y
+cada nodo que llega a la salida escribe una línea de HLSL en una función <code>EvalGraph</code>. El fichero generado es:</p>
+<div class="codigo"><div class="codigo-cab"><span>HLSL</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-hlsl"><span class="hl-a">#define</span> GRAPH_MATERIAL <span class="hl-n">1</span>
+<span class="hl-a">#include</span> <span class="hl-s">"matgraph.hlsli"</span>
+GraphOutput EvalGraph(GraphInput gi) { ...lo del grafo... }
+<span class="hl-a">#include</span> <span class="hl-s">"forward.hlsl"</span></code></pre></div>
+<p><code>forward.hlsl</code> con <code>GRAPH_MATERIAL</code> toma de <code>EvalGraph</code> el color base, el metal, la rugosidad, la normal, la emisión, la
+opacidad y la oclusión, y hace lo de siempre con ellos: luces por mosaicos, sombras, niebla (también la volumétrica),
+calcomanías, iluminación horneada (lightmaps y sondas), reflejos en pantalla, TAA y capa de vista.</p>
+</li>
+<li><p>El código va a la <code>ShaderLibrary</code> como un <strong>fichero virtual</strong> <code>matgrafo_&lt;hash&gt;.hlsl</code>: el mismo grafo da el mismo hash y
+el mismo shader (caché por hash, también en disco), y cambiar el grafo crea otro al momento (recompilación en caliente).
+Si <code>forward.hlsl</code> o los <code>.hlsli</code> cambian, los materiales por nodos se recompilan con ellos.</p>
+</li>
+<li><p>Variantes: la pasada principal (opaca, con recorte, transparente y con los objetivos extra de los reflejos y el TAA), y
+con recorte también la prepasada, las sombras del sol y de las luces locales (con <code>VSShadowFull</code>, que pasa la posición,
+la normal y el UV al grafo) y los IDs del editor. Solo se compilan las que se usan.</p>
+</li>
+<li><p>Los parámetros van en <code>b4</code> (un <code>float4</code> cada uno, hasta 32) y las texturas del grafo en <code>t16</code>..<code>t23</code> (hasta 8).</p>
+</li>
+<li><p>Si el HLSL no compilara, el material se dibuja con el shader normal y la pestaña <strong>Errores</strong> enseña el mensaje de
+D3DCompile.</p>
+</li>
+</ul>
+<h2 id="en-el-juego-publicado">En el juego publicado<a class="ancla" href="#en-el-juego-publicado" aria-label="Enlace a esta sección">#</a></h2>
+<p>El motor publica sus shaders como código (<code>shaders/</code>) y los compila la primera vez en el PC del jugador, guardándolos en
+su caché (<code>shadercache</code>); los materiales por nodos hacen lo mismo: el juego genera el HLSL del grafo del <code>.mat</code> (que va en
+el paquete de datos) y lo compila y guarda en la misma caché. No hace falta nada más para publicar.</p>
+<h2 id="límites">Límites<a class="ancla" href="#límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>32 parámetros escalares, vectores o colores y 8 texturas por material.</li>
+<li>Sin desplazamiento de vértices (<em>World Position Offset</em>) ni teselado: el grafo solo cambia el píxel.</li>
+<li>Sin vista previa dentro de cada nodo (la de la derecha es la del material entero).</li>
+<li>El color de vértice es blanco hasta que los modelos lo importen.</li>
+<li>El refractado de los cristales (<code>refraction</code> del material clásico) no está en los materiales por nodos.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="render-y-materiales.html"><small>Anterior</small>Render y materiales</a><a class="sig" href="render.html"><small>Siguiente</small>Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#crear-y-abrir-un-material-por-nodos">Crear y abrir un material por nodos</a></li><li class="n2"><a href="#la-ventana-material-por-nodos">La ventana Material por nodos</a></li><li class="n2"><a href="#atajos">Atajos</a></li><li class="n2"><a href="#tipos-y-conexiones">Tipos y conexiones</a></li><li class="n2"><a href="#el-nodo-salida-pbr">El nodo Salida PBR</a></li><li class="n2"><a href="#catálogo-de-nodos">Catálogo de nodos</a></li><li class="n2"><a href="#parámetros-por-instancia">Parámetros por instancia</a></li><li class="n2"><a href="#desde-lua">Desde Lua</a></li><li class="n2"><a href="#ejemplos">Ejemplos</a></li><li class="n2"><a href="#cómo-funciona-por-dentro">Cómo funciona por dentro</a></li><li class="n2"><a href="#en-el-juego-publicado">En el juego publicado</a></li><li class="n2"><a href="#límites">Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

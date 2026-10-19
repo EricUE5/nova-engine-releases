@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rendimiento · Nova Engine</title>
+<meta name="description" content="Cómo hace Nova Engine que tu juego vaya fluido también en PCs modestos (una gráfica como la GTX 460 o la GTX 1050 Ti y
+un procesador i3), y qué puedes tocar tú desde el editor y desde Lua. Casi todo funciona solo: este d">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Rendimiento · Nova Engine">
+<meta property="og:description" content="Cómo hace Nova Engine que tu juego vaya fluido también en PCs modestos (una gráfica como la GTX 460 o la GTX 1050 Ti y
+un procesador i3), y qué puedes tocar tú desde el editor y desde Lua. Casi todo funciona solo: este d">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/rendimiento.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/rendimiento.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html" aria-current="page">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="rendimiento">Rendimiento</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#1-lo-que-hace-el-motor-por-ti">1. Lo que hace el motor por ti</a></li><li class="n2"><a href="#2-niveles-de-detalle-lod-automáticos">2. Niveles de detalle (LOD) automáticos</a></li><li class="n3"><a href="#cómo-funcionan">Cómo funcionan</a></li><li class="n3"><a href="#ajustes-del-proyecto">Ajustes del proyecto</a></li><li class="n3"><a href="#ajustes-de-un-modelo">Ajustes de un modelo</a></li><li class="n3"><a href="#ajustes-de-un-objeto">Ajustes de un objeto</a></li><li class="n2"><a href="#3-oclusión-no-dibujar-lo-que-está-tapado">3. Oclusión: no dibujar lo que está tapado</a></li><li class="n3"><a href="#qué-es-un-ocluidor">Qué es un ocluidor</a></li><li class="n3"><a href="#interiores-y-ciudades">Interiores y ciudades</a></li><li class="n3"><a href="#el-terreno-también-puede-tapar">El terreno también puede tapar</a></li><li class="n3"><a href="#límites">Límites</a></li><li class="n2"><a href="#4-copias-de-una-misma-malla">4. Copias de una misma malla</a></li><li class="n2"><a href="#5-luces-y-sombras-por-distancia">5. Luces y sombras por distancia</a></li><li class="n2"><a href="#6-preajustes-de-calidad-bajo-medio-alto-ultra">6. Preajustes de calidad (Bajo, Medio, Alto, Ultra)</a></li><li class="n3"><a href="#que-el-jugador-elija-la-calidad">Que el jugador elija la calidad</a></li><li class="n2"><a href="#7-lua-más-rápido-código-nativo---native">7. Lua más rápido: código nativo (--!native)</a></li><li class="n3"><a href="#cuánto-gana">Cuánto gana</a></li><li class="n2"><a href="#8-el-perfilador">8. El perfilador</a></li><li class="n3"><a href="#cómo-leerlo">Cómo leerlo</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n2"><a href="#9-números-antes-y-después">9. Números: antes y después</a></li><li class="n2"><a href="#10-lista-rápida-cuando-algo-va-lento">10. Lista rápida cuando algo va lento</a></li><li class="n2"><a href="#11-las-claves-de-projectnova-y-del-meta">11. Las claves de project.nova y del .meta</a></li></ul></details><p>Cómo hace Nova Engine que tu juego vaya fluido también en PCs modestos (una gráfica como la GTX 460 o la GTX 1050 Ti y
+un procesador i3), y qué puedes tocar tú desde el editor y desde Lua. Casi todo funciona solo: este documento explica
+qué hace el motor, cómo comprobarlo con el <strong>perfilador</strong> y qué ajustar cuando algo va lento.</p>
+<ol>
+<li><a href="#1-lo-que-hace-el-motor-por-ti">Lo que hace el motor por ti</a></li>
+<li><a href="#2-niveles-de-detalle-lod-automáticos">Niveles de detalle (LOD) automáticos</a></li>
+<li><a href="#3-oclusión-no-dibujar-lo-que-está-tapado">Oclusión: no dibujar lo que está tapado</a></li>
+<li><a href="#4-copias-de-una-misma-malla">Copias de una misma malla</a></li>
+<li><a href="#5-luces-y-sombras-por-distancia">Luces y sombras por distancia</a></li>
+<li><a href="#6-preajustes-de-calidad-bajo-medio-alto-ultra">Preajustes de calidad (Bajo, Medio, Alto, Ultra)</a></li>
+<li><a href="#7-lua-más-rápido-código-nativo---native">Lua más rápido: código nativo (<code>--!native</code>)</a></li>
+<li><a href="#8-el-perfilador">El perfilador</a></li>
+<li><a href="#9-números-antes-y-después">Números: antes y después</a></li>
+<li><a href="#10-lista-rápida-cuando-algo-va-lento">Lista rápida cuando algo va lento</a></li>
+<li><a href="#11-las-claves-de-projectnova-y-del-meta">Las claves de <code>project.nova</code> y del <code>.meta</code></a></li>
+</ol>
+<h2 id="1-lo-que-hace-el-motor-por-ti">1. Lo que hace el motor por ti<a class="ancla" href="#1-lo-que-hace-el-motor-por-ti" aria-label="Enlace a esta sección">#</a></h2>
+<p>Sin configurar nada, en el editor, en <code>NovaGame.exe</code> y en el juego publicado:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Para qué sirve</th>
+  <th>Dónde se cambia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Niveles de detalle (LOD)</strong></td>
+  <td>Los modelos lejanos se dibujan con versiones simplificadas (la mitad de triángulos en cada nivel), generadas solas al importar el modelo. El cambio de nivel se mezcla con un tramado: no se nota el salto</td>
+  <td>Ajustes del proyecto &gt; Render, Inspector del modelo y de cada malla</td>
+</tr>
+<tr>
+  <td><strong>Oclusión</strong></td>
+  <td>Lo que queda entero detrás de un muro, un suelo o un edificio no se dibuja</td>
+  <td>Ajustes del proyecto &gt; Render; «Ocluidor» en el Inspector de cada malla</td>
+</tr>
+<tr>
+  <td><strong>Copias</strong></td>
+  <td>Las mallas repetidas (cajas, barriles, coches, farolas) con el mismo material se dibujan de una vez</td>
+  <td>Ajustes del proyecto &gt; Render</td>
+</tr>
+<tr>
+  <td><strong>Luces y sombras</strong></td>
+  <td>Los objetos diminutos no se dibujan en las sombras del sol; las sombras usan un nivel de detalle más bajo; con los preajustes Bajo y Medio, las luces lejanas se apagan con un fundido</td>
+  <td>Ajustes del proyecto &gt; Render</td>
+</tr>
+<tr>
+  <td><strong>Código nativo de Lua</strong></td>
+  <td>Los scripts que empiezan por <code>--!native</code> se compilan a código máquina: los cálculos van de 2 a 5 veces más rápido</td>
+  <td>La primera línea del script; Ajustes del proyecto &gt; General</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y para medir: <strong>Ventana &gt; Perfilador</strong> en el editor (o <code>NovaGame.exe --perfilador</code>) enseña en qué se va cada
+milisegundo.</p>
+<h2 id="2-niveles-de-detalle-lod-automáticos">2. Niveles de detalle (LOD) automáticos<a class="ancla" href="#2-niveles-de-detalle-lod-automáticos" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="cómo-funcionan">Cómo funcionan<a class="ancla" href="#cómo-funcionan" aria-label="Enlace a esta sección">#</a></h3>
+<p>Al importar un modelo (<code>.glb</code>, <code>.gltf</code> o el que llegue de otro formato), el motor crea <strong>hasta 4 versiones
+simplificadas</strong> de cada malla: cada nivel con la mitad de triángulos que el anterior (un personaje de 4.672 triángulos
+queda en 2.336, 1.168 y 584). La simplificación:</p>
+<ul>
+<li><strong>usa los mismos vértices</strong> que el modelo original: las texturas, las normales y los <strong>huesos</strong> siguen igual, así que
+los personajes animados también tienen niveles;</li>
+<li><strong>no abre grietas</strong> ni estira las texturas (respeta los bordes y las costuras de la textura) y nunca da la vuelta a
+una cara;</li>
+<li>se para cuando el error se vería en pantalla (unos 2 píxeles a 1080p justo al pasar a ese nivel).</li>
+</ul>
+<p>El motor elige el nivel de cada objeto por la <strong>altura que ocupa en la imagen</strong>: con los valores de serie, el nivel 1
+cuando el objeto ocupa menos del 40 % de la altura de la pantalla, el 2 por debajo del 18 % y el 3 por debajo del 8 %.
+Cerca de cada umbral los dos niveles se mezclan con un <strong>tramado</strong> (cada píxel es de uno o de otro, nunca de los dos ni
+de ninguno), así que no se ve el «salto». Las <strong>sombras</strong> usan un nivel menos que la vista.</p>
+<p>Las mallas pequeñas (menos de 300 triángulos) se quedan como están: no compensa.</p>
+<h3 id="ajustes-del-proyecto">Ajustes del proyecto<a class="ancla" href="#ajustes-del-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Editar &gt; Ajustes del proyecto &gt; Render</strong>, sección «Rendimiento»:</p>
+<ul>
+<li><strong>Niveles de detalle (LOD)</strong>: apágalo para comparar (o para un juego con muy pocos modelos).</li>
+<li><strong>Sesgo de LOD</strong>: más de 1 mantiene el detalle más lejos (más triángulos); menos de 1 pasa antes a los niveles
+simplificados (el preajuste Bajo usa 0,6).</li>
+<li><strong>Transición (tramado)</strong>: lo ancha que es la mezcla. 0 = cambio de golpe.</li>
+<li><strong>LOD de las sombras</strong>: cuántos niveles menos usan las sombras.</li>
+</ul>
+<p>Y la sección plegable <strong>LOD al importar modelos</strong> decide cómo se generan: cuántos niveles, cuánto reduce cada uno, a qué
+altura en pantalla se usa cada uno y <strong>«Ocultar por debajo de»</strong> (los objetos más pequeños que eso en pantalla no se
+dibujan: piedras, botellas o latas a lo lejos). Después de cambiarlos, <strong>Regenerar los LOD de los modelos cargados</strong>.</p>
+<h3 id="ajustes-de-un-modelo">Ajustes de un modelo<a class="ancla" href="#ajustes-de-un-modelo" aria-label="Enlace a esta sección">#</a></h3>
+<p>Selecciona el modelo en <strong>Contenido</strong>: el Inspector enseña sus niveles («Cesium_Man: 4672 &gt; 2336 (40 %) &gt; 1168 (18 %) &gt;
+584 (8 %)»). Marca <strong>Ajustes propios</strong> para darle otros (se guardan en su <code>.meta</code> y viajan con el proyecto, también en
+la edición en equipo): por ejemplo, menos niveles para un personaje principal que siempre está cerca, o «Ocultar por
+debajo de» para la hierba suelta.</p>
+<h3 id="ajustes-de-un-objeto">Ajustes de un objeto<a class="ancla" href="#ajustes-de-un-objeto" aria-label="Enlace a esta sección">#</a></h3>
+<p>En el componente <strong>Malla</strong> (y <strong>Malla con huesos</strong>), sección «Rendimiento», <strong>Sesgo de LOD</strong> multiplica el tamaño en
+pantalla de ese objeto: 2 mantiene su detalle el doble de lejos (el coche del jugador), 0,5 lo simplifica antes (los
+edificios del fondo). Desde Lua es un campo más:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> malla = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"MeshRenderer"</span>)
+malla.lodBias = <span class="hl-n">2</span>   <span class="hl-c">-- el coche del jugador, siempre con detalle</span></code></pre></div>
+<h2 id="3-oclusión-no-dibujar-lo-que-está-tapado">3. Oclusión: no dibujar lo que está tapado<a class="ancla" href="#3-oclusión-no-dibujar-lo-que-está-tapado" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada frame, el motor dibuja en pequeño (320 píxeles de ancho, en el procesador) los <strong>ocluidores</strong>: las mallas que
+tapan lo que tienen detrás. Después comprueba la caja de cada objeto: si queda entera detrás, no se dibuja en la vista
+(su sombra sí, porque las sombras se ven desde la luz). También se quitan las <strong>luces</strong> cuyo alcance entero está detrás
+de los ocluidores: no iluminan nada que se vea.</p>
+<p><strong>Nunca oculta algo que se ve.</strong> Un píxel solo cuenta como tapado si un ocluidor lo cubre entero, con la profundidad más
+lejana de ese ocluidor dentro del píxel, y un objeto solo se oculta si todos los píxeles que toca están tapados por algo
+más cerca que su punto más cercano. Las pruebas del motor lo comparan con lo que dibuja de verdad la tarjeta gráfica en
+escenas al azar.</p>
+<h3 id="qué-es-un-ocluidor">Qué es un ocluidor<a class="ancla" href="#qué-es-un-ocluidor" aria-label="Enlace a esta sección">#</a></h3>
+<p>Por defecto (<strong>Ocluidor: Automático</strong> en el componente Malla) son ocluidores las mallas <strong>opacas</strong> (sin transparencia ni
+recorte), <strong>sin huesos</strong>, <strong>grandes</strong> (su caja tiene 1,5 m de radio o más) y con <strong>pocos triángulos</strong> (hasta 4.096):
+muros, suelos, techos, edificios, rocas grandes. Puedes cambiarlo en cada malla:</p>
+<ul>
+<li><strong>Sí</strong>: una malla pequeña que tapa mucho (una puerta cerrada, una columna ancha).</li>
+<li><strong>No</strong>: lo que no tapa del todo (un cristal opaco, una reja con huecos dibujados en la textura, una lona que se mueve).</li>
+</ul>
+<p>Las cajas <strong>cerradas</strong> (un cubo escalado, una losa, un edificio de una pieza) son los mejores ocluidores: se dibujan
+enteras por su silueta. Una pared hecha de muchos trozos sueltos tapa algo menos: entre dos trozos queda una línea de
+píxeles sin tapar (el motor no puede saber si ahí hay una rendija de verdad).</p>
+<h3 id="interiores-y-ciudades">Interiores y ciudades<a class="ancla" href="#interiores-y-ciudades" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Edificios con interior</strong>: las paredes, los suelos y los techos tapan las habitaciones de los otros pisos y lo que
+hay dentro. Un ascensor con sus cabinas en su hueco: desde el vestíbulo, las cabinas de los otros pisos (y sus luces)
+no se dibujan.</li>
+<li><strong>Ciudades</strong>: los edificios tapan las calles de detrás. En la ciudad de prueba del motor (100 edificios con muebles
+dentro, 300 coches, farolas y 80 personajes), desde una calle se dibujan 103 de 1.682 objetos.</li>
+</ul>
+<h3 id="el-terreno-también-puede-tapar">El terreno también puede tapar<a class="ancla" href="#el-terreno-también-puede-tapar" aria-label="Enlace a esta sección">#</a></h3>
+<p>En <strong>Ajustes del proyecto &gt; Render</strong>, <strong>El terreno también tapa</strong> hace que lo que queda detrás de las colinas no se
+dibuje. El motor usa una rejilla que va siempre por debajo del terreno (celdas pequeñas cerca de la cámara y grandes
+lejos), así que tampoco oculta nada que se vea. Viene <strong>apagado</strong>: cuesta alrededor de medio milisegundo de procesador
+por frame y solo compensa en mapas con colinas y muchos objetos sueltos detrás (pueblos, campamentos, rocas y cajas);
+en el Mundo abierto, donde casi todo es vegetación pintada (que tiene su propia distancia), no gana nada. Con la cámara
+bajo tierra o fuera del terreno no se usa.</p>
+<h3 id="límites">Límites<a class="ancla" href="#límites" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>El terreno tapa algo menos de lo que tapa de verdad: la rejilla queda por debajo en los valles y las crestas, y junto
+al horizonte puede quedar una línea de píxeles sin tapar. En colinas al azar quita en torno a la mitad de lo que no
+se ve.</li>
+<li>Las vistas <strong>ortográficas</strong> (cámaras sin perspectiva) no usan oclusión.</li>
+<li>Un objeto muy cerca de la cámara (su caja corta el plano cercano) siempre se dibuja.</li>
+</ul>
+<h2 id="4-copias-de-una-misma-malla">4. Copias de una misma malla<a class="ancla" href="#4-copias-de-una-misma-malla" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las mallas iguales (mismo modelo y mismo material, sin huesos) se juntan en <strong>un solo dibujo</strong> con todas sus copias,
+también en las sombras del sol. Al procesador le cuesta lo mismo una caja que cuatrocientas. En la ciudad de prueba, los
+4.571 dibujos de cada frame bajan a 81.</p>
+<p>No hace falta hacer nada: solo <strong>reutiliza los mismos materiales</strong>. Dos cajas con dos copias del mismo material (dos
+ficheros <code>.mat</code> distintos) no se pueden juntar; con el mismo <code>.mat</code>, sí. Cambiar el color de una con
+<code>renderer:SetColor(...)</code> le da su propia copia del material: esa ya va aparte.</p>
+<h2 id="5-luces-y-sombras-por-distancia">5. Luces y sombras por distancia<a class="ancla" href="#5-luces-y-sombras-por-distancia" aria-label="Enlace a esta sección">#</a></h2>
+<p>En <strong>Ajustes del proyecto &gt; Render</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ajuste</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Distancia de las luces</strong></td>
+  <td>Las luces puntuales y focos más lejos que esto (desde el borde de su alcance) se apagan con un fundido. 0 = sin límite</td>
+</tr>
+<tr>
+  <td><strong>Distancia de sombras de luces</strong></td>
+  <td>Más lejos, las luces locales iluminan sin sombra</td>
+</tr>
+<tr>
+  <td><strong>Sombras del sol: escala de distancia</strong></td>
+  <td>Multiplica la «Distancia de sombras» de la luz direccional</td>
+</tr>
+<tr>
+  <td><strong>Sombras del sol: resolución máxima</strong> y <strong>cascadas como máximo</strong></td>
+  <td>Topes del mapa de sombras del sol</td>
+</tr>
+<tr>
+  <td><strong>Sombras: tamaño mínimo</strong></td>
+  <td>Los objetos que en el mapa de sombras ocupan menos que esto no se dibujan en él (su sombra no se vería)</td>
+</tr>
+<tr>
+  <td><strong>Permitir SSAO</strong> y <strong>Permitir bloom</strong></td>
+  <td>Apagados, no se dibujan aunque el Entorno de la escena los tenga</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y en cada malla y cada luz (0.9.9), <strong>Distancia máxima</strong> y <strong>Desvanecido</strong>: más lejos de la cámara esa malla no se dibuja ni
+hace sombra, o esa luz se apaga (ver <a href="render.html#13-distancia-máxima-de-dibujo">render.md</a>). Sirve para lo que tapa la
+niebla sin tener que apagarlo por zonas con un script. Para medir lo que cuesta un mapa desde Lua (con el juego oculto),
+<code>Render.GetStats()</code>: dibujos, triángulos, memoria de vídeo de las texturas y las mallas y los tiempos de CPU y GPU (ver
+<a href="render.html#16-estadísticas-de-render-desde-lua">render.md</a>).</p>
+<h2 id="6-preajustes-de-calidad-bajo-medio-alto-ultra">6. Preajustes de calidad (Bajo, Medio, Alto, Ultra)<a class="ancla" href="#6-preajustes-de-calidad-bajo-medio-alto-ultra" aria-label="Enlace a esta sección">#</a></h2>
+<p>Arriba del todo en <strong>Ajustes del proyecto &gt; Render</strong>, <strong>Preajuste de calidad</strong> rellena de una vez todos los ajustes del
+render. <strong>Alto</strong> es lo de siempre. Si después cambias algo a mano, queda en «Personalizado».</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th></th>
+  <th>Bajo</th>
+  <th>Medio</th>
+  <th>Alto</th>
+  <th>Ultra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>SSAO y bloom</td>
+  <td>apagados</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td>Niebla volumétrica, nubes</td>
+  <td>Baja</td>
+  <td>Media</td>
+  <td>Alta</td>
+  <td>Ultra</td>
+</tr>
+<tr>
+  <td>Agua</td>
+  <td>Baja</td>
+  <td>Media</td>
+  <td>Alta</td>
+  <td>Alta</td>
+</tr>
+<tr>
+  <td>Vegetación del terreno</td>
+  <td>Baja</td>
+  <td>Media</td>
+  <td>Alta</td>
+  <td>Ultra</td>
+</tr>
+<tr>
+  <td>Sombras del sol</td>
+  <td>2 cascadas de 1024, 60 % de distancia</td>
+  <td>3 cascadas de 2048, 80 %</td>
+  <td>4 cascadas, las de la luz</td>
+  <td>4 cascadas</td>
+</tr>
+<tr>
+  <td>Luces con sombra a la vez</td>
+  <td>2 (atlas de 1024)</td>
+  <td>4 (2048)</td>
+  <td>8 (4096)</td>
+  <td>16 (8192)</td>
+</tr>
+<tr>
+  <td>Sombras de luces locales hasta</td>
+  <td>25 m</td>
+  <td>50 m</td>
+  <td>sin límite</td>
+  <td>sin límite</td>
+</tr>
+<tr>
+  <td>Luces locales hasta</td>
+  <td>60 m</td>
+  <td>120 m</td>
+  <td>sin límite</td>
+  <td>sin límite</td>
+</tr>
+<tr>
+  <td>Sesgo de LOD</td>
+  <td>0,6</td>
+  <td>0,8</td>
+  <td>1</td>
+  <td>1,5</td>
+</tr>
+<tr>
+  <td>LOD de las sombras</td>
+  <td>2 niveles menos</td>
+  <td>1 menos</td>
+  <td>1 menos</td>
+  <td>el mismo</td>
+</tr>
+<tr>
+  <td>Texturas de los decals</td>
+  <td>256</td>
+  <td>512</td>
+  <td>512</td>
+  <td>1024</td>
+</tr>
+<tr>
+  <td>Reflejos en pantalla (<a href="render.html">render.md</a>)</td>
+  <td>no</td>
+  <td>Baja (media resolución, 16 pasos)</td>
+  <td>Alta (48 pasos)</td>
+  <td>Ultra (resolución completa, 64)</td>
+</tr>
+<tr>
+  <td>Antialiasing temporal</td>
+  <td>no (FXAA del Entorno)</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td>Sombras de contacto</td>
+  <td>no</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td>Texturas comprimidas (BC7/BC5/BC4)</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td>Tamaño máximo de las texturas</td>
+  <td>1024</td>
+  <td>2048</td>
+  <td>sin límite</td>
+  <td>sin límite</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bajo</strong> está pensado para una gráfica antigua (GTX 460 o GTX 1050 Ti) a 60 fps en 1080p. Lo que apaga, de más a menos
+ahorro: la SSAO (una pasada a media resolución), las cascadas 3 y 4 del sol y la mitad de su resolución, la calidad de
+la niebla volumétrica y de las nubes (las más caras de la GPU), la vegetación (40 % de la hierba y los árboles hasta el
+60 % de su distancia), el bloom, el mapa de contacto del agua y las sombras de las luces locales lejanas. Tampoco gasta
+en los reflejos en pantalla, el antialiasing temporal ni las sombras de contacto, y limita las texturas a 1024 (comprimidas
+caben en una gráfica de 1 GB). Las cifras del
+apartado 9 están medidas en una RTX 5060 Ti: en la ciudad de prueba, Bajo usa la mitad de GPU que Alto y en el Mundo
+abierto a ras de suelo, una décima parte. Pruébalo en el PC más modesto que tengas antes de publicar.</p>
+<h3 id="que-el-jugador-elija-la-calidad">Que el jugador elija la calidad<a class="ancla" href="#que-el-jugador-elija-la-calidad" aria-label="Enlace a esta sección">#</a></h3>
+<p>Desde Lua (por ejemplo, en el menú de opciones del juego):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Opciones</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Opciones</span>:<span class="hl-f">Start</span>()
+    <span class="hl-c">-- La calidad que eligió la última vez (o Alto)</span>
+    <span class="hl-t">Application</span>.<span class="hl-f">SetQuality</span>(<span class="hl-t">PlayerPrefs</span>.<span class="hl-f">Get</span>(<span class="hl-s">"calidad"</span>, <span class="hl-s">"Alto"</span>))
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Opciones</span>:<span class="hl-f">CambiarCalidad</span>(nombre: <span class="hl-t">string</span>)
+    <span class="hl-k">if</span> <span class="hl-t">Application</span>.<span class="hl-f">SetQuality</span>(nombre) <span class="hl-k">then</span>   <span class="hl-c">-- "Bajo", "Medio", "Alto" o "Ultra"</span>
+        <span class="hl-t">PlayerPrefs</span>.<span class="hl-f">Set</span>(<span class="hl-s">"calidad"</span>, nombre)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Opciones</span></code></pre></div>
+<p><code>Application.GetQuality()</code> devuelve la que está en uso y <code>Application.GetQualityLevels()</code> la lista
+<code>{&quot;Bajo&quot;, &quot;Medio&quot;, &quot;Alto&quot;, &quot;Ultra&quot;}</code> para rellenar un desplegable. En el editor, al parar el juego vuelve la del
+proyecto. Para probar sin tocar el proyecto: <code>NovaGame.exe --calidad Bajo</code>.</p>
+<h2 id="7-lua-más-rápido-código-nativo---native">7. Lua más rápido: código nativo (<code>--!native</code>)<a class="ancla" href="#7-lua-más-rápido-código-nativo---native" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los scripts normales los ejecuta un intérprete (muy rápido, pero intérprete). Si la <strong>primera línea</strong> de un script es
+<code>--!native</code>, sus funciones se compilan a <strong>código máquina</strong> al cargarlo:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">--!native</span>
+<span class="hl-k">local</span> <span class="hl-t">Enjambre</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Enjambre</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, #<span class="hl-b">self</span>._boids <span class="hl-k">do</span>
+        <span class="hl-k">local</span> p: <span class="hl-t">Vec3</span> = <span class="hl-b">self</span>._posiciones[i]   <span class="hl-c">-- con el tipo, los vectores van todavía más rápido</span>
+        <span class="hl-c">-- ...</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Enjambre</span></code></pre></div>
+<ul>
+<li>Da <strong>el mismo resultado</strong> que el intérprete (las pruebas del motor lo comparan), con los mismos errores (con su fichero
+y su línea) y el mismo límite de tiempo: un bucle infinito en código nativo también se corta.</li>
+<li>Funciona con la <strong>recarga en caliente</strong> (cada versión nueva del fichero se compila al guardarla) y en el <strong>juego
+publicado</strong> (el bytecode es el mismo).</li>
+<li>Para una sola función: <code>@native</code> delante (<code>@native local function calcula(...)</code>).</li>
+<li>Para todo el proyecto: <strong>Ajustes del proyecto &gt; General &gt; Código nativo de Lua &gt; Todos los scripts</strong> (en
+<code>project.nova</code>: <code>&quot;lua&quot;: {&quot;nativo&quot;: &quot;todo&quot;}</code>; <code>&quot;script&quot;</code> es el de serie y <code>&quot;no&quot;</code> lo apaga). Se aplica al volver a jugar.</li>
+<li>Si el procesador no lo admite (más de 15 años, sin SSE4.1), los scripts van en el intérprete sin más.</li>
+</ul>
+<h3 id="cuánto-gana">Cuánto gana<a class="ancla" href="#cuánto-gana" aria-label="Enlace a esta sección">#</a></h3>
+<p>Medido en este PC (Release), lo mismo con el intérprete y con código nativo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Prueba</th>
+  <th>Intérprete</th>
+  <th>Nativo</th>
+  <th>Más rápido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>n-cuerpos (200.000 pasos)</td>
+  <td>479 ms</td>
+  <td>141 ms</td>
+  <td>x3,4</td>
+</tr>
+<tr>
+  <td>Partículas con <code>Vec3</code> (1 millón de pasos)</td>
+  <td>36 ms</td>
+  <td>9,6 ms</td>
+  <td>x3,8</td>
+</tr>
+<tr>
+  <td>Mandelbrot 256 x 256</td>
+  <td>128 ms</td>
+  <td>51 ms</td>
+  <td>x2,5</td>
+</tr>
+<tr>
+  <td>Suma de senos (3 millones)</td>
+  <td>79 ms</td>
+  <td>41 ms</td>
+  <td>x1,9</td>
+</tr>
+<tr>
+  <td>Producto escalar escrito en Lua (<code>a.x * b.x + ...</code>, 1 millón)</td>
+  <td>67 ms</td>
+  <td>9 ms</td>
+  <td>x7,4</td>
+</tr>
+<tr>
+  <td><code>Vec3.Dot</code>, <code>Vec3.Cross</code>, <code>Vec3.Length</code>, <code>Vec3.new</code> (1 millón)</td>
+  <td>17-20 ms</td>
+  <td>7-8 ms</td>
+  <td>x2,1-2,5</td>
+</tr>
+<tr>
+  <td>Interpolación (tween) escrita en Lua (600.000 pasos)</td>
+  <td>22 ms</td>
+  <td>6 ms</td>
+  <td>x3,7</td>
+</tr>
+<tr>
+  <td>Buscar cercanos a mano (5.000 x 200), con <code>: Vec3</code></td>
+  <td>23 ms</td>
+  <td>9,6 ms</td>
+  <td>x2,5</td>
+</tr>
+</tbody>
+</table></div>
+<p>Gana en <strong>cálculos</strong>: bucles con números, vectores <code>Vec3</code>, interpolaciones, IA con muchas cuentas, generación
+procedural. Gana poco o nada en lo que ya está hecho en C++ (las llamadas a funciones del motor, <code>table.sort</code>,
+<code>string.find</code>), en las operaciones de los tipos <code>Quat</code>, <code>Mat4</code> y <code>Vec2</code> y en el código lleno de tablas. Dos consejos:</p>
+<ul>
+<li><strong>Pon el tipo a los vectores</strong> (<code>local d: Vec3 = a - b</code>): sin él, el código nativo no sabe que es un vector y en
+algunos bucles va igual que el intérprete (la búsqueda de cercanos de la tabla pasa de x0,9 a x2,5 con el tipo).</li>
+<li>Pon <code>--!native</code> <strong>en los scripts que el perfilador enseña arriba</strong> (apartado 8), no en todos: compilar cuesta un poco
+al cargar y la mayoría de scripts pasan el tiempo llamando al motor.</li>
+</ul>
+<h2 id="8-el-perfilador">8. El perfilador<a class="ancla" href="#8-el-perfilador" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ventana &gt; Perfilador</strong> en el editor (también jugando) o, en el juego, <code>NovaGame.exe --perfilador</code> o
+<code>Debug.SetProfilerVisible(true)</code> desde Lua. Mientras «Medir» está apagado no cuesta nada.</p>
+<p>Enseña medias del último medio segundo:</p>
+<ul>
+<li><strong>FPS y ms por frame</strong>, con el peor frame y una gráfica de los últimos 240 frames (la línea verde son 16,7 ms: 60 fps).</li>
+<li><strong>GPU</strong>: lo que tarda la tarjeta gráfica en dibujar el frame (con unos frames de retraso).</li>
+<li><strong>Render (último frame)</strong>: dibujos, triángulos (y los que habría sin LOD), objetos dibujados y ocultos por oclusión,
+objetos con LOD simplificado, copias juntadas, luces y dibujos de sombras, y el preajuste de calidad.</li>
+<li><strong>CPU por sistema</strong>: la escena (físicas, scripts, animación, navegación, partículas, interfaz...) y el render
+(visibilidad, sombras, niebla, agua, nubes, partículas), en árbol.</li>
+<li><strong>GPU por pasada</strong>: sombras, niebla volumétrica, prepasada, luces y SSAO, opacos, cielo/agua/nubes, transparentes,
+partículas y postproceso.</li>
+<li><strong>Scripts Lua más caros</strong>: los ficheros que más tiempo se llevan (sus <code>Update</code>, eventos, tareas y tweens) y cuántas
+veces se llaman por frame; debajo, cuántas funciones van en código nativo.</li>
+</ul>
+<h3 id="cómo-leerlo">Cómo leerlo<a class="ancla" href="#cómo-leerlo" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>Si <strong>CPU por sistema</strong> suma más que la <strong>GPU</strong>, el juego está limitado por el procesador: mira qué sistema está arriba.
+Muchos «Scripts» → pon <code>--!native</code> en los de la lista de Lua o usa las funciones nativas
+(<a href="nativas-juego.html">nativas-juego.md</a>). «Visibilidad» o «Sombras» altos con muchos objetos → muchos materiales
+distintos (no se pueden juntar copias) o muchos objetos pequeños sueltos.</li>
+<li>Si la <strong>GPU</strong> es mayor, está limitado por la gráfica: mira la pasada más cara. Sombras → baja cascadas o distancia;
+niebla o nubes → su calidad; opacos con muchos triángulos → baja el sesgo de LOD; postproceso → apaga SSAO o bloom.</li>
+</ul>
+<h3 id="desde-lua">Desde Lua<a class="ancla" href="#desde-lua" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Debug.GetFrameStats()</code> devuelve los números del último frame para un contador de FPS propio:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Hud</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">local</span> s = <span class="hl-t">Debug</span>.<span class="hl-f">GetFrameStats</span>()
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Rendimiento"</span>)
+    <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%.0f FPS  %.1f ms  %d dibujos"</span>, s.fps, s.frameMs, s.drawCalls))
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span></code></pre></div>
+<p>Tiene <code>fps</code>, <code>frameMs</code>, <code>gpuMs</code> y <code>scriptsMs</code> (con el perfilador encendido), <code>drawCalls</code>, <code>triangles</code>, <code>visible</code>,
+<code>occluded</code>, <code>lodReduced</code>, <code>instances</code> y <code>lights</code>.</p>
+<h2 id="9-números-antes-y-después">9. Números: antes y después<a class="ancla" href="#9-números-antes-y-después" aria-label="Enlace a esta sección">#</a></h2>
+<p>Medidos sin ventana a 1920 x 1080 en este PC (RTX 5060 Ti, Release). «Antes» es como dibujaba el motor hasta la 0.9.5
+(sin LOD, sin oclusión, sin copias); «Después», los ajustes de serie (Alto). CPU es preparar y enviar el dibujo de un
+frame. Los números de GPU varían con lo que haga el resto del PC: tómalos como orientativos.</p>
+<p><strong>Ciudad tipo «Zombis»</strong> (100 edificios con 15 muebles dentro cada uno, 300 coches, 300 barriles, 100 farolas con luz,
+árboles y 80 personajes con huesos, vista desde una calle):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th></th>
+  <th>CPU</th>
+  <th>Dibujos</th>
+  <th>Triángulos</th>
+  <th>Objetos dibujados</th>
+  <th>Ocultos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Antes</td>
+  <td>3,2 ms</td>
+  <td>4.571</td>
+  <td>1.004.952</td>
+  <td>1.682</td>
+  <td>0</td>
+</tr>
+<tr>
+  <td>Después (Alto)</td>
+  <td>1,9 ms</td>
+  <td>81</td>
+  <td>156.324</td>
+  <td>103</td>
+  <td>1.579</td>
+</tr>
+<tr>
+  <td>Después con Bajo</td>
+  <td>1,8 ms</td>
+  <td>52</td>
+  <td>83.164</td>
+  <td>103</td>
+  <td>1.579</td>
+</tr>
+</tbody>
+</table></div>
+<p>La imagen de antes y la de después se diferencian en el 0,01 % de los píxeles.</p>
+<p><strong>Mundo abierto</strong> (la plantilla: isla con bosque pintado, 989 árboles y 238 rocas): el terreno y la vegetación ya tenían
+su propio LOD, impostores y distancias, y la oclusión del terreno viene apagada (aquí no ganaría nada: casi todo lo que
+hay detrás de las colinas es vegetación pintada), así que «Después» dibuja lo mismo que «Antes». Lo que más cambia es el <strong>preajuste Bajo</strong>: a ras de suelo, de 892 a 506 dibujos y de 14 a 4,6 millones de
+triángulos.</p>
+<p>Las pruebas que dan estas cifras están en el código fuente del motor (<code>tests/test_rendimiento_escenas.cpp</code>); guardan las
+capturas de antes, después y Bajo y los números en <code>test_output/rendimiento/</code>.</p>
+<p><strong>Realismo</strong> (0.9.8, <a href="render.html">render.md</a>): a 1080p en la misma RTX 5060 Ti, en una calle del mapa realista los reflejos en pantalla
+cuestan de 0,2 ms (calidad Baja) a 0,4 ms (Alta) y 1,3 ms en Ultra (resolución completa); el antialiasing temporal,
+0,12 ms, y las sombras de contacto, unos 0,1 ms. Las texturas comprimidas ocupan de 4 a 8 veces menos
+memoria de vídeo (una de 2K con mips: de 21 MB a 5,3 MB en BC7 o BC5).</p>
+<h2 id="10-lista-rápida-cuando-algo-va-lento">10. Lista rápida cuando algo va lento<a class="ancla" href="#10-lista-rápida-cuando-algo-va-lento" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Abre el <strong>perfilador</strong> y mira si manda la CPU o la GPU.</li>
+<li>GPU: prueba el preajuste <strong>Medio</strong> o <strong>Bajo</strong>; mira qué pasada es la más cara.</li>
+<li>Muchos dibujos: <strong>reutiliza materiales</strong> (copias) y comprueba que los muros grandes son <strong>ocluidores</strong>.</li>
+<li>Muchos triángulos: comprueba en el Inspector del modelo que tiene <strong>niveles de detalle</strong>; baja el <strong>sesgo de LOD</strong>.</li>
+<li>Scripts arriba en el perfilador: <code>--!native</code> con tipos en los vectores, y las funciones nativas de juego
+(<a href="nativas-juego.html">nativas-juego.md</a>) en lugar de bucles sobre miles de entidades.</li>
+<li>Muchas luces: pon una <strong>distancia de las luces</strong> y de sus sombras.</li>
+<li>Deja que el jugador elija la calidad con <code>Application.SetQuality</code>.</li>
+</ol>
+<h2 id="11-las-claves-de-projectnova-y-del-meta">11. Las claves de <code>project.nova</code> y del <code>.meta</code><a class="ancla" href="#11-las-claves-de-projectnova-y-del-meta" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo lo de este documento se guarda en <code>project.nova</code> (y viaja con el proyecto y con la edición en equipo). Lo normal es
+cambiarlo en <strong>Ajustes del proyecto</strong>; estas son las claves por si editas el fichero:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave (sección <code>render</code>)</th>
+  <th>Por defecto (Alto)</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>preajuste</code></td>
+  <td><code>&quot;Alto&quot;</code></td>
+  <td>El último preajuste aplicado (<code>&quot;Personalizado&quot;</code> si se cambió algo después)</td>
+</tr>
+<tr>
+  <td><code>lod</code></td>
+  <td><code>true</code></td>
+  <td>Niveles de detalle</td>
+</tr>
+<tr>
+  <td><code>sesgoLod</code></td>
+  <td><code>1</code></td>
+  <td>Sesgo de LOD</td>
+</tr>
+<tr>
+  <td><code>transicionLod</code></td>
+  <td><code>0.15</code></td>
+  <td>Ancho del tramado de la transición (0 = salto)</td>
+</tr>
+<tr>
+  <td><code>lodSombras</code></td>
+  <td><code>1</code></td>
+  <td>Niveles menos en las sombras</td>
+</tr>
+<tr>
+  <td><code>oclusion</code></td>
+  <td><code>true</code></td>
+  <td>Oclusión</td>
+</tr>
+<tr>
+  <td><code>instancias</code></td>
+  <td><code>true</code></td>
+  <td>Juntar las copias de una misma malla</td>
+</tr>
+<tr>
+  <td><code>distanciaLuces</code></td>
+  <td><code>0</code></td>
+  <td>Metros a los que se apagan las luces puntuales y focos (0 = nunca)</td>
+</tr>
+<tr>
+  <td><code>distanciaSombrasLuces</code></td>
+  <td><code>0</code></td>
+  <td>Metros a los que las luces locales dejan de hacer sombra (0 = nunca)</td>
+</tr>
+<tr>
+  <td><code>sombrasMinTexeles</code></td>
+  <td><code>0.5</code></td>
+  <td>Tamaño mínimo de un objeto en el mapa de sombras del sol</td>
+</tr>
+<tr>
+  <td><code>escalaDistanciaSombras</code></td>
+  <td><code>1</code></td>
+  <td>Multiplica la distancia de sombras del sol</td>
+</tr>
+<tr>
+  <td><code>resolucionSombrasMax</code></td>
+  <td><code>4096</code></td>
+  <td>Tope del mapa de sombras del sol</td>
+</tr>
+<tr>
+  <td><code>cascadasMax</code></td>
+  <td><code>4</code></td>
+  <td>Tope de cascadas del sol</td>
+</tr>
+<tr>
+  <td><code>ssao</code>, <code>bloom</code></td>
+  <td><code>true</code></td>
+  <td>Se permiten la SSAO y el bloom del Entorno</td>
+</tr>
+<tr>
+  <td><code>reflejosPantalla</code></td>
+  <td><code>true</code></td>
+  <td>Reflejos en pantalla (<a href="render.html">render.md</a>)</td>
+</tr>
+<tr>
+  <td><code>calidadReflejos</code></td>
+  <td><code>2</code></td>
+  <td>Calidad de los reflejos: 0 Baja, 1 Media, 2 Alta, 3 Ultra</td>
+</tr>
+<tr>
+  <td><code>taa</code></td>
+  <td><code>true</code></td>
+  <td>Antialiasing temporal (si no, el FXAA del Entorno)</td>
+</tr>
+<tr>
+  <td><code>nitidezTaa</code></td>
+  <td><code>0.35</code></td>
+  <td>Nitidez después del TAA (0 a 1)</td>
+</tr>
+<tr>
+  <td><code>sombrasContacto</code></td>
+  <td><code>true</code></td>
+  <td>Sombras de contacto del sol</td>
+</tr>
+<tr>
+  <td><code>texturasComprimidas</code></td>
+  <td><code>true</code></td>
+  <td>Texturas de los materiales en BC7/BC5/BC4 (con caché en disco)</td>
+</tr>
+<tr>
+  <td><code>texturasTamanoMax</code></td>
+  <td><code>0</code></td>
+  <td>Lado máximo de las texturas de los materiales (0 = sin límite)</td>
+</tr>
+<tr>
+  <td><code>generarLod</code></td>
+  <td>(objeto)</td>
+  <td>Cómo se generan los LOD al importar: <code>auto</code> (true), <code>niveles</code> (3), <code>reduccion</code> (0.5), <code>pantalla</code> ([0.4, 0.18, 0.08, 0.035]), <code>ocultar</code> (0) y <code>minTriangulos</code> (300)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las mismas claves de <code>generarLod</code> valen para un modelo en su <code>.meta</code>, en <code>&quot;import&quot;: {&quot;lod&quot;: {...}}</code> (lo que escribe
+<strong>Ajustes propios</strong> en su Inspector). Y el código nativo de Lua va en la sección <code>lua</code>: <code>&quot;nativo&quot;: &quot;script&quot;</code> (de serie),
+<code>&quot;todo&quot;</code> o <code>&quot;no&quot;</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"render"</span>: {
+  <span class="hl-k">"preajuste"</span>: <span class="hl-s">"Personalizado"</span>,
+  <span class="hl-k">"lod"</span>: <span class="hl-b">true</span>,
+  <span class="hl-k">"sesgoLod"</span>: <span class="hl-n">0.8</span>,
+  <span class="hl-k">"oclusion"</span>: <span class="hl-b">true</span>,
+  <span class="hl-k">"distanciaLuces"</span>: <span class="hl-n">120</span>,
+  <span class="hl-k">"generarLod"</span>: { <span class="hl-k">"niveles"</span>: <span class="hl-n">3</span>, <span class="hl-k">"reduccion"</span>: <span class="hl-n">0.5</span>, <span class="hl-k">"ocultar"</span>: <span class="hl-n">0.01</span> }
+},
+<span class="hl-k">"lua"</span>: { <span class="hl-k">"nativo"</span>: <span class="hl-s">"script"</span> }</code></pre></div>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="decals.html"><small>Anterior</small>Decals (calcomanías)</a><a class="sig" href="modelos-y-animaciones.html"><small>Siguiente</small>Modelos y animaciones</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#1-lo-que-hace-el-motor-por-ti">1. Lo que hace el motor por ti</a></li><li class="n2"><a href="#2-niveles-de-detalle-lod-automáticos">2. Niveles de detalle (LOD) automáticos</a></li><li class="n3"><a href="#cómo-funcionan">Cómo funcionan</a></li><li class="n3"><a href="#ajustes-del-proyecto">Ajustes del proyecto</a></li><li class="n3"><a href="#ajustes-de-un-modelo">Ajustes de un modelo</a></li><li class="n3"><a href="#ajustes-de-un-objeto">Ajustes de un objeto</a></li><li class="n2"><a href="#3-oclusión-no-dibujar-lo-que-está-tapado">3. Oclusión: no dibujar lo que está tapado</a></li><li class="n3"><a href="#qué-es-un-ocluidor">Qué es un ocluidor</a></li><li class="n3"><a href="#interiores-y-ciudades">Interiores y ciudades</a></li><li class="n3"><a href="#el-terreno-también-puede-tapar">El terreno también puede tapar</a></li><li class="n3"><a href="#límites">Límites</a></li><li class="n2"><a href="#4-copias-de-una-misma-malla">4. Copias de una misma malla</a></li><li class="n2"><a href="#5-luces-y-sombras-por-distancia">5. Luces y sombras por distancia</a></li><li class="n2"><a href="#6-preajustes-de-calidad-bajo-medio-alto-ultra">6. Preajustes de calidad (Bajo, Medio, Alto, Ultra)</a></li><li class="n3"><a href="#que-el-jugador-elija-la-calidad">Que el jugador elija la calidad</a></li><li class="n2"><a href="#7-lua-más-rápido-código-nativo---native">7. Lua más rápido: código nativo (--!native)</a></li><li class="n3"><a href="#cuánto-gana">Cuánto gana</a></li><li class="n2"><a href="#8-el-perfilador">8. El perfilador</a></li><li class="n3"><a href="#cómo-leerlo">Cómo leerlo</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n2"><a href="#9-números-antes-y-después">9. Números: antes y después</a></li><li class="n2"><a href="#10-lista-rápida-cuando-algo-va-lento">10. Lista rápida cuando algo va lento</a></li><li class="n2"><a href="#11-las-claves-de-projectnova-y-del-meta">11. Las claves de project.nova y del .meta</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

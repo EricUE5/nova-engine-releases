@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Idiomas · Nova Engine</title>
+<meta name="description" content="Cómo tener el juego en varios idiomas sin tocar el código cada vez: una tabla de textos (una fila por clave y una
+columna por idioma) que se edita en el panel Idiomas del editor (o en Excel / Google Sheets con CSV), Loc(">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Idiomas · Nova Engine">
+<meta property="og:description" content="Cómo tener el juego en varios idiomas sin tocar el código cada vez: una tabla de textos (una fila por clave y una
+columna por idioma) que se edita en el panel Idiomas del editor (o en Excel / Google Sheets con CSV), Loc(">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/idiomas.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/idiomas.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html" aria-current="page">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="idiomas">Idiomas</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-en-cinco-minutos">1. En cinco minutos</a></li><li class="n2"><a href="#2-el-panel-idiomas">2. El panel Idiomas</a></li><li class="n2"><a href="#3-importar-y-exportar-csv">3. Importar y exportar CSV</a></li><li class="n2"><a href="#4-en-lua-loc-y-localization">4. En Lua: Loc y Localization</a></li><li class="n2"><a href="#5-en-la-interfaz-texto-traducido">5. En la interfaz: Texto traducido</a></li><li class="n2"><a href="#6-qué-idioma-sale-al-arrancar">6. Qué idioma sale al arrancar</a></li><li class="n2"><a href="#7-fuentes-y-caracteres">7. Fuentes y caracteres</a></li><li class="n2"><a href="#8-ejemplo-menú-de-idiomas">8. Ejemplo: menú de idiomas</a></li><li class="n2"><a href="#9-textos-del-motor">9. Textos del motor</a></li><li class="n2"><a href="#10-el-fichero-de-la-tabla">10. El fichero de la tabla</a></li><li class="n2"><a href="#11-problemas-comunes">11. Problemas comunes</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Cómo tener el juego en varios idiomas sin tocar el código cada vez: una <strong>tabla de textos</strong> (una fila por clave y una
+columna por idioma) que se edita en el panel <strong>Idiomas</strong> del editor (o en Excel / Google Sheets con CSV), <code>Loc(&quot;clave&quot;)</code>
+en Lua, el componente <strong>Texto traducido</strong> en la interfaz (cambia solo al cambiar de idioma), el idioma con el que
+arranca el juego (el del jugador, el de Steam o el de Windows) y las fuentes con los caracteres de cada idioma.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-en-cinco-minutos">En cinco minutos</a></li>
+<li><a href="#2-el-panel-idiomas">El panel Idiomas</a></li>
+<li><a href="#3-importar-y-exportar-csv">Importar y exportar CSV</a></li>
+<li><a href="#4-en-lua-loc-y-localization">En Lua: Loc y Localization</a></li>
+<li><a href="#5-en-la-interfaz-texto-traducido">En la interfaz: Texto traducido</a></li>
+<li><a href="#6-qué-idioma-sale-al-arrancar">Qué idioma sale al arrancar</a></li>
+<li><a href="#7-fuentes-y-caracteres">Fuentes y caracteres</a></li>
+<li><a href="#8-ejemplo-menú-de-idiomas">Ejemplo: menú de idiomas</a></li>
+<li><a href="#9-textos-del-motor">Textos del motor</a></li>
+<li><a href="#10-el-fichero-de-la-tabla">El fichero de la tabla</a></li>
+<li><a href="#11-problemas-comunes">Problemas comunes</a></li>
+</ol>
+<h2 id="1-en-cinco-minutos">1. En cinco minutos<a class="ancla" href="#1-en-cinco-minutos" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><strong>Ventana &gt; Idiomas</strong> y <strong>Crear la tabla de idiomas</strong> (elige el idioma en el que escribes el juego; se añade
+también el inglés).</li>
+<li>Escribe una clave (<code>menu.jugar</code>) en el cuadro de arriba y pulsa <strong>+ Clave</strong>. Rellena cada columna: <code>Jugar</code>,
+<code>Play</code>...</li>
+<li>En la interfaz: selecciona el texto del botón en la jerarquía y pulsa el botón de entidad de la fila de la clave
+(<strong>Poner esta clave en el Texto seleccionado</strong>). Le añade el componente <strong>Texto traducido</strong> con esa clave.</li>
+<li>En un script: <code>UI(&quot;HUD/Monedas&quot;):SetText(Loc(&quot;hud.monedas&quot;, { n = monedas }))</code>.</li>
+<li>Cambia <strong>Vista previa</strong> a <code>English</code> y pulsa <strong>Jugar</strong>: los textos salen en inglés.</li>
+</ol>
+<h2 id="2-el-panel-idiomas">2. El panel Idiomas<a class="ancla" href="#2-el-panel-idiomas" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ventana &gt; Idiomas</strong>. Cada cambio se guarda en el fichero de la tabla (<code>assets/idiomas/textos.loc</code>), que viaja como
+cualquier otro asset (también en la <a href="edicion-en-equipo.html">edición en equipo</a>).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Parte</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Buscar</strong></td>
+  <td>Filtra por clave, por texto en cualquier idioma o por nota</td>
+</tr>
+<tr>
+  <td><strong>nueva.clave</strong> + <strong>+ Clave</strong> (o Intro)</td>
+  <td>Añade una clave. Letras, números y <code>.</code> <code>_</code> <code>-</code> <code>/</code>, sin espacios: <code>menu.jugar</code>, <code>dialogo/ascensor_1</code></td>
+</tr>
+<tr>
+  <td><strong>+ Idioma</strong></td>
+  <td>Añade una columna (español, inglés, francés, alemán, italiano, portugués, portugués de Brasil, ruso, polaco, turco, chino, japonés, coreano... los de Steam)</td>
+</tr>
+<tr>
+  <td><strong>Importar CSV</strong> / <strong>Exportar CSV</strong></td>
+  <td>Sección 3</td>
+</tr>
+<tr>
+  <td><strong>Vista previa</strong></td>
+  <td>El idioma en el que se ven los <strong>Textos traducidos</strong> en el editor y al pulsar <strong>Jugar</strong></td>
+</tr>
+<tr>
+  <td><strong>Al arrancar</strong></td>
+  <td><strong>Automático</strong> (el del jugador, Steam o Windows: sección 6) o <strong>Siempre</strong> un idioma de la tabla (<code>&quot;idiomas&quot;: {&quot;porDefecto&quot;}</code> en <code>project.nova</code>)</td>
+</tr>
+<tr>
+  <td>La tabla</td>
+  <td>Una fila por clave: la clave (se puede renombrar), un texto por idioma (las celdas vacías salen en naranja), una <strong>Nota</strong> para quien traduce (contexto, letras como mucho) y dos botones: poner la clave en el Texto seleccionado y quitar la clave</td>
+</tr>
+<tr>
+  <td>Cabecera de un idioma (clic derecho)</td>
+  <td><strong>Idioma base</strong> (el que se usa cuando a otro le falta un texto) y <strong>Quitar este idioma</strong></td>
+</tr>
+<tr>
+  <td>Avisos</td>
+  <td>Arriba: cuántos textos faltan en cada idioma y los caracteres que no tiene la fuente integrada (sección 7)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si el fichero de la tabla cambia fuera del panel (lo edita alguien en la <a href="edicion-en-equipo.html">edición en equipo</a>, lo
+cambias con un editor de texto o con git), el editor lo vuelve a leer solo en un segundo.</p>
+<p>Los textos pueden tener varias líneas (Intro dentro de la celda) y <strong>parámetros</strong> entre llaves: <code>¡Hola, {nombre}!</code>.
+Para escribir una llave de verdad, dóblala: <code>{{</code>.</p>
+<h2 id="3-importar-y-exportar-csv">3. Importar y exportar CSV<a class="ancla" href="#3-importar-y-exportar-csv" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para pasar los textos a quien traduce (o a una agencia) y recibirlos de vuelta:</p>
+<ul>
+<li><strong>Exportar CSV</strong> guarda un <code>.csv</code> en UTF-8 que Excel, LibreOffice y Google Sheets abren bien: primera fila <code>clave</code>,
+un código de idioma por columna y <code>nota</code>. Marca <strong>Exportar con ; (Excel en español)</strong> si lo vais a abrir con un
+Excel en español (que separa por punto y coma).</li>
+<li><strong>Importar CSV</strong> lee uno con la misma forma (separado por comas, punto y coma o tabuladores: se detecta solo; con o
+sin BOM) y lo <strong>mezcla</strong> con la tabla: las claves nuevas se añaden, los textos del CSV que no están vacíos sustituyen
+a los de la tabla y los idiomas nuevos salen como columnas. Lo que no está en el CSV no se toca.</li>
+<li>Las columnas pueden ir en cualquier orden y la de <code>nota</code> es opcional. Los textos con comas, comillas o saltos de
+línea van entre comillas dobles (como lo guardan esos programas).</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">clave,es,en,fr,nota
+menu.jugar,Jugar,Play,Jouer,Botón del menú principal
+hud.monedas,Monedas: {n},Coins: {n},Pièces : {n},</code></pre></div>
+<p>Si una fila no vale (una clave con espacios, repetida, comillas sin cerrar), la importación no cambia nada y dice en
+qué fila está el problema.</p>
+<h2 id="4-en-lua-loc-y-localization">4. En Lua: Loc y Localization<a class="ancla" href="#4-en-lua-loc-y-localization" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Loc(&quot;clave&quot;)</code> devuelve el texto en el idioma actual; con una tabla de parámetros cambia cada <code>{nombre}</code> por su valor:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-f">UI</span>(<span class="hl-s">"Menú/Jugar"</span>):<span class="hl-f">SetText</span>(<span class="hl-f">Loc</span>(<span class="hl-s">"menu.jugar"</span>))
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Monedas"</span>):<span class="hl-f">SetText</span>(<span class="hl-f">Loc</span>(<span class="hl-s">"hud.monedas"</span>, { n = <span class="hl-b">self</span>.monedas }))
+<span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-f">Loc</span>(<span class="hl-s">"chat.entra"</span>, { nombre = <span class="hl-f">GetPlayerName</span>(jugador) }))</code></pre></div>
+<ul>
+<li>Si al idioma actual le falta el texto, sale el del <strong>idioma base</strong>; si la clave no existe, sale la propia clave (y
+un aviso en el registro, una vez por clave). Las comprobaciones de <strong>Publicar juego</strong> avisan de las claves de
+<code>Loc(&quot;...&quot;)</code> que no están en la tabla.</li>
+<li>Los números salen sin decimales de más (<code>3</code>, no <code>3.0</code>).</li>
+</ul>
+<p>Un texto puesto con <code>SetText(Loc(...))</code> es fijo: si el jugador cambia de idioma, hay que volver a ponerlo. Para eso
+está <code>Localization.OnChanged</code> (o usa un <strong>Texto traducido</strong>, sección 5, que cambia solo):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Localization.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>SetLanguage(codigo)</code></td>
+  <td>Cambia de idioma (<code>&quot;en&quot;</code>, <code>&quot;fr&quot;</code>, <code>&quot;pt-BR&quot;</code>...; vale el más parecido de la tabla: <code>&quot;es-MX&quot;</code> → <code>&quot;es&quot;</code>) y lo recuerda para la próxima vez. <code>false</code> si la tabla no tiene ese idioma</td>
+</tr>
+<tr>
+  <td><code>GetLanguage()</code></td>
+  <td>El código del idioma actual</td>
+</tr>
+<tr>
+  <td><code>GetLanguages()</code></td>
+  <td>Los idiomas de la tabla, en el orden de sus columnas</td>
+</tr>
+<tr>
+  <td><code>GetLanguageName(codigo)</code></td>
+  <td>El nombre de un idioma en ese idioma (<code>&quot;English&quot;</code>, <code>&quot;Français&quot;</code>, <code>&quot;Русский&quot;</code>); sin código, el del actual</td>
+</tr>
+<tr>
+  <td><code>GetBaseLanguage()</code></td>
+  <td>El idioma base de la tabla</td>
+</tr>
+<tr>
+  <td><code>GetSystemLanguage()</code></td>
+  <td>El idioma de Windows del jugador (<code>&quot;es-ES&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>Has(clave)</code></td>
+  <td><code>true</code> si la clave está en la tabla</td>
+</tr>
+<tr>
+  <td><code>OnChanged(funcion)</code></td>
+  <td>Llama a la función con el código nuevo cada vez que cambia el idioma. Es <code>AddEventHandler(&quot;languageChanged&quot;, funcion)</code>: devuelve lo mismo, para <code>RemoveEventHandler</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>languageChanged</code> llega a todos los scripts al principio del frame siguiente al cambio, antes de sus <code>Update</code>.</p>
+<h2 id="5-en-la-interfaz-texto-traducido">5. En la interfaz: Texto traducido<a class="ancla" href="#5-en-la-interfaz-texto-traducido" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Texto traducido</strong> (categoría <strong>Interfaz</strong>) hace que el <strong>Texto</strong> de la misma entidad muestre la
+traducción de su <strong>Clave</strong> y cambie solo cuando cambia el idioma. El texto del componente Texto se queda como está
+(es la vista previa si la clave todavía no existe): la escena no cambia al cambiar de idioma, así que no molesta al
+guardar ni a la edición en equipo.</p>
+<ul>
+<li>Ponerlo: <strong>Añadir componente &gt; Interfaz &gt; Texto traducido</strong> y escribe la clave, o desde el panel <strong>Idiomas</strong> con el
+botón de la fila (selecciona antes el Texto). Para un botón, ponlo en su texto hijo.</li>
+<li>Desde Lua: <code>UI(&quot;Menú/Jugar&quot;):SetTextKey(&quot;menu.jugar&quot;)</code>. <code>SetTextKey(nil)</code> lo quita, y <code>SetText(&quot;...&quot;)</code> también (un
+texto puesto a mano ya no sigue la clave). <code>GetText()</code> devuelve lo que se ve (la traducción).</li>
+<li>Un texto con tamaño automático, o dentro de un grupo de diseño, se mide con la traducción: si el alemán es más largo,
+el botón crece igual que con el texto escrito a mano.</li>
+<li>Los textos con parámetros (<code>{n}</code>) se ponen desde Lua con <code>Loc</code>; en un Texto traducido saldrían tal cual.</li>
+</ul>
+<h2 id="6-qué-idioma-sale-al-arrancar">6. Qué idioma sale al arrancar<a class="ancla" href="#6-qué-idioma-sale-al-arrancar" aria-label="Enlace a esta sección">#</a></h2>
+<p>Al abrir el juego se elige, por este orden, el primero que tenga la tabla (o el más parecido: <code>pt</code> sirve para
+<code>pt-BR</code>; el chino tradicional y el simplificado no se mezclan):</p>
+<ol>
+<li>El que eligió el jugador en el juego (<code>Localization.SetLanguage</code>), que se guarda en
+<code>%LOCALAPPDATA%\&lt;juego&gt;\opciones.json</code> (<code>&quot;idioma&quot;</code>).</li>
+<li>El fijo del proyecto, si lo hay: <code>&quot;idiomas&quot;: {&quot;porDefecto&quot;: &quot;es&quot;}</code> en <code>project.nova</code> (<code>&quot;auto&quot;</code> = ninguno).</li>
+<li>El de <strong>Steam</strong> (el que el jugador eligió para el juego en la biblioteca de Steam), si el juego se abre con Steam.</li>
+<li>El de <strong>Windows</strong> (el idioma de la interfaz del sistema).</li>
+<li>El idioma base de la tabla.</li>
+</ol>
+<p>En el editor manda la <strong>Vista previa</strong> del panel Idiomas (y no se guarda nada en <code>opciones.json</code>). El servidor dedicado
+usa el idioma de su Windows (los textos que envía a los jugadores mejor ponlos en el cliente con <code>Loc</code>).</p>
+<p>Si usas Steam Cloud con Auto-Cloud y <code>opciones.json</code> (ver <a href="steam.html">steam.md</a>), el idioma elegido también viaja entre
+los PC del jugador.</p>
+<h2 id="7-fuentes-y-caracteres">7. Fuentes y caracteres<a class="ancla" href="#7-fuentes-y-caracteres" aria-label="Enlace a esta sección">#</a></h2>
+<p>La fuente integrada de la interfaz (<strong>Roboto</strong>) tiene los caracteres del español, inglés, francés, alemán,
+portugués, italiano y ruso (y polaco, turco y el resto de alfabetos latinos y cirílicos): <code>ñ ¿ ¡ « » œ ß ç ã Ж Щ</code>...
+Una prueba automática lo comprueba en cada versión del motor.</p>
+<p>Si a la fuente de un texto le falta un carácter:</p>
+<ol>
+<li>Se busca en Roboto.</li>
+<li>Si tampoco está, en las fuentes de <strong>Windows</strong> del PC del jugador: Segoe UI (latino, griego, cirílico, árabe...) y,
+para chino, japonés y coreano, Microsoft YaHei, Yu Gothic y Malgun Gothic (las tienen Windows 10 y 11). Se cargan
+solo la primera vez que hacen falta.</li>
+<li>Si tampoco, se dibuja una caja.</li>
+</ol>
+<p>El panel <strong>Idiomas</strong> y las <strong>comprobaciones</strong> de Publicar juego avisan de los caracteres de cada idioma que no tienen
+Roboto o las fuentes que usan tus Textos. Con el respaldo de Windows el juego se lee, pero con otra letra: para que se
+vea igual en todos los PC, pon a esos textos una fuente que tenga los caracteres. Las de la familia <strong>Noto Sans</strong>
+(licencia OFL, se pueden incluir en el juego) cubren casi todos los idiomas: por ejemplo Noto Sans para latín y
+cirílico, y Noto Sans SC / JP / KR para chino, japonés y coreano. Cópiala a <code>assets/</code> y elígela en el campo <strong>Fuente</strong>
+del Texto (o en un estilo). Recuerda añadir su licencia a los créditos.</p>
+<p>La interfaz <code>OnGUI</code> (ImGui) del juego usa Segoe UI con todos sus alfabetos; si la tabla tiene chino, japonés o
+coreano, añade sola las fuentes de Windows de esos idiomas.</p>
+<h2 id="8-ejemplo-menú-de-idiomas">8. Ejemplo: menú de idiomas<a class="ancla" href="#8-ejemplo-menú-de-idiomas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un desplegable con los idiomas de la tabla en las opciones y un contador de monedas que se rehace al cambiar de idioma
+(con las claves <code>hud.monedas</code> = <code>Monedas: {n}</code> / <code>Coins: {n}</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">MenuIdiomas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Ruta del desplegable de idiomas en la interfaz")]</span>
+<span class="hl-t">MenuIdiomas</span>.desplegable = <span class="hl-s">"Opciones/Idioma"</span>
+<span class="hl-a">--[Tooltip("Ruta del texto de las monedas")]</span>
+<span class="hl-t">MenuIdiomas</span>.textoMonedas = <span class="hl-s">"HUD/Monedas"</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuIdiomas</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._monedas = <span class="hl-n">0</span>
+    <span class="hl-k">local</span> idiomas = <span class="hl-t">Localization</span>.<span class="hl-f">GetLanguages</span>()
+    <span class="hl-k">local</span> nombres = {}
+    <span class="hl-k">local</span> actual = <span class="hl-n">0</span>
+    <span class="hl-k">for</span> i, codigo <span class="hl-k">in</span> idiomas <span class="hl-k">do</span>
+        nombres[i] = <span class="hl-t">Localization</span>.<span class="hl-f">GetLanguageName</span>(codigo)
+        <span class="hl-k">if</span> codigo == <span class="hl-t">Localization</span>.<span class="hl-f">GetLanguage</span>() <span class="hl-k">then</span>
+            actual = i - <span class="hl-n">1</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> lista = <span class="hl-f">UI</span>(<span class="hl-b">self</span>.desplegable)
+    lista:<span class="hl-f">SetOptions</span>(nombres)
+    lista:<span class="hl-f">SetValue</span>(actual)
+    lista:<span class="hl-f">OnValueChanged</span>(<span class="hl-k">function</span>(valor)
+        <span class="hl-t">Localization</span>.<span class="hl-f">SetLanguage</span>(idiomas[valor + <span class="hl-n">1</span>]) <span class="hl-c">-- se recuerda para la próxima vez</span>
+    <span class="hl-k">end</span>)
+    <span class="hl-c">-- Los Textos traducidos cambian solos; lo puesto con Loc se rehace aquí</span>
+    <span class="hl-t">Localization</span>.<span class="hl-f">OnChanged</span>(<span class="hl-k">function</span>()
+        <span class="hl-b">self</span>:<span class="hl-f">MostrarMonedas</span>()
+    <span class="hl-k">end</span>)
+    <span class="hl-b">self</span>:<span class="hl-f">MostrarMonedas</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuIdiomas</span>:<span class="hl-f">Sumar</span>(n: number)
+    <span class="hl-b">self</span>._monedas += n
+    <span class="hl-b">self</span>:<span class="hl-f">MostrarMonedas</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuIdiomas</span>:<span class="hl-f">MostrarMonedas</span>()
+    <span class="hl-f">UI</span>(<span class="hl-b">self</span>.textoMonedas):<span class="hl-f">SetText</span>(<span class="hl-f">Loc</span>(<span class="hl-s">"hud.monedas"</span>, { n = <span class="hl-b">self</span>._monedas }))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MenuIdiomas</span></code></pre></div>
+<h2 id="9-textos-del-motor">9. Textos del motor<a class="ancla" href="#9-textos-del-motor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Algunos textos los pone el motor: el aviso <strong>«El juego se cerró inesperadamente»</strong> al volver a abrir el juego tras un
+cierre (<a href="errores.html">errores.md</a>) y el aviso de errores de scripts. Vienen en español, inglés, francés, alemán,
+portugués, italiano y ruso (los demás idiomas, en inglés) y salen en el idioma del jugador. Si quieres cambiarlos o
+traducirlos a otro idioma, añade a tu tabla la clave con <code>nova.</code> delante. Desde la 0.9.9 también los avisos de la red
+«Ana se ha unido a la partida» y «Ana ha salido (...)»: cada máquina los escribe en su idioma (para quitarlos,
+<code>Network.SetSystemMessages(false)</code>, ver <a href="multijugador.html">multijugador.md</a>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Texto (español)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>nova.cierre.titulo</code></td>
+  <td>El juego se cerró inesperadamente</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.texto</code></td>
+  <td>La última vez, {juego} se cerró por un error. Se ha guardado un informe que ayuda a corregirlo.</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.abrir</code></td>
+  <td>Abrir la carpeta del informe</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.copiar</code></td>
+  <td>Copiar el informe</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.enviar</code></td>
+  <td>Enviar el informe al desarrollador</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.cerrar</code></td>
+  <td>Cerrar</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.copiado</code></td>
+  <td>Informe copiado al portapapeles.</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.enviado</code></td>
+  <td>Informe enviado. ¡Gracias!</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.noEnviado</code></td>
+  <td>No se pudo enviar el informe: {motivo}</td>
+</tr>
+<tr>
+  <td><code>nova.cierre.privacidad</code></td>
+  <td>No se envía nada sin tu permiso.</td>
+</tr>
+<tr>
+  <td><code>nova.errores.script</code></td>
+  <td>Error en un script</td>
+</tr>
+<tr>
+  <td><code>nova.errores.detalles</code></td>
+  <td>Detalles en {fichero}</td>
+</tr>
+<tr>
+  <td><code>nova.red.unido</code></td>
+  <td>{nombre} se ha unido a la partida</td>
+</tr>
+<tr>
+  <td><code>nova.red.salido</code></td>
+  <td>{nombre} ha salido ({motivo})</td>
+</tr>
+<tr>
+  <td><code>nova.red.motivo.desconectado</code></td>
+  <td>se ha desconectado</td>
+</tr>
+<tr>
+  <td><code>nova.red.motivo.cierre</code></td>
+  <td>el servidor se cerró</td>
+</tr>
+<tr>
+  <td><code>nova.red.motivo.expulsado</code></td>
+  <td>expulsado</td>
+</tr>
+<tr>
+  <td><code>nova.red.motivo.tiempo</code></td>
+  <td>tiempo de espera agotado</td>
+</tr>
+</tbody>
+</table></div>
+<p>El diálogo de cierre sale antes de cargar el proyecto: para él solo valen los textos integrados y el idioma guardado o
+el de Windows.</p>
+<h2 id="10-el-fichero-de-la-tabla">10. El fichero de la tabla<a class="ancla" href="#10-el-fichero-de-la-tabla" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>assets/idiomas/textos.loc</code> (otra ruta dentro de <code>assets/</code> con <code>&quot;idiomas&quot;: {&quot;tabla&quot;: &quot;textos/juego.loc&quot;}</code> en
+<code>project.nova</code>). Es JSON, fácil de comparar en git:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"nova"</span>: <span class="hl-s">"localizacion"</span>,
+  <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"idiomaBase"</span>: <span class="hl-s">"es"</span>,
+  <span class="hl-k">"idiomas"</span>: [<span class="hl-s">"es"</span>, <span class="hl-s">"en"</span>, <span class="hl-s">"fr"</span>],
+  <span class="hl-k">"textos"</span>: [
+    { <span class="hl-k">"clave"</span>: <span class="hl-s">"menu.jugar"</span>, <span class="hl-k">"es"</span>: <span class="hl-s">"Jugar"</span>, <span class="hl-k">"en"</span>: <span class="hl-s">"Play"</span>, <span class="hl-k">"fr"</span>: <span class="hl-s">"Jouer"</span>, <span class="hl-k">"nota"</span>: <span class="hl-s">"Botón del menú principal"</span> },
+    { <span class="hl-k">"clave"</span>: <span class="hl-s">"hud.monedas"</span>, <span class="hl-k">"es"</span>: <span class="hl-s">"Monedas: {n}"</span>, <span class="hl-k">"en"</span>: <span class="hl-s">"Coins: {n}"</span> }
+  ]
+}</code></pre></div>
+<p>Va con el juego publicado (dentro de <code>data\juego.novapak</code>). Los códigos de idioma son los habituales (<code>es</code>, <code>en</code>,
+<code>pt-BR</code>, <code>es-419</code>, <code>zh-CN</code>, <code>zh-TW</code>, <code>ja</code>, <code>ko</code>...).</p>
+<h2 id="11-problemas-comunes">11. Problemas comunes<a class="ancla" href="#11-problemas-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Problema</th>
+  <th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Sale la clave (<code>menu.jugar</code>) en vez del texto</td>
+  <td>La clave no está en la tabla (mira el aviso en la <strong>Consola</strong>) o está mal escrita</td>
+</tr>
+<tr>
+  <td>Sale el texto en el idioma base</td>
+  <td>A ese idioma le falta el texto (celda naranja en el panel)</td>
+</tr>
+<tr>
+  <td>Un texto puesto desde Lua no cambia al cambiar de idioma</td>
+  <td>Vuelve a ponerlo en <code>Localization.OnChanged</code>, o usa un <strong>Texto traducido</strong></td>
+</tr>
+<tr>
+  <td>Cajas en lugar de letras</td>
+  <td>La fuente no tiene esos caracteres y Windows tampoco: usa una fuente que los tenga (sección 7)</td>
+</tr>
+<tr>
+  <td>El juego arranca siempre en el mismo idioma</td>
+  <td>El jugador eligió uno (<code>opciones.json</code>) o el proyecto fija <code>&quot;porDefecto&quot;</code></td>
+</tr>
+<tr>
+  <td>Excel junta todo en una columna al abrir el CSV</td>
+  <td>Exporta con <strong>;</strong> o abre el CSV con <strong>Datos &gt; Desde texto</strong> eligiendo la coma</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="interfaz-ui.html">Interfaz del juego</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="publicar.html">Publicar en Steam</a></li>
+<li><a href="errores.html">Informe de errores</a></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="interfaz-ui.html"><small>Anterior</small>Interfaz del juego (HUD y menús)</a><a class="sig" href="multijugador.html"><small>Siguiente</small>Multijugador: tutorial y guía</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-en-cinco-minutos">1. En cinco minutos</a></li><li class="n2"><a href="#2-el-panel-idiomas">2. El panel Idiomas</a></li><li class="n2"><a href="#3-importar-y-exportar-csv">3. Importar y exportar CSV</a></li><li class="n2"><a href="#4-en-lua-loc-y-localization">4. En Lua: Loc y Localization</a></li><li class="n2"><a href="#5-en-la-interfaz-texto-traducido">5. En la interfaz: Texto traducido</a></li><li class="n2"><a href="#6-qué-idioma-sale-al-arrancar">6. Qué idioma sale al arrancar</a></li><li class="n2"><a href="#7-fuentes-y-caracteres">7. Fuentes y caracteres</a></li><li class="n2"><a href="#8-ejemplo-menú-de-idiomas">8. Ejemplo: menú de idiomas</a></li><li class="n2"><a href="#9-textos-del-motor">9. Textos del motor</a></li><li class="n2"><a href="#10-el-fichero-de-la-tabla">10. El fichero de la tabla</a></li><li class="n2"><a href="#11-problemas-comunes">11. Problemas comunes</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animar huesos: posar personajes, crear animaciones y poner eventos · Nova Engine</title>
+<meta name="description" content="Desde la 0.9.17 puedes crear las animaciones de tus personajes dentro del editor, sin Blender ni Mixamo. La ventana
+Animar huesos es un visor aparte, como el editor de animaciones de Unreal o de Unity:">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Animar huesos: posar personajes, crear animaciones y poner eventos · Nova Engine">
+<meta property="og:description" content="Desde la 0.9.17 puedes crear las animaciones de tus personajes dentro del editor, sin Blender ni Mixamo. La ventana
+Animar huesos es un visor aparte, como el editor de animaciones de Unreal o de Unity:">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/animar-huesos.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/animar-huesos.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo" open><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html" aria-current="page">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="animar-huesos-posar-personajes-crear-animaciones-y-poner-eventos">Animar huesos: posar personajes, crear animaciones y poner eventos</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-abrir-la-ventana">1. Abrir la ventana</a></li><li class="n2"><a href="#2-la-ventana">2. La ventana</a></li><li class="n3"><a href="#deshacer-y-rehacer">Deshacer y rehacer</a></li><li class="n2"><a href="#3-posar-girar-y-mover-huesos-ik-copiar-espejar-y-reiniciar">3. Posar: girar y mover huesos, IK, copiar, espejar y reiniciar</a></li><li class="n2"><a href="#4-paso-a-paso-una-animación-de-saludar">4. Paso a paso: una animación de saludar</a></li><li class="n2"><a href="#5-eventos">5. Eventos</a></li><li class="n2"><a href="#6-paso-a-paso-el-evento-paso-en-la-animación-de-andar">6. Paso a paso: el evento «Paso» en la animación de andar</a></li><li class="n2"><a href="#7-usar-el-clip-en-el-animador-en-los-controladores-y-en-otros-personajes">7. Usar el clip en el Animador, en los controladores y en otros personajes</a></li><li class="n2"><a href="#8-corregir-una-animación-importada-editar-una-copia">8. Corregir una animación importada: «Editar una copia»</a></li><li class="n2"><a href="#9-los-eventos-desde-lua">9. Los eventos desde Lua</a></li><li class="n2"><a href="#10-el-fichero-anim-de-huesos">10. El fichero .anim de huesos</a></li><li class="n2"><a href="#11-atajos">11. Atajos</a></li><li class="n2"><a href="#12-límites">12. Límites</a></li><li class="n2"><a href="#13-sockets-en-el-mismo-visor">13. Sockets en el mismo visor</a></li></ul></details><p>Desde la 0.9.17 puedes <strong>crear las animaciones de tus personajes dentro del editor</strong>, sin Blender ni Mixamo. La ventana
+<strong>Animar huesos</strong> es un visor aparte, como el editor de animaciones de Unreal o de Unity:</p>
+<ul>
+<li>Abres un modelo con esqueleto (<code>.glb</code>, <code>.fbx</code> o el de una entidad de la escena) y lo ves con suelo, luz y una cámara que
+orbita.</li>
+<li>Eliges los huesos con un clic y los <strong>giras o los mueves con el gizmo</strong>. Para posar, tienes <strong>IK</strong>: arrastras la mano o el
+pie y el brazo o la pierna lo siguen.</li>
+<li>Con <strong>Grabar</strong> activado, cada cambio es una <strong>clave</strong> en la línea de tiempo. Hay una pista por hueso, agrupadas por
+partes del cuerpo, con curvas e interpolación como en la <a href="animacion-objetos.html">Línea de tiempo</a>.</li>
+<li>Pones <strong>eventos</strong> («Paso», «SoltarCargador»...) que llegan a tus scripts de Lua mientras el Animador reproduce el clip.
+También en los clips importados, sin tocar el fichero original.</li>
+<li>El clip se guarda como un <code>.anim</code> y el modelo lo recibe como cualquier otra animación. Así vale en el
+<strong>Animador</strong> y en los <strong>controladores</strong>, y en otros humanoides gracias al
+<a href="modelos-y-animaciones.html#animaciones-de-otros-personajes-retargeting">retargeting</a>.</li>
+</ul>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-abrir-la-ventana">Abrir la ventana</a></li>
+<li><a href="#2-la-ventana">La ventana</a></li>
+<li><a href="#3-posar-girar-y-mover-huesos-ik-copiar-espejar-y-reiniciar">Posar: girar y mover huesos, IK, copiar, espejar y reiniciar</a></li>
+<li><a href="#4-paso-a-paso-una-animación-de-saludar">Paso a paso: una animación de saludar</a></li>
+<li><a href="#5-eventos">Eventos</a></li>
+<li><a href="#6-paso-a-paso-el-evento-paso-en-la-animación-de-andar">Paso a paso: el evento «Paso» en la animación de andar</a></li>
+<li><a href="#7-usar-el-clip-en-el-animador-en-los-controladores-y-en-otros-personajes">Usar el clip en el Animador, en los controladores y en otros personajes</a></li>
+<li><a href="#8-corregir-una-animación-importada-editar-una-copia">Corregir una animación importada: «Editar una copia»</a></li>
+<li><a href="#9-los-eventos-desde-lua">Los eventos desde Lua</a></li>
+<li><a href="#10-el-fichero-anim-de-huesos">El fichero .anim de huesos</a></li>
+<li><a href="#11-atajos">Atajos</a></li>
+<li><a href="#12-límites">Límites</a></li>
+<li><a href="#13-sockets-en-el-mismo-visor">Sockets en el mismo visor</a></li>
+</ol>
+<h2 id="1-abrir-la-ventana">1. Abrir la ventana<a class="ancla" href="#1-abrir-la-ventana" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cualquiera de estas formas abre <strong>Animar huesos</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Desde</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Contenido</strong></td>
+  <td>Doble clic en un modelo con esqueleto (<code>.glb</code>, <code>.fbx</code>) o en un <code>.anim</code> de huesos. También clic derecho &gt; <strong>Animar huesos</strong></td>
+</tr>
+<tr>
+  <td><strong>Inspector de un modelo</strong></td>
+  <td>Botón <strong>Animar huesos</strong> (al elegir el modelo en Contenido), o doble clic en uno de sus clips de la lista <strong>Animaciones</strong>: se abre con ese clip</td>
+</tr>
+<tr>
+  <td><strong>Una entidad de la escena</strong></td>
+  <td>Botón <strong>Animar huesos</strong> del componente <strong>Animador</strong>, o clic derecho en la <strong>Jerarquía</strong> &gt; <strong>Animar huesos</strong> (en la entidad o en una que tenga el Animador dentro). Se abre su modelo con el clip que reproduce</td>
+</tr>
+<tr>
+  <td><strong>Menú</strong></td>
+  <td><strong>Ventana &gt; Animación &gt; Animar huesos</strong> (una pestaña del <a href="editor.html#espacio-animación">espacio Animación</a>) y elige el modelo arriba</td>
+</tr>
+</tbody>
+</table></div>
+<p>La ventana no toca la escena: el personaje que ves es una copia en su propio visor. Puedes tenerla abierta mientras
+trabajas en la escena.</p>
+<h2 id="2-la-ventana">2. La ventana<a class="ancla" href="#2-la-ventana" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Arriba</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Control</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>↶ ↷ y la flechita</td>
+  <td><strong>Deshacer</strong> y <strong>rehacer</strong> (Ctrl+Z; Ctrl+Y o Ctrl+Mayús+Z) y el <strong>historial</strong> para saltar varios pasos. Ver <a href="#deshacer-y-rehacer">Deshacer y rehacer</a></td>
+</tr>
+<tr>
+  <td>Modelo</td>
+  <td>El modelo que se anima. «(de Personaje)» si lo abriste desde una entidad</td>
+</tr>
+<tr>
+  <td>Clip</td>
+  <td><strong>(pose de reposo)</strong>; los clips <strong>importados</strong> del modelo (solo se ven, pero sus eventos sí se editan); y los <strong>clips de huesos</strong> (<code>.anim</code>) de este modelo, que se editan</td>
+</tr>
+<tr>
+  <td><strong>Nuevo clip</strong></td>
+  <td>Un clip en blanco (nombre, duración y FPS). Se guarda en <code>assets/animaciones/&lt;modelo&gt;_&lt;clip&gt;.anim</code> y, con <strong>Añadir al modelo</strong> marcado, ya sale en el Animador</td>
+</tr>
+<tr>
+  <td><strong>Editar una copia</strong></td>
+  <td>Con un clip importado elegido: lo copia como clip de huesos para corregirlo (<a href="#8-corregir-una-animación-importada-editar-una-copia">ver abajo</a>)</td>
+</tr>
+<tr>
+  <td><strong>En el Animador</strong> / <strong>Añadir al modelo</strong></td>
+  <td>Dice si el modelo tiene el clip en sus animaciones; si no, el botón lo añade</td>
+</tr>
+<tr>
+  <td>⏮ ‹ ▶ › ⏭</td>
+  <td>Al principio, fotograma anterior, reproducir o pausar (Espacio), fotograma siguiente y al final</td>
+</tr>
+<tr>
+  <td>Bucle</td>
+  <td>Al reproducir, vuelve a empezar al llegar al final (solo para verlo aquí: en el juego manda el Animador)</td>
+</tr>
+<tr>
+  <td>Segundos y fotograma</td>
+  <td>Ir a un tiempo o a un fotograma</td>
+</tr>
+<tr>
+  <td>Duración y FPS</td>
+  <td>Del clip. Las claves se ajustan a los fotogramas</td>
+</tr>
+<tr>
+  <td><strong>Grabar</strong></td>
+  <td>Autoclave: cada hueso que gires o muevas recibe una clave en el tiempo actual. Está activado al abrir</td>
+</tr>
+<tr>
+  <td>Curvas, zoom</td>
+  <td>Enseñar el editor de curvas; acercar o alejar el tiempo (también Ctrl + rueda; Mayús + rueda para desplazarte)</td>
+</tr>
+<tr>
+  <td>Girar / Mover, Local / Mundo, IK</td>
+  <td>El gizmo: girar (E) o mover (W) el hueso, en sus ejes o en los del mundo, y el IK</td>
+</tr>
+<tr>
+  <td>Copiar pose, Pegar pose, Espejar pose, Reiniciar pose</td>
+  <td>Ver <a href="#3-posar-girar-y-mover-huesos-ik-copiar-espejar-y-reiniciar">Posar</a></td>
+</tr>
+<tr>
+  <td>Huesos</td>
+  <td>Dibujar los huesos en el visor</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>En el centro</strong>:</p>
+<ul>
+<li><strong>A la izquierda, el árbol de huesos</strong> con su buscador: escribe «mano», «brazo der», «spine»... Cada hueso dice qué
+hueso humano es (por ejemplo «Brazo derecho · mixamorig:RightArm») si el modelo es humanoide. Los marcados con <code>*</code>
+tienen cambios sin clave.</li>
+<li><strong>El visor</strong>: el personaje con sus huesos (puntos y líneas por encima de la malla). El elegido sale en naranja y los
+que tienen cambios sin clave, en rojo. Clic en un punto para elegir ese hueso. <strong>Botón derecho</strong> (o Alt + izquierdo)
+para orbitar, <strong>botón central</strong> para desplazar y <strong>rueda</strong> para acercar. <strong>F</strong> encuadra el hueso elegido.</li>
+<li><strong>A la derecha, el hueso elegido</strong>: su rotación (grados) y posición locales, que se pueden arrastrar o escribir,
+<strong>Reiniciar hueso</strong>, <strong>Poner clave (K)</strong> y la sección <strong>IK para posar</strong>. Debajo, el <strong>evento</strong> elegido.</li>
+</ul>
+<p><strong>Abajo, la línea de tiempo</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fila</th>
+  <th>Qué tiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Regla</td>
+  <td>El tiempo: arrastra en ella para mover la cabeza de lectura (con Mayús, sin ajustarse a los fotogramas)</td>
+</tr>
+<tr>
+  <td>Eventos</td>
+  <td>Un triángulo por evento con su nombre. Clic derecho para añadir o borrar; arrastrar para moverlo</td>
+</tr>
+<tr>
+  <td>Grupos</td>
+  <td>Las partes del cuerpo (Cuerpo, Cabeza, Brazo izquierdo, Mano izquierda...), según el avatar humanoide. Se pliegan con su botón; sus rombos son todas las claves del grupo</td>
+</tr>
+<tr>
+  <td>Huesos</td>
+  <td>Una fila por hueso con claves (y la del hueso elegido). Un rombo es la clave de ese hueso en ese instante (su rotación y su posición)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Acción</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Elegir claves</td>
+  <td>Clic en un rombo; Ctrl + clic para elegir varias (también un rombo de grupo: todo el grupo en ese instante)</td>
+</tr>
+<tr>
+  <td>Mover claves</td>
+  <td>Arrastrarlas (se ajustan a los fotogramas)</td>
+</tr>
+<tr>
+  <td>Añadir una clave</td>
+  <td>Doble clic en un hueco de la fila de un hueso, o clic derecho &gt; <strong>Clave del hueso</strong>. Con el hueso elegido, <strong>K</strong></td>
+</tr>
+<tr>
+  <td>Borrar</td>
+  <td>Supr, o clic derecho &gt; <strong>Borrar</strong></td>
+</tr>
+<tr>
+  <td>Copiar y pegar</td>
+  <td>Ctrl+C y Ctrl+V (en el tiempo actual)</td>
+</tr>
+<tr>
+  <td>Interpolación y tangentes</td>
+  <td>Clic derecho en una clave: constante, lineal, bézier, entrada o salida suave y suave, como en la <a href="animacion-objetos.html#4-curvas-e-interpolación">Línea de tiempo</a></td>
+</tr>
+<tr>
+  <td>Quitar las pistas de un hueso</td>
+  <td>Clic derecho en su fila &gt; <strong>Quitar las pistas de este hueso</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Curvas</strong>: debajo, las curvas del hueso elegido (rotación por defecto; elige <strong>Posición</strong> si la tiene) en rojo, verde y
+azul. Arrastra un cuadrado para cambiar el valor de la clave y, en las claves bézier elegidas, los puntos blancos para
+cambiar sus tangentes. A la izquierda, los valores exactos y la interpolación de la clave elegida.</p>
+<h3 id="deshacer-y-rehacer">Deshacer y rehacer<a class="ancla" href="#deshacer-y-rehacer" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Todo</strong> lo que haces en esta ventana se deshace y se rehace, paso a paso:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Cómo</th>
+  <th>Deshacer</th>
+  <th>Rehacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Teclado</td>
+  <td><strong>Ctrl+Z</strong></td>
+  <td><strong>Ctrl+Y</strong> o <strong>Ctrl+Mayús+Z</strong></td>
+</tr>
+<tr>
+  <td>Botones de la barra de la ventana (y de la del editor)</td>
+  <td><strong>↶</strong></td>
+  <td><strong>↷</strong></td>
+</tr>
+<tr>
+  <td>Historial (la flechita a su lado)</td>
+  <td>Clic en un paso anterior</td>
+  <td>Clic en un paso en gris</td>
+</tr>
+</tbody>
+</table></div>
+<p>El tooltip de los botones dice qué se va a deshacer, por ejemplo «Deshacer: girar mixamorig:LeftArm (Ctrl+Z)». Sin
+nada que deshacer o rehacer, están desactivados. Es el mismo historial del editor: Ctrl+Z funciona igual con esta
+ventana, la escena o el Inspector enfocados, y mientras escribes en un campo de texto deshace lo escrito.</p>
+<p>Cada uno de estos es <strong>un paso</strong>:</p>
+<ul>
+<li><strong>Posar</strong>: soltar el gizmo, cada cambio en los campos de grados o de posición (al soltarlos), el giro del codo, el
+IK, <strong>Pegar pose</strong>, <strong>Espejar pose</strong>, <strong>Reiniciar hueso</strong> y <strong>Reiniciar pose</strong>. Con <strong>Grabar</strong>, el paso son sus claves;
+sin Grabar (o en la pose de reposo o en un clip importado), el paso es la <strong>pose sin clave</strong>: al deshacerlo vuelves a
+la pose de antes, en el mismo instante.</li>
+<li><strong>Poner clave (K)</strong>: al deshacerlo, los cambios sin clave vuelven a estar pendientes (en rojo).</li>
+<li><strong>Claves</strong>: añadir, mover, pegar, borrar, el valor y las tangentes en las curvas, la interpolación y quitar las pistas de
+un hueso.</li>
+<li><strong>El clip</strong>: <strong>Duración</strong> y <strong>FPS</strong>.</li>
+<li><strong>Eventos</strong>: añadir, mover, borrar y cambiar su nombre, función, parámetro o <strong>Global</strong>. También los de un <strong>clip
+importado</strong>, que se guardan en el <code>.meta</code> del modelo.</li>
+<li><strong>Nuevo clip</strong>, <strong>Editar una copia</strong> y <strong>Añadir al modelo</strong>. Deshacer un clip nuevo aparta su <code>.anim</code> (fuera de la
+carpeta <code>assets</code>, en la carpeta de datos del editor; nunca a la papelera) y lo quita del modelo; rehacerlo lo devuelve
+con el mismo identificador.</li>
+</ul>
+<p>No son pasos: el tiempo de reproducción, la cámara del visor, elegir un hueso o un clip, plegar grupos y <strong>copiar</strong> (pose o
+claves), que no cambian nada. Lo que se deshace es <strong>pegar</strong>.</p>
+<p>En la <a href="edicion-en-equipo.html">edición en equipo</a>, los cambios del clip llegan a los demás y deshacerlos también. La pose
+sin clave es solo tuya. Los eventos de un clip importado y los clips nuevos son ficheros (el <code>.meta</code> y el <code>.anim</code>) y
+llegan a los demás con la sincronización de ficheros, como antes; al deshacerlos también.</p>
+<h2 id="3-posar-girar-y-mover-huesos-ik-copiar-espejar-y-reiniciar">3. Posar: girar y mover huesos, IK, copiar, espejar y reiniciar<a class="ancla" href="#3-posar-girar-y-mover-huesos-ik-copiar-espejar-y-reiniciar" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Girar</strong>: elige un hueso y arrastra un anillo del gizmo. Con <strong>Local</strong>, los ejes son los del hueso; con <strong>Mundo</strong>, los
+de la escena. También puedes arrastrar o escribir los grados en <strong>Rotación local</strong>.</li>
+<li><strong>Mover</strong>: el gizmo de flechas (W) mueve el hueso (sobre todo las caderas: agacharse, saltar). Los demás huesos suelen
+girar, no moverse.</li>
+<li><strong>IK</strong>: marca <strong>IK</strong> y elige una mano o un pie (cualquier hueso con dos padres vale). El gizmo pasa a mover el extremo y
+el brazo o la pierna entera lo sigue. El codo o la rodilla doblan hacia donde ya doblaban, y la mano o el pie conservan
+su giro. <strong>Giro del codo/rodilla</strong> gira el codo alrededor de la línea del hombro a la mano sin mover la mano (o la rodilla,
+de la cadera al pie). Un objetivo demasiado lejos estira el brazo hacia él. Se marca con una cruz rosa.</li>
+<li><strong>Copiar pose</strong> y <strong>Pegar pose</strong>: la pose de todos los huesos en este instante. Se pega en el tiempo actual, también en
+otro clip del mismo esqueleto.</li>
+<li><strong>Espejar pose</strong>: cambia izquierda por derecha. El brazo derecho hace lo que hacía el izquierdo, reflejado, y al revés;
+lo del centro (columna, cabeza, caderas) se refleja también. Usa el avatar humanoide del modelo. Sin avatar, empareja
+los huesos por su nombre (<code>Left</code>/<code>Right</code>, <code>_l</code>/<code>_r</code>, <code>.L</code>/<code>.R</code>, <code>L</code>/<code>R</code> sueltas, <code>Izquierdo</code>/<code>Derecho</code>, <code>_I</code>/<code>_D</code>). Supone
+que la pose de reposo es simétrica (pose T o A).</li>
+<li><strong>Reiniciar hueso</strong> (a la derecha) y <strong>Reiniciar pose</strong> (arriba): vuelven a la pose de reposo del modelo.</li>
+</ul>
+<p>Con <strong>Grabar</strong>, cada uno de estos cambios pone claves en el tiempo actual (solo en los huesos que cambian) y es <strong>un paso
+del historial</strong>. Sin Grabar, el cambio queda <strong>pendiente</strong>: se ve en el visor (en rojo), pero no se guarda hasta que pulses
+<strong>K</strong> o <strong>Poner clave</strong>. Si cambias de instante o reproduces, se pierde, como en Unity. Aun así, cada cambio pendiente
+también es un paso del historial: Ctrl+Z lo deshace y te devuelve a ese instante.</p>
+<p>En la pose de reposo o en un clip importado también puedes posar, pero solo para probar: para guardar, crea un clip o
+pulsa <strong>Editar una copia</strong>.</p>
+<h2 id="4-paso-a-paso-una-animación-de-saludar">4. Paso a paso: una animación de saludar<a class="ancla" href="#4-paso-a-paso-una-animación-de-saludar" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con cualquier humanoide: el <code>CesiumMan.glb</code> de <code>assets/samples/</code> del motor, el <strong>Maniquí</strong> de los
+<a href="paquetes.html">paquetes del motor</a> o tu personaje de Mixamo.</p>
+<ol>
+<li>En <strong>Contenido</strong>, haz doble clic en el modelo. Se abre <strong>Animar huesos</strong> con el personaje en pose de reposo.</li>
+<li>Pulsa <strong>Nuevo clip</strong>, escribe <code>Saludar</code>, deja <strong>Duración</strong> en 1 s y <strong>Añadir al modelo</strong> marcado, y pulsa <strong>Crear</strong>. Se
+crea <code>assets/animaciones/&lt;modelo&gt;_Saludar.anim</code> y arriba sale <strong>En el Animador</strong>. <strong>Grabar</strong> está activado (en rojo).</li>
+<li>Busca «brazo der» en el árbol (o haz clic en el hombro derecho en el visor) y pulsa <strong>K</strong>. Es la clave del brazo en
+reposo en el segundo 0.</li>
+<li>Ve al final (⏭, el segundo 1) y pulsa <strong>K</strong> otra vez: el brazo vuelve a bajar al terminar.</li>
+<li>Escribe <code>0.5</code> en el campo de segundos. Con el gizmo de girar (E), sube el brazo hasta que quede por encima del hombro.
+Al soltar, la clave del segundo 0,5 se crea sola.</li>
+<li>Elige el <strong>antebrazo derecho</strong> y dóblalo hacia arriba: otra clave en 0,5 s.</li>
+<li>Para que la mano se mueva de un lado a otro, ve a <code>0.35</code> y a <code>0.65</code> y gira un poco el antebrazo hacia fuera y hacia
+dentro.</li>
+<li>Pulsa ▶ con <strong>Bucle</strong>: el personaje saluda. Si quieres que frene en lo alto, clic derecho en las claves de 0,5 s &gt;
+<strong>Interpolación &gt; Suave</strong>, o ajusta las tangentes en las curvas.</li>
+<li>¿Te has equivocado? <strong>Ctrl+Z</strong> (o el botón <strong>↶</strong>) deshace el último paso y <strong>Ctrl+Y</strong> lo rehace.</li>
+</ol>
+<p>Ya está: en la escena, pon el modelo y escribe <code>Saludar</code> en el campo <strong>Clip</strong> de su <strong>Animador</strong>. O úsalo en un estado de
+un controlador (<code>&quot;clip&quot;: &quot;Saludar&quot;</code>), o desde un script con <code>animador:Play(&quot;Saludar&quot;)</code>.</p>
+<h2 id="5-eventos">5. Eventos<a class="ancla" href="#5-eventos" aria-label="Enlace a esta sección">#</a></h2>
+<p>La fila <strong>Eventos</strong> de la línea de tiempo marca instantes del clip. Clic derecho en la fila &gt; <strong>Añadir evento</strong>; al
+elegirlo, a la derecha se edita:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Nombre</strong></td>
+  <td>Lo que recibe <code>OnAnimationEvent(nombre)</code> de los scripts de la entidad del Animador. Por ejemplo <code>Paso</code> o <code>SoltarCargador</code></td>
+</tr>
+<tr>
+  <td><strong>Función</strong></td>
+  <td>Opcional: además, se llama a esa función de sus scripts con el parámetro: <code>function MiScript:Paso(pie)</code></td>
+</tr>
+<tr>
+  <td><strong>Parámetro</strong></td>
+  <td>Opcional: <strong>Texto</strong> (<code>&quot;izquierdo&quot;</code>) o <strong>Número</strong> (<code>2</code>). Un número llega como número a las funciones sin tipo o con <code>: number</code></td>
+</tr>
+<tr>
+  <td><strong>Global</strong></td>
+  <td>Además, cualquier script de la máquina lo recibe con <code>AddEventHandler(nombre, function(entidad, parametro) ... end)</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>En el juego, los eventos salen <strong>mientras el Animador reproduce el clip</strong>:</p>
+<ul>
+<li><strong>Una vez por vuelta</strong>, también si un fotograma es muy largo (salen todas las vueltas que se ha saltado, sin repetir).
+En un clip sin bucle, una sola vez.</li>
+<li>El del instante 0 sale al empezar cada vuelta, también la primera.</li>
+<li>Dentro de un <strong>árbol de mezcla</strong>, los del clip que más pesa (andar y correr no duplican el paso).</li>
+<li>En una <strong>capa</strong> con peso (las de peso 0 no) y durante un <strong>fundido</strong>, también los del estado de destino.</li>
+</ul>
+<p>Los clips <strong>importados</strong> (glb/fbx) también pueden tener eventos. Elige el clip importado en <strong>Clip</strong> y añádelos igual.
+Se guardan en el <code>.meta</code> del modelo (<code>&quot;import&quot;</code> &gt; <code>&quot;clips&quot;</code>), no en el <code>.glb</code> ni en el <code>.fbx</code>. Se guardan al momento y,
+como todo en esta ventana, se deshacen con <strong>Ctrl+Z</strong> y se rehacen con <strong>Ctrl+Y</strong>.</p>
+<h2 id="6-paso-a-paso-el-evento-paso-en-la-animación-de-andar">6. Paso a paso: el evento «Paso» en la animación de andar<a class="ancla" href="#6-paso-a-paso-el-evento-paso-en-la-animación-de-andar" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para que suenen los pasos de un personaje que anda con una animación importada:</p>
+<ol>
+<li>Abre el modelo en <strong>Animar huesos</strong> y elige su clip de andar en <strong>Clip</strong> (por ejemplo <code>Animacion 0</code> en CesiumMan o
+<code>Walk</code> en uno de Mixamo). Pulsa ▶ para verlo.</li>
+<li>Pausa y arrastra el tiempo hasta el fotograma en que el <strong>pie izquierdo toca el suelo</strong>. Mira el pie en el visor; elige
+el hueso del pie y mira sus curvas, donde el pie se queda quieto.</li>
+<li>Clic derecho en la fila <strong>Eventos</strong>, justo encima de ese fotograma &gt; <strong>Añadir evento</strong>. A la derecha: <strong>Nombre</strong> <code>Paso</code>,
+<strong>Función</strong> <code>Paso</code>, <strong>Parámetro</strong> Texto <code>izquierdo</code>.</li>
+<li>Igual con el <strong>pie derecho</strong> (parámetro <code>derecho</code>).</li>
+<li>Pon el script <code>PisadasAnimadas</code> de abajo en la entidad del personaje (la del <strong>Animador</strong>) con un sonido en
+<strong>sonido</strong>.</li>
+</ol>
+<p>Los eventos quedan en el <code>.meta</code> del modelo y el <code>.glb</code> no cambia. Si es un clip tuyo (un <code>.anim</code> de huesos), los eventos
+van dentro del <code>.anim</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el personaje (con su Animador): suena un paso con cada evento «Paso» del clip de andar</span>
+<span class="hl-k">local</span> <span class="hl-t">PisadasAnimadas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">PisadasAnimadas</span>.sonido = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+<span class="hl-t">PisadasAnimadas</span>.volumen = <span class="hl-n">0.5</span>
+
+<span class="hl-c">-- El evento tiene "Función: Paso" y "Parámetro: izquierdo" o "derecho"</span>
+<span class="hl-k">function</span> <span class="hl-t">PisadasAnimadas</span>:<span class="hl-f">Paso</span>(pie: <span class="hl-t">string</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.sonido <span class="hl-k">then</span>
+        <span class="hl-k">local</span> volumen = <span class="hl-k">if</span> pie == <span class="hl-s">"izquierdo"</span> <span class="hl-k">then</span> <span class="hl-b">self</span>.volumen <span class="hl-k">else</span> <span class="hl-b">self</span>.volumen * <span class="hl-n">0.9</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.sonido, <span class="hl-b">self</span>.entity.position, volumen)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Todos los eventos del clip, con o sin función</span>
+<span class="hl-k">function</span> <span class="hl-t">PisadasAnimadas</span>:<span class="hl-f">OnAnimationEvent</span>(nombre: <span class="hl-t">string</span>)
+    <span class="hl-k">if</span> nombre == <span class="hl-s">"SoltarCargador"</span> <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"El cargador cae al suelo"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PisadasAnimadas</span></code></pre></div>
+<h2 id="7-usar-el-clip-en-el-animador-en-los-controladores-y-en-otros-personajes">7. Usar el clip en el Animador, en los controladores y en otros personajes<a class="ancla" href="#7-usar-el-clip-en-el-animador-en-los-controladores-y-en-otros-personajes" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un clip de huesos es <strong>una animación más del modelo</strong>. Con <strong>Añadir al modelo</strong>, el <code>.anim</code> entra en sus <strong>Animaciones de
+otros ficheros</strong> (el <code>&quot;animacionesDe&quot;</code> de su <code>.meta</code>). Desde ahí sale en todos los sitios:</p>
+<ul>
+<li>En la lista <strong>Animaciones</strong> del Inspector del modelo (y, en <strong>Importación</strong>, de qué <code>.anim</code> viene) y en su <strong>Vista previa
+de animaciones</strong>.</li>
+<li>En el campo <strong>Clip</strong> del <strong>Animador</strong>, en los estados y árboles de mezcla de un <strong>controlador</strong>
+(<code>{&quot;nombre&quot;: &quot;Saludo&quot;, &quot;clip&quot;: &quot;Saludar&quot;}</code>), en las <strong>capas</strong> con máscara (saludar solo con el torso mientras se anda),
+con <strong>root motion</strong> si mueves las caderas y en red con el <strong>Animador de red</strong>.</li>
+<li>Desde Lua: <code>animador:Play(&quot;Saludar&quot;)</code> o <code>animador:CrossFade(&quot;Saludo&quot;, 0.2)</code>.</li>
+</ul>
+<p>Al guardar un cambio del clip, el modelo se recarga solo: los personajes de la escena que lo usan lo ven al momento.</p>
+<p><strong>En otros personajes humanoides</strong>: elige el otro modelo en Contenido y, en <strong>Importación &gt; Animaciones de otros
+ficheros</strong>, añade el <code>.anim</code> en <strong>Añadir animaciones de...</strong>. Después pulsa <strong>Aplicar y reimportar</strong>. Si los esqueletos
+son distintos (otros nombres, otras proporciones, pose A o T), se <strong>reorienta</strong> con su avatar humanoide, como las
+animaciones de Mixamo (<a href="modelos-y-animaciones.html#animaciones-de-otros-personajes-retargeting">retargeting</a>). Si el
+esqueleto es el mismo, se usa por nombre de hueso. A mano, en el <code>.meta</code> del otro modelo:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"import"</span>: {
+  <span class="hl-k">"animacionesDe"</span>: [ { <span class="hl-k">"id"</span>: <span class="hl-s">"5a1f0c9d2e7b4c11"</span>, <span class="hl-k">"ruta"</span>: <span class="hl-s">"animaciones/CesiumMan_Saludar.anim"</span>, <span class="hl-k">"modo"</span>: <span class="hl-s">"auto"</span> } ]
+}</code></pre></div>
+<p>(<code>&quot;modo&quot;</code>: <code>&quot;auto&quot;</code>, <code>&quot;nombre&quot;</code> o <code>&quot;humanoide&quot;</code>; <code>&quot;hornear&quot;: true</code> para hornearlo al cargar, igual que con otros modelos.)</p>
+<h2 id="8-corregir-una-animación-importada-editar-una-copia">8. Corregir una animación importada: «Editar una copia»<a class="ancla" href="#8-corregir-una-animación-importada-editar-una-copia" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un clip importado no se cambia (es el <code>.glb</code> o el <code>.fbx</code>), pero puedes hacer una copia editable:</p>
+<ol>
+<li>Elige el clip importado en <strong>Clip</strong> y pulsa <strong>Editar una copia</strong>.</li>
+<li>Dale un nombre (por defecto «&lt;clip&gt; editado») y pulsa <strong>Crear</strong>.</li>
+<li>La copia es un clip de huesos con una clave lineal por fotograma en cada hueso que se mueve. Se quitan las que una recta
+entre sus vecinas ya da (la diferencia con el original es de milímetros). Sus eventos (también los del <code>.meta</code>) vienen
+con ella.</li>
+<li>Corrige lo que quieras: un pie que atraviesa el suelo (con IK), un brazo que choca con el cuerpo, el final para que
+empalme con el principio...</li>
+<li>Usa la copia por su nombre en el Animador. El clip original sigue ahí.</li>
+</ol>
+<h2 id="9-los-eventos-desde-lua">9. Los eventos desde Lua<a class="ancla" href="#9-los-eventos-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los eventos llegan a los <strong>scripts de la entidad que tiene el Animador</strong>, al principio del frame siguiente:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>En el script</th>
+  <th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>function MiScript:OnAnimationEvent(nombre: string)</code></td>
+  <td>Cada evento del clip (y de los estados del controlador)</td>
+</tr>
+<tr>
+  <td><code>function MiScript:&lt;Función&gt;(parametro)</code></td>
+  <td>Si el evento tiene <strong>Función</strong>. Recibe el parámetro (texto o número, según el evento y el tipo que pongas: <code>pie: string</code>, <code>n: number</code> o sin tipo); si el evento no tiene parámetro, recibe su nombre. Sin argumentos también vale</td>
+</tr>
+<tr>
+  <td><code>AddEventHandler(nombre, function(entidad, parametro) ... end)</code></td>
+  <td>Los eventos <strong>globales</strong>, en cualquier script de la máquina y en el mismo frame. <code>entidad</code> es la del Animador y <code>parametro</code> el texto o el número</td>
+</tr>
+</tbody>
+</table></div>
+<p>Es la misma forma que los eventos de los clips de objetos (<a href="animacion-objetos.html#5-repetición-y-eventos">animacion-objetos.md</a>)
+y de los controladores (<a href="modelos-y-animaciones.html#eventos-de-animación">modelos-y-animaciones.md</a>).</p>
+<p>Un evento global «SoltarCargador» con el parámetro del arma, que recibe cualquier script (por ejemplo, el que deja caer
+el cargador vacío):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En cualquier entidad: escucha el evento global «SoltarCargador» de la animación de recargar de cualquier personaje</span>
+<span class="hl-k">local</span> <span class="hl-t">CargadorAlSuelo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">CargadorAlSuelo</span>.recargas = <span class="hl-n">0</span>
+
+<span class="hl-k">function</span> <span class="hl-t">CargadorAlSuelo</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"SoltarCargador"</span>, <span class="hl-k">function</span>(personaje: <span class="hl-t">Entity</span>, arma: <span class="hl-t">string</span>)
+        <span class="hl-b">self</span>.recargas += <span class="hl-n">1</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(personaje.name .. <span class="hl-s">" suelta el cargador de "</span> .. arma .. <span class="hl-s">" ("</span> .. <span class="hl-b">self</span>.recargas .. <span class="hl-s">")"</span>)
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CargadorAlSuelo</span></code></pre></div>
+<p>En red, cada máquina reproduce las animaciones de los personajes (el <strong>Animador de red</strong> reparte sus parámetros), así que
+los eventos salen en todas: úsalos para sonidos y efectos de cada máquina. Lo que cambie la partida (quitar una bala),
+hazlo en el servidor.</p>
+<h2 id="10-el-fichero-anim-de-huesos">10. El fichero .anim de huesos<a class="ancla" href="#10-el-fichero-anim-de-huesos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Es el mismo <code>.anim</code> de la <a href="animacion-objetos.html#12-el-fichero-anim">animación de objetos</a> con pistas de componente
+<code>&quot;Hueso&quot;</code> y el modelo del esqueleto:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"nombre"</span>: <span class="hl-s">"Saludar"</span>,
+  <span class="hl-k">"duracion"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"fps"</span>: <span class="hl-n">30</span>,
+  <span class="hl-k">"repeticion"</span>: <span class="hl-s">"bucle"</span>,
+  <span class="hl-k">"modelo"</span>: { <span class="hl-k">"id"</span>: <span class="hl-s">"c181656324023bc7"</span>, <span class="hl-k">"ruta"</span>: <span class="hl-s">"samples/CesiumMan.glb"</span> },
+  <span class="hl-k">"pistas"</span>: [
+    {
+      <span class="hl-k">"ruta"</span>: <span class="hl-s">"Skeleton_arm_joint_R"</span>,
+      <span class="hl-k">"componente"</span>: <span class="hl-s">"Hueso"</span>,
+      <span class="hl-k">"propiedad"</span>: <span class="hl-s">"rotation"</span>,
+      <span class="hl-k">"tipo"</span>: <span class="hl-s">"rotacion"</span>,
+      <span class="hl-k">"claves"</span>: [
+        { <span class="hl-k">"t"</span>: <span class="hl-n">0</span>, <span class="hl-k">"v"</span>: [<span class="hl-n">0</span>, <span class="hl-n">-164.6</span>, <span class="hl-n">0</span>], <span class="hl-k">"interp"</span>: <span class="hl-s">"bezier"</span> },
+        { <span class="hl-k">"t"</span>: <span class="hl-n">0.5</span>, <span class="hl-k">"v"</span>: [<span class="hl-n">46</span>, <span class="hl-n">-148</span>, <span class="hl-n">31.1</span>], <span class="hl-k">"interp"</span>: <span class="hl-s">"bezier"</span> },
+        { <span class="hl-k">"t"</span>: <span class="hl-n">1</span>, <span class="hl-k">"v"</span>: [<span class="hl-n">0</span>, <span class="hl-n">-164.6</span>, <span class="hl-n">0</span>], <span class="hl-k">"interp"</span>: <span class="hl-s">"bezier"</span> }
+      ]
+    }
+  ],
+  <span class="hl-k">"eventos"</span>: [
+    { <span class="hl-k">"tiempo"</span>: <span class="hl-n">0.5</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"funcion"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-n">1</span> },
+    { <span class="hl-k">"tiempo"</span>: <span class="hl-n">0.8</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"SoltarCargador"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-s">"fusil"</span>, <span class="hl-k">"global"</span>: <span class="hl-b">true</span> }
+  ]
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>modelo</code></td>
+  <td>El modelo cuyo esqueleto anima (<code>id</code> y <code>ruta</code>). Con él, el clip se puede reorientar a otros humanoides</td>
+</tr>
+<tr>
+  <td><code>ruta</code> de una pista</td>
+  <td>El nombre del hueso en ese modelo (en otro modelo con el mismo esqueleto también vale sin el prefijo hasta <code>:</code>)</td>
+</tr>
+<tr>
+  <td><code>componente</code></td>
+  <td><code>&quot;Hueso&quot;</code></td>
+</tr>
+<tr>
+  <td><code>propiedad</code> y <code>tipo</code></td>
+  <td><code>&quot;rotation&quot;</code> con <code>&quot;rotacion&quot;</code> (grados de Euler locales, como el Inspector); <code>&quot;position&quot;</code> y <code>&quot;scale&quot;</code> con <code>&quot;vec3&quot;</code> (locales, en las unidades del esqueleto)</td>
+</tr>
+<tr>
+  <td><code>claves</code></td>
+  <td>Como en los clips de objetos: <code>t</code>, <code>v</code>, <code>interp</code> y <code>tangentes</code></td>
+</tr>
+<tr>
+  <td><code>parametro</code> de un evento</td>
+  <td>Texto (<code>&quot;fusil&quot;</code>) o número (<code>1</code>)</td>
+</tr>
+<tr>
+  <td><code>global</code></td>
+  <td><code>true</code>: también evento de Lua para <code>AddEventHandler</code></td>
+</tr>
+<tr>
+  <td><code>repeticion</code></td>
+  <td>Se guarda, pero en el juego el bucle lo deciden el Animador (<strong>Bucle</strong>) o el estado del controlador (<code>&quot;bucle&quot;</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Al cargar el modelo, el clip se convierte en claves del esqueleto: se muestrea al doble de sus FPS (como mucho 120 por
+segundo), con las claves exactas. Por eso cuesta lo mismo que cualquier clip importado.</p>
+<p>Los eventos de un clip <strong>importado</strong> van en el <code>.meta</code> del modelo, como siempre
+(<a href="modelos-y-animaciones.html#ajustes-de-importación-eventos-de-los-clips-y-sockets">ajustes de importación</a>), ahora también con
+<code>&quot;global&quot;</code> y con el parámetro numérico:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"import"</span>: {
+  <span class="hl-k">"clips"</span>: {
+    <span class="hl-k">"Walk"</span>: { <span class="hl-k">"eventos"</span>: [ { <span class="hl-k">"tiempo"</span>: <span class="hl-n">0.12</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"funcion"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-s">"izquierdo"</span> },
+                           { <span class="hl-k">"fase"</span>: <span class="hl-n">0.62</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"funcion"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-s">"derecho"</span> } ] }
+  }
+}</code></pre></div>
+<h2 id="11-atajos">11. Atajos<a class="ancla" href="#11-atajos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con la ventana enfocada:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tecla</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Espacio</td>
+  <td>Reproducir o pausar</td>
+</tr>
+<tr>
+  <td>K</td>
+  <td>Poner clave (los huesos con cambios pendientes, o el elegido)</td>
+</tr>
+<tr>
+  <td>E / W</td>
+  <td>Gizmo de girar / de mover</td>
+</tr>
+<tr>
+  <td>F</td>
+  <td>Encuadrar el hueso elegido</td>
+</tr>
+<tr>
+  <td>Supr</td>
+  <td>Borrar las claves elegidas</td>
+</tr>
+<tr>
+  <td>Ctrl+C / Ctrl+V</td>
+  <td>Copiar las claves elegidas / pegarlas en el tiempo actual</td>
+</tr>
+<tr>
+  <td>Ctrl+Z</td>
+  <td>Deshacer (el historial del editor: claves, pose sin clave, eventos, clips nuevos...)</td>
+</tr>
+<tr>
+  <td>Ctrl+Y o Ctrl+Mayús+Z</td>
+  <td>Rehacer</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="12-límites">12. Límites<a class="ancla" href="#12-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Las rotaciones se animan en <strong>grados de Euler</strong> (como en el Inspector). Las claves se ponen cerca de las anteriores
+(sin saltos de 360 grados), pero un giro de más de 180 grados entre dos claves seguidas necesita una clave en medio.</li>
+<li>El <strong>IK</strong> es de dos huesos (brazo y antebrazo, muslo y pierna) y solo para posar: lo que hace son claves normales. Para
+el IK en el juego (apuntar, poner los pies en el suelo), mira el <a href="modelos-y-animaciones.html#cinemática-inversa-ik">componente IK</a>.</li>
+<li><strong>Espejar</strong> supone una pose de reposo simétrica. En un esqueleto torcido en reposo, el resultado sale torcido.</li>
+<li>Los cambios <strong>sin Grabar</strong> (pendientes) se deshacen, pero no se guardan hasta que pulses <strong>K</strong>. Los eventos de un clip
+<strong>importado</strong> (en el <code>.meta</code>) se deshacen en tu editor; en la edición en equipo no viajan como un cambio: el <code>.meta</code>
+llega a los demás con la sincronización de ficheros.</li>
+<li>No se animan las <strong>formas</strong> (<em>blend shapes</em>) ni las mallas que no tienen piel desde esta ventana. Para las piezas
+rígidas, usa la <a href="animacion-objetos.html">Línea de tiempo</a>.</li>
+<li>La <strong>duración</strong> del clip no cambia sola si mueves claves más allá: auméntala tú en <strong>Duración</strong>.</li>
+</ul>
+<h2 id="13-sockets-en-el-mismo-visor">13. Sockets en el mismo visor<a class="ancla" href="#13-sockets-en-el-mismo-visor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Desde la 0.9.24, la pestaña <strong>Sockets</strong> del espacio Animación, al lado de esta, usa <strong>el mismo visor, el mismo modelo y el
+mismo clip</strong>: pasa de una a otra sin volver a abrir nada. Allí el árbol enseña los huesos con sus sockets debajo (clic
+derecho en un hueso &gt; <strong>Añadir socket</strong>), el gizmo mueve, gira y escala el socket elegido, y puedes pegar objetos de vista
+previa (un arma, un sombrero) mientras el clip se reproduce. Los sockets se guardan en el <code>.meta</code> del modelo con deshacer
+y rehacer, y los usan el <strong>Enganche a hueso</strong> y <code>entidad:AttachTo(personaje, &quot;Arma&quot;)</code> en Lua. Todo está en
+<a href="modelos-y-animaciones.html#sockets">modelos-y-animaciones.md</a>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tecla (en la pestaña Sockets)</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>W / E / R</td>
+  <td>Mover, girar o escalar el socket elegido</td>
+</tr>
+<tr>
+  <td>F</td>
+  <td>Encuadrar el socket (o el hueso) elegido</td>
+</tr>
+<tr>
+  <td>F2</td>
+  <td>Renombrar el socket</td>
+</tr>
+<tr>
+  <td>Supr</td>
+  <td>Borrar el socket</td>
+</tr>
+<tr>
+  <td>Espacio</td>
+  <td>Reproducir o pausar el clip</td>
+</tr>
+<tr>
+  <td>Ctrl+Z / Ctrl+Y</td>
+  <td>Deshacer y rehacer</td>
+</tr>
+</tbody>
+</table></div>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="modelos-y-animaciones.html"><small>Anterior</small>Modelos y animaciones</a><a class="sig" href="animacion-objetos.html"><small>Siguiente</small>Animación de objetos: puertas, ascensores y luces con claves</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-abrir-la-ventana">1. Abrir la ventana</a></li><li class="n2"><a href="#2-la-ventana">2. La ventana</a></li><li class="n3"><a href="#deshacer-y-rehacer">Deshacer y rehacer</a></li><li class="n2"><a href="#3-posar-girar-y-mover-huesos-ik-copiar-espejar-y-reiniciar">3. Posar: girar y mover huesos, IK, copiar, espejar y reiniciar</a></li><li class="n2"><a href="#4-paso-a-paso-una-animación-de-saludar">4. Paso a paso: una animación de saludar</a></li><li class="n2"><a href="#5-eventos">5. Eventos</a></li><li class="n2"><a href="#6-paso-a-paso-el-evento-paso-en-la-animación-de-andar">6. Paso a paso: el evento «Paso» en la animación de andar</a></li><li class="n2"><a href="#7-usar-el-clip-en-el-animador-en-los-controladores-y-en-otros-personajes">7. Usar el clip en el Animador, en los controladores y en otros personajes</a></li><li class="n2"><a href="#8-corregir-una-animación-importada-editar-una-copia">8. Corregir una animación importada: «Editar una copia»</a></li><li class="n2"><a href="#9-los-eventos-desde-lua">9. Los eventos desde Lua</a></li><li class="n2"><a href="#10-el-fichero-anim-de-huesos">10. El fichero .anim de huesos</a></li><li class="n2"><a href="#11-atajos">11. Atajos</a></li><li class="n2"><a href="#12-límites">12. Límites</a></li><li class="n2"><a href="#13-sockets-en-el-mismo-visor">13. Sockets en el mismo visor</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

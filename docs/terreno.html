@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terreno · Nova Engine</title>
+<meta name="description" content="El componente Terreno es un suelo grande (de cientos de metros a varios kilómetros) hecho con un mapa de alturas:
+montañas, valles, playas, cañones o dunas. Se pinta con hasta 8 capas (hierba, roca, arena, nieve...), pro">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Terreno · Nova Engine">
+<meta property="og:description" content="El componente Terreno es un suelo grande (de cientos de metros a varios kilómetros) hecho con un mapa de alturas:
+montañas, valles, playas, cañones o dunas. Se pinta con hasta 8 capas (hierba, roca, arena, nieve...), pro">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/terreno.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/terreno.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html" aria-current="page">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="terreno">Terreno</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-crear-un-terreno">1. Crear un terreno</a></li><li class="n2"><a href="#2-generar-terreno">2. Generar terreno</a></li><li class="n2"><a href="#3-esculpir">3. Esculpir</a></li><li class="n2"><a href="#4-pintar-las-capas">4. Pintar las capas</a></li><li class="n2"><a href="#5-el-componente-terreno-inspector">5. El componente Terreno (Inspector)</a></li><li class="n2"><a href="#6-agua">6. Agua</a></li><li class="n2"><a href="#7-vegetación-y-detalles">7. Vegetación y detalles</a></li><li class="n2"><a href="#8-importar-y-exportar-el-mapa-de-alturas">8. Importar y exportar el mapa de alturas</a></li><li class="n2"><a href="#9-desde-los-scripts-lua-terrain">9. Desde los scripts Lua: Terrain</a></li><li class="n2"><a href="#10-multijugador-excavar-en-la-partida">10. Multijugador: excavar en la partida</a></li><li class="n2"><a href="#11-edición-en-equipo-deshacer-y-ficheros">11. Edición en equipo, deshacer y ficheros</a></li><li class="n2"><a href="#12-rendimiento">12. Rendimiento</a></li></ul></details><p>El componente <strong>Terreno</strong> es un suelo grande (de cientos de metros a varios kilómetros) hecho con un mapa de alturas:
+montañas, valles, playas, cañones o dunas. Se pinta con hasta 8 capas (hierba, roca, arena, nieve...), proyecta y
+recibe sombras, tiene colisiones de Jolt para las físicas y los personajes, puede llevar agua (un mar o un lago) y se
+puede <strong>generar</strong> con un clic: ruido, erosión del agua y del viento, y las capas pintadas solas por altura y
+pendiente. Lleva su propia <strong>vegetación pintada</strong>: árboles y rocas con colisión, hierba y flores que se mueven con el
+viento (<a href="vegetacion.html">vegetacion.md</a>).</p>
+<p>Desde los scripts Lua se lee la altura del suelo, se lanzan rayos y, en el servidor, se excava o se aplana mientras se
+juega (los cambios llegan a todos los jugadores).</p>
+<p>Para verlo funcionando: en Nova Hub, <strong>Nuevo proyecto</strong> con la plantilla <strong>Mundo abierto (Lua)</strong> (o, desde el
+repositorio, <code>build\debug\bin\NovaEditor.exe --project game\mundo_abierto_lua</code>): una isla generada con su mar, un
+bosque, rocas, hierba y flores pintados en el terreno (<strong>T</strong> tala el árbol al que apuntas: <code>scripts/Bosque.luau</code>), una
+cámara libre que no atraviesa el suelo (botón derecho + WASD) y clic izquierdo para excavar.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-crear-un-terreno">Crear un terreno</a></li>
+<li><a href="#2-generar-terreno">Generar terreno</a></li>
+<li><a href="#3-esculpir">Esculpir</a></li>
+<li><a href="#4-pintar-las-capas">Pintar las capas</a></li>
+<li><a href="#5-el-componente-terreno-inspector">El componente Terreno (Inspector)</a></li>
+<li><a href="#6-agua">Agua</a></li>
+<li><a href="#7-vegetación-y-detalles">Vegetación y detalles</a></li>
+<li><a href="#8-importar-y-exportar-el-mapa-de-alturas">Importar y exportar el mapa de alturas</a></li>
+<li><a href="#9-desde-los-scripts-lua-terrain">Desde los scripts Lua: Terrain</a></li>
+<li><a href="#10-multijugador-excavar-en-la-partida">Multijugador: excavar en la partida</a></li>
+<li><a href="#11-edición-en-equipo-deshacer-y-ficheros">Edición en equipo, deshacer y ficheros</a></li>
+<li><a href="#12-rendimiento">Rendimiento</a></li>
+<li><span class="enlace-interno-quitado">Para quien programa el motor (C++)</span></li>
+</ol>
+<h2 id="1-crear-un-terreno">1. Crear un terreno<a class="ancla" href="#1-crear-un-terreno" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Entidad &gt; Objeto 3D &gt; Terreno</strong> crea una entidad «Terreno» en el centro de la escena: un cuadrado plano de 512 x 512
+metros con 513 x 513 muestras de altura (una cada metro) y cuatro capas (<strong>Hierba</strong>, <strong>Roca</strong>, <strong>Arena</strong> y <strong>Nieve</strong>),
+y abre el panel <strong>Terreno</strong> (también en <strong>Ventana &gt; Terreno</strong>).</p>
+<p>El terreno está <strong>centrado en su entidad</strong>: muévela con el gizmo para colocarlo. La rotación y la escala de la entidad
+no se usan (el tamaño se cambia con <strong>Tamaño (m)</strong> del componente).</p>
+<p>El panel trabaja con el terreno seleccionado (o, si no hay ninguno seleccionado, con el primero de la escena) y tiene
+seis pestañas: <strong>Esculpir</strong>, <strong>Pintar</strong>, <strong>Árboles</strong>, <strong>Hierba y detalles</strong> (las dos de la vegetación pintada, ver
+<a href="vegetacion.html">vegetacion.md</a>), <strong>Generar terreno</strong> y <strong>Ajustes</strong>.</p>
+<h2 id="2-generar-terreno">2. Generar terreno<a class="ancla" href="#2-generar-terreno" aria-label="Enlace a esta sección">#</a></h2>
+<p>Pestaña <strong>Generar terreno</strong>:</p>
+<ol>
+<li><p>Elige un <strong>Preset</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preset</th>
+  <th>Qué sale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Llanura</strong></td>
+  <td>Campo casi llano con ondulaciones suaves</td>
+</tr>
+<tr>
+  <td><strong>Colinas</strong></td>
+  <td>Lomas redondeadas con valles marcados por la erosión</td>
+</tr>
+<tr>
+  <td><strong>Montañas</strong></td>
+  <td>Cordilleras con crestas afiladas, nieve en las cumbres y roca en las laderas</td>
+</tr>
+<tr>
+  <td><strong>Islas</strong></td>
+  <td>Una isla en el centro rodeada de mar (activa el agua al nivel del mar, con playas de arena)</td>
+</tr>
+<tr>
+  <td><strong>Cañón</strong></td>
+  <td>Una meseta cortada por cañones con terrazas de roca</td>
+</tr>
+<tr>
+  <td><strong>Desierto de dunas</strong></td>
+  <td>Dunas de arena alineadas con el viento</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+<li><p>Cambia la <strong>Semilla</strong> (o pulsa <strong>Aleatoria</strong>) para otro terreno con el mismo estilo. La misma semilla con los mismos
+ajustes da siempre el mismo terreno.</p>
+</li>
+<li><p>Elige la <strong>Resolución</strong> (257, 513, 1025 o 2049 muestras por lado) y el <strong>Tamaño del terreno (m)</strong>.</p>
+</li>
+<li><p>Pulsa <strong>Generar terreno</strong>. Se genera en segundo plano con una barra de progreso (ruido, erosión hidráulica, erosión
+térmica y pintado) y se puede <strong>Cancelar</strong>. Mientras tanto el editor sigue funcionando.</p>
+</li>
+</ol>
+<p>El resultado es <strong>un solo paso del historial</strong>: <strong>Ctrl+Z</strong> vuelve al terreno de antes. La vegetación pintada se
+conserva (los árboles siguen al suelo nuevo); para repartirla otra vez por el terreno nuevo, usa <strong>Repartir
+automáticamente</strong> en sus pestañas.</p>
+<p>Los ajustes del preset se pueden cambiar antes de generar:</p>
+<ul>
+<li><strong>Ruido</strong>: tipo (Perlin o Simplex), <strong>Octavas</strong> (detalle), <strong>Escala (m)</strong> (tamaño de las formas grandes),
+<strong>Altura máxima (m)</strong>, <strong>Persistencia</strong>, <strong>Crestas</strong> (0 = colinas suaves, 1 = crestas afiladas), <strong>Deformación (m)</strong>
+(formas menos regulares), <strong>Exponente</strong> (más de 1 = valles llanos y cumbres afiladas) y <strong>Terrazas</strong> (escalones).</li>
+<li><strong>Erosión</strong>: <strong>Gotas (hidráulica)</strong> simula gotas de lluvia que bajan por la pendiente arrastrando tierra (cauces,
+valles y abanicos naturales); <strong>Pasadas (térmica)</strong> hace que el material se deslice de las pendientes más
+empinadas que el <strong>Ángulo de reposo</strong>.</li>
+<li><strong>Capas y agua</strong>: <strong>Pintar las capas automáticamente</strong> (por altura, pendiente y cercanía al agua) y <strong>Agua</strong> con su
+nivel.</li>
+</ul>
+<p><strong>Solo erosionar el terreno actual</strong> no genera ruido nuevo: aplica la erosión y el pintado al terreno que ya tienes
+(por ejemplo, después de esculpirlo a mano).</p>
+<h2 id="3-esculpir">3. Esculpir<a class="ancla" href="#3-esculpir" aria-label="Enlace a esta sección">#</a></h2>
+<p>Pestaña <strong>Esculpir</strong>: elige una herramienta y pinta sobre el terreno en el visor <strong>Escena</strong> con el botón izquierdo.
+Un círculo sobre el terreno muestra el pincel (el círculo interior es donde el pincel actúa con toda su fuerza).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Herramienta</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Subir/Bajar</strong></td>
+  <td>Sube el terreno (con <strong>Mayús</strong>, lo baja)</td>
+</tr>
+<tr>
+  <td><strong>Suavizar</strong></td>
+  <td>Quita los saltos bruscos</td>
+</tr>
+<tr>
+  <td><strong>Aplanar</strong></td>
+  <td>Lleva el terreno a una <strong>Altura</strong>. <strong>Ctrl + clic</strong> sobre el terreno toma la altura de ese punto</td>
+</tr>
+<tr>
+  <td><strong>Ruido</strong></td>
+  <td>Añade relieve irregular (<strong>Escala del ruido</strong>)</td>
+</tr>
+<tr>
+  <td><strong>Rampa</strong></td>
+  <td>Clic en el inicio y clic en el final: una rampa recta de ese <strong>Ancho</strong> entre los dos puntos (Esc cancela)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ajustes del pincel: <strong>Tamaño (m)</strong> (radio), <strong>Fuerza</strong> y <strong>Caída</strong> (0 = borde duro, 1 = suave desde el centro).</p>
+<p>Mientras hay una herramienta elegida, el clic izquierdo en el visor es del pincel (no selecciona ni mueve objetos).
+Vuelve a pulsar la herramienta para soltarla. Cada trazo (de pulsar a soltar el botón) es un paso del historial.</p>
+<p><strong>Debajo de una carretera que adapta el terreno</strong> (o de un río que talla su cauce, ver
+<a href="splines-carreteras-rios.html#7-el-terreno-adaptarlo-aplanar-y-tallar">splines-carreteras-rios.md</a>) los pinceles cambian
+el terreno esculpido de debajo: la carretera sigue mandando en su zona y su talud, y lo esculpido se ve en cuanto la
+carretera se mueve o se borra. Para retocar el talud a mano, pulsa antes <strong>Fijar en el terreno</strong> en la carretera.</p>
+<h2 id="4-pintar-las-capas">4. Pintar las capas<a class="ancla" href="#4-pintar-las-capas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Pestaña <strong>Pintar</strong>: elige una capa de la lista y pinta en el visor. <strong>Peso</strong> es hasta dónde lleva la capa (1 = la
+cubre del todo; las demás capas se reparten el resto, así que el total siempre es el 100 %).</p>
+<p><strong>Pintar automáticamente</strong> reparte las capas por reglas: hierba en lo llano, roca en las pendientes fuertes, arena
+cerca del agua y nieve en las cumbres (usa las capas cuya <strong>Superficie</strong> sea Hierba, Roca, Arena y Nieve).</p>
+<p>Las capas se configuran en el Inspector (componente <strong>Terreno &gt; Capas</strong>, hasta 8):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Nombre</strong></td>
+  <td>Para reconocerla</td>
+</tr>
+<tr>
+  <td><strong>Superficie</strong></td>
+  <td>Hierba, Roca, Arena, Nieve, Tierra, Grava, Hierba seca o Barro: el motor genera sus texturas (color, relieve y rugosidad) si la capa no tiene texturas propias</td>
+</tr>
+<tr>
+  <td><strong>Textura de color</strong>, <strong>Mapa de normales</strong>, <strong>Rugosidad</strong></td>
+  <td>Texturas propias (opcionales). La rugosidad se lee del canal R</td>
+</tr>
+<tr>
+  <td><strong>Tinte</strong></td>
+  <td>Color que multiplica la textura</td>
+</tr>
+<tr>
+  <td><strong>Repetición (m)</strong></td>
+  <td>Metros que ocupa una repetición de la textura</td>
+</tr>
+<tr>
+  <td><strong>Escala de rugosidad</strong>, <strong>Intensidad de normales</strong></td>
+  <td>Ajustes del material</td>
+</tr>
+</tbody>
+</table></div>
+<p>Entre capas, la de más relieve asoma por encima en las transiciones (mezcla por altura): las piedras salen entre la
+hierba en lugar de fundirse con ella.</p>
+<h2 id="5-el-componente-terreno-inspector">5. El componente Terreno (Inspector)<a class="ancla" href="#5-el-componente-terreno-inspector" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Tamaño (m)</strong></td>
+  <td>Lado del cuadrado del terreno</td>
+</tr>
+<tr>
+  <td><strong>Capas</strong></td>
+  <td>Los materiales de las capas (ver el apartado anterior)</td>
+</tr>
+<tr>
+  <td><strong>Proyecta sombras</strong>, <strong>Recibe sombras</strong></td>
+  <td>Sombras del sol (cascadas) y de las luces puntuales y focos</td>
+</tr>
+<tr>
+  <td><strong>Triplanar en pendientes</strong></td>
+  <td>En las pendientes de más de <strong>Pendiente triplanar</strong> grados, las texturas se proyectan desde los lados: los acantilados no se ven estirados</td>
+</tr>
+<tr>
+  <td><strong>Detalle (LOD)</strong></td>
+  <td>Más = más triángulos a lo lejos (el terreno usa menos detalle cuanto más lejos está de la cámara)</td>
+</tr>
+<tr>
+  <td><strong>Colisiones</strong></td>
+  <td>Colisionador de alturas de Jolt (estático), con <strong>Fricción</strong> y <strong>Rebote</strong></td>
+</tr>
+<tr>
+  <td><strong>Agua</strong></td>
+  <td>Un plano de agua (ver abajo)</td>
+</tr>
+<tr>
+  <td><strong>Vegetación y detalles</strong></td>
+  <td>Modelos repartidos por las capas (ver <a href="#7-vegetación-y-detalles">7</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="6-agua">6. Agua<a class="ancla" href="#6-agua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con <strong>Agua</strong> activado, el terreno lleva un mar o un lago a la altura <strong>Nivel del agua</strong> (relativa a la entidad). El
+agua llega hasta el horizonte, se ve más clara y transparente donde hay poca profundidad (con espuma en la orilla),
+refleja el cielo y tiene <strong>olas</strong> de verdad: la superficie sube y baja. <strong>Color profundo</strong>, <strong>Color en la orilla</strong> y
+<strong>Opacidad</strong> cambian su aspecto.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Olas</td>
+  <td>Multiplica la altura de las olas (0 = agua quieta)</td>
+</tr>
+<tr>
+  <td>Olas del mar</td>
+  <td>Altura, longitud, crestas, dirección, viento y velocidad de las olas, con los botones <strong>Calma</strong>, <strong>Lago</strong>, <strong>Mar</strong> (el de serie) y <strong>Tormenta</strong> (ver <a href="splines-carreteras-rios.html#6-ríos-y-lagos">splines-carreteras-rios.md</a>)</td>
+</tr>
+<tr>
+  <td>Espuma</td>
+  <td>Espuma en la orilla (con franjas que van y vienen) y alrededor de lo que atraviesa el agua</td>
+</tr>
+</tbody>
+</table></div>
+<p>Es la misma agua que la de los ríos y lagos con splines: transparente según la profundidad, con refracción del
+fondo, cáusticas, las sombras del sol encima, luz en las crestas y espuma alrededor de las rocas y los barcos. El mar
+no tiene corriente. La <strong>Opacidad</strong> es lo que tapa del fondo a 6 m de profundidad.</p>
+<ul>
+<li><strong>Orilla</strong>: las olas se apagan donde hay poca profundidad (<strong>Calma en la orilla</strong>: metros de agua en los que se
+apagan, 4 m en el mar), así que no atraviesan la playa; el borde se funde con la arena (sin una línea dura) y
+sale espuma en la franja con poca agua.</li>
+<li><strong>Rejilla del mar</strong>: el mar se dibuja con una rejilla que sigue a la cámara, muy densa cerca (0,4 m entre
+vértices en calidad alta) y cada vez más abierta hasta 6 km; se recorta al mar del terreno (6 veces su lado).</li>
+<li><strong>Bajo el agua</strong>: con la cámara dentro del mar la imagen se nubla y se tiñe, el fondo tiene cáusticas, entran
+rayos de luz y la superficie vista desde abajo deja ver el cielo en un círculo; a ras de agua la imagen se parte
+por la línea del agua.</li>
+<li><strong>Lo que flota</strong> (componente <a href="fisicas.html#flotación-buoyancy">Flotación</a>) y los scripts (<code>Water.HeightAt</code>,
+<code>Water.IsUnderwater</code>) usan las mismas olas.</li>
+</ul>
+<h2 id="7-vegetación-y-detalles">7. Vegetación y detalles<a class="ancla" href="#7-vegetación-y-detalles" aria-label="Enlace a esta sección">#</a></h2>
+<p>Hay dos formas de poner vegetación en un terreno:</p>
+<ul>
+<li><strong>Vegetación pintada</strong> (pestañas <strong>Árboles</strong> y <strong>Hierba y detalles</strong> del panel): árboles y rocas uno a uno, con
+colisión del tronco, LOD, impostores a lo lejos y viento, y hierba pintada con un pincel de densidad; también desde
+Lua (<code>Terrain.PlaceTree</code>, <code>Terrain.RemoveTreesAt</code>, <code>Terrain.SetDetailDensity</code>) y en red. Es lo que usa el ejemplo de la
+isla. Ver <a href="vegetacion.html">vegetacion.md</a>.</li>
+<li><strong>Detalles de las capas</strong> (este apartado): un modelo repartido solo por una capa pintada del terreno, sin pincel.</li>
+</ul>
+<p><strong>Vegetación y detalles</strong> (en el Inspector, componente <strong>Terreno</strong>) reparte un modelo por una capa: hierba alta,
+arbustos, flores, piedras o árboles. Cada detalle tiene:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Modelo</strong> y <strong>Materiales</strong></td>
+  <td>El modelo que se reparte (un glTF o una primitiva del motor) y, si quieres, otros materiales</td>
+</tr>
+<tr>
+  <td><strong>Capa</strong></td>
+  <td>Capa del terreno donde crece (1 a 8; 0 = en cualquiera). Donde la capa está al 50 %, crece la mitad</td>
+</tr>
+<tr>
+  <td><strong>Densidad</strong></td>
+  <td>Ejemplares por cada 100 m² con la capa al 100 %</td>
+</tr>
+<tr>
+  <td><strong>Escala mínima</strong> y <strong>máxima</strong></td>
+  <td>Cada ejemplar tiene un tamaño al azar entre las dos (y un giro al azar)</td>
+</tr>
+<tr>
+  <td><strong>Pendiente máxima</strong>, <strong>Altura mínima</strong> y <strong>máxima</strong></td>
+  <td>Dónde no crece (laderas empinadas, bajo el agua, en las cumbres)</td>
+</tr>
+<tr>
+  <td><strong>Seguir la ladera</strong></td>
+  <td>Lo inclina como el suelo (piedras, hierba). Los árboles van mejor rectos</td>
+</tr>
+<tr>
+  <td><strong>Distancia de dibujado</strong></td>
+  <td>A partir del 80 % de esta distancia se encoge poco a poco y más lejos no se dibuja</td>
+</tr>
+<tr>
+  <td><strong>Proyecta sombras</strong>, <strong>Semilla</strong></td>
+  <td>La semilla cambia el reparto (la misma semilla da siempre el mismo)</td>
+</tr>
+<tr>
+  <td><strong>Viento</strong></td>
+  <td>Cuánto le mueve el viento del Entorno (0 = quieto). Solo se mecen los modelos con hojas o briznas (materiales recortados o de doble cara); las rocas no</td>
+</tr>
+</tbody>
+</table></div>
+<p>Se dibujan como <strong>instancias en la GPU</strong>: un dibujado por trozo de 64 x 64 m para miles de ejemplares. Al esculpir o
+pintar, solo se rehace el reparto de los trozos que cambian. Los detalles de las capas no tienen colisiones: para
+árboles contra los que choque el jugador, usa los árboles pintados (<a href="vegetacion.html">vegetacion.md</a>), que tienen la
+cápsula del tronco.</p>
+<h2 id="8-importar-y-exportar-el-mapa-de-alturas">8. Importar y exportar el mapa de alturas<a class="ancla" href="#8-importar-y-exportar-el-mapa-de-alturas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Pestaña <strong>Ajustes &gt; Mapa de alturas (PNG)</strong>:</p>
+<ul>
+<li><strong>Importar mapa de alturas...</strong> lee un PNG (de 16 bits por canal si lo tiene; también de 8 bits, JPG, TGA o BMP)
+en gris: el negro es la <strong>Altura del negro</strong> y el blanco la <strong>Altura del blanco</strong>. Se reescala a la resolución del
+terreno. Sirve para traer relieve de otros programas (World Machine, Gaea, Blender) o de datos reales.<ul>
+<li>Vale cualquier tamaño, cuadrado o no (de 2 x 2 a 8193 x 8193): si es más del doble de grande que el terreno, cada
+muestra toma la media de sus píxeles (sin dientes de sierra).</li>
+<li>Una imagen en color (RGB o RGBA) se lee por su luminancia y el alfa no cuenta: un gris guardado en color da lo
+mismo.</li>
+<li>Si el fichero no se puede leer, está vacío o dañado, o el formato no se admite, el panel dice por qué y el terreno
+no cambia.</li>
+</ul>
+</li>
+<li><strong>Exportar (PNG 16 bits)...</strong> guarda el terreno como PNG de 16 bits en gris (65.536 niveles) y apunta las alturas
+del negro y del blanco para poder volver a importarlo igual. Se exporta lo que se ve (con los taludes de las
+carreteras que adaptan el terreno); al importarlo pasa a ser terreno esculpido.</li>
+</ul>
+<p><strong>Resolución &gt; Cambiar resolución</strong> reescala el terreno a 257, 513, 1025 o 2049 muestras por lado.</p>
+<h2 id="9-desde-los-scripts-lua-terrain">9. Desde los scripts Lua: Terrain<a class="ancla" href="#9-desde-los-scripts-lua-terrain" aria-label="Enlace a esta sección">#</a></h2>
+<p>El global <code>Terrain</code> trabaja con el terreno que hay en cada punto (si la escena tiene varios, el que contiene el punto):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Colocador</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Colocador</span>:<span class="hl-f">Start</span>()
+    <span class="hl-c">-- Poner este objeto sobre el suelo</span>
+    <span class="hl-k">local</span> p = <span class="hl-b">self</span>.transform.position
+    <span class="hl-k">local</span> suelo = <span class="hl-t">Terrain</span>.<span class="hl-f">HeightAt</span>(p.x, p.z)    <span class="hl-c">-- nil si no hay terreno debajo</span>
+    <span class="hl-k">if</span> suelo <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.transform.position = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(p.x, suelo, p.z)
+        <span class="hl-c">-- Inclinarlo como la ladera</span>
+        <span class="hl-k">local</span> n = <span class="hl-t">Terrain</span>.<span class="hl-f">NormalAt</span>(p.x, p.z)
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Pendiente:"</span>, <span class="hl-t">math</span>.<span class="hl-f">deg</span>(<span class="hl-t">math</span>.<span class="hl-f">acos</span>(n.y)), <span class="hl-s">"grados"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Colocador</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué devuelve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Terrain.HeightAt(x, z)</code></td>
+  <td>Altura del suelo en ese punto (nil fuera de los terrenos)</td>
+</tr>
+<tr>
+  <td><code>Terrain.NormalAt(x, z)</code></td>
+  <td>Normal del suelo (Vec3; nil fuera)</td>
+</tr>
+<tr>
+  <td><code>Terrain.Raycast(origen, direccion, distancia?)</code></td>
+  <td><code>{ point, normal, distance, entity }</code> o nil (solo contra los terrenos; <code>Physics.Raycast</code> también los toca)</td>
+</tr>
+<tr>
+  <td><code>Terrain.Find(x, z)</code></td>
+  <td>Entidad del terreno de ese punto (o nil)</td>
+</tr>
+<tr>
+  <td><code>Terrain.LayerWeight(x, z, capa)</code></td>
+  <td>Peso (0 a 1) de una capa (1 a 8) en ese punto: para pasos que suenan distinto en la hierba y en la arena</td>
+</tr>
+<tr>
+  <td><code>Terrain.Dig(centro, radio, hondo)</code></td>
+  <td>Cráter suave (con <code>hondo</code> negativo, un montículo)</td>
+</tr>
+<tr>
+  <td><code>Terrain.Flatten(centro, radio, altura)</code></td>
+  <td>Aplana un círculo a una altura (cimientos de una casa)</td>
+</tr>
+<tr>
+  <td><code>Terrain.ModifyHeights(min, max, fn)</code></td>
+  <td>Llama a <code>fn(x, z, altura)</code> en cada muestra del rectángulo (las esquinas son Vec3: se usan x y z) y pone la altura que devuelva (nil = la deja igual)</td>
+</tr>
+<tr>
+  <td><code>Terrain.PaintLayer(min, max, capa, fn)</code></td>
+  <td>Lo mismo con el peso (0 a 1) de una capa</td>
+</tr>
+<tr>
+  <td><code>Terrain.PlaceTree</code>, <code>Terrain.RemoveTreesAt</code>, <code>Terrain.GetTreesInRadius</code>, <code>Terrain.SetDetailDensity</code>, <code>Terrain.GetDetailDensity</code>, <code>Terrain.SetWind</code>, <code>Terrain.GetWind</code></td>
+  <td>Plantar, talar y segar la vegetación pintada y el viento: ver <a href="vegetacion.html#1-desde-lua-plantar-talar-segar-y-el-viento">vegetacion.md</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Sonido de los pasos según el suelo</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">SueloBajo</span>(pos)
+    <span class="hl-k">if</span> <span class="hl-t">Terrain</span>.<span class="hl-f">LayerWeight</span>(pos.x, pos.z, <span class="hl-n">3</span>) &gt; <span class="hl-n">0.5</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-s">"arena"</span> <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Terrain</span>.<span class="hl-f">LayerWeight</span>(pos.x, pos.z, <span class="hl-n">2</span>) &gt; <span class="hl-n">0.5</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-s">"roca"</span> <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-s">"hierba"</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Las colisiones del terreno son las de las físicas: los personajes andan por él, los objetos caen y ruedan, y
+<code>Physics.Raycast</code> devuelve la entidad del terreno. Un choque contra el terreno llega a <code>OnCollisionEnter</code> con
+<code>other</code> = la entidad del terreno.</p>
+<h2 id="10-multijugador-excavar-en-la-partida">10. Multijugador: excavar en la partida<a class="ancla" href="#10-multijugador-excavar-en-la-partida" aria-label="Enlace a esta sección">#</a></h2>
+<p>El terreno de partida viaja con la escena (cada jugador lo carga de su fichero). Los cambios <strong>durante la partida</strong>
+(<code>Terrain.Dig</code>, <code>Flatten</code>, <code>ModifyHeights</code>, <code>PaintLayer</code>) solo se pueden hacer en el <strong>servidor</strong> (o sin red): el motor
+envía a los clientes solo los trozos del terreno que cambian (teselas de 32 x 32 muestras, comprimidas) y, a quien
+entra a mitad de partida, todos los trozos que ya cambiaron. En un cliente, esas funciones dan un error claro.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">Explosiones</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Server]</span>
+<span class="hl-k">function</span> <span class="hl-t">Explosiones</span>:<span class="hl-f">Explotar</span>(donde: <span class="hl-t">Vector3</span>)
+    <span class="hl-t">Terrain</span>.<span class="hl-f">Dig</span>(donde, <span class="hl-n">4</span>, <span class="hl-n">1.5</span>)                   <span class="hl-c">-- crater: llega a todos los jugadores</span>
+    <span class="hl-b">self</span>:<span class="hl-f">Efecto</span>(donde)
+<span class="hl-k">end</span>
+
+<span class="hl-a">--[Multicast]</span>
+<span class="hl-k">function</span> <span class="hl-t">Explosiones</span>:<span class="hl-f">Efecto</span>(donde: <span class="hl-t">Vector3</span>)
+    <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-s">"sonidos/explosion.wav"</span>, donde)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Explosiones</span></code></pre></div>
+<p>Las colisiones se rehacen solas en cada máquina (solo los trozos cambiados), así que los personajes caen en el cráter
+en el servidor y en los clientes. Lo que se envía es el terreno esculpido: el terreno adaptado a las carreteras y a
+los ríos lo calcula cada máquina con los suyos (un cráter debajo de una carretera que adapta el terreno no se ve en la
+calzada, como en el editor). Los cambios de la partida no se guardan en la escena: al volver a empezar, el terreno
+es el del fichero.</p>
+<h2 id="11-edición-en-equipo-deshacer-y-ficheros">11. Edición en equipo, deshacer y ficheros<a class="ancla" href="#11-edición-en-equipo-deshacer-y-ficheros" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Cada trazo de pincel, cada generación, importación o cambio de resolución es <strong>un paso del historial</strong> con el antes
+y el después de los trozos tocados (comprimidos): Ctrl+Z y Ctrl+Y funcionan como con el resto del editor.</li>
+<li>En una <strong>sesión de equipo</strong> (<a href="edicion-en-equipo.html">edicion-en-equipo.md</a>) los trazos se envían a los demás al
+soltar el botón y todos acaban con el mismo terreno. Dos personas pueden esculpir el mismo terreno a la vez (si
+tocan el mismo trozo, gana la última en el orden del servidor). Como con cualquier objeto, un trazo tuyo ya no se
+puede deshacer si otra persona ha cambiado el mismo terreno después. Generar, importar un mapa de alturas o cambiar la
+resolución viajan como un solo cambio, por partes y con su progreso en la barra de estado («enviando «Generar
+terreno»… 40 %»; uno de 4097 x 4097 son unos 50 MB): los demás lo ven entero cuando llega. Solo si pasa del límite
+de la sesión (256 MB) se guarda en un fichero <code>.terrain</code> nuevo de <code>assets/Terrenos/</code>, que sube antes que el cambio.</li>
+<li><strong>Ficheros</strong>: las alturas y las capas se guardan en un fichero <code>.terrain</code> (binario y comprimido) en
+<code>assets/Terrenos/</code>. Al guardar la escena (<strong>Ctrl+S</strong>) los cambios pasan a ese fichero (se crea la primera vez con el
+nombre de la entidad). Hasta entonces los cambios viajan dentro de la escena: así las copias para jugar, los
+duplicados y los que entran a la sesión ven el terreno tal cual está. El botón <strong>Ajustes &gt; Guardar en el fichero
+.terrain</strong> guarda sin guardar la escena.</li>
+<li>En una <strong>sesión de equipo</strong> el fichero no se sobrescribe (otros lo están usando): <strong>Ajustes &gt; Guardar en el fichero
+.terrain</strong> (o Ctrl+S, si el terreno lleva más de 1 MB de cambios) lo pasa a un fichero <code>.terrain</code> nuevo, que sube por
+partes, y la escena deja de llevar sus cambios. Ajustes dice cuántos MB de cambios lleva la escena.</li>
+<li>Si el fichero <code>.terrain</code> cambia en disco (otro programa, otra persona del equipo), el editor lo vuelve a cargar y
+conserva los cambios que aún no estaban en él.</li>
+<li><strong>Terreno esculpido y terreno adaptado</strong>: las carreteras que adaptan el terreno y los ríos que tallan su cauce solos
+no cambian el terreno esculpido; ponen encima un «sello» que se rehace al moverlos. El historial, la edición en
+equipo, el fichero <code>.terrain</code>, la escena y la red llevan solo lo esculpido; cada editor (y cada máquina al jugar)
+rehace el terreno adaptado a partir de las carreteras de la escena, así que todos ven lo mismo sin enviar nada más.
+Si una persona mueve una carretera mientras otra esculpe debajo, las dos acaban con el mismo terreno.</li>
+</ul>
+<h2 id="12-rendimiento">12. Rendimiento<a class="ancla" href="#12-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>El terreno se dibuja en <strong>parches</strong> de 32 x 32 cuadros: cerca de la cámara con todo el detalle y más lejos con
+menos (cada vez la mitad). Entre parches de distinto detalle unas paredes bajo la superficie (faldones) tapan las
+grietas. Los parches fuera de la vista no se dibujan (tampoco en las sombras que no les tocan).</li>
+<li>Las alturas están en la tarjeta gráfica: un trazo de pincel sube solo los trozos que cambian (en la CPU y en la GPU),
+y las colisiones rehacen solo sus trozos (de 64 x 64 cuadros). Lo mismo al mover una carretera que adapta el
+terreno: se recalculan solo las muestras de donde estaba su sello y de donde está (unos 2 ms por cambio para una
+carretera de 200 m en Release, más la malla de la carretera).</li>
+<li>Sin carreteras ni ríos que adapten el terreno no se gasta memoria de más; con alguno, una copia más de las alturas
+(16 MB en un terreno de 2049 x 2049) y lo que ocupa cada sello (unas decenas de KB por carretera).</li>
+<li>Un terreno de 2049 x 2049 muestras (4 millones) con sombras del sol y agua se dibuja a 1920 x 1080 muy por debajo
+de los 16 ms de un frame a 60 fps en una gráfica actual (la prueba de rendimiento lo comprueba en Release).</li>
+<li>Memoria: unos 16 MB por las alturas de un terreno de 2049 x 2049 (más otro tanto de la copia del fichero) y 8 MB
+por las capas a 1024 x 1024.</li>
+<li>Agua: la isla del <strong>Mundo abierto (Lua)</strong> (768 m) con el mar, un río, un lago y su bosque pintado se dibuja a
+1920 x 1080 en unos 3,5 ms por frame en una RTX 5060 Ti, y el agua (superficies, mapa de contacto de la espuma y, bajo el agua, la
+niebla y los rayos) cuesta entre 0,3 y 1,5 ms de la tarjeta gráfica (la prueba <code>agua render: rendimiento...</code>
+comprueba que no pasa de 4 ms). Con poca gráfica, baja <code>&quot;calidadAgua&quot;</code> en <code>project.nova</code> (ver
+<a href="splines-carreteras-rios.html#6-ríos-y-lagos">splines-carreteras-rios.md</a>).</li>
+<li>Vegetación: 100.000 árboles y unos 2,5 millones de briznas a la vista en unos 6 ms de GPU por frame a 1920 x 1080
+(ver <a href="vegetacion.html#10-calidad-y-rendimiento">vegetacion.md</a>).</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="nubes.html"><small>Anterior</small>Nubes volumétricas</a><a class="sig" href="vegetacion.html"><small>Siguiente</small>Vegetación pintada: árboles, rocas, hierba y flores</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-crear-un-terreno">1. Crear un terreno</a></li><li class="n2"><a href="#2-generar-terreno">2. Generar terreno</a></li><li class="n2"><a href="#3-esculpir">3. Esculpir</a></li><li class="n2"><a href="#4-pintar-las-capas">4. Pintar las capas</a></li><li class="n2"><a href="#5-el-componente-terreno-inspector">5. El componente Terreno (Inspector)</a></li><li class="n2"><a href="#6-agua">6. Agua</a></li><li class="n2"><a href="#7-vegetación-y-detalles">7. Vegetación y detalles</a></li><li class="n2"><a href="#8-importar-y-exportar-el-mapa-de-alturas">8. Importar y exportar el mapa de alturas</a></li><li class="n2"><a href="#9-desde-los-scripts-lua-terrain">9. Desde los scripts Lua: Terrain</a></li><li class="n2"><a href="#10-multijugador-excavar-en-la-partida">10. Multijugador: excavar en la partida</a></li><li class="n2"><a href="#11-edición-en-equipo-deshacer-y-ficheros">11. Edición en equipo, deshacer y ficheros</a></li><li class="n2"><a href="#12-rendimiento">12. Rendimiento</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

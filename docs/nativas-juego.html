@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funciones nativas de juego (Lua) · Nova Engine</title>
+<meta name="description" content="Desde la 0.9.2, lo que en un juego se hace muchas veces por frame (lanzar decenas de rayos, buscar al enemigo más
+cercano entre miles, esperar sin parar el juego, animar valores, reutilizar balas, leer y escribir JSON, m">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Funciones nativas de juego (Lua) · Nova Engine">
+<meta property="og:description" content="Desde la 0.9.2, lo que en un juego se hace muchas veces por frame (lanzar decenas de rayos, buscar al enemigo más
+cercano entre miles, esperar sin parar el juego, animar valores, reutilizar balas, leer y escribir JSON, m">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/nativas-juego.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/nativas-juego.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html" aria-current="page">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="funciones-nativas-de-juego-lua">Funciones nativas de juego (Lua)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas</a></li><li class="n3"><a href="#perdigones-de-escopeta">Perdigones de escopeta</a></li><li class="n3"><a href="#cabe-aquí-me-ve">¿Cabe aquí? ¿Me ve?</a></li><li class="n3"><a href="#atravesar-capas-y-contactos">Atravesar, capas y contactos</a></li><li class="n2"><a href="#2-spatial-buscar-lo-que-hay-cerca">2. Spatial: buscar lo que hay cerca</a></li><li class="n2"><a href="#3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego</a></li><li class="n2"><a href="#4-tween-easing-y-curve">4. Tween, Easing y Curve</a></li><li class="n2"><a href="#5-pool-reutilizar-entidades">5. Pool: reutilizar entidades</a></li><li class="n2"><a href="#6-json">6. Json</a></li><li class="n2"><a href="#7-posiciones-y-rotaciones-por-lotes">7. Posiciones y rotaciones por lotes</a></li><li class="n2"><a href="#8-audioplayoneshot-con-opciones">8. Audio.PlayOneShot con opciones</a></li><li class="n2"><a href="#9-cuánto-más-rápido">9. Cuánto más rápido</a></li><li class="n2"><a href="#10-en-multijugador">10. En multijugador</a></li><li class="n2"><a href="#11-errores-comunes">11. Errores comunes</a></li></ul></details><p>Desde la 0.9.2, lo que en un juego se hace muchas veces por frame (lanzar decenas de rayos, buscar al enemigo más
+cercano entre miles, esperar sin parar el juego, animar valores, reutilizar balas, leer y escribir JSON, mover cientos
+de entidades) tiene una función <strong>nativa</strong>: se escribe en Lua, como siempre, pero el trabajo lo hace el motor en C++
+(y, cuando se puede, repartido entre los núcleos del procesador). No hay que compilar nada ni saber C++: es la misma
+API de Lua de <a href="scripts-lua.html">scripts-lua.md</a>, con más funciones.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Para qué</th>
+  <th>Cuánto más rápido (release)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><a href="#1-físicas-la-misma-consulta-en-todas">Físicas</a>: <code>Linecast</code>, <code>Check*</code>, <code>LineOfSight</code>, lotes de rayos y de líneas de visión, <code>ClosestPoint</code>, <code>ComputePenetration</code>, <code>IgnoreCollision</code>, capas, contactos</td>
+  <td>Disparos, visión de la IA, perdigones, «¿cabe aquí?», atravesar cosas</td>
+  <td>Lotes: <strong>x2</strong> (rayos) y <strong>x2,6</strong> (líneas de visión) frente a una llamada por rayo, más cuanto más pesada es la escena</td>
+</tr>
+<tr>
+  <td><a href="#2-spatial-buscar-lo-que-hay-cerca">Spatial</a></td>
+  <td>La entidad más cercana, las que hay en un radio o en un cono de visión</td>
+  <td><strong>x55</strong> frente a recorrer la lista en Lua; <strong>x66</strong> frente a <code>Scene.FindAllByTag</code> en cada búsqueda</td>
+</tr>
+<tr>
+  <td><a href="#3-task-esperar-sin-parar-el-juego">Task</a></td>
+  <td>Esperar, llamar más tarde, cada cierto tiempo</td>
+  <td>— (sin crear corrutinas a mano)</td>
+</tr>
+<tr>
+  <td><a href="#4-tween-easing-y-curve">Tween, Easing y Curve</a></td>
+  <td>Puertas, ascensores, menús, contadores, cámaras</td>
+  <td><strong>x2</strong> frente a moverlas en un <code>Update</code> de Lua</td>
+</tr>
+<tr>
+  <td><a href="#5-pool-reutilizar-entidades">Pool</a></td>
+  <td>Balas, impactos, enemigos por oleadas</td>
+  <td><strong>x9</strong> frente a <code>Scene.Instantiate</code> y <code>Destroy</code></td>
+</tr>
+<tr>
+  <td><a href="#6-json">Json</a></td>
+  <td>Configuraciones, mensajes, datos propios</td>
+  <td><strong>x4</strong> frente a un codificador en Lua</td>
+</tr>
+<tr>
+  <td><a href="#7-posiciones-y-rotaciones-por-lotes">Posiciones por lotes</a></td>
+  <td>Mover o leer cientos de entidades</td>
+  <td><strong>x4</strong> a <strong>x5</strong> frente a <code>entidad.position</code> una a una</td>
+</tr>
+<tr>
+  <td><a href="#8-audioplayoneshot-con-opciones">Audio.PlayOneShot con opciones</a></td>
+  <td>Disparos y explosiones que se oyen lejos</td>
+  <td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las medidas son las de las pruebas del motor (<code>tests/test_lua_nativas_perf.cpp</code>), en la sección
+<a href="#9-cuánto-más-rápido">9</a>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-físicas-la-misma-consulta-en-todas">Físicas: la misma consulta en todas</a></li>
+<li><a href="#2-spatial-buscar-lo-que-hay-cerca">Spatial: buscar lo que hay cerca</a></li>
+<li><a href="#3-task-esperar-sin-parar-el-juego">Task: esperar sin parar el juego</a></li>
+<li><a href="#4-tween-easing-y-curve">Tween, Easing y Curve</a></li>
+<li><a href="#5-pool-reutilizar-entidades">Pool: reutilizar entidades</a></li>
+<li><a href="#6-json">Json</a></li>
+<li><a href="#7-posiciones-y-rotaciones-por-lotes">Posiciones y rotaciones por lotes</a></li>
+<li><a href="#8-audioplayoneshot-con-opciones">Audio.PlayOneShot con opciones</a></li>
+<li><a href="#9-cuánto-más-rápido">Cuánto más rápido</a></li>
+<li><a href="#10-en-multijugador">En multijugador</a></li>
+<li><a href="#11-errores-comunes">Errores comunes</a></li>
+</ol>
+<h2 id="1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas<a class="ancla" href="#1-físicas-la-misma-consulta-en-todas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todas las consultas de <code>Physics</code> (las de siempre y las nuevas) aceptan al final la misma tabla opcional, la
+<strong>consulta</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>layers</code></td>
+  <td>Las capas que cuentan: <code>Physics.Layer.Static + Physics.Layer.Dynamic</code> (por defecto, todas)</td>
+</tr>
+<tr>
+  <td><code>ignore</code></td>
+  <td>Una entidad que no cuenta, <strong>o una lista</strong>: <code>{ self.entity, arma, escudo }</code></td>
+</tr>
+<tr>
+  <td><code>triggers</code></td>
+  <td>Si los sensores (colisionadores con <code>isTrigger</code>) cuentan (por defecto, no)</td>
+</tr>
+<tr>
+  <td><code>maxDistance</code></td>
+  <td>Tope de la distancia en metros (recorta la del rayo o la del barrido)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Una clave mal escrita es un error que dice cuál querías: <code>Physics.Raycast: opción desconocida 'layer' (¿querías 'layers'?...)</code>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Physics.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Linecast(desde, hasta, consulta?)</code></td>
+  <td>El primer choque entre dos puntos (como un <code>Raycast</code> de <code>desde</code> a <code>hasta</code>): <code>{entity, point, normal, distance}</code> o <code>nil</code></td>
+</tr>
+<tr>
+  <td><code>CheckSphere(centro, radio, consulta?)</code>, <code>CheckBox(centro, mitades, rotacion?, consulta?)</code>, <code>CheckCapsule(centro, radio, altura, rotacion?, consulta?)</code></td>
+  <td><code>true</code> si algo toca esa forma. Paran en el primero: lo más rápido para «¿cabe aquí?» o «¿está en el suelo?»</td>
+</tr>
+<tr>
+  <td><code>LineOfSight(desde, hasta, consulta?)</code></td>
+  <td><code>true</code> si no hay nada sólido entre los dos (los sensores no tapan). Con <strong>entidades</strong>, se mira entre sus posiciones y se ignoran solas</td>
+</tr>
+<tr>
+  <td><code>LineOfSightBatch(desdes, hastas, consulta?)</code></td>
+  <td>Muchas líneas de visión de una vez, repartidas entre los núcleos (¿qué enemigos ven al jugador?): una lista de <code>true</code>/<code>false</code> en el mismo orden y cuántas se ven</td>
+</tr>
+<tr>
+  <td><code>RaycastBatch(origenes, direcciones, distancias?, consulta?)</code></td>
+  <td>Muchos rayos en <strong>una</strong> llamada, repartidos entre los núcleos. Devuelve una lista con un golpe o <code>false</code> por rayo (en el mismo orden) y cuántos tocaron algo</td>
+</tr>
+<tr>
+  <td><code>SphereCastBatch(radio, origenes, direcciones, distancias?, consulta?)</code></td>
+  <td>Lo mismo con esferas (balas gruesas)</td>
+</tr>
+<tr>
+  <td><code>ClosestPoint(colisionador, punto)</code></td>
+  <td>El punto de su superficie más cercano y la distancia (el propio punto y 0 si está dentro); vale la entidad o su componente</td>
+</tr>
+<tr>
+  <td><code>ComputePenetration(a, b, posicionA?, rotacionA?)</code></td>
+  <td>Si <code>a</code> y <code>b</code> se meten uno en otro: la dirección en la que mover <code>a</code> y cuánto; <code>nil</code> si no se tocan. Con una pose, prueba <code>a</code> ahí</td>
+</tr>
+<tr>
+  <td><code>IgnoreCollision(a, b, ignorar?)</code>, <code>IsCollisionIgnored(a, b)</code></td>
+  <td>Dos entidades dejan de chocar entre sí (con <code>false</code>, vuelven). Vale con cuerpos, sensores y un personaje contra un cuerpo (entre dos personajes, no), aunque sus cuerpos se vuelvan a crear</td>
+</tr>
+<tr>
+  <td><code>SetLayerCollision(capasA, capasB, choca)</code>, <code>GetLayerCollision(capaA, capaB)</code></td>
+  <td>Cambia la matriz de colisión jugando (<code>Physics.Layer.Debris</code> con <code>Physics.Layer.Player</code>...) hasta que acaba la partida</td>
+</tr>
+<tr>
+  <td><code>GetContacts(entidad)</code></td>
+  <td>Lo que toca ahora su cuerpo: <code>{other, point, normal, impulse, trigger}</code> (sale de los avisos de los choques, sin consultar nada)</td>
+</tr>
+</tbody>
+</table></div>
+<p>En <code>RaycastBatch</code>, <code>origenes</code> y <code>direcciones</code> son listas de <code>Vec3</code> del mismo tamaño, o un <code>Vec3</code> para todos (un
+origen y muchas direcciones: una escopeta); <code>distancias</code> es un número o una lista. <code>LineOfSightBatch</code> igual, con los
+puntos de partida y de llegada. Desde la 0.9.2, además, <code>Scene.Instantiate</code> y <code>pool:Get</code> crean ya los cuerpos de
+físicas: <code>Physics.SetVelocity(bala, v)</code> justo después vale.</p>
+<h3 id="perdigones-de-escopeta">Perdigones de escopeta<a class="ancla" href="#perdigones-de-escopeta" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Escopeta</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Escopeta</span>.perdigones = <span class="hl-n">12</span> <span class="hl-a">--[Int, Range(1, 64)]</span>
+<span class="hl-a">--[Range(0, 30), Tooltip("Apertura en grados")]</span>
+<span class="hl-t">Escopeta</span>.apertura = <span class="hl-n">8</span>
+<span class="hl-t">Escopeta</span>.alcance = <span class="hl-n">40</span>
+
+<span class="hl-k">local</span> azar = <span class="hl-t">Random</span>.<span class="hl-f">new</span>(<span class="hl-n">7</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">Escopeta</span>:<span class="hl-f">Disparar</span>(origen: <span class="hl-t">Vector3</span>, delante: <span class="hl-t">Vector3</span>)
+    <span class="hl-c">-- Todas las direcciones primero; los rayos, de una vez</span>
+    <span class="hl-k">local</span> direcciones = {}
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-b">self</span>.perdigones <span class="hl-k">do</span>
+        <span class="hl-k">local</span> giro = <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(azar:<span class="hl-f">Number</span>(-<span class="hl-b">self</span>.apertura, <span class="hl-b">self</span>.apertura), azar:<span class="hl-f">Number</span>(-<span class="hl-b">self</span>.apertura, <span class="hl-b">self</span>.apertura), <span class="hl-n">0</span>)
+        direcciones[i] = giro * delante
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> golpes, tocados = <span class="hl-t">Physics</span>.<span class="hl-f">RaycastBatch</span>(origen, direcciones, <span class="hl-b">self</span>.alcance, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">for</span> _, golpe <span class="hl-k">in</span> golpes <span class="hl-k">do</span>
+        <span class="hl-k">if</span> golpe <span class="hl-k">and</span> golpe.entity <span class="hl-k">then</span>
+            <span class="hl-t">Decals</span>.<span class="hl-f">BulletHole</span>(golpe)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Debug</span>(<span class="hl-s">"perdigones que tocaron algo:"</span>, tocados)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Escopeta</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">local</span> t = <span class="hl-b">self</span>.transform
+        <span class="hl-b">self</span>:<span class="hl-f">Disparar</span>(t.worldPosition, t.forward)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Escopeta</span></code></pre></div>
+<h3 id="cabe-aquí-me-ve">¿Cabe aquí? ¿Me ve?<a class="ancla" href="#cabe-aquí-me-ve" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Coloca un objeto donde mira la cámara solo si cabe, y lo empuja fuera si se mete en una pared</span>
+<span class="hl-k">local</span> <span class="hl-t">Colocar</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Colocar</span>.objeto = <span class="hl-f">Entity</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Colocar</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.objeto <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-t">Input</span>.<span class="hl-f">WasMousePressed</span>(<span class="hl-s">"RatonIzq"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> origen, direccion = <span class="hl-t">Camera</span>.<span class="hl-f">MouseRay</span>()
+    <span class="hl-k">local</span> golpe = origen <span class="hl-k">and</span> <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(origen, direccion, <span class="hl-n">30</span>, { ignore = { <span class="hl-b">self</span>.entity, <span class="hl-b">self</span>.objeto } })
+    <span class="hl-k">if</span> <span class="hl-k">not</span> golpe <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> sitio = golpe.point + golpe.normal * <span class="hl-n">0.5</span>
+    <span class="hl-k">if</span> <span class="hl-t">Physics</span>.<span class="hl-f">CheckBox</span>(sitio, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0.5</span>, <span class="hl-n">0.5</span>, <span class="hl-n">0.5</span>), <span class="hl-b">nil</span>, { ignore = <span class="hl-b">self</span>.objeto }) <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"No cabe ahí"</span>)
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.objeto.position = sitio
+    <span class="hl-c">-- Si aun asi se mete en algo, fuera</span>
+    <span class="hl-k">local</span> dir, cuanto = <span class="hl-t">Physics</span>.<span class="hl-f">ComputePenetration</span>(<span class="hl-b">self</span>.objeto, golpe.entity, sitio)
+    <span class="hl-k">if</span> dir <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.objeto.position = sitio + dir * cuanto
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Colocar</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un guardia que ve al jugador si está cerca, delante y sin nada en medio</span>
+<span class="hl-k">local</span> <span class="hl-t">Guardia</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Guardia</span>.jugador = <span class="hl-f">Entity</span>()
+<span class="hl-t">Guardia</span>.vista = <span class="hl-n">25</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Guardia</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> j = <span class="hl-b">self</span>.jugador
+    <span class="hl-k">if</span> <span class="hl-k">not</span> j <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> cerca = <span class="hl-t">Vec3</span>.<span class="hl-f">Distance</span>(j.position, <span class="hl-b">self</span>.entity.position) &lt; <span class="hl-b">self</span>.vista
+    <span class="hl-c">-- Con entidades, LineOfSight las ignora solas (el guardia no se tapa a sí mismo)</span>
+    <span class="hl-k">if</span> cerca <span class="hl-k">and</span> <span class="hl-t">Physics</span>.<span class="hl-f">LineOfSight</span>(<span class="hl-b">self</span>.entity, j) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.transform:<span class="hl-f">LookAt</span>(j)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Guardia</span></code></pre></div>
+<h3 id="atravesar-capas-y-contactos">Atravesar, capas y contactos<a class="ancla" href="#atravesar-capas-y-contactos" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un fantasma atraviesa las paredes de la casa, pero no el suelo</span>
+<span class="hl-k">for</span> _, pared <span class="hl-k">in</span> <span class="hl-t">Scene</span>.<span class="hl-f">FindAllByTag</span>(<span class="hl-s">"Pared"</span>) <span class="hl-k">do</span>
+    <span class="hl-t">Physics</span>.<span class="hl-f">IgnoreCollision</span>(fantasma, pared)
+<span class="hl-k">end</span>
+<span class="hl-c">-- Los escombros dejan de chocar con los jugadores (y vuelven a hacerlo)</span>
+<span class="hl-t">Physics</span>.<span class="hl-f">SetLayerCollision</span>(<span class="hl-t">Physics</span>.Layer.Debris, <span class="hl-t">Physics</span>.Layer.Player, <span class="hl-b">false</span>)
+<span class="hl-c">-- ¿Qué toca ahora la caja?</span>
+<span class="hl-k">for</span> _, c <span class="hl-k">in</span> <span class="hl-t">Physics</span>.<span class="hl-f">GetContacts</span>(caja) <span class="hl-k">do</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(c.other.name, c.normal, c.impulse)
+<span class="hl-k">end</span></code></pre></div>
+<p><code>GetContacts</code> no tiene coste extra: sale de los mismos avisos que <code>OnCollisionEnter</code> y <code>OnTriggerEnter</code>. Los
+personajes (<code>CharacterController</code>) no tienen contactos (se mueven con su propia física).</p>
+<h2 id="2-spatial-buscar-lo-que-hay-cerca">2. Spatial: buscar lo que hay cerca<a class="ancla" href="#2-spatial-buscar-lo-que-hay-cerca" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Spatial</code> es un <strong>índice espacial</strong> de las entidades con <strong>etiquetas</strong> (componente <strong>Etiquetas</strong>): todas las
+entidades activas con alguna etiqueta entran solas, sin hacer nada. Buscar la más cercana entre 5000 cuesta lo
+mismo que entre 50: el motor solo mira las celdas de alrededor.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Spatial.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>InRadius(posicion, radio, filtro?)</code></td>
+  <td>Las entidades a esa distancia como mucho, de la más cercana a la más lejana</td>
+</tr>
+<tr>
+  <td><code>Nearest(posicion, filtro?, maxDist?)</code></td>
+  <td>La más cercana y su distancia (o <code>nil</code>)</td>
+</tr>
+<tr>
+  <td><code>KNearest(posicion, k, filtro?, maxDist?)</code></td>
+  <td>Las <code>k</code> más cercanas, ordenadas</td>
+</tr>
+<tr>
+  <td><code>InBox(centro, mitades, filtro?, rotacion?)</code></td>
+  <td>Las que están dentro de una caja (girada si se da la rotación)</td>
+</tr>
+<tr>
+  <td><code>InCone(posicion, direccion, angulo, distancia, filtro?)</code></td>
+  <td>Las que están en un cono de visión (<code>angulo</code> = apertura total, en grados)</td>
+</tr>
+<tr>
+  <td><code>Count(etiqueta?)</code></td>
+  <td>Cuántas hay en el índice</td>
+</tr>
+<tr>
+  <td><code>Refresh()</code></td>
+  <td>Pone el índice al día ya</td>
+</tr>
+<tr>
+  <td><code>SetCellSize(metros)</code>, <code>GetCellSize()</code></td>
+  <td>Tamaño de las celdas (16 m por defecto)</td>
+</tr>
+</tbody>
+</table></div>
+<p>El <strong>filtro</strong> es una etiqueta (<code>&quot;Enemigo&quot;</code>) o una tabla:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>tag</code></td>
+  <td>Solo las que tienen esa etiqueta</td>
+</tr>
+<tr>
+  <td><code>component</code></td>
+  <td>Solo las que tienen ese componente (<code>&quot;RigidBody&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>script</code></td>
+  <td>Solo las que llevan ese script (<code>&quot;Vida&quot;</code> o <code>&quot;ia/Vida.luau&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>ignore</code></td>
+  <td>Una entidad o una lista que no cuentan</td>
+</tr>
+<tr>
+  <td><code>max</code></td>
+  <td>Como mucho tantas (las más cercanas)</td>
+</tr>
+<tr>
+  <td><code>lineOfSight</code></td>
+  <td>Solo las que se ven desde la posición (rayos en paralelo; los sensores no tapan). Pon <code>ignore = self.entity</code> para no taparte con tu propio cuerpo</td>
+</tr>
+<tr>
+  <td><code>targetOffset</code></td>
+  <td>Con <code>lineOfSight</code>, a qué punto de cada una se mira (<code>Vec3.new(0, 1.5, 0)</code>: al pecho, no a los pies)</td>
+</tr>
+<tr>
+  <td><code>layers</code></td>
+  <td>Con <code>lineOfSight</code>, las capas que tapan</td>
+</tr>
+<tr>
+  <td><code>distances</code></td>
+  <td>Devolver también la lista de distancias (segundo resultado)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un enemigo que persigue al jugador más cercano que ve, en un cono de 110 grados</span>
+<span class="hl-k">local</span> <span class="hl-t">VisionIA</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">VisionIA</span>.alcance = <span class="hl-n">30</span>
+<span class="hl-t">VisionIA</span>.campoDeVision = <span class="hl-n">110</span>
+
+<span class="hl-k">function</span> <span class="hl-t">VisionIA</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> t = <span class="hl-b">self</span>.transform
+    <span class="hl-k">local</span> vistos = <span class="hl-t">Spatial</span>.<span class="hl-f">InCone</span>(t.worldPosition, t.forward, <span class="hl-b">self</span>.campoDeVision, <span class="hl-b">self</span>.alcance, {
+        tag = <span class="hl-s">"Jugador"</span>,
+        lineOfSight = <span class="hl-b">true</span>,
+        ignore = <span class="hl-b">self</span>.entity,
+        targetOffset = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1.5</span>, <span class="hl-n">0</span>),
+        max = <span class="hl-n">1</span>,
+    })
+    <span class="hl-k">local</span> objetivo = vistos[<span class="hl-n">1</span>]
+    <span class="hl-k">if</span> objetivo <span class="hl-k">then</span>
+        t:<span class="hl-f">LookAt</span>(objetivo)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">VisionIA</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Atrae las monedas de alrededor (las 5 más cercanas, a 6 m como mucho)</span>
+<span class="hl-k">local</span> <span class="hl-t">Iman</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Iman</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> aqui = <span class="hl-b">self</span>.entity.position
+    <span class="hl-k">for</span> _, moneda <span class="hl-k">in</span> <span class="hl-t">Spatial</span>.<span class="hl-f">KNearest</span>(aqui, <span class="hl-n">5</span>, <span class="hl-s">"Moneda"</span>, <span class="hl-n">6</span>) <span class="hl-k">do</span>
+        moneda.position = <span class="hl-t">Vec3</span>.<span class="hl-f">MoveTowards</span>(moneda.position, aqui, <span class="hl-n">8</span> * dt)
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> cerca, distancia = <span class="hl-t">Spatial</span>.<span class="hl-f">Nearest</span>(aqui, <span class="hl-s">"Moneda"</span>)
+    <span class="hl-k">if</span> cerca <span class="hl-k">and</span> distancia &lt; <span class="hl-n">0.5</span> <span class="hl-k">then</span>
+        cerca:<span class="hl-f">Destroy</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Iman</span></code></pre></div>
+<p>Cómo funciona: una rejilla en el plano horizontal (la altura no cuenta para repartir, sí para las distancias), una
+por etiqueta y otra con todas. Se pone al día <strong>una vez por frame</strong>, en la primera consulta del frame, y solo cambia
+de celda lo que se movió de celda. Lo que se crea, se mueve o cambia de etiquetas después de esa primera consulta
+entra en el frame siguiente, o ya con <code>Spatial.Refresh()</code>. Las entidades desactivadas o destruidas salen solas. Los
+empates de distancia se ordenan igual en todas las máquinas.</p>
+<h2 id="3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego<a class="ancla" href="#3-task-esperar-sin-parar-el-juego" aria-label="Enlace a esta sección">#</a></h2>
+<p>Como <code>task</code> de Roblox, sobre el mismo planificador que <code>SetTimeout</code>, <code>CreateThread</code> y <code>Wait</code>
+(<a href="scripts-lua.html#13-settimeout-createthread-y-wait">scripts-lua.md</a>), pero en segundos y con más control:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Task.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Wait(segundos?)</code></td>
+  <td>Dentro de una tarea: espera esos segundos (sin nada: hasta el frame siguiente) y devuelve los que esperó de verdad</td>
+</tr>
+<tr>
+  <td><code>Delay(segundos, fn, opciones?)</code></td>
+  <td><code>fn</code> dentro de esos segundos, como una tarea (dentro puede esperar)</td>
+</tr>
+<tr>
+  <td><code>Spawn(fn, opciones?)</code></td>
+  <td><code>fn</code> ya, como una tarea, hasta su primer <code>Task.Wait</code></td>
+</tr>
+<tr>
+  <td><code>Defer(fn, opciones?)</code></td>
+  <td><code>fn</code> al terminar la fase actual: si se pide en un <code>Update</code>, después de todos los <code>Update</code> de ese frame</td>
+</tr>
+<tr>
+  <td><code>Every(segundos, fn, opciones?)</code></td>
+  <td><code>fn</code> cada tantos segundos (se llama directamente: dentro no se espera)</td>
+</tr>
+<tr>
+  <td><code>Cancel(id)</code>, <code>IsRunning(id)</code></td>
+  <td>Todas devuelven un id: cancelar una tarea o saber si sigue</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Tiempo de juego</strong>: se paran con <code>Time.timeScale = 0</code> y van a cámara lenta con <code>0.5</code>. Con <code>{ unscaled = true }</code>
+usan el tiempo real de la partida (menús con el juego en pausa).</li>
+<li><strong>Son del script que las crea</strong>: se cancelan cuando se destruye, cuando se desactiva (<code>self.enabled = false</code>) o
+cuando se desactiva su entidad (y al devolverla a un <a href="#5-pool-reutilizar-entidades">pool</a>). Las del bloque principal
+de un fichero, al recargarlo. <code>SetTimeout</code> y <code>CreateThread</code> siguen como antes (solo terminan al destruirse).</li>
+<li><strong>Límite de tiempo</strong>: cada vez que una tarea se reanuda tiene los 2 segundos de cualquier llamada. Un bucle con
+<code>Task.Wait()</code> puede durar toda la partida; un <code>while true</code> sin espera se corta con el error de siempre y lo demás
+sigue.</li>
+<li><code>Task.Wait</code> fuera de una tarea (en <code>Update</code>) o dentro de una corrutina propia (<code>coroutine.wrap</code>) es un error que lo
+explica: usa <code>Task.Spawn</code>.</li>
+<li>Si la función de un <code>Task.Every</code> da un error, sale en la Consola y se cancela (no se repite cada vez).</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Oleadas de enemigos: una tarea con esperas, un aviso cada segundo y otro al final</span>
+<span class="hl-k">local</span> <span class="hl-t">Oleadas</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Oleadas</span>.enemigo = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+<span class="hl-t">Oleadas</span>.oleadas = <span class="hl-n">3</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Oleadas</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._cuenta = <span class="hl-t">Task</span>.<span class="hl-f">Every</span>(<span class="hl-n">1</span>, <span class="hl-k">function</span>()
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Enemigos:"</span>, <span class="hl-t">Spatial</span>.<span class="hl-f">Count</span>(<span class="hl-s">"Enemigo"</span>))
+    <span class="hl-k">end</span>)
+    <span class="hl-t">Task</span>.<span class="hl-f">Spawn</span>(<span class="hl-k">function</span>()
+        <span class="hl-k">for</span> oleada = <span class="hl-n">1</span>, <span class="hl-b">self</span>.oleadas <span class="hl-k">do</span>
+            <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Oleada"</span>, oleada)
+            <span class="hl-k">for</span> i = <span class="hl-n">1</span>, oleada * <span class="hl-n">3</span> <span class="hl-k">do</span>
+                <span class="hl-k">if</span> <span class="hl-b">self</span>.enemigo <span class="hl-k">then</span>
+                    <span class="hl-t">Scene</span>.<span class="hl-f">Instantiate</span>(<span class="hl-b">self</span>.enemigo, <span class="hl-b">self</span>.entity.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(i * <span class="hl-n">2</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>))
+                <span class="hl-k">end</span>
+                <span class="hl-t">Task</span>.<span class="hl-f">Wait</span>(<span class="hl-n">0.25</span>)
+            <span class="hl-k">end</span>
+            <span class="hl-t">Task</span>.<span class="hl-f">Wait</span>(<span class="hl-n">10</span>)
+        <span class="hl-k">end</span>
+        <span class="hl-t">Task</span>.<span class="hl-f">Cancel</span>(<span class="hl-b">self</span>._cuenta)
+        <span class="hl-t">Task</span>.<span class="hl-f">Delay</span>(<span class="hl-n">2</span>, <span class="hl-k">function</span>()
+            <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"¡Has ganado!"</span>)
+        <span class="hl-k">end</span>)
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Oleadas</span></code></pre></div>
+<h2 id="4-tween-easing-y-curve">4. Tween, Easing y Curve<a class="ancla" href="#4-tween-easing-y-curve" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <strong>tween</strong> anima valores de un sitio a otro en un tiempo, con una curva de <strong>easing</strong>. Lo calcula el motor después
+de los <code>Update</code> de los scripts, sin llamar a Lua en cada frame (salvo <code>onUpdate</code>, <code>Tween.Value</code> y las funciones de
+easing propias).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Tween.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>To(objeto, { campo = valor }, segundos, opciones?)</code></td>
+  <td>Anima esos campos desde lo que valen ahora hasta esos valores</td>
+</tr>
+<tr>
+  <td><code>From(objeto, { campo = valor }, segundos, opciones?)</code></td>
+  <td>Al revés: salta a esos valores y vuelve a los de ahora (aparecer desde abajo, crecer desde 0)</td>
+</tr>
+<tr>
+  <td><code>Value(desde, hasta, segundos, fn, opciones?)</code></td>
+  <td>Llama a <code>fn(valor)</code> en cada frame con el valor interpolado</td>
+</tr>
+<tr>
+  <td><code>Sequence({ pasos }, opciones?)</code>, <code>Parallel({ pasos }, opciones?)</code></td>
+  <td>Pasos uno detrás de otro, o a la vez (se pueden anidar)</td>
+</tr>
+<tr>
+  <td><code>Interval(segundos)</code>, <code>Call(fn)</code></td>
+  <td>Pasos de las secuencias: esperar o llamar a una función</td>
+</tr>
+<tr>
+  <td><code>KillAll(objeto?)</code>, <code>Count(objeto?)</code></td>
+  <td>Matar los tweens de un objeto (o todos) y contarlos</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>El objeto</strong> puede ser:</p>
+<ul>
+<li>una entidad: <code>position</code>, <code>rotation</code> (en el mundo), <code>localPosition</code>, <code>localRotation</code> y <code>scale</code> (un número vale para
+las tres);</li>
+<li>su <code>transform</code>: <code>position</code>, <code>rotation</code>, <code>scale</code> (locales), <code>worldPosition</code>, <code>worldRotation</code> y <code>eulerAngles</code>;</li>
+<li>cualquier componente: sus campos de números, vectores, colores y rotaciones (<code>luz.intensity</code>, <code>luz.color</code>,
+<code>camara.fieldOfView</code>...), que se escriben directamente;</li>
+<li>un renderer: <code>color</code> (con su <code>SetColor</code>): en general, cualquier <code>Campo</code> con <code>GetCampo</code> y <code>SetCampo</code>;</li>
+<li>un script (<code>self</code>) o una tabla de Lua: sus campos.</li>
+</ul>
+<p>Se animan números, <code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code>, <code>Color</code> y <code>Quat</code> (las rotaciones, por el camino corto).</p>
+<p><strong>Opciones</strong>: <code>easing</code> (un nombre como <code>&quot;OutBack&quot;</code>, una función de <code>Easing</code>, una función propia o una <code>Curve</code>; por
+defecto <code>&quot;OutQuad&quot;</code>), <code>delay</code>, <code>loops</code> (veces; <code>-1</code> = sin fin), <code>yoyo</code> (con <code>loops</code>, ida y vuelta), <code>relative</code> (los
+valores se suman a los de ahora), <code>unscaled</code> (sigue con <code>Time.timeScale = 0</code>), <code>onComplete</code> y <code>onUpdate(progreso)</code>.
+<code>Sequence</code> y <code>Parallel</code> aceptan <code>delay</code>, <code>loops</code>, <code>yoyo</code>, <code>unscaled</code> y <code>onComplete</code>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>tween:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Pause()</code>, <code>Play()</code></td>
+  <td>Parar y seguir</td>
+</tr>
+<tr>
+  <td><code>Kill(completar?)</code>, <code>Complete()</code></td>
+  <td>Matarlo (con <code>true</code>, o con <code>Complete</code>, antes salta al final y llama a <code>onComplete</code>)</td>
+</tr>
+<tr>
+  <td><code>IsPlaying()</code>, <code>IsAlive()</code></td>
+  <td>Si sigue en marcha, si no ha terminado</td>
+</tr>
+</tbody>
+</table></div>
+<p>Un tween <strong>muere solo</strong> cuando se destruye la entidad que anima o el script que lo creó (sin llamar a su
+<code>onComplete</code> ni dar errores).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Una puerta que se abre con rebote, se queda abierta 2 s y se cierra; un letrero que aparece desde abajo</span>
+<span class="hl-k">local</span> <span class="hl-t">PuertaTween</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">PuertaTween</span>.letrero = <span class="hl-f">Entity</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaTween</span>:<span class="hl-f">Abrir</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._animacion <span class="hl-k">and</span> <span class="hl-b">self</span>._animacion:<span class="hl-f">IsAlive</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> cerrada = <span class="hl-b">self</span>.entity.rotation
+    <span class="hl-b">self</span>._animacion = <span class="hl-t">Tween</span>.<span class="hl-f">Sequence</span>({
+        <span class="hl-t">Tween</span>.<span class="hl-f">To</span>(<span class="hl-b">self</span>.entity, { rotation = <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(<span class="hl-n">0</span>, <span class="hl-n">100</span>, <span class="hl-n">0</span>) * cerrada }, <span class="hl-n">0.6</span>, { easing = <span class="hl-s">"OutBack"</span> }),
+        <span class="hl-t">Tween</span>.<span class="hl-f">Interval</span>(<span class="hl-n">2</span>),
+        <span class="hl-t">Tween</span>.<span class="hl-f">To</span>(<span class="hl-b">self</span>.entity, { rotation = cerrada }, <span class="hl-n">0.8</span>, { easing = <span class="hl-t">Easing</span>.InOutSine }),
+    }, { onComplete = <span class="hl-k">function</span>() <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Puerta cerrada"</span>) <span class="hl-k">end</span> })
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.letrero <span class="hl-k">then</span>
+        <span class="hl-t">Tween</span>.<span class="hl-f">From</span>(<span class="hl-b">self</span>.letrero, { position = <span class="hl-b">self</span>.letrero.position - <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">2</span>, <span class="hl-n">0</span>) }, <span class="hl-n">0.4</span>, { easing = <span class="hl-s">"OutQuad"</span> })
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaTween</span>:<span class="hl-f">OnTriggerEnter</span>(otra)
+    <span class="hl-k">if</span> otra:<span class="hl-f">HasTag</span>(<span class="hl-s">"Jugador"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Abrir</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PuertaTween</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un objeto que flota y gira sin fin; al cogerlo, crece, se desvanece y se destruye</span>
+<span class="hl-k">local</span> <span class="hl-t">Recogible</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Recogible</span>.puntos = <span class="hl-n">0</span> <span class="hl-a">--[Int, NoSave]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Recogible</span>:<span class="hl-f">Start</span>()
+    <span class="hl-t">Tween</span>.<span class="hl-f">To</span>(<span class="hl-b">self</span>.entity, { position = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0.25</span>, <span class="hl-n">0</span>) }, <span class="hl-n">1</span>, { relative = <span class="hl-b">true</span>, loops = -<span class="hl-n">1</span>, yoyo = <span class="hl-b">true</span>, easing = <span class="hl-s">"InOutSine"</span> })
+    <span class="hl-t">Tween</span>.<span class="hl-f">To</span>(<span class="hl-b">self</span>.transform, { eulerAngles = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">360</span>, <span class="hl-n">0</span>) }, <span class="hl-n">3</span>, { loops = -<span class="hl-n">1</span>, easing = <span class="hl-s">"Linear"</span> })
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Recogible</span>:<span class="hl-f">OnTriggerEnter</span>(otra)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> otra:<span class="hl-f">HasTag</span>(<span class="hl-s">"Jugador"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">Tween</span>.<span class="hl-f">KillAll</span>(<span class="hl-b">self</span>.entity)
+    <span class="hl-k">local</span> malla = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"MeshRenderer"</span>)
+    <span class="hl-t">Tween</span>.<span class="hl-f">To</span>(<span class="hl-b">self</span>.entity, { scale = <span class="hl-n">1.6</span> }, <span class="hl-n">0.25</span>, { easing = <span class="hl-s">"OutQuad"</span> })
+    <span class="hl-k">if</span> malla <span class="hl-k">then</span>
+        <span class="hl-t">Tween</span>.<span class="hl-f">To</span>(malla, { color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>) }, <span class="hl-n">0.25</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Un contador que sube con Tween.Value</span>
+    <span class="hl-t">Tween</span>.<span class="hl-f">Value</span>(<span class="hl-b">self</span>.puntos, <span class="hl-b">self</span>.puntos + <span class="hl-n">100</span>, <span class="hl-n">0.5</span>, <span class="hl-k">function</span>(v) <span class="hl-b">self</span>.puntos = <span class="hl-t">math</span>.<span class="hl-f">floor</span>(v) <span class="hl-k">end</span>, {
+        onComplete = <span class="hl-k">function</span>() <span class="hl-b">self</span>:<span class="hl-f">Destroy</span>() <span class="hl-k">end</span>,
+    })
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Recogible</span></code></pre></div>
+<p><strong>Easing</strong>: <code>Easing.Linear</code> y, para cada familia (<code>Sine</code>, <code>Quad</code>, <code>Cubic</code>, <code>Quart</code>, <code>Quint</code>, <code>Expo</code>, <code>Circ</code>,
+<code>Back</code>, <code>Elastic</code> y <code>Bounce</code>), <code>In...</code> (acelera al principio), <code>Out...</code> (frena al final) e <code>InOut...</code> (las dos):
+<code>Easing.OutBounce(t)</code> con <code>t</code> de 0 a 1. Son las de <a href="https://easings.net" rel="noopener">easings.net</a> y también sirven para tus
+propias cuentas.</p>
+<p><strong>Curve</strong> es como <code>AnimationCurve</code> de Unity: claves <code>{tiempo, valor, tangenteEntrada?, tangenteSalida?}</code> evaluadas en
+el motor. Sin tangentes, la curva es suave sin pasarse de las claves (la misma que las curvas de las
+<a href="particulas.html">partículas</a>); una tangente <code>math.huge</code> hace un escalón.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Curve.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>new(claves, { wrap = &quot;Clamp&quot; })</code></td>
+  <td>Una curva (<code>wrap</code>: <code>&quot;Clamp&quot;</code>, <code>&quot;Loop&quot;</code> o <code>&quot;PingPong&quot;</code> fuera de sus claves)</td>
+</tr>
+<tr>
+  <td><code>Linear(t0, v0, t1, v1)</code>, <code>EaseInOut(t0, v0, t1, v1)</code>, <code>Constant(valor)</code></td>
+  <td>Las de siempre</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>curva:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Evaluate(t)</code></td>
+  <td>El valor en <code>t</code></td>
+</tr>
+<tr>
+  <td><code>AddKey(tiempo, valor, tangenteEntrada?, tangenteSalida?)</code>, <code>GetKeys()</code>, <code>KeyCount()</code></td>
+  <td>Sus claves</td>
+</tr>
+<tr>
+  <td><code>SetWrap(&quot;Loop&quot;)</code></td>
+  <td>Qué hace fuera de sus claves</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un corazón que late con una curva propia (y la misma curva como easing de un tween)</span>
+<span class="hl-k">local</span> <span class="hl-t">Latido</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">local</span> <span class="hl-t">LATIDO</span> = <span class="hl-t">Curve</span>.<span class="hl-f">new</span>({ { <span class="hl-n">0</span>, <span class="hl-n">1</span> }, { <span class="hl-n">0.1</span>, <span class="hl-n">1.3</span> }, { <span class="hl-n">0.2</span>, <span class="hl-n">1</span> }, { <span class="hl-n">0.3</span>, <span class="hl-n">1.15</span> }, { <span class="hl-n">0.5</span>, <span class="hl-n">1</span> }, { <span class="hl-n">1</span>, <span class="hl-n">1</span> } }, { wrap = <span class="hl-s">"Loop"</span> })
+
+<span class="hl-k">function</span> <span class="hl-t">Latido</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._t = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Latido</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-b">self</span>._t += dt
+    <span class="hl-k">local</span> s = <span class="hl-t">LATIDO</span>:<span class="hl-f">Evaluate</span>(<span class="hl-b">self</span>._t)
+    <span class="hl-b">self</span>.transform.scale = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(s, s, s)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Latido</span>:<span class="hl-f">Asustar</span>()
+    <span class="hl-t">Tween</span>.<span class="hl-f">To</span>(<span class="hl-b">self</span>.entity, { position = <span class="hl-b">self</span>.entity.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>) }, <span class="hl-n">1</span>, { easing = <span class="hl-t">LATIDO</span> })
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Latido</span></code></pre></div>
+<h2 id="5-pool-reutilizar-entidades">5. Pool: reutilizar entidades<a class="ancla" href="#5-pool-reutilizar-entidades" aria-label="Enlace a esta sección">#</a></h2>
+<p>Crear y destruir entidades cuesta (leer el prefab, crear sus componentes y su cuerpo de físicas, el <code>Awake</code> de sus
+scripts...). Un <strong>pool</strong> las crea una vez y las reutiliza: una entidad libre está <strong>desactivada</strong> (sin <code>Update</code>, sin
+físicas, sin dibujarse).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Pool.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Create(prefab, tamañoInicial?, { maxSize = n }?)</code></td>
+  <td>Un pool de ese prefab con esas entidades ya creadas. <code>maxSize</code>: libres que guarda como mucho (las demás se destruyen al devolverlas)</td>
+</tr>
+<tr>
+  <td><code>Release(entidad, segundos?)</code></td>
+  <td>Devuelve la entidad a su pool (ya, o dentro de esos segundos), sea cual sea</td>
+</tr>
+<tr>
+  <td><code>IsPooled(entidad)</code></td>
+  <td>Si es de algún pool</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>pool:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Get(posicion?, rotacion?, padre?)</code></td>
+  <td>Activa una libre (o crea otra), la coloca y llama a <code>OnPoolGet()</code> de sus scripts y los de sus hijos. Su cuerpo sale parado y ya existe</td>
+</tr>
+<tr>
+  <td><code>Release(entidad, segundos?)</code></td>
+  <td>Llama a <code>OnPoolRelease()</code>, cancela sus tareas de <code>Task.*</code> y sus tweens, la desactiva y la guarda. <code>false</code> si ya estaba libre</td>
+</tr>
+<tr>
+  <td><code>Prewarm(n)</code></td>
+  <td>Crea <code>n</code> más, desactivadas (para no crearlas en mitad del juego)</td>
+</tr>
+<tr>
+  <td><code>CountActive()</code>, <code>CountInactive()</code>, <code>Clear()</code></td>
+  <td>En uso, libres, y destruir las libres</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Awake</code> y <code>Start</code> solo se llaman la primera vez: lo que hay que preparar cada vez que sale va en <code>OnPoolGet</code> (y lo que
+hay que limpiar, en <code>OnPoolRelease</code>).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Dispara balas de un pool; cada bala vuelve sola al pool a los 2 s o al chocar</span>
+<span class="hl-k">local</span> <span class="hl-t">Ametralladora</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Ametralladora</span>.bala = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+<span class="hl-t">Ametralladora</span>.cadencia = <span class="hl-n">12</span> <span class="hl-a">--[Range(1, 30)]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Ametralladora</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.bala <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._balas = <span class="hl-t">Pool</span>.<span class="hl-f">Create</span>(<span class="hl-b">self</span>.bala, <span class="hl-n">30</span>, { maxSize = <span class="hl-n">60</span> })
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._espera = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Ametralladora</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-b">self</span>._espera -= dt
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._balas <span class="hl-k">or</span> <span class="hl-b">self</span>._espera &gt; <span class="hl-n">0</span> <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-t">Input</span>.<span class="hl-f">IsActionDown</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._espera = <span class="hl-n">1</span> / <span class="hl-b">self</span>.cadencia
+    <span class="hl-k">local</span> t = <span class="hl-b">self</span>.transform
+    <span class="hl-k">local</span> bala = <span class="hl-b">self</span>._balas:<span class="hl-f">Get</span>(t.worldPosition + t.forward, t.worldRotation)
+    <span class="hl-t">Physics</span>.<span class="hl-f">SetVelocity</span>(bala, t.forward * <span class="hl-n">60</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Ametralladora</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- El script de la bala (en su prefab)</span>
+<span class="hl-k">local</span> <span class="hl-t">BalaPool</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">BalaPool</span>.dano = <span class="hl-n">10</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BalaPool</span>:<span class="hl-f">OnPoolGet</span>()
+    <span class="hl-t">Pool</span>.<span class="hl-f">Release</span>(<span class="hl-b">self</span>.entity, <span class="hl-n">2</span>) <span class="hl-c">-- si no choca con nada, vuelve sola</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BalaPool</span>:<span class="hl-f">OnCollisionEnter</span>(c)
+    <span class="hl-k">if</span> c.other <span class="hl-k">and</span> c.other:<span class="hl-f">HasTag</span>(<span class="hl-s">"Enemigo"</span>) <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Impacto en"</span>, c.other.name)
+    <span class="hl-k">end</span>
+    <span class="hl-t">Pool</span>.<span class="hl-f">Release</span>(<span class="hl-b">self</span>.entity)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BalaPool</span>:<span class="hl-f">OnPoolRelease</span>()
+    <span class="hl-t">Physics</span>.<span class="hl-f">SetVelocity</span>(<span class="hl-b">self</span>.entity, <span class="hl-t">Vec3</span>.zero)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">BalaPool</span></code></pre></div>
+<p>Los pools de prefabs sin red son <strong>locales</strong>, como <code>Scene.Instantiate</code>. Desde la 0.9.24, un prefab con <strong>Identidad de
+red</strong> hace un pool de objetos de red en el servidor (se crean una vez y luego solo se activan y desactivan), <code>Pool(prefab, { inicial = 20, maximo = 200 })</code> es otra forma de crearlo y el componente <strong>Devolver al pool</strong> devuelve la entidad sola:
+ver <a href="utilidades-lua.html#5-pools-de-objetos">utilidades-lua.md</a>.</p>
+<h2 id="6-json">6. Json<a class="ancla" href="#6-json" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Json.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Encode(valor, { pretty = true, indent = 2, sortKeys = true }?)</code></td>
+  <td>El texto JSON de un valor</td>
+</tr>
+<tr>
+  <td><code>Decode(texto, { nulls = true }?)</code></td>
+  <td>El valor de un texto JSON; si no es JSON, un error con la línea y la columna</td>
+</tr>
+<tr>
+  <td><code>TryDecode(texto, opciones?)</code></td>
+  <td>Como <code>Decode</code>, sin error: el valor, o <code>nil</code> y el motivo (para textos que llegan de fuera)</td>
+</tr>
+<tr>
+  <td><code>null</code></td>
+  <td>El <code>null</code> de JSON dentro de una tabla</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Las <strong>listas</strong> (claves 1..n seguidas) son arrays y las demás tablas objetos con las claves <strong>ordenadas</strong> (el mismo
+texto en todas las máquinas; con <code>sortKeys = false</code>, sin ordenar). Una tabla vacía es <code>[]</code>. Las claves numéricas
+de un objeto pasan a texto (<code>{ [10] = &quot;a&quot; }</code> es <code>{&quot;10&quot;:&quot;a&quot;}</code>).</li>
+<li><code>Vec3</code>, <code>Vec2</code>, <code>Vec4</code> y <code>Quat</code> salen como <code>{x, y, z(, w)}</code> y <code>Color</code> como <code>{r, g, b, a}</code> (al leer son tablas).</li>
+<li>Una función, una entidad, <code>NaN</code> o una tabla que se contiene a sí misma son un error que dice <strong>dónde</strong>:
+<code>Json.Encode: valor.inventario[3]: un valor de tipo function no se puede convertir a JSON</code>.</li>
+<li>Al leer, <code>null</code> es <code>nil</code> (con <code>{ nulls = true }</code>, <code>Json.null</code>) y las listas empiezan en 1. Los errores dicen la
+línea y la columna: <code>Json.Decode: línea 3, columna 14: se esperaba ',' o '}' (llegó '&quot;')</code>.</li>
+<li>Para guardar partidas está <a href="scripts-lua.html#datos-guardados"><code>SaveGame</code></a> (con límites y en la carpeta de guardado);
+<code>Json</code> solo convierte valores y textos.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Lee la configuración de una partida que llega como texto (por ejemplo, en un evento de red) y la guarda</span>
+<span class="hl-k">local</span> <span class="hl-t">ConfigJson</span> = <span class="hl-f">Script</span>()
+<span class="hl-a">--[Multiline]</span>
+<span class="hl-t">ConfigJson</span>.texto = <span class="hl-s">'{ "ronda": 90, "mapas": ["Puerto", "Fábrica"], "amigos": true }'</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ConfigJson</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> config, motivo = <span class="hl-t">Json</span>.<span class="hl-f">TryDecode</span>(<span class="hl-b">self</span>.texto)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> config <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Warn</span>(<span class="hl-s">"Configuración no válida:"</span>, motivo)
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Ronda de"</span>, config.ronda, <span class="hl-s">"s en"</span>, config.mapas[<span class="hl-n">1</span>])
+    <span class="hl-t">SaveGame</span>.<span class="hl-f">Save</span>(<span class="hl-s">"config"</span>, config)
+    <span class="hl-t">Log</span>.<span class="hl-f">Debug</span>(<span class="hl-t">Json</span>.<span class="hl-f">Encode</span>(config, { pretty = <span class="hl-b">true</span> }))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ConfigJson</span></code></pre></div>
+<h2 id="7-posiciones-y-rotaciones-por-lotes">7. Posiciones y rotaciones por lotes<a class="ancla" href="#7-posiciones-y-rotaciones-por-lotes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Scene.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>GetPositions(entidades, destino?)</code>, <code>GetRotations(entidades, destino?)</code></td>
+  <td>Las posiciones (o rotaciones) en el mundo de una lista de entidades. Con <code>destino</code>, rellena esa tabla en lugar de crear otra</td>
+</tr>
+<tr>
+  <td><code>SetPositions(entidades, posiciones)</code>, <code>SetRotations(entidades, rotaciones)</code></td>
+  <td>Las cambia de una vez (una lista del mismo tamaño, o un valor para todas)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Son las mismas que <code>entidad.position</code> y <code>entidad.rotation</code> (en el mundo, también con padres), en una sola llamada.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- 300 pájaros que dan vueltas: las posiciones se calculan en Lua y se escriben de una vez</span>
+<span class="hl-k">local</span> <span class="hl-t">Bandada</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Bandada</span>.pajaro = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+<span class="hl-t">Bandada</span>.cuantos = <span class="hl-n">300</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Bandada</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._pajaros, <span class="hl-b">self</span>._posiciones = {}, {}
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-b">self</span>.cuantos <span class="hl-k">do</span>
+        <span class="hl-k">local</span> p = <span class="hl-k">if</span> <span class="hl-b">self</span>.pajaro <span class="hl-k">then</span> <span class="hl-t">Scene</span>.<span class="hl-f">Instantiate</span>(<span class="hl-b">self</span>.pajaro) <span class="hl-k">else</span> <span class="hl-t">Scene</span>.<span class="hl-f">Create</span>(<span class="hl-s">"Pajaro"</span>)
+        <span class="hl-b">self</span>._pajaros[i] = p <span class="hl-k">or</span> <span class="hl-t">Scene</span>.<span class="hl-f">Create</span>(<span class="hl-s">"Pajaro"</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._t = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Bandada</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-b">self</span>._t += dt
+    <span class="hl-k">local</span> centro = <span class="hl-b">self</span>.entity.position
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, #<span class="hl-b">self</span>._pajaros <span class="hl-k">do</span>
+        <span class="hl-k">local</span> a = <span class="hl-b">self</span>._t * <span class="hl-n">0.5</span> + i * <span class="hl-n">0.37</span>
+        <span class="hl-b">self</span>._posiciones[i] = centro + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-t">math</span>.<span class="hl-f">cos</span>(a) * (<span class="hl-n">10</span> + i % <span class="hl-n">7</span>), <span class="hl-n">5</span> + <span class="hl-t">math</span>.<span class="hl-f">sin</span>(a * <span class="hl-n">2</span>), <span class="hl-t">math</span>.<span class="hl-f">sin</span>(a) * (<span class="hl-n">10</span> + i % <span class="hl-n">5</span>))
+    <span class="hl-k">end</span>
+    <span class="hl-t">Scene</span>.<span class="hl-f">SetPositions</span>(<span class="hl-b">self</span>._pajaros, <span class="hl-b">self</span>._posiciones)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Bandada</span></code></pre></div>
+<h2 id="8-audioplayoneshot-con-opciones">8. Audio.PlayOneShot con opciones<a class="ancla" href="#8-audioplayoneshot-con-opciones" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Audio.PlayOneShot(sonido, posicion, volumen?, tono?, bus?)</code> sigue como siempre (se oye a todo volumen hasta 1 m y
+baja hasta los 40 m). Con una <strong>tabla</strong> en lugar del volumen se elige también hasta dónde se oye:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>volume</code>, <code>pitch</code>, <code>bus</code></td>
+  <td>Volumen, tono y bus (<code>&quot;Sfx&quot;</code> por defecto)</td>
+</tr>
+<tr>
+  <td><code>minDistance</code></td>
+  <td>Metros hasta los que suena a todo volumen (1)</td>
+</tr>
+<tr>
+  <td><code>maxDistance</code></td>
+  <td>Metros a partir de los que ya no baja más (40)</td>
+</tr>
+<tr>
+  <td><code>rolloff</code></td>
+  <td>Lo rápido que baja con la distancia (1; 0 = no baja)</td>
+</tr>
+<tr>
+  <td><code>attenuation</code></td>
+  <td><code>&quot;Inverse&quot;</code> (por defecto, la natural), <code>&quot;Linear&quot;</code> (llega a 0 en <code>maxDistance</code>), <code>&quot;Exponential&quot;</code> o <code>&quot;None&quot;</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Audio.PlayOneShot2D(sonido, { volume, pitch, bus })</code> acepta la misma tabla, sin las distancias.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Una explosión que se oye en todo el mapa y un disparo que se oye a 300 m</span>
+<span class="hl-k">local</span> <span class="hl-t">Explosion</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Explosion</span>.estallido = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+<span class="hl-t">Explosion</span>.disparo = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">Explosion</span>:<span class="hl-f">Explotar</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.estallido <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.estallido, <span class="hl-b">self</span>.entity.position, { volume = <span class="hl-n">1</span>, minDistance = <span class="hl-n">15</span>, maxDistance = <span class="hl-n">800</span>, rolloff = <span class="hl-n">0.6</span> })
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Explosion</span>:<span class="hl-f">Disparar</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.disparo <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.disparo, <span class="hl-b">self</span>.entity.position, { minDistance = <span class="hl-n">5</span>, maxDistance = <span class="hl-n">300</span>, pitch = <span class="hl-n">0.95</span> + <span class="hl-t">math</span>.<span class="hl-f">random</span>() * <span class="hl-n">0.1</span> })
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Explosion</span></code></pre></div>
+<p>En red, el sonido se lanza en cada máquina (en un <code>[Multicast]</code>), como siempre.</p>
+<h2 id="9-cuánto-más-rápido">9. Cuánto más rápido<a class="ancla" href="#9-cuánto-más-rápido" aria-label="Enlace a esta sección">#</a></h2>
+<p>Medidas de <code>tests/test_lua_nativas_perf.cpp</code> en un PC de 16 hilos con el motor en <code>release</code>
+(<code>tools\test.cmd release &quot;nativas rendimiento&quot;</code>), la mejor de varias rondas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Prueba</th>
+  <th>En Lua</th>
+  <th>Nativo</th>
+  <th>Veces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>4000 rayos contra 300 cajas</td>
+  <td>1,6 ms (un <code>Physics.Raycast</code> por rayo)</td>
+  <td>0,8 ms (<code>Physics.RaycastBatch</code>)</td>
+  <td>x2</td>
+</tr>
+<tr>
+  <td>4000 líneas de visión</td>
+  <td>1,0 ms (un <code>Physics.LineOfSight</code> por línea)</td>
+  <td>0,39 ms (<code>Physics.LineOfSightBatch</code>)</td>
+  <td>x2,6</td>
+</tr>
+<tr>
+  <td>100 búsquedas de radio 30 m entre 5000 entidades</td>
+  <td>102 ms (<code>Scene.FindAllByTag</code> en cada una) / 85 ms (la lista guardada en <code>Start</code>)</td>
+  <td>1,5 ms (<code>Spatial.InRadius</code>, con su puesta al día)</td>
+  <td>x66 / x55</td>
+</tr>
+<tr>
+  <td>100 veces las 5 más cercanas entre 5000</td>
+  <td>—</td>
+  <td>0,2 ms (<code>Spatial.KNearest</code>)</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>200 balas con script y cuerpo, crear y quitar</td>
+  <td>14,5 ms (<code>Scene.Instantiate</code> y <code>Destroy</code>)</td>
+  <td>1,5 ms (<code>pool:Get</code> y <code>Release</code>)</td>
+  <td>x9</td>
+</tr>
+<tr>
+  <td>Escribir / leer 2000 posiciones</td>
+  <td>0,20 / 0,25 ms (<code>entidad.position</code> una a una)</td>
+  <td>0,051 / 0,046 ms (<code>Scene.SetPositions</code> / <code>GetPositions</code>)</td>
+  <td>x4 / x5</td>
+</tr>
+<tr>
+  <td>Json de 2000 registros (250 KB)</td>
+  <td>8 ms (un codificador en Lua)</td>
+  <td>2 ms (<code>Json.Encode</code>); leerlo, 2,5 ms (<code>Json.Decode</code>)</td>
+  <td>x4</td>
+</tr>
+<tr>
+  <td>2000 entidades que suben con OutQuad</td>
+  <td>0,21 ms por frame (en un <code>Update</code>)</td>
+  <td>0,10 ms por frame (<code>Tween.To</code>)</td>
+  <td>x2</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Los lotes de rayos ganan más cuanto más cuesta cada rayo (mallas, terreno, escenas grandes): el motor los reparte
+entre los núcleos, pero crear las tablas de los resultados sigue costando lo mismo. Las líneas de visión solo
+devuelven <code>true</code> o <code>false</code>, por eso ganan más.</li>
+<li><code>Spatial</code> no recorre las entidades: mira solo las celdas de alrededor. Cuantas más entidades, más gana.</li>
+<li>Con el motor en <code>debug</code> las diferencias son mayores (de x2 a x140): el código de Lua y las llamadas a la API pesan
+más que el trabajo que hacen.</li>
+</ul>
+<p>Recuerda también los consejos de siempre (<a href="scripts-lua.html#18-consejos-de-rendimiento">scripts-lua.md</a>): guarda los
+componentes en <code>Start</code> y no crees tablas en cada frame (las funciones con <code>destino</code> rellenan una tabla que ya tienes).</p>
+<h2 id="10-en-multijugador">10. En multijugador<a class="ancla" href="#10-en-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo esto es <strong>local</strong>: cada máquina (servidor y clientes) tiene sus propios índices, tareas, tweens y pools.</p>
+<ul>
+<li><strong>Físicas</strong>: las consultas valen en cualquier máquina. <code>IgnoreCollision</code> y <code>SetLayerCollision</code> cambian solo la
+simulación de esa máquina: hazlos en todas (en un <code>Start</code> o en un <code>[Multicast]</code>) para que los personajes predichos
+de los clientes choquen igual que en el servidor.</li>
+<li><strong>Spatial y lotes de rayos</strong>: ideales para la IA del servidor (<code>if IsServer() then ... end</code>).</li>
+<li><strong>Tween</strong>: son visuales. En un cliente, animar algo que replica el servidor (la posición de un objeto de red, un
+campo <code>[Replicated]</code>) dura hasta la siguiente actualización. Lanza los efectos en cada máquina con un
+<code>[Multicast]</code> o con <code>onChange</code>.</li>
+<li><strong>Task</strong>: cada máquina tiene su reloj; <code>Time.timeScale</code> no se puede cambiar en red (todos simulan al ritmo del
+servidor).</li>
+<li><strong>Pool</strong>: local; un prefab con Identidad de red es un error que lo explica (usa <code>Spawn</code>).</li>
+<li><strong>Json</strong>: el mismo texto en todas las máquinas (claves ordenadas): sirve para mandar datos en un evento.</li>
+</ul>
+<h2 id="11-errores-comunes">11. Errores comunes<a class="ancla" href="#11-errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Síntoma o mensaje</th>
+  <th>Causa y solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Physics.Raycast: opción desconocida 'layer' (¿querías 'layers'?...)</code></td>
+  <td>Clave mal escrita en la consulta o en las opciones (pasa en todas las funciones de esta guía)</td>
+</tr>
+<tr>
+  <td><code>Task.Wait solo se puede usar dentro de una tarea...</code></td>
+  <td>Estás en <code>Update</code>: envuelve el código en <code>Task.Spawn(function() ... end)</code> o usa <code>Task.Delay</code></td>
+</tr>
+<tr>
+  <td><code>Task.Wait no se puede usar dentro de una corrutina propia...</code></td>
+  <td>Usas <code>coroutine.wrap</code>: cámbialo por <code>Task.Spawn</code></td>
+</tr>
+<tr>
+  <td>Mis tareas se paran solas</td>
+  <td>Su script o su entidad se desactivaron (o se devolvió al pool): vuelve a crearlas en <code>OnPoolGet</code> o al activarlo</td>
+</tr>
+<tr>
+  <td><code>Tween.To: de una entidad se animan position, rotation...</code></td>
+  <td>Para otro campo, anima el componente: <code>Tween.To(entidad:GetComponent(&quot;PointLight&quot;), { intensity = 5 }, 1)</code></td>
+</tr>
+<tr>
+  <td><code>Tween.Sequence: el paso 2 ya está en marcha</code></td>
+  <td>Los pasos se crean en la misma llamada: <code>Tween.Sequence({ Tween.To(...), ... })</code></td>
+</tr>
+<tr>
+  <td><code>Spatial</code> no encuentra una entidad recién creada</td>
+  <td>Entra en el frame siguiente, o ya con <code>Spatial.Refresh()</code>; y tiene que tener alguna etiqueta</td>
+</tr>
+<tr>
+  <td><code>Pool: '...' tiene Identidad de red</code></td>
+  <td>Los objetos de red se crean con <code>Spawn</code>: el pool es local</td>
+</tr>
+<tr>
+  <td><code>pool:Release: '...' es de otro pool</code></td>
+  <td>Usa <code>Pool.Release(entidad)</code>, que la devuelve al suyo</td>
+</tr>
+<tr>
+  <td><code>Json.Decode: línea 1, columna 7: sobra la coma antes de ']'</code></td>
+  <td>El texto no es JSON válido (JSON no admite comas al final ni comentarios)</td>
+</tr>
+</tbody>
+</table></div>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="utilidades-lua.html"><small>Anterior</small>Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a><a class="sig" href="matematicas.html"><small>Siguiente</small>Matemáticas, geometría y ruido</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas</a></li><li class="n3"><a href="#perdigones-de-escopeta">Perdigones de escopeta</a></li><li class="n3"><a href="#cabe-aquí-me-ve">¿Cabe aquí? ¿Me ve?</a></li><li class="n3"><a href="#atravesar-capas-y-contactos">Atravesar, capas y contactos</a></li><li class="n2"><a href="#2-spatial-buscar-lo-que-hay-cerca">2. Spatial: buscar lo que hay cerca</a></li><li class="n2"><a href="#3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego</a></li><li class="n2"><a href="#4-tween-easing-y-curve">4. Tween, Easing y Curve</a></li><li class="n2"><a href="#5-pool-reutilizar-entidades">5. Pool: reutilizar entidades</a></li><li class="n2"><a href="#6-json">6. Json</a></li><li class="n2"><a href="#7-posiciones-y-rotaciones-por-lotes">7. Posiciones y rotaciones por lotes</a></li><li class="n2"><a href="#8-audioplayoneshot-con-opciones">8. Audio.PlayOneShot con opciones</a></li><li class="n2"><a href="#9-cuánto-más-rápido">9. Cuánto más rápido</a></li><li class="n2"><a href="#10-en-multijugador">10. En multijugador</a></li><li class="n2"><a href="#11-errores-comunes">11. Errores comunes</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

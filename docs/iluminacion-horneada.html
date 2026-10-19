@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iluminación horneada: lightmaps y sondas de luz · Nova Engine</title>
+<meta name="description" content="Sin iluminación horneada, todo lo que no ilumina directamente una luz recibe la luz del cielo, también dentro de una
+casa cerrada: los interiores se ven planos (iguales en todos los rincones) o, si se baja la luz ambient">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Iluminación horneada: lightmaps y sondas de luz · Nova Engine">
+<meta property="og:description" content="Sin iluminación horneada, todo lo que no ilumina directamente una luz recibe la luz del cielo, también dentro de una
+casa cerrada: los interiores se ven planos (iguales en todos los rincones) o, si se baja la luz ambient">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/iluminacion-horneada.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/iluminacion-horneada.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html" aria-current="page">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="iluminación-horneada-lightmaps-y-sondas-de-luz">Iluminación horneada: lightmaps y sondas de luz</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-paso-a-paso-hornear-una-casa">1. Paso a paso: hornear una casa</a></li><li class="n2"><a href="#2-qué-se-hornea">2. Qué se hornea</a></li><li class="n2"><a href="#3-las-luces-horneada-mixta-o-tiempo-real">3. Las luces: Horneada, Mixta o Tiempo real</a></li><li class="n2"><a href="#4-el-panel-iluminación">4. El panel Iluminación</a></li><li class="n2"><a href="#5-el-segundo-juego-de-uv-y-la-densidad-de-texeles">5. El segundo juego de UV y la densidad de texeles</a></li><li class="n2"><a href="#6-sondas-de-luz-lo-que-se-mueve">6. Sondas de luz: lo que se mueve</a></li><li class="n2"><a href="#7-reflejos-en-interiores">7. Reflejos en interiores</a></li><li class="n2"><a href="#8-ficheros-edición-en-equipo-y-publicar">8. Ficheros, edición en equipo y publicar</a></li><li class="n2"><a href="#9-desde-lua">9. Desde Lua</a></li><li class="n2"><a href="#10-tiempos-y-memoria">10. Tiempos y memoria</a></li><li class="n2"><a href="#11-problemas-frecuentes">11. Problemas frecuentes</a></li><li class="n2"><a href="#12-claves-de-projectnova-y-campos-de-los-componentes">12. Claves de project.nova y campos de los componentes</a></li><li class="n2"><a href="#13-límites">13. Límites</a></li></ul></details><p>Sin iluminación horneada, todo lo que no ilumina directamente una luz recibe la <strong>luz del cielo</strong>, también dentro de una
+casa cerrada: los interiores se ven planos (iguales en todos los rincones) o, si se baja la luz ambiente, oscuros, y hay
+que poner luces de relleno a mano.</p>
+<p>La <strong>iluminación global horneada</strong> calcula una vez, en el editor, cómo <strong>rebota</strong> la luz por la escena:</p>
+<ul>
+<li>el sol que entra por una ventana ilumina el suelo, y el suelo ilumina las paredes y el techo;</li>
+<li>las esquinas y debajo de los muebles quedan más oscuros (oclusión ambiental);</li>
+<li>una pared roja tiñe de rojo lo que tiene al lado;</li>
+<li>el cielo solo entra por las ventanas y las puertas.</li>
+</ul>
+<p>El resultado se guarda en <strong>lightmaps</strong> (texturas con la luz de las mallas que no se mueven) y en <strong>sondas de luz</strong> (la luz
+en puntos del aire, para lo que se mueve: personajes, armas, vehículos). Al jugar no cuesta casi nada: es leer una textura.</p>
+<p>En el <strong>Ejemplo 3D (Lua)</strong> está la escena <code>scenes/Casa.scene</code>, ya horneada: una sala con una ventana por la que entra el sol,
+muebles, una lámpara horneada, un volumen de sondas y el zorro paseando. Las capturas de antes y después están en
+<code>capturas-gi\</code> (<code>casa-sin-gi.png</code> y <code>casa-con-gi.png</code>).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-paso-a-paso-hornear-una-casa">Paso a paso: hornear una casa</a></li>
+<li><a href="#2-qué-se-hornea">Qué se hornea</a></li>
+<li><a href="#3-las-luces-horneada-mixta-o-tiempo-real">Las luces: Horneada, Mixta o Tiempo real</a></li>
+<li><a href="#4-el-panel-iluminación">El panel Iluminación</a></li>
+<li><a href="#5-el-segundo-juego-de-uv-y-la-densidad-de-texeles">El segundo juego de UV y la densidad de texeles</a></li>
+<li><a href="#6-sondas-de-luz-lo-que-se-mueve">Sondas de luz: lo que se mueve</a></li>
+<li><a href="#7-reflejos-en-interiores">Reflejos en interiores</a></li>
+<li><a href="#8-ficheros-edición-en-equipo-y-publicar">Ficheros, edición en equipo y publicar</a></li>
+<li><a href="#9-desde-lua">Desde Lua</a></li>
+<li><a href="#10-tiempos-y-memoria">Tiempos y memoria</a></li>
+<li><a href="#11-problemas-frecuentes">Problemas frecuentes</a></li>
+<li><a href="#12-claves-de-projectnova-y-campos-de-los-componentes">Claves de <code>project.nova</code> y campos de los componentes</a></li>
+<li><a href="#13-límites">Límites</a></li>
+<li><span class="enlace-interno-quitado">Para quien programa el motor</span></li>
+</ol>
+<h2 id="1-paso-a-paso-hornear-una-casa">1. Paso a paso: hornear una casa<a class="ancla" href="#1-paso-a-paso-hornear-una-casa" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><p><strong>Guarda la escena</strong> (Archivo &gt; Guardar). La iluminación se guarda junto a ella.</p>
+</li>
+<li><p><strong>Marca lo que no se mueve.</strong> Selecciona en la Jerarquía las paredes, el suelo, el techo, las escaleras y los muebles
+que no se van a mover. En <strong>Ventana &gt; Iluminación</strong>, pulsa <strong>Marcar la selección como estática</strong>. También vale la
+casilla <strong>Estático (iluminación)</strong> de cada <strong>Malla</strong> en el Inspector (sección «Iluminación horneada»).</p>
+<ul>
+<li>Las puertas que se abren, las armas, los personajes y lo que tiene físicas <strong>no</strong> se marcan: los iluminan las sondas.</li>
+<li>Los cristales (material con <strong>Transparencia: Mezcla</strong>) no tapan la luz aunque estén marcados.</li>
+</ul>
+</li>
+<li><p><strong>Las luces.</strong> En cada luz, <strong>Modo de horneado</strong> (sección «Iluminación horneada» del Inspector):</p>
+<ul>
+<li>el <strong>sol</strong>: <strong>Mixta</strong> (por defecto). Su luz directa y sus sombras siguen en tiempo real y lo que rebota se hornea;</li>
+<li>las <strong>lámparas</strong> fijas del interior: <strong>Horneada</strong>. No cuestan nada al jugar y sus sombras salen suaves;</li>
+<li>una <strong>linterna</strong> o una luz que se enciende y se apaga en el juego: <strong>Tiempo real</strong> (no entra en el horneado).</li>
+</ul>
+</li>
+<li><p><strong>Un volumen de sondas</strong> para lo que se mueve: <strong>Entidad &gt; Luz &gt; Volumen de sondas</strong>. Ajusta su <strong>Tamaño</strong> a la casa (o
+pon uno por habitación) y deja la <strong>Separación</strong> en 1 m.</p>
+</li>
+<li><p><strong>Hornea.</strong> En el panel <strong>Iluminación</strong>, elige la calidad (<strong>Media</strong> para trabajar) y pulsa <strong>Hornear</strong>.</p>
+<ul>
+<li>El horneado va en otro hilo: puedes seguir editando mientras tanto.</li>
+<li>La barra dice en qué paso va y <strong>Cancelar</strong> lo para.</li>
+<li>Una casa tarda menos de un segundo en Media (ver <a href="#10-tiempos-y-memoria">10</a>).</li>
+</ul>
+</li>
+<li><p><strong>Mira el resultado.</strong> Las vistas del panel ayudan a ver qué se ha horneado:</p>
+<ul>
+<li><strong>Solo lightmap</strong>: solo la luz horneada, sobre blanco;</li>
+<li><strong>Densidad de texeles</strong>: un damero con los texeles del lightmap;</li>
+<li><strong>Sondas</strong>: cada sonda en el visor, con su luz.</li>
+</ul>
+<p>Si algo no convence, cambia las luces o los ajustes y vuelve a hornear.</p>
+</li>
+<li><p><strong>Antes de publicar</strong>, hornea en <strong>Alta</strong>. Al guardar no hace falta nada más: el juego publicado lleva la iluminación
+en su paquete.</p>
+</li>
+</ol>
+<p>Cuando cambias algo que afecta a la luz (mueves una pared, cambias el color de un material o una luz), el panel avisa:
+«Desactualizada: la escena ha cambiado desde el último horneado». Hasta que vuelvas a hornear se ve la iluminación de
+antes.</p>
+<h2 id="2-qué-se-hornea">2. Qué se hornea<a class="ancla" href="#2-qué-se-hornea" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Las mallas estáticas</strong> (Malla con <strong>Estático (iluminación)</strong>). Reciben un lightmap, hacen sombra y rebotan la luz con
+su color medio. Lo que no es estático no cuenta en el horneado: ni tapa la luz ni la rebota.</li>
+<li><strong>La luz que rebota</strong> de todas las luces Horneadas y Mixtas: 2 rebotes en Borrador y Media y 3 en Alta.</li>
+<li><strong>La luz directa</strong> de las luces <strong>Horneadas</strong>, con sombras suaves (el tamaño de la luz es el <strong>Radio de la bombilla</strong> o
+el <strong>Tamaño del sol</strong>).</li>
+<li><strong>El cielo</strong>: el del Entorno, sea procedural, HDRI o de noche, con su luz ambiente. Entra por las ventanas y las puertas
+y no llega a los rincones (oclusión ambiental).</li>
+<li><strong>Lo que brilla</strong>: los materiales con <strong>emisión</strong> también iluminan lo que tienen cerca (una pantalla, un letrero).</li>
+<li><strong>Las sondas de luz</strong> de los volúmenes de sondas.</li>
+</ul>
+<p><strong>No</strong> se hornean el terreno, la vegetación pintada, el agua ni las mallas con huesos (siguen con la luz del cielo o de las
+sondas, ver <a href="#13-límites">13</a>).</p>
+<p>Una escena sin hornear se ve <strong>exactamente igual</strong> que antes de que existiera la iluminación horneada.</p>
+<h2 id="3-las-luces-horneada-mixta-o-tiempo-real">3. Las luces: Horneada, Mixta o Tiempo real<a class="ancla" href="#3-las-luces-horneada-mixta-o-tiempo-real" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Modo</th>
+  <th>Luz directa</th>
+  <th>Luz que rebota</th>
+  <th>Al jugar</th>
+  <th>Para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Mixta</strong> (por defecto)</td>
+  <td>En tiempo real, con sus sombras de siempre</td>
+  <td>Horneada</td>
+  <td>Lo de siempre</td>
+  <td>El sol, luces que deben dar sombras nítidas a los personajes</td>
+</tr>
+<tr>
+  <td><strong>Horneada</strong></td>
+  <td>Horneada, con sombras suaves</td>
+  <td>Horneada</td>
+  <td><strong>Nada</strong>: no se dibuja</td>
+  <td>Lámparas fijas, luces de relleno</td>
+</tr>
+<tr>
+  <td><strong>Tiempo real</strong></td>
+  <td>En tiempo real</td>
+  <td>No</td>
+  <td>Lo de siempre</td>
+  <td>Linternas, luces que se mueven o se apagan</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Una luz <strong>Horneada</strong> no se dibuja al jugar: los objetos que se mueven la reciben de las sondas, sin sombras. Si
+necesitas que un personaje proyecte sombra con ella, déjala <strong>Mixta</strong>.</li>
+<li>Un sol <strong>Horneado</strong> tampoco ilumina en tiempo real: lo que no tiene lightmap ni sondas (el terreno, por ejemplo) se queda
+sin sol. Para exteriores, deja el sol <strong>Mixto</strong>.</li>
+<li>Con la iluminación horneada apagada (<code>Lighting.SetBakedEnabled(false)</code> o la casilla del panel), todas las luces vuelven
+a ser de tiempo real.</li>
+<li><strong>Radio de la bombilla</strong> (puntuales y focos, metros) y <strong>Tamaño del sol</strong> (direccional, grados): cuanto más grandes,
+más suaves las sombras horneadas.</li>
+</ul>
+<h2 id="4-el-panel-iluminación">4. El panel Iluminación<a class="ancla" href="#4-el-panel-iluminación" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ventana &gt; Iluminación</strong>. Arriba, lo que hay en la escena: mallas estáticas, volúmenes de sondas y luces por modo, y los
+botones <strong>Marcar la selección como estática</strong> y <strong>Quitar</strong> (con deshacer).</p>
+<p><strong>Ajustes del horneado</strong> (del proyecto: valen para todas sus escenas):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ajuste</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Calidad</strong></td>
+  <td><strong>Borrador</strong>: rápido y con ruido, para colocar las luces (usa la mitad de texeles). <strong>Media</strong>: para trabajar. <strong>Alta</strong>: para publicar (más rayos y 3 rebotes)</td>
+</tr>
+<tr>
+  <td><strong>Densidad (texeles/m)</strong></td>
+  <td>Texeles de lightmap por metro (10 por defecto). Más, sombras horneadas más nítidas y más memoria. Cada malla lo multiplica por su <strong>Escala del lightmap</strong></td>
+</tr>
+<tr>
+  <td><strong>Tamaño de las texturas</strong></td>
+  <td>Lado de cada textura de lightmap: 512, 1024, 2048 o 4096. Los objetos se reparten en tantas como hagan falta</td>
+</tr>
+<tr>
+  <td><strong>Rebotes</strong></td>
+  <td>Veces que rebota la luz (0 = los de la calidad)</td>
+</tr>
+<tr>
+  <td><strong>Quitar el ruido</strong></td>
+  <td>Filtro que suaviza el ruido de la luz indirecta sin borrar las esquinas</td>
+</tr>
+<tr>
+  <td><strong>Intensidad indirecta</strong></td>
+  <td>Multiplica la luz que rebota (1 = la real)</td>
+</tr>
+<tr>
+  <td><strong>Intensidad del cielo</strong></td>
+  <td>Multiplica la luz del cielo horneada (además de la <strong>Luz ambiente</strong> del Entorno)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Hornear</strong>, <strong>Cancelar</strong> (mientras hornea) y <strong>Limpiar</strong> (borra la iluminación horneada de la escena, que vuelve a verse
+como sin hornear; pide confirmación).</p>
+<p><strong>Estado</strong>: «Sin hornear», «Al día» o «Desactualizada», la fecha y la calidad del último horneado, lo que tardó, las
+texturas, la <strong>memoria de vídeo</strong> (texturas y mallas con su UV), los objetos, los texeles, las sondas y los rayos.</p>
+<p><strong>Ver</strong>:</p>
+<ul>
+<li><strong>Usar la iluminación horneada</strong>: para comparar con y sin.</li>
+<li><strong>Normal</strong>: la escena como se ve en el juego.</li>
+<li><strong>Solo lightmap</strong>: solo la luz horneada sobre blanco (lo que no es estático, con la luz de sus sondas).</li>
+<li><strong>Densidad de texeles</strong>: un damero con los texeles del lightmap; lo morado no tiene lightmap.</li>
+<li><strong>Sondas</strong>: cada sonda de luz en el visor como una bola con su luz (las que están dentro de una pared, en rojo) y la
+caja de los volúmenes.</li>
+</ul>
+<h2 id="5-el-segundo-juego-de-uv-y-la-densidad-de-texeles">5. El segundo juego de UV y la densidad de texeles<a class="ancla" href="#5-el-segundo-juego-de-uv-y-la-densidad-de-texeles" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un lightmap necesita que cada triángulo tenga <strong>su propio sitio</strong> en la textura, sin solaparse con otro (las UV del color
+suelen repetirse: baldosas, ladrillos). Es el <strong>segundo juego de UV</strong>:</p>
+<ul>
+<li>Si el modelo lo trae (glTF con <code>TEXCOORD_1</code>, el «UV Map» segundo de Blender), se usa ese.</li>
+<li>Si no, el horneado lo genera solo con <a href="https://github.com/jpcy/xatlas" rel="noopener">xatlas</a>: corta la malla en islas, las coloca
+sin solapes y deja un margen entre ellas para que el filtro no mezcle la luz de dos caras de una pared.</li>
+<li>Cada objeto tiene un rectángulo en una textura según su tamaño en el mundo, la <strong>Densidad</strong> del proyecto y su <strong>Escala
+del lightmap</strong>.</li>
+</ul>
+<p>Para elegir la densidad:</p>
+<ul>
+<li>interiores: 8 a 12 texeles por metro (10 por defecto);</li>
+<li>exteriores grandes: 2 a 4;</li>
+<li>objetos grandes y lejanos (la hierba de fuera, un tejado), <strong>Escala del lightmap</strong> 0,1 a 0,5;</li>
+<li>el suelo junto a una ventana o una mesa con cosas encima, 2.</li>
+</ul>
+<p>La vista <strong>Densidad de texeles</strong> enseña el tamaño de los texeles: cuadros parecidos en toda la sala es lo ideal.</p>
+<h2 id="6-sondas-de-luz-lo-que-se-mueve">6. Sondas de luz: lo que se mueve<a class="ancla" href="#6-sondas-de-luz-lo-que-se-mueve" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los personajes, las armas, los vehículos y los objetos con físicas no tienen lightmap: se mueven. Toman la luz horneada
+de las <strong>sondas de luz</strong>:</p>
+<ol>
+<li><strong>Entidad &gt; Luz &gt; Volumen de sondas</strong> (o Añadir componente &gt; Render &gt; <strong>Volumen de sondas</strong>).</li>
+<li><strong>Tamaño</strong>: la caja (la escala de la entidad también cuenta). Mejor una por habitación que una enorme.</li>
+<li><strong>Separación</strong>: metros entre sondas (1 en interiores; 3 a 5 fuera).</li>
+<li>Hornea: cada sonda guarda la luz que le llega de todas las direcciones (armónicos esféricos de orden 2), con la del
+cielo, los rebotes y la directa de las luces Horneadas.</li>
+</ol>
+<p>Al jugar, cada objeto que no tiene lightmap toma la luz de las 8 sondas que lo rodean (interpolación trilineal):</p>
+<ul>
+<li><strong>No pasa la luz a través de las paredes.</strong> Una sonda que tiene una pared entre ella y el objeto no cuenta. En un pasillo
+partido por un tabique, la habitación oscura no recibe nada de la iluminada.</li>
+<li><strong>Las sondas que caen dentro de una pared no valen</strong> y no se usan.</li>
+<li>En el borde del volumen, la luz de las sondas se funde con la del cielo (media separación).</li>
+<li>Fuera de todos los volúmenes, el objeto usa la luz del cielo, como siempre.</li>
+</ul>
+<h2 id="7-reflejos-en-interiores">7. Reflejos en interiores<a class="ancla" href="#7-reflejos-en-interiores" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con la iluminación horneada, el reflejo del cielo <strong>se apaga donde la luz horneada es menor que la del cielo</strong>: el metal y
+los suelos brillantes de un interior oscuro ya no reflejan un cielo azul que no se ve.</p>
+<p>Para que reflejen <strong>la sala</strong>, pon una <strong>Sonda de reflejos</strong> (Añadir componente &gt; Render, ver
+<a href="render.html#sondas-de-reflejos-interiores">render.md</a>) del tamaño de la habitación, con la <strong>Proyección en caja</strong>:</p>
+<ul>
+<li>su captura se hace con la iluminación horneada y se vuelve a hacer sola al hornear;</li>
+<li>desmarca su <strong>Luz ambiente</strong>: la luz difusa ya sale de los lightmaps y de las sondas de luz.</li>
+</ul>
+<h2 id="8-ficheros-edición-en-equipo-y-publicar">8. Ficheros, edición en equipo y publicar<a class="ancla" href="#8-ficheros-edición-en-equipo-y-publicar" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La iluminación de <code>scenes/Casa.scene</code> se guarda en <code>scenes/Casa_Iluminacion/Iluminacion.nluz</code>. Es un solo fichero con
+todo: los lightmaps, el segundo juego de UV de las mallas, las sondas y qué luces están horneadas.</li>
+<li><strong>Formato</strong>: los lightmaps van en <strong>R9G9B9E5</strong> (HDR de 4 bytes por texel, que la GPU lee y filtra directamente) y el
+fichero entero comprimido. Va versionado: uno de una versión que el motor no entiende no se carga y el registro lo dice
+(hay que volver a hornear).</li>
+<li>Si se cambia un modelo después de hornear, sus objetos se quedan sin lightmap (el registro avisa) hasta volver a hornear.</li>
+<li><strong>Edición en equipo</strong>: solo hornea quien pulsa el botón. El fichero llega a los demás por la sincronización, como
+cualquier asset, y su escena lo vuelve a leer sola (también si estaban jugando). <strong>Limpiar</strong> lo borra para todos.</li>
+<li><strong>Publicar</strong>: el fichero va en el paquete del juego (<code>juego.novapak</code>) con la escena. <code>NovaGame.exe</code>, el juego
+publicado y <code>NovaServer.exe</code> lo leen igual (el servidor no dibuja, así que no lo usa).</li>
+</ul>
+<h2 id="9-desde-lua">9. Desde Lua<a class="ancla" href="#9-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>La tabla <code>Lighting</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Opciones</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Opciones</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> info = <span class="hl-t">Lighting</span>.<span class="hl-f">GetInfo</span>()
+    <span class="hl-k">if</span> info.baked <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Iluminación horneada del %s (%s): %d texturas, %.1f MB"</span>, info.date, info.quality,
+            info.textures, info.memoryMB))
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Menú de opciones: comparar con y sin</span>
+<span class="hl-k">function</span> <span class="hl-t">Opciones</span>:<span class="hl-f">CambiarIluminacion</span>(activa: boolean)
+    <span class="hl-t">Lighting</span>.<span class="hl-f">SetBakedEnabled</span>(activa)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Sigilo: ¿está el jugador a oscuras?</span>
+<span class="hl-k">function</span> <span class="hl-t">Opciones</span>:<span class="hl-f">EstaAOscuras</span>(posicion: <span class="hl-t">Vec3</span>): boolean
+    <span class="hl-k">local</span> luz, peso = <span class="hl-t">Lighting</span>.<span class="hl-f">SampleProbes</span>(posicion)
+    <span class="hl-k">return</span> peso &gt; <span class="hl-n">0.5</span> <span class="hl-k">and</span> (luz.x + luz.y + luz.z) / <span class="hl-n">3</span> &lt; <span class="hl-n">0.05</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Opciones</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Lighting.SetBakedEnabled(activa)</code></td>
+  <td>Enciende o apaga el uso de la iluminación horneada en todo el juego. Apagada, la escena se ve exactamente como sin hornear y las luces Horneadas vuelven a ser de tiempo real</td>
+</tr>
+<tr>
+  <td><code>Lighting.IsBakedEnabled()</code></td>
+  <td>Si está encendida (lo está por defecto)</td>
+</tr>
+<tr>
+  <td><code>Lighting.SetIntensity(x)</code> / <code>GetIntensity()</code></td>
+  <td>Multiplica la luz horneada (lightmaps y sondas)</td>
+</tr>
+<tr>
+  <td><code>Lighting.HasBakedData()</code></td>
+  <td>Si la escena tiene iluminación horneada</td>
+</tr>
+<tr>
+  <td><code>Lighting.GetInfo()</code></td>
+  <td><code>baked</code>, <code>enabled</code>, <code>textures</code>, <code>memoryMB</code>, <code>objects</code>, <code>probes</code>, <code>texels</code>, <code>bakeSeconds</code>, <code>date</code> y <code>quality</code></td>
+</tr>
+<tr>
+  <td><code>Lighting.SampleProbes(posicion, normal?)</code></td>
+  <td>La luz horneada que llega a un punto según las sondas (un <code>Vec3</code> de color) y cuánto cuenta (0 fuera de los volúmenes)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los campos nuevos de las luces y las mallas (<code>bakeMode</code>, <code>staticLighting</code>, <code>lightmapScale</code>...) se leen y se cambian desde Lua
+como los demás campos de los componentes. Cambiarlos jugando no vuelve a hornear: el horneado se hace en el editor.</p>
+<h2 id="10-tiempos-y-memoria">10. Tiempos y memoria<a class="ancla" href="#10-tiempos-y-memoria" aria-label="Enlace a esta sección">#</a></h2>
+<p>Medido en un AMD Ryzen 7 7800X3D (15 hilos para el horneado; el editor se queda con uno):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Escena</th>
+  <th>Calidad</th>
+  <th>Texeles</th>
+  <th>Sondas</th>
+  <th>Tiempo</th>
+  <th>Lightmaps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>La casa del ejemplo (18 objetos)</td>
+  <td>Borrador</td>
+  <td>6 576</td>
+  <td>352</td>
+  <td>0,2 s</td>
+  <td>1 textura de 1024 (4 MB)</td>
+</tr>
+<tr>
+  <td>La casa del ejemplo</td>
+  <td>Media</td>
+  <td>22 470</td>
+  <td>352</td>
+  <td>0,3 s</td>
+  <td>1 textura de 1024 (4 MB)</td>
+</tr>
+<tr>
+  <td>La casa del ejemplo</td>
+  <td>Alta</td>
+  <td>22 470</td>
+  <td>352</td>
+  <td>1,0 s</td>
+  <td>1 textura de 1024 (4 MB)</td>
+</tr>
+<tr>
+  <td>La casa del ejemplo, 20 texeles/m</td>
+  <td>Alta</td>
+  <td>81 936</td>
+  <td>352</td>
+  <td>3,5 s</td>
+  <td>1 textura de 1024 (4 MB)</td>
+</tr>
+<tr>
+  <td>Un piso de 12 habitaciones (180 objetos, 53 000 triángulos)</td>
+  <td>Media</td>
+  <td>137 220</td>
+  <td>1 440</td>
+  <td>2,3 s</td>
+  <td>1 textura de 1024 (4 MB)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>El horneado lanza unos 35 millones de rayos por segundo en ese procesador. Una casa de verdad con modelos detallados
+tarda unos segundos en Media; en Alta, unas 4 veces más.</li>
+<li><strong>Memoria de vídeo</strong>: 4 bytes por texel (una textura de 1024 son 4 MB y una de 2048, 16 MB) y las mallas con su segundo
+juego de UV (el panel lo dice).</li>
+<li><strong>Al jugar</strong>: una lectura de textura por píxel en las mallas estáticas y nada por las luces Horneadas. Las sondas se
+calculan una vez por objeto y frame en la CPU (unos microsegundos).</li>
+</ul>
+<h2 id="11-problemas-frecuentes">11. Problemas frecuentes<a class="ancla" href="#11-problemas-frecuentes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué se ve</th>
+  <th>Qué hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>La sala sigue igual de clara que antes</td>
+  <td>Las paredes no son estáticas (marca la selección), o falta hornear, o la casilla <strong>Usar la iluminación horneada</strong> está desmarcada</td>
+</tr>
+<tr>
+  <td>Todo muy oscuro</td>
+  <td>Normal en un interior cerrado: abre ventanas, pon una lámpara Horneada, sube la <strong>Exposición</strong> del Entorno o la <strong>Intensidad indirecta</strong></td>
+</tr>
+<tr>
+  <td>Luz que se cuela por debajo de una pared o por una esquina</td>
+  <td>Que las paredes se toquen (sin huecos) y que tengan grosor (no un plano de una cara); las piezas que se cruzan dentro de una pared no dan problemas</td>
+</tr>
+<tr>
+  <td>Manchas o ruido</td>
+  <td>Calidad <strong>Alta</strong> y <strong>Quitar el ruido</strong> activado</td>
+</tr>
+<tr>
+  <td>Sombras horneadas borrosas o en escalera</td>
+  <td>Más <strong>Densidad</strong>, o más <strong>Escala del lightmap</strong> en ese objeto (mira la vista Densidad de texeles)</td>
+</tr>
+<tr>
+  <td>Costuras entre dos objetos</td>
+  <td>Más densidad en los dos; las islas de un mismo objeto ya tienen margen</td>
+</tr>
+<tr>
+  <td>Un personaje se ve con la luz de la habitación de al lado</td>
+  <td>Más sondas (menos <strong>Separación</strong>) o un volumen por habitación</td>
+</tr>
+<tr>
+  <td>«Desactualizada» aunque no he cambiado nada que se vea</td>
+  <td>Has cambiado algo que cuenta para la luz (un material, una luz, la escala de algo): vuelve a hornear</td>
+</tr>
+<tr>
+  <td>El metal refleja el cielo dentro de una casa</td>
+  <td>Pon una <strong>Sonda de reflejos</strong> de la sala (<a href="#7-reflejos-en-interiores">7</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="12-claves-de-projectnova-y-campos-de-los-componentes">12. Claves de <code>project.nova</code> y campos de los componentes<a class="ancla" href="#12-claves-de-projectnova-y-campos-de-los-componentes" aria-label="Enlace a esta sección">#</a></h2>
+<p>Sección <code>&quot;iluminacion&quot;</code> de <code>project.nova</code> (la escribe el panel):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Valores</th>
+  <th>Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>calidad</code></td>
+  <td><code>&quot;Borrador&quot;</code>, <code>&quot;Media&quot;</code>, <code>&quot;Alta&quot;</code></td>
+  <td><code>&quot;Media&quot;</code></td>
+</tr>
+<tr>
+  <td><code>densidad</code></td>
+  <td>texeles por metro (0,25 a 200)</td>
+  <td>10</td>
+</tr>
+<tr>
+  <td><code>tamanoPagina</code></td>
+  <td>512, 1024, 2048 o 4096</td>
+  <td>1024</td>
+</tr>
+<tr>
+  <td><code>rebotes</code></td>
+  <td>0 (los de la calidad) a 8</td>
+  <td>0</td>
+</tr>
+<tr>
+  <td><code>eliminarRuido</code></td>
+  <td><code>true</code> / <code>false</code></td>
+  <td><code>true</code></td>
+</tr>
+<tr>
+  <td><code>intensidadIndirecta</code></td>
+  <td>0 a 10</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td><code>intensidadCielo</code></td>
+  <td>0 a 10</td>
+  <td>1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Campos nuevos:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Componente</th>
+  <th>Campo</th>
+  <th>Inspector</th>
+  <th>Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Malla</td>
+  <td><code>staticLighting</code></td>
+  <td>Estático (iluminación)</td>
+  <td><code>false</code></td>
+</tr>
+<tr>
+  <td>Malla</td>
+  <td><code>lightmapScale</code></td>
+  <td>Escala del lightmap</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>Luz direccional</td>
+  <td><code>bakeMode</code></td>
+  <td>Modo de horneado</td>
+  <td>Mixta</td>
+</tr>
+<tr>
+  <td>Luz direccional</td>
+  <td><code>bakeShadowAngle</code></td>
+  <td>Tamaño del sol (grados)</td>
+  <td>1</td>
+</tr>
+<tr>
+  <td>Luz puntual y foco</td>
+  <td><code>bakeMode</code></td>
+  <td>Modo de horneado</td>
+  <td>Mixta</td>
+</tr>
+<tr>
+  <td>Luz puntual y foco</td>
+  <td><code>bakeShadowRadius</code></td>
+  <td>Radio de la bombilla (metros)</td>
+  <td>0,1</td>
+</tr>
+<tr>
+  <td>Volumen de sondas</td>
+  <td><code>size</code></td>
+  <td>Tamaño</td>
+  <td>8 × 3 × 8</td>
+</tr>
+<tr>
+  <td>Volumen de sondas</td>
+  <td><code>spacing</code></td>
+  <td>Separación</td>
+  <td>1</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="13-límites">13. Límites<a class="ancla" href="#13-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>No se hornean</strong> el terreno, la vegetación pintada, el agua ni las carreteras: ni reciben lightmap ni tapan la luz en el
+horneado. Una casa sobre un terreno funciona (su suelo es una malla), pero el terreno de fuera no rebota luz por la
+ventana.</li>
+<li><strong>Mallas con huesos</strong>: no son estáticas; las iluminan las sondas.</li>
+<li><strong>Recorte (alfa)</strong>: los materiales con <strong>Recorte</strong> (hojas, rejas) tapan la luz como si fueran opacos.</li>
+<li><strong>Mapas de normales</strong>: el lightmap guarda la luz de la superficie, sin el relieve del mapa de normales (la luz directa
+en tiempo real sí lo tiene).</li>
+<li>Las mallas con lightmap se dibujan siempre con su nivel de detalle completo (sin LOD) y sin juntar copias.</li>
+<li>Las sondas se evalúan <strong>por objeto</strong> (en su centro): un objeto muy grande que cruza de una zona clara a otra oscura
+recibe la luz de su centro.</li>
+<li>Las <strong>sondas de reflejos</strong> se capturan al cargar la escena (no se guardan en el fichero de la iluminación).</li>
+<li>La iluminación horneada no cambia en el juego: abrir una puerta o apagar una lámpara Horneada no cambia la luz
+rebotada (para eso, luces de Tiempo real).</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="render.html"><small>Anterior</small>Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a><a class="sig" href="niebla-volumetrica.html"><small>Siguiente</small>Niebla y luz volumétrica</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-paso-a-paso-hornear-una-casa">1. Paso a paso: hornear una casa</a></li><li class="n2"><a href="#2-qué-se-hornea">2. Qué se hornea</a></li><li class="n2"><a href="#3-las-luces-horneada-mixta-o-tiempo-real">3. Las luces: Horneada, Mixta o Tiempo real</a></li><li class="n2"><a href="#4-el-panel-iluminación">4. El panel Iluminación</a></li><li class="n2"><a href="#5-el-segundo-juego-de-uv-y-la-densidad-de-texeles">5. El segundo juego de UV y la densidad de texeles</a></li><li class="n2"><a href="#6-sondas-de-luz-lo-que-se-mueve">6. Sondas de luz: lo que se mueve</a></li><li class="n2"><a href="#7-reflejos-en-interiores">7. Reflejos en interiores</a></li><li class="n2"><a href="#8-ficheros-edición-en-equipo-y-publicar">8. Ficheros, edición en equipo y publicar</a></li><li class="n2"><a href="#9-desde-lua">9. Desde Lua</a></li><li class="n2"><a href="#10-tiempos-y-memoria">10. Tiempos y memoria</a></li><li class="n2"><a href="#11-problemas-frecuentes">11. Problemas frecuentes</a></li><li class="n2"><a href="#12-claves-de-projectnova-y-campos-de-los-componentes">12. Claves de project.nova y campos de los componentes</a></li><li class="n2"><a href="#13-límites">13. Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

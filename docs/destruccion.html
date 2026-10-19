@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Destrucción de objetos · Nova Engine</title>
+<meta name="description" content="Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo, cajas que revientan y barriles
+que explotan: lo que en UE5 hace Chaos Destruction. Se hace en dos pasos:">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Destrucción de objetos · Nova Engine">
+<meta property="og:description" content="Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo, cajas que revientan y barriles
+que explotan: lo que en UE5 hace Chaos Destruction. Se hace en dos pasos:">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/destruccion.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/destruccion.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html" aria-current="page">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="destrucción-de-objetos">Destrucción de objetos</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-paso-a-paso-romper-una-puerta">1. Paso a paso: romper una puerta</a></li><li class="n2"><a href="#2-la-ventana-fracturar">2. La ventana Fracturar</a></li><li class="n3"><a href="#materiales-de-fuera-y-de-dentro">Materiales de fuera y de dentro</a></li><li class="n2"><a href="#3-el-componente-destructible">3. El componente Destructible</a></li><li class="n3"><a href="#casas-y-objetos-huecos">Casas y objetos huecos</a></li><li class="n2"><a href="#4-daño-golpes-disparos-y-explosiones">4. Daño: golpes, disparos y explosiones</a></li><li class="n2"><a href="#5-anclaje-y-conectividad">5. Anclaje y conectividad</a></li><li class="n2"><a href="#6-campos-de-destrucción">6. Campos de destrucción</a></li><li class="n2"><a href="#7-restos-dormir-desvanecer-y-el-límite-de-trozos">7. Restos: dormir, desvanecer y el límite de trozos</a></li><li class="n2"><a href="#8-efectos-y-eventos-en-lua">8. Efectos y eventos en Lua</a></li><li class="n2"><a href="#9-referencia-de-lua">9. Referencia de Lua</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#13-límites-conocidos">13. Límites conocidos</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo, cajas que revientan y barriles
+que explotan: lo que en UE5 hace <strong>Chaos Destruction</strong>. Se hace en dos pasos:</p>
+<ol>
+<li>En el editor, <strong>Ventana &gt; Fracturar</strong> parte la malla de un objeto en trozos (como el <em>Fracture Mode</em> de UE5) y la guarda
+como un asset <strong>.destructible</strong> (la «Geometry Collection» de Chaos).</li>
+<li>El componente <strong>Destructible</strong> usa ese asset. Mientras está entero se dibuja como una malla normal. Cuando recibe daño, se
+rompe en trozos con físicas, y esos trozos pueden romperse a su vez en otros más pequeños. Los trozos sujetos (el marco
+de una puerta, la base de una pared) se quedan en su sitio, y el resto cae.</li>
+</ol>
+<p>Funciona en multijugador: solo el servidor decide qué se rompe, y los clientes (también quien entra tarde) ven lo mismo.</p>
+<p>El ejemplo <code>game/destruccion_lua</code> tiene una puerta de madera, una ventana de cristal, una pared de ladrillo, un muro de
+hormigón, cajas y un barril explosivo, con el jugador del paquete «Primera persona». Se dispara con el clic izquierdo y se
+pone una carga explosiva con G o con el botón derecho.</p>
+<p>Las capturas están en <code>capturas-destruccion/</code> (en la carpeta del código): el ejemplo entero (<code>juego-entero.png</code>), después
+de romperlo (<code>juego-roto.png</code>) y la ventana Fracturar (<code>editor-fracturar.png</code>).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-paso-a-paso-romper-una-puerta">Paso a paso: romper una puerta</a></li>
+<li><a href="#2-la-ventana-fracturar">La ventana Fracturar</a></li>
+<li><a href="#3-el-componente-destructible">El componente Destructible</a><ul>
+<li><a href="#casas-y-objetos-huecos">Casas y objetos huecos</a></li>
+</ul>
+</li>
+<li><a href="#4-daño-golpes-disparos-y-explosiones">Daño: golpes, disparos y explosiones</a></li>
+<li><a href="#5-anclaje-y-conectividad">Anclaje y conectividad</a></li>
+<li><a href="#6-campos-de-destrucción">Campos de destrucción</a></li>
+<li><a href="#7-restos-dormir-desvanecer-y-el-límite-de-trozos">Restos: dormir, desvanecer y el límite de trozos</a></li>
+<li><a href="#8-efectos-y-eventos-en-lua">Efectos y eventos en Lua</a></li>
+<li><a href="#9-referencia-de-lua">Referencia de Lua</a></li>
+<li><a href="#10-multijugador">Multijugador</a></li>
+<li><a href="#11-rendimiento">Rendimiento</a></li>
+<li><span class="enlace-interno-quitado">Para quien desarrolla el motor</span></li>
+<li><a href="#13-límites-conocidos">Límites conocidos</a></li>
+</ol>
+<h2 id="1-paso-a-paso-romper-una-puerta">1. Paso a paso: romper una puerta<a class="ancla" href="#1-paso-a-paso-romper-una-puerta" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><p>Crea la puerta: <strong>Entidad &gt; Objeto 3D &gt; Cubo</strong>, con <strong>Escala</strong> = (1, 2, 0,08) y <strong>Posición</strong> = (0, 1, 0). Pon un marco
+alrededor con tres cubos más (con su <strong>Colisionador</strong>).</p>
+</li>
+<li><p>Con la puerta seleccionada, abre <strong>Ventana &gt; Fracturar</strong>. La ventana toma la malla de la entidad seleccionada.</p>
+<ul>
+<li>Si la escala no es igual en los tres ejes, deja marcado <strong>Hornear la escala de la entidad</strong>. Así los trozos no salen
+estirados.</li>
+</ul>
+</li>
+<li><p>Elige los niveles de fractura:</p>
+<ul>
+<li><strong>Material</strong>: Madera (caras interiores de madera astillada, polvo y astillas al romperse).</li>
+<li><strong>Nivel 1</strong>: método <strong>Planos</strong>, <strong>Cortes</strong> = 5, <strong>Eje de los cortes</strong> = X y <strong>Giro al azar</strong> = 6°. Salen tablones verticales.</li>
+<li><strong>Añadir nivel</strong>. <strong>Nivel 2</strong>: <strong>Voronoi uniforme</strong> con 4 trozos. Cada tablón se rompe en astillas.</li>
+</ul>
+</li>
+<li><p>Mira la vista previa:</p>
+<ul>
+<li><strong>Explotar vista</strong> separa los trozos;</li>
+<li><strong>Colores por trozo</strong> pinta cada uno de un color;</li>
+<li><strong>Nivel que se ve</strong> cambia entre los tablones y las astillas;</li>
+<li>el número de trozos y de triángulos aparece arriba.</li>
+</ul>
+<p>Arrastra para orbitar, usa la rueda para acercarte y pulsa F para encuadrar.</p>
+</li>
+<li><p>Pulsa <strong>Guardar y hacer destructible</strong>. Esto hace dos cosas, y cada una es un paso de <strong>Deshacer</strong> (Ctrl+Z):</p>
+<ul>
+<li>guarda <code>assets/destructibles/&lt;nombre&gt;.destructible</code>;</li>
+<li>cambia el <strong>Renderizador de malla</strong> de la entidad por el componente <strong>Destructible</strong>. Si la entidad tenía un
+Colisionador sin cuerpo rígido, también lo quita, porque el destructible lleva su propia colisión.</li>
+</ul>
+</li>
+<li><p>En el <strong>Inspector</strong>, en el componente <strong>Destructible</strong>:</p>
+<ul>
+<li>pon <strong>Anclaje</strong> = <strong>Marco</strong> (sujeta por los lados y arriba) y <strong>Profundidad del anclaje</strong> = 0,05;</li>
+<li>deja <strong>Umbrales de daño</strong> = 100, 50 y 25 (el primero rompe la puerta entera; el segundo, un tablón...).</li>
+</ul>
+</li>
+<li><p>Para romperla jugando, en un script del jugador o de un arma:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(camara.position, camara.transform.forward, <span class="hl-n">50</span>)
+<span class="hl-k">if</span> golpe <span class="hl-k">and</span> <span class="hl-t">Destruction</span>.<span class="hl-f">IsDestructible</span>(golpe.entity) <span class="hl-k">then</span>
+    <span class="hl-t">Destruction</span>.<span class="hl-f">ApplyDamage</span>(golpe.entity, golpe.point, <span class="hl-n">40</span>, <span class="hl-n">0.15</span>) <span class="hl-c">-- 40 de daño en un radio de 15 cm</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>El primer disparo que llega a 100 rompe la puerta en tablones. Los tablones del marco se quedan sujetos; los demás caen
+si nada los sujeta. Los disparos siguientes astillan los tablones.</p>
+</li>
+</ol>
+<p>La ventana de cristal se hace igual:</p>
+<ul>
+<li>método <strong>Radial</strong>, con el <strong>Punto de impacto</strong> donde quieras que salga el centro de la rotura;</li>
+<li><strong>Material</strong> Cristal y <strong>Anclaje</strong> Marco;</li>
+<li>umbrales bajos (8 y 4).</li>
+</ul>
+<p>Una pared de ladrillo:</p>
+<ul>
+<li>método <strong>Rejilla</strong> (10 columnas × 14 filas con <strong>Aparejo de ladrillo</strong>);</li>
+<li><strong>Anclaje</strong> Base.</li>
+</ul>
+<h2 id="2-la-ventana-fracturar">2. La ventana Fracturar<a class="ancla" href="#2-la-ventana-fracturar" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ventana &gt; Fracturar</strong>, o doble clic en un <code>.destructible</code> en <strong>Contenido</strong> para volver a abrir su receta.</p>
+<p><strong>Origen</strong>: <strong>Usar la selección</strong> toma la malla del Renderizador de malla de la entidad seleccionada.</p>
+<ul>
+<li>Vale un modelo glTF/FBX o una primitiva.</li>
+<li>Respeta el pivote de <strong>Editar pivote</strong> (<code>meshOffset</code> del Renderizador de malla): el desplazamiento se hornea en el asset y
+los trozos quedan exactamente donde se veía la malla.</li>
+<li>Las mallas con huesos no se pueden fracturar.</li>
+<li>Si la entidad ya es Destructible, carga la receta de su asset, para volver a fracturarla con otros números.</li>
+</ul>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>Qué hace</th>
+  <th>Para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Voronoi uniforme</strong></td>
+  <td>N trozos al azar repartidos por dentro de la malla</td>
+  <td>Cajas, rocas, hormigón</td>
+</tr>
+<tr>
+  <td><strong>Voronoi agrupado</strong></td>
+  <td>Clústeres (zonas con muchos trozos pequeños) más unos trozos sueltos</td>
+  <td>Impactos, esquinas rotas</td>
+</tr>
+<tr>
+  <td><strong>Planos</strong></td>
+  <td>Cortes rectos, perpendiculares a un eje con un giro al azar, o en cualquier dirección</td>
+  <td>Tablones, vigas, cristal en tiras</td>
+</tr>
+<tr>
+  <td><strong>Radial</strong></td>
+  <td>Anillos y radios alrededor de un punto: trozos pequeños cerca del impacto y grandes lejos</td>
+  <td>Cristal, hielo</td>
+</tr>
+<tr>
+  <td><strong>Rejilla</strong></td>
+  <td>Rebanadas en X, Y y Z, con aparejo de ladrillo (filas desplazadas media pieza) y algo de desorden</td>
+  <td>Paredes de ladrillo, bloques</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Semilla</strong>: la misma semilla da siempre los mismos trozos (en todas las máquinas).</li>
+<li><strong>Niveles</strong>: cada nivel parte los trozos del anterior. Al jugar, los trozos grandes se rompen primero y luego en otros más
+pequeños, como los clústeres de Chaos. Hay hasta 4 niveles y 4000 trozos en total.</li>
+<li><strong>Caras interiores</strong>: los cortes se tapan con caras nuevas. Su material se elige en la <a href="#materiales-de-fuera-y-de-dentro">sección de materiales</a>.</li>
+<li>Todos los trozos son <strong>cerrados</strong> (sin agujeros: la prueba lo comprueba) y entre todos suman el volumen del original.</li>
+<li><strong>Guardar asset</strong> guarda el <code>.destructible</code> sin tocar la escena.</li>
+<li><strong>Guardar y hacer destructible</strong> guarda el asset y además pone el componente en la entidad.</li>
+</ul>
+<h3 id="materiales-de-fuera-y-de-dentro">Materiales de fuera y de dentro<a class="ancla" href="#materiales-de-fuera-y-de-dentro" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Por fuera</strong>, los trozos llevan los <strong>materiales originales del modelo</strong>, con sus texturas y sus UV: un modelo glTF o FBX
+con varios materiales (un cofre de madera con herrajes de oro, un reloj, una corona) sigue igual por fuera. El asset guarda
+una <strong>ranura</strong> por cada material del modelo y cada triángulo recuerda la suya.</p>
+<ul>
+<li>Si el Renderizador de malla cambiaba algún material, «Guardar y hacer destructible» lo pasa a <strong>Materiales del modelo</strong> del
+componente, en su ranura.</li>
+<li>El campo <strong>Material</strong> del componente pone toda la superficie con un solo material.</li>
+</ul>
+<p><strong>Por dentro</strong> (los cortes), <strong>Caras interiores</strong> tiene tres opciones:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué se ve en los cortes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Material de partida</strong></td>
+  <td>El del <strong>Material</strong> de la receta: madera astillada, hormigón partido, cristal, ladrillo o metal. Si se pone un <strong>Material interior</strong>, ese</td>
+</tr>
+<tr>
+  <td><strong>El del modelo</strong></td>
+  <td>El mismo material que la superficie de la que sale el corte. En un modelo de varios materiales, cada corte toma el de la submalla que corta: oro por dentro del oro y madera por dentro de la madera</td>
+</tr>
+<tr>
+  <td><strong>Material</strong></td>
+  <td>Un <code>.mat</code> del proyecto: arrástralo desde Contenido al selector o elígelo de la lista</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><p><strong>Material de los cortes de este nivel</strong> (en cada nivel de la ventana, y <strong>Material por nivel</strong> en el componente) manda sobre
+lo anterior. Por ejemplo: el nivel 1 con «El del modelo» y las astillas del nivel 2 con un <code>.mat</code> de madera clara.</p>
+</li>
+<li><p><strong>Proyección UV</strong> de los cortes, para que una textura de madera o de oro no salga estirada:</p>
+<ul>
+<li><strong>Plana</strong>: la textura en el plano de cada corte;</li>
+<li><strong>De caja</strong>: alineada con los ejes del objeto; la veta sigue recta de un trozo al de al lado.</li>
+</ul>
+<p><strong>UV interiores</strong> son las repeticiones de la textura por metro.</p>
+</li>
+</ul>
+<p>El ejemplo trae el <strong>Cofre del tesoro</strong>: un glTF con dos materiales con textura (madera y oro), fracturado con «El del
+modelo», proyección de caja y astillas del nivel 2 con <code>materials/Astillas.mat</code>. Al lado está el mismo cofre sin fracturar,
+para probar la ventana.</p>
+<p>Los <code>.destructible</code> de la 0.9.24 se siguen cargando igual: no tienen ranuras, así que por fuera usan el <strong>Material</strong> del
+componente o el de partida, y sus cortes el de partida.</p>
+<p>El asset guarda tres cosas:</p>
+<ul>
+<li>la malla original intacta (es la que se dibuja mientras no se rompe);</li>
+<li>los trozos de cada nivel, con sus caras interiores, su volumen y su centro;</li>
+<li>los puntos de su colisión (la envolvente de cada trozo y, si no es convexo, sus partes convexas), qué trozos se tocan
+(la conectividad) y la receta.</li>
+</ul>
+<p>Es un fichero binario de <code>assets/</code>. Llega a la edición en equipo como cualquier otro fichero. El cambio de la entidad viaja
+como un comando que espera a que el servidor de equipo tenga el fichero.</p>
+<h2 id="3-el-componente-destructible">3. El componente Destructible<a class="ancla" href="#3-el-componente-destructible" aria-label="Enlace a esta sección">#</a></h2>
+<p>Categoría <strong>Física</strong>. No necesita Colisionador ni Cuerpo rígido: el destructible crea su propia colisión.</p>
+<ul>
+<li>Entero, la que diga <strong>Colisión entera</strong>: la envolvente convexa si el objeto es convexo (una caja, un barril) y su forma
+real si es hueco (una casa, un arco). Ver <a href="#casas-y-objetos-huecos">Casas y objetos huecos</a>.</li>
+<li>Roto, una por trozo. Un trozo no convexo (suelo y pared en L, dos pedazos de pared sueltos) se parte en varias partes
+convexas, para que su colisión no rellene la esquina.</li>
+</ul>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>asset</code> (Asset)</td>
+  <td>—</td>
+  <td>El <code>.destructible</code></td>
+</tr>
+<tr>
+  <td><code>preset</code> (Material de partida)</td>
+  <td>Madera</td>
+  <td>Madera, Cristal, Hormigón, Ladrillo, Metal o Personalizado: colores interiores, partículas, densidad y rebote</td>
+</tr>
+<tr>
+  <td><code>material</code> (Material)</td>
+  <td>vacío</td>
+  <td>Toda la superficie con este material (vacío = los materiales del modelo)</td>
+</tr>
+<tr>
+  <td><code>materials</code> (Materiales del modelo)</td>
+  <td>vacío</td>
+  <td>Uno por material del modelo, en su orden (vacío = el del modelo)</td>
+</tr>
+<tr>
+  <td><code>interiorMode</code> (Caras interiores)</td>
+  <td>Material de partida</td>
+  <td>Material de partida, El del modelo o Material (<a href="#materiales-de-fuera-y-de-dentro">materiales</a>)</td>
+</tr>
+<tr>
+  <td><code>interiorMaterial</code> (Material interior)</td>
+  <td>vacío</td>
+  <td>El <code>.mat</code> de los cortes (modo Material; con Material de partida, si se pone, manda)</td>
+</tr>
+<tr>
+  <td><code>interiorLevelMaterials</code> (Material por nivel)</td>
+  <td>vacío</td>
+  <td>El material de los cortes de cada nivel (1, 2...); manda sobre lo anterior</td>
+</tr>
+<tr>
+  <td><code>simulation</code> (Simulación)</td>
+  <td>Estático</td>
+  <td><strong>Estático</strong>: no se mueve hasta romperse (paredes, puertas). <strong>Dinámico</strong>: entero es un cuerpo rígido (cajas, barriles) y la entidad lo sigue</td>
+</tr>
+<tr>
+  <td><code>intactCollision</code> (Colisión entera)</td>
+  <td>Automática</td>
+  <td>Con qué choca el objeto entero: <strong>Automática</strong>, <strong>Convexa</strong>, <strong>Trozos</strong> o <strong>Malla</strong> (<a href="#casas-y-objetos-huecos">casas y objetos huecos</a>)</td>
+</tr>
+<tr>
+  <td><code>mass</code> (Masa)</td>
+  <td>0</td>
+  <td>kg del objeto entero (0 = por la densidad del material)</td>
+</tr>
+<tr>
+  <td><code>damageThresholds</code> (Umbrales de daño)</td>
+  <td>100, 50, 25</td>
+  <td>Daño que rompe un trozo de cada nivel: el primero, el objeto entero; el segundo, sus trozos... El último vale para los niveles siguientes</td>
+</tr>
+<tr>
+  <td><code>impactDamage</code> (Daño por golpe)</td>
+  <td>20</td>
+  <td>Daño de un golpe de físicas por cada m/s que cambia la velocidad del trozo</td>
+</tr>
+<tr>
+  <td><code>minImpactSpeed</code> (Golpe mínimo)</td>
+  <td>3</td>
+  <td>m/s: los golpes más flojos no hacen daño</td>
+</tr>
+<tr>
+  <td><code>releaseSpeed</code> (Velocidad al soltarse)</td>
+  <td>2</td>
+  <td>m/s con los que salen los trozos golpeados, por cada 100 de daño</td>
+</tr>
+<tr>
+  <td><code>anchor</code> (Anclaje)</td>
+  <td>Base</td>
+  <td>Ninguno, Base, Marco, Lados, Arriba o Caja (<a href="#5-anclaje-y-conectividad">sección 5</a>)</td>
+</tr>
+<tr>
+  <td><code>anchorDepth</code></td>
+  <td>0,1</td>
+  <td>m desde el borde que cuentan como anclados</td>
+</tr>
+<tr>
+  <td><code>connectivity</code> (Conectividad)</td>
+  <td>sí</td>
+  <td>Lo que pierde el apoyo cae</td>
+</tr>
+<tr>
+  <td><code>debrisVolume</code> (Volumen de resto)</td>
+  <td>0,004</td>
+  <td>m³: los trozos más pequeños son <strong>restos</strong></td>
+</tr>
+<tr>
+  <td><code>debrisLifetime</code>, <code>fadeTime</code></td>
+  <td>8, 1</td>
+  <td>s hasta que un resto se desvanece (0 = nunca) y lo que tarda</td>
+</tr>
+<tr>
+  <td><code>freezeSleeping</code> (Congelar dormidos)</td>
+  <td>sí</td>
+  <td>Los restos quietos se quedan dibujados pero sin físicas</td>
+</tr>
+<tr>
+  <td><code>collision</code> (Colisión de los trozos)</td>
+  <td>Convexa</td>
+  <td>Forma de cada trozo: <strong>Convexa</strong> (su envolvente, o sus partes convexas si el trozo no es convexo; 32 puntos como mucho cada una) o <strong>Caja</strong></td>
+</tr>
+<tr>
+  <td><code>effects</code>, <code>breakSound</code>, <code>effectScale</code></td>
+  <td>sí, —, 1</td>
+  <td>Partículas y sonido al romperse (<a href="#8-efectos-y-eventos-en-lua">sección 8</a>)</td>
+</tr>
+<tr>
+  <td><code>replicateVolume</code> (Volumen replicado)</td>
+  <td>0,05</td>
+  <td>m³: en red, los trozos mayores se replican con su posición (<a href="#10-multijugador">sección 10</a>)</td>
+</tr>
+<tr>
+  <td><code>destroyedFraction</code></td>
+  <td>0,25</td>
+  <td>Cuándo llega <code>OnFullyDestroyed</code>: cuando queda en su sitio menos de esta fracción</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los campos de estado se leen al jugar y no se guardan:</p>
+<ul>
+<li><code>broken</code>: está roto;</li>
+<li><code>destroyed</code>: destruido del todo;</li>
+<li><code>brokenLevel</code>: el nivel más profundo que se ha roto;</li>
+<li><code>loosePieces</code> y <code>attachedPieces</code>: trozos sueltos y en su sitio;</li>
+<li><code>remaining</code>: fracción del volumen que sigue en su sitio.</li>
+</ul>
+<h3 id="casas-y-objetos-huecos">Casas y objetos huecos<a class="ancla" href="#casas-y-objetos-huecos" aria-label="Enlace a esta sección">#</a></h3>
+<p>Una casa en la que se entra, un arco, una tubería o un marco son <strong>huecos</strong>: su envolvente convexa (la «goma elástica»
+que los envuelve) es un bloque macizo que rellena las habitaciones. Hasta ahora el destructible entero chocaba con esa
+envolvente, así que el jugador no podía entrar por la puerta o, si aparecía dentro, se quedaba encajado en el suelo sin
+poder andar. Lo mismo pasaba roto con los trozos en L (un pedazo de suelo con su pared): su envolvente rellenaba la
+esquina.</p>
+<p><strong>Colisión entera</strong> (<code>intactCollision</code>) dice con qué choca el objeto mientras no se ha roto:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué hace</th>
+  <th>Para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Automática</strong> (por defecto)</td>
+  <td>Si el objeto es convexo, <strong>Convexa</strong>. Si es hueco (ocupa claramente menos que su envolvente), <strong>Malla</strong> en Estático y <strong>Trozos</strong> en Dinámico</td>
+  <td>Casi siempre</td>
+</tr>
+<tr>
+  <td><strong>Convexa</strong></td>
+  <td>La envolvente convexa del objeto entero (la de antes). La más barata, pero rellena los huecos</td>
+  <td>Cajas, barriles, rocas</td>
+</tr>
+<tr>
+  <td><strong>Trozos</strong></td>
+  <td>Las partes convexas de los trozos del nivel 1 juntas, en un solo cuerpo: sigue la forma real</td>
+  <td>Objetos huecos dinámicos, o estáticos con muchísimos triángulos</td>
+</tr>
+<tr>
+  <td><strong>Malla</strong></td>
+  <td>Los triángulos exactos de la malla. Solo en <strong>Estático</strong> (en Dinámico se usa Trozos)</td>
+  <td>Casas, edificios, arcos</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con <strong>Malla</strong>, al romperse, los trozos que siguen en su sitio y no son convexos también usan sus triángulos exactos: el
+suelo de una casa rota queda exactamente donde se ve, sin escalones ni solapes. Los trozos que caen usan sus partes
+convexas.</p>
+<p><strong>Las partes convexas</strong> las calcula <strong>Fracturar</strong> al guardar (una descomposición convexa aproximada propia, sin
+librerías): primero separa los pedazos sueltos de cada trozo y luego, mientras una parte rellene huecos, la corta por el
+plano que más reduce el volumen de las envolventes (los planos de sus paredes y de los ejes). Un trozo tiene como mucho
+16 partes. La ventana dice cuántos trozos no son convexos y avisa si alguno sigue rellenando huecos:
+«X trozos no convexos: su colisión rellenará huecos».</p>
+<p><strong>Qué poner en una casa:</strong></p>
+<ol>
+<li><strong>Simulación</strong> Estático y <strong>Anclaje</strong> Base, con <strong>Profundidad del anclaje</strong> algo mayor que el grosor del suelo (el suelo
+entero queda sujeto).</li>
+<li><strong>Colisión entera</strong> Automática (saldrá Malla). Fracturar te dice «Objeto hueco (ocupa el 30 por ciento de su envolvente)».</li>
+<li>Mejor <strong>Voronoi</strong> con bastantes trozos (40 o más) o <strong>Rejilla</strong>: cuanto más pequeños, más se parecen a trozos de pared y
+de suelo.</li>
+</ol>
+<p><strong>Consejo: separa las paredes, el suelo, el techo y las puertas.</strong> Una casa hecha de varios objetos destructibles (cada
+pared, el suelo, el tejado, cada puerta y cada ventana por su cuenta) se comporta mejor que una sola malla:</p>
+<ul>
+<li>cada pieza es casi convexa, su colisión es exacta y barata, y sus trozos no mezclan suelo y pared;</li>
+<li>cada una lleva sus umbrales, su material (cristal en las ventanas, madera en las puertas) y su anclaje (Marco en las
+puertas y ventanas, Base en las paredes);</li>
+<li>al romper una pared no se recalcula nada del resto de la casa.</li>
+</ul>
+<p>El suelo de una casa por la que se anda, si no se tiene que romper, mejor como malla normal con su <strong>Colisionador</strong>.</p>
+<p>Los <code>.destructible</code> guardados antes (las versiones 1 y 2 del fichero) no traen las partes convexas: se calculan al cargarlos
+y el registro avisa («se ha recalculado su colisión al cargarlo»). Vuelve a guardarlos en Fracturar para no tener que
+calcularlas cada vez. La colisión es local en cada máquina: no cambia lo que se envía por la red, ni el estado, ni la
+huella del asset (un servidor con el fichero nuevo y un cliente con el viejo se entienden).</p>
+<p>Los trozos no son entidades: los lleva el sistema de la destrucción. Así no llenan la Jerarquía y cuestan mucho menos. Sus
+cuerpos tienen el Uuid de la entidad, por eso un <code>Physics.Raycast</code> contra un trozo devuelve la entidad del objeto roto.</p>
+<h2 id="4-daño-golpes-disparos-y-explosiones">4. Daño: golpes, disparos y explosiones<a class="ancla" href="#4-daño-golpes-disparos-y-explosiones" aria-label="Enlace a esta sección">#</a></h2>
+<p>El daño se acumula en cada trozo. Cuando el daño de un trozo llega al umbral de su nivel:</p>
+<ul>
+<li><strong>Si tiene hijos</strong> (otro nivel), se rompe en ellos. Lo que sobra del daño sigue rompiendo a los hijos de alrededor del punto.</li>
+<li><strong>Si es un trozo final y está en su sitio</strong>, se suelta y sale disparado desde el punto del golpe (un ladrillo que salta).</li>
+</ul>
+<p>Puede venir de cuatro sitios:</p>
+<ul>
+<li><strong>Golpes de físicas</strong>: un coche contra una pared, una caja que cae desde un tejado, un trozo que cae al suelo.<ul>
+<li>El daño sale de cuánto cambia la velocidad del trozo golpeado (impulso del choque entre su masa), por encima de
+<strong>Golpe mínimo</strong>, por <strong>Daño por golpe</strong>.</li>
+<li>Un bloque de 400 kg que cae desde 4 m sobre una caja de 25 kg le cambia la velocidad unos 8 m/s: (8 − 3) × 20 = 100 de
+daño.</li>
+<li>Los trozos que caen también se rompen al llegar al suelo si caen desde alto.</li>
+</ul>
+</li>
+<li><strong>Lua</strong>: <code>destructible:ApplyDamage(punto, cantidad, radio?)</code> o <code>Destruction.ApplyDamage(entidad, punto, cantidad, radio?)</code>.<ul>
+<li>Con radio 0 solo recibe el trozo más cercano.</li>
+<li>Con radio, todos los trozos del radio, con menos daño cuanto más lejos.</li>
+</ul>
+</li>
+<li><strong>Explosiones</strong>: <code>Destruction.Explode(posicion, radio, fuerza)</code>.<ul>
+<li>Daño <code>fuerza</code> en el centro, que baja hasta 0 en el borde, a todos los destructibles del radio.</li>
+<li>Empuje de <code>fuerza × 0,05</code> m/s en el centro a los trozos y a los cuerpos rígidos dinámicos normales.</li>
+</ul>
+</li>
+<li><strong>Disparos</strong>: el arma lanza un rayo y aplica el daño en el punto.<ul>
+<li>En multijugador lo hace el servidor, en una función <code>[Server]</code>.</li>
+<li>Con <code>Physics.RaycastRewind</code> (compensación de latencia) el escenario no se rebobina. Su resultado trae la entidad y el
+punto como <code>Physics.Raycast</code>, así que vale igual: <code>if golpe and Destruction.IsDestructible(golpe.entity) then ... end</code>.</li>
+<li>Por defecto los rayos no ven la capa <strong>Escombros</strong>. Para dar a los restos pequeños, añádela a <code>layers</code>.</li>
+</ul>
+</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Disparo que rompe lo que toca (un script [Global]: el cliente pide el disparo y el servidor decide)</span>
+<span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">DisparoDestructor</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0, 1000)]</span>
+<span class="hl-t">DisparoDestructor</span>.dano = <span class="hl-n">45</span>
+
+<span class="hl-a">--[Server(rate = 15)]</span>
+<span class="hl-k">function</span> <span class="hl-t">DisparoDestructor</span>:<span class="hl-f">Disparar</span>(origen: <span class="hl-t">Vector3</span>, direccion: <span class="hl-t">Vector3</span>)
+    <span class="hl-c">-- Sin la capa Jugador: el rayo sale de dentro del que dispara</span>
+    <span class="hl-k">local</span> consulta = { layers = <span class="hl-t">Physics</span>.Layer.Static + <span class="hl-t">Physics</span>.Layer.Dynamic + <span class="hl-t">Physics</span>.Layer.Debris }
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(origen, <span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(direccion), <span class="hl-n">100</span>, consulta)
+    <span class="hl-k">if</span> golpe <span class="hl-k">and</span> <span class="hl-t">Destruction</span>.<span class="hl-f">IsDestructible</span>(golpe.entity) <span class="hl-k">then</span>
+        <span class="hl-t">Destruction</span>.<span class="hl-f">ApplyDamage</span>(golpe.entity, golpe.point, <span class="hl-b">self</span>.dano, <span class="hl-n">0.12</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">DisparoDestructor</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> camara <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Disparar</span>(camara.position, camara.transform.forward)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">DisparoDestructor</span></code></pre></div>
+<h2 id="5-anclaje-y-conectividad">5. Anclaje y conectividad<a class="ancla" href="#5-anclaje-y-conectividad" aria-label="Enlace a esta sección">#</a></h2>
+<p>El <strong>Anclaje</strong> dice qué trozos están sujetos al mundo. Esos no caen nunca, salvo que el daño los suelte:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Anclaje</th>
+  <th>Trozos anclados</th>
+  <th>Para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ninguno</td>
+  <td>Ninguno: al romperse cae todo (cada trozo por su cuenta)</td>
+  <td>Estatuas sueltas, objetos colgados de nada</td>
+</tr>
+<tr>
+  <td>Base</td>
+  <td>Los de abajo (a menos de <strong>Profundidad del anclaje</strong> del borde)</td>
+  <td>Paredes, columnas</td>
+</tr>
+<tr>
+  <td>Marco</td>
+  <td>Abajo, a los lados y arriba</td>
+  <td>Puertas y ventanas en su marco</td>
+</tr>
+<tr>
+  <td>Lados</td>
+  <td>Los de los lados en X</td>
+  <td>Tablones entre dos apoyos, puentes</td>
+</tr>
+<tr>
+  <td>Arriba</td>
+  <td>Los de arriba</td>
+  <td>Lámparas, carteles colgados</td>
+</tr>
+<tr>
+  <td>Caja</td>
+  <td>Los que tocan una caja (local)</td>
+  <td>Cualquier otro caso</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con <strong>Conectividad</strong>, después de cada rotura el sistema mira qué trozos siguen unidos, cara con cara, a un trozo anclado.</p>
+<ul>
+<li>Los que no lo están caen, y cada pedazo suelto cae junto, como un solo cuerpo.</li>
+<li>Si a una pared le haces un agujero que la corta de lado a lado, todo lo de encima cae de una pieza.</li>
+<li>Si el agujero no la corta, lo de arriba se queda, sujeto por los lados.</li>
+</ul>
+<p>Sin conectividad, los trozos solo caen cuando el daño los suelta. Un objeto <strong>Dinámico</strong> no tiene anclaje: al romperse,
+todos sus trozos siguen la física.</p>
+<h2 id="6-campos-de-destrucción">6. Campos de destrucción<a class="ancla" href="#6-campos-de-destrucción" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Campo de destrucción</strong> (categoría <strong>Física</strong>) es una esfera que hace daño (el «strain» de los campos de
+Chaos) y empuja los trozos. Sirve para preparar zonas que se rompen con un evento: una pared que vuela en una cinemática, el
+techo que se cae.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>mode</code></td>
+  <td><strong>Al empezar</strong> (una vez al empezar la partida), <strong>Continuo</strong> (cada <code>interval</code> segundos) o <strong>Manual</strong> (<code>campo:Fire()</code> desde Lua)</td>
+</tr>
+<tr>
+  <td><code>radius</code></td>
+  <td>Radio de la esfera (m)</td>
+</tr>
+<tr>
+  <td><code>strain</code></td>
+  <td>Daño en el centro (baja hasta 0 en el borde)</td>
+</tr>
+<tr>
+  <td><code>force</code></td>
+  <td>m/s de empuje hacia fuera en el centro</td>
+</tr>
+</tbody>
+</table></div>
+<p>Desde Lua también se puede hacer sin componente:</p>
+<ul>
+<li><code>Destruction.ApplyStrain(pos, radio, daño)</code>: solo daño;</li>
+<li><code>Destruction.ApplyForce(pos, radio, velocidad)</code>: solo empuje.</li>
+</ul>
+<h2 id="7-restos-dormir-desvanecer-y-el-límite-de-trozos">7. Restos: dormir, desvanecer y el límite de trozos<a class="ancla" href="#7-restos-dormir-desvanecer-y-el-límite-de-trozos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Los trozos con menos volumen que <strong>Volumen de resto</strong> son <strong>restos</strong>:<ul>
+<li>van a la capa <strong>Escombros</strong>, que no choca con los personajes ni con otros restos;</li>
+<li>no generan eventos de choque;</li>
+<li>en red los simula cada máquina.</li>
+</ul>
+</li>
+<li>Un resto quieto medio segundo deja de tener físicas (<strong>Congelar dormidos</strong>): se queda dibujado donde cayó y no cuesta nada.</li>
+<li>Pasados <strong>Vida de los restos</strong> segundos, un resto se desvanece (se encoge en <strong>Desvanecer</strong> segundos) y se quita. Los trozos
+grandes no se quitan nunca, porque tapan el paso y son parte del juego.</li>
+<li><strong>Límite global</strong>: como mucho 1000 trozos sueltos con físicas. Se cambia con <code>Destruction.SetMaxActivePieces(n)</code>. Al
+pasarlo:<ul>
+<li>primero se desvanecen los restos más viejos;</li>
+<li>después, los trozos grandes quietos dejan de simularse (siguen tapando).</li>
+</ul>
+</li>
+<li><strong>LOD de los restos</strong>: los restos no proyectan sombra y dejan de dibujarse a más de 60 m.</li>
+</ul>
+<h2 id="8-efectos-y-eventos-en-lua">8. Efectos y eventos en Lua<a class="ancla" href="#8-efectos-y-eventos-en-lua" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Con <strong>Partículas</strong> activo, cada rotura levanta polvo y suelta astillas, cristales o gravilla del color del material. El
+cristal casi no levanta polvo.</li>
+<li><strong>Sonido al romperse</strong> suena en el punto de la rotura. El ejemplo trae cuatro sintetizados, sin licencias de terceros:
+madera, cristal, ladrillo y explosión.</li>
+<li>En un servidor dedicado no se crean efectos.</li>
+</ul>
+<p>Los scripts de la entidad reciben:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">MiScript</span>:<span class="hl-f">OnBreak</span>(nivel: number, punto: <span class="hl-t">Vector3</span>) <span class="hl-k">end</span> <span class="hl-c">-- se ha roto algo del nivel 'nivel' (1 = el objeto entero)</span>
+<span class="hl-k">function</span> <span class="hl-t">MiScript</span>:<span class="hl-f">OnFullyDestroyed</span>() <span class="hl-k">end</span>                     <span class="hl-c">-- queda en su sitio menos de «Destruido del todo»</span></code></pre></div>
+<ul>
+<li><code>OnBreak</code> llega una vez por nivel y paso de físicas, no una vez por cada trozo.</li>
+<li>En multijugador llega <strong>en todas las máquinas</strong>, porque los clientes reciben la rotura por la red. Así cada una pone sus
+efectos. La lógica del juego (puntos, misiones) va dentro de <code>if IsServer() then ... end</code>.</li>
+</ul>
+<p>El barril explosivo del ejemplo:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Barril explosivo: al romperse explota y rompe lo que tiene alrededor</span>
+<span class="hl-k">local</span> <span class="hl-t">BarrilExplosivo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0.5, 30)]</span>
+<span class="hl-t">BarrilExplosivo</span>.radio = <span class="hl-n">5</span>
+<span class="hl-a">--[Range(0, 10000)]</span>
+<span class="hl-t">BarrilExplosivo</span>.fuerza = <span class="hl-n">700</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BarrilExplosivo</span>:<span class="hl-f">OnBreak</span>(nivel: number, punto: <span class="hl-t">Vector3</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._explotado <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._explotado = <span class="hl-b">true</span>
+    <span class="hl-k">local</span> centro = <span class="hl-b">self</span>.transform.position
+    <span class="hl-t">Effects</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"Explosión"</span>, centro) <span class="hl-c">-- en todas las máquinas</span>
+    <span class="hl-k">if</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-t">Task</span>.<span class="hl-f">Delay</span>(<span class="hl-n">0.08</span>, <span class="hl-k">function</span>()
+            <span class="hl-t">Destruction</span>.<span class="hl-f">Explode</span>(centro, <span class="hl-b">self</span>.radio, <span class="hl-b">self</span>.fuerza)
+        <span class="hl-k">end</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">BarrilExplosivo</span></code></pre></div>
+<h2 id="9-referencia-de-lua">9. Referencia de Lua<a class="ancla" href="#9-referencia-de-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>self:GetComponent(&quot;Destructible&quot;)</code> da los campos de la <a href="#3-el-componente-destructible">sección 3</a> y estos métodos:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ApplyDamage(punto, cantidad, radio?)</code></td>
+  <td>Daño en un punto del mundo. Devuelve si ha roto o soltado algo</td>
+</tr>
+<tr>
+  <td><code>Break(todosLosNiveles?)</code></td>
+  <td>Lo rompe en su nivel 1 (o del todo con <code>true</code>)</td>
+</tr>
+<tr>
+  <td><code>Reset()</code></td>
+  <td>Vuelve a estar entero</td>
+</tr>
+<tr>
+  <td><code>GetPieces()</code></td>
+  <td>Trozos visibles: <code>{ piece, level, attached, position, rotation }</code></td>
+</tr>
+<tr>
+  <td><code>GetStateHash()</code></td>
+  <td>Huella del estado (qué trozos faltan y cuáles están en su sitio), igual en el servidor y en los clientes</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Destruction</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Explode(pos, radio, fuerza)</code></td>
+  <td>Daño y empuje en un radio. Devuelve cuántos destructibles ha tocado</td>
+</tr>
+<tr>
+  <td><code>ApplyStrain(pos, radio, daño)</code></td>
+  <td>Solo daño</td>
+</tr>
+<tr>
+  <td><code>ApplyForce(pos, radio, velocidad)</code></td>
+  <td>Solo empuje (m/s en el centro)</td>
+</tr>
+<tr>
+  <td><code>ApplyDamage(entidad, punto, cantidad, radio?)</code></td>
+  <td>Como <code>destructible:ApplyDamage</code>, desde la entidad de un rayo</td>
+</tr>
+<tr>
+  <td><code>IsDestructible(entidad)</code></td>
+  <td>Si tiene el componente</td>
+</tr>
+<tr>
+  <td><code>SetMaxActivePieces(n)</code></td>
+  <td>Límite global de trozos con físicas</td>
+</tr>
+<tr>
+  <td><code>GetStats()</code></td>
+  <td><code>{ activePieces, frozenPieces, piecesReleased, breaks, netBytesSent, lastFixedMs, maxActivePieces }</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>campo:Fire()</code> dispara un <strong>Campo de destrucción</strong> en modo Manual.</p>
+<p>Todo lo que rompe solo hace algo <strong>en el servidor</strong> (o sin red). En un cliente, <code>ApplyDamage</code> devuelve <code>false</code>.</p>
+<h2 id="10-multijugador">10. Multijugador<a class="ancla" href="#10-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><p><strong>El servidor decide</strong>. Los golpes, los disparos, las explosiones y la conectividad solo se calculan en el servidor.</p>
+</li>
+<li><p><strong>Qué se envía</strong>. Por cada objeto que cambia, un mensaje fiable con lo que ha pasado en ese paso:</p>
+<ul>
+<li>qué trozo se ha roto;</li>
+<li>qué trozos se han soltado (en grupo o uno a uno);</li>
+<li>su velocidad inicial.</li>
+</ul>
+<p>Cada cliente suelta esos trozos desde el mismo sitio y con el mismo empujón, y simula los restos pequeños por su cuenta.
+Esos restos son cosméticos: no hace falta que caigan igual en cada máquina.</p>
+</li>
+<li><p><strong>Los trozos grandes</strong> (más que <strong>Volumen replicado</strong>: tapan el paso o se puede uno esconder detrás) se replican con su
+posición a 10 Hz mientras se mueven. En los clientes siguen al servidor sin simularse.</p>
+</li>
+<li><p><strong>Quien entra tarde</strong> recibe, medio segundo después de entrar, el estado de cada objeto roto:</p>
+<ul>
+<li>qué trozos faltan;</li>
+<li>cuáles están en su sitio (los anclados y los que siguen apoyados);</li>
+<li>dónde están los trozos sueltos.</li>
+</ul>
+</li>
+<li><p>Los clientes comprueban que tienen el mismo asset que el servidor (una huella del contenido). Si no, avisan en el registro y
+no aplican la rotura.</p>
+</li>
+<li><p>Los mensajes van por el canal de los mensajes del motor. Desde la 0.9.24 llegan también a los proyectos sin scripts Lua.</p>
+</li>
+</ul>
+<p><strong>Ancho de banda medido</strong> (prueba <code>destruccion red</code>, una pared de 200 trozos anclada en la base):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Romper la pared entera en sus 200 trozos (en su sitio)</td>
+  <td>55 (una operación)</td>
+</tr>
+<tr>
+  <td>Hacer un agujero: los trozos que salen y lo que cae por la conectividad</td>
+  <td>~2,3 KB</td>
+</tr>
+<tr>
+  <td>Todo, con 2 s de posiciones de los trozos grandes que caen</td>
+  <td>~8,5 KB en 10 mensajes</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las pruebas comprueban que el estado es igual en los dos clientes y para quien entra tarde. Lo hacen de dos formas:</p>
+<ul>
+<li><code>destruccion red</code>: en memoria, con un servidor dedicado, dos clientes y uno que entra tarde;</li>
+<li><code>destruccion apps</code>: con NovaServer y tres NovaGame ocultos de verdad.</li>
+</ul>
+<h2 id="11-rendimiento">11. Rendimiento<a class="ancla" href="#11-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p>Medido en este PC (Release, con otros programas compilando a la vez), prueba
+<code>destruccion: rendimiento: 10 paredes de 200 trozos rompiéndose a la vez</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Tiempo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Fracturar una pared en rejilla de 200 trozos</td>
+  <td>5 ms</td>
+</tr>
+<tr>
+  <td>Fracturar con Voronoi 200 trozos</td>
+  <td>41 ms</td>
+</tr>
+<tr>
+  <td>10 paredes enteras</td>
+  <td>0,02 ms por paso</td>
+</tr>
+<tr>
+  <td>Romper las 10 a la vez (y una explosión en cada una)</td>
+  <td>20 ms una vez</td>
+</tr>
+<tr>
+  <td>Cayendo (1300 cuerpos con físicas)</td>
+  <td>1,9 ms por paso de media, 15,5 ms el peor</td>
+</tr>
+<tr>
+  <td>En reposo (1320 trozos sueltos, la mayoría dormidos)</td>
+  <td>0,6 ms por paso</td>
+</tr>
+</tbody>
+</table></div>
+<p>Al dibujar, los trozos iguales de varias paredes con el mismo asset se juntan solos en una llamada con instancias.</p>
+<p>Casas huecas (prueba <code>destruccion huecos: rendimiento</code>, una casa de 6 × 3 × 5 m partida en 270 trozos con Voronoi):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Tiempo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Fracturar la casa (cortes 225 ms y partes convexas de la colisión 380 ms)</td>
+  <td>0,6 s</td>
+</tr>
+<tr>
+  <td>Empezar con 10 casas enteras: con Trozos (un compuesto de 410 partes cada una) / con Malla</td>
+  <td>7 ms / 1 ms</td>
+</tr>
+<tr>
+  <td>Romper las 10 a la vez (2700 trozos en su sitio): con Trozos / con Malla</td>
+  <td>2 ms / 8 ms</td>
+</tr>
+<tr>
+  <td>Enteras o rotas, en reposo</td>
+  <td>0,02 ms por paso</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las formas de choque se crean una vez por asset, escala y ajustes, y las comparten todas las instancias iguales.</p>
+<p>Consejos:</p>
+<ul>
+<li>usa niveles en vez de muchos trozos en el nivel 1;</li>
+<li>deja que los trozos pequeños sean restos;</li>
+<li>en objetos lejanos o de fondo, mejor una malla normal.</li>
+</ul>
+<h2 id="13-límites-conocidos">13. Límites conocidos<a class="ancla" href="#13-límites-conocidos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La fractura parte la malla entera; no deforma los trozos ni hace grietas finas como el cristal astillado de verdad.</li>
+<li>Las mallas abiertas (un plano, una malla con agujeros) se cortan, pero sus tapones pueden salir incompletos. Fractura mallas
+cerradas.</li>
+<li>Las UV de las caras interiores son una proyección (plana o de caja), no un desplegado: una textura con dibujo (letras, un
+logotipo) no casa entre cortes.</li>
+<li>Los restos pequeños no caen igual en todas las máquinas (es a propósito: no se envían). Los trozos grandes sí coinciden.</li>
+<li>Los trozos no se vuelven a juntar: <code>Reset()</code> deja el objeto entero de golpe.</li>
+</ul>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="fisicas.html">Físicas</a>: cuerpos rígidos, capas (Escombros) y <code>Physics.Raycast</code></li>
+<li><a href="multijugador.html">Multijugador</a>: funciones <code>[Server]</code>, disparos y compensación de latencia</li>
+<li><a href="particulas.html">Partículas</a>: <code>Effects.Spawn</code> y los preajustes</li>
+<li><a href="editor.html">Editor</a>: deshacer y edición en equipo</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="vehiculos.html"><small>Anterior</small>Vehículos: coches, motos, orugas, helicópteros y aviones</a><a class="sig" href="ia-arboles.html"><small>Siguiente</small>IA: árboles de comportamiento, pizarra y sentidos</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-paso-a-paso-romper-una-puerta">1. Paso a paso: romper una puerta</a></li><li class="n2"><a href="#2-la-ventana-fracturar">2. La ventana Fracturar</a></li><li class="n3"><a href="#materiales-de-fuera-y-de-dentro">Materiales de fuera y de dentro</a></li><li class="n2"><a href="#3-el-componente-destructible">3. El componente Destructible</a></li><li class="n3"><a href="#casas-y-objetos-huecos">Casas y objetos huecos</a></li><li class="n2"><a href="#4-daño-golpes-disparos-y-explosiones">4. Daño: golpes, disparos y explosiones</a></li><li class="n2"><a href="#5-anclaje-y-conectividad">5. Anclaje y conectividad</a></li><li class="n2"><a href="#6-campos-de-destrucción">6. Campos de destrucción</a></li><li class="n2"><a href="#7-restos-dormir-desvanecer-y-el-límite-de-trozos">7. Restos: dormir, desvanecer y el límite de trozos</a></li><li class="n2"><a href="#8-efectos-y-eventos-en-lua">8. Efectos y eventos en Lua</a></li><li class="n2"><a href="#9-referencia-de-lua">9. Referencia de Lua</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#13-límites-conocidos">13. Límites conocidos</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

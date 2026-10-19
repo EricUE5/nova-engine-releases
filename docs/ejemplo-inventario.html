@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ejemplo: inventario tipo Rust (Lua) · Nova Engine</title>
+<meta name="description" content="Un inventario multijugador como el de Rust, hecho solo con Lua y el sistema de interfaz del motor, en
+game/inventario_lua: cinturón de 6 casillas siempre a la vista, mochila de 24, 7 casillas de ropa que solo aceptan
+su ">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Ejemplo: inventario tipo Rust (Lua) · Nova Engine">
+<meta property="og:description" content="Un inventario multijugador como el de Rust, hecho solo con Lua y el sistema de interfaz del motor, en
+game/inventario_lua: cinturón de 6 casillas siempre a la vista, mochila de 24, 7 casillas de ropa que solo aceptan
+su ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/ejemplo-inventario.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/ejemplo-inventario.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html" aria-current="page">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="ejemplo-inventario-tipo-rust-lua">Ejemplo: inventario tipo Rust (Lua)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-probarlo">1. Probarlo</a></li><li class="n2"><a href="#2-controles">2. Controles</a></li><li class="n2"><a href="#3-cómo-está-montado">3. Cómo está montado</a></li><li class="n2"><a href="#4-el-servidor-manda">4. El servidor manda</a></li><li class="n2"><a href="#5-las-casillas-por-la-red">5. Las casillas por la red</a></li><li class="n2"><a href="#6-los-objetos-objetosluau">6. Los objetos: Objetos.luau</a></li><li class="n2"><a href="#7-las-peticiones-inventarioluau">7. Las peticiones: Inventario.luau</a></li><li class="n2"><a href="#8-la-caja-de-botín">8. La caja de botín</a></li><li class="n2"><a href="#9-objetos-en-el-suelo">9. Objetos en el suelo</a></li><li class="n2"><a href="#10-la-interfaz">10. La interfaz</a></li><li class="n2"><a href="#11-el-generador">11. El generador</a></li><li class="n2"><a href="#12-adaptarlo-a-tu-juego">12. Adaptarlo a tu juego</a></li><li class="n2"><a href="#13-las-pruebas-automáticas">13. Las pruebas automáticas</a></li><li class="n2"><a href="#14-límites">14. Límites</a></li></ul></details><p>Un inventario multijugador como el de <strong>Rust</strong>, hecho solo con Lua y el sistema de interfaz del motor, en
+<code>game/inventario_lua</code>: cinturón de 6 casillas siempre a la vista, mochila de 24, 7 casillas de ropa que solo aceptan
+su prenda, una caja de botín en el mundo que se abre al lado del inventario, arrastrar y soltar entre todas ellas,
+juntar y partir montones, tirar cosas al suelo (y que otro jugador las coja), curarse con vendas y comida, y sacar
+madera de los árboles con un hacha que se va gastando. <strong>El servidor manda</strong>: el inventario de verdad solo existe en
+el servidor y cada petición de un cliente se comprueba entera antes de hacerse.</p>
+<p>Antes conviene haber leído <a href="scripts-lua.html">scripts-lua.md</a> (sobre todo el <a href="scripts-lua.html#9-multijugador">multijugador</a>)
+y la parte de <a href="interfaz-ui.html#arrastrar-y-soltar-tooltips-y-casillas">arrastrar y soltar</a> de la interfaz.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-probarlo">Probarlo</a></li>
+<li><a href="#2-controles">Controles</a></li>
+<li><a href="#3-cómo-está-montado">Cómo está montado</a></li>
+<li><a href="#4-el-servidor-manda">El servidor manda</a></li>
+<li><a href="#5-las-casillas-por-la-red">Las casillas por la red</a></li>
+<li><a href="#6-los-objetos-objetosluau">Los objetos: Objetos.luau</a></li>
+<li><a href="#7-las-peticiones-inventarioluau">Las peticiones: Inventario.luau</a></li>
+<li><a href="#8-la-caja-de-botín">La caja de botín</a></li>
+<li><a href="#9-objetos-en-el-suelo">Objetos en el suelo</a></li>
+<li><a href="#10-la-interfaz">La interfaz</a></li>
+<li><a href="#11-el-generador">El generador</a></li>
+<li><a href="#12-adaptarlo-a-tu-juego">Adaptarlo a tu juego</a></li>
+<li><a href="#13-las-pruebas-automáticas">Las pruebas automáticas</a></li>
+<li><a href="#14-límites">Límites</a></li>
+</ol>
+<h2 id="1-probarlo">1. Probarlo<a class="ancla" href="#1-probarlo" aria-label="Enlace a esta sección">#</a></h2>
+<p>En Nova Hub, <strong>Nuevo proyecto</strong> con la plantilla <strong>Inventario tipo Rust (Lua)</strong>, ábrelo y pulsa <strong>Jugar</strong>. Desde el
+repositorio (después de <code>tools\build.cmd</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaEditor.exe --project game\inventario_lua
+build\debug\bin\NovaGame.exe --project game\inventario_lua --solo --name Ana</code></pre></div>
+<p>Con dos jugadores (un anfitrión y un cliente, o un servidor dedicado y dos clientes):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaGame.exe --project game\inventario_lua --host --name Ana
+build\debug\bin\NovaGame.exe --project game\inventario_lua --connect 127.0.0.1:7779 --name Beto
+
+build\debug\bin\NovaServer.exe --project game\inventario_lua</code></pre></div>
+<p>En el editor, el modo de juego <strong>Anfitrión + clientes</strong> abre dos ventanas: tira algo al suelo en una y cógelo en la
+otra, o abrid los dos la caja y mirad cómo cambia en las dos.</p>
+<h2 id="2-controles">2. Controles<a class="ancla" href="#2-controles" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tecla o botón</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>WASD</strong>, <strong>Mayús</strong>, <strong>Espacio</strong></td>
+  <td>Andar, correr y saltar (con el inventario abierto se puede andar, pero no correr ni saltar)</td>
+</tr>
+<tr>
+  <td>Botón derecho del ratón</td>
+  <td>Girar la cámara (con el inventario cerrado)</td>
+</tr>
+<tr>
+  <td><strong>Tab</strong></td>
+  <td>Abrir y cerrar el inventario (también <strong>Esc</strong> lo cierra)</td>
+</tr>
+<tr>
+  <td><strong>1</strong> a <strong>6</strong>, rueda</td>
+  <td>Elegir la casilla del cinturón que llevas en la mano (la misma tecla otra vez: manos vacías)</td>
+</tr>
+<tr>
+  <td>Clic izquierdo</td>
+  <td>Usar la herramienta de la mano: con el hacha junto a un árbol sale madera; con el pico junto a una roca, piedra</td>
+</tr>
+<tr>
+  <td><strong>E</strong></td>
+  <td>Coger el objeto del suelo o abrir la caja que tengas al alcance (la indicación sale en el centro de la pantalla)</td>
+</tr>
+<tr>
+  <td>Arrastrar una casilla</td>
+  <td>Moverla a otra: a una vacía, juntándola con un montón del mismo objeto o cambiándolas de sitio</td>
+</tr>
+<tr>
+  <td><strong>Mayús</strong> al soltar, o clic central</td>
+  <td>Partir el montón: la mitad</td>
+</tr>
+<tr>
+  <td>Soltar fuera del inventario</td>
+  <td>Tirarlo al suelo, delante del personaje (con <strong>Mayús</strong>, la mitad)</td>
+</tr>
+<tr>
+  <td>Clic derecho en una casilla</td>
+  <td>Usar la comida o la venda (cura)</td>
+</tr>
+<tr>
+  <td>Pasar por encima de un objeto del suelo</td>
+  <td>Cogerlo (quien lo tiró no lo recoge así hasta pasados 3 segundos)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-cómo-está-montado">3. Cómo está montado<a class="ancla" href="#3-cómo-está-montado" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fichero</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>project.nova</code></td>
+  <td>Sin <code>scriptModule</code> (no hay DLL); puerto 7779 en <code>&quot;red&quot;</code>; las acciones de entrada, con <strong>Inventario</strong> (Tab o Back) y <strong>Golpear</strong> (clic o RB)</td>
+</tr>
+<tr>
+  <td><code>assets/scenes/Campamento.scene</code></td>
+  <td>Un claro con el sol, cinco <strong>Árboles</strong> y dos <strong>Rocas</strong> (<code>Recurso.luau</code>), una <strong>Hoguera</strong>, la <strong>Caja de suministros</strong> (<code>Contenedor.luau</code>), la <strong>Aparición de jugadores</strong> (<code>PlayerSpawner</code> con el prefab Jugador), la <strong>Cámara</strong> y el <strong>HUD</strong></td>
+</tr>
+<tr>
+  <td><code>assets/prefabs/Jugador.prefab</code></td>
+  <td>CesiumMan con Animator, <strong>Controlador de personaje</strong> (lo predice la red), Identidad y Transform de red y los scripts <code>Jugador.luau</code> e <code>Inventario.luau</code></td>
+</tr>
+<tr>
+  <td><code>assets/prefabs/ObjetoSuelo.prefab</code></td>
+  <td>Un objeto tirado: Identidad y Transform de red, <code>Recogible.luau</code>, un saco que gira y un cartel con el nombre (lienzo de <strong>Mundo</strong> que mira a la cámara)</td>
+</tr>
+<tr>
+  <td><code>assets/prefabs/Hud.prefab</code></td>
+  <td>Toda la interfaz (sección <a href="#10-la-interfaz">10</a>); ábrela en el panel <strong>Interfaz</strong></td>
+</tr>
+<tr>
+  <td><code>assets/prefabs/Casilla.prefab</code></td>
+  <td>Una casilla: la usan las <strong>Rejillas de casillas</strong> de la mochila y de la caja cuando necesitan más</td>
+</tr>
+<tr>
+  <td><code>assets/iconos/*.png</code></td>
+  <td>Un icono por objeto (forma por tipo, su color y dos letras)</td>
+</tr>
+<tr>
+  <td><code>scripts/Objetos.luau</code></td>
+  <td>Módulo con las definiciones de los objetos y las reglas que comparten servidor y clientes</td>
+</tr>
+<tr>
+  <td><code>scripts/Inventario.luau</code></td>
+  <td>El inventario de un jugador: casillas replicadas, peticiones <code>[Server]</code> y respuestas <code>[Client]</code></td>
+</tr>
+<tr>
+  <td><code>scripts/Interfaz.luau</code></td>
+  <td>Módulo con todo lo que se ve: pinta las casillas, arrastrar y soltar, descripciones, cinturón, caja y avisos</td>
+</tr>
+<tr>
+  <td><code>scripts/Contenedor.luau</code></td>
+  <td>La caja de botín: su contenido solo existe en el servidor</td>
+</tr>
+<tr>
+  <td><code>scripts/Recogible.luau</code></td>
+  <td>Un objeto en el suelo</td>
+</tr>
+<tr>
+  <td><code>scripts/Recurso.luau</code></td>
+  <td>Un árbol o una roca</td>
+</tr>
+<tr>
+  <td><code>scripts/Mundo.luau</code></td>
+  <td>Registro de jugadores, cajas, objetos del suelo y recursos de la partida</td>
+</tr>
+<tr>
+  <td><code>scripts/Jugador.luau</code>, <code>scripts/CamaraJugador.luau</code></td>
+  <td>Moverse y la cámara que sigue al personaje de cada máquina</td>
+</tr>
+<tr>
+  <td><code>tools/InventarioGenerator.cpp</code></td>
+  <td>El generador de todo lo de <code>assets/</code> (sección <a href="#11-el-generador">11</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-el-servidor-manda">4. El servidor manda<a class="ancla" href="#4-el-servidor-manda" aria-label="Enlace a esta sección">#</a></h2>
+<p>En un juego como Rust la gente hace trampas: un cliente modificado puede pedir lo que quiera, cuantas veces quiera.
+Por eso el inventario sigue la regla de oro de <a href="scripts-lua.html#91-el-servidor-manda">scripts-lua.md</a>:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">Cliente de Ana                         Servidor                                  Cliente de Ana
+--------------                         --------                                  --------------
+suelta la madera de la casilla 7
+en la 14  ──── Mover(7, 14, 0) ──────► el motor comprueba: ¿es el dueño de
+             [Server(rate = 20)]       este personaje?, ¿tres enteros?, ¿no
+                                       pide demasiado deprisa?
+                                       Inventario:MoverInterno comprueba: ¿casillas
+                                       en rango?, ¿hay algo en la 7?, ¿cantidad
+                                       válida?, ¿cabe en la 14 (ropa)?, ¿montones?
+                                       y lo cambia todo de una vez
+                                       casilla7 = "", casilla14 = "madera:250:-1"
+                                               ──── solo a Ana (OwnerOnly) ─────► onChange = "Redibujar":
+                                                                                  se pinta lo nuevo</code></pre></div>
+<ul>
+<li><strong>El cliente no cambia nada por su cuenta</strong>: arrastrar solo pide; lo que se ve cambia cuando llegan las casillas
+del servidor (en la red local, en el mismo frame o el siguiente).</li>
+<li><strong>Cada petición se hace entera en una sola llamada del servidor</strong>, que ejecuta los scripts en un solo hilo. Si dos
+jugadores piden a la vez la pistola de la caja, el servidor atiende una petición y después la otra: la segunda ya
+encuentra la casilla vacía y se rechaza. No hay forma de duplicar objetos.</li>
+<li><strong>Lo que no vale se rechaza sin tocar nada</strong> y se apunta en el registro del servidor
+(<code>[Inventario] Ana: rechazado (casilla no válida (14 -&gt; 99))</code>); si al jugador le sirve saberlo, le llega un aviso
+(«Eso no se puede llevar ahí», «La caja está demasiado lejos»).</li>
+<li><strong>La interfaz comprueba lo mismo antes de pedirlo</strong> (el filtro de soltar tiñe la casilla de rojo y ni se envía),
+pero solo por comodidad: la comprobación que cuenta es la del servidor.</li>
+</ul>
+<h2 id="5-las-casillas-por-la-red">5. Las casillas por la red<a class="ancla" href="#5-las-casillas-por-la-red" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un campo replicado de Lua lleva un solo valor: un número, un booleano, un texto de hasta 256 bytes, un vector, un
+<code>Enum</code>, una <code>Entity</code> o un <code>Asset</code> (ver <a href="scripts-lua.html#93-campos-replicados">9.3</a>). Para listas también hay <strong>tablas
+replicadas</strong> (<code>--[Replicated]</code> sobre un campo <code>{}</code>; con <code>condition = &quot;Observers&quot;</code> solo las reciben los jugadores que
+elijas), pero un inventario se envía bien con dos formas más sencillas, que son las de este ejemplo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Forma</th>
+  <th>Para qué</th>
+  <th>Aquí</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Un campo de texto replicado por casilla, <code>condition = &quot;OwnerOnly&quot;</code></td>
+  <td>Lo que es de un jugador y cambia poco a poco</td>
+  <td>El inventario del jugador: <code>casilla1</code>...<code>casilla37</code></td>
+</tr>
+<tr>
+  <td>Una función <code>[Client]</code> con el contenido en un texto</td>
+  <td>Lo que solo ve quien lo está mirando</td>
+  <td>La caja de botín (<code>VerCaja</code>, a cada jugador que la tiene abierta)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con un campo por casilla la red hace casi todo el trabajo: <strong>solo envía las casillas que cambian</strong> (compresión por
+deltas), <strong>solo al dueño</strong> (los demás jugadores no saben qué llevas), y quien entra tarde o pierde paquetes recibe el
+estado bueno sin hacer nada. Cada casilla es un texto corto, <code>&quot;madera:250:-1&quot;</code> (objeto, cantidad y durabilidad), que
+<code>Objetos.Codificar</code> y <code>Objetos.Decodificar</code> convierten en una tabla. Las 37 se declaran en un bucle con la forma
+declarativa de los campos:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-t">Objetos</span>.TOTAL <span class="hl-k">do</span>
+    <span class="hl-t">Inventario</span>:<span class="hl-f">Field</span>(<span class="hl-s">"casilla"</span> .. i, <span class="hl-s">""</span>, { replicated = { condition = <span class="hl-s">"OwnerOnly"</span>, onChange = <span class="hl-s">"Redibujar"</span> }, hide = <span class="hl-b">true</span>, noSave = <span class="hl-b">true</span> })
+<span class="hl-k">end</span></code></pre></div>
+<p>El servidor guarda además el inventario en una tabla de Lua (<code>self._casillas</code>) y escribe el campo cada vez que
+cambia una casilla:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Inventario</span>:<span class="hl-f">Escribir</span>(i: number, o)
+    <span class="hl-k">if</span> i &gt;= <span class="hl-t">Objetos</span>.PRIMERA_CAJA <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._caja:<span class="hl-f">Escribir</span>(i - <span class="hl-t">Objetos</span>.PRIMERA_CAJA + <span class="hl-n">1</span>, o)
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._casillas[i] = o
+    <span class="hl-b">self</span>[<span class="hl-s">"casilla"</span> .. i] = <span class="hl-t">Objetos</span>.<span class="hl-f">Codificar</span>(o) <span class="hl-c">-- se replica solo al dueno</span>
+<span class="hl-k">end</span></code></pre></div>
+<p><code>onChange</code> no se llama en el servidor (ni en el anfitrión, que también lo es): por eso <code>Inventario:Terminar</code>, al
+final de cada petición, llama a <code>Redibujar</code> si el personaje es el del jugador local.</p>
+<h2 id="6-los-objetos-objetosluau">6. Los objetos: Objetos.luau<a class="ancla" href="#6-los-objetos-objetosluau" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las definiciones son una tabla de Lua; cada objeto tiene un <code>id</code> (la clave), nombre, tipo (<code>recurso</code>, <code>herramienta</code>,
+<code>arma</code>, <code>ropa</code>, <code>comida</code> o <code>medicina</code>), cuántos caben en un montón (<code>pila</code>), si se gasta (<code>durabilidad</code> y <code>desgaste</code>),
+dónde se lleva (<code>ranura</code>, la ropa) y cuánto cura:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">DEFINICIONES</span> = {
+    madera = { nombre = <span class="hl-s">"Madera"</span>, tipo = <span class="hl-s">"recurso"</span>, pila = <span class="hl-n">1000</span>, descripcion = <span class="hl-s">"Troncos partidos. Se sacan de los árboles con un hacha."</span> },
+    venda = { nombre = <span class="hl-s">"Venda"</span>, tipo = <span class="hl-s">"medicina"</span>, pila = <span class="hl-n">10</span>, cura = <span class="hl-n">15</span>, descripcion = <span class="hl-s">"Para las heridas leves."</span> },
+    gorro = { nombre = <span class="hl-s">"Gorro de lana"</span>, tipo = <span class="hl-s">"ropa"</span>, pila = <span class="hl-n">1</span>, ranura = <span class="hl-s">"cabeza"</span>, descripcion = <span class="hl-s">"Abriga la cabeza."</span> },</code></pre></div>
+<p>Cada casilla tiene un número que usan igual el servidor, los clientes y la red:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Casillas</th>
+  <th>Dónde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1 a 6</td>
+  <td>Cinturón (teclas 1 a 6)</td>
+</tr>
+<tr>
+  <td>7 a 30</td>
+  <td>Mochila (6 × 4)</td>
+</tr>
+<tr>
+  <td>31 a 37</td>
+  <td>Ropa: cabeza, torso, piernas, pies, manos, espalda y extra</td>
+</tr>
+<tr>
+  <td>101 en adelante</td>
+  <td>La caja que tiene abierta el jugador (el servidor sabe cuál es)</td>
+</tr>
+</tbody>
+</table></div>
+<p>La regla de la ropa está en un sitio, y la usan el servidor y el filtro de la interfaz:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Objetos</span>.<span class="hl-f">CabeEn</span>(id: <span class="hl-t">string</span>, casilla: number): boolean
+    <span class="hl-k">local</span> def = <span class="hl-t">DEFINICIONES</span>[id]
+    <span class="hl-k">if</span> <span class="hl-k">not</span> def <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> ranura = <span class="hl-t">Objetos</span>.<span class="hl-f">RanuraDe</span>(casilla)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> ranura <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">true</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> def.tipo ~= <span class="hl-s">"ropa"</span> <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> ranura == <span class="hl-s">"extra"</span> <span class="hl-k">or</span> def.ranura == ranura
+<span class="hl-k">end</span></code></pre></div>
+<h2 id="7-las-peticiones-inventarioluau">7. Las peticiones: Inventario.luau<a class="ancla" href="#7-las-peticiones-inventarioluau" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada cosa que el jugador hace es una función <code>[Server]</code> con parámetros con tipo y un límite por segundo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Cuándo</th>
+  <th>Qué comprueba el servidor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Mover(desde: integer, hasta: integer, cantidad: integer)</code></td>
+  <td>Soltar en una casilla (<code>cantidad</code> 0 = todo; con Mayús, la mitad)</td>
+  <td>Casillas en rango, origen con algo, cantidad, ropa, montones, caja al alcance</td>
+</tr>
+<tr>
+  <td><code>Dividir(casilla: integer)</code></td>
+  <td>Clic central</td>
+  <td>Que haya un montón de 2 o más y una casilla libre</td>
+</tr>
+<tr>
+  <td><code>Tirar(casilla: integer, cantidad: integer)</code></td>
+  <td>Soltar fuera de la interfaz</td>
+  <td>Casilla y cantidad; si no se puede crear el objeto del suelo, se devuelve</td>
+</tr>
+<tr>
+  <td><code>Usar(casilla: integer)</code></td>
+  <td>Clic derecho</td>
+  <td>Que sea comida o medicina del cinturón o la mochila y que falte vida</td>
+</tr>
+<tr>
+  <td><code>Equipar(casilla: integer)</code></td>
+  <td>Teclas 1 a 6 y rueda</td>
+  <td>De 0 a 6</td>
+</tr>
+<tr>
+  <td><code>Golpear()</code></td>
+  <td>Clic con la herramienta en la mano</td>
+  <td>Herramienta en la mano, la espera entre golpes, un árbol o una roca delante y la herramienta adecuada</td>
+</tr>
+<tr>
+  <td><code>Recoger(objeto: Entity)</code></td>
+  <td>E sobre un objeto del suelo</td>
+  <td>Que sea un objeto del suelo, la distancia y que quepa</td>
+</tr>
+<tr>
+  <td><code>AbrirCaja(caja: Entity)</code>, <code>CerrarCaja()</code></td>
+  <td>E sobre la caja; cerrar el inventario</td>
+  <td>Que sea una caja y la distancia</td>
+</tr>
+</tbody>
+</table></div>
+<p>Lo que el motor ya comprueba solo: que quien llama es el <strong>dueño</strong> de ese personaje (Beto no puede pedir nada con el
+inventario de Ana: <code>[Server] Mover solo la puede llamar el dueño de 'Jugador'</code>), el <strong>número y el tipo</strong> de los
+argumentos (un texto donde va un entero es un error en quien llama) y la <strong>frecuencia</strong> (<code>rate</code>). El resto, en el
+servidor:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Inventario</span>:<span class="hl-f">MoverInterno</span>(desde: number, hasta: number, cantidad: number): (boolean, <span class="hl-t">string</span>, boolean)
+    <span class="hl-k">if</span> desde == hasta <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"la misma casilla"</span>, <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>:<span class="hl-f">CasillaValida</span>(desde) <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-b">self</span>:<span class="hl-f">CasillaValida</span>(hasta) <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"casilla no válida (%d -&gt; %d)"</span>, desde, hasta), <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> origen = <span class="hl-b">self</span>:<span class="hl-f">Leer</span>(desde)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> origen <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"la casilla de origen está vacía"</span>, <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> cantidad &lt; <span class="hl-n">0</span> <span class="hl-k">or</span> cantidad &gt; origen.n <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">false</span>, <span class="hl-s">"cantidad no válida"</span>, <span class="hl-b">false</span>
+    <span class="hl-k">end</span></code></pre></div>
+<p>Las casillas de la caja solo valen con una caja abierta, que exista y que siga al alcance:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Inventario</span>:<span class="hl-f">CasillaValida</span>(i: number): boolean
+    <span class="hl-k">local</span> zona = <span class="hl-t">Objetos</span>.<span class="hl-f">Zona</span>(i)
+    <span class="hl-k">if</span> zona == <span class="hl-s">"caja"</span> <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">self</span>._caja ~= <span class="hl-b">nil</span> <span class="hl-k">and</span> i - <span class="hl-t">Objetos</span>.PRIMERA_CAJA + <span class="hl-n">1</span> &lt;= <span class="hl-b">self</span>._caja:<span class="hl-f">Numero</span>() <span class="hl-k">and</span> <span class="hl-b">self</span>._caja:<span class="hl-f">AlAlcance</span>(<span class="hl-b">self</span>.entity)
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> zona ~= <span class="hl-b">nil</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Las respuestas que no son casillas van al dueño con <code>[Client]</code>: <code>Aviso(texto)</code> («+25 Madera»), <code>VerCaja(...)</code> y
+<code>CajaCerrada()</code>. El golpe a un árbol, en cambio, se ve en todas las máquinas: <code>EfectoGolpe</code> es un
+<code>[Multicast(reliable = false)]</code> que hace temblar el árbol.</p>
+<h2 id="8-la-caja-de-botín">8. La caja de botín<a class="ancla" href="#8-la-caja-de-botín" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Contenedor.luau</code> va en la <strong>Caja de suministros</strong> de la escena. Su contenido (el campo <strong>Botín</strong> del Inspector, una
+lista <code>id:cantidad;...</code>) solo existe en el servidor. Al pulsar <strong>E</strong>, el cliente pide <code>AbrirCaja(caja)</code>; el servidor
+comprueba la distancia, apunta a ese jugador entre los que la miran y le envía lo que hay. Cada vez que alguien la
+cambia, el servidor se lo vuelve a enviar a todos los que la tienen abierta:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Contenedor</span>:<span class="hl-f">Notificar</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._cambios <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._cambios = <span class="hl-b">false</span>
+    <span class="hl-k">local</span> datos = <span class="hl-b">self</span>:<span class="hl-f">Datos</span>()
+    <span class="hl-k">for</span> inventario <span class="hl-k">in</span> <span class="hl-b">self</span>._mirones <span class="hl-k">do</span>
+        <span class="hl-k">if</span> inventario.entity <span class="hl-k">and</span> inventario.entity:<span class="hl-f">IsValid</span>() <span class="hl-k">then</span>
+            inventario:<span class="hl-f">VerCaja</span>(<span class="hl-b">self</span>.entity, <span class="hl-b">self</span>.titulo, <span class="hl-b">self</span>:<span class="hl-f">Numero</span>(), datos)</code></pre></div>
+<ul>
+<li>La caja <strong>no necesita Identidad de red</strong>: los clientes la nombran por su UUID (es la misma entidad de la escena en
+todas las máquinas) y el servidor contesta a través del personaje de cada jugador.</li>
+<li>Si el jugador se aleja, el servidor se la cierra (<code>CajaCerrada</code>); si cierra el inventario, el cliente pide
+<code>CerrarCaja()</code>.</li>
+<li>Mientras está abierta, sus casillas son la 101 en adelante en las mismas peticiones de siempre: mover de la caja al
+inventario es un <code>Mover(101, 16, 0)</code>.</li>
+</ul>
+<h2 id="9-objetos-en-el-suelo">9. Objetos en el suelo<a class="ancla" href="#9-objetos-en-el-suelo" aria-label="Enlace a esta sección">#</a></h2>
+<p>Tirar algo lo quita del inventario y crea el prefab <strong>ObjetoSuelo</strong> con <code>Spawn</code>, un objeto de red que llega a todos
+los clientes; lo que lleva dentro va en tres campos replicados de <code>Recogible.luau</code> (<code>objeto</code>, <code>cantidad</code> y
+<code>durabilidad</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Inventario</span>:<span class="hl-f">SoltarEnElSuelo</span>(o): boolean
+    <span class="hl-k">local</span> pos = <span class="hl-b">self</span>.entity.position + <span class="hl-f">Frente</span>(<span class="hl-b">self</span>) * <span class="hl-n">1.3</span>
+    <span class="hl-k">local</span> suelo = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(pos + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1.5</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.down, <span class="hl-n">5</span>, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">if</span> suelo <span class="hl-k">then</span>
+        pos = suelo.point
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> ok, e = <span class="hl-f">pcall</span>(<span class="hl-t">Spawn</span>, <span class="hl-b">self</span>.objetoSuelo <span class="hl-k">or</span> <span class="hl-s">"prefabs/ObjetoSuelo.prefab"</span>, pos, <span class="hl-t">Quat</span>.<span class="hl-f">FromAxisAngle</span>(<span class="hl-t">Vec3</span>.up, <span class="hl-t">math</span>.<span class="hl-f">random</span>() * <span class="hl-n">6.28</span>))</code></pre></div>
+<p>Se coge con <strong>E</strong> (<code>Recoger</code>, con la distancia comprobada) o pasando por encima: el servidor mira cinco veces por
+segundo si hay un jugador a menos de <strong>Radio al pasar</strong> (0,9 m). Si no cabe entero, se coge lo que quepa y el resto se
+queda en el suelo. Al cogerlo todo, <code>self:Destroy()</code> lo quita de todas las máquinas.</p>
+<h2 id="10-la-interfaz">10. La interfaz<a class="ancla" href="#10-la-interfaz" aria-label="Enlace a esta sección">#</a></h2>
+<p>La interfaz es la entidad <strong>HUD</strong> de <code>Campamento.scene</code> (instancia de <code>Hud.prefab</code>): ábrela en el panel <strong>Interfaz</strong>
+del editor para verla y cambiarla.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ruta</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>HUD/Cinturón/Casillas</code></td>
+  <td>6 casillas (índices 1 a 6) con el número de su tecla</td>
+</tr>
+<tr>
+  <td><code>HUD/Inventario</code></td>
+  <td><strong>Pantalla</strong> oculta al empezar, con <strong>Acción que la abre y la cierra</strong> = <code>Inventario</code> (Tab), <strong>Muestra el cursor</strong> y <strong>Cerrar con Esc</strong></td>
+</tr>
+<tr>
+  <td><code>HUD/Inventario/Mochila/Casillas</code></td>
+  <td><strong>Rejilla de casillas</strong> de 24 (y las 24 ya hechas, para verlas en el editor) en un <strong>Grupo de layout</strong> de 6 columnas</td>
+</tr>
+<tr>
+  <td><code>HUD/Inventario/Ropa/Casillas</code></td>
+  <td>7 casillas con su <strong>Destino de arrastre</strong>: <strong>Acepta</strong> <code>ropa:cabeza</code>, <code>ropa:torso</code>... y la extra, <code>ropa*</code></td>
+</tr>
+<tr>
+  <td><code>HUD/Inventario/Caja</code></td>
+  <td>El panel de la caja (oculto); su rejilla cambia de tamaño con <code>SetSlotCount</code> según la caja</td>
+</tr>
+<tr>
+  <td><code>HUD/Equipado</code>, <code>HUD/Vida</code>, <code>HUD/Aviso</code>, <code>HUD/Indicación</code>, <code>HUD/Mira</code>, <code>HUD/Ayuda</code></td>
+  <td>Lo que llevas en la mano, la vida, los avisos, la indicación de E, la mira y los controles</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cada casilla es el patrón <strong>Casilla</strong> de la paleta con el aspecto de Rust: fondo translúcido con esquinas
+redondeadas, <strong>Icono</strong> (lo que se ve al arrastrar), <strong>Cantidad</strong> abajo a la derecha, <strong>Durabilidad</strong> como barra abajo,
+<strong>Arrastrable</strong>, <strong>Destino de arrastre</strong> y <strong>Descripción emergente</strong> (nombre, descripción y durabilidad).</p>
+<p><code>Interfaz.luau</code> conecta los oyentes de cada casilla una vez. La carga del arrastre es el número de la casilla de
+origen; el tipo, el de la prenda (<code>ropa:cabeza</code>) o <code>objeto</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua">    <span class="hl-t">table</span>.<span class="hl-f">insert</span>(oyentes, { el, el:<span class="hl-f">OnDrop</span>(<span class="hl-k">function</span>(e)
+        <span class="hl-f">Soltar</span>(e, i)
+    <span class="hl-k">end</span>) })
+    <span class="hl-t">table</span>.<span class="hl-f">insert</span>(oyentes, { el, el:<span class="hl-f">OnEndDrag</span>(<span class="hl-k">function</span>(e)
+        <span class="hl-k">if</span> e.drag.result == <span class="hl-s">"Outside"</span> <span class="hl-k">then</span>
+            <span class="hl-f">Tirar</span>(i, e.pointer.shift) <span class="hl-c">-- fuera de la interfaz: al suelo</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>) })
+    <span class="hl-t">table</span>.<span class="hl-f">insert</span>(oyentes, { el, el:<span class="hl-f">OnPointerClick</span>(<span class="hl-k">function</span>(e)
+        <span class="hl-f">Clic</span>(e, i)
+    <span class="hl-k">end</span>) })
+    el:<span class="hl-f">SetDropFilter</span>(<span class="hl-k">function</span>(e)
+        <span class="hl-k">return</span> <span class="hl-f">Acepta</span>(e, i)
+    <span class="hl-k">end</span>)</code></pre></div>
+<p>Soltar no mueve nada en la pantalla: se lo pide al servidor.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">Soltar</span>(e, hasta: number)
+    <span class="hl-k">local</span> desde = e.drag.payload
+    <span class="hl-k">if</span> <span class="hl-k">type</span>(desde) ~= <span class="hl-s">"number"</span> <span class="hl-k">or</span> <span class="hl-k">not</span> inv <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> o = <span class="hl-f">Leer</span>(desde)
+    <span class="hl-k">local</span> cantidad = <span class="hl-n">0</span>
+    <span class="hl-k">if</span> e.pointer.shift <span class="hl-k">and</span> o <span class="hl-k">and</span> o.n &gt; <span class="hl-n">1</span> <span class="hl-k">then</span>
+        cantidad = o.n // <span class="hl-n">2</span> <span class="hl-c">-- Mayus al soltar: la mitad</span>
+    <span class="hl-k">end</span>
+    inv:<span class="hl-f">Mover</span>(desde, hasta, cantidad)
+<span class="hl-k">end</span></code></pre></div>
+<p>Al pintar, cada casilla recibe su icono (<code>SetSprite(&quot;iconos/madera.png&quot;)</code>), su cantidad, su barra, su descripción
+(<code>SetTooltip(titulo, texto, durabilidad)</code>) y su carga; solo se puede arrastrar con el inventario abierto. Se pinta
+una vez por frame como mucho, y solo lo que ha cambiado.</p>
+<h2 id="11-el-generador">11. El generador<a class="ancla" href="#11-el-generador" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo lo de <code>assets/</code> lo crea <code>nova_invgen</code> (<code>tools/InventarioGenerator.cpp</code>), como <code>nova_mpgen</code> hace con el ejemplo
+multijugador. Es también un ejemplo de cómo montar desde C++ una interfaz con casillas, rejillas, pantallas y
+descripciones, y de cómo dibujar iconos:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">tools\build.cmd debug nova_invgen
+build\debug\bin\nova_invgen.exe game\inventario_lua            :: todo: proyecto, assets y escena
+build\debug\bin\nova_invgen.exe --hud game\inventario_lua      :: solo la interfaz, sin tocar el mapa
+build\debug\bin\nova_invgen.exe --iconos game\inventario_lua   :: solo los iconos</code></pre></div>
+<p>Los UUID salen de los nombres: regenerar da los mismos y git solo ve lo que cambia. Si prefieres cambiar la interfaz
+a mano en el editor, no vuelvas a ejecutar el generador (lo sustituiría).</p>
+<h2 id="12-adaptarlo-a-tu-juego">12. Adaptarlo a tu juego<a class="ancla" href="#12-adaptarlo-a-tu-juego" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Un objeto nuevo</strong>: una línea en <code>DEFINICIONES</code> de <code>Objetos.luau</code> y su icono en <code>assets/iconos/&lt;id&gt;.png</code> (dibújalo
+o añádelo a <code>kIconos</code> del generador y ejecuta <code>nova_invgen --iconos</code>).</li>
+<li><strong>Que un árbol dé otra cosa</strong>: los campos <strong>Recurso</strong>, <strong>Herramienta</strong> y <strong>Por golpe</strong> de <code>Recurso.luau</code> en el
+Inspector. Una roca con otro mineral es una roca nueva con otro <strong>Recurso</strong>.</li>
+<li><strong>Otra caja</strong>: duplica la <strong>Caja de suministros</strong>, cambia su <strong>Título</strong>, <strong>Casillas</strong> (1 a 24) y <strong>Botín</strong>. La
+rejilla de la interfaz crea las casillas que falten con <code>Casilla.prefab</code>.</li>
+<li><strong>Más mochila</strong>: sube <code>Objetos.MOCHILA</code> y mueve <code>PRIMERA_ROPA</code> y <code>TOTAL</code> (o pon la ropa al final), y la <strong>Rejilla de
+casillas</strong> de la mochila. Cada casilla es un campo replicado más.</li>
+<li><strong>Otra ranura de ropa</strong> (por ejemplo «cuello»): añádela a <code>Objetos.RANURAS</code>, una casilla en <code>HUD/Inventario/Ropa</code>
+con <strong>Acepta</strong> <code>ropa:cuello</code> y la prenda con <code>ranura = &quot;cuello&quot;</code>.</li>
+<li><strong>El kit de cada jugador</strong>: <code>Objetos.KIT_INICIAL</code>.</li>
+<li><strong>Sin coger al pasar por encima</strong>: <strong>Radio al pasar</strong> = 0 en <code>ObjetoSuelo.prefab</code>.</li>
+<li><strong>Otras teclas</strong>: Ajustes del proyecto &gt; Entrada (acciones <strong>Inventario</strong>, <strong>Accion</strong> y <strong>Golpear</strong>).</li>
+<li><strong>Que el inventario se guarde</strong> entre partidas: todavía no hay una API de guardado para Lua (sección
+<a href="#14-límites">14</a>); el sitio para hacerlo es <code>Inventario:DarKitInicial</code> (cargar) y las peticiones (guardar).</li>
+</ul>
+<h2 id="13-las-pruebas-automáticas">13. Las pruebas automáticas<a class="ancla" href="#13-las-pruebas-automáticas" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>tests/test_lua_inventario.cpp</code> juega el ejemplo sin ventanas:</p>
+<ul>
+<li>con un <strong>servidor dedicado y dos clientes</strong> en memoria: el kit llega solo a su dueño; mover, partir, juntar y
+cambiar; la ropa en su sitio; diez peticiones no válidas rechazadas sin tocar nada; el inventario de otro; la caja
+lejana, la caja compartida y dos jugadores pidiendo la misma pistola a la vez; tirar al suelo y que lo coja el otro
+(con E y pasando por encima); curarse y talar;</li>
+<li>de <strong>anfitrión con la vista y la entrada simuladas</strong>: teclas y rueda del cinturón, <strong>Tab</strong>, la descripción
+emergente, arrastrar y soltar con el ratón (con <strong>Mayús</strong>, a la ropa, fuera), clic derecho y central, <strong>E</strong> y la caja.
+Guarda una captura del inventario abierto en <code>build\&lt;preset&gt;\test_output\inventario_ui.png</code>;</li>
+<li>con <strong>NovaServer.exe</strong> de verdad (UDP en 127.0.0.1) y dos clientes, y con <strong>NovaGame.exe --solo</strong> sin ventana.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\nova_tests.exe <span class="hl-s">"lua inventario"</span></code></pre></div>
+<h2 id="14-límites">14. Límites<a class="ancla" href="#14-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>No se guarda nada entre partidas</strong>: el motor aún no tiene una API de guardado para Lua (los scripts no pueden
+escribir ficheros: <a href="scripts-lua.html#16-el-sandbox-y-los-límites">sandbox</a>).</li>
+<li><strong>Sin predicción en el inventario</strong>: lo que se mueve se ve al llegar la respuesta del servidor. En la red local no se
+nota; por Internet tarda lo que tarde el viaje de ida y vuelta.</li>
+<li><strong>Al desconectarse un jugador, su inventario desaparece con su personaje</strong> (en Rust quedaría su cuerpo con sus
+cosas). Se haría en <code>Inventario:OnDestroy</code>, en el servidor, tirando al suelo lo que llevaba.</li>
+<li>La pistola solo se desgasta: no hay munición ni daño. La ropa no protege.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="datos.html"><small>Anterior</small>Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a><a class="sig" href="scripts-cpp.html"><small>Siguiente</small>Scripts en C++ (avanzado, opcional)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-probarlo">1. Probarlo</a></li><li class="n2"><a href="#2-controles">2. Controles</a></li><li class="n2"><a href="#3-cómo-está-montado">3. Cómo está montado</a></li><li class="n2"><a href="#4-el-servidor-manda">4. El servidor manda</a></li><li class="n2"><a href="#5-las-casillas-por-la-red">5. Las casillas por la red</a></li><li class="n2"><a href="#6-los-objetos-objetosluau">6. Los objetos: Objetos.luau</a></li><li class="n2"><a href="#7-las-peticiones-inventarioluau">7. Las peticiones: Inventario.luau</a></li><li class="n2"><a href="#8-la-caja-de-botín">8. La caja de botín</a></li><li class="n2"><a href="#9-objetos-en-el-suelo">9. Objetos en el suelo</a></li><li class="n2"><a href="#10-la-interfaz">10. La interfaz</a></li><li class="n2"><a href="#11-el-generador">11. El generador</a></li><li class="n2"><a href="#12-adaptarlo-a-tu-juego">12. Adaptarlo a tu juego</a></li><li class="n2"><a href="#13-las-pruebas-automáticas">13. Las pruebas automáticas</a></li><li class="n2"><a href="#14-límites">14. Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

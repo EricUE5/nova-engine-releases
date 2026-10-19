@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edición en equipo · Nova Engine</title>
+<meta name="description" content="Varias personas editando el mismo proyecto a la vez desde Nova Editor, como en Roblox Studio con Team Create:
+cada cambio en un mapa aparece al instante en todos los PC, se ve dónde está y qué toca cada uno, se puede
+cha">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Edición en equipo · Nova Engine">
+<meta property="og:description" content="Varias personas editando el mismo proyecto a la vez desde Nova Editor, como en Roblox Studio con Team Create:
+cada cambio en un mapa aparece al instante en todos los PC, se ve dónde está y qué toca cada uno, se puede
+cha">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/edicion-en-equipo.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/edicion-en-equipo.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html" aria-current="page">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="edición-en-equipo">Edición en equipo</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#1-qué-es-y-qué-se-sincroniza">1. Qué es y qué se sincroniza</a></li><li class="n2"><a href="#2-probarlo-en-cinco-minutos">2. Probarlo en cinco minutos</a></li><li class="n2"><a href="#3-crear-una-sesión-y-unirse">3. Crear una sesión y unirse</a></li><li class="n3"><a href="#equipos-fijos-entrar-desde-nova-hub-con-doble-clic">Equipos fijos: entrar desde Nova Hub con doble clic</a></li><li class="n3"><a href="#por-steam-amigos">Por Steam (amigos)</a></li><li class="n2"><a href="#4-trabajar-juntos">4. Trabajar juntos</a></li><li class="n3"><a href="#la-interfaz-del-juego-panel-interfaz">La interfaz del juego (panel Interfaz)</a></li><li class="n3"><a href="#cambios-grandes-repartir-hierba-generar-o-importar-un-terreno">Cambios grandes: repartir hierba, generar o importar un terreno</a></li><li class="n2"><a href="#5-guardar">5. Guardar</a></li><li class="n2"><a href="#6-assets-y-ficheros">6. Assets y ficheros</a></li><li class="n3"><a href="#sincronizar-ficheros-con-el-servidor">Sincronizar ficheros con el servidor</a></li><li class="n2"><a href="#7-scripts-lua-y-c">7. Scripts Lua y C++</a></li><li class="n3"><a href="#scripts-lua-en-vivo-sin-compilar">Scripts Lua: en vivo, sin compilar</a></li><li class="n3"><a href="#editar-el-mismo-script-a-la-vez-edición-conjunta">Editar el mismo script a la vez (edición conjunta)</a></li><li class="n3"><a href="#scripts-c-avanzado">Scripts C++ (avanzado)</a></li><li class="n2"><a href="#8-jugar-en-equipo">8. Jugar en equipo</a></li><li class="n2"><a href="#9-roles-expulsar-y-reconexión">9. Roles, expulsar y reconexión</a></li><li class="n2"><a href="#10-servidor-del-proyecto-sin-ventana">10. Servidor del proyecto sin ventana</a></li><li class="n2"><a href="#11-por-internet-código-vpn-o-puertos">11. Por Internet: código, VPN o puertos</a></li><li class="n2"><a href="#12-límites-y-seguridad">12. Límites y seguridad</a></li><li class="n2"><a href="#13-solución-de-problemas">13. Solución de problemas</a></li><li class="n3"><a href="#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">Resolución de problemas: equipo fijo, Nova Hub y prueba en equipo</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Varias personas editando el mismo proyecto a la vez desde Nova Editor, como en Roblox Studio con Team Create:
+cada cambio en un mapa aparece al instante en todos los PC, se ve dónde está y qué toca cada uno, se puede
+chatear y probar el juego juntos. Los scripts <strong>Lua</strong> se recargan en vivo en todos los editores en cuanto alguien
+los guarda, sin compilar (como los scripts de Roblox), y varias personas pueden <strong>escribir a la vez en el mismo script</strong>
+(como el «Collaborative Editing» de Roblox Studio); los de C++ los compila cada PC.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Quiero...</th>
+  <th>Ve a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Probarlo ya, en mi PC</td>
+  <td><a href="#2-probarlo-en-cinco-minutos">Probarlo en cinco minutos</a></td>
+</tr>
+<tr>
+  <td>Invitar a otra gente</td>
+  <td><a href="#3-crear-una-sesión-y-unirse">Crear una sesión</a> y <a href="#11-por-internet-código-vpn-o-puertos">Por Internet</a> (con un código, sin abrir puertos: <a href="enlace.html">enlace.md</a>)</td>
+</tr>
+<tr>
+  <td>Que mi equipo entre siempre sin pasar el código</td>
+  <td><a href="#equipos-fijos-entrar-desde-nova-hub-con-doble-clic">Equipos fijos</a>: les sale en Nova Hub y entran con doble clic</td>
+</tr>
+<tr>
+  <td>Entrar a editar con mis amigos de Steam (sin códigos, sin Tailscale, sin abrir puertos y sin Cloudflare)</td>
+  <td><a href="#por-steam-amigos">Por Steam (amigos)</a></td>
+</tr>
+<tr>
+  <td>Arreglar «el relé no contesta» (bloqueos de Cloudflare en días de LaLiga)</td>
+  <td><a href="#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">Resolución de problemas</a></td>
+</tr>
+<tr>
+  <td>Saber qué pasa si dos tocan lo mismo</td>
+  <td><a href="#4-trabajar-juntos">Trabajar juntos</a></td>
+</tr>
+<tr>
+  <td>Escribir con otra persona en el mismo script</td>
+  <td><a href="#editar-el-mismo-script-a-la-vez-edición-conjunta">Editar el mismo script a la vez</a></td>
+</tr>
+<tr>
+  <td>Tener el proyecto siempre disponible</td>
+  <td><a href="#10-servidor-del-proyecto-sin-ventana">Servidor del proyecto sin ventana</a> (o que se abra solo al abrir el proyecto: <a href="#equipos-fijos-entrar-desde-nova-hub-con-doble-clic">Equipos fijos</a>)</td>
+</tr>
+<tr>
+  <td>Arreglar «no sale en Nova Hub» o «la prueba no me mete»</td>
+  <td><a href="#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">Resolución de problemas</a></td>
+</tr>
+<tr>
+  <td>Que mis ficheros sean otra vez los del servidor (o saber cuáles no lo son)</td>
+  <td><a href="#sincronizar-ficheros-con-el-servidor">Sincronizar ficheros con el servidor</a></td>
+</tr>
+<tr>
+  <td>Entender cómo funciona por dentro</td>
+  <td><span class="enlace-interno-quitado">Para quien desarrolla el motor</span></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="1-qué-es-y-qué-se-sincroniza">1. Qué es y qué se sincroniza<a class="ancla" href="#1-qué-es-y-qué-se-sincroniza" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una <strong>sesión de equipo</strong> tiene un <strong>servidor del proyecto</strong> (el mismo <code>NovaEditor.exe</code> arrancado sin ventana con
+<code>--servidor-equipo</code>) y varios editores conectados a él. El servidor trabaja sobre la carpeta original del
+proyecto, es el único que la escribe y decide el orden de todos los cambios. Cada editor, también el de quien
+crea la sesión, trabaja sobre su propia <strong>carpeta de trabajo</strong> (una copia espejo del proyecto).</p>
+<p>Se sincroniza:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>La escena abierta</td>
+  <td>Cada edición (mover, crear, borrar, cambiar un campo, renombrar, cambiar de padre, revertir un prefab...) viaja como el comando de deshacer del editor y se aplica en todos en el mismo orden. También la interfaz del juego que se monta en el panel <strong>Interfaz</strong> (lienzos, widgets y plantillas: ver <a href="#la-interfaz-del-juego-panel-interfaz">Interfaz</a>)</td>
+</tr>
+<tr>
+  <td>Assets (<code>assets/**</code>) con sus <code>.meta</code></td>
+  <td>Modelos, texturas, sonidos, materiales, prefabs, controladores, escenas y cualquier otro fichero: por trozos, con SHA-256 y reanudación. El <code>.meta</code> siempre llega antes que su fichero, así que el UUID de cada asset es el mismo en todos los PC</td>
+</tr>
+<tr>
+  <td>Scripts (<code>scripts/**</code> y <code>CMakeLists.txt</code> de la raíz)</td>
+  <td>Como ficheros. Los Lua (<code>.luau</code>, <code>.lua</code>) se recargan al llegar y, abiertos en el editor de scripts, se escriben a la vez letra a letra (<a href="#editar-el-mismo-script-a-la-vez-edición-conjunta">edición conjunta</a>); los C++ los compila cada PC en su DLL (ver <a href="#7-scripts-lua-y-c">Scripts</a>)</td>
+</tr>
+<tr>
+  <td><code>project.nova</code></td>
+  <td>Como fichero; quien lo recibe vuelve a leer los ajustes</td>
+</tr>
+<tr>
+  <td>Presencia</td>
+  <td>Nombre y color de cada persona, su cámara, su cursor, su selección y lo que está editando</td>
+</tr>
+<tr>
+  <td>Chat y actividad</td>
+  <td>Mensajes y una lista legible de los cambios («Ana - Mover «Cubo»»)</td>
+</tr>
+</tbody>
+</table></div>
+<p>No se sincroniza <code>bin/</code>, <code>build/</code>, <code>out/</code>, ninguna carpeta o fichero que empiece por punto (<code>.git</code>, <code>.vs</code>,
+<code>.nova-equipo</code>), temporales ni intermedios de compilación, y <strong>nunca</strong> ejecutables o scripts del sistema
+(<code>.exe .dll .bat .cmd .ps1 .vbs .js .msi .lnk .reg</code>...). En <code>project.nova</code> se puede añadir o quitar:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"equipo"</span>: { <span class="hl-k">"incluir"</span>: [<span class="hl-s">"datos"</span>], <span class="hl-k">"excluir"</span>: [<span class="hl-s">"assets/videos"</span>] }</code></pre></div>
+<p>Las carpetas de <code>incluir</code> llegan también a quien entra por primera vez, y si alguien cambia esa lista durante la
+sesión, se aplica a todos al momento (sin volver a abrir el editor).</p>
+<h2 id="2-probarlo-en-cinco-minutos">2. Probarlo en cinco minutos<a class="ancla" href="#2-probarlo-en-cinco-minutos" aria-label="Enlace a esta sección">#</a></h2>
+<p>En un solo PC, con dos editores:</p>
+<ol>
+<li>Abre tu proyecto en Nova Editor y pulsa <strong>Equipo &gt; Crear sesión de equipo...</strong>.</li>
+<li>Elige <strong>Conexión: Directa (IP y puerto)</strong>, deja el puerto 7790, pon una contraseña, elige <strong>Escuchar en: Solo
+este PC</strong> y pulsa <strong>Crear sesión</strong> (con <strong>Por Internet con código</strong> se prueba igual, con el código en vez de la
+dirección del paso 3, si ya <a href="enlace.html#2-desplegar-el-relé-una-sola-vez">desplegaste el relé</a>). El
+editor guarda la escena, arranca el servidor del proyecto en segundo plano, prepara tu carpeta de trabajo y
+se conecta. Aparece el panel <strong>Equipo</strong> junto al Inspector.</li>
+<li>Abre otro Nova Editor (otra ventana) y pulsa <strong>Equipo &gt; Unirse a una sesión...</strong>. Dirección <code>127.0.0.1:7790</code>,
+otro nombre y la contraseña. Al unirte se descarga el proyecto a una carpeta de trabajo propia (si otro editor
+abierto ya usa la carpeta automática, el segundo usa <code>...-2</code>: cada ventana tiene la suya).</li>
+<li>Mueve un cubo en una ventana: se mueve en la otra mientras lo arrastras. Abre el chat en el panel Equipo.</li>
+</ol>
+<p>Las dos ventanas comparten tu identidad (<code>identidad.json</code>), pero el servidor distingue a cada editor: al
+reconectar, cada uno vuelve a su persona, y expulsar a la otra ventana no te deja fuera de tu propia sesión.</p>
+<h2 id="3-crear-una-sesión-y-unirse">3. Crear una sesión y unirse<a class="ancla" href="#3-crear-una-sesión-y-unirse" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Crear</strong> (<strong>Equipo &gt; Crear sesión de equipo...</strong>, con el proyecto abierto):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Tu nombre</td>
+  <td>Cómo te ven los demás</td>
+</tr>
+<tr>
+  <td>Conexión</td>
+  <td><strong>Por Internet con código (Nova Enlace)</strong>, por defecto: los demás entran con un código desde cualquier sitio, sin abrir puertos ni VPN (<a href="enlace.html">enlace.md</a>). <strong>Directa (IP y puerto)</strong>: red local, VPN o puerto abierto en el router. <strong>Por Steam (amigos)</strong> (0.9.33): tus amigos de Steam la ven en su editor y en Nova Hub y entran con doble clic, sin pasar por Cloudflare (<a href="#por-steam-amigos">Por Steam</a>)</td>
+</tr>
+<tr>
+  <td>App ID de Steam</td>
+  <td>Solo <strong>Por Steam</strong>: 480 (Spacewar) de serie, el del proyecto o el que elijas</td>
+</tr>
+<tr>
+  <td>Puerto (UDP)</td>
+  <td>7790 por defecto (los juegos usan 7777-7780: no chocan). Con código, solo para la red local</td>
+</tr>
+<tr>
+  <td>Contraseña</td>
+  <td>La contraseña nunca viaja por la red (prueba SipHash de <code>nova_net</code>)</td>
+</tr>
+<tr>
+  <td>Máximo de personas</td>
+  <td>8 por defecto</td>
+</tr>
+<tr>
+  <td>Rol de quien se une</td>
+  <td><strong>Editor</strong> o <strong>Solo ver</strong></td>
+</tr>
+<tr>
+  <td>Escuchar en</td>
+  <td><strong>Todas las redes</strong> (LAN e Internet) o <strong>Solo este PC</strong></td>
+</tr>
+<tr>
+  <td>Mantener el servidor abierto aunque cierre el editor</td>
+  <td>Si no se marca, el servidor guarda y se cierra cuando sales</td>
+</tr>
+<tr>
+  <td>Autoguardado</td>
+  <td>Cada 5 minutos por defecto</td>
+</tr>
+</tbody>
+</table></div>
+<p>Quien crea la sesión es la <strong>propietaria</strong>: su editor genera una clave aleatoria, se la pasa al servidor por la
+entrada estándar y demuestra que la tiene sin enviarla. La clave se guarda solo en su PC
+(<code>%LOCALAPPDATA%\NovaEngine\equipo\propietaria.json</code>, por proyecto): si deja el servidor abierto y vuelve con
+<strong>Unirse</strong>, vuelve a ser propietaria. Sigue en la escena que tenía abierta. Al terminar se muestra la dirección en
+la red local (<strong>Equipo &gt; Copiar invitación</strong> la copia con instrucciones).</p>
+<p>Con <strong>Por Internet con código</strong>, en cuanto el relé contesta aparece una ventana con el código en grande
+(<code>NOVA-7K2F-Q9XM</code>), <strong>Copiar código</strong> y <strong>Copiar invitación</strong> («Únete a mi proyecto en Nova Engine: código
+NOVA-7K2F-Q9XM»). El código sigue en la cabecera del panel <strong>Equipo</strong> y en <strong>Equipo &gt; Ver el código de la sesión</strong>.
+Si el relé no contesta, la sesión sigue en la red local y se avisa del motivo.</p>
+<p><strong>Unirse</strong> (<strong>Equipo &gt; Unirse a una sesión...</strong>): <strong>código o dirección</strong> (el código de la sesión, en mayúsculas o
+minúsculas y con o sin guiones, o la IP o el nombre y el puerto), tu nombre, la contraseña y,
+si quieres, la carpeta de trabajo. <strong>Buscar</strong> encuentra las sesiones de la red local (con un candado si tienen
+contraseña) y abajo están las <strong>recientes</strong>. Si el proyecto que tienes abierto tiene cambios sin guardar, antes
+se pregunta si guardarlos (al unirte se abre la carpeta de trabajo en su lugar). Primero se descarga lo básico
+(todos los <code>.meta</code>, <code>project.nova</code>, escenas, prefabs, materiales, controladores, scripts, las fuentes de hasta
+8 MB y las texturas de hasta 512 KB), después se abre el proyecto y la escena de la propietaria (o la que tenga
+más gente, o la inicial). Los modelos, sonidos y las texturas y fuentes más grandes siguen bajando mientras ya
+editas, las texturas primero y de menor a mayor: cada una aparece en los materiales que la usan en cuanto llega,
+sin reabrir la escena (y un texto con una fuente que aún no ha llegado se ve con Roboto y cambia solo cuando
+llega). Mientras se conecta, se descarga lo básico o se abre una escena, la escena que
+ves no se puede editar (se va a sustituir): si algo se escapa (un atajo), se deshace con el aviso «Espera a que
+se abra la escena en la sesión».</p>
+<p>La carpeta de trabajo por defecto es <code>%LOCALAPPDATA%\NovaEngine\equipo\espejos\&lt;Proyecto&gt;-&lt;id&gt;</code>. Si vuelves a
+unirte, solo se descarga lo que ha cambiado. Si el servidor está en tu mismo PC, los ficheros se copian del disco
+en vez de pasar por la red. La identidad de cada persona (para recordar su rol y su color) se guarda en
+<code>%LOCALAPPDATA%\NovaEngine\equipo\identidad.json</code>.</p>
+<h3 id="equipos-fijos-entrar-desde-nova-hub-con-doble-clic">Equipos fijos: entrar desde Nova Hub con doble clic<a class="ancla" href="#equipos-fijos-entrar-desde-nova-hub-con-doble-clic" aria-label="Enlace a esta sección">#</a></h3>
+<p>Si editas siempre con las mismas personas, no hace falta pasar el código cada vez que abres la sesión. Un <strong>equipo
+fijo</strong> se forma una vez y queda ligado a tu proyecto: cada vez que abras su sesión, a los demás les sale en
+<strong>Nova Hub</strong> (sección <strong>Equipos</strong>) en verde, «En marcha · Marta · 2 personas», y entran con <strong>doble clic</strong>.</p>
+<p><strong>Quien crea el proyecto (una vez):</strong></p>
+<ol>
+<li>Con tu proyecto abierto: <strong>Equipo &gt; Equipo fijo &gt; Crear equipo fijo...</strong> (o marca <strong>Guardar como equipo fijo</strong>
+al crear la sesión). Deja <strong>Por Internet con Nova Enlace</strong> si los demás están fuera de tu casa; la <strong>Dirección
+directa</strong> (tu IP de la red local o de Tailscale y el puerto) sirve para la red local y funciona aunque el relé
+no esté actualizado. La casilla <strong>Guardar como equipo fijo</strong> crea el equipo <strong>siempre con Nova Enlace</strong>, también
+en una sesión <strong>Directa</strong> (0.9.31); sin Nova Enlace solo si lo quitas a propósito en <strong>Crear equipo fijo</strong>. Si lo
+quitas y la única dirección es de tu red local (192.168.x, 10.x, 172.16-31.x), el editor avisa: «Solo funcionará en
+tu red local. Para amigos por Internet activa Nova Enlace o pon tu IP de Tailscale».</li>
+<li>La <strong>invitación del equipo</strong> (<code>NOVA-EQUIPO-...</code>) se copia sola al portapapeles: pásala <strong>una sola vez</strong> por
+chat. Se puede volver a copiar con <strong>Equipo &gt; Equipo fijo &gt; Copiar invitación del equipo</strong>.</li>
+<li>A partir de ahí no hace falta hacer nada: <strong>al abrir el proyecto, la sesión se abre sola</strong> (0.9.28). El editor arranca
+el servidor del proyecto sin ventana de consola, lo anuncia en Nova Hub y entra en la sesión; si el servidor ya estaba
+abierto (lo dejaste abierto, o lo arrancaste a mano), entra en él en vez de arrancar otro. Sale un aviso («Sesión del
+equipo fijo abierta sola...»). Se puede desactivar en <strong>Equipo &gt; Equipo fijo &gt; Abrir la sesión al abrir el proyecto</strong>, y
+<strong>Dejar el servidor abierto al cerrar el editor</strong> (activado por defecto) decide si el servidor sigue en marcha cuando
+cierras el editor. También se abre como siempre con <strong>Equipo &gt; Crear sesión de equipo...</strong> o desde Nova Hub con <strong>Abrir
+sesión</strong> en la tarjeta de tu equipo.</li>
+</ol>
+<p><strong>Los demás (una vez):</strong> en Nova Hub, <strong>Equipos &gt; Unirse a un equipo...</strong>, pegan la invitación y su nombre, y
+<strong>Guardar equipo</strong>. Desde entonces la tarjeta del equipo dice si la sesión está <strong>en marcha</strong> (con quién la abrió y
+cuántas personas hay) o <strong>cerrada</strong>; <strong>Unirse</strong> o doble clic abre Nova Editor ya unido, con el nombre guardado, la
+contraseña recordada (si la sesión la pide, el editor la pregunta la primera vez) y <strong>la misma carpeta de trabajo
+de la última vez</strong>, así que solo se descarga lo que ha cambiado. Cuando alguien abre la sesión con Nova Hub abierto
+sale un aviso arriba, «Marta ha abierto Mi Juego», con <strong>Unirse</strong>.</p>
+<p>También sin pegar nada: si te unes como siempre (con el código) a la sesión de un equipo fijo, el editor te
+ofrece <strong>Guardar este equipo en Nova Hub</strong> (marcado). La próxima vez ya no hará falta el código.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Quiero...</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Que mis amigos me vean desde Internet (activar Nova Enlace) o poner la IP de Tailscale</td>
+  <td><strong>Equipo &gt; Equipo fijo &gt; Por Internet con Nova Enlace</strong> o <strong>Conexión del equipo...</strong> (0.9.31): se cambia <strong>sin borrar el equipo</strong> y la invitación sigue valiendo. Quien esté conectado recibe la nueva solo; al activar Nova Enlace, el Nova Hub de los demás lo encuentra solo en el relé con la invitación que ya tienen. Si cambias la dirección o quitas Nova Enlace, pasa la nueva a quien no esté conectado</td>
+</tr>
+<tr>
+  <td>Echar a alguien del equipo</td>
+  <td><strong>Equipo &gt; Equipo fijo &gt; Renovar invitación...</strong> (o en Nova Hub, botón derecho en la tarjeta): la invitación anterior deja de valer. Quien esté conectado recibe la nueva solo; a los demás que deban seguir pásales la nueva</td>
+</tr>
+<tr>
+  <td>Dejar de usar el equipo</td>
+  <td><strong>Borrar equipo fijo...</strong> (la dueña) o <strong>Quitar...</strong> en Nova Hub (un miembro lo quita de su lista)</td>
+</tr>
+<tr>
+  <td>Que me avise aunque no tenga Nova Hub abierto</td>
+  <td>Nova Hub &gt; <strong>Ajustes &gt; Equipos</strong>: notificación de Windows y abrir Nova Hub al iniciar Windows, minimizado en la bandeja (los dos desactivados por defecto)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cómo se sabe si está en marcha: por el relé de Nova Enlace (el servidor del equipo lo anuncia mientras está abierto
+y, si se le cae el PC, deja de salir en 2 o 3 minutos; si el servidor se queda sin código porque el relé perdió su sala,
+retira el anuncio al momento y lo vuelve a poner con el código nuevo, así que Nova Hub nunca da un código que ya no existe) y, si el equipo tiene dirección directa, preguntando en esa
+dirección (red local, Tailscale o IP). Nova Hub pregunta cada 30 segundos mientras está abierto. Para entrar, Nova
+Hub usa <strong>siempre el código del relé</strong> si lo hay (sirve desde cualquier red) y la dirección directa solo si
+contestó (si no se puede entrar por uno, el editor prueba solo el otro). Si no se puede preguntar al relé (sin
+Internet), la tarjeta dice <strong>No se puede comprobar</strong>, no «Cerrado».</p>
+<p><strong>Qué ve la dueña.</strong> En la cabecera del panel <strong>Equipo</strong> sale el estado real del anuncio: «Nova Hub: el equipo fijo
+sale «En marcha»», «esperando el código de la sesión para anunciarla…» o «no se pudo anunciar el equipo fijo» con el motivo
+(en la ayuda) y cuándo se reintenta (a los 5 s, 10 s, 20 s... como mucho cada 20 s). La primera vez que sale y cada vez que
+falla, también un aviso. El servidor encuentra solo el equipo fijo de su proyecto en tus equipos guardados: aunque lo
+arranques a mano (<code>NovaEditor.exe --servidor-equipo ...</code>), aunque lo hubieras dejado abierto antes de crear el equipo y aunque
+la sesión sea <strong>Directa</strong> (si el equipo es «por Internet», el servidor abre también su sala en el relé).</p>
+<p>La dirección directa automática es la IP de tu red local: una sesión solo por código (el servidor solo escucha en
+tu PC) o un PC sin red no tienen, y nunca se guarda ni se invita con <code>127.0.0.1</code>, que en el PC de otra persona sería
+el suyo. Si escribes una a mano (por ejemplo <code>127.0.0.1</code> para probar con dos editores en tu PC), se respeta. Si tu relé se
+desplegó con una versión anterior, Nova Hub y el editor lo dicen («El relé todavía no tiene equipos fijos: hay que
+actualizarlo con <code>relay-server\desplegar.cmd</code>»); todo lo demás sigue igual y la dirección directa funciona.</p>
+<p>Las claves del equipo y las contraseñas recordadas se guardan en <code>%LOCALAPPDATA%\NovaEngine\equipo\equipos-fijos.json</code>
+cifradas con la cuenta de Windows (DPAPI): no se pueden leer desde otro usuario ni copiándolas a otro PC. La
+invitación lleva la clave de los miembros: trátala como una contraseña.</p>
+<h3 id="por-steam-amigos">Por Steam (amigos)<a class="ancla" href="#por-steam-amigos" aria-label="Enlace a esta sección">#</a></h3>
+<p>Desde la 0.9.33 una sesión también puede ir <strong>por Steam</strong>: tus amigos de Steam la ven en su editor y en Nova Hub y entran con
+<strong>doble clic</strong>, sin códigos, sin Tailscale y sin abrir puertos. El tráfico va por la red P2P de Steam (los relés de Valve,
+SDR), <strong>no pasa por Cloudflare</strong>: sirve cuando Nova Enlace falla, por ejemplo cuando los bloqueos de LaLiga cortan a ratos
+las IP de Cloudflare en España (ver <a href="#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">Resolución de problemas</a>).
+La contraseña, los roles, la sincronización, el chat y todo lo demás funcionan igual por encima.</p>
+<p><strong>Lo que necesitáis:</strong> Steam abierto con vuestras cuentas, ser <strong>amigos en Steam</strong> y tener la misma app de Steam. Por defecto
+es la <strong>480</strong> (Spacewar, la app de pruebas de Valve): cualquier cuenta la tiene sin comprar nada.</p>
+<p><strong>Crear la sesión (quien tiene el proyecto):</strong></p>
+<ol>
+<li><strong>Equipo &gt; Crear sesión de equipo...</strong> y en <strong>Conexión</strong> elige <strong>Por Steam (amigos)</strong>.</li>
+<li><strong>App ID de Steam</strong>: deja <strong>480 (Spacewar)</strong> o pulsa <strong>El del proyecto</strong> (el de <code>project.nova</code>, <code>steam.appId</code>; por ejemplo
+1234560, Mi Juego). Con otro App ID que no sea el 480, <strong>tus compañeros tienen que tener esa app en su biblioteca de
+Steam</strong> (si es tu juego sin publicar, con claves de desarrollo o en tu equipo de Steamworks). Se recuerda para la próxima vez.</li>
+<li>Contraseña, máximo de personas y lo demás como siempre, y <strong>Crear sesión</strong>. El editor arranca el servidor del proyecto,
+entra en él, inicia Steam y crea un <strong>lobby de amigos</strong>. Sale el aviso «Sesión abierta también por Steam...» y, en la cabecera
+del panel <strong>Equipo</strong>, <strong>Por Steam</strong> con tu cuenta y el App ID.</li>
+</ol>
+<p>También se abre por Steam una sesión que ya está en marcha en tu PC con <strong>Equipo &gt; Steam &gt; Abrir también por Steam (amigos)</strong>
+(la sesión sigue también por código o por IP para quien entre así).</p>
+<p><strong>Entrar (tus amigos):</strong></p>
+<ul>
+<li><strong>Equipo &gt; Unirse a una sesión...</strong>: abajo está <strong>Amigos de Steam con una sesión de Nova abierta</strong> (pulsa <strong>Buscar amigos
+de Steam</strong> la primera vez). Cada fila dice el proyecto, quién la abrió, cuántas personas hay y la versión de Nova Engine;
+<strong>doble clic</strong> para entrar. Una versión distinta sale en amarillo y no deja entrar.</li>
+<li><strong>Nova Hub &gt; Equipos</strong>: la misma lista al final («Buscar amigos de Steam»), con doble clic.</li>
+<li><strong>Una invitación</strong>: en el panel <strong>Equipo</strong>, <strong>Invitar amigo de Steam</strong> abre el diálogo de invitar del overlay de Steam (o
+<strong>Invitar a un amigo concreto</strong> para elegirlo de la lista). Tu amigo acepta en Steam y su editor entra solo, si lo tiene
+abierto con <strong>Equipo &gt; Steam &gt; Recibir invitaciones de Steam con el editor abierto</strong>, o lo abre Nova Hub ya dentro de la
+sesión si tiene <strong>Ajustes &gt; Equipos &gt; Recibir invitaciones de Steam y ver las sesiones de mis amigos de Steam</strong>. Si el editor
+o Nova Hub se abren con <code>+connect_lobby &lt;id&gt;</code> (lo que pasa Steam con la invitación cuando la app es la del juego), entran
+solos en esa sesión.</li>
+<li><strong>A mano</strong>: en <strong>Código o dirección</strong>, <code>steam:&lt;SteamID de la anfitriona&gt;</code> (por ejemplo <code>steam:76561198012345678</code>).</li>
+</ul>
+<p>En la pestaña <strong>Personas</strong> la columna <strong>Conexión</strong> dice <strong>por Steam</strong> y, al pasar el ratón, el <strong>SteamID</strong> de esa persona (lo
+autentica Steam: sirve para saber quién es de verdad). Expulsar a alguien que está por Steam veta también su SteamID.</p>
+<p><strong>Mientras dura, Steam dice «Jugando a Spacewar».</strong> Es lo que enseña Steam con el App ID 480; vuestros amigos de Steam ven
+además el estado «Editando Mi Juego en Nova» en «Ver información del juego» (y «Unirse a la partida» abre la
+sesión). Con tu App ID, sale el nombre de tu juego.</p>
+<p><strong>Tu editor hace de puente.</strong> El servidor del proyecto no habla con Steam: es tu editor el que tiene Steam, recibe a los
+amigos por Steam y los pasa al servidor de tu PC. Por eso <strong>la sesión sigue en Steam mientras tu editor esté abierto</strong>, también
+si sales de la sesión y dejas el servidor abierto; si cierras el editor, quien estaba por Steam se queda sin conexión hasta que
+lo vuelvas a abrir (el editor reintenta solo unos minutos). Ver <span class="enlace-interno-quitado">Por qué el editor hace de puente</span>.</p>
+<p><strong>Equipo fijo por Steam.</strong> En <strong>Equipo &gt; Equipo fijo &gt; Por Steam (amigos)</strong> el equipo fijo se abre también por Steam cada vez.
+El Nova Hub de cada miembro (amigo tuyo en Steam) abre Steam y ve la sesión <strong>por tu lobby de Steam aunque el relé de Cloudflare
+no conteste</strong>: la tarjeta sale «En marcha» y, al entrar, el editor prueba el código, después la dirección directa (o Tailscale)
+y después Steam, solo. Quien ya estaba conectado recibe la invitación nueva sola; quien no, la recibe la próxima vez que entre
+por código o por IP (o pásale la invitación del equipo otra vez).</p>
+<p><strong>«Jugar» y el App ID.</strong> Steam solo deja <strong>un App ID por programa</strong>. Mientras la sesión va por Steam, el Steam del editor es el
+de la sesión (480 de serie), y <strong>Jugar</strong> usa ese mismo Steam: la partida por Steam y la sesión van a la vez por el mismo Steam,
+cada una por su puerto virtual. Si tu proyecto usa Steam con otro App ID, sus logros y sus lobbies no funcionan mientras tanto
+(el registro lo avisa una vez); sal de la sesión por Steam para probarlos, o crea la sesión con <strong>El del proyecto</strong>. Si estás
+jugando con el Steam de otro App ID, para el modo juego antes de abrir la sesión por Steam. <strong>Jugar en equipo</strong> va por Steam
+cuando todos los demás están por Steam (o tienen Steam en marcha en la sesión): nadie escribe direcciones.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Quiero...</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Abrir mi sesión por Steam</td>
+  <td><strong>Crear sesión &gt; Conexión: Por Steam (amigos)</strong>, o <strong>Equipo &gt; Steam &gt; Abrir también por Steam (amigos)</strong> con la sesión abierta</td>
+</tr>
+<tr>
+  <td>Entrar en la de un amigo</td>
+  <td><strong>Unirse a una sesión</strong> &gt; <strong>Amigos de Steam con una sesión de Nova abierta</strong> &gt; doble clic (o en Nova Hub &gt; Equipos)</td>
+</tr>
+<tr>
+  <td>Invitar a alguien</td>
+  <td>Panel <strong>Equipo</strong> &gt; <strong>Invitar amigo de Steam</strong> (overlay) o <strong>Invitar a un amigo concreto</strong></td>
+</tr>
+<tr>
+  <td>Recibir invitaciones sin tener la sesión abierta</td>
+  <td>Nova Hub &gt; <strong>Ajustes &gt; Equipos &gt; Recibir invitaciones de Steam...</strong> (o en el editor, <strong>Equipo &gt; Steam &gt; Recibir invitaciones...</strong>)</td>
+</tr>
+<tr>
+  <td>Que el equipo fijo se vea aunque Cloudflare falle</td>
+  <td><strong>Equipo &gt; Equipo fijo &gt; Por Steam (amigos)</strong></td>
+</tr>
+<tr>
+  <td>Usar el App ID de mi juego</td>
+  <td><strong>App ID de Steam</strong> al crear la sesión (los demás tienen que tener la app)</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="probarlo-con-el-steam-de-verdad-dos-cuentas-amigas-y-el-480">Probarlo con el Steam de verdad (dos cuentas amigas y el 480)<a class="ancla" href="#probarlo-con-el-steam-de-verdad-dos-cuentas-amigas-y-el-480" aria-label="Enlace a esta sección">#</a></h4>
+<p>Las pruebas automáticas del motor lo prueban todo con el <strong>Steam simulado</strong> (nunca abren tu Steam). Con el Steam de verdad hay
+que probarlo una vez a mano, con <strong>dos PC</strong> (o un PC y una máquina virtual: Steam solo deja una cuenta por PC), cada uno con
+su cuenta, y las dos cuentas <strong>amigas en Steam</strong>:</p>
+<ol>
+<li>En los dos: Steam abierto con la sesión iniciada y Nova Engine 0.9.33 (junto a <code>NovaEditor.exe</code> tiene que estar
+<code>steam_api64.dll</code>; si falta, el editor dice «falta steam_api64.dll»).</li>
+<li><strong>PC 1 (Marta):</strong> abre Mi Juego, <strong>Equipo &gt; Crear sesión de equipo...</strong>, <strong>Conexión: Por Steam (amigos)</strong>,
+App ID <strong>480</strong>, una contraseña y <strong>Crear sesión</strong>. Debe salir «Sesión abierta también por Steam...» y en el panel <strong>Equipo</strong>,
+<strong>Por Steam · Steam: &lt;tu cuenta&gt; (App ID 480, Spacewar)</strong>. En la lista de amigos de Steam del PC 2, Marta sale <strong>Jugando a
+Spacewar</strong>.</li>
+<li><strong>PC 2 (el compañero):</strong> abre el editor (cualquier proyecto), <strong>Equipo &gt; Unirse a una sesión... &gt; Buscar amigos de Steam</strong>.
+Debe salir «Mi Juego · Marta · 1/8 · 0.9.33». Doble clic, la contraseña y dentro: en <strong>Personas</strong>, el
+compañero sale <strong>por Steam</strong> (con su SteamID al pasar el ratón).</li>
+<li>Mueve algo, escribe en el chat y guarda en los dos sentidos.</li>
+<li><strong>Invitación:</strong> el PC 2 sale de la sesión y activa <strong>Equipo &gt; Steam &gt; Recibir invitaciones de Steam con el editor abierto</strong>. En
+el PC 1, panel <strong>Equipo &gt; Invitar a un amigo concreto &gt; Invitar</strong>. En el PC 2 llega la invitación de Steam («te invita a jugar
+a Spacewar»): al aceptarla, su editor entra solo. Si <strong>Invitar amigo de Steam</strong> no abre el overlay (el overlay de Steam solo se
+engancha a los programas que inician Steam antes de crear su ventana, y el editor lo inicia al abrir la sesión), usa <strong>Invitar a
+un amigo concreto</strong>. Con el 480 y sin el editor (ni Nova Hub con Steam) abierto, Steam intentaría abrir Spacewar: ciérralo y
+entra desde la lista de amigos.</li>
+<li><strong>Nova Hub:</strong> en el PC 2, Nova Hub &gt; <strong>Ajustes &gt; Equipos &gt; Recibir invitaciones de Steam y ver las sesiones de mis amigos de
+Steam</strong> y repite la invitación con el editor cerrado: Nova Hub abre el editor ya dentro.</li>
+<li><strong>Jugar en equipo:</strong> con los dos dentro por Steam, <strong>Equipo &gt; Jugar en equipo</strong> en el PC 1: el PC 2 entra solo a la partida
+(con F3 se ve la conexión <code>steam:</code>).</li>
+<li><strong>Equipo fijo:</strong> en el PC 1, <strong>Equipo &gt; Equipo fijo &gt; Por Steam (amigos)</strong> (y que el PC 2 tenga el equipo en Nova Hub). Con la
+sesión abierta, el Nova Hub del PC 2 la ve «En marcha». Para ver que no depende de Cloudflare, quita Internet al relé desde el
+PC 2 (por ejemplo, un día de LaLiga, o bloqueando tu <code>*.workers.dev</code> en el cortafuegos un rato): la tarjeta sigue «En marcha» y
+dice «El relé no contesta (...). Entrando por Steam…».</li>
+</ol>
+<p>Si algo falla, el registro del editor (<code>%LOCALAPPDATA%\NovaEngine\editor.log</code>) dice qué contestó Steam («Steam no disponible: ...»,
+«no se pudo entrar en el lobby...»).</p>
+<h2 id="4-trabajar-juntos">4. Trabajar juntos<a class="ancla" href="#4-trabajar-juntos" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Presencia.</strong> Cada persona tiene un color. En la barra de herramientas aparecen sus avatares: clic para ir a su
+posición, clic derecho para <strong>seguir</strong> su cámara (Esc para dejarlo). En el visor se ven las cámaras de los
+demás con su nombre, su cursor (un círculo con su inicial) y lo que tienen seleccionado (una caja de su color).
+En la jerarquía, un punto de color marca lo que tiene seleccionado cada persona.</p>
+<p><strong>Bloqueos.</strong> Mientras alguien arrastra el gizmo, edita un campo del inspector o renombra una entidad, esa
+entidad queda <strong>bloqueada</strong> para los demás: candado en la jerarquía, caja gruesa de su color en el visor y una
+franja en el inspector («Cubo» lo está editando Ana, y qué está haciendo) con los controles desactivados y sin
+gizmo. Los demás ven el arrastre en vivo. El bloqueo se libera al soltar, al desconectarse o tras 60 s sin
+actividad. Las ediciones de un solo clic (una casilla, un combo, soltar un material) no bloquean.</p>
+<p><strong>Qué pasa si dos tocan lo mismo:</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Situación</th>
+  <th>Resultado en todos los PC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Dos cambian campos de la misma entidad sin bloqueo</td>
+  <td>Gana el último que llega al servidor, campo a campo</td>
+</tr>
+<tr>
+  <td>Editar algo bloqueado por otra persona</td>
+  <td>El editor no deja; si se escapa (un atajo), el cambio se deshace y se avisa «lo estaba editando Ana»</td>
+</tr>
+<tr>
+  <td>Dos empiezan a arrastrar lo mismo a la vez</td>
+  <td>Se queda el que llegó antes; al otro se le cancela el arrastre con un aviso que nombra a quien empezó a la vez, y su bloqueo se suelta enseguida</td>
+</tr>
+<tr>
+  <td>Borrar algo que otra persona acaba de cambiar (o cuyo contenido cambió)</td>
+  <td>Se rechaza: «Ana ha cambiado lo que hay dentro de «Casa»: vuelve a intentarlo». Viendo ya su cambio, se puede borrar</td>
+</tr>
+<tr>
+  <td>Editar algo que otra persona ya borró</td>
+  <td>Se descarta con el aviso «otra persona lo ha borrado»</td>
+</tr>
+<tr>
+  <td>Crear un hijo bajo algo que otra persona acaba de borrar</td>
+  <td>Se crea en la raíz</td>
+</tr>
+<tr>
+  <td>Meter A dentro de B mientras otra persona mete B dentro de A</td>
+  <td>El segundo se rechaza (sería un ciclo)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="la-interfaz-del-juego-panel-interfaz">La interfaz del juego (panel Interfaz)<a class="ancla" href="#la-interfaz-del-juego-panel-interfaz" aria-label="Enlace a esta sección">#</a></h3>
+<p>El HUD y los menús se montan juntos en el panel <strong>Interfaz</strong> (<a href="interfaz-ui.html#crear-la-interfaz-en-equipo">interfaz-ui.md</a>):
+todo lo que se hace allí (crear widgets y plantillas, mover, redimensionar, girar, anclar, alinear, agrupar,
+ordenar, escribir en un texto, cambiar una imagen o una fuente) llega a los demás como cualquier otro cambio. En
+el panel se ve lo que tiene elegido cada persona (borde fino de su color con su nombre) y lo que está cambiando
+(borde grueso, candado y qué hace, con el arrastre en vivo). Un elemento que edita otra persona no se puede
+tocar hasta que suelta (la barra del panel dice quién lo tiene), y escribir en un texto con doble clic lo
+bloquea hasta aceptar o cancelar. Con el rol <strong>Solo ver</strong> el panel no cambia nada.</p>
+<p><strong>Deshacer solo lo tuyo.</strong> Ctrl+Z deshace tus cambios, nunca los de los demás. Si otra persona tocó después la
+misma entidad, no se puede: «No se puede deshacer «Mover»: Ana ha cambiado «Cubo» después», y esa entrada sale de
+tu historial (puedes seguir deshaciendo las anteriores).</p>
+<h3 id="cambios-grandes-repartir-hierba-generar-o-importar-un-terreno">Cambios grandes: repartir hierba, generar o importar un terreno<a class="ancla" href="#cambios-grandes-repartir-hierba-generar-o-importar-un-terreno" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un cambio puede ocupar mucho: <strong>Repartir automáticamente</strong> la hierba en todo un terreno de 4000 m son de 1 a 75 MB
+(según la resolución del terreno y de la hierba), generar o importar un mapa de alturas de 4097 x 4097, unos 50 MB.
+Esos cambios viajan <strong>por partes y en segundo plano</strong>:</p>
+<ul>
+<li>En tu PC el cambio se ve al momento y puedes seguir editando; la barra de estado dice <strong>«Equipo: enviando «Repartir
+hierba»… 40 % (3,4 de 8,5 MB)»</strong>. Lo que hagas después sale detrás, en orden.</li>
+<li>Los demás lo ven <strong>entero y de una vez</strong> cuando ha llegado (nunca a medias): mientras tanto su barra dice
+«recibiendo un cambio de otra persona… 40 %». Mientras sube, el chat, los bloqueos y los cambios pequeños de todos
+siguen llegando con normalidad.</li>
+<li>Para ti es <strong>un solo paso del historial</strong>: Ctrl+Z lo deshace entero (y también viaja por partes).</li>
+<li>Velocidad orientativa: unos 2 MB/s en la red local y unos 0,6 MB/s por código de Nova Enlace. Repartir la hierba
+en un terreno de 4000 m y 1025 muestras (8,5 MB) tarda unos 10 s en llegar a todos en la red local y unos 15 s por
+código; en uno de 4097 (29 MB), unos 33 s y un minuto.</li>
+<li>Tope: <strong>256 MB por cambio</strong> (la propietaria lo puede cambiar con <code>limites.maxOpBytes</code> en
+<code>.nova-equipo\equipo.json</code>). Si un cambio lo pasa no se envía: se deshace en tu escena y se avisa «El cambio
+«Repartir hierba» no se ha podido enviar: ocupa 300 MB y el servidor del equipo admite 256 MB como mucho». Hazlo por
+partes (repartir en una zona con <strong>Área: Alrededor del último punto</strong>).</li>
+</ul>
+<p><strong>Chat y actividad.</strong> En el panel Equipo: pestaña <strong>Chat</strong> (las menciones <code>@Nombre</code> se resaltan para esa
+persona; quien entra recibe los últimos 200 mensajes) y pestaña <strong>Actividad</strong> (los últimos cambios; un clic
+selecciona la entidad).</p>
+<p><strong>Escenas.</strong> <strong>Archivo &gt; Abrir escena</strong> cambia la escena de la sesión que editas; <strong>Nueva escena</strong> la crea en el
+servidor; <strong>Guardar escena como</strong> crea una copia en la sesión y pasa a editarla. Las tres esperan a que tus
+últimos cambios hayan llegado («Enviando tus cambios...»).</p>
+<h2 id="5-guardar">5. Guardar<a class="ancla" href="#5-guardar" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Guarda <strong>el servidor</strong>, en la carpeta original del proyecto. <strong>Ctrl+S</strong> (o <strong>Equipo &gt; Guardar todo</strong>) le pide que
+guarde; todos ven «Ana ha guardado scenes/Principal.scene».</li>
+<li>El asterisco del título significa que el servidor tiene cambios sin guardar en disco (o que tienes cambios aún
+sin confirmar). No hace falta guardar antes de salir: el trabajo ya está en el servidor. Al salir (o cerrar el
+editor), el editor espera hasta 2 s a que el servidor confirme lo último (cambios, guardar, detener); lo que no
+confirme se guarda en <code>.nova-equipo/no-enviados-&lt;fecha&gt;.json</code> de tu carpeta de trabajo.</li>
+<li>Sin conexión, Ctrl+S avisa de que no se puede guardar ahora (tus cambios se envían al volver).</li>
+<li><strong>Terrenos</strong>: lo que cambias en un terreno (esculpir, pintar, la hierba y los árboles) va dentro de la escena como
+«cambios» respecto a su fichero <code>.terrain</code>. Para que la escena no crezca sin límite, al guardar con Ctrl+S, si un
+terreno lleva más de 1 MB de cambios, pasa antes a un fichero <code>.terrain</code> nuevo de <code>assets/Terrenos/</code> («Guardar el
+terreno en su fichero», un paso del historial que no cambia nada de lo que se ve) y la escena se guarda en cuanto ese
+fichero ha subido entero al servidor. También a mano: panel <strong>Terreno &gt; Ajustes &gt; Guardar en el fichero .terrain</strong>
+(dice cuántos MB de cambios lleva la escena). Quien entra después descarga ese fichero por partes, como cualquier
+otro, y la escena llega en un momento (una escena de 5 MB por los cambios de su terreno pasa a ocupar unos KB). Si
+otra persona cambia el terreno justo a la vez, el paso se rechaza («No se ha podido guardar «Terreno» en su fichero:
+otra persona lo ha cambiado a la vez») y basta con volver a guardar.</li>
+<li><strong>Autoguardado</strong> cada 5 minutos (ajustable), y al detener el servidor.</li>
+<li>El servidor escribe cada cambio en un <strong>diario</strong> (<code>.nova-equipo/diario/</code>) antes de aplicarlo: si se cae sin
+guardar, al volver a arrancar recupera todo («Recuperadas 12 operaciones sin guardar...») y los editores
+reconectan solos.</li>
+</ul>
+<h2 id="6-assets-y-ficheros">6. Assets y ficheros<a class="ancla" href="#6-assets-y-ficheros" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Importa, mueve, renombra o borra assets en tu carpeta de trabajo como siempre: los cambios se detectan cada
+segundo (cuando el fichero deja de cambiar) y se suben. Los movimientos viajan como borrar + crear; el UUID se
+conserva porque viaja el <code>.meta</code>.</li>
+<li><strong>Nada se borra para siempre</strong>: lo que se borra va a <code>.nova-equipo/papelera/&lt;fecha&gt;/</code> (en el servidor y en
+cada carpeta de trabajo), no a la papelera de Windows.</li>
+<li><strong>Conflictos</strong>: si dos personas cambian el mismo fichero a la vez, gana el servidor y tu versión se guarda en
+<code>.nova-equipo/conflictos/&lt;fecha&gt;/</code> de tu carpeta de trabajo, con un aviso. Lo mismo si creas un fichero con el
+nombre de otro que alguien acaba de subir. Un script Lua que se está editando a la vez en el editor de scripts nunca
+choca: lo que se escribe se mezcla, y un guardado desde VS Code también (<a href="#editar-el-mismo-script-a-la-vez-edición-conjunta">edición conjunta</a>).</li>
+<li>Si vuelves a unirte con una carpeta de trabajo antigua: lo que estaba desactualizado se sobrescribe y lo que
+cambiaste sin conexión se sube (si nadie más lo tocó) o va a conflictos.</li>
+<li>El <code>.scene</code> de una escena abierta en la sesión solo lo escribe el servidor: no se puede subir ni borrar desde
+fuera («está abierta en la sesión: edítala en el editor»).</li>
+<li>Límites por defecto: 512 MB por fichero, 20 GB y 100 000 ficheros por proyecto, 256 MB por cambio de escena
+(antes de la 0.9.4, 8 MB).</li>
+<li>Si Windows tiene un fichero abierto en otro programa, se reintenta y se avisa «No se pudo escribir X (¿está
+abierto en otro programa?)».</li>
+</ul>
+<h3 id="sincronizar-ficheros-con-el-servidor">Sincronizar ficheros con el servidor<a class="ancla" href="#sincronizar-ficheros-con-el-servidor" aria-label="Enlace a esta sección">#</a></h3>
+<p>La sincronización de cada segundo mira la <strong>fecha y el tamaño</strong> de cada fichero. Hay cambios que no los mueven (un
+fichero copiado o restaurado conservando su fecha, un cambio de alguien con el rol <strong>Solo ver</strong>, que no se sube, una
+subida que el servidor rechazó) y la carpeta de trabajo puede quedarse distinta sin que se note. Para eso está
+<strong>Equipo &gt; Sincronizar ficheros con el servidor</strong> (también en el panel <strong>Equipo</strong>, pestaña <strong>Ficheros</strong>):</p>
+<ol>
+<li>Compara <strong>cada fichero</strong> de tu carpeta de trabajo con la lista del servidor <strong>por su contenido</strong> (SHA-256).</li>
+<li>Lo que falta o es distinto (y no lo has cambiado tú) <strong>se vuelve a bajar</strong>. Lo que el servidor ya no tiene se aparta a
+<code>.nova-equipo/conflictos/&lt;fecha&gt;/</code>, como siempre (nada se borra).</li>
+<li>Si tienes <strong>cambios tuyos sin subir</strong>, te pregunta antes de tocarlos: <strong>Subirlos a la sesión</strong> (si tu rol lo permite),
+<strong>Guardarlos aparte y usar los del servidor</strong> (tu versión va a <code>.nova-equipo/conflictos/&lt;fecha&gt;/</code>, con un aviso que dice
+dónde) o <strong>Dejarlos como están</strong>.</li>
+<li>Al acabar, un resumen: «Ficheros comprobados con el servidor: 2 se vuelven a bajar, 1 cambios tuyos sin subir» y, cuando
+llega todo, «Ficheros sincronizados con el servidor» (o «Tu carpeta de trabajo ya estaba al día»).</li>
+</ol>
+<p>En la pestaña <strong>Personas</strong> del panel, la columna <strong>Ficheros</strong> dice quién tiene los scripts y los assets clave al día
+(marca verde) y quién no (aviso amarillo con el número; al pasar el ratón, la lista: «scripts/Vida.luau (cambio suyo sin
+subir)», «assets/Items/Cubo.prefab (falta en su carpeta)»). Cada editor lo comprueba cada 20 segundos (solo mira, no toca
+nada) y al terminar una sincronización. Un editor de antes de la 0.9.33 sale con «-».</p>
+<h2 id="7-scripts-lua-y-c">7. Scripts Lua y C++<a class="ancla" href="#7-scripts-lua-y-c" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="scripts-lua-en-vivo-sin-compilar">Scripts Lua: en vivo, sin compilar<a class="ancla" href="#scripts-lua-en-vivo-sin-compilar" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>Cuando alguien guarda <code>scripts/Puerta.luau</code> (o crea, cambia de sitio o borra uno), llega a todos y cada editor lo
+recarga en el acto, igual que si lo hubiera guardado él: «Ana ha cambiado scripts/Puerta.luau: recargado». Si
+alguien está jugando, su partida sigue con el código nuevo y el mismo estado (los campos y <code>self._x</code> se
+conservan; no se vuelven a llamar <code>Awake</code> ni <code>Start</code>). Un módulo de <code>require</code> recarga también las clases que lo
+usan.</li>
+<li>Una clase nueva aparece en <strong>Añadir script</strong> de todos sin hacer nada; los campos nuevos salen en el Inspector y
+las funciones nuevas en los enlaces de la interfaz («Al hacer clic»...).</li>
+<li>Si el fichero tiene un error, el aviso lo dice con <code>fichero:línea</code> y se sigue usando la versión anterior.</li>
+<li>Los scripts Lua <strong>no</strong> dejan la DLL de scripts C++ desactualizada ni piden compilar: un proyecto solo con Lua
+(plantilla <strong>Vacío (Lua)</strong>) nunca ve «Compila los scripts (Ctrl+B)».</li>
+</ul>
+<h3 id="editar-el-mismo-script-a-la-vez-edición-conjunta">Editar el mismo script a la vez (edición conjunta)<a class="ancla" href="#editar-el-mismo-script-a-la-vez-edición-conjunta" aria-label="Enlace a esta sección">#</a></h3>
+<p>Desde la 0.9.31, si dos o más personas de la sesión abren el mismo script Lua (<code>scripts/**.luau</code> o <code>.lua</code>) en el
+<a href="editor-scripts.html">editor de scripts integrado</a>, lo escriben <strong>juntas</strong>, como en el «Collaborative Editing» de Roblox
+Studio:</p>
+<ul>
+<li><strong>Cada pulsación llega a los demás al momento</strong> (unos 50-100 ms) y lo que se escribe a la vez, aunque sea en la misma
+línea, se mezcla sin perder nada: nunca «el último que guarda gana».</li>
+<li><strong>Se ve a cada uno</strong>: su cursor y su selección con su color de la sesión y, un rato después de moverse (o con el ratón
+encima de su línea), una etiqueta con su nombre. En la pestaña del script sale un punto del color de cada persona que
+también está en él (pasa el ratón para ver quién), y encima del código, «Editando con Ana, Luis».</li>
+<li><strong>Quién edita qué</strong>: en el panel <strong>Equipo</strong>, pestaña <strong>Personas</strong>, la lista <strong>Scripts: quién edita qué</strong> dice qué scripts
+se están editando, quién está en cada uno y si están guardados; clic para abrirlo.</li>
+<li><strong>Guardar</strong>: el script compartido lo guarda <strong>el servidor del equipo, una sola vez para todos</strong>, cuando el grupo deja de
+escribir (1,5 s) o cuando alguien pulsa <strong>Ctrl+S</strong>. Llega a todos como cualquier fichero y el Lua <strong>se recarga en todos</strong>
+(sin aviso en la esquina: solo «Recargado Puerta.luau (edición conjunta)» en la barra de estado). Encima del código pone
+«guardado» o «se guarda solo al dejar de escribir».</li>
+<li><strong>A medio escribir no se rompe nada</strong>: si el texto tiene un error de sintaxis (una función sin cerrar, un paréntesis
+abierto...), el guardado automático <strong>espera a que compile</strong>; ni se escribe el fichero ni se recarga el script roto en
+nadie, y encima del código sale «sin guardar: línea 12: ...». Si pulsas <strong>Ctrl+S</strong> se guarda igualmente y la recarga dice
+el error y sigue con la versión anterior, como siempre.</li>
+<li><strong>Ctrl+Z deshace solo lo tuyo</strong>, nunca lo que escribió otra persona (aunque lo hiciera después); <strong>Ctrl+Y</strong> lo vuelve a
+poner en su sitio. Lo que escribes seguido es un paso, como siempre.</li>
+<li><strong>Entrar a mitad</strong>: quien abre un script que otros ya están editando recibe lo que hay ahora, también lo que el grupo aún
+no ha guardado. Mientras llega (unas décimas) el script no se puede editar. Si tenías cambios sin guardar en ese script
+(por ejemplo, los que ofrece la <a href="editor.html#recuperar-la-sesión">recuperación de la sesión</a>), se mezclan con los del grupo.</li>
+<li><strong>Si te caes</strong>: lo que ya enviaste se queda en el script de todos y puedes seguir escribiendo sin conexión; al volver se
+envía lo que faltaba y se resincroniza <strong>sin duplicar texto</strong>. Si se pierde el servidor, cada uno conserva su copia sin
+guardar en su pestaña (y la recuperación de la sesión la puede ofrecer si cierras el editor). Si el servidor se cae y
+vuelve a arrancar, recupera cada script compartido tal como estaba (<code>.nova-equipo/conjunto/</code> del proyecto) y los
+editores siguen donde lo dejaron.</li>
+<li><strong>Solo ver</strong>: con ese rol se ven los cambios y los cursores de los demás, pero no se puede escribir.</li>
+<li><strong>Sin conflictos</strong>: editar juntos nunca deja versiones en <code>.nova-equipo/conflictos</code>.</li>
+</ul>
+<p><strong>VS Code.</strong> Quien abre el script en VS Code (u otro editor de fuera) sigue como hasta ahora: sus cambios llegan <strong>al
+guardar</strong>, con el fichero entero. El servidor los mezcla con lo que el grupo está escribiendo (también con lo que aún no
+se ha guardado) y guarda el resultado; nadie pierde nada. En el editor integrado de los demás sale «Luis lo está editando
+en VS Code: sus cambios llegan al guardar», y en la lista del panel Equipo, «Luis · en VS Code». No hace falta ninguna
+extensión colaborativa.</p>
+<p><strong>Ajustes</strong> (quien lleva el servidor): el tiempo sin escribir antes de guardar se cambia en <code>.nova-equipo\equipo.json</code> con
+<code>&quot;scriptsConjunto&quot;: {&quot;guardarTras&quot;: 1.5}</code> (segundos, de 0,2 a 60) o con <code>--guardar-scripts-tras &lt;segundos&gt;</code> al arrancar el
+servidor sin ventana.</p>
+<p><strong>Límites</strong>: solo los scripts Lua de <code>scripts/</code> en el editor integrado (los C++, los demás ficheros y VS Code van como
+siempre, enteros al guardar); un script compartido ocupa como mucho 8 MB. «Formato al guardar» no se aplica a un script
+compartido (lo guarda el servidor tal cual).</p>
+<ul>
+<li><strong>Aislamiento.</strong> El código de otra persona corre en el sandbox de los scripts: sin <code>os</code>, <code>io</code>, <code>loadstring</code> ni
+acceso a ficheros, <code>require</code> solo dentro de <code>scripts/</code>, con límite de memoria y de tiempo por llamada (un bucle
+infinito se corta con un error en vez de colgar el editor). Por eso, a diferencia del C++, recibir scripts Lua no
+ejecuta nada fuera del juego. Ver <span class="enlace-interno-quitado">diseno-lua.md</span>.</li>
+</ul>
+<h3 id="scripts-c-avanzado">Scripts C++ (avanzado)<a class="ancla" href="#scripts-c-avanzado" aria-label="Enlace a esta sección">#</a></h3>
+<p>Solo en los proyectos con scripts C++ (<a href="scripts-cpp.html">scripts-cpp.md</a>); un proyecto solo con Lua no tiene
+nada que compilar.</p>
+<ul>
+<li>Los scripts son ficheros como los demás: cuando alguien guarda <code>scripts/Jugador.cpp</code>, llega a todos y aparece
+el aviso «Ana ha cambiado scripts/Jugador.cpp. Compila los scripts (Ctrl+B)». <strong>Cada PC compila su propia DLL</strong>
+y la recarga en caliente de siempre la carga.</li>
+<li><strong>Equipo &gt; Compilar scripts del equipo</strong> (se recuerda para la próxima vez): <em>Preguntar</em> (por defecto: el aviso y
+el panel Equipo en <strong>Ficheros</strong> con el botón <strong>Compilar ahora</strong>), <em>Siempre</em> (3 s después del último cambio, si
+no estás jugando; una vez por versión de los scripts) o <em>Nunca</em>.</li>
+<li>El editor recuerda con qué scripts se compiló la DLL de tu carpeta de trabajo (<code>bin/&lt;módulo&gt;.scripts-hash</code>,
+el hash de los scripts del momento en que <strong>empezó</strong> la última compilación correcta). Si no coincide con los de
+la sesión, o no se sabe (primera vez, o vuelves con una DLL de otro día), la DLL está <strong>desactualizada</strong>: los
+campos de los componentes <strong>Script</strong> quedan en solo lectura («Los scripts cambiaron en el equipo: compílalos para
+editar sus campos») y se rechaza cualquier cambio de un <code>Script</code>. Si llegan scripts nuevos mientras compilas,
+sigue desactualizada. El resto se edita con normalidad.</li>
+<li>Además, guardar un <code>Script</code> conserva los campos que tu DLL aún no conoce (los añadió otra persona): ni editar
+otros campos, ni borrar y deshacer, ni recargar la DLL los borran para los demás.</li>
+<li><strong>Confianza</strong>: una sesión compila y ejecuta en tu PC código C++ escrito por otras personas. Únete solo a
+sesiones de gente de confianza (el editor lo recuerda la primera vez).</li>
+<li>Con el <strong>motor instalado</strong>, <strong>Compilar scripts</strong> usa <code>NovaBuild.exe</code> sobre tu carpeta de trabajo, así que
+compila los scripts que llegan por la sesión. Con el motor <strong>compilado desde el código fuente</strong>, Ctrl+B sigue
+compilando el target del árbol del motor con <code>tools\build.cmd</code> (como fuera de una sesión), no la carpeta de
+trabajo: los scripts que llegan por la sesión no se compilan, así que esa compilación no deja la DLL al día
+(aviso «Esta compilación del editor no compila los scripts de la carpeta de la sesión: usa el motor
+instalado») y los campos de <code>Script</code> siguen en solo lectura.</li>
+<li>Para revisar el código con historial, ramas y fusiones línea a línea, usa además git: la sesión no fusiona
+ficheros (gana el servidor y la otra versión va a conflictos).</li>
+</ul>
+<h2 id="8-jugar-en-equipo">8. Jugar en equipo<a class="ancla" href="#8-jugar-en-equipo" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Equipo &gt; Jugar en equipo...</strong> lanza una prueba multijugador de la escena actual con todos los de la sesión:</p>
+<ol>
+<li>Tu editor juega como <strong>anfitrión</strong> (puerto de juego de <strong>Ajustes del proyecto &gt; Red</strong>, 7777 por defecto) con una
+contraseña aleatoria. Si la sesión tiene código, o alguien está dentro por código, la partida crea además <strong>su propia
+sala en el relé</strong> de Nova Enlace (sigue escuchando por UDP para los que están por IP).</li>
+<li>El servidor del equipo invita a los demás. <strong>Cada uno entra por el mismo camino por el que está en la sesión</strong> (0.9.28):<ul>
+<li>quien entró <strong>por código</strong> entra con el <strong>código de la partida</strong>, que llega solo; si el relé tarda, espera («esperando
+el código de la partida de Marta: creando la sala de Nova Enlace…») y entra en cuanto llega. Nunca se le manda a una IP
+de tu red local, que desde fuera no sirve;</li>
+<li>quien entró <strong>por IP</strong> (red local, Tailscale, IP pública) entra <strong>por la misma IP por la que llega al servidor</strong> si
+juegas en el PC del servidor (lo normal: con Tailscale, la <code>100.x</code> que escribió al unirse), con el puerto de juego.</li>
+<li>si <strong>todos los demás están por Steam</strong> (0.9.33: tienen la sesión por Steam en marcha), la partida va <strong>por Steam</strong> y cada
+uno entra por tu SteamID (<code>steam:&lt;id&gt;</code>), sin IP ni código. Si alguien está por Steam y otro no, quien está por Steam no tiene
+por dónde entrar y se le dice (que entre a la sesión por código o por IP, o que la lances cuando todos estéis por Steam).
+Nadie tiene que escribir direcciones. <strong>Avanzado &gt; Dirección para los demás</strong> queda para un caso raro (alguien por IP
+que no te alcanza por la IP del servidor).</li>
+</ul>
+</li>
+<li>Cada editor abre tu escena si estaba en otra, espera a estar al día con ella y entra como <strong>cliente</strong>. Si
+desmarcó <strong>Unirme automáticamente a las pruebas</strong>, o tiene su propia partida en marcha (no se le para sin
+preguntar), ve un aviso y entra con <strong>Equipo &gt; Unirse a la prueba en equipo</strong>.</li>
+<li>Al pulsar Detener, la prueba termina para todos.</li>
+</ol>
+<p><strong>Antes de entrar, cada editor sincroniza solo lo que la partida compara</strong> (0.9.33). La partida comprueba que todos tienen
+los mismos scripts y assets clave (la <a href="seguridad-red.html#8-clientes-modificados-la-huella-del-contenido">huella del contenido</a>),
+y la de cada uno sale de <strong>su</strong> carpeta de trabajo. Por eso, al darle a <strong>Jugar en equipo</strong> (quien la lanza) y al entrar
+(los demás), el editor compara los scripts Lua y los assets clave de su carpeta con los del servidor del equipo y, si alguno
+no es igual, lo sincroniza en silencio antes de jugar (un segundo o dos):</p>
+<ul>
+<li>lo que falta o es distinto se vuelve a bajar y se recarga;</li>
+<li>lo que cambiaste tú y no se había subido <strong>no se pierde</strong>: va a <code>.nova-equipo/conflictos/&lt;fecha&gt;/</code> de tu carpeta de
+trabajo, con un aviso que dice dónde (manda el servidor: es con lo que juegan los demás). Lo que acabas de guardar se sube
+antes de comparar;</li>
+<li>si no se puede (el servidor no contesta, un fichero abierto en otro programa), avisa con la lista («No se pudieron
+sincronizar a tiempo antes de jugar: scripts/Vida.luau...») y entra igual.</li>
+</ul>
+<p>Si aun así alguien entra con algo distinto (un editor de una versión anterior, una DLL de scripts de otra compilación), el
+anfitrión lo ve en la consola y en el registro de seguridad diciendo <strong>qué</strong> es distinto: «Luis: 2 ficheros distintos:
+scripts/Inventory.luau (distinto), assets/Items/FPCubo.prefab (falta en Luis) — versión del motor igual (0.9.32)».</p>
+<p>En la pestaña <strong>Personas</strong> del panel Equipo, la columna <strong>Conexión</strong> dice cómo está cada uno («por código», «por IP» o «en
+el PC del servidor») y la cabecera, por dónde irá la prueba que lances («por código y por IP (cada uno por donde
+entró)»). La ventana <strong>Jugar en equipo</strong> lo repite para cada persona.</p>
+<p>En la partida, cada uno juega con <strong>su nombre de la sesión</strong> («Luis se ha unido a la partida»), no con el de
+<strong>Tu nombre en las partidas</strong> de las preferencias, que es para jugar fuera de una sesión.</p>
+<p><strong>El juego de cada uno es suyo.</strong> Lo que hace la sesión no para tu modo juego: ni lo que juegan los demás (entrar en una
+partida, el emparejamiento, salir de la suya), ni que tu editor reciba otra vez la escena de la sesión. Si tu juego se va
+de «Jugar en equipo» a otra partida (el emparejamiento, <code>Network.Connect</code>), esa prueba deja de ser tuya: cuando quien la
+lanzó la termina, tú sigues jugando en la tuya. Y al revés, si quien la lanzó se va a otra partida, la prueba termina
+para los demás. Lo que se hace jugando (la escena que se juega es una copia) no viaja a la sesión como edición ni
+bloquea nada. Si el modo juego se para sin que pulses Detener, la barra de estado dice por qué («Modo juego detenido
+(el juego pidió otra sesión de red)», «(abrir otra escena)», «(fin de la prueba en equipo)»...).</p>
+<p>Las ediciones que llegan mientras se juega se aplican a la escena de edición: al parar se ve al día. Todos
+necesitan los mismos scripts (los Lua llegan solos por la sesión; con scripts C++, la misma DLL compilada) o la
+conexión se rechaza por versión, y el puerto de juego abierto en el PC del anfitrión. Si alguien está <strong>por
+código</strong>, la prueba también va por código para esa persona: el anfitrión crea otra sala en el relé y su editor entra con
+ese código sin abrir ningún puerto (<a href="enlace.html">enlace.md</a>). Si el relé le da a la partida otro código a mitad (perdió la
+sala tras un corte), se reparte el nuevo.</p>
+<h2 id="9-roles-expulsar-y-reconexión">9. Roles, expulsar y reconexión<a class="ancla" href="#9-roles-expulsar-y-reconexión" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Puede</th>
+  <th>Propietaria</th>
+  <th>Editor</th>
+  <th>Solo ver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ver, seguir, chatear, unirse a «Jugar en equipo»</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td>Editar escenas, bloquear, subir ficheros, guardar, crear escenas, lanzar «Jugar en equipo»</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>no</td>
+</tr>
+<tr>
+  <td>Cambiar roles, expulsar, liberar bloqueos ajenos, ajustes de la sesión, detener el servidor</td>
+  <td>sí</td>
+  <td>no</td>
+  <td>no</td>
+</tr>
+</tbody>
+</table></div>
+<p>En la pestaña <strong>Personas</strong> del panel Equipo, clic derecho sobre alguien: seguir, ir a su posición y (propietaria)
+cambiar su rol, liberar sus bloqueos o <strong>expulsar</strong> (veto de 10 minutos por identidad y, si es una IP pública
+distinta de la tuya, también por IP, y si está por Steam, también por su SteamID; nunca alcanza a quien expulsa: ni su identidad
+ni una IP compartida del mismo PC o del mismo router. <strong>Ajustes de la sesión</strong> puede quitar los vetos).</p>
+<p>Si se corta la conexión, la barra de estado avisa «Sin conexión con el servidor del equipo: reintentando...» y
+sigues editando: tus cambios se envían al volver, sin duplicados, y el servidor te devuelve tu mismo usuario
+(por el token de la conexión anterior). Si no vuelve en 5 minutos, si sales o cierras el editor sin conexión, si
+te expulsan o si el servidor ya no te reconoce, lo que no confirmó se guarda en
+<code>.nova-equipo/no-enviados-&lt;fecha&gt;.json</code> de tu carpeta de trabajo (al cerrar sin conexión el editor lo avisa
+antes). No se reintenta tras una expulsión, una contraseña incorrecta o el cierre del servidor.</p>
+<p><strong>Equipo fijo que vuelve con otro código.</strong> Si estabas dentro <strong>por código</strong> en la sesión de un equipo fijo guardado y el
+servidor se reinicia (o se cae, o el relé pierde su sala), al volver tendrá otro código. Tu editor no se queda fuera:
+avisa («Esperando a que la sesión del equipo vuelva...»), pregunta al relé por el equipo cada 5 s durante 3 minutos y, en
+cuanto la sesión está en marcha con el código nuevo, vuelve a entrar solo con la misma carpeta de trabajo («La sesión del
+equipo ha vuelto con el código NOVA-...: entrando otra vez»).</p>
+<p><strong>Un cambio que el servidor no acepta nunca provoca un bucle.</strong> El servidor rechaza un cambio demasiado grande o que
+no entiende sin cortar la conexión, y tu editor lo deshace y lo dice («El cambio «X» no se ha podido enviar: ...»).
+Además, si el mismo cambio hace que se corte la conexión dos veces seguidas (un servidor de otra versión, por
+ejemplo), el editor lo aparta: lo deshace en tu escena, lo guarda en <code>.nova-equipo/no-enviados-&lt;fecha&gt;.json</code> y avisa,
+en lugar de reenviarlo para siempre (en la 0.9.3, «Repartir hierba» en un terreno grande dejaba el editor
+reconectando cada 10 s y nada de lo que hacías después llegaba).</p>
+<p>Si la propietaria sale con <strong>Dejarlo abierto</strong> (o cierra el editor y elige dejarlo abierto), el servidor lo sabe
+antes de que se vaya y sigue abierto para los demás; si no, guarda y se cierra 60 s después de que se vaya.</p>
+<h2 id="10-servidor-del-proyecto-sin-ventana">10. Servidor del proyecto sin ventana<a class="ancla" href="#10-servidor-del-proyecto-sin-ventana" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para que el proyecto esté siempre disponible (un PC encendido o un VPS con Windows), arranca solo el servidor:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaEditor.exe --servidor-equipo --project C:\Juegos\Arena --puerto 7790 --max 8 --rol-por-defecto editor --autoguardado 300 --mantener-abierto</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>--project &lt;carpeta&gt;</code></td>
+  <td>Proyecto original (el servidor es el único que lo escribe)</td>
+</tr>
+<tr>
+  <td><code>--puerto N</code></td>
+  <td>Puerto UDP (7790 por defecto; 0 = uno libre que elige el sistema, que se escribe en <code>.nova-equipo/servidor.json</code> y en el registro)</td>
+</tr>
+<tr>
+  <td><code>--bind &lt;ip&gt;</code></td>
+  <td><code>0.0.0.0</code> (todas las redes, por defecto) o <code>127.0.0.1</code> (solo este PC)</td>
+</tr>
+<tr>
+  <td><code>--max N</code></td>
+  <td>Máximo de personas</td>
+</tr>
+<tr>
+  <td><code>--rol-por-defecto editor|ver</code></td>
+  <td>Rol de quien se une</td>
+</tr>
+<tr>
+  <td><code>--autoguardado &lt;segundos&gt;</code></td>
+  <td>Cada cuánto guarda si hay cambios (300 por defecto)</td>
+</tr>
+<tr>
+  <td><code>--guardar-scripts-tras &lt;segundos&gt;</code></td>
+  <td><a href="#editar-el-mismo-script-a-la-vez-edición-conjunta">Edición conjunta</a>: segundos sin escribir antes de guardar un script compartido (1,5 por defecto)</td>
+</tr>
+<tr>
+  <td><code>--mantener-abierto</code></td>
+  <td>No cerrarse cuando se va la propietaria</td>
+</tr>
+<tr>
+  <td><code>--log &lt;fichero&gt;</code></td>
+  <td>Log (por defecto <code>.nova-equipo\servidor.log</code> del proyecto)</td>
+</tr>
+<tr>
+  <td><code>--config-stdin</code></td>
+  <td>Lee de la entrada estándar <code>{&quot;password&quot;: &quot;...&quot;, &quot;ownerKey&quot;: &quot;...&quot;}</code> (así lo arranca el editor)</td>
+</tr>
+<tr>
+  <td><code>--contrasena &lt;clave&gt;</code>, <code>--clave-propietario &lt;32 hex&gt;</code></td>
+  <td>También valen, pero quedan en la lista de procesos</td>
+</tr>
+<tr>
+  <td><code>--enlace</code></td>
+  <td>Además, una sala en el relé de Nova Enlace: el código sale en la consola, en el registro y en <code>servidor.json</code> (<code>&quot;codigo&quot;</code>) y se entra con él desde cualquier sitio (<a href="enlace.html">enlace.md</a>)</td>
+</tr>
+<tr>
+  <td><code>--relay-url &lt;url&gt;</code></td>
+  <td>Otro relé (por defecto el de <code>project.nova</code>, <code>red.enlaceUrl</code>, o el de serie)</td>
+</tr>
+<tr>
+  <td><code>--sin-equipo-fijo</code></td>
+  <td>No anunciar ningún equipo fijo (sin esto, el servidor busca solo el equipo fijo de este proyecto en tus equipos guardados y lo anuncia; si es «por Internet», abre también la sala aunque no pongas <code>--enlace</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los secretos también se pueden poner en <code>&lt;proyecto&gt;\.nova-equipo\equipo.json</code> (<code>password</code>, <code>ownerKey</code> y
+<code>limites</code>; por ejemplo <code>&quot;limites&quot;: {&quot;maxOpBytes&quot;: 536870912}</code> para admitir cambios de hasta 512 MB). Sin clave de propietaria nadie es propietario y el servidor no se cierra solo.</p>
+<p>Mientras está abierto escribe <code>.nova-equipo\servidor.json</code> (PID, puerto, versión y la clave de su cierre): si
+alguien abre la carpeta original con el editor, se le propone unirse a la sesión en vez de editarla a la vez.
+Para detenerlo guardando todo: la propietaria con <strong>Equipo &gt; Detener el servidor del proyecto</strong>, Ctrl+C en su
+consola, o desde el mismo PC con su puerto y la carpeta del proyecto (sin <code>--project</code>, la carpeta actual):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaEditor.exe --detener-servidor-equipo 7790 --project <span class="hl-s">"C:\Juegos\MiJuego"</span></code></pre></div>
+<p>El puerto es obligatorio y solo no basta: la clave está en el <code>servidor.json</code> de esa carpeta, así que nunca se
+cierra por error el servidor de otro proyecto (o de otra persona) que use el mismo puerto en el PC.</p>
+<p>Para editores sin ventana (pruebas y automatización) hay <code>--equipo-unirse &lt;host:puerto o código&gt;</code>, <code>--equipo-nombre</code>,
+<code>--equipo-contrasena</code>, <code>--equipo-carpeta &lt;carpeta base&gt;</code>, <code>--equipo-crear &lt;puerto&gt;</code> (crea una sesión con un
+servidor local solo para este PC; con <code>--equipo-crear-enlace</code>, también por código), <code>--relay-url &lt;url&gt;</code>,
+<code>--equipo-informe &lt;json&gt;</code>, <code>--equipo-bloquear &lt;entidad&gt;</code>,
+<code>--equipo-mover &lt;entidad&gt;</code> (un cambio de verdad por el camino del editor), <code>--equipo-cursor x,y,z</code> (cursor fijo
+en el visor), <code>--equipo-chat &lt;texto&gt;</code>, <code>--equipo-jugar</code> (lanza «Jugar en equipo» en cuanto hay otra persona) y
+<code>--equipo-jugar-al-entrar</code> (pulsa Jugar en cuanto se abre la escena de la sesión). Para la edición conjunta:
+<code>--equipo-conjunto &lt;ruta&gt;</code> (abre ese script en el editor de scripts), <code>--equipo-conjunto-esperar &lt;n&gt;</code> (espera a que haya
+N personas en él), <code>--equipo-conjunto-linea &lt;n&gt;</code> y <code>--equipo-conjunto-texto &lt;texto&gt;</code> (lo escribe letra a letra al final
+de esa línea); el editor no sale hasta que todo está confirmado, en calma y guardado, y el informe trae <code>conjunto</code> (el
+texto, si está guardado, las personas y las resincronizaciones). El informe trae también <code>modoJuego</code>: si se
+jugaba en el último frame, en qué modo de red, si estaba conectado, la escena del servidor y por qué se paró cada vez.
+El editor admite <code>--log &lt;fichero&gt;</code> para que cada editor de una prueba escriba su propio registro.</p>
+<p>Por Steam (0.9.33): <code>--equipo-crear-steam</code> (con <code>--equipo-crear</code>: la sesión también por Steam), <code>--equipo-steam-appid &lt;n&gt;</code>,
+<code>--equipo-steam-simulado</code> (el Steam simulado; también <code>NOVA_EQUIPO_STEAM_SIMULADO=1</code>; sin ventana nunca se usa el Steam real),
+<code>--equipo-steam-invitar &lt;nombre&gt;</code> (invita a ese amigo en cuanto el lobby está listo), <code>--equipo-unirse-amigo-steam</code> (entra en la
+primera sesión de la lista de amigos), <code>--equipo-steam-escuchar</code> (Steam abierto desde el arranque para recibir invitaciones) y
+<code>+connect_lobby &lt;id&gt;</code>. <code>--equipo-unirse</code> y <code>--equipo-alternativa</code> (que puede repetirse) aceptan <code>steam:&lt;SteamID&gt;</code> y
+<code>steam-lobby:&lt;id&gt;</code>. El informe trae <code>steam</code> (si está activo, el App ID, la pasarela, el lobby, quién está por Steam con su SteamID,
+las invitaciones recibidas y la lista de amigos vista). Para probar el arranque lento del servidor, <code>NOVA_EQUIPO_SERVIDOR_RETRASO=&lt;s&gt;</code>
+hace que el servidor sin ventana espere esos segundos antes de abrir su puerto.</p>
+<h2 id="11-por-internet-código-vpn-o-puertos">11. Por Internet: código, VPN o puertos<a class="ancla" href="#11-por-internet-código-vpn-o-puertos" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Con un código (recomendado).</strong> Deja <strong>Conexión: Por Internet con código (Nova Enlace)</strong> al crear la sesión y
+comparte el código: quien lo escriba entra desde cualquier sitio, sin abrir puertos ni VPN, también si tu
+proveedor usa CG-NAT. Hace falta desplegar el relé una vez en tu cuenta gratuita de Cloudflare
+(<code>relay-server\desplegar.cmd</code>). Todo está en <a href="enlace.html">enlace.md</a>: despliegue, límites del plan gratuito,
+privacidad y problemas.</p>
+<p><strong>Por Steam (amigos)</strong> (0.9.33): sin código, sin VPN, sin abrir puertos y <strong>sin Cloudflare</strong> (los relés de Valve). Tus compañeros
+tienen que ser tus amigos en Steam y tener la app (la 480, Spacewar, de serie). Ver <a href="#por-steam-amigos">Por Steam (amigos)</a>.</p>
+<p><strong>Alternativas</strong>, con <strong>Conexión: Directa (IP y puerto)</strong>:</p>
+<ul>
+<li><strong>Una VPN</strong> de malla (Tailscale, ZeroTier, Radmin VPN...): todos en la misma red virtual; únete con la IP de la
+VPN del PC del servidor y el puerto. Funciona también con CG-NAT.</li>
+<li><strong>Abrir el puerto</strong> UDP en el router del PC del servidor y compartir tu IP pública. No sirve con CG-NAT (si la
+IP de la WAN del router empieza por <code>10.</code>, <code>100.64</code> a <code>100.127</code>, <code>172.16</code> a <code>172.31</code> o <code>192.168.</code>, tu proveedor
+la comparte y no se puede abrir nada). Para «Jugar en equipo», lo mismo con el puerto de juego del anfitrión.</li>
+</ul>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Puerto</th>
+  <th>Dónde</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>UDP 7790</td>
+  <td>PC del servidor del proyecto</td>
+  <td>La sesión de equipo (en la red local, o por Internet sin código)</td>
+</tr>
+<tr>
+  <td>UDP 7777 (o el de Ajustes &gt; Red)</td>
+  <td>PC de quien lanza «Jugar en equipo»</td>
+  <td>La partida de prueba (sin código)</td>
+</tr>
+</tbody>
+</table></div>
+<p>En la misma red local no hay que hacer nada (el Firewall de Windows puede preguntar la primera vez: permite la red
+privada). Por código no hay que abrir ningún puerto: los dos PC solo se conectan hacia fuera (HTTPS).</p>
+<p><strong>¿Y un túnel de Cloudflare (<code>cloudflared</code>)?</strong> No hace falta y Nova no lo usa. El relé de Nova Enlace <strong>ya es Cloudflare</strong>
+(un Worker de tu cuenta, siempre en marcha: no hay ningún programa que abrir en tu PC). La sesión y las partidas van por
+UDP (<code>nova_net</code>), y un «quick tunnel» de <code>cloudflared</code> solo publica servicios HTTP o WebSocket: no lleva UDP y, para TCP,
+cada compañero tendría que tener también <code>cloudflared</code>. Lo único que tiene que estar en marcha en tu PC es el <strong>servidor
+del proyecto</strong>, y eso ya lo arranca solo el editor (sin ventana de consola) al abrir el proyecto de tu equipo fijo.</p>
+<h2 id="12-límites-y-seguridad">12. Límites y seguridad<a class="ancla" href="#12-límites-y-seguridad" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La contraseña y la clave de propietaria no viajan, pero <strong>el contenido no va cifrado</strong> y una identidad se
+puede suplantar en redes no confiables. Por código, el tráfico va con TLS hasta Cloudflare, pero el relé lo
+pasa sin cifrar de extremo a extremo (<a href="enlace.html#8-privacidad-y-seguridad">enlace.md</a>); por IP desde Internet,
+mejor dentro de una VPN.</li>
+<li>Las rutas que llegan por la red se validan en los dos sentidos: nada fuera del proyecto, sin <code>..</code>, sin rutas
+absolutas, sin unidades, sin flujos de NTFS (<code>:</code>), sin nombres reservados de Windows y sin seguir enlaces ni
+uniones. Los tipos ejecutables nunca se sincronizan.</li>
+<li>Límites de tráfico por persona (60 cambios por segundo con ráfagas de 200, 5 mensajes de chat por segundo,
+bloqueos, vistas previas, presencia y 120 peticiones de ficheros por segundo) y 2 MB/s por conexión. Quien no
+da abasto se desconecta con un aviso. Cada fichero está como mucho una vez en la cola de descargas de cada
+persona (256 por petición, 4096 en cola), así que una petición pequeña no puede multiplicar el envío.</li>
+<li>Un cambio de escena ocupa como mucho 256 MB (<code>limites.maxOpBytes</code>). Los de más de 256 KB viajan por un canal
+aparte, por partes y sin frenar a los demás; el servidor no los copia por persona.</li>
+<li>Las subidas a medias se guardan por persona (<code>.nova-equipo/subidas/&lt;persona&gt;-&lt;hash&gt;.parcial</code>) para reanudarlas;
+las que nadie reanuda en un día se borran, como las descargas a medias de cada carpeta de trabajo. El hash de
+una subida terminada se comprueba en el hilo de ficheros: el servidor sigue atendiendo a los demás.</li>
+<li>Compilar scripts C++ ajenos es ejecutar su código: invita solo a gente de confianza. Los scripts Lua se ejecutan
+en su sandbox (sin sistema ni ficheros y con límites de memoria y tiempo).</li>
+</ul>
+<h2 id="13-solución-de-problemas">13. Solución de problemas<a class="ancla" href="#13-solución-de-problemas" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Mensaje</th>
+  <th>Causa y solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>No se pudo conectar: el servidor no responde (¿está abierto el puerto UDP?)</td>
+  <td>Dirección o puerto mal, servidor apagado o cortafuegos/router</td>
+</tr>
+<tr>
+  <td>No hay ninguna sesión ni partida con el código ...</td>
+  <td>Código mal copiado, o la sesión ya se cerró</td>
+</tr>
+<tr>
+  <td>No se encuentra el relé de Nova Enlace en ...</td>
+  <td>El relé no está desplegado o su URL no es esa: <a href="enlace.html#9-problemas">enlace.md</a></td>
+</tr>
+<tr>
+  <td>Ese código es de una partida, no de una sesión de edición en equipo</td>
+  <td>Es el código de una partida: úsalo en el juego</td>
+</tr>
+<tr>
+  <td>Contraseña incorrecta</td>
+  <td>La contraseña de la sesión no coincide</td>
+</tr>
+<tr>
+  <td>La sesión está llena</td>
+  <td>Se alcanzó el máximo de personas</td>
+</tr>
+<tr>
+  <td>El servidor usa Nova Engine X y tú Y</td>
+  <td>Todos deben usar la misma versión del motor</td>
+</tr>
+<tr>
+  <td>Versión incompatible de la edición en equipo: el servidor usa otra versión de Nova Engine</td>
+  <td>Lo mismo (la 0.9.4 cambió cómo viajan los cambios grandes): actualizad todos a la misma versión</td>
+</tr>
+<tr>
+  <td>El cambio «X» no se ha podido enviar: ocupa N MB y el servidor del equipo admite M MB como mucho</td>
+  <td>Hazlo por partes, o la propietaria sube <code>limites.maxOpBytes</code>. El cambio se ha deshecho en tu escena</td>
+</tr>
+<tr>
+  <td>El cambio «X» no se ha podido enviar: el servidor del equipo ha cortado la conexión 2 veces seguidas al recibirlo</td>
+  <td>Se ha apartado y guardado en <code>.nova-equipo\no-enviados-*.json</code>; avisa a quien lleve el servidor (mira su <code>servidor.log</code>)</td>
+</tr>
+<tr>
+  <td>No se ha podido guardar «Terreno» en su fichero: otra persona lo ha cambiado a la vez</td>
+  <td>Vuelve a guardar</td>
+</tr>
+<tr>
+  <td>Equipo: enviando «X»… N %</td>
+  <td>Un cambio grande va por partes: puedes seguir editando</td>
+</tr>
+<tr>
+  <td>Estás expulsado de la sesión durante N min más</td>
+  <td>Te expulsó la propietaria</td>
+</tr>
+<tr>
+  <td>No se pudo abrir el puerto 7790 (¿lo usa otro programa?)</td>
+  <td>Otro servidor o programa usa ese puerto: elige otro</td>
+</tr>
+<tr>
+  <td>El servidor del proyecto no arrancó (mira .nova-equipo\servidor.log)</td>
+  <td>Mira el log en la carpeta del proyecto</td>
+</tr>
+<tr>
+  <td>Tu cambio en «X» se ha descartado: lo estaba editando Ana</td>
+  <td>Espera a que suelte (candado en la jerarquía)</td>
+</tr>
+<tr>
+  <td>No se puede deshacer «X»: Ana ha cambiado «Y» después</td>
+  <td>Otra persona tocó lo mismo después; la entrada sale del historial</td>
+</tr>
+<tr>
+  <td>Tu versión de «X» chocaba con la del servidor</td>
+  <td>Tu versión está en <code>.nova-equipo\conflictos</code> de tu carpeta de trabajo</td>
+</tr>
+<tr>
+  <td>No se pudo escribir «X» en tu carpeta de trabajo (motivo): se reintentará</td>
+  <td>Sin permiso (antivirus, carpeta protegida), disco lleno o fichero abierto en otro programa. Lo demás sigue llegando y «X» se vuelve a pedir solo; si se repite, elige otra carpeta de trabajo</td>
+</tr>
+<tr>
+  <td>La escena de este PC se desincroniza a menudo</td>
+  <td>Un script cambia datos en modo edición: <strong>Equipo &gt; Resincronizar escena</strong> y revisa el script</td>
+</tr>
+<tr>
+  <td>Los scripts cambiaron en el equipo: compílalos para editar sus campos</td>
+  <td>Pulsa Ctrl+B (solo scripts C++; los Lua se recargan solos)</td>
+</tr>
+<tr>
+  <td>No te has podido unir a la prueba de Ana: tu juego no es el suyo porque los scripts C++ de este PC no están compilados</td>
+  <td>«Jugar en equipo» necesita la misma DLL de scripts en los dos PC: compílalos con Ctrl+B y vuelve a unirte con <strong>Equipo &gt; Unirse a la prueba en equipo</strong>. Si no se pueden compilar, instala Visual Studio 2022 o sus Build Tools con «Desarrollo para el escritorio con C++». Sin compilarlos puedes seguir editando la escena (los campos de Script quedan en solo lectura)</td>
+</tr>
+<tr>
+  <td>La escena visible no coincide con la confirmada (en la consola)</td>
+  <td>El aviso dice la entidad, el campo y los dos valores. Se repara solo; si se repite, <strong>Equipo &gt; Resincronizar escena</strong></td>
+</tr>
+<tr>
+  <td>Ficheros comprobados con el servidor: N se vuelven a bajar, M cambios tuyos sin subir</td>
+  <td><strong>Sincronizar ficheros con el servidor</strong> encontró ficheros distintos. Lo que no es tuyo baja solo; con lo tuyo, elige en la ventana <strong>Cambios tuyos sin subir</strong></td>
+</tr>
+<tr>
+  <td>Tu versión de «X» chocaba con la del servidor (cambio propio sin subir): se ha guardado en ...</td>
+  <td>Al sincronizar (o antes de <strong>Jugar en equipo</strong>) tu cambio en X no estaba en el servidor: está en esa carpeta. Si lo querías, cópialo de vuelta y deja que se suba (o pide que te den el rol <strong>Editor</strong>)</td>
+</tr>
+<tr>
+  <td>No se pudieron sincronizar a tiempo antes de jugar: X...</td>
+  <td>El servidor no contestó o un fichero estaba abierto en otro programa. Se entra igual; la partida puede avisar de «contenido». Usa <strong>Equipo &gt; Sincronizar ficheros con el servidor</strong></td>
+</tr>
+<tr>
+  <td>Ana ha cambiado scripts/X.luau, pero tiene un error</td>
+  <td>El script tiene un error de sintaxis o al cargarse: se sigue con la versión anterior hasta que lo arregle</td>
+</tr>
+<tr>
+  <td>(encima de un script compartido) sin guardar: línea N: ...</td>
+  <td>Edición conjunta: el script no compila (alguien está a medio escribir). Se guarda solo en cuanto compile; Ctrl+S guarda igualmente</td>
+</tr>
+<tr>
+  <td>Luis lo está editando en VS Code: sus cambios llegan al guardar</td>
+  <td>Luis tiene el script abierto en VS Code: lo que guarde se mezcla con lo que escribís en el editor de scripts</td>
+</tr>
+<tr>
+  <td>La edición conjunta de X se reinició: tus cambios se vuelven a aplicar</td>
+  <td>El servidor perdió el script compartido (se reinició sin su estado) mientras tenías cambios sin enviar: se vuelven a aplicar solos</td>
+</tr>
+<tr>
+  <td>El relé todavía no tiene equipos fijos: hay que actualizarlo con relay-server\desplegar.cmd</td>
+  <td>Tu relé se desplegó con una versión anterior: vuelve a ejecutar <code>desplegar.cmd</code> (<a href="enlace.html#2-desplegar-el-relé-una-sola-vez">enlace.md</a>). Mientras, el equipo se ve por su dirección directa</td>
+</tr>
+<tr>
+  <td>La invitación ya no vale (Nova Hub)</td>
+  <td>La dueña la renovó: pídele la nueva y pégala en <strong>Unirse a un equipo...</strong></td>
+</tr>
+<tr>
+  <td>El relé no contesta (...). ¿Bloqueo de Cloudflare de tu operadora? En días de LaLiga pasa a menudo. Entrando por Tailscale/Steam/la dirección directa…</td>
+  <td>El relé de Nova Enlace (Cloudflare) no contesta desde tu conexión y el equipo tiene otro camino: el editor entra solo por él. Ver la <a href="#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">tabla de abajo</a></td>
+</tr>
+<tr>
+  <td>Steam no está disponible: Steam no está abierto</td>
+  <td>Abre Steam e inicia sesión con tu cuenta, y vuelve a intentarlo</td>
+</tr>
+<tr>
+  <td>Steam no está disponible: ... ¿Tiene tu cuenta el juego (App ID N)?</td>
+  <td>La sesión usa un App ID que tu cuenta no tiene: pide a la anfitriona que use el 480 (Spacewar) o consigue la app</td>
+</tr>
+<tr>
+  <td>Ningún amigo tiene ahora una sesión de Nova abierta por Steam</td>
+  <td>No sois amigos en Steam, la sesión no se abrió por Steam, o usáis App ID distintos (mira la línea «Steam: ... (App ID N)» encima de la lista)</td>
+</tr>
+<tr>
+  <td>La sesión de X usa otra versión de Nova Engine (Y)</td>
+  <td>Actualizad los dos a la misma versión</td>
+</tr>
+<tr>
+  <td>Detén el modo juego: está usando Steam con el App ID X y la edición en equipo por Steam usa el Y</td>
+  <td>Steam solo admite un App ID por programa: para el modo juego y vuelve a crear (o unirte a) la sesión por Steam</td>
+</tr>
+<tr>
+  <td>Steam no está disponible al abrir la sesión por Steam después de haber jugado con el Steam de tu proyecto (otro App ID) en la misma ventana</td>
+  <td>Steam no siempre deja cambiar de App ID dentro del mismo programa · Cierra y vuelve a abrir el editor y abre la sesión por Steam antes de jugar (o usa el App ID del proyecto para la sesión)</td>
+</tr>
+<tr>
+  <td>Por Steam solo se puede abrir la sesión desde el PC del servidor del proyecto</td>
+  <td>El editor que hace de puente con Steam tiene que estar en el PC del servidor (el que creó la sesión)</td>
+</tr>
+<tr>
+  <td>La prueba no va por Steam (no todos están por Steam)</td>
+  <td>Estás por Steam y alguien está por código o por IP: entra a la sesión por código o por IP, o que lance la prueba cuando todos estéis por Steam</td>
+</tr>
+<tr>
+  <td>El equipo ya no existe (Nova Hub)</td>
+  <td>La dueña lo borró: <strong>Quitar...</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">Resolución de problemas: equipo fijo, Nova Hub y prueba en equipo<a class="ancla" href="#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Lo que pasa</th>
+  <th>Por qué</th>
+  <th>Qué hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>El equipo no sale «En marcha» en Nova Hub de los demás</td>
+  <td>Mira la cabecera del panel <strong>Equipo</strong> (la dueña): dice si está anunciado y, si no, el motivo</td>
+  <td>Si dice «no se pudo anunciar» con un error de red, se reintenta solo. Si dice «el relé no tiene equipos fijos», actualiza el relé con <code>relay-server\desplegar.cmd</code>. Si dice «esperando el código», el relé aún no ha dado sala a la sesión: se arregla solo cuando conteste</td>
+</tr>
+<tr>
+  <td>Arranqué el servidor a mano (o lo dejé abierto antes de crear el equipo) y no salía</td>
+  <td>Antes el servidor solo anunciaba el equipo que le pasaba el editor al arrancarlo</td>
+  <td>Desde la 0.9.28 lo encuentra solo en tus equipos guardados (y vigila si lo creas después). Con un servidor de antes, ciérralo y ábrelo de nuevo</td>
+</tr>
+<tr>
+  <td>La sesión era <strong>Directa</strong> y el equipo «por Internet» no salía</td>
+  <td>Antes la sala del relé solo se abría con <strong>Por Internet con código</strong></td>
+  <td>Ahora el servidor la abre también si el equipo fijo es «por Internet»</td>
+</tr>
+<tr>
+  <td>Nova Hub daba la sesión en marcha pero al entrar decía «No hay ninguna sesión con el código...»</td>
+  <td>El relé había perdido la sala y el servidor seguía anunciando el código viejo</td>
+  <td>Ahora el anuncio se retira en cuanto no hay código y vuelve con el nuevo. Si pasa con un servidor de antes, reinícialo</td>
+</tr>
+<tr>
+  <td>Al darle a <strong>Jugar en equipo</strong>, Luis entra pero el anfitrión ve en la consola <code>Seguridad: ... jugador 2 (Luis) ... | contenido | aviso | sus scripts o assets clave no son los del servidor (copia modificada o de otra versión)</code></td>
+  <td>La huella del contenido de la partida (scripts Lua y assets clave) sale de la carpeta de trabajo de cada uno, y la de Luis tenía algo distinto que la sincronización normal no veía (un fichero cambiado conservando su fecha, un cambio suyo con el rol <strong>Solo ver</strong>...). Hasta la 0.9.32 el aviso no decía qué y no había forma de volver a sincronizar los ficheros</td>
+  <td>Desde la 0.9.33, <strong>Jugar en equipo</strong> sincroniza esos ficheros solo antes de entrar y el aviso dice qué fichero es distinto y si la versión del motor es la misma. Para arreglarlo a mano: <strong>Equipo &gt; Sincronizar ficheros con el servidor</strong> (la columna <strong>Ficheros</strong> del panel dice quién no está al día). Si el aviso dice «versión del motor distinta», actualizad los dos a la misma versión</td>
+</tr>
+<tr>
+  <td>Al darle a <strong>Jugar en equipo</strong>, quien entró por código no entraba hasta escribir la IP de Tailscale</td>
+  <td>Se le mandaba la IP con la que el servidor veía al anfitrión: la de su red local si el anfitrión había entrado en su propio servidor por la IP de la red local (desde <strong>Sesiones recientes</strong>), que desde fuera no sirve; y si la sala de la partida tardaba más de 15 s, la invitación salía sin código</td>
+  <td>Ahora quien está por código <strong>solo</strong> entra por el código de la partida (espera a que llegue, con el motivo si tarda) y quien está por IP entra por la IP por la que llega al servidor. No hay que escribir nada</td>
+</tr>
+<tr>
+  <td>«esperando el código de la partida de Marta: el relé de Nova Enlace no contesta o no deja crear más salas desde su conexión»</td>
+  <td>El relé no contesta, o el plan gratuito no deja crear más de 30 salas por hora desde la misma conexión (cada sesión y cada prueba son una sala)</td>
+  <td>Espera un poco; la partida lo sigue intentando sola y el código llega a todos en cuanto sale</td>
+</tr>
+<tr>
+  <td>«No se pudo abrir el puerto 7790» / «El servidor del proyecto no arrancó» al abrir la sesión</td>
+  <td>Ya había un servidor del mismo proyecto abierto</td>
+  <td>Desde la 0.9.28, <strong>Crear sesión</strong> (y abrir el proyecto) entra en el servidor que ya está abierto en vez de arrancar otro</td>
+</tr>
+<tr>
+  <td>Quien estaba por código se quedó fuera al reiniciar el servidor</td>
+  <td>El servidor nuevo tiene otro código</td>
+  <td>Si tiene el equipo guardado en Nova Hub, su editor vuelve a entrar solo en cuanto la sesión vuelve (3 minutos como mucho); si no, que entre con el código nuevo</td>
+</tr>
+<tr>
+  <td>Se abre una sesión cada vez que abro mi proyecto y no quiero</td>
+  <td>Es la opción <strong>Abrir la sesión al abrir el proyecto</strong> del equipo fijo</td>
+  <td>Desmárcala en <strong>Equipo &gt; Equipo fijo</strong></td>
+</tr>
+<tr>
+  <td>Mi amigo ve el equipo <strong>«Cerrado»</strong> en Nova Hub aunque mi servidor está en marcha</td>
+  <td>El equipo se creó <strong>sin Nova Enlace</strong> y solo con la IP de tu red local (por ejemplo, con la casilla <strong>Guardar como equipo fijo</strong> de una sesión <strong>Directa</strong> antes de la 0.9.31). En <code>equipos-fijos.json</code> se ve <code>usaRele: false</code>. Tu amigo no está en tu red: su Nova Hub pregunta a una IP que no alcanza</td>
+  <td><strong>Equipo &gt; Equipo fijo &gt; Por Internet con Nova Enlace</strong> (o el aviso «Activar Nova Enlace» que sale al abrir el proyecto). No hace falta borrar el equipo ni pasar otra invitación: su Nova Hub (0.9.31 o posterior) lo encuentra solo en el relé y actualiza su copia. Con Tailscale, pon tu IP de Tailscale en <strong>Conexión del equipo...</strong> y pásale la invitación nueva</td>
+</tr>
+<tr>
+  <td>Nova Hub dice «No se puede comprobar: la dirección 192.168.1.20 es de la red local del anfitrión y este equipo no usa Nova Enlace»</td>
+  <td>Lo mismo, visto desde el miembro: desde otra red no hay forma de saber si la sesión está abierta</td>
+  <td>Pídele a la dueña que active Nova Enlace en <strong>Equipo &gt; Equipo fijo</strong>. Si estás en su misma red, la sesión está cerrada</td>
+</tr>
+<tr>
+  <td>«Cerrado (Marta no tiene la sesión abierta)»</td>
+  <td>El relé conoce el equipo y dice que no hay sesión: está cerrada de verdad</td>
+  <td>Que la dueña abra la sesión (o el proyecto, si se abre sola)</td>
+</tr>
+<tr>
+  <td>«No se puede comprobar» con «El relé no contesta»</td>
+  <td>Sin Internet, o el relé no está desplegado o no responde</td>
+  <td>Revisa la conexión; se vuelve a preguntar cada 30 segundos</td>
+</tr>
+<tr>
+  <td>«Cerrado» con «100.x.x.x:7790 no contesta»</td>
+  <td>El equipo solo usa una dirección directa (Tailscale, IP pública) y no contesta: la sesión está cerrada o no se llega (Tailscale apagado, puerto cerrado)</td>
+  <td>Comprueba Tailscale o el puerto, o activa Nova Enlace en el equipo</td>
+</tr>
+<tr>
+  <td>A ratos «No se puede comprobar» o «El relé no contesta», sobre todo en días de partido</td>
+  <td>En España, durante los bloqueos de LaLiga algunas operadoras cortan IP de Cloudflare y el relé de Nova Enlace (un Worker de Cloudflare) deja de contestar desde esa conexión. No es un fallo de Nova ni de tu relé: desde otra red (los datos del móvil) contesta</td>
+  <td>Ten otro camino en el equipo: <strong>Equipo &gt; Equipo fijo &gt; Por Steam (amigos)</strong> (lo mejor: sin Cloudflare ni puertos) o la IP de Tailscale en <strong>Conexión del equipo...</strong>. Desde la 0.9.33 el miembro prueba solo esos caminos cuando el relé no contesta («El relé no contesta (...). Entrando por Steam…») y el servidor del equipo reintenta el relé cada 5 s durante el primer minuto (después a los 15, 30 y 60 s)</td>
+</tr>
+<tr>
+  <td>Al crear la sesión salía «No se pudo conectar: el servidor no responde» y luego entraba</td>
+  <td>El editor probaba a conectar mientras el servidor que acababa de lanzar aún arrancaba</td>
+  <td>Desde la 0.9.33 reintenta en silencio unos 15 s y solo avisa si de verdad no contesta</td>
+</tr>
+<tr>
+  <td>Mi amigo de Steam no ve mi sesión en «Amigos de Steam con una sesión de Nova abierta»</td>
+  <td>No sois amigos en Steam, usáis App ID distintos, o tu sesión no está por Steam</td>
+  <td>En tu panel <strong>Equipo</strong> tiene que salir <strong>Por Steam</strong>; si no, <strong>Equipo &gt; Steam &gt; Abrir también por Steam</strong>. Los dos con el mismo App ID (480 de serie)</td>
+</tr>
+<tr>
+  <td>Quien estaba por Steam se quedó sin conexión al cerrar yo el editor</td>
+  <td>Tu editor hace de puente entre Steam y el servidor</td>
+  <td>Deja el editor abierto mientras editan por Steam (puedes salir de la sesión: el puente sigue mientras el servidor esté abierto)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="editor.html">El editor</a></li>
+<li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li>
+<li><a href="interfaz-ui.html">Interfaz del juego (panel Interfaz)</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a> y <a href="scripts-cpp.html">en C++ (avanzado)</a></li>
+<li><a href="multijugador.html">Multijugador</a></li>
+<li><span class="enlace-interno-quitado">Red (<code>nova_net</code>)</span></li>
+<li><span class="enlace-interno-quitado">Arquitectura</span></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="steam.html"><small>Anterior</small>Steam en Nova Engine</a><a class="sig" href="publicar-juego.html"><small>Siguiente</small>Publicar el juego</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#1-qué-es-y-qué-se-sincroniza">1. Qué es y qué se sincroniza</a></li><li class="n2"><a href="#2-probarlo-en-cinco-minutos">2. Probarlo en cinco minutos</a></li><li class="n2"><a href="#3-crear-una-sesión-y-unirse">3. Crear una sesión y unirse</a></li><li class="n3"><a href="#equipos-fijos-entrar-desde-nova-hub-con-doble-clic">Equipos fijos: entrar desde Nova Hub con doble clic</a></li><li class="n3"><a href="#por-steam-amigos">Por Steam (amigos)</a></li><li class="n2"><a href="#4-trabajar-juntos">4. Trabajar juntos</a></li><li class="n3"><a href="#la-interfaz-del-juego-panel-interfaz">La interfaz del juego (panel Interfaz)</a></li><li class="n3"><a href="#cambios-grandes-repartir-hierba-generar-o-importar-un-terreno">Cambios grandes: repartir hierba, generar o importar un terreno</a></li><li class="n2"><a href="#5-guardar">5. Guardar</a></li><li class="n2"><a href="#6-assets-y-ficheros">6. Assets y ficheros</a></li><li class="n3"><a href="#sincronizar-ficheros-con-el-servidor">Sincronizar ficheros con el servidor</a></li><li class="n2"><a href="#7-scripts-lua-y-c">7. Scripts Lua y C++</a></li><li class="n3"><a href="#scripts-lua-en-vivo-sin-compilar">Scripts Lua: en vivo, sin compilar</a></li><li class="n3"><a href="#editar-el-mismo-script-a-la-vez-edición-conjunta">Editar el mismo script a la vez (edición conjunta)</a></li><li class="n3"><a href="#scripts-c-avanzado">Scripts C++ (avanzado)</a></li><li class="n2"><a href="#8-jugar-en-equipo">8. Jugar en equipo</a></li><li class="n2"><a href="#9-roles-expulsar-y-reconexión">9. Roles, expulsar y reconexión</a></li><li class="n2"><a href="#10-servidor-del-proyecto-sin-ventana">10. Servidor del proyecto sin ventana</a></li><li class="n2"><a href="#11-por-internet-código-vpn-o-puertos">11. Por Internet: código, VPN o puertos</a></li><li class="n2"><a href="#12-límites-y-seguridad">12. Límites y seguridad</a></li><li class="n2"><a href="#13-solución-de-problemas">13. Solución de problemas</a></li><li class="n3"><a href="#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">Resolución de problemas: equipo fijo, Nova Hub y prueba en equipo</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

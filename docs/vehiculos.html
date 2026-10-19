@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vehículos: coches, motos, orugas, helicópteros y aviones · Nova Engine</title>
+<meta name="description" content="Nova Engine trae vehículos de verdad, con físicas: coches, motos y vehículos de orugas (tanques) sobre la
+restricción de vehículos de Jolt Physics (licencia MIT), y helicópteros y
+aviones sencillos con un modelo de vuelo">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Vehículos: coches, motos, orugas, helicópteros y aviones · Nova Engine">
+<meta property="og:description" content="Nova Engine trae vehículos de verdad, con físicas: coches, motos y vehículos de orugas (tanques) sobre la
+restricción de vehículos de Jolt Physics (licencia MIT), y helicópteros y
+aviones sencillos con un modelo de vuelo">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/vehiculos.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/vehiculos.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html" aria-current="page">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="vehículos-coches-motos-orugas-helicópteros-y-aviones">Vehículos: coches, motos, orugas, helicópteros y aviones</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-primeros-pasos">1. Primeros pasos</a></li><li class="n2"><a href="#2-coches-motos-y-orugas-el-componente-vehículo">2. Coches, motos y orugas: el componente Vehículo</a></li><li class="n2"><a href="#3-helicópteros-y-aviones-el-componente-aeronave">3. Helicópteros y aviones: el componente Aeronave</a></li><li class="n2"><a href="#4-asientos-subir-y-bajar">4. Asientos: subir y bajar</a></li><li class="n2"><a href="#5-controles-de-serie">5. Controles de serie</a></li><li class="n2"><a href="#6-cámara-de-vehículo">6. Cámara de vehículo</a></li><li class="n2"><a href="#7-sonido-del-motor">7. Sonido del motor</a></li><li class="n2"><a href="#8-desde-los-scripts-lua">8. Desde los scripts Lua</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n2"><a href="#10-el-ejemplo-vehículos-lua">10. El ejemplo «Vehículos (Lua)»</a></li><li class="n2"><a href="#12-limitaciones">12. Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Nova Engine trae vehículos de verdad, con físicas: <strong>coches</strong>, <strong>motos</strong> y <strong>vehículos de orugas</strong> (tanques) sobre la
+restricción de vehículos de <a href="https://github.com/jrouwe/JoltPhysics" rel="noopener">Jolt Physics</a> (licencia MIT), y <strong>helicópteros</strong> y
+<strong>aviones</strong> sencillos con un modelo de vuelo propio. Se montan con componentes en el editor, se suben y se bajan con
+<strong>F</strong> sin escribir código, se manejan con teclado, ratón o mando, y funcionan igual jugando solo, en «Jugar en equipo»,
+con <code>NovaServer.exe</code> o con un anfitrión que también juega.</p>
+<p>La forma más rápida de verlos: <strong>Nuevo proyecto &gt; «Vehículos (Lua)»</strong> (en Nova Hub o en la ventana de bienvenida del
+editor). Abre un circuito con dos coches, una moto y un helicóptero, listo para pulsar <strong>Jugar</strong>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-primeros-pasos">Primeros pasos</a></li>
+<li><a href="#2-coches-motos-y-orugas-el-componente-vehículo">Coches, motos y orugas: el componente Vehículo</a></li>
+<li><a href="#3-helicópteros-y-aviones-el-componente-aeronave">Helicópteros y aviones: el componente Aeronave</a></li>
+<li><a href="#4-asientos-subir-y-bajar">Asientos: subir y bajar</a></li>
+<li><a href="#5-controles-de-serie">Controles de serie</a></li>
+<li><a href="#6-cámara-de-vehículo">Cámara de vehículo</a></li>
+<li><a href="#7-sonido-del-motor">Sonido del motor</a></li>
+<li><a href="#8-desde-los-scripts-lua">Desde los scripts Lua</a></li>
+<li><a href="#9-multijugador">Multijugador</a></li>
+<li><a href="#10-el-ejemplo-vehículos-lua">El ejemplo «Vehículos (Lua)»</a></li>
+<li><span class="enlace-interno-quitado">Para quien desarrolla el motor</span></li>
+<li><a href="#12-limitaciones">Limitaciones</a></li>
+</ol>
+<h2 id="1-primeros-pasos">1. Primeros pasos<a class="ancla" href="#1-primeros-pasos" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><strong>Entidad &gt; Vehículos &gt; Coche</strong> (o Moto, Tanque, Helicóptero, Avión). Aparece delante de la cámara del visor, hecho
+con cubos y cilindros y con todo puesto: <strong>Colisionador</strong>, <strong>Cuerpo rígido</strong> dinámico, <strong>Vehículo</strong> (o <strong>Aeronave</strong>),
+<strong>Asientos</strong>, <strong>Identidad de red</strong> y <strong>Transform de red</strong>, y sus ruedas o rotores como entidades hijas.</li>
+<li>Pon un personaje que ande (una entidad con <strong>Controlador de personaje</strong> y un script que lo mueva, o un <strong>Aparición
+de jugadores</strong> con el prefab de tu jugador) y una cámara con <strong>Cámara de vehículo</strong> (en la categoría <strong>Vehículos</strong> de
+<strong>Añadir componente</strong>).</li>
+<li><strong>Jugar</strong>: acércate y pulsa <strong>F</strong> para subir. <strong>W/S</strong> acelera y frena, <strong>A/D</strong> gira, <strong>Espacio</strong> es el freno de mano,
+<strong>V</strong> cambia de tercera a primera persona y <strong>F</strong> te baja.</li>
+</ol>
+<p>Con <strong>Jugar &gt; Formas de física en el visor</strong> se ven las ruedas (círculos naranjas: con tracción; amarillos: sin ella),
+su suspensión, el centro de masas (punto rojo) y los asientos (cápsulas azules con una flecha hacia donde miran y un
+círculo verde en la salida).</p>
+<p>Tus propios modelos: pon el <strong>Vehículo</strong> en la raíz (con su Colisionador, normalmente una caja, y su Cuerpo rígido con la
+masa de verdad), cada rueda del modelo como una entidad hija y arrástrala a <strong>Rueda visual</strong> de su rueda. El vehículo
+mira hacia <strong>+Z</strong> (como los modelos glTF) y la rueda visual se coloca en el centro de la rueda con su eje en X.</p>
+<h2 id="2-coches-motos-y-orugas-el-componente-vehículo">2. Coches, motos y orugas: el componente Vehículo<a class="ancla" href="#2-coches-motos-y-orugas-el-componente-vehículo" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Tipo</strong></td>
+  <td>Coche</td>
+  <td><strong>Coche</strong> (ruedas con diferenciales), <strong>Moto</strong> (dos ruedas; se inclina sola en las curvas) u <strong>Orugas</strong> (gira frenando un lado o sobre sí misma parada)</td>
+</tr>
+<tr>
+  <td><strong>Ruedas</strong></td>
+  <td>vacío</td>
+  <td>La lista de ruedas (abajo). Vacía: cuatro ruedas en las esquinas de la caja del colisionador</td>
+</tr>
+<tr>
+  <td><strong>Par máximo</strong>, <strong>RPM mínimas</strong> y <strong>máximas</strong></td>
+  <td>500 N·m, 1000, 6000</td>
+  <td>El motor</td>
+</tr>
+<tr>
+  <td><strong>Curva de par</strong></td>
+  <td>vacía</td>
+  <td>Puntos (fracción de las rpm entre la mínima y la máxima, fracción del par). Vacía: 80 % abajo, 100 % a dos tercios, 80 % arriba</td>
+</tr>
+<tr>
+  <td><strong>Automático</strong></td>
+  <td>sí</td>
+  <td>Caja automática: sube de marcha al pasar de <strong>Subir de marcha a</strong> y baja por debajo de <strong>Bajar de marcha a</strong> (no sube mientras las ruedas patinan)</td>
+</tr>
+<tr>
+  <td><strong>Marchas</strong>, <strong>Marcha atrás</strong>, <strong>Diferencial</strong></td>
+  <td>2,66 ... 0,74; −2,9; 3,42</td>
+  <td>Relaciones de la caja y del diferencial</td>
+</tr>
+<tr>
+  <td><strong>Centro de masas</strong></td>
+  <td>(0, −0,5, 0)</td>
+  <td>Desplazamiento del centro de masas (local). <strong>Bajo = estable</strong>: el coche no vuelca en las curvas. La masa no cambia</td>
+</tr>
+<tr>
+  <td><strong>Inclinación máxima</strong></td>
+  <td>60</td>
+  <td>Grados que se puede inclinar. Con menos de 180 no puede quedar boca abajo</td>
+</tr>
+<tr>
+  <td><strong>Barras estabilizadoras</strong></td>
+  <td>1000 N/m</td>
+  <td>Se inclina menos en las curvas (solo coches)</td>
+</tr>
+<tr>
+  <td><strong>Inclinación de la moto</strong></td>
+  <td>45</td>
+  <td>Grados que se inclina la moto en las curvas</td>
+</tr>
+<tr>
+  <td><strong>Contacto de las ruedas</strong></td>
+  <td>Esfera</td>
+  <td>Cómo tocan el suelo. <strong>Esfera</strong>: sube bordillos y no se frena en los cantos verticales (los bordes de las carreteras). <strong>Cilindro</strong>: la forma exacta de la rueda, pero un canto vertical la para como una pared. <strong>Rayo</strong>: lo más barato</td>
+</tr>
+<tr>
+  <td><strong>Controles de serie</strong></td>
+  <td>sí</td>
+  <td>El conductor de esta máquina lo maneja con el teclado, el ratón y el mando (sección 5). Desmárcalo para manejarlo solo desde un script</td>
+</tr>
+<tr>
+  <td><strong>Velocidad del volante</strong></td>
+  <td>3</td>
+  <td>Con los controles de serie, lo que tarda el volante en llegar al tope (1/s)</td>
+</tr>
+<tr>
+  <td><strong>Tono al ralentí</strong>, <strong>Tono a tope</strong></td>
+  <td>0,7; 2</td>
+  <td>Sonido del motor (sección 7)</td>
+</tr>
+<tr>
+  <td><strong>RPM</strong>, <strong>Marcha</strong>, <strong>Velocidad</strong>, <strong>En el suelo</strong></td>
+  <td>—</td>
+  <td>Solo lectura al jugar (llegan a todas las máquinas)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cada <strong>Rueda</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Posición</strong></td>
+  <td>(0, 0, 0)</td>
+  <td>Anclaje de la suspensión, local al vehículo (sin su escala): la rueda cuelga hacia abajo desde aquí</td>
+</tr>
+<tr>
+  <td><strong>Radio</strong>, <strong>Ancho</strong></td>
+  <td>0,35; 0,25 m</td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>Suspensión mínima</strong> y <strong>máxima</strong></td>
+  <td>0,05; 0,35 m</td>
+  <td>Desde el anclaje, con la suspensión comprimida y estirada del todo</td>
+</tr>
+<tr>
+  <td><strong>Dureza</strong>, <strong>Amortiguación</strong></td>
+  <td>1,5 Hz; 0,5</td>
+  <td>Del muelle. Más dureza = menos se hunde; amortiguación 1 = no rebota</td>
+</tr>
+<tr>
+  <td><strong>Agarre</strong>, <strong>Agarre lateral</strong></td>
+  <td>1; 1</td>
+  <td>Multiplican la curva del neumático hacia delante (acelerar y frenar) y de lado (curvas). Menos lateral = derrapa</td>
+</tr>
+<tr>
+  <td><strong>Giro</strong></td>
+  <td>0</td>
+  <td>Grados que gira con la dirección (0 en las de atrás)</td>
+</tr>
+<tr>
+  <td><strong>Tracción</strong></td>
+  <td>sí</td>
+  <td>El motor la mueve (las de un eje con tracción comparten un diferencial autoblocante)</td>
+</tr>
+<tr>
+  <td><strong>Freno</strong>, <strong>Freno de mano</strong></td>
+  <td>1500 N·m; no</td>
+  <td>El freno de mano solo frena las ruedas que lo tienen (las de atrás)</td>
+</tr>
+<tr>
+  <td><strong>Oruga</strong></td>
+  <td>Automática</td>
+  <td>En un vehículo de orugas, de qué lado es (Automática: por su posición)</td>
+</tr>
+<tr>
+  <td><strong>Rueda visual</strong></td>
+  <td>vacío</td>
+  <td>La entidad que gira y sube y baja con la suspensión</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>El agarre depende del suelo.</strong> La fricción del suelo que pisa cada rueda, comparada con la de serie (0,6), multiplica
+la curva del neumático: en un suelo normal o en el asfalto, la curva tal cual; en una zona con un <strong>Cuerpo rígido</strong>
+estático de fricción 0,35 (tierra), un 40 % menos; en hielo (0,05), casi nada. El ejemplo tiene una zona de tierra así.</p>
+<p>Cambiar un campo jugando (en el Inspector o desde un script) vuelve a crear el vehículo al momento con la velocidad
+que llevaba; los controles de serie, la velocidad del volante y el tono del sonido se aplican sin recrearlo.</p>
+<h2 id="3-helicópteros-y-aviones-el-componente-aeronave">3. Helicópteros y aviones: el componente Aeronave<a class="ancla" href="#3-helicópteros-y-aviones-el-componente-aeronave" aria-label="Enlace a esta sección">#</a></h2>
+<p>Va en un <strong>Cuerpo rígido</strong> dinámico (con su <strong>Colisionador</strong>): el motor del juego pone las fuerzas y el giro en cada paso
+de las físicas.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Tipo</strong></td>
+  <td>Helicóptero</td>
+  <td><strong>Helicóptero</strong> o <strong>Avión</strong></td>
+</tr>
+<tr>
+  <td><strong>Sustentación máxima</strong></td>
+  <td>2</td>
+  <td>Helicóptero: empuje máximo del rotor en veces su peso (por encima de 1, sube)</td>
+</tr>
+<tr>
+  <td><strong>Velocidad de subida</strong></td>
+  <td>8 m/s</td>
+  <td>Con la estabilización: lo que sube o baja con el colectivo a tope</td>
+</tr>
+<tr>
+  <td><strong>Efecto suelo</strong>, <strong>Diámetro del rotor</strong></td>
+  <td>0,3; 10 m</td>
+  <td>Pegado al suelo (por debajo del diámetro) el rotor empuja más</td>
+</tr>
+<tr>
+  <td><strong>Empuje</strong>, <strong>Superficie alar</strong>, <strong>Sustentación de las alas</strong>, <strong>Velocidad de pérdida</strong></td>
+  <td>12000 N, 16 m², 1,2, 25 m/s</td>
+  <td>Avión: el gas empuja hacia delante y las alas sustentan según la velocidad y el ángulo; por debajo de la velocidad de pérdida apenas sustentan</td>
+</tr>
+<tr>
+  <td><strong>Cabeceo</strong>, <strong>Alabeo</strong>, <strong>Guiñada</strong></td>
+  <td>1,2; 1,6; 1,4 rad/s</td>
+  <td>Lo rápido que gira con la palanca a tope</td>
+</tr>
+<tr>
+  <td><strong>Respuesta</strong></td>
+  <td>4</td>
+  <td>Lo rápido que obedece a los mandos</td>
+</tr>
+<tr>
+  <td><strong>Estabilización asistida</strong></td>
+  <td>sí</td>
+  <td>Se pone recto solo al soltar los mandos y <strong>mantiene la altura</strong>: el colectivo sube o baja a velocidad constante y, cerca del suelo, baja cada vez más despacio (aterriza sin golpe). Sin ella, el colectivo es una palanca que se queda donde la dejas. <strong>T</strong> la activa o la quita</td>
+</tr>
+<tr>
+  <td><strong>Cabeceo máximo</strong>, <strong>Alabeo máximo</strong></td>
+  <td>25; 30 grados</td>
+  <td>Con la estabilización: lo que se inclina con la palanca a tope</td>
+</tr>
+<tr>
+  <td><strong>Resistencia del aire</strong></td>
+  <td>0,08</td>
+  <td>Frena la velocidad</td>
+</tr>
+<tr>
+  <td><strong>Arranque del motor</strong></td>
+  <td>4 s</td>
+  <td>Lo que tardan los rotores en coger todas las vueltas. Sin vueltas no sube; sin motor cae (el rotor aún frena un poco la caída)</td>
+</tr>
+<tr>
+  <td><strong>Arrancar al subir</strong>, <strong>Apagar al bajar</strong></td>
+  <td>sí; sí</td>
+  <td>El motor arranca cuando sube el piloto y se apaga cuando baja (también con <strong>I</strong>)</td>
+</tr>
+<tr>
+  <td><strong>Vida</strong>, <strong>Golpe que daña</strong>, <strong>Daño por golpe</strong></td>
+  <td>100; 7 m/s; 12</td>
+  <td>Un golpe que cambia la velocidad más de 7 m/s de una vez quita vida. Sin vida el motor se para y no vuelve a arrancar: cae</td>
+</tr>
+<tr>
+  <td><strong>Rotores</strong></td>
+  <td>vacío</td>
+  <td>Entidades que giran con el motor: cada una con su <strong>Eje</strong> (local) y sus <strong>Vueltas por minuto</strong> a todo gas</td>
+</tr>
+<tr>
+  <td><strong>Controles de serie</strong>, <strong>Con el ratón</strong>, <strong>Sensibilidad del ratón</strong></td>
+  <td>sí; sí; 0,02</td>
+  <td>Sección 5</td>
+</tr>
+<tr>
+  <td><strong>Motor encendido</strong>, <strong>Vueltas del motor</strong>, <strong>Vida actual</strong>, <strong>Destruida</strong>, <strong>Altura</strong>, <strong>Velocidad</strong></td>
+  <td>—</td>
+  <td>Solo lectura al jugar (llegan a todas las máquinas)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-asientos-subir-y-bajar">4. Asientos: subir y bajar<a class="ancla" href="#4-asientos-subir-y-bajar" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Asientos</strong> va en el vehículo o la aeronave:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Asientos</strong></td>
+  <td>vacío</td>
+  <td>Cada uno con <strong>Nombre</strong>, <strong>Conductor</strong> (quien se sienta ahí conduce o pilota), <strong>Posición</strong> (donde quedan los pies del personaje, local al vehículo), <strong>Giro</strong>, <strong>Salida</strong> (donde se baja), <strong>Ojos</strong> (la cámara en primera persona, local al asiento) y <strong>Ocultar al ocupante</strong> (cabinas cerradas). Vacío: un asiento de conductor en el centro. Como mucho 8</td>
+</tr>
+<tr>
+  <td><strong>Distancia para subir</strong></td>
+  <td>3 m</td>
+  <td>Desde el asiento o el centro del vehículo</td>
+</tr>
+<tr>
+  <td><strong>Subir con F</strong></td>
+  <td>sí</td>
+  <td>El jugador de esta máquina sube al vehículo libre más cercano con <strong>F</strong> (o <strong>Y</strong> del mando) y baja con la misma tecla. Cerca de uno sale el aviso «F: subir a ...»</td>
+</tr>
+<tr>
+  <td><strong>Cerrado</strong></td>
+  <td>no</td>
+  <td>Nadie puede subir</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Subir al conductor si está libre; si no, al asiento libre más cercano. Varios jugadores pueden ir en el mismo vehículo:
+uno conduce y los demás van de pasajeros.</li>
+<li>Mientras va sentado, el personaje va en su asiento en todas las máquinas, no choca con su vehículo y no anda (aunque
+su script le pida moverse). Al bajar aparece en la <strong>Salida</strong>, apoyado en el suelo.</li>
+<li>Si un jugador se desconecta, su asiento se libera solo.</li>
+</ul>
+<h2 id="5-controles-de-serie">5. Controles de serie<a class="ancla" href="#5-controles-de-serie" aria-label="Enlace a esta sección">#</a></h2>
+<p>Si el vehículo tiene <strong>Controles de serie</strong>, el conductor de esta máquina lo maneja así (los ejes <code>MoverX</code> y <code>MoverY</code>
+son los del proyecto: si cambias sus teclas en <strong>Ajustes del proyecto &gt; Entrada</strong>, cambian también aquí):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th></th>
+  <th>Teclado y ratón</th>
+  <th>Mando</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Subir y bajar</td>
+  <td><strong>F</strong></td>
+  <td><strong>Y</strong></td>
+</tr>
+<tr>
+  <td>Coche: acelerar / frenar y marcha atrás</td>
+  <td><strong>W</strong> / <strong>S</strong> (<code>MoverY</code>)</td>
+  <td><strong>RT</strong> / <strong>LT</strong> (y el stick izquierdo)</td>
+</tr>
+<tr>
+  <td>Coche: girar</td>
+  <td><strong>A</strong> / <strong>D</strong> (<code>MoverX</code>)</td>
+  <td>Stick izquierdo</td>
+</tr>
+<tr>
+  <td>Coche: freno de mano</td>
+  <td><strong>Espacio</strong> (acción <code>Saltar</code>)</td>
+  <td><strong>A</strong></td>
+</tr>
+<tr>
+  <td>Helicóptero: colectivo (subir y bajar)</td>
+  <td><strong>Mayús</strong> / <strong>Ctrl</strong></td>
+  <td><strong>RT</strong> / <strong>LT</strong></td>
+</tr>
+<tr>
+  <td>Helicóptero: cabeceo (adelante y atrás)</td>
+  <td><strong>W</strong> / <strong>S</strong>, ratón arriba y abajo</td>
+  <td>Stick izquierdo</td>
+</tr>
+<tr>
+  <td>Helicóptero: alabeo (inclinarse)</td>
+  <td><strong>A</strong> / <strong>D</strong></td>
+  <td>Stick izquierdo</td>
+</tr>
+<tr>
+  <td>Helicóptero: guiñada (girar)</td>
+  <td><strong>Q</strong> / <strong>E</strong>, ratón a los lados</td>
+  <td>Stick derecho</td>
+</tr>
+<tr>
+  <td>Avión: gas</td>
+  <td><strong>Mayús</strong> / <strong>Ctrl</strong></td>
+  <td><strong>RT</strong> / <strong>LT</strong></td>
+</tr>
+<tr>
+  <td>Motor (aeronaves)</td>
+  <td><strong>I</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td>Estabilización asistida (aeronaves)</td>
+  <td><strong>T</strong></td>
+  <td></td>
+</tr>
+<tr>
+  <td>Cámara: tercera o primera persona</td>
+  <td><strong>V</strong></td>
+  <td><strong>Back</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Con <strong>S</strong> a la vez que el coche va hacia delante, primero frena; parado, va marcha atrás. El ratón solo maneja la
+aeronave con el cursor bloqueado (<code>Input.SetCursorLocked(true)</code>).</p>
+<p>Un script que llama a <code>vehiculo:SetInput(...)</code> gana a los controles de serie durante un cuarto de segundo: para manejarlo
+desde un script, llámalo en cada <code>Update</code> (sección 8).</p>
+<h2 id="6-cámara-de-vehículo">6. Cámara de vehículo<a class="ancla" href="#6-cámara-de-vehículo" aria-label="Enlace a esta sección">#</a></h2>
+<p>Pon el componente <strong>Cámara de vehículo</strong> en la entidad de la cámara. Cuando el jugador de esta máquina va en un vehículo,
+la cámara lo sigue; a pie no hace nada (la mueve tu script de siempre).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Vista</strong></td>
+  <td>Tercera persona</td>
+  <td><strong>Tercera persona</strong> (detrás del vehículo) o <strong>Primera persona</strong> (desde los <strong>Ojos</strong> del asiento)</td>
+</tr>
+<tr>
+  <td><strong>Distancia</strong>, <strong>Altura</strong>, <strong>Altura de la mirada</strong></td>
+  <td>7; 2,2; 1 m</td>
+  <td>Tercera persona</td>
+</tr>
+<tr>
+  <td><strong>Suavizado</strong></td>
+  <td>6</td>
+  <td>Lo rápido que se pone detrás del vehículo al girar (0 = pegada)</td>
+</tr>
+<tr>
+  <td><strong>Girar con el ratón</strong></td>
+  <td>sí</td>
+  <td>El ratón (o el stick derecho) gira la cámara alrededor; vuelve detrás al soltarlo. En las aeronaves que se manejan con el ratón no gira</td>
+</tr>
+<tr>
+  <td><strong>Cambiar con V</strong></td>
+  <td>sí</td>
+  <td><strong>V</strong> (o <strong>Back</strong>) cambia la vista</td>
+</tr>
+<tr>
+  <td><strong>Evitar paredes</strong></td>
+  <td>sí</td>
+  <td>Se acerca si hay algo entre el vehículo y la cámara</td>
+</tr>
+</tbody>
+</table></div>
+<p>Se mueve después de los scripts, así que gana a tu script de cámara mientras vas en un vehículo. Desde Lua:
+<code>Vehicles.SetCameraMode(&quot;Primera&quot;)</code>.</p>
+<h2 id="7-sonido-del-motor">7. Sonido del motor<a class="ancla" href="#7-sonido-del-motor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Pon un <strong>Fuente de audio</strong> en el vehículo con el sonido del motor en <strong>bucle</strong> (y sin «Reproducir al empezar»): el
+vehículo lo arranca y cambia su <strong>tono</strong> con las rpm, entre <strong>Tono al ralentí</strong> y <strong>Tono a tope</strong>. En una aeronave el tono
+sigue a las vueltas del motor y el sonido se para con el motor apagado. Va con miniaudio como cualquier otro sonido (3D,
+con su distancia y su bus). El ejemplo trae dos sonidos sintetizados: <code>sonidos/Motor.wav</code> y <code>sonidos/Rotor.wav</code>.</p>
+<h2 id="8-desde-los-scripts-lua">8. Desde los scripts Lua<a class="ancla" href="#8-desde-los-scripts-lua" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Vehicles.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Enter(vehiculo, asiento?, personaje?)</code></td>
+  <td>Sube un personaje (el del jugador local si no se pone) al asiento (desde 1; sin él, al de conductor si está libre). En un cliente lo pide al servidor (solo para su propio personaje y desde cerca); en el servidor sienta ya a cualquiera (también a un NPC). Devuelve <code>true</code> o <code>false</code> y el motivo</td>
+</tr>
+<tr>
+  <td><code>Exit(personaje?)</code></td>
+  <td>Lo baja por la salida de su asiento</td>
+</tr>
+<tr>
+  <td><code>GetVehicle(personaje?)</code></td>
+  <td>El vehículo y el asiento en que va, o <code>nil</code> si va a pie</td>
+</tr>
+<tr>
+  <td><code>GetOccupant(vehiculo, asiento?)</code>, <code>GetOccupants(vehiculo)</code>, <code>GetDriver(vehiculo)</code>, <code>GetSeatCount(vehiculo)</code></td>
+  <td>Quién va en cada asiento</td>
+</tr>
+<tr>
+  <td><code>FindNearest(posicion, distancia?)</code></td>
+  <td>El vehículo con un asiento libre más cercano (y ese asiento)</td>
+</tr>
+<tr>
+  <td><code>SetCameraMode(&quot;Tercera&quot; o &quot;Primera&quot;)</code>, <code>GetCameraMode()</code></td>
+  <td>La vista de la <strong>Cámara de vehículo</strong> de esta máquina</td>
+</tr>
+<tr>
+  <td><code>GetPredictionStats()</code></td>
+  <td>Cómo va la predicción del conductor de esta máquina (sección 9)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>De</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>SetInput({ throttle, steer, brake, handbrake })</code></td>
+  <td><code>Vehicle</code></td>
+  <td>Acelerador −1..1 (negativo: marcha atrás), dirección −1..1 (1 = derecha), freno y freno de mano 0..1</td>
+</tr>
+<tr>
+  <td><code>GetSpeed()</code>, <code>GetSpeedKmh()</code>, <code>GetRPM()</code>, <code>GetGear()</code>, <code>IsOnGround()</code></td>
+  <td><code>Vehicle</code></td>
+  <td>Velocidad hacia delante (m/s o km/h), rpm, marcha (−1 atrás, 0 punto muerto) y si toca el suelo</td>
+</tr>
+<tr>
+  <td><code>GetWheel(i)</code></td>
+  <td><code>Vehicle</code></td>
+  <td>Una rueda (desde 1): <code>{ position, rotation, suspension, steer, contact, contactPoint, ground, slip }</code></td>
+</tr>
+<tr>
+  <td><code>SetInput({ collective, pitch, roll, yaw })</code></td>
+  <td><code>Aircraft</code></td>
+  <td>Colectivo (en un avión, el gas), cabeceo (1 = morro abajo), alabeo y guiñada (1 = derecha), de −1 a 1</td>
+</tr>
+<tr>
+  <td><code>SetEngine(encendido)</code>, <code>IsEngineOn()</code>, <code>GetRotorSpeed()</code>, <code>GetAltitude()</code></td>
+  <td><code>Aircraft</code></td>
+  <td>El motor y la altura sobre el suelo</td>
+</tr>
+<tr>
+  <td><code>Damage(cantidad)</code>, <code>Repair()</code>, <code>SetAssist(activa)</code></td>
+  <td><code>Aircraft</code></td>
+  <td>Vida (en el servidor) y estabilización</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los campos del componente se leen como siempre: <code>vehiculo:GetComponent(&quot;Aircraft&quot;).health</code>.</p>
+<p><strong>Eventos.</strong> Al subir y al bajar, en <strong>todas</strong> las máquinas, llegan los eventos <code>vehicleEnter</code> y <code>vehicleExit</code> con el
+vehículo, el personaje (<code>nil</code> si ya no existe: un jugador que se ha desconectado), el asiento (desde 1) y el jugador (0 si
+es un NPC o no hay red):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Escribe en el registro quién sube y quién baja de cada vehículo</span>
+<span class="hl-k">local</span> <span class="hl-t">AvisosVehiculos</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">AvisosVehiculos</span>:<span class="hl-f">Start</span>()
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"vehicleEnter"</span>, <span class="hl-k">function</span>(vehiculo, personaje, asiento, jugador)
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s sube a %s (asiento %d, jugador %d)"</span>, personaje.name, vehiculo.name, asiento, jugador))
+    <span class="hl-k">end</span>)
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"vehicleExit"</span>, <span class="hl-k">function</span>(vehiculo, personaje, asiento, jugador)
+        <span class="hl-k">local</span> quien = <span class="hl-k">if</span> personaje <span class="hl-k">then</span> personaje.name <span class="hl-k">else</span> <span class="hl-s">"alguien que se ha ido"</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s baja de %s"</span>, quien, vehiculo.name))
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">AvisosVehiculos</span></code></pre></div>
+<p><strong>Un coche que conduce solo</strong> (en el servidor, sin conductor): <code>SetInput</code> en cada paso fijo hacia el siguiente punto.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En un coche (con Vehículo y sin conductor): va de un punto a otro de la lista, en el servidor</span>
+<span class="hl-k">local</span> <span class="hl-t">ConductorIA</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-c">-- Puntos del recorrido, en el mundo</span>
+<span class="hl-k">local</span> <span class="hl-t">PUNTOS</span> = { <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">40</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">40</span>, <span class="hl-n">0</span>, <span class="hl-n">40</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">40</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>) }
+
+<span class="hl-a">--[Range(1, 40), Tooltip("km/h")]</span>
+<span class="hl-t">ConductorIA</span>.velocidad = <span class="hl-n">40</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ConductorIA</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._siguiente = <span class="hl-n">1</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ConductorIA</span>:<span class="hl-f">FixedUpdate</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">or</span> <span class="hl-t">Vehicles</span>.<span class="hl-f">GetDriver</span>(<span class="hl-b">self</span>.entity) <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- con conductor manda él</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> coche = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Vehicle"</span>)
+    <span class="hl-k">local</span> destino = <span class="hl-t">PUNTOS</span>[<span class="hl-b">self</span>._siguiente]
+    <span class="hl-k">if</span> <span class="hl-k">not</span> coche <span class="hl-k">or</span> <span class="hl-k">not</span> destino <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> hacia = destino - <span class="hl-b">self</span>.entity.position
+    hacia = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(hacia.x, <span class="hl-n">0</span>, hacia.z)
+    <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(hacia) &lt; <span class="hl-n">6</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._siguiente = <span class="hl-b">self</span>._siguiente % #<span class="hl-t">PUNTOS</span> + <span class="hl-n">1</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Ángulo entre hacia dónde mira el coche y el destino: a la derecha es negativo en Y</span>
+    <span class="hl-k">local</span> delante = <span class="hl-b">self</span>.entity.transform:<span class="hl-f">TransformDirection</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>))
+    <span class="hl-k">local</span> giro = <span class="hl-t">math</span>.<span class="hl-f">atan2</span>(delante.x * hacia.z - delante.z * hacia.x, <span class="hl-t">Vec3</span>.<span class="hl-f">Dot</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(hacia), delante))
+    <span class="hl-k">local</span> gas = <span class="hl-k">if</span> coche:<span class="hl-f">GetSpeedKmh</span>() &lt; <span class="hl-b">self</span>.velocidad <span class="hl-k">then</span> <span class="hl-n">0.7</span> <span class="hl-k">else</span> <span class="hl-n">0</span>
+    coche:<span class="hl-f">SetInput</span>({ throttle = gas, steer = <span class="hl-t">math</span>.<span class="hl-f">clamp</span>(giro * <span class="hl-n">2</span>, -<span class="hl-n">1</span>, <span class="hl-n">1</span>) })
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ConductorIA</span></code></pre></div>
+<p><strong>Un velocímetro</strong> en la interfaz mínima (<code>OnGUI</code>; para el HUD de un juego, mejor la interfaz del panel <strong>Interfaz</strong>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En cualquier entidad: velocidad, marcha y rpm del vehículo del jugador local (o la altura en una aeronave)</span>
+<span class="hl-k">local</span> <span class="hl-t">Velocimetro</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Velocimetro</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">local</span> vehiculo = <span class="hl-t">Vehicles</span>.<span class="hl-f">GetVehicle</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> vehiculo <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(vehiculo.name, <span class="hl-n">20</span>, <span class="hl-n">120</span>)
+    <span class="hl-k">local</span> coche = vehiculo:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Vehicle"</span>)
+    <span class="hl-k">local</span> aeronave = vehiculo:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Aircraft"</span>)
+    <span class="hl-k">if</span> coche <span class="hl-k">then</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%.0f km/h, marcha %d, %.0f rpm"</span>, coche:<span class="hl-f">GetSpeedKmh</span>(), coche:<span class="hl-f">GetGear</span>(), coche:<span class="hl-f">GetRPM</span>()))
+    <span class="hl-k">elseif</span> aeronave <span class="hl-k">then</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Altura %.1f m, motor %s"</span>, aeronave:<span class="hl-f">GetAltitude</span>(), <span class="hl-k">if</span> aeronave:<span class="hl-f">IsEngineOn</span>() <span class="hl-k">then</span> <span class="hl-s">"en marcha"</span> <span class="hl-k">else</span> <span class="hl-s">"apagado"</span>))
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Velocimetro</span></code></pre></div>
+<p><strong>Enderezar un vehículo volcado</strong> (lo que hace la tecla R del ejemplo): una función <code>[Server]</code> de un script <code>[Global]</code>
+que solo acepta al conductor, <code>Network.Teleport</code> para que los demás no vean el salto a medio camino y la velocidad a cero:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Server(rate = 2)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Reaparecer</span>:<span class="hl-f">Enderezar</span>(vehiculo: <span class="hl-t">Entity</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> vehiculo <span class="hl-k">or</span> <span class="hl-k">not</span> vehiculo:<span class="hl-f">IsValid</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Solo quien conduce (nunca te fíes del cliente)</span>
+    <span class="hl-k">local</span> conductor = <span class="hl-t">Vehicles</span>.<span class="hl-f">GetDriver</span>(vehiculo)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> conductor <span class="hl-k">or</span> (source ~= <span class="hl-n">0</span> <span class="hl-k">and</span> <span class="hl-t">Network</span>.<span class="hl-f">GetOwner</span>(conductor) ~= source) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> delante = vehiculo.transform:<span class="hl-f">TransformDirection</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>))
+    <span class="hl-k">local</span> giro = <span class="hl-t">Quat</span>.<span class="hl-f">FromAxisAngle</span>(<span class="hl-t">Vec3</span>.up, <span class="hl-t">math</span>.<span class="hl-f">atan2</span>(delante.x, delante.z))
+    <span class="hl-t">Network</span>.<span class="hl-f">Teleport</span>(vehiculo, vehiculo.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1.5</span>, <span class="hl-n">0</span>), giro)
+    <span class="hl-t">Physics</span>.<span class="hl-f">SetVelocity</span>(vehiculo, <span class="hl-t">Vec3</span>.zero)
+    <span class="hl-t">Physics</span>.<span class="hl-f">SetAngularVelocity</span>(vehiculo, <span class="hl-t">Vec3</span>.zero)</code></pre></div>
+<h2 id="9-multijugador">9. Multijugador<a class="ancla" href="#9-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un vehículo de red necesita <strong>Identidad de red</strong> y <strong>Transform de red</strong> (los de <strong>Entidad &gt; Vehículos</strong> ya los traen).
+Sin ellos, cada máquina lo simula por su cuenta y cada jugador lo ve en un sitio distinto (el registro lo avisa).</p>
+<p><strong>Cómo funciona.</strong> El servidor es el único que decide dónde está cada vehículo; quien conduce solo decide <strong>su entrada</strong>:</p>
+<ol>
+<li>En cada paso fijo (60 por segundo), la máquina del conductor toma su entrada (los controles de serie o <code>SetInput</code>),
+la numera y la envía al servidor sin fiabilidad: 30 envíos por segundo, cada uno con las 4 últimas entradas (si se
+pierde un paquete, la siguiente lo cubre).</li>
+<li>El servidor aplica cada entrada en un paso (en orden; si se le acumulan, tira las viejas; si no llega ninguna, repite
+la última un momento y luego echa el freno de mano) y simula el vehículo con Jolt. Solo acepta la entrada de quien
+va en el asiento de conductor.</li>
+<li>El conductor <strong>predice</strong>: simula su vehículo en su máquina con la misma entrada, sin esperar al servidor, y guarda lo
+que predijo después de cada entrada. El servidor le contesta qué entrada ha aplicado y dónde dejó el vehículo
+(posición, giro y velocidades); el conductor lo compara con lo que predijo para esa misma entrada y <strong>corrige la
+diferencia poco a poco</strong> (una quinta parte con cada respuesta, sin volver a simular). Si se separa más de 4 m o
+vuelca de otra forma, salta a lo que dice el servidor.</li>
+<li>Los demás (pasajeros incluidos) ven el vehículo con la <strong>interpolación</strong> del Transform de red, como cualquier objeto
+del servidor, un poco en el pasado y sin tirones.</li>
+</ol>
+<p><strong>Por qué así y no con la propiedad del cliente.</strong> La alternativa era que el conductor simulara su vehículo con
+autoridad y el servidor solo comprobara las posiciones (<code>Security.ValidateMove</code>). Es más simple, pero un cliente
+modificado podría mover su coche donde quisiera dentro del margen de la comprobación, empujar a los demás con su física
+y los choques entre dos coches de dos clientes no tendrían un árbitro. Con el servidor al mando, las físicas (choques,
+rampas, objetos) son las mismas para todos y el cliente solo puede mandar acelerador, freno y volante. La predicción
+con reconciliación clásica (volver al estado del servidor y re-simular las entradas pendientes) no encaja con un cuerpo
+rígido de Jolt dentro de un mundo compartido (habría que rebobinar el mundo entero), así que el conductor corrige la
+diferencia con lo que predijo para la misma entrada: con la misma simulación en las dos máquinas la diferencia es
+pequeña (en las pruebas, menos de 30 cm a 100 km/h con 120 ms de ping, sin ningún salto).</p>
+<p><strong>Varios jugadores en el mismo vehículo</strong>: uno conduce y el resto van de pasajeros; el servidor sienta a cada uno (los
+clientes lo piden con <strong>F</strong> o <code>Vehicles.Enter</code> y solo desde cerca) y los asientos llegan a todos. El dueño de red del
+vehículo sigue siendo el servidor: si el conductor se desconecta, su asiento se libera y el vehículo sigue en la partida.</p>
+<p><strong>Dónde funciona</strong>: jugando solo (la partida de un jugador es un servidor en memoria), como anfitrión que también
+juega (su conducción no necesita predicción: es el servidor), en «Jugar en equipo» y con <code>NovaServer.exe</code> y clientes.</p>
+<p><strong>Ancho de banda</strong> (medido en las pruebas: 30 actualizaciones por segundo, un coche a 100 km/h):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Quién</th>
+  <th>Sin vehículo (a pie)</th>
+  <th>Conduciendo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Conductor, de subida</td>
+  <td>5,7 KB/s</td>
+  <td>8,1 KB/s (+2,3: las entradas)</td>
+</tr>
+<tr>
+  <td>Conductor, de bajada</td>
+  <td>1,9 KB/s</td>
+  <td>3,4 KB/s</td>
+</tr>
+<tr>
+  <td>Otro jugador, de bajada</td>
+  <td>1,9 KB/s</td>
+  <td>3,4 KB/s (+0,8 por cada vehículo con conductor a la vista)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Un vehículo parado o sin conductor no gasta nada: solo se envía lo que cambia.</p>
+<h2 id="10-el-ejemplo-vehículos-lua">10. El ejemplo «Vehículos (Lua)»<a class="ancla" href="#10-el-ejemplo-vehículos-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>game/vehiculos_lua</code> (en el motor instalado, la plantilla <strong>Vehículos (Lua)</strong> de Nuevo proyecto):</p>
+<ul>
+<li>un circuito cerrado con curvas (una carretera hecha con una spline), tres rampas, una zona de tierra con menos agarre
+y montículos, un aparcamiento y un helipuerto;</li>
+<li>un <strong>deportivo rojo</strong> (más revoluciones, suspensión dura), un <strong>todoterreno azul</strong> (suspensión larga y más agarre),
+una <strong>moto</strong> y un <strong>helicóptero</strong>, con sonido de motor;</li>
+<li>el jugador a pie (<code>Jugador.luau</code>: WASD respecto a la cámara, correr y saltar), la cámara en tercera persona a pie
+(<code>CamaraJugador.luau</code>) con <strong>Cámara de vehículo</strong> al subir, el HUD con los controles, la velocidad, la marcha, las rpm y,
+en el helicóptero, la altura (<code>Hud.luau</code>), y <strong>R</strong> para enderezar el vehículo (<code>Reaparecer.luau</code>);</li>
+<li>multijugador: aparición de jugadores y todo de red. Pruébalo con <strong>Jugar &gt; Anfitrión + 1 cliente</strong> o con
+<code>NovaServer.exe --project &lt;carpeta&gt;</code> (puerto 27510).</li>
+</ul>
+<p>Lo genera <code>nova_vehiculosgen game\vehiculos_lua</code> (los scripts se escriben a mano).</p>
+<h2 id="12-limitaciones">12. Limitaciones<a class="ancla" href="#12-limitaciones" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>No hay animación de sentarse: el personaje va de pie en su asiento (los asientos de los preajustes con cabina lo
+ocultan con <strong>Ocultar al ocupante</strong>).</li>
+<li>La predicción corrige la diferencia sin volver a simular: con mucha pérdida de paquetes o choques entre dos coches
+conducidos por dos clientes, el conductor nota alguna corrección suave.</li>
+<li>Los aviones son sencillos (sin flaps, tren retráctil ni pérdida asimétrica). Los helicópteros no tienen par del rotor
+ni autorrotación completa.</li>
+<li>Los vehículos de orugas no dibujan las cadenas (solo las ruedas).</li>
+<li>Sin daño en los coches (solo en las aeronaves): hazlo con <code>OnCollisionEnter</code> y el impulso del choque.</li>
+</ul>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="fisicas.html">Físicas</a></li>
+<li><a href="multijugador.html">Multijugador</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a> (los circuitos)</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="fisicas.html"><small>Anterior</small>Físicas</a><a class="sig" href="destruccion.html"><small>Siguiente</small>Destrucción de objetos</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-primeros-pasos">1. Primeros pasos</a></li><li class="n2"><a href="#2-coches-motos-y-orugas-el-componente-vehículo">2. Coches, motos y orugas: el componente Vehículo</a></li><li class="n2"><a href="#3-helicópteros-y-aviones-el-componente-aeronave">3. Helicópteros y aviones: el componente Aeronave</a></li><li class="n2"><a href="#4-asientos-subir-y-bajar">4. Asientos: subir y bajar</a></li><li class="n2"><a href="#5-controles-de-serie">5. Controles de serie</a></li><li class="n2"><a href="#6-cámara-de-vehículo">6. Cámara de vehículo</a></li><li class="n2"><a href="#7-sonido-del-motor">7. Sonido del motor</a></li><li class="n2"><a href="#8-desde-los-scripts-lua">8. Desde los scripts Lua</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n2"><a href="#10-el-ejemplo-vehículos-lua">10. El ejemplo «Vehículos (Lua)»</a></li><li class="n2"><a href="#12-limitaciones">12. Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

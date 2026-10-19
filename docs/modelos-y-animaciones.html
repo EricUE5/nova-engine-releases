@@ -1,0 +1,1883 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modelos y animaciones · Nova Engine</title>
+<meta name="description" content="Este documento explica qué modelos 3D admite Nova Engine (glTF, FBX y OBJ), cómo exportarlos desde Blender y
+Mixamo, cómo importarlos y colocarlos en una escena, cómo configurar el componente Animador con o sin controlad">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Modelos y animaciones · Nova Engine">
+<meta property="og:description" content="Este documento explica qué modelos 3D admite Nova Engine (glTF, FBX y OBJ), cómo exportarlos desde Blender y
+Mixamo, cómo importarlos y colocarlos en una escena, cómo configurar el componente Animador con o sin controlad">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/modelos-y-animaciones.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/modelos-y-animaciones.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo" open><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html" aria-current="page">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="modelos-y-animaciones">Modelos y animaciones</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#formatos">Formatos</a></li><li class="n3"><a href="#qué-se-importa">Qué se importa</a></li><li class="n2"><a href="#exportar-desde-blender">Exportar desde Blender</a></li><li class="n3"><a href="#antes-de-exportar">Antes de exportar</a></li><li class="n3"><a href="#opciones-recomendadas-fbx">Opciones recomendadas: FBX</a></li><li class="n3"><a href="#opciones-recomendadas-glb">Opciones recomendadas: GLB</a></li><li class="n3"><a href="#si-aun-así-sale-girado">Si aun así sale girado</a></li><li class="n3"><a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a></li><li class="n2"><a href="#personajes-de-mixamo">Personajes de Mixamo</a></li><li class="n2"><a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a></li><li class="n3"><a href="#paso-a-paso-con-mixamo">Paso a paso con Mixamo</a></li><li class="n3"><a href="#automático-por-nombre-o-reorientado-y-hornear">Automático, por nombre o reorientado, y «Hornear»</a></li><li class="n3"><a href="#la-sección-humanoide">La sección Humanoide</a></li><li class="n3"><a href="#huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano en los scripts</a></li><li class="n3"><a href="#en-el-meta">En el .meta</a></li><li class="n3"><a href="#si-algo-sale-raro">Si algo sale raro</a></li><li class="n2"><a href="#importar-en-nova">Importar en Nova</a></li><li class="n3"><a href="#opciones-de-importación-fbx-obj-y-gltf">Opciones de importación (FBX, OBJ y glTF)</a></li><li class="n3"><a href="#qué-fbx-funcionan">Qué FBX funcionan</a></li><li class="n3"><a href="#ajustes-de-importación-eventos-de-los-clips-y-sockets">Ajustes de importación: eventos de los clips y sockets</a></li><li class="n2"><a href="#colocar-un-modelo-en-la-escena">Colocar un modelo en la escena</a></li><li class="n3"><a href="#escala">Escala</a></li><li class="n2"><a href="#el-componente-animator">El componente Animator</a></li><li class="n3"><a href="#sin-controlador-un-clip">Sin controlador: un clip</a></li><li class="n3"><a href="#con-controlador-máquina-de-estados">Con controlador: máquina de estados</a></li><li class="n2"><a href="#controlar-el-animator-desde-un-script">Controlar el Animator desde un script</a></li><li class="n2"><a href="#capas-y-máscaras">Capas y máscaras</a></li><li class="n2"><a href="#árboles-de-mezcla-2d">Árboles de mezcla 2D</a></li><li class="n2"><a href="#enganchar-objetos-a-huesos">Enganchar objetos a huesos</a></li><li class="n2"><a href="#sockets">Sockets</a></li><li class="n3"><a href="#la-pestaña-sockets">La pestaña Sockets</a></li><li class="n3"><a href="#paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma">Paso a paso: equipar un arma en la mano con un socket «Arma»</a></li><li class="n2"><a href="#cinemática-inversa-ik">Cinemática inversa (IK)</a></li><li class="n2"><a href="#root-motion">Root motion</a></li><li class="n2"><a href="#eventos-de-animación">Eventos de animación</a></li><li class="n2"><a href="#animación-en-red">Animación en red</a></li><li class="n2"><a href="#el-editor-de-animación">El editor de animación</a></li><li class="n2"><a href="#receta-shooter-en-tercera-persona">Receta: shooter en tercera persona</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Este documento explica qué modelos 3D admite Nova Engine (glTF, <strong>FBX</strong> y OBJ), cómo exportarlos desde Blender y
+Mixamo, cómo importarlos y colocarlos en una escena, cómo configurar el componente Animador con o sin controlador de
+animación y cómo controlarlo desde un script.</p>
+<p>Desde la 0.9.0 también: <strong>capas con máscara de huesos</strong> (apuntar con el torso mientras las piernas andan),
+<strong>árboles de mezcla 2D</strong> y directos, <strong>enganchar objetos a huesos</strong> (el arma en la mano), <strong>IK</strong> (apuntar con la
+columna y poner las manos o los pies en un sitio), <strong>root motion</strong>, <strong>eventos en los clips</strong> que llaman a una
+función de tu script, el <strong>Animador de red</strong> con disparadores y pesos de capa, y el panel <strong>Animación</strong> del editor.
+Si haces un shooter, ve directo a la <a href="#receta-shooter-en-tercera-persona">receta del shooter en tercera persona</a>.</p>
+<p>Desde la 0.9.8, <strong>las animaciones de un personaje valen para cualquier otro humanoide</strong>: las de Mixamo en tu
+personaje de Blender, las de un personaje en otro aunque sus huesos se llamen distinto, mida otra cosa o esté en
+pose A en vez de pose T. Ver <a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a>.</p>
+<p>Desde la 0.9.17, <strong>las animaciones se pueden crear en el propio editor</strong>: la ventana <strong>Animar huesos</strong> pone el personaje
+en un visor propio para girar y mover sus huesos (con IK para posar), grabar claves por hueso y poner eventos, también en
+los clips importados. Ver <a href="animar-huesos.html">animar-huesos.md</a>.</p>
+<p>Desde la 0.9.24, <strong>sockets como en UE5</strong>: la pestaña <strong>Sockets</strong> del espacio Animación enseña todos los huesos del modelo
+y les añades puntos con nombre («Arma» en la mano, «Sombrero» en la cabeza) que colocas con el gizmo, con objetos de
+vista previa y el personaje animado. En Lua, <code>arma:AttachTo(personaje, &quot;Arma&quot;)</code> la equipa. Ver <a href="#sockets">Sockets</a>.</p>
+<h2 id="formatos">Formatos<a class="ancla" href="#formatos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Nova importa:</p>
+<ul>
+<li><strong>FBX</strong> (<code>.fbx</code>, desde la 0.9.5): binario o de texto, de Blender, Mixamo, Maya, 3ds Max, Unity, Cinema 4D...
+Con las texturas embebidas o en ficheros aparte. Es lo más cómodo si tus modelos vienen de Mixamo o de una
+tienda de assets: no hace falta pasar por Blender.</li>
+<li><strong>GLB</strong> (<code>.glb</code>): un solo fichero binario glTF 2.0 con las texturas embebidas. Es el formato más ligero de
+cargar y el recomendado si exportas tú desde Blender.</li>
+<li><strong>glTF</strong> (<code>.gltf</code>): JSON con ficheros aparte (<code>.bin</code> y texturas). Copia todos los ficheros juntos a la
+misma carpeta de <code>assets/</code>. También admite datos embebidos en el propio <code>.gltf</code> (URIs <code>data:</code>).</li>
+<li><strong>OBJ</strong> (<code>.obj</code>, desde la 0.9.5): mallas estáticas con su <code>.mtl</code> (materiales y texturas). Sin huesos ni
+animaciones.</li>
+</ul>
+<p>Las texturas pueden ser PNG, JPG, TGA o BMP. Un FBX importado se comporta igual que un glTF: mismas mallas,
+materiales, huesos y clips en el Animador, el Inspector y las físicas.</p>
+<h3 id="qué-se-importa">Qué se importa<a class="ancla" href="#qué-se-importa" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Se importa</th>
+  <th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Mallas</td>
+  <td>Cada malla con todas sus primitivas (triángulos); cada primitiva es una submalla con su material. Si faltan normales o tangentes, se calculan</td>
+</tr>
+<tr>
+  <td>Materiales PBR</td>
+  <td>Color base, metal, rugosidad, normales (con escala), oclusión (con fuerza), emisión, modo alfa (opaco, recorte, mezcla) y doble cara. También la intensidad de emisión (<code>KHR_materials_emissive_strength</code>) y la escala UV de la textura de color (<code>KHR_texture_transform</code>)</td>
+</tr>
+<tr>
+  <td>Texturas</td>
+  <td>Embebidas en el GLB, externas o en URIs <code>data:</code></td>
+</tr>
+<tr>
+  <td>Jerarquía</td>
+  <td>Todos los nodos con su transformación</td>
+</tr>
+<tr>
+  <td>Pieles</td>
+  <td>Esqueletos con sus matrices de enlace inverso; hasta 4 huesos por vértice</td>
+</tr>
+<tr>
+  <td>Animaciones</td>
+  <td>Traslación, rotación y escala de los nodos, con interpolación lineal, escalonada o cúbica (CUBICSPLINE). Desde la 0.9.8 también las de las <strong>piezas rígidas</strong> sin piel (puertas de un coche, hélices): sus mallas siguen la pose con el componente <strong>Nodo animado</strong> (ver <a href="animacion-objetos.html#10-piezas-animadas-de-los-modelos-gltf-y-fbx">animacion-objetos.md</a>)</td>
+</tr>
+<tr>
+  <td>Nodos vacíos</td>
+  <td>Los nodos sin malla (los <em>empties</em> de Blender) forman parte del esqueleto y se animan con su hueso padre: sirven de <strong>sockets</strong> para <a href="#enganchar-objetos-a-huesos">enganchar objetos</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>No se importa</th>
+  <th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Morph targets (shape keys)</td>
+  <td>Ni las mallas de destino ni sus animaciones</td>
+</tr>
+<tr>
+  <td>Animación de nodos rígidos como entidades</td>
+  <td>Al colocar un modelo en la escena, las mallas sin piel se convierten en entidades con la pose de reposo; las animaciones de esos nodos no las mueven. Para objetos animados usa pieles (huesos)</td>
+</tr>
+<tr>
+  <td>Primitivas que no son triángulos</td>
+  <td>Líneas y puntos se ignoran con un aviso</td>
+</tr>
+<tr>
+  <td>Cámaras y luces del fichero</td>
+  <td>Se crean en el editor con los componentes del motor</td>
+</tr>
+</tbody>
+</table></div>
+<p>En un <strong>FBX</strong> se importa lo mismo, y además:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>FBX</th>
+  <th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Todas las animaciones</td>
+  <td>Cada pila de animación (<em>take</em>, cada acción de Blender) es un clip con su nombre. El prefijo <code>Armature|</code> de Blender se quita. Las que se llaman <code>mixamo.com</code> o <code>Take 001</code> (lo normal en Mixamo, una por fichero) toman el <strong>nombre del fichero</strong>: <code>Correr.fbx</code> da el clip <code>Correr</code></td>
+</tr>
+<tr>
+  <td>Unidades y ejes</td>
+  <td>Todo se pasa a metros con Y arriba, sea cual sea el programa: centímetros de Maya, Mixamo y 3ds Max, Z arriba de 3ds Max o Blender. En un fichero con Z arriba el giro queda en la entidad de la malla (como en Unity)</td>
+</tr>
+<tr>
+  <td>Materiales</td>
+  <td>Phong y Lambert de siempre y los PBR de Blender (Principled BSDF), 3ds Max (Physical) y Maya (Standard Surface): color, metal, rugosidad (o brillo), normales, emisión, oclusión, opacidad (con mapa de opacidad: recorte; con opacidad menor que 1: mezcla) y doble cara</td>
+</tr>
+<tr>
+  <td>Texturas</td>
+  <td>Embebidas en el FBX, por su ruta relativa o absoluta, junto al fichero, en una carpeta <code>texturas/</code> o <code>textures/</code> al lado, o en la carpeta <code>&lt;nombre&gt;.fbm</code> que crea Blender. Si no aparece, el material queda sin ella y el Inspector avisa con el nombre que buscaba</td>
+</tr>
+<tr>
+  <td>Varios materiales por malla</td>
+  <td>Cada material es una submalla</td>
+</tr>
+<tr>
+  <td>Caras de más de 3 lados</td>
+  <td>Se triangulan</td>
+</tr>
+</tbody>
+</table></div>
+<p>No se importan de un FBX: las formas (<em>blend shapes</em>), las luces y cámaras, las curvas NURBS, ni más de una piel
+por malla (se usa la primera, con aviso). De un OBJ no hay huesos ni animaciones (el formato no los tiene).</p>
+<h2 id="exportar-desde-blender">Exportar desde Blender<a class="ancla" href="#exportar-desde-blender" aria-label="Enlace a esta sección">#</a></h2>
+<p>Desde la 0.9.33 un modelo exportado de Blender con las opciones <strong>por defecto</strong> sale en Nova <strong>de pie, mirando
+hacia donde miraba y a su tamaño</strong>, igual que en Blender y en Unity, tanto en FBX como en GLB. No hace falta
+aplicar transformaciones ni girar nada a mano.</p>
+<p><strong>Cómo se pasan los ejes.</strong> Blender trabaja con <strong>Z arriba</strong> y el &quot;frente&quot; de un modelo es <strong>-Y</strong>; Nova, como glTF,
+usa <strong>Y arriba</strong> y el frente es <strong>+Z</strong>. Un punto (x, y, z) de Blender es (x, z, -y) en Nova:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>En Blender</th>
+  <th>En Nova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>+Z (arriba)</td>
+  <td>+Y (arriba)</td>
+</tr>
+<tr>
+  <td>-Y (frente, vista <em>Front</em>)</td>
+  <td>+Z (frente)</td>
+</tr>
+<tr>
+  <td>+X (derecha)</td>
+  <td>+X (derecha)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>GLB</strong>: el exportador de Blender ya convierte la geometría a Y arriba.</li>
+<li><strong>FBX</strong>: el exportador de Blender escribe en el fichero «Y arriba» pero no gira la geometría: pone en cada objeto
+raíz un giro de <strong>-90° en X</strong> (y una escala de <strong>100</strong>, porque el fichero va en centímetros). Nova aplica ese giro y
+esa escala y, si el modelo tiene <strong>una sola malla</strong>, los pasa a los vértices al importarlo, para que la malla vaya
+en la propia entidad sin giros raros. El Inspector del modelo lo dice: «Exportado desde Blender: ejes convertidos».</li>
+</ul>
+<blockquote>
+<p>Antes de la 0.9.33 los modelos de una sola malla perdían el giro y la escala de su objeto al añadirlos a la escena:
+los FBX de Blender salían <strong>tumbados y 100 veces más pequeños</strong> (y un GLB con el objeto girado o escalado sin
+aplicar, sin ese giro). Ver <a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a>.</p>
+</blockquote>
+<h3 id="antes-de-exportar">Antes de exportar<a class="ancla" href="#antes-de-exportar" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Trabaja en metros (la unidad por defecto de Blender, <strong>Unit Scale</strong> 1.0) y con el modelo mirando hacia <strong>-Y</strong>
+(su &quot;frente&quot;, la vista <em>Front</em> del teclado numérico 1): en Nova mirará hacia <strong>+Z</strong>.</li>
+<li>No hace falta aplicar las transformaciones (<strong>Ctrl+A</strong>): el giro y la escala de los objetos se respetan. Aplicarlas
+sigue siendo buena idea en personajes con esqueleto (escala 1 en el esqueleto y en la malla).</li>
+<li>El <strong>origen</strong> del objeto es el punto por el que se coloca el modelo en Nova. En un modelo de una sola malla, la
+posición del objeto en Blender no cuenta (el modelo va donde lo sueltas, como en Unity); en uno de varias mallas se
+conserva dónde está cada pieza.</li>
+<li>Si el modelo tiene esqueleto, comprueba que cada vértice tenga como mucho 4 huesos con peso (el exportador lo limita
+por defecto).</li>
+<li>Nombra cada animación (cada <strong>acción</strong> de Blender) como quieras que se llame el clip en Nova: el nombre de la
+acción es el nombre del clip (<code>Andar</code>, <code>Correr</code>, <code>Saltar</code>...).</li>
+</ol>
+<h3 id="opciones-recomendadas-fbx">Opciones recomendadas: FBX<a class="ancla" href="#opciones-recomendadas-fbx" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>File &gt; Export &gt; FBX (.fbx)</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Valor</th>
+  <th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Path Mode</strong></td>
+  <td><em>Copy</em> y el botón de <strong>Embed Textures</strong> activado</td>
+  <td>Las texturas van dentro del <code>.fbx</code></td>
+</tr>
+<tr>
+  <td><strong>Limit to</strong></td>
+  <td>Lo que quieras exportar (<em>Selected Objects</em>...)</td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>Object Types</strong></td>
+  <td><em>Armature</em>, <em>Mesh</em> (y <em>Empty</em> si los usas)</td>
+  <td>Nova no importa cámaras ni luces</td>
+</tr>
+<tr>
+  <td><strong>Scale</strong></td>
+  <td>1.00</td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>Apply Scalings</strong></td>
+  <td><em>All Local</em> (por defecto)</td>
+  <td><em>FBX All</em> también sale bien</td>
+</tr>
+<tr>
+  <td><strong>Forward</strong> / <strong>Up</strong></td>
+  <td><strong>-Z Forward</strong>, <strong>Y Up</strong> (por defecto)</td>
+  <td>Cualquier otra pareja también sale bien si es la del fichero; estos son los de Unity</td>
+</tr>
+<tr>
+  <td><strong>Apply Unit</strong></td>
+  <td>Activado (por defecto)</td>
+  <td>Si tu escena usa <strong>Unit Scale</strong> 0.01, solo con esto sale a su tamaño</td>
+</tr>
+<tr>
+  <td><strong>Use Space Transform</strong></td>
+  <td>Activado (por defecto)</td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>Apply Transform</strong></td>
+  <td>Da igual (Nova sale bien con y sin él)</td>
+  <td>Es experimental en Blender; desactivado los nodos llevan el giro de -90° y Nova lo aplica</td>
+</tr>
+<tr>
+  <td><strong>Geometry &gt; Apply Modifiers</strong></td>
+  <td>Activado</td>
+  <td></td>
+</tr>
+<tr>
+  <td><strong>Armature &gt; Add Leaf Bones</strong></td>
+  <td><strong>Desactivado</strong></td>
+  <td>Evita huesos &quot;_end&quot; de más</td>
+</tr>
+<tr>
+  <td><strong>Bake Animation</strong></td>
+  <td>Activado si hay animaciones; <em>All Actions</em> para un clip por acción</td>
+  <td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="opciones-recomendadas-glb">Opciones recomendadas: GLB<a class="ancla" href="#opciones-recomendadas-glb" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>File &gt; Export &gt; glTF 2.0 (.glb/.gltf)</strong> (es el formato que antes carga Nova):</p>
+<ul>
+<li><strong>Format</strong>: glTF Binary (<code>.glb</code>).</li>
+<li><strong>Transform &gt; +Y Up</strong>: activado (es el valor por defecto).</li>
+<li><strong>Data &gt; Mesh &gt; Apply Modifiers</strong>: activado.</li>
+<li><strong>Animation</strong>: activado. Para exportar todas las acciones del esqueleto como clips separados, usa el modo que
+exporta cada acción por separado (&quot;Actions&quot;) o, en versiones antiguas de Blender, agrupa por pistas NLA. Si usas
+pistas NLA, el nombre de cada pista es el nombre del clip.</li>
+<li><strong>Shape Keys</strong>: puedes desactivarlo; Nova no los usa.</li>
+</ul>
+<p>Después de importar, mira el tamaño del modelo en el Inspector (al seleccionar el fichero en Contenido) para comprobar
+que la escala es la esperada.</p>
+<h3 id="si-aun-así-sale-girado">Si aun así sale girado<a class="ancla" href="#si-aun-así-sale-girado" aria-label="Enlace a esta sección">#</a></h3>
+<p>Pasa con modelos que vienen mal girados de origen (descargados, de otros programas o hechos de lado en Blender). En
+la sección <strong>Importación</strong> del Inspector del modelo:</p>
+<ul>
+<li><strong>Girar al importar: X +90°, Y +90°, Z +90°</strong> gira el modelo 90° sobre ese eje cada vez que pulsas (se suma a lo que
+ya hubiera) y <strong>Quitar giro</strong> lo deja como viene. Se aplica con <strong>Aplicar y reimportar</strong> y queda en el <code>.meta</code> como
+<code>&quot;rotacion&quot;: [90, 0, 0]</code> (grados en X, Y y Z, como el giro del Inspector de una entidad).</li>
+<li><strong>Eje arriba del fichero: Y / Z</strong> es para ficheros que dicen mal su eje arriba (muy raro: los de Blender, Maya,
+3ds Max y Mixamo lo dicen bien). Se respeta aunque el fichero diga otra cosa.</li>
+</ul>
+<h3 id="modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33<a class="ancla" href="#modelos-importados-antes-de-la-0933" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un modelo cuyo <code>.meta</code> es de antes de la 0.9.33 sigue importándose <strong>como antes</strong> si alguna escena, prefab o script
+del proyecto lo usa: si lo colocaste tumbado y lo giraste -90° a mano (o lo escalaste ×100) para compensar, tu escena
+se sigue viendo igual. Su Inspector avisa («Importado como antes de la 0.9.33...») y tiene el botón <strong>Corregir
+orientación (Blender)</strong>: lo reimporta con la importación nueva (en el <code>.meta</code>, <code>&quot;versionImportacion&quot;: 2</code>). Las
+entidades que ya estaban en las escenas pasan a verse de pie; si las habías girado o escalado para compensar, quítalo.</p>
+<p>Los modelos con <code>.meta</code> antiguo que <strong>no usa nada</strong> del proyecto (ni escenas, ni prefabs, ni scripts, ni por su Uuid
+ni por su nombre) pasan solos a la importación nueva al abrir el proyecto, y los modelos que importas ahora nacen con
+ella.</p>
+<p>Las pruebas <code>tests/test_blender_ejes.cpp</code> usan modelos generados con Blender (por defecto, con <em>Apply Transform</em>,
+<em>Apply Unit</em>, <em>FBX All</em>, Z arriba, escena en centímetros, objetos girados y escalados sin aplicar, jerarquías,
+esqueleto con animación, GLB y OBJ). El script que los genera es <code>tests/data/blender_ejes/generar.py</code>.</p>
+<h2 id="personajes-de-mixamo">Personajes de Mixamo<a class="ancla" href="#personajes-de-mixamo" aria-label="Enlace a esta sección">#</a></h2>
+<p><a href="https://www.mixamo.com" rel="noopener">Mixamo</a> da personajes con esqueleto y animaciones en FBX. Nova los importa tal cual:</p>
+<ol>
+<li><strong>Descarga el personaje</strong> con una animación (o en pose T) en formato <strong>FBX Binary</strong> con la opción
+<strong>With Skin</strong>. Impórtalo con <strong>Importar FBX...</strong> (o arrástralo a <strong>Contenido</strong>).</li>
+<li><strong>Descarga las animaciones adicionales</strong> en FBX con <strong>Without Skin</strong> (solo el esqueleto y la animación) e
+impórtalas igual, por ejemplo en <code>assets/anims/</code>. Para animaciones de desplazamiento (andar, correr) activa
+<strong>In Place</strong> si es tu script el que mueve al personaje (lo más habitual). Sin <strong>In Place</strong>, el desplazamiento
+de las caderas lo puede aplicar el <a href="#root-motion">root motion</a>.</li>
+<li>Selecciona el <strong>personaje</strong> en <strong>Contenido</strong> y, en el Inspector, sección <strong>Importación &gt; Animaciones de otros
+ficheros</strong>, elige cada animación en <strong>Añadir animaciones de...</strong> y pulsa <strong>Aplicar y reimportar</strong>. Los clips se
+añaden al personaje por <strong>nombre de hueso</strong> (<code>mixamorig:Hips</code>, <code>mixamorig:Spine</code>...; también si un fichero usa
+otro prefijo, como <code>mixamorig1:</code>) y salen en su lista de <strong>Animaciones</strong> con el nombre del fichero: <code>Correr.fbx</code>
+da el clip <code>Correr</code>. Renombra el fichero antes de importarlo si quieres otro nombre.</li>
+<li>Ya los puedes usar en el Animador y en los controladores como cualquier otro clip.</li>
+</ol>
+<p>Las animaciones de Mixamo también valen para <strong>personajes que no son de Mixamo</strong> (o de Mixamo pero con otras
+proporciones): Nova las <strong>reorienta</strong> a su esqueleto. Ver
+<a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a>.</p>
+<p>Mixamo trabaja en centímetros: Nova lo pasa a metros solo, así que el personaje mide lo que debe (unos 1,8 m). Las
+animaciones sin malla también se pasan a metros, por eso encajan aunque una venga de otro programa.</p>
+<p>Si cambias o vuelves a descargar un FBX de animación, el personaje se recarga solo con los clips nuevos.</p>
+<h2 id="animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)<a class="ancla" href="#animaciones-de-otros-personajes-retargeting" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada personaje humanoide tiene un <strong>avatar</strong>: Nova reconoce qué hueso hace de caderas, columna, pecho, cuello,
+cabeza, hombros, brazos, antebrazos, manos, dedos, muslos, piernas, pies y dedos de los pies, aunque se llamen
+distinto en cada programa. Con el avatar, una animación de <strong>cualquier humanoide</strong> se adapta a otro:</p>
+<ul>
+<li>Los huesos se emparejan por lo que son, no por su nombre: <code>mixamorig:LeftArm</code> (Mixamo), <code>upperarm_l</code> (Unreal),
+<code>DEF-upper_arm.L</code> (Blender/Rigify), <code>LeftUpperArm</code> (Unity), <code>Bip01 L UpperArm</code> (3ds Max) o <code>Brazo_I</code>.</li>
+<li>Las <strong>proporciones</strong> se adaptan: un personaje más bajo mueve las caderas y da pasos más cortos en proporción a
+su altura (también el <a href="#root-motion">root motion</a>), y los <strong>pies</strong> van a su altura: no se hunden en el suelo ni
+flotan aunque las piernas sean más largas o más cortas.</li>
+<li>Da igual la <strong>pose de reposo</strong>: un personaje en pose A recibe bien las animaciones de uno en pose T (y al
+revés). Antes de comparar, Nova pone a los dos con los brazos en cruz y las piernas rectas.</li>
+<li>Da igual cómo estén orientados los huesos en cada programa, hacia dónde mire el personaje o en qué unidades
+esté el fichero.</li>
+<li>Los <strong>dedos</strong> se animan si los dos personajes los tienen; si uno no los tiene, se quedan como estén.</li>
+</ul>
+<h3 id="paso-a-paso-con-mixamo">Paso a paso con Mixamo<a class="ancla" href="#paso-a-paso-con-mixamo" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Importa <strong>tu personaje</strong> (glTF o FBX, con su esqueleto y su piel). Selecciónalo en <strong>Contenido</strong> y mira la
+sección <strong>Humanoide</strong> del Inspector: tiene que decir en verde «Humanoide: ... huesos». Si dice que faltan huesos,
+elígelos tú en la lista (ver más abajo).</li>
+<li>En <a href="https://www.mixamo.com" rel="noopener">Mixamo</a> elige cualquier personaje (sirve el que sale por defecto), busca la animación
+y descárgala en <strong>FBX Binary</strong>, <strong>Without Skin</strong> (solo el esqueleto y la animación) o <strong>With Skin</strong>, da igual.
+Para andar o correr, marca <strong>In Place</strong> si tu script mueve al personaje; si no, lo puede mover el root motion.</li>
+<li>Importa el FBX (por ejemplo en <code>assets/anims/</code>). Renómbralo antes como quieras que se llame el clip:
+<code>Correr.fbx</code> da el clip <code>Correr</code>.</li>
+<li>Selecciona <strong>tu personaje</strong> y, en <strong>Importación &gt; Animaciones de otros ficheros</strong>, elige el FBX en <strong>Añadir
+animaciones de...</strong> y pulsa <strong>Aplicar y reimportar</strong>. El clip sale en su lista de <strong>Animaciones</strong> marcado
+«reorientado».</li>
+<li>Úsalo como cualquier otro clip: en el campo <strong>Clip</strong> del Animador, en los estados y árboles de mezcla de un
+controlador, o desde un script con <code>animador:Play(&quot;Correr&quot;)</code>. No hace falta nada más.</li>
+</ol>
+<p>Lo mismo vale con las animaciones de <strong>otro personaje de tu proyecto</strong>: en <strong>Añadir animaciones de...</strong> elige su
+modelo (<code>.glb</code> o <code>.fbx</code>) y recibirás todos sus clips. Si los dos tienen un clip con el mismo nombre, el que llega
+se numera (<code>Saludar 2</code>).</p>
+<p>En <strong>Vista previa de animaciones</strong> (Inspector del modelo) puedes ver cualquiera de sus clips, también los
+reorientados: elige el clip, pausa o mueve el tiempo con la barra.</p>
+<h3 id="automático-por-nombre-o-reorientado-y-hornear">Automático, por nombre o reorientado, y «Hornear»<a class="ancla" href="#automático-por-nombre-o-reorientado-y-hornear" aria-label="Enlace a esta sección">#</a></h3>
+<p>Debajo de cada fichero de <strong>Animaciones de otros ficheros</strong> hay dos opciones:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Automático</strong> (por defecto)</td>
+  <td>Si es el mismo esqueleto (mismos nombres de huesos y mismas medidas: otra animación de Mixamo del mismo personaje), los clips se añaden por nombre de hueso tal cual; si es otro humanoide, se reorientan</td>
+</tr>
+<tr>
+  <td><strong>Por nombre de hueso</strong></td>
+  <td>Como antes de la 0.9.8: solo los huesos que se llaman igual. Para modelos que no son humanoides (un animal, una máquina) con el mismo esqueleto</td>
+</tr>
+<tr>
+  <td><strong>Reorientar (humanoide)</strong></td>
+  <td>Siempre reorientados, aunque los nombres coincidan</td>
+</tr>
+<tr>
+  <td><strong>Hornear</strong></td>
+  <td>Convierte los clips reorientados a tu esqueleto al cargar el modelo: se reproducen como los suyos, sin ningún cálculo extra. Reorientar en tiempo real cuesta muy poco (unos microsegundos por personaje y frame); hornea si tienes muchísimos personajes a la vez. Sin hornear, cualquier cambio del avatar se ve al momento</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="la-sección-humanoide">La sección Humanoide<a class="ancla" href="#la-sección-humanoide" aria-label="Enlace a esta sección">#</a></h3>
+<p>En el Inspector de un modelo, <strong>Humanoide</strong> muestra el avatar:</p>
+<ul>
+<li>Arriba, en verde, cuántos huesos ha reconocido; o, en amarillo, <strong>los obligatorios que faltan</strong> (caderas,
+columna, cabeza, brazos, antebrazos, manos, muslos, piernas y pies). Sin ellos no es humanoide: sus clips no se
+pueden reorientar a otros ni recibir los de otros.</li>
+<li>La lista de huesos por grupos (<strong>Cuerpo</strong>, <strong>Cabeza</strong>, brazos, piernas y dedos), con el nodo del esqueleto que
+hace de cada uno. Si Nova se ha equivocado o no ha encontrado uno, elígelo en su lista (o <strong>(ninguno)</strong>). Al lado
+dice <strong>auto</strong> (lo ha encontrado Nova) o <strong>a mano</strong>. <strong>Automático</strong> vuelve al mapeo de Nova.</li>
+<li><strong>Pose de referencia</strong>: <strong>Automática (pose T)</strong> pone brazos en cruz y piernas rectas antes de comparar (vale para
+pose T y pose A); <strong>La de reposo del modelo</strong> compara las poses de reposo tal cual, para el caso raro de dos
+modelos en la misma pose con los que la automática no sale bien.</li>
+<li><strong>IK de pies</strong> (activado): con animaciones de otros, los pies van a la altura que les toca.</li>
+<li><strong>IK de manos (agarres)</strong> (desactivado): con animaciones de otros, las manos van donde las pone la animación
+respecto al pecho, para no perder el agarre de un arma con las dos manos si los brazos miden distinto. Puede
+doblar un poco los codos.</li>
+</ul>
+<p><strong>Aplicar y reimportar</strong> lo guarda en el <code>.meta</code> del modelo (solo lo que difiere de lo automático). Los personajes
+que usan sus clips se recalculan solos.</p>
+<h3 id="huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano en los scripts<a class="ancla" href="#huesos-por-su-nombre-humano-en-los-scripts" aria-label="Enlace a esta sección">#</a></h3>
+<p>En un modelo humanoide, todo lo que pide un hueso por su nombre (<code>GetBoneTransform</code>, <code>HasBone</code>,
+<code>BoneAttachment.Attach</code>, el campo <strong>Hueso</strong> de un enganche, los huesos de una máscara...) acepta también el nombre
+del hueso humano, en español o en inglés: <code>&quot;ManoDerecha&quot;</code> o <code>&quot;RightHand&quot;</code>, <code>&quot;Cabeza&quot;</code> o <code>&quot;Head&quot;</code>, <code>&quot;MusloIzquierdo&quot;</code>
+o <code>&quot;LeftUpperLeg&quot;</code>. Así el mismo script sirve para cualquier personaje:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Engancha el arma a la mano derecha de cualquier humanoide (Mixamo, Unreal, Blender o huesos en español)</span>
+<span class="hl-k">local</span> <span class="hl-t">ArmaEnLaMano</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">ArmaEnLaMano</span>.arma = <span class="hl-f">Entity</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">ArmaEnLaMano</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> animador = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> animador <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.arma <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-k">not</span> animador:<span class="hl-f">IsHumanoid</span>() <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Warn</span>(<span class="hl-s">"El modelo no es humanoide: revisa su sección Humanoide"</span>)
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- El nombre real del hueso en este modelo ("mixamorig:RightHand", "hand_r", "Mano_D"...)</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Mano derecha: "</span> .. (animador:<span class="hl-f">GetHumanBone</span>(<span class="hl-s">"ManoDerecha"</span>) <span class="hl-k">or</span> <span class="hl-s">"?"</span>))
+    <span class="hl-t">BoneAttachment</span>.<span class="hl-f">Attach</span>(<span class="hl-b">self</span>.arma, <span class="hl-b">self</span>.entity, <span class="hl-s">"RightHand"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ArmaEnLaMano</span></code></pre></div>
+<p>Nombres de los huesos humanos (el primero es el que se guarda en el <code>.meta</code>; entre paréntesis, en inglés):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Grupo</th>
+  <th>Huesos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Cuerpo</td>
+  <td><code>Caderas</code> (Hips), <code>Columna</code> (Spine), <code>Pecho</code> (Chest), <code>PechoSuperior</code> (UpperChest)</td>
+</tr>
+<tr>
+  <td>Cabeza</td>
+  <td><code>Cuello</code> (Neck), <code>Cabeza</code> (Head)</td>
+</tr>
+<tr>
+  <td>Brazos</td>
+  <td><code>HombroIzquierdo</code> (LeftShoulder), <code>BrazoIzquierdo</code> (LeftUpperArm), <code>AntebrazoIzquierdo</code> (LeftLowerArm), <code>ManoIzquierda</code> (LeftHand); igual con <code>Derecho</code>/<code>Derecha</code> (Right...)</td>
+</tr>
+<tr>
+  <td>Piernas</td>
+  <td><code>MusloIzquierdo</code> (LeftUpperLeg), <code>PiernaIzquierda</code> (LeftLowerLeg), <code>PieIzquierdo</code> (LeftFoot), <code>DedosPieIzquierdo</code> (LeftToes); igual a la derecha</td>
+</tr>
+<tr>
+  <td>Dedos</td>
+  <td><code>PulgarIzquierdo1</code> a <code>3</code>, <code>IndiceIzquierdo1</code> a <code>3</code>, <code>CorazonIzquierdo1</code> a <code>3</code>, <code>AnularIzquierdo1</code> a <code>3</code>, <code>MeniqueIzquierdo1</code> a <code>3</code> (LeftThumbProximal, LeftIndexIntermediate, LeftLittleDistal...); igual a la derecha</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las <strong>máscaras</strong> con nombres humanos (<code>{&quot;porDefecto&quot;: false, &quot;huesos&quot;: {&quot;Columna&quot;: true}}</code>) valen para cualquier
+humanoide: un mismo controlador con capas sirve para personajes con huesos distintos.</p>
+<h3 id="en-el-meta">En el <code>.meta</code><a class="ancla" href="#en-el-meta" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"import"</span>: {
+  <span class="hl-k">"animacionesDe"</span>: [ { <span class="hl-k">"id"</span>: <span class="hl-s">"8f0c2a6d41e3b905"</span>, <span class="hl-k">"ruta"</span>: <span class="hl-s">"anims/Correr.fbx"</span>, <span class="hl-k">"modo"</span>: <span class="hl-s">"humanoide"</span>, <span class="hl-k">"hornear"</span>: <span class="hl-b">true</span> } ],
+  <span class="hl-k">"humanoide"</span>: { <span class="hl-k">"huesos"</span>: { <span class="hl-k">"Pecho"</span>: <span class="hl-s">"Spine2"</span>, <span class="hl-k">"DedosPieIzquierdo"</span>: <span class="hl-s">""</span> },
+                 <span class="hl-k">"poseReferencia"</span>: <span class="hl-s">"auto"</span>, <span class="hl-k">"ikPies"</span>: <span class="hl-b">true</span>, <span class="hl-k">"ikManos"</span>: <span class="hl-b">false</span> }
+}</code></pre></div>
+<p><code>&quot;modo&quot;</code> es <code>&quot;auto&quot;</code> (por defecto), <code>&quot;nombre&quot;</code> o <code>&quot;humanoide&quot;</code>. En <code>&quot;huesos&quot;</code> solo van los cambiados a mano
+(<code>&quot;&quot;</code> = ninguno); los nombres valen en español o en inglés.</p>
+<h3 id="si-algo-sale-raro">Si algo sale raro<a class="ancla" href="#si-algo-sale-raro" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>«No es humanoide»</strong>: elige a mano los huesos que faltan. Los huesos sin nombre reconocible (<code>Bone.001</code>,
+<code>Bone.002</code>...) hay que elegirlos siempre.</li>
+<li><strong>Un brazo o una pierna gira hacia donde no debe</strong>: mira en la lista que cada hueso sea el suyo (un hueso de giro
+o de ayuda como <code>upperarm_twist</code> no debe hacer de brazo).</li>
+<li><strong>El personaje sale torcido</strong> con las animaciones de otro: prueba la <strong>Pose de referencia</strong> «La de reposo del
+modelo» en los dos modelos, o descarga la animación de Mixamo <strong>With Skin</strong>.</li>
+<li><strong>Los pies resbalan o se doblan las rodillas</strong>: desactiva <strong>IK de pies</strong> para ver la animación tal cual.</li>
+<li><strong>El root motion no avanza</strong> en un esqueleto con un hueso raíz por encima de las caderas (Unreal: <code>root</code>): pon
+las caderas (<code>pelvis</code>) en <strong>Hueso raíz</strong> del Animador.</li>
+</ul>
+<h2 id="importar-en-nova">Importar en Nova<a class="ancla" href="#importar-en-nova" aria-label="Enlace a esta sección">#</a></h2>
+<p>Hay varias formas (todas copian el modelo <strong>y sus texturas</strong> sin sustituir nada que ya exista):</p>
+<ul>
+<li>El botón <strong>Importar FBX...</strong> de la barra de <strong>Contenido</strong> (o <strong>Archivo &gt; Importar modelo (FBX, OBJ, glTF)...</strong>):
+elige el fichero y se copia a la carpeta que tengas abierta en <strong>Contenido</strong>, con las texturas que use (las que
+estén junto al modelo, en su subcarpeta o en la carpeta <code>.fbm</code> de Blender) y el <code>.mtl</code> de un OBJ. El modelo queda
+seleccionado en el Inspector.</li>
+<li><strong>Arrastra el fichero</strong> desde el Explorador de Windows a la ventana del editor: igual, a la carpeta abierta en
+<strong>Contenido</strong>.</li>
+<li><strong>Copia el fichero</strong> dentro de la carpeta <code>assets/</code> del proyecto (por ejemplo en <code>assets/models/</code>) con el
+Explorador. El motor vuelve a escanear la carpeta cada 2 segundos (o pulsa el botón de refrescar de
+<strong>Contenido</strong>) y lo importa solo. Copia también sus texturas si no están embebidas.</li>
+</ul>
+<p>Si un modelo ya está y lo vuelves a importar, el nuevo se llama <code>Nombre 2.fbx</code>. Si el fichero cambia en disco (lo
+guardas otra vez desde Blender, Maya...), se <strong>reimporta solo</strong> y se ve en el editor sin reabrir la escena; también
+si cambia una de sus texturas externas.</p>
+<p>Al registrarlo, Nova crea junto al fichero un <code>.meta</code> con su UUID:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"id"</span>: <span class="hl-s">"c181656324023bc7"</span>,
+  <span class="hl-k">"type"</span>: <span class="hl-s">"Model"</span>,
+  <span class="hl-k">"import"</span>: {}
+}</code></pre></div>
+<p>Las escenas guardan el modelo por ese UUID (y también por su ruta). Si mueves o renombras el fichero, mueve
+también su <code>.meta</code>, o hazlo desde <strong>Contenido</strong> (clic derecho &gt; <strong>Renombrar</strong>), que lo mueve solo. Si cambias el
+<code>.glb</code> en disco, el modelo se recarga en el editor.</p>
+<p>Al seleccionar el modelo en <strong>Contenido</strong>, el Inspector muestra sus mallas, materiales, animaciones (con
+duración), esqueleto, nodos vacíos y sockets, y tamaño. Los nombres de los clips que veas ahí son los que usarás en
+el Animador y en los controladores. Si una animación del fichero no tiene nombre, Nova la llama <code>Animacion 0</code>,
+<code>Animacion 1</code>, etc.</p>
+<p>Al importarlo, Nova también le crea <strong>niveles de detalle</strong> (LOD): versiones simplificadas de cada malla con la mitad de
+triángulos en cada nivel, que usan sus mismos vértices (también con huesos) y se dibujan cuando el modelo se ve
+pequeño, con una transición sin saltos. El Inspector del modelo los enseña en <strong>Niveles de detalle (LOD)</strong> y con
+<strong>Ajustes propios</strong> puedes cambiarlos para ese modelo (se guardan en su <code>.meta</code>). Ver <a href="rendimiento.html#2-niveles-de-detalle-lod-automáticos">rendimiento.md</a>.</p>
+<h3 id="opciones-de-importación-fbx-obj-y-gltf">Opciones de importación (FBX, OBJ y glTF)<a class="ancla" href="#opciones-de-importación-fbx-obj-y-gltf" aria-label="Enlace a esta sección">#</a></h3>
+<p>Al seleccionar un modelo en <strong>Contenido</strong>, la sección <strong>Importación</strong> del Inspector dice de dónde viene (por
+ejemplo «FBX 7400 de Blender, Z arriba, en centímetros»), cuántas texturas se han encontrado (embebidas, en disco
+y no encontradas) y los <strong>avisos</strong> (una textura que falta con la ruta que traía el fichero, formas que no se
+importan...). Debajo, las opciones; se guardan en el <code>.meta</code> y se aplican con <strong>Aplicar y reimportar</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Escala</strong></td>
+  <td>Multiplica el tamaño (después de pasar a metros). Para cosas que quieres más grandes o más pequeñas</td>
+</tr>
+<tr>
+  <td><strong>Unidades del fichero</strong> (FBX y OBJ)</td>
+  <td>Si el modelo sale 100 veces más grande o más pequeño, el fichero dice mal sus unidades: elige las de verdad (metros, centímetros, milímetros o pulgadas). Un OBJ no dice sus unidades: por defecto, metros</td>
+</tr>
+<tr>
+  <td><strong>Eje arriba del fichero</strong> (FBX y OBJ)</td>
+  <td>Para ficheros que dicen mal su eje arriba (raro): prueba con Y o Z. Los de Blender, Maya, 3ds Max y Mixamo ya salen bien</td>
+</tr>
+<tr>
+  <td><strong>Girar al importar</strong></td>
+  <td>Botones <strong>X/Y/Z +90°</strong> y <strong>Quitar giro</strong>: para modelos que vienen girados de origen (<a href="#si-aun-así-sale-girado">ver</a>)</td>
+</tr>
+<tr>
+  <td><strong>Importar animaciones</strong></td>
+  <td>Desactívalo en decorados con animaciones que no quieres (cargan más rápido)</td>
+</tr>
+<tr>
+  <td><strong>Combinar mallas</strong></td>
+  <td>Junta todas las mallas sin huesos que no se animan en una sola, con una parte por material. Menos objetos que dibujar en edificios y decorados hechos de muchas piezas</td>
+</tr>
+<tr>
+  <td><strong>Colisionador al añadir</strong></td>
+  <td>Al añadir el modelo a la escena se le pone un <strong>Collider</strong>: <strong>Caja</strong> (la caja del modelo), <strong>Malla</strong> (exacta, para suelos y paredes que no se mueven) o <strong>Convexo</strong> (para cosas que se mueven con físicas)</td>
+</tr>
+<tr>
+  <td><strong>Animaciones de otros ficheros</strong></td>
+  <td>Clips de otros modelos: del mismo esqueleto (por nombre de hueso, ver <a href="#personajes-de-mixamo">Mixamo</a>) o de cualquier humanoide (reorientados, ver <a href="#animaciones-de-otros-personajes-retargeting">retargeting</a>). Vale también para <code>.glb</code> y, desde la 0.9.17, para los clips de huesos (<code>.anim</code>) de <a href="animar-huesos.html">Animar huesos</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Reimportar</strong> vuelve a leer el fichero sin cambiar nada. En el <code>.meta</code> las opciones quedan así (se pueden
+escribir a mano):</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"import"</span>: {
+  <span class="hl-k">"escala"</span>: <span class="hl-n">1.0</span>,
+  <span class="hl-k">"unidades"</span>: <span class="hl-s">"auto"</span>,
+  <span class="hl-k">"ejeArriba"</span>: <span class="hl-s">"auto"</span>,
+  <span class="hl-k">"animaciones"</span>: <span class="hl-b">true</span>,
+  <span class="hl-k">"combinarMallas"</span>: <span class="hl-b">false</span>,
+  <span class="hl-k">"colisionador"</span>: <span class="hl-s">"caja"</span>,
+  <span class="hl-k">"rotacion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">90</span>, <span class="hl-n">0</span>],
+  <span class="hl-k">"versionImportacion"</span>: <span class="hl-n">2</span>,
+  <span class="hl-k">"animacionesDe"</span>: [ { <span class="hl-k">"id"</span>: <span class="hl-s">"8f0c2a6d41e3b905"</span>, <span class="hl-k">"ruta"</span>: <span class="hl-s">"anims/Correr.fbx"</span> } ]
+}</code></pre></div>
+<p><code>&quot;rotacion&quot;</code> solo aparece si hay giro. <code>&quot;versionImportacion&quot;</code> es <code>2</code> en los modelos importados desde la 0.9.33; si no
+está, es un <code>.meta</code> antiguo (ver <a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a>).</p>
+<h3 id="qué-fbx-funcionan">Qué FBX funcionan<a class="ancla" href="#qué-fbx-funcionan" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Mixamo</strong> (With Skin y Without Skin), <strong>Blender</strong> (con o sin <em>Apply Transform</em>), <strong>Maya</strong>, <strong>3ds Max</strong>,
+<strong>Unity</strong> (FBX Exporter), <strong>Cinema 4D</strong>, <strong>Unreal</strong>: FBX 6.1 a 7.7, binarios o de texto. Si un fichero no se
+puede leer, la consola y el Inspector dicen por qué.</li>
+<li>Se usan los <strong>4 huesos de más peso</strong> de cada vértice (los pesos se reparten entre esos 4).</li>
+<li>Las animaciones con curvas (Bézier, escalones) se muestrean a 30 fotogramas por segundo y se guardan como claves
+lineales; las claves que sobran se quitan.</li>
+<li>Un FBX tarda más en cargar que un <code>.glb</code> (sobre todo los grandes). En juegos con muchos modelos pesados,
+convertirlos a GLB con Blender sigue siendo lo más rápido.</li>
+</ul>
+<h3 id="ajustes-de-importación-eventos-de-los-clips-y-sockets">Ajustes de importación: eventos de los clips y sockets<a class="ancla" href="#ajustes-de-importación-eventos-de-los-clips-y-sockets" aria-label="Enlace a esta sección">#</a></h3>
+<p>En el <code>&quot;import&quot;</code> del <code>.meta</code> del modelo puedes añadir <strong>eventos</strong> a sus clips (pasos, sonidos de recarga) y
+<strong>sockets</strong> (un punto con nombre respecto a un hueso, para <a href="#enganchar-objetos-a-huesos">enganchar objetos</a>). No hace
+falta escribirlos a mano: la pestaña <a href="#sockets">Sockets</a> y la ventana <a href="animar-huesos.html">Animar huesos</a> los escriben aquí.</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"id"</span>: <span class="hl-s">"c181656324023bc7"</span>,
+  <span class="hl-k">"type"</span>: <span class="hl-s">"Model"</span>,
+  <span class="hl-k">"import"</span>: {
+    <span class="hl-k">"clips"</span>: {
+      <span class="hl-k">"Walk"</span>: { <span class="hl-k">"eventos"</span>: [ {<span class="hl-k">"tiempo"</span>: <span class="hl-n">0.12</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"paso"</span>, <span class="hl-k">"funcion"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-s">"izquierdo"</span>},
+                             {<span class="hl-k">"fase"</span>: <span class="hl-n">0.62</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"paso"</span>, <span class="hl-k">"funcion"</span>: <span class="hl-s">"Paso"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-s">"derecho"</span>} ] }
+    },
+    <span class="hl-k">"sockets"</span>: [ {<span class="hl-k">"nombre"</span>: <span class="hl-s">"Arma"</span>, <span class="hl-k">"hueso"</span>: <span class="hl-s">"mixamorig:RightHand"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0.08</span>, <span class="hl-n">0.02</span>], <span class="hl-k">"rotacion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">90</span>, <span class="hl-n">0</span>]} ]
+  }
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave de un evento</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>tiempo</code></td>
+  <td>Segundo del clip (o <code>fase</code>: de 0 a 1)</td>
+</tr>
+<tr>
+  <td><code>nombre</code></td>
+  <td>Lo que recibe <code>OnAnimationEvent(nombre)</code></td>
+</tr>
+<tr>
+  <td><code>funcion</code></td>
+  <td>Opcional: función de los scripts de la entidad del Animador que se llama además (ver <a href="#eventos-de-animación">Eventos</a>)</td>
+</tr>
+<tr>
+  <td><code>parametro</code></td>
+  <td>Opcional: lo que recibe esa función. Texto (<code>&quot;izquierdo&quot;</code>) o, desde la 0.9.17, número (<code>2</code>)</td>
+</tr>
+<tr>
+  <td><code>global</code></td>
+  <td>Opcional (0.9.17): <code>true</code> lanza además el evento de Lua <code>nombre</code> en la máquina (<code>AddEventHandler(nombre, function(entidad, parametro) ... end)</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Estos eventos se ponen también con la ventana <a href="animar-huesos.html#6-paso-a-paso-el-evento-paso-en-la-animación-de-andar">Animar huesos</a>,
+que los escribe aquí.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave de un socket</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>nombre</code></td>
+  <td>Nombre que se pone en el <strong>Hueso</strong> del enganche</td>
+</tr>
+<tr>
+  <td><code>hueso</code></td>
+  <td>Hueso del que cuelga</td>
+</tr>
+<tr>
+  <td><code>posicion</code>, <code>rotacion</code>, <code>escala</code></td>
+  <td>Desplazamiento respecto al hueso (rotación en grados)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="colocar-un-modelo-en-la-escena">Colocar un modelo en la escena<a class="ancla" href="#colocar-un-modelo-en-la-escena" aria-label="Enlace a esta sección">#</a></h2>
+<p>Arrastra el modelo desde <strong>Contenido</strong> al visor <strong>Escena</strong> (o a una entidad de la Jerarquía para crearlo como
+hijo, o pulsa <strong>Añadir a la escena</strong> en el Inspector). Nova crea:</p>
+<ul>
+<li>Una <strong>entidad raíz</strong> con el nombre del fichero y, si el modelo tiene animaciones o huesos, un componente
+<strong>Animador</strong> (<code>Animator</code>) que apunta al modelo.</li>
+<li>Una <strong>entidad hija por cada nodo con malla</strong>: con <strong>Malla con huesos</strong> (<code>SkinnedMeshRenderer</code>) si la malla
+tiene piel, o con <strong>Malla</strong> (<code>MeshRenderer</code>) si no. La jerarquía queda aplanada: los huesos no se convierten
+en entidades.</li>
+<li>Si el modelo tiene una sola malla estática y ninguna animación, la malla va directamente en la raíz. El giro y
+la escala que tenía su objeto en el fichero ya están aplicados a la malla (0.9.33); su posición no cuenta: el
+modelo va donde lo sueltas.</li>
+</ul>
+<p>Para mover, rotar o escalar el modelo, transforma la <strong>raíz</strong>. En el visor, el primer clic selecciona la raíz y
+el segundo la malla.</p>
+<h3 id="escala">Escala<a class="ancla" href="#escala" aria-label="Enlace a esta sección">#</a></h3>
+<p>Nova trabaja en metros. Los FBX y OBJ se pasan a metros solos (y tienen las opciones <strong>Escala</strong> y <strong>Unidades del
+fichero</strong> del Inspector). Algunos glTF vienen en otras unidades: el zorro de ejemplo (<code>Fox.glb</code>) está en
+centímetros y en la escena de ejemplo su raíz tiene escala <strong>0.012</strong> (con la opción <strong>Escala</strong> a 0.012 en su
+Inspector se haría al importar). Si al soltar un modelo es enorme, la barra
+de estado avisa de que quizá está en centímetros. Ajusta la <strong>Escala</strong> de la raíz en el Inspector.</p>
+<h2 id="el-componente-animator">El componente Animator<a class="ancla" href="#el-componente-animator" aria-label="Enlace a esta sección">#</a></h2>
+<p>El <strong>Animador</strong> se encarga de reproducir las animaciones. Las mallas con huesos de sus hijos toman su pose.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Modelo</strong> (<code>model</code>)</td>
+  <td>Modelo del que salen el esqueleto y los clips</td>
+</tr>
+<tr>
+  <td><strong>Controlador</strong> (<code>controller</code>)</td>
+  <td>Controlador de animación (<code>.controller</code>). Opcional</td>
+</tr>
+<tr>
+  <td><strong>Clip</strong> (<code>clip</code>)</td>
+  <td>Sin controlador: nombre del clip a reproducir (vacío = el primero). Cambiarlo (también jugando) empieza ese clip desde el principio, aunque un script hubiera pedido otro con <code>Play</code></td>
+</tr>
+<tr>
+  <td><strong>Velocidad</strong> (<code>speed</code>)</td>
+  <td>Multiplicador de velocidad de todo el Animador (0 = quieto)</td>
+</tr>
+<tr>
+  <td><strong>Bucle</strong> (<code>loop</code>)</td>
+  <td>Sin controlador: repetir el clip (sin él se queda en la última pose)</td>
+</tr>
+<tr>
+  <td><strong>Previsualizar</strong> (<code>playInEditor</code>)</td>
+  <td>Animar también en el editor sin pulsar Play. Sin marcar, el editor muestra la pose con la que empieza al jugar</td>
+</tr>
+<tr>
+  <td><strong>Root motion</strong> (<code>applyRootMotion</code>)</td>
+  <td>El desplazamiento horizontal del hueso raíz mueve la entidad al jugar (<a href="#root-motion">root motion</a>)</td>
+</tr>
+<tr>
+  <td><strong>Hueso raíz</strong> (<code>rootMotionBone</code>)</td>
+  <td>Hueso del root motion (vacío = el primero del esqueleto, normalmente las caderas)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con un <strong>Controlador</strong>, <strong>Clip</strong> y <strong>Bucle</strong> salen desactivados en el Inspector: los clips y el bucle son los de
+sus estados.</p>
+<p>Mientras hay un modelo cargado, el Inspector muestra el estado actual, su fase y los parámetros del controlador,
+que puedes cambiar en vivo para probar las transiciones (los disparadores son botones), los pesos de sus capas, la
+casilla <strong>Mostrar huesos</strong> (el esqueleto en el visor Escena) y el botón <strong>Editar controlador</strong>.</p>
+<h3 id="sin-controlador-un-clip">Sin controlador: un clip<a class="ancla" href="#sin-controlador-un-clip" aria-label="Enlace a esta sección">#</a></h3>
+<p>Deja <strong>Controlador</strong> vacío y escribe el nombre del clip en <strong>Clip</strong> (o déjalo vacío para el primero). El clip se
+reproduce en bucle (o una vez, si desactivas <strong>Bucle</strong>).</p>
+<h3 id="con-controlador-máquina-de-estados">Con controlador: máquina de estados<a class="ancla" href="#con-controlador-máquina-de-estados" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un controlador es un fichero <code>.controller</code> en JSON con:</p>
+<ul>
+<li><strong>Parámetros</strong>: valores que cambian los scripts (<code>float</code>, <code>int</code>, <code>bool</code> o <code>trigger</code>).</li>
+<li><strong>Estados</strong>: cada uno reproduce un clip o un <strong>árbol de mezcla</strong> (varios clips mezclados según uno o dos
+parámetros: 1D, 2D o directo, y árboles dentro de árboles).</li>
+<li><strong>Transiciones</strong>: pasos de un estado a otro con un fundido, cuando se cumplen sus condiciones.</li>
+<li><strong>Capas</strong>: más máquinas de estados encima de la base, cada una con su peso, su modo (sustituir o aditiva) y una
+<strong>máscara de huesos</strong> (<a href="#capas-y-máscaras">Capas y máscaras</a>).</li>
+</ul>
+<p>Se crea desde <strong>Contenido &gt; Crear &gt; Controlador de animación</strong> y se edita en el panel <strong>Animación</strong> (doble clic en
+el <code>.controller</code>, ver <a href="#el-editor-de-animación">El editor de animación</a>), como texto en el Inspector (apartado
+<strong>JSON</strong>, botón <strong>Guardar</strong>) o con cualquier editor de texto. Admite comentarios de línea <code>//</code>.</p>
+<p>Este es el ejemplo completo del comentario de <code>engine/nova/animation/AnimatorController.h</code> (quieto, andar y
+correr según <code>velocidad</code>, y un salto con un disparador):</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"parametros"</span>: [ {<span class="hl-k">"nombre"</span>: <span class="hl-s">"velocidad"</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"float"</span>}, {<span class="hl-k">"nombre"</span>: <span class="hl-s">"saltar"</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"trigger"</span>} ],
+  <span class="hl-k">"estadoInicial"</span>: <span class="hl-s">"Locomocion"</span>,
+  <span class="hl-k">"estados"</span>: [
+    { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Locomocion"</span>, <span class="hl-k">"mezcla"</span>: { <span class="hl-k">"parametro"</span>: <span class="hl-s">"velocidad"</span>, <span class="hl-k">"movimientos"</span>: [
+        {<span class="hl-k">"clip"</span>: <span class="hl-s">"Survey"</span>, <span class="hl-k">"umbral"</span>: <span class="hl-n">0</span>}, {<span class="hl-k">"clip"</span>: <span class="hl-s">"Walk"</span>, <span class="hl-k">"umbral"</span>: <span class="hl-n">1.5</span>}, {<span class="hl-k">"clip"</span>: <span class="hl-s">"Run"</span>, <span class="hl-k">"umbral"</span>: <span class="hl-n">5</span>} ] } },
+    { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Salto"</span>, <span class="hl-k">"clip"</span>: <span class="hl-s">"Jump"</span>, <span class="hl-k">"bucle"</span>: <span class="hl-b">false</span> }
+  ],
+  <span class="hl-k">"transiciones"</span>: [
+    { <span class="hl-k">"desde"</span>: <span class="hl-s">"Locomocion"</span>, <span class="hl-k">"hacia"</span>: <span class="hl-s">"Salto"</span>, <span class="hl-k">"duracion"</span>: <span class="hl-n">0.15</span>,
+      <span class="hl-k">"condiciones"</span>: [ {<span class="hl-k">"parametro"</span>: <span class="hl-s">"saltar"</span>, <span class="hl-k">"op"</span>: <span class="hl-s">"trigger"</span>} ] },
+    { <span class="hl-k">"desde"</span>: <span class="hl-s">"Salto"</span>, <span class="hl-k">"hacia"</span>: <span class="hl-s">"Locomocion"</span>, <span class="hl-k">"duracion"</span>: <span class="hl-n">0.25</span>, <span class="hl-k">"tiempoSalida"</span>: <span class="hl-n">0.9</span> }
+  ]
+}</code></pre></div>
+<h4 id="referencia-del-formato">Referencia del formato<a class="ancla" href="#referencia-del-formato" aria-label="Enlace a esta sección">#</a></h4>
+<p>Raíz:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>parametros</code></td>
+  <td>Lista de parámetros</td>
+</tr>
+<tr>
+  <td><code>estadoInicial</code></td>
+  <td>Nombre del estado inicial (por defecto, el primero)</td>
+</tr>
+<tr>
+  <td><code>estados</code></td>
+  <td>Lista de estados</td>
+</tr>
+<tr>
+  <td><code>transiciones</code></td>
+  <td>Lista de transiciones</td>
+</tr>
+<tr>
+  <td><code>capas</code></td>
+  <td>Lista de capas (opcional)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Parámetro:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>nombre</code></td>
+  <td>Nombre que usan los scripts y las condiciones</td>
+</tr>
+<tr>
+  <td><code>tipo</code></td>
+  <td><code>float</code>, <code>int</code>, <code>bool</code> o <code>trigger</code></td>
+</tr>
+<tr>
+  <td><code>valor</code></td>
+  <td>Valor inicial (opcional; número o <code>true</code>/<code>false</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Estado:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>nombre</code></td>
+  <td></td>
+  <td>Nombre del estado</td>
+</tr>
+<tr>
+  <td><code>clip</code></td>
+  <td></td>
+  <td>Clip que reproduce (si no hay <code>mezcla</code>)</td>
+</tr>
+<tr>
+  <td><code>mezcla</code></td>
+  <td></td>
+  <td>Árbol de mezcla: <code>{&quot;tipo&quot;: ..., &quot;parametro&quot;: ..., &quot;parametroY&quot;: ..., &quot;movimientos&quot;: [...]}</code> (sin <code>tipo</code>, 1D)</td>
+</tr>
+<tr>
+  <td><code>velocidad</code></td>
+  <td>1</td>
+  <td>Multiplicador de velocidad del estado</td>
+</tr>
+<tr>
+  <td><code>parametroVelocidad</code></td>
+  <td></td>
+  <td>Parámetro que multiplica además la velocidad</td>
+</tr>
+<tr>
+  <td><code>bucle</code></td>
+  <td><code>true</code></td>
+  <td><code>false</code> para que se quede en el último fotograma</td>
+</tr>
+<tr>
+  <td><code>eventos</code></td>
+  <td></td>
+  <td>Lista de <code>{&quot;tiempo&quot;: t, &quot;nombre&quot;: &quot;...&quot;, &quot;funcion&quot;: &quot;...&quot;, &quot;parametro&quot;: &quot;...&quot;}</code> con <code>t</code> normalizado entre 0 y 1 dentro del ciclo (<code>funcion</code> y <code>parametro</code> son opcionales)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Movimiento de un árbol de mezcla:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>clip</code></td>
+  <td></td>
+  <td>Clip (vacío = pose de reposo)</td>
+</tr>
+<tr>
+  <td><code>mezcla</code></td>
+  <td></td>
+  <td>En lugar de <code>clip</code>: otro árbol de mezcla (anidado)</td>
+</tr>
+<tr>
+  <td><code>umbral</code></td>
+  <td>0</td>
+  <td>1D: valor del parámetro en el que este movimiento pesa el 100 %</td>
+</tr>
+<tr>
+  <td><code>posicion</code></td>
+  <td><code>[0, 0]</code></td>
+  <td>2D: punto <code>[x, y]</code> de la muestra (valores de <code>parametro</code> y <code>parametroY</code>)</td>
+</tr>
+<tr>
+  <td><code>parametroDirecto</code></td>
+  <td></td>
+  <td>Directo: parámetro cuyo valor (de 0 a 1) es su peso</td>
+</tr>
+<tr>
+  <td><code>velocidad</code></td>
+  <td>1</td>
+  <td>Velocidad del clip; 0 lo congela</td>
+</tr>
+<tr>
+  <td><code>tiempoFijo</code></td>
+  <td></td>
+  <td>Si se indica, el clip se muestrea siempre en ese segundo (poses quietas)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tipos de árbol (<code>tipo</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>tipo</code></th>
+  <th>Parámetros</th>
+  <th>Cómo mezcla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>1D</code> (o sin <code>tipo</code>)</td>
+  <td><code>parametro</code></td>
+  <td>Entre los dos umbrales vecinos; por debajo del primero y por encima del último, el extremo</td>
+</tr>
+<tr>
+  <td><code>2D simple direccional</code></td>
+  <td><code>parametro</code>, <code>parametroY</code></td>
+  <td>Una muestra por dirección (y opcionalmente una en <code>[0, 0]</code>): las dos vecinas por ángulo y el centro</td>
+</tr>
+<tr>
+  <td><code>2D libre direccional</code></td>
+  <td><code>parametro</code>, <code>parametroY</code></td>
+  <td>Varias muestras por dirección (andar y correr): bandas de gradiente en coordenadas polares</td>
+</tr>
+<tr>
+  <td><code>2D libre cartesiano</code></td>
+  <td><code>parametro</code>, <code>parametroY</code></td>
+  <td>Muestras en cualquier sitio, cuando los parámetros no son una dirección: bandas de gradiente</td>
+</tr>
+<tr>
+  <td><code>Directo</code></td>
+  <td><code>parametroDirecto</code> de cada hijo</td>
+  <td>Cada hijo pesa lo que vale su parámetro; si suman menos de 1, el resto es la pose de reposo</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todos los movimientos de un árbol comparten la fase (0 a 1) del estado: andar y correr van al paso aunque duren
+distinto, y la velocidad del estado es la media de las de sus clips según su peso. Si un movimiento está congelado
+(velocidad 0 o tiempo fijo), se usa el ritmo de los demás para que el paso no se detenga.</p>
+<p>Transición:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>desde</code></td>
+  <td><code>&quot;*&quot;</code></td>
+  <td>Estado de origen. <code>&quot;*&quot;</code> significa desde cualquier estado (salvo el de destino)</td>
+</tr>
+<tr>
+  <td><code>hacia</code></td>
+  <td></td>
+  <td>Estado de destino</td>
+</tr>
+<tr>
+  <td><code>duracion</code></td>
+  <td>0.25</td>
+  <td>Segundos de fundido (0 = cambio inmediato)</td>
+</tr>
+<tr>
+  <td><code>tiempoSalida</code></td>
+  <td></td>
+  <td>Si se indica, la transición espera a que la fase del estado llegue a ese valor normalizado (0.9 = 90 % del clip)</td>
+</tr>
+<tr>
+  <td><code>condiciones</code></td>
+  <td></td>
+  <td>Lista de condiciones; deben cumplirse todas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Condición:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>op</code></th>
+  <th>Se cumple si</th>
+  <th>Usa <code>valor</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>&gt;</code></td>
+  <td>parámetro &gt; valor</td>
+  <td>Sí</td>
+</tr>
+<tr>
+  <td><code>&lt;</code></td>
+  <td>parámetro &lt; valor</td>
+  <td>Sí</td>
+</tr>
+<tr>
+  <td><code>==</code></td>
+  <td>parámetro = valor (con tolerancia 0,0001)</td>
+  <td>Sí</td>
+</tr>
+<tr>
+  <td><code>!=</code></td>
+  <td>parámetro distinto de valor</td>
+  <td>Sí</td>
+</tr>
+<tr>
+  <td><code>true</code></td>
+  <td>parámetro &gt; 0,5 (bool activo)</td>
+  <td>No</td>
+</tr>
+<tr>
+  <td><code>false</code></td>
+  <td>parámetro &lt;= 0,5</td>
+  <td>No</td>
+</tr>
+<tr>
+  <td><code>trigger</code></td>
+  <td>el disparador está activo</td>
+  <td>No</td>
+</tr>
+</tbody>
+</table></div>
+<p>Capa:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>nombre</code></td>
+  <td></td>
+  <td>Nombre de la capa</td>
+</tr>
+<tr>
+  <td><code>modo</code></td>
+  <td><code>&quot;sustituir&quot;</code></td>
+  <td><code>&quot;sustituir&quot;</code>: mezcla y sustituye la pose de las capas de debajo. <code>&quot;aditiva&quot;</code>: suma la diferencia de su animación respecto a la pose de referencia</td>
+</tr>
+<tr>
+  <td><code>peso</code></td>
+  <td>1</td>
+  <td>Peso de la capa (0 a 1)</td>
+</tr>
+<tr>
+  <td><code>parametroPeso</code></td>
+  <td></td>
+  <td>Parámetro que multiplica el peso</td>
+</tr>
+<tr>
+  <td><code>mascara</code></td>
+  <td></td>
+  <td>Huesos que toca: en línea <code>{&quot;porDefecto&quot;: false, &quot;huesos&quot;: {&quot;Spine&quot;: true}}</code> o un asset <code>{&quot;asset&quot;: &quot;&lt;uuid&gt;&quot;, &quot;ruta&quot;: &quot;mascaras/Torso.mask&quot;}</code>. Sin máscara, todo el esqueleto</td>
+</tr>
+<tr>
+  <td><code>estadoInicial</code>, <code>estados</code>, <code>transiciones</code></td>
+  <td></td>
+  <td>Su máquina de estados, igual que la de la raíz</td>
+</tr>
+<tr>
+  <td><code>sincronizarCon</code></td>
+  <td></td>
+  <td>Nombre de otra capa (o <code>&quot;Base&quot;</code>): usa sus estados y su tiempo; <code>estados</code> solo sustituye el movimiento de los estados con el mismo nombre</td>
+</tr>
+<tr>
+  <td><code>clipReferencia</code>, <code>tiempoReferencia</code></td>
+  <td></td>
+  <td>Capa aditiva: pose de referencia (por defecto, el primer fotograma de cada clip de la capa)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las capas de la 0.8 (<code>{&quot;clip&quot;: ..., &quot;aditiva&quot;: ..., &quot;velocidad&quot;: ...}</code>) se siguen leyendo: son una capa con un
+estado que reproduce ese clip en bucle.</p>
+<p>Cómo se evalúan:</p>
+<ul>
+<li>Las transiciones se comprueban en orden, una vez por frame, cuando no hay otra transición en curso; se usa la
+primera que se cumple.</li>
+<li>Un disparador (<code>trigger</code>) queda activo hasta que una transición lo usa; entonces se consume. Si ninguna lo
+usa, sigue activo: bórralo con <code>ResetTrigger</code> si ya no te interesa.</li>
+<li>Las capas se aplican en orden encima de la base, cada una solo en los huesos de su máscara.</li>
+<li>Los eventos se entregan a <code>OnAnimationEvent</code> de los scripts que están en la <strong>misma entidad</strong> que el
+Animador, al principio del frame siguiente (y a su <code>funcion</code>, si tienen una).</li>
+</ul>
+<h4 id="controladores-del-ejemplo">Controladores del ejemplo<a class="ancla" href="#controladores-del-ejemplo" aria-label="Enlace a esta sección">#</a></h4>
+<p><code>game/sample_lua/assets/animations/Zorro.controller</code> mezcla los tres clips del zorro según <code>velocidad</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"parametros"</span>: [
+    {
+      <span class="hl-k">"nombre"</span>: <span class="hl-s">"velocidad"</span>,
+      <span class="hl-k">"tipo"</span>: <span class="hl-s">"float"</span>
+    }
+  ],
+  <span class="hl-k">"estadoInicial"</span>: <span class="hl-s">"Locomocion"</span>,
+  <span class="hl-k">"estados"</span>: [
+    {
+      <span class="hl-k">"nombre"</span>: <span class="hl-s">"Locomocion"</span>,
+      <span class="hl-k">"mezcla"</span>: {
+        <span class="hl-k">"parametro"</span>: <span class="hl-s">"velocidad"</span>,
+        <span class="hl-k">"movimientos"</span>: [
+          {
+            <span class="hl-k">"clip"</span>: <span class="hl-s">"Survey"</span>,
+            <span class="hl-k">"umbral"</span>: <span class="hl-n">0</span>
+          },
+          {
+            <span class="hl-k">"clip"</span>: <span class="hl-s">"Walk"</span>,
+            <span class="hl-k">"umbral"</span>: <span class="hl-n">1</span>
+          },
+          {
+            <span class="hl-k">"clip"</span>: <span class="hl-s">"Run"</span>,
+            <span class="hl-k">"umbral"</span>: <span class="hl-n">3.5</span>
+          }
+        ]
+      }
+    }
+  ],
+  <span class="hl-k">"transiciones"</span>: []
+}</code></pre></div>
+<p><code>game/sample_lua/assets/animations/Personaje.controller</code> muestra un truco útil: CesiumMan solo tiene una
+animación (<code>Animacion 0</code>, un paseo), y el controlador la usa cuatro veces. En reposo la congela en el segundo 1,5
+(<code>&quot;velocidad&quot;: 0, &quot;tiempoFijo&quot;: 1.5</code>) para tener una pose quieta, y al correr la acelera:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"parametros"</span>: [
+    {
+      <span class="hl-k">"nombre"</span>: <span class="hl-s">"velocidad"</span>,
+      <span class="hl-k">"tipo"</span>: <span class="hl-s">"float"</span>
+    }
+  ],
+  <span class="hl-k">"estadoInicial"</span>: <span class="hl-s">"Locomocion"</span>,
+  <span class="hl-k">"estados"</span>: [
+    {
+      <span class="hl-k">"nombre"</span>: <span class="hl-s">"Locomocion"</span>,
+      <span class="hl-k">"mezcla"</span>: {
+        <span class="hl-k">"parametro"</span>: <span class="hl-s">"velocidad"</span>,
+        <span class="hl-k">"movimientos"</span>: [
+          {
+            <span class="hl-k">"clip"</span>: <span class="hl-s">"Animacion 0"</span>,
+            <span class="hl-k">"umbral"</span>: <span class="hl-n">0</span>,
+            <span class="hl-k">"velocidad"</span>: <span class="hl-n">0</span>,
+            <span class="hl-k">"tiempoFijo"</span>: <span class="hl-n">1.5</span>
+          },
+          {
+            <span class="hl-k">"clip"</span>: <span class="hl-s">"Animacion 0"</span>,
+            <span class="hl-k">"umbral"</span>: <span class="hl-n">0.8</span>
+          },
+          {
+            <span class="hl-k">"clip"</span>: <span class="hl-s">"Animacion 0"</span>,
+            <span class="hl-k">"umbral"</span>: <span class="hl-n">1.6</span>,
+            <span class="hl-k">"velocidad"</span>: <span class="hl-n">1.9</span>
+          },
+          {
+            <span class="hl-k">"clip"</span>: <span class="hl-s">"Animacion 0"</span>,
+            <span class="hl-k">"umbral"</span>: <span class="hl-n">4</span>,
+            <span class="hl-k">"velocidad"</span>: <span class="hl-n">4.2</span>
+          }
+        ]
+      }
+    }
+  ],
+  <span class="hl-k">"transiciones"</span>: []
+}</code></pre></div>
+<h2 id="controlar-el-animator-desde-un-script">Controlar el Animator desde un script<a class="ancla" href="#controlar-el-animator-desde-un-script" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>self:GetComponent(&quot;Animator&quot;)</code> da el Animador de la entidad (o <code>nil</code>). Un script cambia sus parámetros, salta a
+un estado y sabe en cuál está; los eventos de la animación le llegan a <code>OnAnimationEvent(nombre)</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Anima un personaje con CharacterController según su velocidad, salta con Espacio y suena al pisar</span>
+<span class="hl-k">local</span> <span class="hl-t">AnimarPersonaje</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">AnimarPersonaje</span>.sonidoPaso = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">AnimarPersonaje</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._animador = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+    <span class="hl-b">self</span>._personaje = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"CharacterController"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">AnimarPersonaje</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> animador, personaje = <span class="hl-b">self</span>._animador, <span class="hl-b">self</span>._personaje
+    <span class="hl-k">if</span> <span class="hl-k">not</span> animador <span class="hl-k">or</span> <span class="hl-k">not</span> personaje <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> v = personaje.velocity
+    animador:<span class="hl-f">SetFloat</span>(<span class="hl-s">"velocidad"</span>, <span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(v.x, <span class="hl-n">0</span>, v.z))) <span class="hl-c">-- parámetro float</span>
+    animador:<span class="hl-f">SetBool</span>(<span class="hl-s">"enSuelo"</span>, personaje.grounded)                    <span class="hl-c">-- bool (se guarda como 0 o 1)</span>
+    animador:<span class="hl-f">SetInt</span>(<span class="hl-s">"arma"</span>, <span class="hl-n">2</span>)                                         <span class="hl-c">-- int (se guarda como float)</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Saltar"</span>) <span class="hl-k">then</span>
+        animador:<span class="hl-f">SetTrigger</span>(<span class="hl-s">"saltar"</span>)                                  <span class="hl-c">-- disparador</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> animador:<span class="hl-f">IsInState</span>(<span class="hl-s">"Salto"</span>) <span class="hl-k">and</span> animador.normalizedTime &gt;= <span class="hl-n">1</span> <span class="hl-k">then</span>
+        animador:<span class="hl-f">CrossFade</span>(<span class="hl-s">"Locomocion"</span>, <span class="hl-n">0.2</span>) <span class="hl-c">-- el salto (sin bucle) ha terminado</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">AnimarPersonaje</span>:<span class="hl-f">OnAnimationEvent</span>(nombre: <span class="hl-t">string</span>)
+    <span class="hl-k">if</span> nombre == <span class="hl-s">"paso"</span> <span class="hl-k">and</span> <span class="hl-b">self</span>.sonidoPaso <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.sonidoPaso, <span class="hl-b">self</span>.entity.position, <span class="hl-n">0.5</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">AnimarPersonaje</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>animador:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>SetFloat(nombre, v)</code>, <code>SetInt</code>, <code>SetBool</code></td>
+  <td>Cambian un parámetro (todos se guardan como números)</td>
+</tr>
+<tr>
+  <td><code>GetFloat(nombre)</code>, <code>GetInt</code>, <code>GetBool</code></td>
+  <td>Leen un parámetro</td>
+</tr>
+<tr>
+  <td><code>SetTrigger(nombre)</code> / <code>ResetTrigger(nombre)</code></td>
+  <td>Activan o borran un disparador</td>
+</tr>
+<tr>
+  <td><code>Play(estadoOClip, fundido?)</code></td>
+  <td>Con controlador: salta a ese <strong>estado</strong> con un fundido (0,2 s si no se indica). Sin controlador: cambia al <strong>clip</strong> indicado (sin fundido)</td>
+</tr>
+<tr>
+  <td><code>CrossFade(estado, segundos)</code></td>
+  <td>Como <code>Play</code>, con el fundido que digas</td>
+</tr>
+<tr>
+  <td><code>currentState</code>, <code>IsInState(estado)</code></td>
+  <td>Nombre del estado actual (sin controlador, el clip pedido con <code>Play</code>) y si es ese</td>
+</tr>
+<tr>
+  <td><code>normalizedTime</code></td>
+  <td>Fase normalizada del estado: 0 al empezar, 1 al terminar el primer ciclo. En un estado sin bucle se queda en 1; en bucle sigue creciendo (la parte entera cuenta los ciclos)</td>
+</tr>
+<tr>
+  <td><code>SetLayerWeight(capa, peso)</code>, <code>GetLayerWeight(capa)</code>, <code>ResetLayerWeight(capa)</code></td>
+  <td>Peso de una capa (por nombre o por índice, 0 = <code>&quot;Base&quot;</code>): fijarlo (0 a 1; su parámetro de peso lo sigue multiplicando), leer el efectivo o volver al del controlador</td>
+</tr>
+<tr>
+  <td><code>GetLayerNames()</code>, <code>GetLayerState(capa)</code>, <code>PlayInLayer(capa, estado, fundido?)</code></td>
+  <td>Capas del controlador, estado actual de una capa y saltar a un estado en ella</td>
+</tr>
+<tr>
+  <td><code>GetBoneTransform(hueso, espacio?)</code>, <code>GetBoneNames()</code>, <code>HasBone(hueso)</code></td>
+  <td>Huesos (<a href="#enganchar-objetos-a-huesos">Enganchar objetos a huesos</a>)</td>
+</tr>
+<tr>
+  <td><code>GetHumanBone(huesoHumano)</code>, <code>IsHumanoid()</code></td>
+  <td>El nombre del hueso del modelo que hace de <code>&quot;ManoDerecha&quot;</code>/<code>&quot;RightHand&quot;</code>... (o <code>nil</code>) y si el modelo es humanoide (<a href="#huesos-por-su-nombre-humano-en-los-scripts">retargeting</a>)</td>
+</tr>
+<tr>
+  <td><code>GetRootMotion()</code></td>
+  <td>Desplazamiento del <a href="#root-motion">root motion</a> del último frame, en el mundo</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sus campos (<code>speed</code>, <code>clip</code>, <code>controller</code>...) también se leen y se cambian: <code>animador.speed = 2</code>.</p>
+<p>El Animador se actualiza en la fase Update, después de los scripts; por eso los cambios de parámetros que hagas
+en <code>Update</code> se aplican en el mismo frame, y las cámaras que siguen al personaje deben ir en <code>LateUpdate</code>.</p>
+<h2 id="capas-y-máscaras">Capas y máscaras<a class="ancla" href="#capas-y-máscaras" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una <strong>capa</strong> es otra máquina de estados que se aplica encima de la base (y de las capas anteriores). Con una
+<strong>máscara de huesos</strong> solo toca parte del esqueleto: el ejemplo típico es apuntar o recargar con el torso mientras
+las piernas siguen andando con la base.</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"capas"</span>: [ { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Apuntar"</span>, <span class="hl-k">"modo"</span>: <span class="hl-s">"sustituir"</span>, <span class="hl-k">"peso"</span>: <span class="hl-n">0</span>, <span class="hl-k">"parametroPeso"</span>: <span class="hl-s">"apuntando"</span>,
+             <span class="hl-k">"mascara"</span>: { <span class="hl-k">"porDefecto"</span>: <span class="hl-b">false</span>, <span class="hl-k">"huesos"</span>: { <span class="hl-k">"mixamorig:Spine"</span>: <span class="hl-b">true</span> } },
+             <span class="hl-k">"estadoInicial"</span>: <span class="hl-s">"Apuntar"</span>,
+             <span class="hl-k">"estados"</span>: [ { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Apuntar"</span>, <span class="hl-k">"mezcla"</span>: { <span class="hl-k">"parametro"</span>: <span class="hl-s">"angulo"</span>, <span class="hl-k">"movimientos"</span>: [
+                 {<span class="hl-k">"clip"</span>: <span class="hl-s">"ApuntarAbajo"</span>, <span class="hl-k">"umbral"</span>: <span class="hl-n">-60</span>}, {<span class="hl-k">"clip"</span>: <span class="hl-s">"ApuntarRecto"</span>, <span class="hl-k">"umbral"</span>: <span class="hl-n">0</span>}, {<span class="hl-k">"clip"</span>: <span class="hl-s">"ApuntarArriba"</span>, <span class="hl-k">"umbral"</span>: <span class="hl-n">70</span>} ] } } ] } ]</code></pre></div>
+<ul>
+<li><strong>Peso</strong> (0 a 1): cuánto manda la capa. Lo multiplica su <strong>parámetro de peso</strong> (si tiene) y un script lo puede
+fijar con <code>animador:SetLayerWeight(&quot;Apuntar&quot;, 0.8)</code> (y devolverlo al del controlador con <code>ResetLayerWeight</code>).</li>
+<li><strong>Modo</strong>: <strong>sustituir</strong> mezcla su pose con la de debajo según el peso; <strong>aditiva</strong> suma la diferencia entre su
+animación y una <strong>pose de referencia</strong> (por defecto el primer fotograma de cada clip; o <code>clipReferencia</code> en el
+segundo <code>tiempoReferencia</code>). Las aditivas sirven para respirar, encogerse por un golpe o inclinarse sin perder la
+animación de debajo.</li>
+<li><strong>Máscara</strong>: un árbol de inclusión. <code>porDefecto</code> es el estado de la raíz del esqueleto y cada hueso de <code>huesos</code>
+pasa su estado a toda su rama. <code>{&quot;porDefecto&quot;: false, &quot;huesos&quot;: {&quot;Spine&quot;: true}}</code> es «solo la columna y lo que
+cuelga de ella» (brazos, cuello, cabeza); <code>{&quot;porDefecto&quot;: true, &quot;huesos&quot;: {&quot;LeftUpLeg&quot;: false, &quot;RightUpLeg&quot;: false}}</code>
+es «todo menos las piernas». Los nombres valen con o sin el prefijo hasta <code>:</code> (<code>mixamorig:Spine</code> o <code>Spine</code>) y, en
+un humanoide, los nombres humanos (<code>&quot;Columna&quot;</code>, <code>&quot;MusloIzquierdo&quot;</code>): la misma máscara vale para cualquier humanoide.</li>
+<li>La máscara puede ir en el controlador o en un asset <strong>Máscara de avatar</strong> (<code>.mask</code>, <strong>Contenido &gt; Crear &gt; Máscara
+de avatar</strong>) para usarla en varios controladores: <code>&quot;mascara&quot;: {&quot;asset&quot;: &quot;&lt;uuid&gt;&quot;, &quot;ruta&quot;: &quot;mascaras/Torso.mask&quot;}</code>.
+En el panel <strong>Animación</strong>, la pestaña <strong>Máscara</strong> de la capa muestra el esqueleto con casillas.</li>
+<li><strong>Sincronizar con</strong> otra capa (<code>sincronizarCon</code>): la capa usa los estados y el tiempo de esa otra y solo cambia el
+movimiento de los estados que tú digas. Sirve para un personaje herido: la misma máquina de locomoción, con clips
+de cojear.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Sube el peso de la capa «Apuntar» al mantener el botón derecho del ratón y lo baja al soltarlo</span>
+<span class="hl-k">local</span> <span class="hl-t">ApuntarCapa</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">ApuntarCapa</span>.rapidez = <span class="hl-n">6</span> <span class="hl-c">-- peso por segundo</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ApuntarCapa</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._animador = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+    <span class="hl-b">self</span>._peso = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ApuntarCapa</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> animador = <span class="hl-b">self</span>._animador
+    <span class="hl-k">if</span> <span class="hl-k">not</span> animador <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> objetivo = <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">IsMouseDown</span>(<span class="hl-s">"RatonDer"</span>) <span class="hl-k">then</span> <span class="hl-n">1</span> <span class="hl-k">else</span> <span class="hl-n">0</span>
+    <span class="hl-b">self</span>._peso = <span class="hl-t">Mathf</span>.<span class="hl-f">MoveTowards</span>(<span class="hl-b">self</span>._peso, objetivo, <span class="hl-b">self</span>.rapidez * dt)
+    animador:<span class="hl-f">SetLayerWeight</span>(<span class="hl-s">"Apuntar"</span>, <span class="hl-b">self</span>._peso)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ApuntarCapa</span></code></pre></div>
+<h2 id="árboles-de-mezcla-2d">Árboles de mezcla 2D<a class="ancla" href="#árboles-de-mezcla-2d" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <strong>árbol 2D</strong> mezcla clips según dos parámetros, normalmente la velocidad del personaje en su espacio local
+(<code>velX</code> de lado, <code>velZ</code> adelante): quieto en el centro, andar y correr en cada dirección. Cada muestra tiene su
+<code>posicion</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{ <span class="hl-k">"nombre"</span>: <span class="hl-s">"Locomocion"</span>, <span class="hl-k">"mezcla"</span>: { <span class="hl-k">"tipo"</span>: <span class="hl-s">"2D libre direccional"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-s">"velX"</span>, <span class="hl-k">"parametroY"</span>: <span class="hl-s">"velZ"</span>,
+  <span class="hl-k">"movimientos"</span>: [
+    {<span class="hl-k">"clip"</span>: <span class="hl-s">"Idle"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>]},
+    {<span class="hl-k">"clip"</span>: <span class="hl-s">"Walk"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">1.5</span>]}, {<span class="hl-k">"clip"</span>: <span class="hl-s">"Run"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">5</span>]},
+    {<span class="hl-k">"clip"</span>: <span class="hl-s">"WalkBack"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">-1.5</span>]},
+    {<span class="hl-k">"clip"</span>: <span class="hl-s">"StrafeLeft"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">-1.5</span>, <span class="hl-n">0</span>]}, {<span class="hl-k">"clip"</span>: <span class="hl-s">"StrafeRight"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">1.5</span>, <span class="hl-n">0</span>]} ] } }</code></pre></div>
+<ul>
+<li><strong>2D simple direccional</strong>: una muestra por dirección (más la del centro). Para andar en 4 u 8 direcciones a una
+sola velocidad.</li>
+<li><strong>2D libre direccional</strong>: varias muestras en la misma dirección (andar y correr). Mezcla por ángulo y por
+distancia al centro (bandas de gradiente polares, como Unity): en cada muestra pesa solo ella, los pesos suman 1
+y cambian sin saltos.</li>
+<li><strong>2D libre cartesiano</strong>: cuando los parámetros no son una dirección (por ejemplo, giro e inclinación).</li>
+<li><strong>Directo</strong>: cada hijo pesa lo que vale su parámetro, sin normalizar (caras, capas aditivas de varias poses).</li>
+<li>Un hijo puede ser <strong>otro árbol</strong> (<code>&quot;mezcla&quot;</code> en lugar de <code>&quot;clip&quot;</code>): un 2D cuyas muestras de correr son a su vez
+un 1D según el cansancio, por ejemplo.</li>
+</ul>
+<p>En el panel <strong>Animación</strong>, el estado con árbol muestra el <strong>gráfico</strong> del espacio de mezcla: las muestras (con su
+número de la tabla y su peso), la posición actual de los parámetros de la vista previa (la cruz roja) y, arrastrando,
+mueves una muestra o, en el vacío, los parámetros de la vista previa para ver el resultado en la escena.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Locomoción en 8 direcciones: la velocidad del personaje en su espacio local alimenta el árbol 2D</span>
+<span class="hl-k">local</span> <span class="hl-t">Locomocion8</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Locomocion8</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._animador = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+    <span class="hl-b">self</span>._personaje = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"CharacterController"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Locomocion8</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._animador <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._personaje <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> v = <span class="hl-b">self</span>.transform:<span class="hl-f">InverseTransformDirection</span>(<span class="hl-b">self</span>._personaje.velocity)
+    <span class="hl-b">self</span>._animador:<span class="hl-f">SetFloat</span>(<span class="hl-s">"velX"</span>, v.x)
+    <span class="hl-b">self</span>._animador:<span class="hl-f">SetFloat</span>(<span class="hl-s">"velZ"</span>, v.z)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Locomocion8</span></code></pre></div>
+<h2 id="enganchar-objetos-a-huesos">Enganchar objetos a huesos<a class="ancla" href="#enganchar-objetos-a-huesos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los huesos no son entidades, pero cualquier entidad puede <strong>seguir a un hueso</strong> con el componente <strong>Enganche a
+hueso</strong> (<code>BoneAttachment</code>): un arma en la mano, un sombrero en la cabeza, una mochila en la espalda, o las cajas
+de impacto de un personaje.</p>
+<ol>
+<li>Crea el arma como hija del personaje (o en cualquier sitio y elige el personaje en <strong>Animador</strong>).</li>
+<li><strong>Añadir componente &gt; Animación &gt; Enganche a hueso</strong> y elige en la lista. Desde la 0.9.24 sale en grupos: primero
+los <strong>Sockets</strong> del modelo (con su chincheta), después los <strong>Huesos</strong> y los nodos vacíos, con un <strong>buscador</strong> arriba
+(«mano», «cabeza», «Arma»; también por el nombre humano en español). Con la lista abierta, el hueso bajo el ratón se
+resalta en el visor; <strong>Mostrar huesos</strong> enseña todo el esqueleto. <strong>Editar sockets...</strong> abre la pestaña
+<a href="#sockets">Sockets</a> con ese modelo.</li>
+<li><strong>El Transform de la entidad es el desplazamiento respecto al hueso</strong>: a cero (botón <strong>Poner en el hueso</strong>) queda
+justo en el hueso con su orientación; muévela con el gizmo hasta que encaje en la mano.</li>
+<li><strong>Heredar escala</strong>: sin marcar, el arma conserva su tamaño aunque el esqueleto esté escalado (los modelos en
+centímetros); marcado, hereda la escala del hueso y del personaje.</li>
+</ol>
+<p>El enganche se coloca después de animar (y del IK) y antes de dibujar y de las físicas, en cada frame, también en el
+editor. No cambia la jerarquía ni el Transform guardado: funciona igual con prefabs, al duplicar, con deshacer y en
+la edición en equipo. En una partida en red <strong>cada máquina engancha por su cuenta</strong> (no lo replica nadie): no pongas
+un <strong>Transform de red</strong> en la entidad enganchada.</p>
+<p>Las <strong>cajas de impacto</strong> (hitboxes) de los disparos no son enganches: son el componente <strong>Caja de impacto</strong>
+(<code>Hitbox</code>, categoría <strong>Física</strong>), que sigue por sí mismo a un hueso (su campo <strong>Hueso</strong>) con la pose final del
+Animator (capas, IK). No choca ni frena: solo lo ven <code>Physics.RaycastRewind</code> y <code>Physics.RaycastHitboxes</code>. El botón
+<strong>Preajuste: Humanoide</strong> del Inspector crea las de un personaje en un clic (cabeza, torso, brazos y piernas), también
+con el Animator en un hijo (un «Modelo» dentro del personaje). Ver <a href="fisicas.html#cajas-de-impacto-y-disparos-en-red">fisicas.md</a>
+y <a href="multijugador.html#18-disparos-y-compensación-de-latencia">multijugador.md</a>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>animador:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>GetBoneTransform(hueso, espacio?)</code></td>
+  <td>Posición, rotación y escala de un hueso (o nodo o socket); <code>nil</code> si no existe. <code>espacio</code>: <code>&quot;world&quot;</code> (por defecto), <code>&quot;model&quot;</code> (respecto a la entidad del Animador) o <code>&quot;local&quot;</code> (respecto a su hueso padre)</td>
+</tr>
+<tr>
+  <td><code>GetBoneNames()</code></td>
+  <td>Nombres de todos los nodos del esqueleto</td>
+</tr>
+<tr>
+  <td><code>HasBone(hueso)</code></td>
+  <td>Si el modelo tiene ese hueso, nodo o socket</td>
+</tr>
+<tr>
+  <td><code>HasSocket(socket)</code></td>
+  <td>Si el modelo tiene ese <strong>socket</strong> (0.9.24)</td>
+</tr>
+<tr>
+  <td><code>GetSocketTransform(socket, espacio?)</code></td>
+  <td>Como <code>GetBoneTransform</code>, solo para sockets (<code>nil</code> si no es un socket del modelo)</td>
+</tr>
+<tr>
+  <td><code>GetSocketNames()</code></td>
+  <td>Los nombres de los sockets del modelo</td>
+</tr>
+<tr>
+  <td><code>GetHumanBone(huesoHumano)</code></td>
+  <td>En un humanoide, el nombre del hueso que hace de <code>&quot;ManoDerecha&quot;</code> (o <code>&quot;RightHand&quot;</code>...); <code>nil</code> si no lo tiene</td>
+</tr>
+</tbody>
+</table></div>
+<p>En un humanoide, <code>hueso</code> puede ser también un nombre humano (<code>&quot;RightHand&quot;</code>, <code>&quot;ManoDerecha&quot;</code>): ver
+<a href="#huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano</a>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>BoneAttachment.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Attach(entidad, animador?, hueso, mantenerSitio?)</code></td>
+  <td>Engancha la entidad al hueso (sin <code>animador</code>, el de su antepasado). Con <code>mantenerSitio</code>, su Transform pasa a ser el desplazamiento que la deja donde está; si no, el que ya tenía. Devuelve el componente</td>
+</tr>
+<tr>
+  <td><code>Detach(entidad, mantenerSitio?)</code></td>
+  <td>Quita el enganche; por defecto se queda donde estaba</td>
+</tr>
+</tbody>
+</table></div>
+<p>Desde la 0.9.24 hay una forma más corta, en la propia entidad (ver <a href="#sockets">Sockets</a>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>entidad:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>AttachTo(objetivo, huesoOSocket, opciones?)</code></td>
+  <td>Engancha la entidad y la pone <strong>justo en</strong> el hueso o socket. <code>objetivo</code>: la entidad del personaje (el Animador puede estar en ella, en un antepasado o en un hijo) o su componente Animator. Opciones: <code>keepWorld</code> (<code>mantenerSitio</code>: se queda donde está), <code>inheritScale</code> (<code>heredarEscala</code>), <code>offset</code> (<code>desplazamiento</code>, Vec3) y <code>rotation</code> (<code>rotacion</code>, Quat o Vec3 en grados) respecto al socket. Devuelve el componente</td>
+</tr>
+<tr>
+  <td><code>Detach(mantenerSitio?)</code></td>
+  <td>Suelta la entidad; por defecto se queda donde estaba</td>
+</tr>
+<tr>
+  <td><code>GetAttachParent()</code></td>
+  <td>La entidad del Animador y el hueso o socket (<code>local personaje, socket = arma:GetAttachParent()</code>), o <code>nil</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un arma en el suelo (con un Colisionador sensor): quien la toca la lleva en la mano derecha; G la suelta</span>
+<span class="hl-k">local</span> <span class="hl-t">RecogerArma</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">RecogerArma</span>.hueso = <span class="hl-s">"mixamorig:RightHand"</span>
+
+<span class="hl-k">function</span> <span class="hl-t">RecogerArma</span>:<span class="hl-f">OnTriggerEnter</span>(otro: <span class="hl-t">Entity</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._portador <span class="hl-k">or</span> <span class="hl-k">not</span> otro:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._portador = otro
+    <span class="hl-t">BoneAttachment</span>.<span class="hl-f">Attach</span>(<span class="hl-b">self</span>.entity, otro, <span class="hl-b">self</span>.hueso)
+    <span class="hl-b">self</span>.transform.position = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0.05</span>, <span class="hl-n">0.02</span>) <span class="hl-c">-- desplazamiento respecto al hueso</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">RecogerArma</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._portador <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"G"</span>) <span class="hl-k">then</span>
+        <span class="hl-t">BoneAttachment</span>.<span class="hl-f">Detach</span>(<span class="hl-b">self</span>.entity) <span class="hl-c">-- se queda donde estaba</span>
+        <span class="hl-b">self</span>._portador = <span class="hl-b">nil</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">RecogerArma</span></code></pre></div>
+<p><strong>Desde C++</strong> (scripts C++ o sistemas del motor, <code>nova/animation/BoneAttachment.h</code>): <code>FindBoneIndex(scene, personaje, &quot;Head&quot;)</code> una vez y después <code>GetBoneWorldMatrix(scene, personaje, indice, matriz)</code> cada frame, o
+<code>GetAllBoneWorldPoses(scene, personaje, poses)</code> para todo el esqueleto (nombre, padre y matriz en el mundo de cada
+nodo, con la pose ya animada y con el IK).</p>
+<h2 id="sockets">Sockets<a class="ancla" href="#sockets" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <strong>socket</strong> es un punto con nombre pegado a un hueso, como en UE5: «Arma» en la palma de la mano derecha, «Sombrero»
+encima de la cabeza, «Mochila» en la espalda. Se colocan una vez en el modelo y cualquier <strong>Enganche a hueso</strong> (o
+<code>AttachTo</code> en Lua) usa el nombre: el arma queda bien en la mano sin ajustar su Transform en cada prefab, y si mueves el
+socket, todas las armas enganchadas se mueven con él.</p>
+<h3 id="la-pestaña-sockets">La pestaña Sockets<a class="ancla" href="#la-pestaña-sockets" aria-label="Enlace a esta sección">#</a></h3>
+<p>Ábrela con cualquiera de estas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Desde</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Inspector de un modelo</strong> (elegido en Contenido)</td>
+  <td>Botón <strong>Editar sockets</strong></td>
+</tr>
+<tr>
+  <td><strong>Contenido</strong></td>
+  <td>Clic derecho en un modelo con esqueleto &gt; <strong>Sockets...</strong></td>
+</tr>
+<tr>
+  <td><strong>Enganche a hueso</strong></td>
+  <td>Botón <strong>Editar sockets...</strong> del Inspector</td>
+</tr>
+<tr>
+  <td><strong>Menú</strong></td>
+  <td><strong>Ventana &gt; Animación &gt; Sockets</strong> y elige el modelo arriba</td>
+</tr>
+</tbody>
+</table></div>
+<p>Usa el mismo visor que <a href="animar-huesos.html">Animar huesos</a> (orbitar con el botón derecho, desplazar con el central, rueda
+para acercar):</p>
+<ul>
+<li><strong>A la izquierda, todos los huesos</strong> en su árbol, con buscador («mano», «cabeza», «RightHand»), y <strong>los sockets debajo de
+su hueso</strong>, con una chincheta. <strong>Clic derecho en un hueso &gt; Añadir socket</strong> (o el botón <strong>Añadir socket en este hueso</strong>)
+crea uno con un nombre propuesto («Socket_ManoDerecha») listo para escribir el tuyo. Clic derecho en un socket:
+<strong>Renombrar</strong> (F2), <strong>Duplicar</strong> y <strong>Borrar</strong> (Supr).</li>
+<li><strong>En el visor</strong>, cada socket es una chincheta con sus ejes y su nombre; clic en una para elegirla. El socket elegido
+tiene el <strong>gizmo</strong>: <strong>W</strong> mover, <strong>E</strong> girar, <strong>R</strong> escalar, en sus ejes o en los del mundo. <strong>F</strong> lo encuadra.</li>
+<li><strong>A la derecha</strong>, el socket elegido: <strong>Nombre</strong>, <strong>Hueso</strong> (cambiarlo de hueso), <strong>Posición</strong>, <strong>Rotación</strong> (grados) y
+<strong>Escala</strong> respecto al hueso, que también se escriben; <strong>Poner en el hueso</strong> lo deja sin desplazamiento.</li>
+<li><strong>Clip</strong> (arriba): elige un clip del modelo y dale a reproducir, o arrastra el tiempo, para ver el socket con el
+personaje en movimiento mientras lo colocas.</li>
+<li><strong>Objetos de vista previa</strong>: elige uno o varios modelos o prefabs del proyecto (un arma, una mochila, un sombrero) y el
+socket al que van, para ver cómo quedan. <strong>Solo se ven en esta pestaña</strong>: no se guardan en el modelo ni en la escena.
+El editor los recuerda para ese modelo (en tus preferencias, <code>sockets-vista-previa.json</code>).</li>
+<li><strong>Copiar a otro humanoide</strong>: elige otro modelo humanoide y pulsa <strong>Copiar N sockets</strong>. Cada socket pasa al mismo hueso
+humano del otro (la mano derecha a su mano derecha) y se queda en el mismo sitio respecto al hueso; con <strong>Escalar a sus
+proporciones</strong>, la distancia al hueso se multiplica por la proporción de alturas (de las caderas a la cabeza). Los
+sockets del otro modelo que se llamen igual se sustituyen; los demás se quedan.</li>
+</ul>
+<p>Todo se guarda al momento en el <code>.meta</code> del modelo (la clave <a href="#ajustes-de-importación-eventos-de-los-clips-y-sockets"><code>&quot;sockets&quot;</code></a>)
+y es un paso del historial: <strong>Ctrl+Z</strong> y <strong>Ctrl+Y</strong> como en el resto del editor. Los <strong>Enganches a hueso</strong> que usan el
+socket se recolocan en ese mismo frame, en la escena y jugando. En la <a href="edicion-en-equipo.html">edición en equipo</a>, el
+<code>.meta</code> llega a los demás con la sincronización de ficheros (también al deshacer).</p>
+<p>Si renombras o borras un socket que usa un Enganche a hueso, el Inspector del enganche avisa de que el modelo ya no
+tiene ese nombre: elige el nuevo en su lista.</p>
+<h3 id="paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma">Paso a paso: equipar un arma en la mano con un socket «Arma»<a class="ancla" href="#paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Doble clic en tu personaje en <strong>Contenido</strong>; en el Inspector, <strong>Editar sockets</strong>.</li>
+<li>En el árbol, busca «mano», clic derecho en <strong>Mano derecha</strong> &gt; <strong>Añadir socket</strong> y escribe <strong>Arma</strong>.</li>
+<li>En <strong>Objetos de vista previa</strong>, pulsa <strong>Objeto de vista previa</strong> y elige el prefab del arma y el socket <strong>Arma</strong>.</li>
+<li>Con el gizmo (W y E), coloca el socket hasta que el arma quede bien agarrada. Elige el clip de andar o de apuntar y
+dale a reproducir para comprobarlo en movimiento.</li>
+<li>En el script del arma:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Equipar un arma en la mano con el socket «Arma» del personaje (pestaña Sockets); G la suelta</span>
+<span class="hl-k">local</span> <span class="hl-t">EquiparArma</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">EquiparArma</span>:<span class="hl-f">OnTriggerEnter</span>(otro: <span class="hl-t">Entity</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._portador <span class="hl-k">or</span> <span class="hl-k">not</span> otro:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._portador = otro
+    <span class="hl-b">self</span>.entity:<span class="hl-f">AttachTo</span>(otro, <span class="hl-s">"Arma"</span>) <span class="hl-c">-- justo en el socket</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">EquiparArma</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._portador <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"G"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.entity:<span class="hl-f">Detach</span>() <span class="hl-c">-- se queda donde estaba</span>
+        <span class="hl-b">self</span>._portador = <span class="hl-b">nil</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">EquiparArma</span></code></pre></div>
+<p>Con un personaje distinto (otro humanoide), copia los sockets con <strong>Copiar a otro humanoide</strong> y el mismo script vale.</p>
+<p>También desde el editor, sin código: el arma como hija del personaje, <strong>Enganche a hueso</strong> y elige <strong>Arma</strong> en el grupo
+<strong>Sockets</strong> de su lista.</p>
+<h2 id="cinemática-inversa-ik">Cinemática inversa (IK)<a class="ancla" href="#cinemática-inversa-ik" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>IK</strong>, en la misma entidad que el Animador, corrige la pose animada (después de las capas):</p>
+<ul>
+<li><strong>Apuntar</strong>: una cadena de huesos de la raíz a la punta (columna, cuello, cabeza) gira repartiendo el giro para
+que el <strong>eje que apunta</strong> de la punta mire al <strong>objetivo</strong> (una entidad o un punto del mundo). Cada hueso gira como
+mucho su <strong>ángulo máximo</strong> respecto a la animación, así que un objetivo detrás no le rompe el cuello.</li>
+<li><strong>Extremidades</strong>: dos huesos (brazo y antebrazo, o muslo y pierna) ponen la <strong>mano o el pie</strong> en el objetivo. La
+<strong>pista</strong> dice hacia dónde dobla el codo o la rodilla (sin pista, como en la animación) y <strong>Copiar rotación</strong> gira
+la mano como la entidad objetivo. Si el objetivo está demasiado lejos, el brazo se estira hacia él.</li>
+<li><strong>Peso</strong> de 0 (la animación tal cual) a 1 en cada objetivo.</li>
+</ul>
+<p>Los botones del Inspector (<strong>Apuntar con la columna</strong>, <strong>Mano izq.</strong>, <strong>Mano der.</strong>, <strong>Pie izq.</strong>, <strong>Pie der.</strong>)
+añaden un objetivo con los huesos adivinados por su nombre (revísalos). Las extremidades se resuelven <strong>en orden</strong> y
+lo enganchado a una mano se recoloca antes de la siguiente: pon primero la mano que lleva el arma y después la que
+va a su agarre.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>ik:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>SetTarget(nombre, objetivo)</code></td>
+  <td>Objetivo de un apuntado o una extremidad: <code>Vec3</code> (mundo), <code>Entity</code> o <code>nil</code> (la posición guardada)</td>
+</tr>
+<tr>
+  <td><code>SetHint(nombre, pista)</code></td>
+  <td>Pista de una extremidad (<code>Vec3</code>, <code>Entity</code> o <code>nil</code> para quitarla)</td>
+</tr>
+<tr>
+  <td><code>SetWeight(nombre, peso)</code>, <code>GetWeight(nombre)</code></td>
+  <td>Peso de 0 a 1</td>
+</tr>
+<tr>
+  <td><code>SetEnabled(nombre, activo)</code></td>
+  <td>Activarlo o no</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- La columna y la cabeza miran hacia donde apunta la cámara (objetivo "Apuntar" del componente IK)</span>
+<span class="hl-k">local</span> <span class="hl-t">MirarCamara</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">MirarCamara</span>.distancia = <span class="hl-n">20</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MirarCamara</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._ik = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"IK"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MirarCamara</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._ik <span class="hl-k">or</span> <span class="hl-k">not</span> camara <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._ik:<span class="hl-f">SetTarget</span>(<span class="hl-s">"Apuntar"</span>, camara.position + camara.transform.forward * <span class="hl-b">self</span>.distancia)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MirarCamara</span></code></pre></div>
+<p>Cambia los objetivos en <code>Update</code> (el IK se aplica justo después, en la fase de animación); si los cambias en
+<code>LateUpdate</code>, se ven un frame tarde.</p>
+<h2 id="root-motion">Root motion<a class="ancla" href="#root-motion" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con <strong>Root motion</strong> marcado en el Animador, el desplazamiento horizontal del <strong>hueso raíz</strong> (las caderas, o el de
+<strong>Hueso raíz</strong>) que traen las animaciones mueve la entidad al jugar, y el hueso se queda sobre el origen del
+modelo. Para animaciones exportadas sin <strong>In Place</strong>.</p>
+<ul>
+<li>Con un <strong>CharacterController</strong> en la entidad, el desplazamiento se le pasa como entrada (<code>Move</code>): las físicas lo
+mueven con colisiones, rampas y escalones. Va como mucho a su velocidad de correr.</li>
+<li>Sin él, se suma a la posición del Transform.</li>
+<li>En el editor (sin jugar) el personaje se anima en su sitio: no se mueve la entidad guardada.</li>
+<li>En red, se aplica donde se simula el personaje: sin red, en el servidor o en el cliente dueño.</li>
+<li>Solo el desplazamiento horizontal (los giros del clip no giran la entidad: gírala con <code>Face</code> o el Transform).</li>
+<li><code>animador:GetRootMotion()</code> devuelve el desplazamiento del último frame en el mundo.</li>
+</ul>
+<h2 id="eventos-de-animación">Eventos de animación<a class="ancla" href="#eventos-de-animación" aria-label="Enlace a esta sección">#</a></h2>
+<p>Hay tres sitios para los eventos:</p>
+<ul>
+<li>En los <strong>estados</strong> del controlador (<code>&quot;eventos&quot;</code> de un estado, con el tiempo de 0 a 1 del ciclo).</li>
+<li>En los <strong>clips</strong> del modelo (ajustes de importación del <code>.meta</code>, en segundos o en <code>fase</code>): salen en cualquier
+estado que use ese clip. Dentro de un árbol de mezcla, los del clip que más pesa.</li>
+<li>En los <strong>clips de huesos</strong> (<code>.anim</code>) hechos con la ventana <a href="animar-huesos.html#5-eventos">Animar huesos</a>, que también pone
+los del <code>.meta</code> de un clip importado.</li>
+</ul>
+<p>Cada evento llega a <code>OnAnimationEvent(nombre)</code> de los scripts de la entidad del Animador y, si tiene <code>funcion</code>,
+se llama además a esa función de sus scripts con <code>parametro</code> (si la función recibe un texto o, desde la 0.9.17, un
+número: un <code>&quot;parametro&quot;</code> numérico llega como número a las funciones sin tipo). Con <code>&quot;global&quot;: true</code> (0.9.17), además
+cualquier script lo recibe con <code>AddEventHandler(nombre, function(entidad, parametro) ... end)</code>. Salen <strong>una vez por
+vuelta</strong> del clip aunque el frame sea largo, y también los de la capa que pese algo y los del estado de destino
+durante un fundido. Los del instante 0 salen al empezar cada vuelta, también la primera (desde la 0.9.17; antes, en un
+estado, la primera vez no salían).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Pasos con sonido: el clip "Walk" tiene eventos con "funcion": "Paso" y "parametro": "izquierdo" o "derecho"</span>
+<span class="hl-k">local</span> <span class="hl-t">PasosConSonido</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">PasosConSonido</span>.sonido = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">PasosConSonido</span>:<span class="hl-f">Paso</span>(pie: <span class="hl-t">string</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.sonido <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.sonido, <span class="hl-b">self</span>.entity.position, <span class="hl-k">if</span> pie == <span class="hl-s">"izquierdo"</span> <span class="hl-k">then</span> <span class="hl-n">0.5</span> <span class="hl-k">else</span> <span class="hl-n">0.45</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PasosConSonido</span></code></pre></div>
+<h2 id="animación-en-red">Animación en red<a class="ancla" href="#animación-en-red" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Animador de red</strong> (<code>NetworkAnimator</code>, en una entidad con <strong>Identidad de red</strong>) replica desde el
+servidor a los clientes, con las convenciones de la red del motor (solo viaja lo que cambia):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Parámetros <code>float</code></td>
+  <td>Valor × 128 en 16 bits (de −255 a 255, pasos de 1/128). Se suavizan en los clientes (<strong>Suavizado</strong>)</td>
+</tr>
+<tr>
+  <td>Parámetros <code>int</code> y <code>bool</code></td>
+  <td>Igual, pero se aplican tal cual (sin suavizar)</td>
+</tr>
+<tr>
+  <td>Disparadores</td>
+  <td>Un contador por disparador: el cliente dispara cada vez que cambia (al entrar no repite los viejos)</td>
+</tr>
+<tr>
+  <td>Pesos de capa de <code>SetLayerWeight</code></td>
+  <td>Peso en 8 bits, suavizado</td>
+</tr>
+</tbody>
+</table></div>
+<p>El dueño del personaje no los recibe (los calcula él). La lista <strong>Parámetros</strong> elige cuáles (vacía = todos los
+float, int y bool; como mucho 40).</p>
+<p>Quién pone los parámetros:</p>
+<ul>
+<li>Sin marcar <strong>Lo anima el dueño</strong> (como antes de la 0.9.16), los reparte el <strong>servidor</strong> con lo que tenga su Animador:
+el script tiene que calcularlos también en el servidor (por ejemplo con la <code>velocity</code> del personaje, que el servidor
+simula).</li>
+<li>Con <strong>Lo anima el dueño</strong> (<code>ownerAuthority</code>, 0.9.16), el script los pone <strong>solo en la máquina del dueño</strong>
+(<code>self:IsLocalPlayer()</code>): un cliente dueño se los manda al servidor y este los reparte a los demás (también los
+disparadores). El jugador del anfitrión ya es el servidor, así que vale igual para todos. Es lo que usan los
+<a href="paquetes.html#8-animación-en-red-para-cualquier-juego">paquetes del motor</a>.</li>
+</ul>
+<p>El Animador puede estar en la misma entidad que la <strong>Identidad de red</strong> o en un hijo (el modelo dentro del personaje):
+el Animador de red replica el de la entidad o, si no tiene, el de la primera descendiente con Animador.</p>
+<p>El <strong>IK y los enganches no se replican</strong>: cada máquina los calcula a partir de lo replicado. Para que los demás vean
+hacia dónde apuntas, replica el <strong>ángulo</strong> (un campo con <code>--[Replicated]</code>) y deja que cada máquina mueva su mira con
+él, como en la receta de abajo.</p>
+<h2 id="el-editor-de-animación">El editor de animación<a class="ancla" href="#el-editor-de-animación" aria-label="Enlace a esta sección">#</a></h2>
+<p>La pestaña <strong>Animador</strong> del <a href="editor.html#espacio-animación">espacio Animación</a> (<strong>Ventana &gt; Animación &gt; Animador</strong>, doble clic en un <code>.controller</code> o un <code>.mask</code>, o <strong>Editar
+controlador</strong> en el Animador) edita el controlador sin tocar el JSON:</p>
+<ul>
+<li><strong>Parámetros</strong>: nombre, tipo y valor inicial. Con una entidad de vista previa, el valor es el de su Animador en
+vivo (no se guarda): mueve los parámetros para probar transiciones y mezclas.</li>
+<li><strong>Capas</strong>: añadir, quitar, ordenar (flechas), peso, modo, parámetro de peso, sincronización y referencia aditiva.
+La pestaña <strong>Máscara</strong> elige la máscara (ninguna, en el controlador o un asset) y muestra el esqueleto con
+casillas: clic cambia la rama entera, Mayús+clic solo ese hueso.</li>
+<li><strong>Estados</strong>: la lista marca el inicial y, en verde, el que se reproduce en la vista previa (con su fase).
+<strong>Probar</strong> salta a ese estado. Cada estado reproduce un clip (de la lista del modelo) o un <strong>árbol de mezcla</strong>:
+tipo, parámetros, la tabla de movimientos (clip o árbol anidado, umbral o posición, velocidad, tiempo fijo y su
+peso ahora mismo) y el gráfico del espacio de mezcla.</li>
+<li><strong>Transiciones</strong> del estado (y las de cualquier estado), con su fundido, tiempo de salida y condiciones, y los
+<strong>eventos</strong> del estado.</li>
+<li><strong>Vista previa</strong>: la entidad elegida en la escena (o la primera cuyo Animador usa el controlador). Al jugar, o
+con <strong>Previsualizar</strong> en su Animador, el resultado se ve en la escena mientras editas.</li>
+</ul>
+<p>Cada cambio se guarda en el fichero al soltar el ratón o el teclado y es un paso del historial: <strong>Ctrl+Z</strong> lo
+deshace y en la <a href="edicion-en-equipo.html">edición en equipo</a> llega a los demás. Los avisos (parámetros o estados que no
+existen) salen abajo a la izquierda.</p>
+<p>Para <strong>crear o corregir los clips</strong> (las poses de los huesos, sus claves y sus eventos) está la ventana
+<a href="animar-huesos.html">Animar huesos</a> (<strong>Ventana &gt; Animación &gt; Animar huesos</strong> o doble clic en un modelo con esqueleto).</p>
+<h2 id="receta-shooter-en-tercera-persona">Receta: shooter en tercera persona<a class="ancla" href="#receta-shooter-en-tercera-persona" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un personaje que anda con la base, apunta con el torso (capa con máscara), lleva el arma en la mano (enganche) y
+la sujeta con las dos manos mientras sube y baja la mira (IK). Es lo que comprueba la prueba <code>tirador</code> del motor
+(<code>nova_tests.exe tirador</code>).</p>
+<ol>
+<li><strong>El personaje</strong>: un modelo con esqueleto (por ejemplo de Mixamo) en la escena, con <strong>Animador</strong>,
+<strong>CharacterController</strong> y el controlador de abajo.</li>
+<li><strong>El controlador</strong>: la base con la locomoción (un árbol 2D, como en <a href="#árboles-de-mezcla-2d">Árboles de mezcla 2D</a>)
+y la capa <strong>Apuntar</strong> del torso, de <strong>sustituir</strong>, con la máscara de la columna (<code>Spine</code> y su rama) y un estado con
+la pose de apuntar (o un árbol 1D entre apuntar abajo, recto y arriba según <code>angulo</code>). Su parámetro de peso,
+<code>apuntando</code>, la enciende al apuntar.</li>
+<li><strong>El arma</strong>: hija del personaje con <strong>Enganche a hueso</strong> en la mano derecha. Ajusta su Transform con el gizmo
+para que encaje en la mano. Dentro, una entidad vacía <strong>Agarre</strong> donde va la mano izquierda.</li>
+<li><strong>La mira</strong>: una entidad vacía <strong>Hombros</strong>, hija del personaje a la altura de los hombros, con dos hijas:
+<strong>PuntoDeMira</strong> (unos 30 cm delante, donde va la mano del arma) y <strong>MiraLejos</strong> (unos metros delante). Al girar
+<strong>Hombros</strong> hacia arriba o abajo, las dos se mueven con ella.</li>
+<li><strong>El IK</strong> (en el personaje): <strong>Apuntar con la columna</strong> (columna, cuello y cabeza; objetivo <strong>MiraLejos</strong>; ángulo
+máximo unos 15 grados y peso 0,5) y dos extremidades en este orden: la <strong>mano derecha</strong> con objetivo
+<strong>PuntoDeMira</strong> y <strong>Copiar rotación</strong>, y la <strong>mano izquierda</strong> con objetivo <strong>Agarre</strong>.</li>
+<li><strong>El script</strong>: sube y baja la mira con el ratón y, en red, reparte el ángulo.</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Tirador en tercera persona: el ratón sube y baja la mira (el pivote "Hombros"); la capa «Apuntar» y el IK hacen el</span>
+<span class="hl-c">-- resto. En red, el ángulo lo calcula quien juega con este personaje, se lo manda al servidor y este lo reparte.</span>
+<span class="hl-k">local</span> <span class="hl-t">Tirador</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Pivote a la altura de los hombros: de él cuelgan PuntoDeMira y MiraLejos")]</span>
+<span class="hl-t">Tirador</span>.hombros = <span class="hl-f">Entity</span>()
+<span class="hl-t">Tirador</span>.sensibilidad = <span class="hl-n">0.15</span>
+<span class="hl-t">Tirador</span>.minimo = -<span class="hl-n">60</span>
+<span class="hl-t">Tirador</span>.maximo = <span class="hl-n">70</span>
+<span class="hl-a">--[Replicated(condition = "SkipOwner")]</span>
+<span class="hl-t">Tirador</span>.angulo = <span class="hl-n">0</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Tirador</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._animador = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Del dueño al servidor (se repite cada frame: sin fiabilidad)</span>
+<span class="hl-a">--[Server(rate = 30, reliable = false)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Tirador</span>:<span class="hl-f">EnviarAngulo</span>(angulo: number)
+    <span class="hl-b">self</span>.angulo = <span class="hl-t">math</span>.<span class="hl-f">clamp</span>(angulo, <span class="hl-b">self</span>.minimo, <span class="hl-b">self</span>.maximo)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Tirador</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> mio = <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">or</span> <span class="hl-t">Network</span>.<span class="hl-f">Mode</span>() == <span class="hl-s">"None"</span>
+    <span class="hl-k">if</span> mio <span class="hl-k">then</span>
+        <span class="hl-k">local</span> apuntando = <span class="hl-t">Input</span>.<span class="hl-f">IsMouseDown</span>(<span class="hl-s">"RatonDer"</span>)
+        <span class="hl-k">if</span> apuntando <span class="hl-k">then</span>
+            <span class="hl-b">self</span>.angulo = <span class="hl-t">math</span>.<span class="hl-f">clamp</span>(<span class="hl-b">self</span>.angulo - <span class="hl-t">Input</span>.<span class="hl-f">MouseDelta</span>().y * <span class="hl-b">self</span>.sensibilidad, <span class="hl-b">self</span>.minimo, <span class="hl-b">self</span>.maximo)
+            <span class="hl-b">self</span>:<span class="hl-f">EnviarAngulo</span>(<span class="hl-b">self</span>.angulo)
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-b">self</span>._animador <span class="hl-k">then</span>
+            <span class="hl-b">self</span>._animador:<span class="hl-f">SetFloat</span>(<span class="hl-s">"apuntando"</span>, <span class="hl-k">if</span> apuntando <span class="hl-k">then</span> <span class="hl-n">1</span> <span class="hl-k">else</span> <span class="hl-n">0</span>) <span class="hl-c">-- el Animador de red lo reparte</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- En todas las máquinas: la mira sigue al ángulo (y el IK, a la mira)</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.hombros <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.hombros.transform.rotation = <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(-<span class="hl-b">self</span>.angulo, <span class="hl-n">0</span>, <span class="hl-n">0</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._animador <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._animador:<span class="hl-f">SetFloat</span>(<span class="hl-s">"angulo"</span>, <span class="hl-b">self</span>.angulo)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Tirador</span></code></pre></div>
+<ol start="7">
+<li><strong>En red</strong>: el personaje (prefab de jugador) con <strong>Identidad de red</strong>, <strong>Transform de red</strong> y <strong>Animador de
+red</strong>. El ángulo viaja como campo replicado y <code>apuntando</code> y <code>angulo</code> como parámetros del Animador; el IK, el
+arma enganchada y la mira se calculan en cada máquina.</li>
+</ol>
+<h2 id="limitaciones">Limitaciones<a class="ancla" href="#limitaciones" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Root motion</strong> solo del desplazamiento horizontal: los giros del clip no giran la entidad.</li>
+<li><strong>IK sencillo</strong>: cadenas de apuntar y extremidades de dos huesos; no hay IK de cuerpo entero ni los pies se
+apoyan solos en el terreno (pon tú los objetivos con un raycast hacia abajo).</li>
+<li><strong>Retargeting solo entre humanoides</strong>: los clips se reorientan entre personajes con dos brazos, dos piernas,
+columna y cabeza. Entre otros esqueletos (animales, máquinas) solo valen por nombre de hueso con el mismo
+esqueleto. No se corrige el giro de los huesos alrededor de sí mismos (si en un modelo las palmas miran hacia
+abajo en reposo y en el otro hacia delante, las muñecas pueden salir giradas), ni se reorientan los huesos de la
+cara, colas, pelo o ropa (se quedan como estén). Los desplazamientos se escalan con la altura de las caderas: un
+personaje con las piernas muy cortas y el cuerpo muy largo da pasos cortos.</li>
+<li>Sin morph targets ni animación de nodos rígidos como entidades (ver arriba).</li>
+<li>Las máscaras son por hueso (dentro o fuera), sin pesos intermedios.</li>
+</ul>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="escenas-y-componentes.html">Escenas y componentes</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="render-y-materiales.html">Render y materiales</a></li>
+<li><a href="editor.html">Editor</a></li>
+<li><a href="prefabs.html">Prefabs</a></li>
+<li><a href="multijugador.html">Multijugador</a> (Animador de red)</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="rendimiento.html"><small>Anterior</small>Rendimiento</a><a class="sig" href="animar-huesos.html"><small>Siguiente</small>Animar huesos: posar personajes, crear animaciones y poner eventos</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#formatos">Formatos</a></li><li class="n3"><a href="#qué-se-importa">Qué se importa</a></li><li class="n2"><a href="#exportar-desde-blender">Exportar desde Blender</a></li><li class="n3"><a href="#antes-de-exportar">Antes de exportar</a></li><li class="n3"><a href="#opciones-recomendadas-fbx">Opciones recomendadas: FBX</a></li><li class="n3"><a href="#opciones-recomendadas-glb">Opciones recomendadas: GLB</a></li><li class="n3"><a href="#si-aun-así-sale-girado">Si aun así sale girado</a></li><li class="n3"><a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a></li><li class="n2"><a href="#personajes-de-mixamo">Personajes de Mixamo</a></li><li class="n2"><a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a></li><li class="n3"><a href="#paso-a-paso-con-mixamo">Paso a paso con Mixamo</a></li><li class="n3"><a href="#automático-por-nombre-o-reorientado-y-hornear">Automático, por nombre o reorientado, y «Hornear»</a></li><li class="n3"><a href="#la-sección-humanoide">La sección Humanoide</a></li><li class="n3"><a href="#huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano en los scripts</a></li><li class="n3"><a href="#en-el-meta">En el .meta</a></li><li class="n3"><a href="#si-algo-sale-raro">Si algo sale raro</a></li><li class="n2"><a href="#importar-en-nova">Importar en Nova</a></li><li class="n3"><a href="#opciones-de-importación-fbx-obj-y-gltf">Opciones de importación (FBX, OBJ y glTF)</a></li><li class="n3"><a href="#qué-fbx-funcionan">Qué FBX funcionan</a></li><li class="n3"><a href="#ajustes-de-importación-eventos-de-los-clips-y-sockets">Ajustes de importación: eventos de los clips y sockets</a></li><li class="n2"><a href="#colocar-un-modelo-en-la-escena">Colocar un modelo en la escena</a></li><li class="n3"><a href="#escala">Escala</a></li><li class="n2"><a href="#el-componente-animator">El componente Animator</a></li><li class="n3"><a href="#sin-controlador-un-clip">Sin controlador: un clip</a></li><li class="n3"><a href="#con-controlador-máquina-de-estados">Con controlador: máquina de estados</a></li><li class="n2"><a href="#controlar-el-animator-desde-un-script">Controlar el Animator desde un script</a></li><li class="n2"><a href="#capas-y-máscaras">Capas y máscaras</a></li><li class="n2"><a href="#árboles-de-mezcla-2d">Árboles de mezcla 2D</a></li><li class="n2"><a href="#enganchar-objetos-a-huesos">Enganchar objetos a huesos</a></li><li class="n2"><a href="#sockets">Sockets</a></li><li class="n3"><a href="#la-pestaña-sockets">La pestaña Sockets</a></li><li class="n3"><a href="#paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma">Paso a paso: equipar un arma en la mano con un socket «Arma»</a></li><li class="n2"><a href="#cinemática-inversa-ik">Cinemática inversa (IK)</a></li><li class="n2"><a href="#root-motion">Root motion</a></li><li class="n2"><a href="#eventos-de-animación">Eventos de animación</a></li><li class="n2"><a href="#animación-en-red">Animación en red</a></li><li class="n2"><a href="#el-editor-de-animación">El editor de animación</a></li><li class="n2"><a href="#receta-shooter-en-tercera-persona">Receta: shooter en tercera persona</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

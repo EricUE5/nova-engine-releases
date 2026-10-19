@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA: árboles de comportamiento, pizarra y sentidos · Nova Engine</title>
+<meta name="description" content="Con los árboles de comportamiento los enemigos, los animales y los bots piensan solos: patrullan, oyen un ruido y
+van a mirar, ven al jugador y lo persiguen, atacan cuando está a tiro, lo pierden de vista, van a donde lo">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="IA: árboles de comportamiento, pizarra y sentidos · Nova Engine">
+<meta property="og:description" content="Con los árboles de comportamiento los enemigos, los animales y los bots piensan solos: patrullan, oyen un ruido y
+van a mirar, ven al jugador y lo persiguen, atacan cuando está a tiro, lo pierden de vista, van a donde lo">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/ia-arboles.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/ia-arboles.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html" aria-current="page">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="ia-árboles-de-comportamiento-pizarra-y-sentidos">IA: árboles de comportamiento, pizarra y sentidos</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-tu-primer-zombi-en-cinco-minutos">1. Tu primer zombi en cinco minutos</a></li><li class="n2"><a href="#2-cómo-piensa-un-árbol">2. Cómo piensa un árbol</a></li><li class="n2"><a href="#3-la-ventana-árbol-de-comportamiento">3. La ventana «Árbol de comportamiento»</a></li><li class="n2"><a href="#4-los-nodos">4. Los nodos</a></li><li class="n3"><a href="#41-compuestos">4.1 Compuestos</a></li><li class="n3"><a href="#42-decoradores">4.2 Decoradores</a></li><li class="n3"><a href="#43-abortar-cuando-cambia-la-pizarra">4.3 Abortar cuando cambia la pizarra</a></li><li class="n3"><a href="#44-tareas">4.4 Tareas</a></li><li class="n3"><a href="#45-servicios">4.5 Servicios</a></li><li class="n3"><a href="#46-subárboles">4.6 Subárboles</a></li><li class="n2"><a href="#5-la-pizarra">5. La pizarra</a></li><li class="n2"><a href="#6-los-sentidos-vista-oído-y-memoria">6. Los Sentidos: vista, oído y memoria</a></li><li class="n2"><a href="#7-tareas-propias-en-lua">7. Tareas propias en Lua</a></li><li class="n2"><a href="#8-depurar-ver-pensar-a-un-agente">8. Depurar: ver pensar a un agente</a></li><li class="n2"><a href="#9-el-ejemplo-zombi-paso-a-paso">9. El ejemplo «Zombi» paso a paso</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#12-el-fichero-bt">12. El fichero .bt</a></li><li class="n2"><a href="#13-referencia-de-la-api-de-lua">13. Referencia de la API de Lua</a></li><li class="n2"><a href="#14-límites-y-lo-que-falta">14. Límites y lo que falta</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Con los <strong>árboles de comportamiento</strong> los enemigos, los animales y los bots <strong>piensan solos</strong>: patrullan, oyen un ruido y
+van a mirar, ven al jugador y lo persiguen, atacan cuando está a tiro, lo pierden de vista, van a donde lo vieron por
+última vez, buscan un rato y vuelven a la ronda. En vez de un <code>Update</code> enorme lleno de <code>if</code>, el comportamiento se
+dibuja en el editor como un árbol de cajas, se prueba pulsando <strong>Jugar</strong> (el árbol enseña qué está haciendo cada agente)
+y se cambia sin tocar el código.</p>
+<p>Son tres piezas que se ponen en la entidad:</p>
+<ul>
+<li><strong>Agente IA</strong> (<code>AiAgent</code>): el árbol (<code>.bt</code>) que piensa por ella, su <strong>pizarra</strong> (la memoria del agente: a quién ve,
+dónde lo vio, qué ha oído...) y cuántas veces por segundo piensa.</li>
+<li><strong>Sentidos</strong> (<code>AiSenses</code>): <strong>vista</strong> (cono, distancia y un rayo para que las paredes tapen), <strong>oído</strong> (los ruidos de
+<code>AI.MakeNoise</code>) y <strong>memoria</strong> (cuánto tarda en olvidar). Escriben en la pizarra.</li>
+<li><strong>Agente de navegación</strong> (<code>NavAgent</code>, <a href="navegacion.html">navegacion.md</a>): las tareas «Mover a» y «Patrullar» lo usan para
+ir a los sitios rodeando lo que haya.</li>
+</ul>
+<p>Y lo que el motor no trae lo escribes tú en Lua: una <strong>tarea propia</strong> son tres funciones (<code>OnStart</code>, <code>OnUpdate</code> y
+<code>OnAbort</code>) con campos que se cambian en el nodo del árbol.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-tu-primer-zombi-en-cinco-minutos">Tu primer zombi en cinco minutos</a></li>
+<li><a href="#2-cómo-piensa-un-árbol">Cómo piensa un árbol</a></li>
+<li><a href="#3-la-ventana-árbol-de-comportamiento">La ventana «Árbol de comportamiento»</a></li>
+<li><a href="#4-los-nodos">Los nodos</a></li>
+<li><a href="#5-la-pizarra">La pizarra</a></li>
+<li><a href="#6-los-sentidos-vista-oído-y-memoria">Los Sentidos: vista, oído y memoria</a></li>
+<li><a href="#7-tareas-propias-en-lua">Tareas propias en Lua</a></li>
+<li><a href="#8-depurar-ver-pensar-a-un-agente">Depurar: ver pensar a un agente</a></li>
+<li><a href="#9-el-ejemplo-zombi-paso-a-paso">El ejemplo «Zombi» paso a paso</a></li>
+<li><a href="#10-multijugador">Multijugador</a></li>
+<li><a href="#11-rendimiento">Rendimiento</a></li>
+<li><a href="#12-el-fichero-bt">El fichero .bt</a></li>
+<li><a href="#13-referencia-de-la-api-de-lua">Referencia de la API de Lua</a></li>
+<li><a href="#14-límites-y-lo-que-falta">Límites y lo que falta</a></li>
+</ol>
+<h2 id="1-tu-primer-zombi-en-cinco-minutos">1. Tu primer zombi en cinco minutos<a class="ancla" href="#1-tu-primer-zombi-en-cinco-minutos" aria-label="Enlace a esta sección">#</a></h2>
+<p>La forma más rápida: en Nova Hub, <strong>Nuevo proyecto</strong> con la plantilla <strong>IA (Lua)</strong>. Trae un patio con muros, puntos de
+ronda, seis zombis ya montados y el jugador del paquete «Tercera persona». Pulsa <strong>Jugar</strong> y deja que te vean.</p>
+<p>Para hacerlo desde cero en tu proyecto:</p>
+<ol>
+<li><strong>La malla de navegación.</strong> <strong>Ventana &gt; Navegación</strong>, <strong>Crear superficie de navegación</strong> y <strong>Hornear</strong> (ver
+<a href="navegacion.html#1-tu-primer-bot-en-cinco-minutos">navegacion.md</a>).</li>
+<li><strong>El zombi.</strong> <strong>Entidad &gt; IA &gt; Agente IA</strong>: una cápsula con <strong>Controlador de personaje</strong>, <strong>Agente de navegación</strong>,
+<strong>Agente IA</strong> y <strong>Sentidos</strong>.</li>
+<li><strong>El árbol.</strong> En <strong>Contenido</strong>, <strong>Crear &gt; Árbol de comportamiento</strong>: un <code>Arbol.bt</code> con un Selector y una espera, y se
+abre la ventana del árbol. Ponlo en el campo <strong>Árbol</strong> del <strong>Agente IA</strong> del zombi (arrástralo desde Contenido).</li>
+<li><strong>La ronda.</strong> Crea unas entidades vacías por el mapa y dales la etiqueta <code>Ronda</code>. Al jugador, la etiqueta
+<code>Jugador</code> (es lo que buscan los Sentidos).</li>
+<li><strong>Patrullar.</strong> En la ventana del árbol, elige la espera y bórrala (<strong>Supr</strong>). Arrastra <strong>Patrullar</strong> desde la paleta
+(a la izquierda) hasta encima del <strong>Selector</strong>: queda colgando de él. En el Inspector, su <strong>Etiqueta</strong> es <code>Ronda</code>.</li>
+<li><strong>Perseguir.</strong> Arrastra una <strong>Condición de pizarra</strong> encima del Selector y colócala a la izquierda de Patrullar (el
+orden de los hijos es el de izquierda a derecha: el número de su esquina). En el Inspector: <strong>Clave</strong> <code>veObjetivo</code>,
+<strong>Condición</strong> <code>==</code>, <strong>Valor</strong> marcado y <strong>Abortar</strong> <code>ambos</code>. Arrastra un <strong>Mover a</strong> encima de la condición: <strong>Clave</strong>
+<code>objetivo</code>, <strong>Velocidad</strong> 4, <strong>Distancia de llegada</strong> 1,5.</li>
+<li>En la pestaña <strong>Pizarra</strong> de la ventana, pulsa <strong>Añadir las que faltan</strong>: declara <code>veObjetivo</code> (sí/no) y <code>objetivo</code>
+(entidad).</li>
+<li><strong>Jugar.</strong> El zombi hace la ronda; cuando te ve, te persigue; cuando te escondes, vuelve a patrullar. Con la ventana
+del árbol abierta verás en naranja lo que está haciendo.</li>
+</ol>
+<p>Para que muerda, oiga y te busque, sigue con el <a href="#9-el-ejemplo-zombi-paso-a-paso">ejemplo «Zombi» completo</a>.</p>
+<h2 id="2-cómo-piensa-un-árbol">2. Cómo piensa un árbol<a class="ancla" href="#2-cómo-piensa-un-árbol" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un árbol se lee <strong>de arriba a abajo y de izquierda a derecha</strong>. Cada nodo, cuando le toca, devuelve una de tres cosas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Resultado</th>
+  <th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Éxito</strong> (<code>Success</code>)</td>
+  <td>Lo ha conseguido (ha llegado, ha esperado, la condición se cumple)</td>
+</tr>
+<tr>
+  <td><strong>Fallo</strong> (<code>Failure</code>)</td>
+  <td>No lo ha conseguido (no hay camino, la condición no se cumple)</td>
+</tr>
+<tr>
+  <td><strong>Corriendo</strong> (<code>Running</code>)</td>
+  <td>Aún está en ello (andando, esperando): el árbol vuelve a él en el siguiente tick</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Los <strong>compuestos</strong> (Secuencia, Selector, Paralelo) deciden qué hijos se ejecutan según lo que devuelven.</li>
+<li>Los <strong>decoradores</strong> tienen un hijo y cambian su resultado o deciden si se ejecuta (una condición, un enfriamiento...).</li>
+<li>Las <strong>tareas</strong> son las hojas: hacen algo (moverse, esperar, llamar a una función de Lua).</li>
+<li>Los <strong>servicios</strong> van pegados a un nodo y se ejecutan cada poco mientras esa rama está activa (por ejemplo, medir la
+distancia al jugador cada 0,2 s).</li>
+</ul>
+<p><strong>El tick.</strong> Cada agente piensa unas cuantas veces por segundo (<strong>Veces por segundo</strong> del Agente IA, 10 por defecto). En
+cada tick: los Sentidos miran y escriben en la pizarra, y el árbol se recorre desde la raíz. Los compuestos <strong>recuerdan
+por dónde iban</strong>: una Secuencia que estaba en su tercer hijo sigue por él. Cuando la raíz termina (éxito o fallo), el
+siguiente tick vuelve a empezar desde arriba. Los agentes están <strong>escalonados</strong>: cada uno tiene su fase, así que 200
+zombis a 10 Hz no piensan todos en el mismo frame (unos 33 por frame a 60 FPS).</p>
+<p><strong>La prioridad.</strong> En un <strong>Selector</strong>, el hijo de la izquierda es el más importante: «si veo al jugador, perseguirlo; si
+no, si he oído algo, ir a mirar; si no, patrullar». Para que una rama importante <strong>corte</strong> a una menos importante que ya
+está corriendo (el zombi patrulla y de repente te ve), sus condiciones tienen <strong>Abortar</strong> (ver
+<a href="#43-abortar-cuando-cambia-la-pizarra">4.3</a>).</p>
+<h2 id="3-la-ventana-árbol-de-comportamiento">3. La ventana «Árbol de comportamiento»<a class="ancla" href="#3-la-ventana-árbol-de-comportamiento" aria-label="Enlace a esta sección">#</a></h2>
+<p>Se abre con <strong>doble clic en un <code>.bt</code></strong> del Contenido, con <strong>Contenido &gt; Crear &gt; Árbol de comportamiento</strong> o en <strong>Ventana &gt;
+Árbol de comportamiento</strong>. Va acoplada junto a Escena y Juego (arrástrala donde quieras).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Parte</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Barra</td>
+  <td>Deshacer y rehacer (con su historial), el fichero, <strong>Ordenar</strong> (coloca el árbol de arriba a abajo), <strong>Encuadrar</strong> (<strong>F</strong>), el zoom, ver u ocultar la paleta y el panel de la derecha, <strong>JSON</strong> (abre el <code>.bt</code> en el editor de código) y los avisos</td>
+</tr>
+<tr>
+  <td><strong>Paleta</strong> (izquierda)</td>
+  <td>Todos los nodos por grupos, con <strong>buscador</strong>. <strong>Arrástralos</strong> al grafo (encima de un nodo: queda colgando de él) o <strong>doble clic</strong> (hijo del nodo elegido). Los <strong>servicios</strong> se sueltan encima de un nodo</td>
+</tr>
+<tr>
+  <td><strong>Grafo</strong> (centro)</td>
+  <td>Las cajas con su nombre, su tipo y lo importante de sus ajustes («objetivo puesto · abortar: ambos»), sus servicios en azul y su comentario encima. Cada hijo lleva su <strong>número de orden</strong></td>
+</tr>
+<tr>
+  <td>Panel de la derecha</td>
+  <td><strong>Nodo</strong> (sus propiedades, también en el Inspector), <strong>Pizarra</strong> (las claves), <strong>Depurar</strong> (al jugar) y <strong>Avisos</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>En el grafo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ratón y teclado</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Rueda</td>
+  <td>Zoom (alrededor del ratón)</td>
+</tr>
+<tr>
+  <td>Botón central o derecho arrastrando</td>
+  <td>Mover la vista</td>
+</tr>
+<tr>
+  <td>Clic en un nodo</td>
+  <td>Elegirlo (sus propiedades salen en el <strong>Inspector</strong>). <strong>Ctrl+clic</strong> añade o quita de la selección</td>
+</tr>
+<tr>
+  <td>Arrastrar un nodo</td>
+  <td>Moverlo (con los demás elegidos; se ajusta a 10; con <strong>Alt</strong>, sin ajustar). <strong>El orden de los hijos es el de la x</strong>: mover un hijo a la izquierda de sus hermanos lo hace ir antes</td>
+</tr>
+<tr>
+  <td>Arrastrar desde el <strong>punto de abajo</strong> de un nodo</td>
+  <td>Hasta otro nodo: lo cuelga de él. Hasta el vacío: menú para crear ahí un hijo</td>
+</tr>
+<tr>
+  <td>Arrastrar en el vacío</td>
+  <td>Elegir con un recuadro</td>
+</tr>
+<tr>
+  <td>Doble clic en el vacío o clic derecho</td>
+  <td>Menú: añadir un nodo (con buscador), añadir servicio, hacer raíz, soltar de su padre, copiar, duplicar, borrar, pegar y <strong>Comentario aquí</strong></td>
+</tr>
+<tr>
+  <td><strong>Supr</strong></td>
+  <td>Borrar lo elegido (sus hijos se quedan sueltos)</td>
+</tr>
+<tr>
+  <td><strong>Ctrl+C</strong> / <strong>Ctrl+V</strong> / <strong>Ctrl+D</strong></td>
+  <td>Copiar, pegar (colgando del nodo elegido si admite hijos) y duplicar</td>
+</tr>
+<tr>
+  <td><strong>F</strong></td>
+  <td>Ver el árbol entero</td>
+</tr>
+<tr>
+  <td><strong>Ctrl+Z</strong> / <strong>Ctrl+Y</strong></td>
+  <td>Deshacer y rehacer, como en todo el editor</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>La <strong>raíz</strong> lleva una estrella. Un nodo suelto (sin padre) no se ejecuta: sale en <strong>Avisos</strong>.</li>
+<li>Las <strong>propiedades</strong> del nodo elegido salen en el <strong>Inspector</strong> (y en la pestaña <strong>Nodo</strong>): nombre, comentario, sus
+ajustes (los que no tienen sentido con los demás salen atenuados), sus hijos con flechas para cambiar el orden y sus
+servicios. Las claves de la pizarra se eligen de una lista (o se escriben); las que no están en la pizarra salen con un
+borde amarillo.</li>
+<li><strong>Cada cambio es un paso del historial</strong>: Ctrl+Z lo deshace, y en la <a href="edicion-en-equipo.html">edición en equipo</a> llega a
+los demás. El fichero se guarda solo al soltar el ratón o el teclado.</li>
+<li>Se puede editar <strong>jugando</strong>: los agentes que usan el árbol lo recargan al momento (empiezan desde la raíz con la
+pizarra que tenían).</li>
+<li>El <code>.bt</code> es JSON: también se edita a mano (<a href="#12-el-fichero-bt">12</a>). El editor lo vuelve a leer si cambia.</li>
+</ul>
+<h2 id="4-los-nodos">4. Los nodos<a class="ancla" href="#4-los-nodos" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="41-compuestos">4.1 Compuestos<a class="ancla" href="#41-compuestos" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Nodo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Secuencia</strong></td>
+  <td>Ejecuta los hijos en orden. Falla en cuanto uno falla; tiene éxito si todos lo tienen. «Ir a la puerta, abrirla, entrar»</td>
+</tr>
+<tr>
+  <td><strong>Selector</strong></td>
+  <td>Prueba los hijos en orden hasta que uno tiene éxito; falla si fallan todos. El de la izquierda es el más importante</td>
+</tr>
+<tr>
+  <td><strong>Paralelo</strong></td>
+  <td>Ejecuta todos los hijos a la vez. <strong>Éxito cuando</strong>: uno o todos tienen éxito; <strong>Fallo cuando</strong>: uno o todos fallan. Al terminar, aborta los que sigan corriendo. «Andar hacia la meta mientras se dispara»</td>
+</tr>
+<tr>
+  <td><strong>Selector aleatorio</strong></td>
+  <td>Como el Selector, pero prueba los hijos en un orden al azar según sus <strong>Pesos</strong> (más peso, más probable que vaya primero; 0 = el último). «Unas veces gruñe, otras se rasca»</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="42-decoradores">4.2 Decoradores<a class="ancla" href="#42-decoradores" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Nodo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Invertir</strong></td>
+  <td>Cambia el éxito por fallo y al revés</td>
+</tr>
+<tr>
+  <td><strong>Repetir</strong></td>
+  <td>Vuelve a ejecutar el hijo cada vez que termina (una vez por tick): <strong>Veces</strong> (0 = siempre). Con <strong>Parar si falla</strong>, un fallo del hijo lo termina</td>
+</tr>
+<tr>
+  <td><strong>Reintentar</strong></td>
+  <td>Si el hijo falla, lo vuelve a intentar hasta <strong>Intentos</strong> veces</td>
+</tr>
+<tr>
+  <td><strong>Tiempo límite</strong></td>
+  <td>Si el hijo tarda más de <strong>Segundos</strong>, lo corta y falla</td>
+</tr>
+<tr>
+  <td><strong>Enfriamiento</strong></td>
+  <td>Después de que el hijo termine, falla sin ejecutarlo durante <strong>Segundos</strong>. «Un mordisco cada 1,2 s»</td>
+</tr>
+<tr>
+  <td><strong>Siempre éxito</strong> / <strong>Siempre fallo</strong></td>
+  <td>Ejecutan el hijo y devuelven siempre lo mismo</td>
+</tr>
+<tr>
+  <td><strong>Condición de pizarra</strong></td>
+  <td>Deja pasar al hijo solo si se cumple: <strong>puesto</strong> (la clave tiene valor: «X ≠ nada»), <strong>no puesto</strong>, <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> con un <strong>Valor</strong></td>
+</tr>
+<tr>
+  <td><strong>Condición Lua</strong></td>
+  <td>Como la anterior, con la función <code>Check()</code> de un script Lua (<a href="#7-tareas-propias-en-lua">7</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="43-abortar-cuando-cambia-la-pizarra">4.3 Abortar cuando cambia la pizarra<a class="ancla" href="#43-abortar-cuando-cambia-la-pizarra" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las condiciones tienen <strong>Abortar</strong> (como en Unreal):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Abortar</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>nada</strong></td>
+  <td>La condición solo se mira al entrar en ella</td>
+</tr>
+<tr>
+  <td><strong>propio</strong></td>
+  <td>Mientras su rama corre, se vuelve a mirar en cada tick: si deja de cumplirse, <strong>corta su rama</strong> (y la condición falla)</td>
+</tr>
+<tr>
+  <td><strong>inferiores</strong></td>
+  <td>Mientras corre una rama de <strong>menos prioridad</strong> (a su derecha, en el mismo Selector), se vuelve a mirar: si <strong>pasa a cumplirse</strong>, corta la rama que corría y se ejecuta la suya</td>
+</tr>
+<tr>
+  <td><strong>ambos</strong></td>
+  <td>Las dos cosas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con eso el zombi deja de patrullar en cuanto te ve (<strong>inferiores</strong>) y deja de perseguirte en cuanto te pierde de vista
+(<strong>propio</strong>). «Pasa a cumplirse» quiere decir que cambia de no a sí: si la rama de más prioridad ya se probó y falló por
+dentro (por ejemplo, no había camino), no se vuelve a probar en cada tick hasta que la condición deje de cumplirse y
+vuelva a cumplirse. <strong>Inferiores</strong> solo tiene sentido dentro de un Selector (en una Secuencia, los de la izquierda ya
+han tenido éxito).</p>
+<p>Las tareas que se cortan reciben su aviso: <strong>Mover a</strong> para al agente y una <strong>Tarea Lua</strong> recibe <code>OnAbort()</code>.</p>
+<h3 id="44-tareas">4.4 Tareas<a class="ancla" href="#44-tareas" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tarea</th>
+  <th>Qué hace</th>
+  <th>Éxito / Fallo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Esperar</strong></td>
+  <td><strong>Segundos</strong> (con <strong>Al azar</strong> ± segundos)</td>
+  <td>Al acabar</td>
+</tr>
+<tr>
+  <td><strong>Mover a</strong></td>
+  <td>Va a un <strong>Destino</strong>: una <strong>Clave</strong> de la pizarra (un punto o una entidad), una <strong>Posición</strong> fija o una <strong>Entidad</strong> por su nombre, por la malla de navegación (necesita un <strong>Agente de navegación</strong>). <strong>Velocidad</strong> (0 = la del agente), <strong>Distancia de llegada</strong>, <strong>Seguir si se mueve</strong> (con una entidad: el camino se rehace mientras se mueve) y <strong>Tiempo máximo</strong></td>
+  <td>Éxito al llegar; fallo si no hay camino, el destino deja de existir o se acaba el tiempo</td>
+</tr>
+<tr>
+  <td><strong>Mirar hacia</strong></td>
+  <td>Gira el agente (en horizontal) hacia el destino con su <strong>Velocidad de giro</strong></td>
+  <td>Éxito al mirar (con la <strong>Tolerancia</strong>)</td>
+</tr>
+<tr>
+  <td><strong>Patrullar</strong></td>
+  <td>Va al siguiente punto de la ronda: las entidades con una <strong>Etiqueta</strong> (por orden de nombre) o los hijos de una entidad <strong>Ruta</strong>. <strong>Orden</strong>: en orden, ida y vuelta o al azar; <strong>Espera en cada punto</strong>. Empieza por el más cercano</td>
+  <td>Éxito al llegar a cada punto (como última rama de un Selector, hace la ronda entera)</td>
+</tr>
+<tr>
+  <td><strong>Huir</strong></td>
+  <td>Se aleja <strong>Distancia</strong> metros de una entidad o punto de la pizarra, por la malla</td>
+  <td>Éxito al llegar</td>
+</tr>
+<tr>
+  <td><strong>Buscar punto aleatorio</strong></td>
+  <td>Un punto alcanzable de la malla a menos de <strong>Radio</strong> del agente (o de una clave), en la clave <strong>Guardar en</strong></td>
+  <td>Fallo si no hay malla</td>
+</tr>
+<tr>
+  <td><strong>Poner parámetro del Animador</strong></td>
+  <td>Un parámetro del <strong>Animador</strong> del agente o de su modelo hijo (número, sí/no o entero; o el valor de una clave)</td>
+  <td>Fallo si no tiene Animador</td>
+</tr>
+<tr>
+  <td><strong>Lanzar disparador de animación</strong></td>
+  <td>Un disparador (<code>trigger</code>) del Animador</td>
+  <td>Ídem</td>
+</tr>
+<tr>
+  <td><strong>Reproducir sonido</strong></td>
+  <td>Un sonido en la posición del agente (volumen y tono)</td>
+  <td>Éxito</td>
+</tr>
+<tr>
+  <td><strong>Poner valor en la pizarra</strong></td>
+  <td><strong>Valor</strong>, <strong>Copiar</strong> de otra clave, <strong>Sumar</strong> una cantidad o <strong>Borrar</strong></td>
+  <td>Éxito</td>
+</tr>
+<tr>
+  <td><strong>Llamar función Lua</strong></td>
+  <td>Llama a una función de un script Lua del agente: <code>self:Atacar(argumento)</code>. El <strong>Argumento</strong> puede llevar <code>{clave}</code></td>
+  <td>Si la función devuelve <code>false</code>, fallo; <code>&quot;Running&quot;</code>, se vuelve a llamar en el siguiente tick; otra cosa, éxito</td>
+</tr>
+<tr>
+  <td><strong>Log</strong></td>
+  <td>Un mensaje en la Consola (<code>{nombre}</code> y <code>{clave}</code> se cambian por su valor)</td>
+  <td>Éxito</td>
+</tr>
+<tr>
+  <td><strong>Tarea Lua</strong></td>
+  <td>Una tarea escrita en Lua con sus campos (<a href="#7-tareas-propias-en-lua">7</a>)</td>
+  <td>Lo que devuelva</td>
+</tr>
+<tr>
+  <td><strong>Subárbol</strong></td>
+  <td>Ejecuta otro <code>.bt</code> como si estuviera aquí dentro, con la misma pizarra (sus claves se juntan con las del árbol)</td>
+  <td>Lo que devuelva el subárbol</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="45-servicios">4.5 Servicios<a class="ancla" href="#45-servicios" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un servicio va en la lista <strong>Servicios</strong> de un nodo (en sus propiedades, o soltándolo desde la paleta encima del nodo) y
+se ejecuta <strong>cada su intervalo</strong> (con <strong>Al azar</strong> para que no lo hagan todos a la vez) mientras ese nodo está activo, y
+una vez al entrar en él.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Servicio</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Actualizar objetivo más cercano</strong></td>
+  <td>La entidad más cercana con una <strong>Etiqueta</strong> a menos de <strong>Radio</strong> (con <strong>Solo si se ve</strong>: sin paredes en medio), en una clave</td>
+</tr>
+<tr>
+  <td><strong>Medir distancia</strong></td>
+  <td>La distancia del agente a una entidad o punto de la pizarra, en una clave (número)</td>
+</tr>
+<tr>
+  <td><strong>Servicio Lua</strong></td>
+  <td><code>OnTick(dt)</code> de un script Lua (<a href="#7-tareas-propias-en-lua">7</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="46-subárboles">4.6 Subárboles<a class="ancla" href="#46-subárboles" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un <strong>Subárbol</strong> mete otro <code>.bt</code> dentro del árbol: «buscar al jugador» o «huir y curarse» se escriben una vez y los usan
+varios enemigos. El subárbol comparte la pizarra del agente. Un subárbol que se llama a sí mismo (o más de 8 niveles) se
+ignora con un aviso. <strong>Abrir el subárbol</strong> (en sus propiedades) lo abre en la ventana; al depurar se ve qué corre dentro.</p>
+<h2 id="5-la-pizarra">5. La pizarra<a class="ancla" href="#5-la-pizarra" aria-label="Enlace a esta sección">#</a></h2>
+<p>La <strong>pizarra</strong> es la memoria de cada agente: claves con un valor. La escriben los Sentidos, los servicios, las tareas y
+tus scripts, y la leen las condiciones y las tareas.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tipo</th>
+  <th>Valores</th>
+  <th>En Lua</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Número</td>
+  <td><code>3.5</code></td>
+  <td><code>number</code></td>
+</tr>
+<tr>
+  <td>Sí/no</td>
+  <td>sí o no</td>
+  <td><code>boolean</code></td>
+</tr>
+<tr>
+  <td>Texto</td>
+  <td><code>&quot;calma&quot;</code></td>
+  <td><code>string</code></td>
+</tr>
+<tr>
+  <td>Vector</td>
+  <td>un punto (<code>1 0 2</code>)</td>
+  <td><code>Vec3</code></td>
+</tr>
+<tr>
+  <td>Entidad</td>
+  <td>una entidad de la escena (o nada)</td>
+  <td><code>Entity</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Las claves se declaran en la pestaña <strong>Pizarra</strong> de la ventana: nombre, tipo, valor al empezar y <strong>compartida</strong>. Una
+clave sin declarar también vale (los scripts y los Sentidos pueden crearla), pero el árbol avisa para que no se te pase
+una errata. <strong>Añadir las que faltan</strong> declara las que usan los nodos con el tipo que se adivina.</p>
+<ul>
+<li><strong>Valores propios del agente</strong>: en el <strong>Agente IA</strong>, <strong>Valores propios</strong> pone valores solo para ese agente al empezar
+(su ronda, su vida). El texto se lee con el tipo de la clave.</li>
+<li><strong>Compartidas por un grupo</strong>: una clave <strong>compartida</strong> la ven todos los agentes del mismo <strong>Grupo</strong> (campo del Agente
+IA). Si un zombi de la horda pone <code>alerta</code> a sí, todos la ven. Desde Lua: <code>AI.SetGroupValue(&quot;horda&quot;, &quot;alerta&quot;, true)</code>.</li>
+<li><strong>Una entidad que ya no existe</strong> cuenta como «nada» (<code>HasValue</code> devuelve <code>false</code>).</li>
+</ul>
+<p>Desde Lua, en cualquier script:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Lee y escribe la pizarra de un zombi desde otro script (un jefe que da órdenes)</span>
+<span class="hl-k">local</span> <span class="hl-t">IaPizarra</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">IaPizarra</span>.zombi = <span class="hl-f">Entity</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">IaPizarra</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.zombi <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> ia = <span class="hl-b">self</span>.zombi:<span class="hl-f">GetComponent</span>(<span class="hl-s">"AiAgent"</span>)
+    ia:<span class="hl-f">SetValue</span>(<span class="hl-s">"alerta"</span>, <span class="hl-b">true</span>)                     <span class="hl-c">-- se crea si no existe</span>
+    ia:<span class="hl-f">SetValue</span>(<span class="hl-s">"destino"</span>, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">10</span>, <span class="hl-n">0</span>, <span class="hl-n">4</span>))
+    <span class="hl-k">local</span> objetivo = ia:<span class="hl-f">GetValue</span>(<span class="hl-s">"objetivo"</span>)        <span class="hl-c">-- Entity o nil</span>
+    <span class="hl-k">if</span> objetivo <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"El zombi persigue a "</span> .. objetivo.name)
+    <span class="hl-k">end</span>
+    <span class="hl-k">for</span> clave, valor <span class="hl-k">in</span> ia:<span class="hl-f">GetValues</span>() <span class="hl-k">do</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(clave .. <span class="hl-s">" = "</span> .. <span class="hl-f">tostring</span>(valor))
+    <span class="hl-k">end</span>
+    <span class="hl-t">AI</span>.<span class="hl-f">SetGroupValue</span>(<span class="hl-s">"horda"</span>, <span class="hl-s">"alerta"</span>, <span class="hl-b">true</span>)       <span class="hl-c">-- la ven todos los de su grupo</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">IaPizarra</span></code></pre></div>
+<p>Lo que cambias se ve en el siguiente tick del agente, y las condiciones con <strong>Abortar</strong> reaccionan al momento.</p>
+<h2 id="6-los-sentidos-vista-oído-y-memoria">6. Los Sentidos: vista, oído y memoria<a class="ancla" href="#6-los-sentidos-vista-oído-y-memoria" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Sentidos</strong> le da al agente ojos y oídos. Mira en cada tick del agente y escribe en su pizarra:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave (cámbiala en el componente)</th>
+  <th>Tipo</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>objetivo</code></td>
+  <td>entidad</td>
+  <td>A quién ve (o recuerda: se queda hasta que lo olvida)</td>
+</tr>
+<tr>
+  <td><code>veObjetivo</code></td>
+  <td>sí/no</td>
+  <td>Si lo está viendo ahora mismo</td>
+</tr>
+<tr>
+  <td><code>ultimaPosicionVista</code></td>
+  <td>vector</td>
+  <td>Dónde lo vio por última vez (se borra al olvidarlo)</td>
+</tr>
+<tr>
+  <td><code>ruidoOido</code></td>
+  <td>vector</td>
+  <td>Dónde oyó el último ruido (se borra al olvidarlo, si nadie lo ha borrado antes)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Vista.</strong> Busca las entidades con la <strong>etiqueta</strong> de <strong>Busca la etiqueta</strong> (<code>Jugador</code>). Ve a la más cercana que esté:</p>
+<ul>
+<li>a menos de <strong>Distancia</strong>;</li>
+<li>dentro del cono de <strong>Ángulo</strong> grados hacia donde mira el agente (su +Z, como los modelos glTF) o a menos de
+<strong>Proximidad</strong> (lo nota aunque esté detrás);</li>
+<li>con <strong>Las paredes tapan</strong>, sin nada en medio: un rayo desde sus ojos (<strong>Altura de los ojos</strong>) hasta el pecho del
+objetivo que <strong>ignora al propio agente</strong> (su cápsula y su modelo) y a los personajes (otros zombis no tapan). Las
+paredes, el suelo y los objetos sí.</li>
+</ul>
+<p><strong>Oído.</strong> Oye los ruidos de <code>AI.MakeNoise(posición, radio, origen, intensidad)</code>: si está a menos de radio × intensidad ×
+su <strong>Alcance</strong>. Un agente no se oye a sí mismo (<code>origen</code>). Los juegos llaman a <code>AI.MakeNoise</code> en los disparos, los pasos
+al correr, una puerta que se rompe o una alarma; en red, en el servidor:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Hace ruido al disparar: los Sentidos de los zombis a menos de 25 m lo oyen</span>
+<span class="hl-k">local</span> <span class="hl-t">IaDisparo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Server(rate = 10)]</span>
+<span class="hl-k">function</span> <span class="hl-t">IaDisparo</span>:<span class="hl-f">Disparo</span>(posicion: <span class="hl-t">Vector3</span>)
+    <span class="hl-t">AI</span>.<span class="hl-f">MakeNoise</span>(posicion, <span class="hl-n">25</span>, <span class="hl-b">self</span>.entity)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">IaDisparo</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Disparo</span>(<span class="hl-b">self</span>.transform.position)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">IaDisparo</span></code></pre></div>
+<p><strong>Memoria.</strong> Cuando deja de ver al objetivo, <code>veObjetivo</code> pasa a no al momento; <code>objetivo</code> y <code>ultimaPosicionVista</code> se
+quedan <strong>Tiempo de olvido</strong> segundos y después se borran. El ruido también se olvida a ese tiempo.</p>
+<p><code>AI.CanSee(agente, objetivo)</code> hace la misma comprobación de la vista desde cualquier script. Con <strong>Dibujar en el visor</strong>
+(en el Agente IA), al jugar se ve en el visor Escena el abanico de la vista (rojo cuando ve a alguien), la línea al
+objetivo, la última posición (naranja), el ruido oído (azul) y los ruidos recientes.</p>
+<h2 id="7-tareas-propias-en-lua">7. Tareas propias en Lua<a class="ancla" href="#7-tareas-propias-en-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lo que no hacen los nodos del motor lo escribes en Lua. Un script de IA es un fichero de <code>scripts/</code> (por ejemplo
+<code>scripts/ia/Alertar.luau</code>) que devuelve la tabla de <code>AI.Task()</code>, <code>AI.Condition()</code> o <code>AI.Service()</code>:</p>
+<ul>
+<li>Sus <strong>campos</strong> son las claves que no son funciones (<code>Alertar.radio = 15</code>): salen en el nodo del árbol y se cambian
+allí, sin tocar el script (en el nodo, la <strong>x</strong> vuelve al valor del script).</li>
+<li><code>self.entity</code> es el agente, <code>self.agent</code> su <strong>Agente IA</strong>, y <code>self:GetValue(clave)</code>, <code>self:SetValue(clave, valor)</code>,
+<code>self:ClearValue(clave)</code> y <code>self:HasValue(clave)</code> leen y escriben su pizarra.</li>
+<li>Cada agente tiene <strong>su propia instancia</strong> de cada nodo: lo que guardes en <code>self._algo</code> se queda entre una vez y la
+siguiente.</li>
+<li>Se recarga al guardarlo, también jugando.</li>
+</ul>
+<p>Paso a paso, la tarea que hace rugir al zombi para llamar a la horda:</p>
+<ol>
+<li>En la ventana del árbol, arrastra una <strong>Tarea Lua</strong> al árbol. En sus propiedades, junto a <strong>Script</strong>, pulsa <strong>+</strong> y
+escribe <code>Alertar</code>: se crea <code>scripts/ia/Alertar.luau</code> con una plantilla y se abre en el editor de código.</li>
+<li>Escribe la tarea:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Alertar</span> = <span class="hl-t">AI</span>.<span class="hl-f">Task</span>()
+
+<span class="hl-t">Alertar</span>.radio = <span class="hl-n">15</span>      <span class="hl-c">-- metros a los que se oye el rugido</span>
+<span class="hl-t">Alertar</span>.duracion = <span class="hl-n">0.5</span>  <span class="hl-c">-- segundos que se queda rugiendo</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Alertar</span>:<span class="hl-f">OnStart</span>()
+    <span class="hl-b">self</span>._tiempo = <span class="hl-n">0</span>
+    <span class="hl-k">local</span> posicion = <span class="hl-b">self</span>.entity.position
+    <span class="hl-t">AI</span>.<span class="hl-f">MakeNoise</span>(posicion, <span class="hl-b">self</span>.radio, <span class="hl-b">self</span>.entity)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-b">self</span>.entity.name .. <span class="hl-s">": ¡GRRRAAA!"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Alertar</span>:<span class="hl-f">OnUpdate</span>(dt: number)
+    <span class="hl-b">self</span>._tiempo += dt
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._tiempo &gt;= <span class="hl-b">self</span>.duracion <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-s">"Success"</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-s">"Running"</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Alertar</span>:<span class="hl-f">OnAbort</span>()
+    <span class="hl-c">-- Si el árbol la corta (por ejemplo, el jugador se pone a tiro), no hay nada que deshacer</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Alertar</span></code></pre></div>
+<ol start="3">
+<li>Guarda. En el nodo salen sus campos (<strong>duracion</strong>, <strong>radio</strong>): pon el radio a 18 solo para este nodo.</li>
+<li>Ponle un <strong>Enfriamiento</strong> de 8 s encima para que no ruja sin parar, y <strong>Jugar</strong>.</li>
+</ol>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Cuándo</th>
+  <th>Qué devuelve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>OnStart()</code></td>
+  <td>Cada vez que empieza la tarea</td>
+  <td>Nada (sigue con <code>OnUpdate</code>), o <code>&quot;Success&quot;</code> / <code>&quot;Failure&quot;</code> para terminar ya. Sin <code>OnUpdate</code>, la tarea termina con éxito</td>
+</tr>
+<tr>
+  <td><code>OnUpdate(dt)</code></td>
+  <td>En cada tick mientras corre (<code>dt</code>: segundos desde el tick anterior)</td>
+  <td><code>&quot;Running&quot;</code> (sigue), <code>&quot;Success&quot;</code> o <code>&quot;Failure&quot;</code> (también <code>true</code> y <code>false</code>). Sin devolver nada, <code>&quot;Success&quot;</code></td>
+</tr>
+<tr>
+  <td><code>OnAbort()</code></td>
+  <td>Si el árbol la corta (una condición con abortar, un tiempo límite, el agente desaparece)</td>
+  <td>Nada</td>
+</tr>
+</tbody>
+</table></div>
+<p>Una <strong>condición</strong> es igual con <code>Check()</code>, que devuelve <code>true</code> o <code>false</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Condición de IA (nodo «Condición Lua»): el objetivo está a menos de 'distancia' metros</span>
+<span class="hl-k">local</span> <span class="hl-t">IaCerca</span> = <span class="hl-t">AI</span>.<span class="hl-f">Condition</span>()
+
+<span class="hl-t">IaCerca</span>.distancia = <span class="hl-n">5</span>
+
+<span class="hl-k">function</span> <span class="hl-t">IaCerca</span>:<span class="hl-f">Check</span>(): boolean
+    <span class="hl-k">local</span> objetivo = <span class="hl-b">self</span>:<span class="hl-f">GetValue</span>(<span class="hl-s">"objetivo"</span>)
+    <span class="hl-k">return</span> objetivo ~= <span class="hl-b">nil</span> <span class="hl-k">and</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Distance</span>(<span class="hl-b">self</span>.entity.position, objetivo.position) &lt; <span class="hl-b">self</span>.distancia
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">IaCerca</span></code></pre></div>
+<p>Y un <strong>servicio</strong>, con <code>OnTick(dt)</code> (y <code>OnStart()</code> antes de la primera vez):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Servicio de IA: el hambre sube con el tiempo mientras su rama está activa</span>
+<span class="hl-k">local</span> <span class="hl-t">IaHambre</span> = <span class="hl-t">AI</span>.<span class="hl-f">Service</span>()
+
+<span class="hl-t">IaHambre</span>.porSegundo = <span class="hl-n">2</span>
+
+<span class="hl-k">function</span> <span class="hl-t">IaHambre</span>:<span class="hl-f">OnTick</span>(dt: number)
+    <span class="hl-k">local</span> hambre = (<span class="hl-b">self</span>:<span class="hl-f">GetValue</span>(<span class="hl-s">"hambre"</span>) <span class="hl-k">or</span> <span class="hl-n">0</span>) + <span class="hl-b">self</span>.porSegundo * dt
+    <span class="hl-b">self</span>:<span class="hl-f">SetValue</span>(<span class="hl-s">"hambre"</span>, <span class="hl-t">math</span>.<span class="hl-f">min</span>(hambre, <span class="hl-n">100</span>))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">IaHambre</span></code></pre></div>
+<p><strong>Llamar función Lua</strong> es lo más directo para lo que ya tienes en el script del personaje: el nodo «Morder» del ejemplo
+llama a <code>Zombi:Atacar(objetivo)</code> del script de la entidad (<a href="#9-el-ejemplo-zombi-paso-a-paso">9</a>).</p>
+<p>Si un script de IA da un error, sale en la Consola con su fichero y línea (y el nombre del nodo y del agente) una sola
+vez, y el nodo falla.</p>
+<h2 id="8-depurar-ver-pensar-a-un-agente">8. Depurar: ver pensar a un agente<a class="ancla" href="#8-depurar-ver-pensar-a-un-agente" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con la ventana del árbol abierta, pulsa <strong>Jugar</strong>:</p>
+<ul>
+<li>En la pestaña <strong>Depurar</strong>, elige el agente (o marca <strong>Seguir la selección</strong> y elígelo en la Jerarquía o en el visor).</li>
+<li>El árbol enseña lo que hace: el nodo que <strong>corre</strong>, con borde <strong>naranja</strong> (y los enlaces de su rama), los que acaban
+de tener <strong>éxito</strong> en <strong>verde</strong>, los que han <strong>fallado</strong> en <strong>rojo</strong> y los <strong>abortados</strong> en gris (se apagan en segundo
+y medio).</li>
+<li>La pestaña enseña la <strong>pizarra en vivo</strong> (también las claves que no son del árbol), cuántos ticks lleva, la tarea que
+está haciendo y lo que cuesta la IA en el frame. <strong>Volver a empezar</strong> reinicia su árbol.</li>
+<li>En el <strong>Inspector</strong> del agente, <strong>Haciendo</strong> dice la tarea que corre; los Sentidos, si ve al objetivo.</li>
+<li>En las propiedades de un nodo, al jugar, su estado y cuántas veces ha empezado.</li>
+</ul>
+<p><strong>En red</strong>, con <strong>Jugar como anfitrión</strong> o <strong>Anfitrión + clientes</strong> el editor es el servidor: se depura igual. En una
+ventana que es solo cliente la IA no piensa (lo hace el servidor) y la pestaña lo avisa.</p>
+<h2 id="9-el-ejemplo-zombi-paso-a-paso">9. El ejemplo «Zombi» paso a paso<a class="ancla" href="#9-el-ejemplo-zombi-paso-a-paso" aria-label="Enlace a esta sección">#</a></h2>
+<p>La plantilla <strong>IA (Lua)</strong> (en el código fuente, <code>game/ia_lua</code>) tiene el árbol <code>assets/ia/Zombi.bt</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">Selector «Zombi»
+├─ 1. ¿Ve al jugador? (veObjetivo == sí, abortar: ambos)
+│    └─ Selector «Combate»  [servicio: distancia a objetivo → distancia, cada 0,2 s]
+│        ├─ 1. ¿En rango? (distancia &lt;= 1,8, abortar: ambos)
+│        │    └─ Enfriamiento 1,2 s
+│        │        └─ Secuencia «Atacar»: Mirar hacia objetivo → Morder (Zombi:Atacar) → Esperar 0,4 s
+│        ├─ 2. Enfriamiento 8 s «Cada 8 s» → Tarea Lua «Llamar a la horda» (ia/Alertar.luau)
+│        └─ 3. Mover a «Perseguir» (objetivo, 4 m/s, llega a 1,5 m, seguir)
+├─ 2. ¿Recuerda dónde lo vio? (ultimaPosicionVista puesto, abortar: inferiores)
+│    └─ Secuencia «Buscar»: Ir a la última posición → Repetir 3 × (Punto aleatorio a 6 m → Mover a → Esperar 1 ± 0,5) → Olvidarlo
+├─ 3. ¿Ha oído algo? (ruidoOido puesto, abortar: inferiores)
+│    └─ Secuencia «Investigar el ruido»: Ir a mirar → Esperar 2 ± 0,5 → borrar ruidoOido
+└─ 4. Patrullar (etiqueta Ronda, 1,5 m/s, espera 1 s)</code></pre></div>
+<p>Lo que pasa al jugar:</p>
+<ol>
+<li><strong>Patrulla</strong> de un punto <code>Ronda</code> a otro, despacio.</li>
+<li><strong>Oye</strong> un disparo o tus pasos al correr (<code>scripts/Ruidos.luau</code> hace el ruido en el servidor): la rama 3 corta la
+patrulla (<strong>inferiores</strong>), va a mirar, espera y vuelve a patrullar.</li>
+<li><strong>Te ve</strong>: la rama 1 corta lo que estuviera haciendo. Cada 8 s ruge (los zombis cercanos lo oyen y vienen), te
+<strong>persigue</strong> y, a 1,8 m, te <strong>muerde</strong> cada 1,2 s (<code>Zombi.luau</code> te empuja un poco).</li>
+<li><strong>Te escondes</strong> detrás de un muro: <code>veObjetivo</code> pasa a no y la rama 1 se corta (<strong>propio</strong>). Como recuerda dónde te
+vio, va allí y <strong>busca</strong> tres puntos al azar alrededor. Si te vuelve a ver mientras busca, la rama 1 corta la búsqueda.</li>
+<li>Termina de buscar, <strong>te olvida</strong> y vuelve a <strong>patrullar</strong>.</li>
+</ol>
+<p>El script del zombi, con lo que el árbol no sabe hacer solo (morder):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Zombi</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0, 20), Tooltip("Fuerza del empujón al morder (m/s)")]</span>
+<span class="hl-t">Zombi</span>.empujon = <span class="hl-n">2</span>
+<span class="hl-a">--[ReadOnly, Tooltip("Mordiscos que ha dado")]</span>
+<span class="hl-t">Zombi</span>.mordiscos = <span class="hl-n">0</span>
+
+<span class="hl-c">-- Devuelve true (éxito) o false (fallo) al árbol</span>
+<span class="hl-k">function</span> <span class="hl-t">Zombi</span>:<span class="hl-f">Atacar</span>(objetivo: <span class="hl-t">string</span>)
+    <span class="hl-b">self</span>.mordiscos += <span class="hl-n">1</span>
+    <span class="hl-k">local</span> jugador = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"AiAgent"</span>):<span class="hl-f">GetValue</span>(<span class="hl-s">"objetivo"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> jugador <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s muerde a %s"</span>, <span class="hl-b">self</span>.name, objetivo))
+    <span class="hl-k">local</span> personaje = jugador:<span class="hl-f">GetComponent</span>(<span class="hl-s">"CharacterController"</span>)
+    <span class="hl-k">if</span> personaje <span class="hl-k">then</span>
+        <span class="hl-c">-- Un empujón hacia atrás y un poco hacia arriba</span>
+        <span class="hl-k">local</span> direccion = (jugador.position - <span class="hl-b">self</span>.transform.position):<span class="hl-f">Normalized</span>()
+        personaje:<span class="hl-f">Push</span>(direccion * <span class="hl-b">self</span>.empujon + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>))
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-b">true</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Zombi</span></code></pre></div>
+<p>Cada zombi lleva: <strong>Controlador de personaje</strong>, <strong>Agente de navegación</strong>, <strong>Agente IA</strong> (<code>ia/Zombi.bt</code>, grupo <code>horda</code>,
+10 veces por segundo, <strong>Dibujar en el visor</strong>), <strong>Sentidos</strong> (18 m, 120°, memoria de 20 s), el script <code>Zombi.luau</code> y,
+para el multijugador, <strong>Identidad de red</strong> y <strong>Transform de red</strong>. El jugador es el del paquete «Tercera persona»;
+<code>Ruidos.luau</code> le pone la etiqueta <code>Jugador</code> en el servidor.</p>
+<p>Ideas para seguir: un <strong>Selector aleatorio</strong> que unas veces gruña y otras se rasque mientras patrulla, una condición
+de <strong>vida</strong> (una clave que baja con los disparos) con una rama <strong>Huir</strong>, un <strong>Subárbol</strong> «Buscar» compartido con otros
+enemigos, y animaciones: con un modelo con Animador, <strong>Poner parámetro del Animador</strong> <code>velocidad</code> en cada rama (y el
+<strong>Animador de red</strong> en el zombi).</p>
+<h2 id="10-multijugador">10. Multijugador<a class="ancla" href="#10-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>La IA piensa en el servidor</strong> (o, sin red, en tu máquina). Los clientes ven el resultado: la posición por el
+<strong>Transform de red</strong> del agente y las animaciones por su <strong>Animador de red</strong>. Nadie puede hacer trampas con los
+zombis.</li>
+<li>En los clientes, los agentes con <strong>Identidad de red</strong> no tienen árbol ni sentidos (<code>AI.GetStats().agents</code> es 0). Un
+agente <strong>sin</strong> Identidad de red piensa en cada máquina por su cuenta (pájaros, peces de decorado).</li>
+<li><code>AI.MakeNoise</code> y los cambios de la pizarra se hacen <strong>en el servidor</strong>: desde un cliente, con una función <code>[Server]</code>
+(como <code>Ruidos.luau</code> o el <a href="#6-los-sentidos-vista-oído-y-memoria">disparo de arriba</a>).</li>
+<li>Las tareas Lua, las condiciones, los servicios y <strong>Llamar función Lua</strong> se ejecutan en el servidor: lo que hagan para
+que lo vean los clientes va por la red como en cualquier script (campos <code>[Replicated]</code>, <code>[Multicast]</code>...).</li>
+<li>Al depurar, el editor tiene que ser el servidor (<a href="#8-depurar-ver-pensar-a-un-agente">8</a>).</li>
+</ul>
+<h2 id="11-rendimiento">11. Rendimiento<a class="ancla" href="#11-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo el árbol, la pizarra y los sentidos van en código nativo; solo las tareas Lua llaman a Lua. Medido en el ordenador
+de desarrollo (compilación Release, prueba <code>ia rendimiento</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Cuánto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>200 zombis con el árbol del ejemplo a 10 Hz (con sentidos, servicios, persecuciones y su tarea Lua), en un mapa de 140 m con muros y dos jugadores</td>
+  <td><strong>0,10 ms por frame</strong> de media (el peor frame, 0,31 ms); unos 33 ticks por frame</td>
+</tr>
+<tr>
+  <td>El frame completo de esa escena (IA, navegación de los 200 agentes, físicas y scripts)</td>
+  <td>0,6 ms</td>
+</tr>
+</tbody>
+</table></div>
+<p>Consejos: 10 veces por segundo basta para casi todo (5 para los que están lejos); los rayos de la vista solo se lanzan
+para los candidatos dentro de la distancia y del cono; usa servicios con intervalo en vez de condiciones Lua costosas
+en cada tick.</p>
+<h2 id="12-el-fichero-bt">12. El fichero .bt<a class="ancla" href="#12-el-fichero-bt" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <code>.bt</code> es JSON con versión; se puede escribir a mano o generar desde una herramienta:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"formato"</span>: <span class="hl-s">"nova-bt"</span>, <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"pizarra"</span>: [ { <span class="hl-k">"nombre"</span>: <span class="hl-s">"objetivo"</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"entidad"</span> },
+               { <span class="hl-k">"nombre"</span>: <span class="hl-s">"alerta"</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"bool"</span>, <span class="hl-k">"valor"</span>: <span class="hl-b">false</span>, <span class="hl-k">"compartida"</span>: <span class="hl-b">true</span> } ],
+  <span class="hl-k">"raiz"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"nodos"</span>: [
+    { <span class="hl-k">"id"</span>: <span class="hl-n">1</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"Selector"</span>, <span class="hl-k">"pos"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>], <span class="hl-k">"hijos"</span>: [<span class="hl-n">2</span>, <span class="hl-n">3</span>] },
+    { <span class="hl-k">"id"</span>: <span class="hl-n">2</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"CondicionPizarra"</span>, <span class="hl-k">"pos"</span>: [<span class="hl-n">-120</span>, <span class="hl-n">150</span>], <span class="hl-k">"clave"</span>: <span class="hl-s">"objetivo"</span>, <span class="hl-k">"op"</span>: <span class="hl-s">"puesto"</span>, <span class="hl-k">"abortar"</span>: <span class="hl-s">"ambos"</span>, <span class="hl-k">"hijos"</span>: [<span class="hl-n">4</span>] },
+    { <span class="hl-k">"id"</span>: <span class="hl-n">4</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"MoverA"</span>, <span class="hl-k">"pos"</span>: [<span class="hl-n">-120</span>, <span class="hl-n">300</span>], <span class="hl-k">"destino"</span>: <span class="hl-s">"Clave"</span>, <span class="hl-k">"clave"</span>: <span class="hl-s">"objetivo"</span>, <span class="hl-k">"velocidad"</span>: <span class="hl-n">4</span>,
+      <span class="hl-k">"servicios"</span>: [ { <span class="hl-k">"tipo"</span>: <span class="hl-s">"ObjetivoMasCercano"</span>, <span class="hl-k">"etiqueta"</span>: <span class="hl-s">"Jugador"</span>, <span class="hl-k">"clave"</span>: <span class="hl-s">"objetivo"</span>, <span class="hl-k">"intervalo"</span>: <span class="hl-n">0.5</span> } ] },
+    { <span class="hl-k">"id"</span>: <span class="hl-n">3</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"Patrullar"</span>, <span class="hl-k">"pos"</span>: [<span class="hl-n">120</span>, <span class="hl-n">150</span>], <span class="hl-k">"etiqueta"</span>: <span class="hl-s">"Ronda"</span>, <span class="hl-k">"comentario"</span>: <span class="hl-s">"La ronda"</span> }
+  ],
+  <span class="hl-k">"comentarios"</span>: [ { <span class="hl-k">"texto"</span>: <span class="hl-s">"Persigue al jugador"</span>, <span class="hl-k">"pos"</span>: [<span class="hl-n">-300</span>, <span class="hl-n">-80</span>], <span class="hl-k">"tam"</span>: [<span class="hl-n">400</span>, <span class="hl-n">60</span>] } ]
+}</code></pre></div>
+<ul>
+<li><code>pizarra</code>: las claves (<code>tipo</code>: <code>numero</code>, <code>bool</code>, <code>texto</code>, <code>vector</code> o <code>entidad</code>; <code>valor</code> opcional; <code>compartida</code>).</li>
+<li><code>nodos</code>: cada uno con su <code>id</code>, su <code>tipo</code>, su <code>pos</code> en el grafo, sus <code>hijos</code> en orden (los ids) y sus ajustes con los
+nombres de su tipo; opcionales <code>nombre</code>, <code>comentario</code> y <code>servicios</code>. Los de las tareas Lua, en <code>campos</code>.</li>
+<li>Tipos: <code>Secuencia</code>, <code>Selector</code>, <code>Paralelo</code> (<code>exito</code>, <code>fallo</code>: <code>Uno</code>/<code>Todos</code>), <code>SelectorAleatorio</code> (<code>pesos</code>),
+<code>Invertir</code>, <code>Repetir</code> (<code>veces</code>, <code>pararSiFalla</code>), <code>Reintentar</code> (<code>intentos</code>), <code>TiempoLimite</code> y <code>Enfriamiento</code>
+(<code>segundos</code>), <code>CondicionPizarra</code> (<code>clave</code>, <code>op</code>, <code>valor</code>, <code>abortar</code>), <code>CondicionLua</code> (<code>script</code>, <code>invertir</code>,
+<code>abortar</code>), <code>SiempreExito</code>, <code>SiempreFallo</code>, <code>Esperar</code> (<code>segundos</code>, <code>aleatorio</code>), <code>MoverA</code> y <code>MirarHacia</code> (<code>destino</code>,
+<code>clave</code>, <code>posicion</code>, <code>entidad</code>...), <code>Patrullar</code>, <code>Huir</code>, <code>PuntoAleatorio</code>, <code>ParametroAnimador</code>, <code>DisparadorAnimacion</code>,
+<code>ReproducirSonido</code>, <code>PonerValor</code>, <code>LlamarFuncion</code>, <code>Log</code>, <code>TareaLua</code>, <code>Subarbol</code> (<code>arbol</code>: ruta en <code>assets/</code>).
+Servicios: <code>ObjetivoMasCercano</code>, <code>Distancia</code>, <code>ServicioLua</code> (<code>intervalo</code>, <code>desviacion</code>).</li>
+<li>Lo que el motor no conoce se conserva al guardar (y sale en <strong>Avisos</strong>). Un ajuste que falta toma su valor por
+defecto.</li>
+<li>Los subárboles, los sonidos y los scripts van por su ruta (<code>ia/Buscar.bt</code>, <code>sonidos/gruñido.wav</code>, <code>ia/Alertar.luau</code>):
+si los mueves, cambia la ruta en el nodo.</li>
+</ul>
+<h2 id="13-referencia-de-la-api-de-lua">13. Referencia de la API de Lua<a class="ancla" href="#13-referencia-de-la-api-de-lua" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>AI.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>MakeNoise(pos, radio, origen?, intensidad?)</code></td>
+  <td>Un ruido que oyen los Sentidos a menos de radio × intensidad × su alcance (<code>origen</code>, la entidad que lo hace, no se oye)</td>
+</tr>
+<tr>
+  <td><code>Task()</code>, <code>Condition()</code>, <code>Service()</code></td>
+  <td>La clase de una tarea, condición o servicio en Lua (<a href="#7-tareas-propias-en-lua">7</a>)</td>
+</tr>
+<tr>
+  <td><code>GetValue(agente, clave)</code>, <code>SetValue(agente, clave, valor)</code>, <code>ClearValue(agente, clave)</code></td>
+  <td>La pizarra de un agente (una entidad con Agente IA)</td>
+</tr>
+<tr>
+  <td><code>GetGroupValue(grupo, clave)</code>, <code>SetGroupValue(grupo, clave, valor)</code></td>
+  <td>Las claves compartidas de un grupo</td>
+</tr>
+<tr>
+  <td><code>CanSee(agente, objetivo)</code></td>
+  <td>Si lo ve ahora (con sus Sentidos)</td>
+</tr>
+<tr>
+  <td><code>Restart(agente)</code></td>
+  <td>Vuelve a empezar su árbol en el siguiente frame</td>
+</tr>
+<tr>
+  <td><code>GetStats()</code></td>
+  <td><code>{ agents, ticks, ms, senseMs }</code> de esta escena</td>
+</tr>
+</tbody>
+</table></div>
+<p>Componente <strong>Agente IA</strong> (<code>entidad:GetComponent(&quot;AiAgent&quot;)</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>GetValue(clave)</code></td>
+  <td>Valor de una clave (número, booleano, texto, <code>Vec3</code>, entidad o <code>nil</code>)</td>
+</tr>
+<tr>
+  <td><code>SetValue(clave, valor)</code></td>
+  <td>Cambia una clave (<code>nil</code> la borra; si no existe, se crea)</td>
+</tr>
+<tr>
+  <td><code>ClearValue(clave)</code>, <code>HasValue(clave)</code></td>
+  <td>Borrarla; si tiene valor</td>
+</tr>
+<tr>
+  <td><code>GetValues()</code></td>
+  <td>Toda la pizarra en una tabla (sin las vacías)</td>
+</tr>
+<tr>
+  <td><code>Restart()</code></td>
+  <td>Vuelve a empezar su árbol</td>
+</tr>
+<tr>
+  <td><code>GetRunningNode()</code></td>
+  <td>El nombre de la tarea que está haciendo</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sus campos: <code>tree</code>, <code>tickRate</code>, <code>group</code>, <code>running</code> (pararlo y seguir), <code>values</code>, <code>debugDraw</code> y <code>currentNode</code>. Los de los
+<strong>Sentidos</strong> (<code>AiSenses</code>): <code>sight</code>, <code>sightDistance</code>, <code>sightAngle</code>, <code>proximity</code>, <code>eyeHeight</code>, <code>targetTag</code>, <code>lineOfSight</code>,
+<code>hearing</code>, <code>hearingRange</code>, <code>memory</code>, las claves (<code>targetKey</code>, <code>seesKey</code>, <code>lastSeenKey</code>, <code>noiseKey</code>) y el estado
+(<code>seesTarget</code>, <code>target</code>).</p>
+<p>Dentro de una tarea, condición o servicio Lua: <code>self.entity</code>, <code>self.agent</code>, <code>self:GetValue</code>, <code>self:SetValue</code>,
+<code>self:ClearValue</code>, <code>self:HasValue</code> y sus campos.</p>
+<h2 id="14-límites-y-lo-que-falta">14. Límites y lo que falta<a class="ancla" href="#14-límites-y-lo-que-falta" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La depuración en vivo es la de la máquina que piensa: en el editor, jugando solo o de anfitrión. Un servidor
+dedicado o un cliente no se depuran desde el editor.</li>
+<li>Los Sentidos ven entidades por <strong>etiqueta</strong> (no por equipo ni por facción); para eso, una condición o un servicio Lua.</li>
+<li>La vista no tiene en cuenta la luz ni el sigilo (agacharse, la distancia en la oscuridad): se puede escribir con una
+<strong>Condición Lua</strong> o bajando el <strong>Alcance</strong> desde un script.</li>
+<li><strong>Mirar hacia</strong> gira en horizontal (no inclina la cabeza: eso es el IK, <a href="modelos-y-animaciones.html#cinemática-inversa-ik">modelos-y-animaciones.md</a>).</li>
+<li><strong>Abortar inferiores</strong> no se usa en el Selector aleatorio (el orden cambia cada vez) ni en las Secuencias.</li>
+<li>Las rutas de los subárboles, sonidos y scripts no se actualizan solas si se mueven los ficheros.</li>
+<li>El grafo no tiene minimapa ni plegar ramas; los árboles muy anchos se ven con el zoom y <strong>Encuadrar</strong>.</li>
+</ul>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="navegacion.html">Navegación</a>: la malla, los agentes y las consultas que usan «Mover a» y «Patrullar».</li>
+<li><a href="scripts-lua.html">Scripts en Lua</a>: la API completa.</li>
+<li><a href="multijugador.html">Multijugador</a>: servidor, identidades de red y <code>[Server]</code>.</li>
+<li><a href="modelos-y-animaciones.html">Modelos y animaciones</a>: el Animador y sus parámetros.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="destruccion.html"><small>Anterior</small>Destrucción de objetos</a><a class="sig" href="navegacion.html"><small>Siguiente</small>Navegación: bots que encuentran el camino</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-tu-primer-zombi-en-cinco-minutos">1. Tu primer zombi en cinco minutos</a></li><li class="n2"><a href="#2-cómo-piensa-un-árbol">2. Cómo piensa un árbol</a></li><li class="n2"><a href="#3-la-ventana-árbol-de-comportamiento">3. La ventana «Árbol de comportamiento»</a></li><li class="n2"><a href="#4-los-nodos">4. Los nodos</a></li><li class="n3"><a href="#41-compuestos">4.1 Compuestos</a></li><li class="n3"><a href="#42-decoradores">4.2 Decoradores</a></li><li class="n3"><a href="#43-abortar-cuando-cambia-la-pizarra">4.3 Abortar cuando cambia la pizarra</a></li><li class="n3"><a href="#44-tareas">4.4 Tareas</a></li><li class="n3"><a href="#45-servicios">4.5 Servicios</a></li><li class="n3"><a href="#46-subárboles">4.6 Subárboles</a></li><li class="n2"><a href="#5-la-pizarra">5. La pizarra</a></li><li class="n2"><a href="#6-los-sentidos-vista-oído-y-memoria">6. Los Sentidos: vista, oído y memoria</a></li><li class="n2"><a href="#7-tareas-propias-en-lua">7. Tareas propias en Lua</a></li><li class="n2"><a href="#8-depurar-ver-pensar-a-un-agente">8. Depurar: ver pensar a un agente</a></li><li class="n2"><a href="#9-el-ejemplo-zombi-paso-a-paso">9. El ejemplo «Zombi» paso a paso</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#12-el-fichero-bt">12. El fichero .bt</a></li><li class="n2"><a href="#13-referencia-de-la-api-de-lua">13. Referencia de la API de Lua</a></li><li class="n2"><a href="#14-límites-y-lo-que-falta">14. Límites y lo que falta</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

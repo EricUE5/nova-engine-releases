@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools · Nova Engine</title>
+<meta name="description" content="Herramientas al estilo de UE5 y Unity para programar juegos en Lua sin repetir código: Gameplay Tags (etiquetas
+jerárquicas), interfaces (contratos que cumplen varios scripts), eventos del Inspector (como los Event Dispa">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools · Nova Engine">
+<meta property="og:description" content="Herramientas al estilo de UE5 y Unity para programar juegos en Lua sin repetir código: Gameplay Tags (etiquetas
+jerárquicas), interfaces (contratos que cumplen varios scripts), eventos del Inspector (como los Event Dispa">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/utilidades-lua.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/utilidades-lua.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html" aria-current="page">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="utilidades-de-código-etiquetas-interfaces-eventos-temporizadores-y-pools">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-gameplay-tags-etiquetas-jerárquicas">1. Gameplay Tags: etiquetas jerárquicas</a></li><li class="n3"><a href="#son-las-etiquetas-de-siempre">Son las etiquetas de siempre</a></li><li class="n3"><a href="#declararlas-en-el-proyecto">Declararlas en el proyecto</a></li><li class="n3"><a href="#en-el-inspector">En el Inspector</a></li><li class="n3"><a href="#campos-tags">Campos Tags()</a></li><li class="n3"><a href="#en-las-entidades">En las entidades</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n2"><a href="#2-interfaces">2. Interfaces</a></li><li class="n3"><a href="#declarar-e-implementar">Declarar e implementar</a></li><li class="n3"><a href="#llamar-sin-saber-qué-script-es">Llamar sin saber qué script es</a></li><li class="n2"><a href="#3-eventos-en-el-inspector-y-por-código">3. Eventos en el Inspector y por código</a></li><li class="n3"><a href="#paso-a-paso-una-puerta-que-enciende-una-alarma">Paso a paso: una puerta que enciende una alarma</a></li><li class="n3"><a href="#suscribirse-por-código">Suscribirse por código</a></li><li class="n3"><a href="#con-prefabs">Con prefabs</a></li><li class="n3"><a href="#en-red-dónde-se-lanza">En red: dónde se lanza</a></li><li class="n2"><a href="#4-temporizadores-con-mango">4. Temporizadores con mango</a></li><li class="n2"><a href="#5-pools-de-objetos">5. Pools de objetos</a></li><li class="n3"><a href="#en-red-pools-de-objetos-de-red">En red: pools de objetos de red</a></li><li class="n3"><a href="#cuánto-se-gana">Cuánto se gana</a></li><li class="n2"><a href="#6-resumen-de-la-api">6. Resumen de la API</a></li></ul></details><p>Herramientas al estilo de UE5 y Unity para programar juegos en Lua sin repetir código: <strong>Gameplay Tags</strong> (etiquetas
+jerárquicas), <strong>interfaces</strong> (contratos que cumplen varios scripts), <strong>eventos del Inspector</strong> (como los Event Dispatchers
+de UE5 o los UnityEvent), <strong>temporizadores con mango</strong> y <strong>pools de objetos</strong> (también de objetos de red).</p>
+<p>Todo funciona igual en el editor, en <code>NovaGame.exe</code> y en <code>NovaServer.exe</code>, y tiene sus tipos en <code>nova.d.luau</code>
+(autocompletado en VS Code y en el editor de scripts integrado).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-gameplay-tags-etiquetas-jerárquicas">Gameplay Tags: etiquetas jerárquicas</a></li>
+<li><a href="#2-interfaces">Interfaces</a></li>
+<li><a href="#3-eventos-en-el-inspector-y-por-código">Eventos en el Inspector y por código</a></li>
+<li><a href="#4-temporizadores-con-mango">Temporizadores con mango</a></li>
+<li><a href="#5-pools-de-objetos">Pools de objetos</a></li>
+<li><a href="#6-resumen-de-la-api">Resumen de la API</a></li>
+</ol>
+<h2 id="1-gameplay-tags-etiquetas-jerárquicas">1. Gameplay Tags: etiquetas jerárquicas<a class="ancla" href="#1-gameplay-tags-etiquetas-jerárquicas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una etiqueta de juego es un nombre con partes separadas por puntos: <code>Estado.Herido</code>, <code>Objeto.Botin.Oro</code>, <code>Arma.Pistola</code>.
+<code>Objeto.Botin.Oro</code> es <strong>hija</strong> de <code>Objeto.Botin</code>, que es hija de <code>Objeto</code>. Preguntar por una etiqueta encaja con ella
+<strong>y con todas sus hijas</strong>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua">entidad:<span class="hl-f">HasTag</span>(<span class="hl-s">"Objeto.Botin"</span>)      <span class="hl-c">-- true si tiene Objeto.Botin, Objeto.Botin.Oro, Objeto.Botin.Plata...</span>
+entidad:<span class="hl-f">HasTagExact</span>(<span class="hl-s">"Objeto.Botin"</span>) <span class="hl-c">-- solo Objeto.Botin</span>
+<span class="hl-t">Tags</span>.<span class="hl-f">Matches</span>(<span class="hl-s">"Objeto.Botin.Oro"</span>, <span class="hl-s">"Objeto.Botin"</span>) <span class="hl-c">-- true</span></code></pre></div>
+<p>Se compara por partes: <code>Objeto.Bot</code> no encaja con <code>Objeto.Botin</code>.</p>
+<h3 id="son-las-etiquetas-de-siempre">Son las etiquetas de siempre<a class="ancla" href="#son-las-etiquetas-de-siempre" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las etiquetas de juego son las del componente <strong>Etiquetas</strong> (<code>Tags</code>) que ya usabas con <code>Scene.FindByTag</code>. Una etiqueta sin
+puntos (<code>&quot;Enemigo&quot;</code>) funciona exactamente igual que antes. Lo que cambia:</p>
+<ul>
+<li><code>entidad:HasTag(&quot;X&quot;)</code> ahora también es <code>true</code> si la entidad tiene una hija de <code>X</code> (<code>X.Algo</code>). Con etiquetas sin puntos no
+cambia nada.</li>
+<li><code>Scene.FindByTag</code> y <code>Scene.FindAllByTag</code> siguen siendo <strong>exactas</strong> (como siempre). Las jerárquicas son
+<code>Scene.FindWithTag</code> y <code>Scene.FindAllWithTag</code>.</li>
+<li>Las IA, los decals y la vegetación siguen comparando sus etiquetas exactas.</li>
+</ul>
+<h3 id="declararlas-en-el-proyecto">Declararlas en el proyecto<a class="ancla" href="#declararlas-en-el-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p>En <strong>Ventana &gt; Scripts &gt; Etiquetas de juego</strong> se ve el árbol de las etiquetas del proyecto. Se guardan en
+<code>assets/etiquetas.json</code> (va con el juego publicado).</p>
+<ul>
+<li><strong>+ Etiqueta</strong> añade una en la raíz; <strong>+ Hija</strong>, una dentro de la elegida.</li>
+<li><strong>Renombrar</strong> enseña antes en qué escenas, prefabs y scripts se usa (y cuántas veces). Con <strong>Cambiar también sus usos</strong>
+se cambian a la vez en esos ficheros (dentro de comillas en los scripts) y en la escena abierta, con deshacer.</li>
+<li><strong>Borrar</strong> quita la etiqueta y sus hijas del proyecto. Los usos no se tocan: siguen funcionando en los scripts, pero ya no
+salen en el selector.</li>
+<li>Cada etiqueta puede llevar un comentario (para qué sirve), que sale al pasar el ratón.</li>
+</ul>
+<p>Declararlas no es obligatorio: un script puede usar cualquier nombre válido. Las declaradas salen en el selector del
+Inspector, en el autocompletado (<code>HasTag(&quot;</code> y te las propone) y viajan más cortas por la red.</p>
+<h3 id="en-el-inspector">En el Inspector<a class="ancla" href="#en-el-inspector" aria-label="Enlace a esta sección">#</a></h3>
+<p>El componente <strong>Etiquetas</strong> y los campos <code>Tags()</code> de los scripts se ven como «chips» (clic para quitar una) y un botón
+<strong>+</strong> con el árbol de las del proyecto (con buscador) y una caja para escribir otra. Una etiqueta que no está declarada se
+ve en amarillo. Todo tiene deshacer (Ctrl+Z).</p>
+<h3 id="campos-tags">Campos <code>Tags()</code><a class="ancla" href="#campos-tags" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un campo <code>Tags()</code> es un contenedor de etiquetas que se edita en el Inspector y se guarda con la escena. En Lua es un
+<code>TagContainer</code> unido al campo: lo que añadas o quites cambia el campo.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Estados con etiquetas: un solo sitio con todo lo que le pasa al jugador</span>
+<span class="hl-k">local</span> <span class="hl-t">EstadosDelJugador</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">EstadosDelJugador</span>.estado = <span class="hl-f">Tags</span>({ <span class="hl-s">"Estado.Vivo"</span> })
+<span class="hl-t">EstadosDelJugador</span>.inmune = <span class="hl-f">Tags</span>() <span class="hl-c">-- se rellena en el Inspector (p. ej. Estado.Envenenado)</span>
+
+<span class="hl-k">function</span> <span class="hl-t">EstadosDelJugador</span>:<span class="hl-f">Herir</span>(cantidad: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.estado:<span class="hl-f">HasAny</span>({ <span class="hl-s">"Estado.Muerto"</span>, <span class="hl-s">"Estado.Invulnerable"</span> }) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.estado:<span class="hl-f">Add</span>(<span class="hl-s">"Estado.Herido"</span>)
+    <span class="hl-k">if</span> cantidad &gt; <span class="hl-n">50</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.estado:<span class="hl-f">Remove</span>({ <span class="hl-s">"Estado.Vivo"</span>, <span class="hl-s">"Estado.Herido"</span> })
+        <span class="hl-b">self</span>.estado:<span class="hl-f">Add</span>(<span class="hl-s">"Estado.Muerto"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">EstadosDelJugador</span>:<span class="hl-f">Envenenar</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.inmune:<span class="hl-f">Has</span>(<span class="hl-s">"Estado.Envenenado"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- inmune</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.estado:<span class="hl-f">Add</span>(<span class="hl-s">"Estado.Envenenado"</span>)
+    <span class="hl-c">-- Las etiquetas de la entidad (componente Etiquetas) tambien: se replican si tiene Identidad de red</span>
+    <span class="hl-b">self</span>.entity:<span class="hl-f">AddTag</span>(<span class="hl-s">"Estado.Envenenado"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">EstadosDelJugador</span>:<span class="hl-f">PuedeCorrer</span>(): boolean
+    <span class="hl-k">return</span> <span class="hl-b">self</span>.estado:<span class="hl-f">Has</span>(<span class="hl-s">"Estado.Vivo"</span>) <span class="hl-k">and</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.estado:<span class="hl-f">Has</span>(<span class="hl-s">"Estado.Herido"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">EstadosDelJugador</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>TagContainer</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>c:Has(etiqueta)</code></td>
+  <td>Alguna encaja (jerárquico)</td>
+</tr>
+<tr>
+  <td><code>c:HasExact(etiqueta)</code></td>
+  <td>Tiene exactamente esa</td>
+</tr>
+<tr>
+  <td><code>c:HasAny(lista)</code> / <code>c:HasAll(lista)</code></td>
+  <td>Encaja con alguna / con todas (jerárquico). La lista puede ser una etiqueta, <code>{...}</code> u otro contenedor</td>
+</tr>
+<tr>
+  <td><code>c:Add(...)</code> / <code>c:Remove(...)</code></td>
+  <td>Añade las que falten / quita esas (exactas). <code>true</code> si cambió algo</td>
+</tr>
+<tr>
+  <td><code>c:Clear()</code>, <code>c:GetAll()</code>, <code>c:Count()</code> (o <code>#c</code>), <code>c:Copy()</code></td>
+  <td>Vaciar, lista de textos, cuántas, copia suelta</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>self.campo = { &quot;A&quot;, &quot;B&quot; }</code> sustituye el contenido del campo. <code>Tags.Container({...})</code> crea un contenedor suelto.</p>
+<h3 id="en-las-entidades">En las entidades<a class="ancla" href="#en-las-entidades" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Entidad</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>e:HasTag(t)</code></td>
+  <td>Tiene <code>t</code> o una hija suya</td>
+</tr>
+<tr>
+  <td><code>e:HasTagExact(t)</code></td>
+  <td>Tiene exactamente <code>t</code></td>
+</tr>
+<tr>
+  <td><code>e:HasAnyTag(lista)</code> / <code>e:HasAllTags(lista)</code></td>
+  <td>Alguna / todas (jerárquico)</td>
+</tr>
+<tr>
+  <td><code>e:AddTag(t)</code> / <code>e:RemoveTag(t)</code></td>
+  <td>Como siempre</td>
+</tr>
+<tr>
+  <td><code>e:GetTags()</code></td>
+  <td>Sus etiquetas como <code>TagContainer</code> unido a la entidad (<code>e:GetTags():Add(&quot;X&quot;)</code> cambia la entidad)</td>
+</tr>
+<tr>
+  <td><code>Scene.FindAllWithTag(t)</code> / <code>Scene.FindWithTag(t)</code></td>
+  <td>Las entidades con <code>t</code> o una hija (jerárquico)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="en-red">En red<a class="ancla" href="#en-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las etiquetas del componente <strong>Etiquetas</strong> de una entidad con <strong>Identidad de red</strong> se replican: lo que el servidor añade o
+quita (con <code>AddTag</code>, <code>RemoveTag</code>, <code>GetTags()</code>, <code>e.tags = {...}</code> o desde C++) llega a todos los clientes. Las del proyecto
+viajan por su número (<code>#3</code>) y las demás por su nombre; caben unos 256 bytes por entidad (de sobra para decenas de
+etiquetas del proyecto). Los campos <code>Tags()</code> de los scripts <strong>no</strong> se replican (como los structs): si los clientes los
+necesitan, usa las etiquetas de la entidad o una tabla replicada.</p>
+<h2 id="2-interfaces">2. Interfaces<a class="ancla" href="#2-interfaces" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una interfaz es un contrato: una lista de funciones. Varios scripts distintos la cumplen y el que llama no necesita saber
+cuál es. Sirve para «cualquier cosa que se pueda recoger», «cualquier cosa que reciba daño»...</p>
+<h3 id="declarar-e-implementar">Declarar e implementar<a class="ancla" href="#declarar-e-implementar" aria-label="Enlace a esta sección">#</a></h3>
+<p>La interfaz va en un módulo (para que la usen varios scripts con <code>require</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- scripts/InterfazRecogible.luau: lo que tiene que tener todo lo que se puede recoger</span>
+<span class="hl-k">return</span> <span class="hl-f">Interface</span>(<span class="hl-s">"Recogible"</span>, { <span class="hl-s">"AlCoger"</span>, <span class="hl-s">"Descripcion"</span> })</code></pre></div>
+<p>Sin nombre (<code>Interface({ &quot;AlCoger&quot; })</code>) se llama como el fichero. El script dice que la implementa con
+<code>Clase:Implements(...)</code> (con la interfaz o con su nombre; se puede encadenar con <code>Script()</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Recogible</span> = <span class="hl-f">require</span>(<span class="hl-s">"./InterfazRecogible"</span>)
+
+<span class="hl-k">local</span> <span class="hl-t">BotinOro</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">BotinOro</span>:<span class="hl-f">Implements</span>(<span class="hl-t">Recogible</span>)
+<span class="hl-t">BotinOro</span>.valor = <span class="hl-n">250</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BotinOro</span>:<span class="hl-f">AlCoger</span>(jugador: <span class="hl-t">Entity</span>): number
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(jugador.name .. <span class="hl-s">" recoge oro"</span>)
+    <span class="hl-b">self</span>:<span class="hl-f">Destroy</span>()
+    <span class="hl-k">return</span> <span class="hl-b">self</span>.valor
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BotinOro</span>:<span class="hl-f">Descripcion</span>(): <span class="hl-t">string</span>
+    <span class="hl-k">return</span> <span class="hl-s">"Lingote de oro ("</span> .. <span class="hl-b">self</span>.valor .. <span class="hl-s">")"</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">BotinOro</span></code></pre></div>
+<p>Si un script dice implementar una interfaz y <strong>le falta una función</strong>, sale un aviso en la Consola con el fichero y la
+línea del <code>Implements</code> (también en el editor de scripts): <code>BotinOro dice implementar la interfaz Recogible pero le falta la función Descripcion</code>.</p>
+<h3 id="llamar-sin-saber-qué-script-es">Llamar sin saber qué script es<a class="ancla" href="#llamar-sin-saber-qué-script-es" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- El jugador recoge lo que toca, sea lo que sea (oro, armas, llaves...)</span>
+<span class="hl-k">local</span> <span class="hl-t">RecolectorBotin</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">RecolectorBotin</span>.total = <span class="hl-n">0</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">RecolectorBotin</span>:<span class="hl-f">OnTriggerEnter</span>(otra: <span class="hl-t">Entity</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> otra:<span class="hl-f">Implements</span>(<span class="hl-s">"Recogible"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Forma 1: Interfaces.Call devuelve lo que devuelva la funcion (nada si nadie la implementa)</span>
+    <span class="hl-k">local</span> valor = <span class="hl-t">Interfaces</span>.<span class="hl-f">Call</span>(otra, <span class="hl-s">"Recogible"</span>, <span class="hl-s">"AlCoger"</span>, <span class="hl-b">self</span>.entity)
+    <span class="hl-b">self</span>.total += valor <span class="hl-k">or</span> <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">RecolectorBotin</span>:<span class="hl-f">Mirar</span>(otra: <span class="hl-t">Entity</span>)
+    <span class="hl-c">-- Forma 2: un objeto con las funciones de la interfaz</span>
+    <span class="hl-k">local</span> recogible = otra:<span class="hl-f">GetInterface</span>(<span class="hl-s">"Recogible"</span>)
+    <span class="hl-k">if</span> recogible <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Ves: "</span> .. recogible:<span class="hl-f">Descripcion</span>())
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">RecolectorBotin</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Interface(nombre?, { funciones })</code></td>
+  <td>Declara la interfaz (y la registra por su nombre)</td>
+</tr>
+<tr>
+  <td><code>Clase:Implements(interfaz o nombre)</code></td>
+  <td>La clase la cumple (se comprueba al cargar el script)</td>
+</tr>
+<tr>
+  <td><code>e:Implements(interfaz)</code></td>
+  <td>Algún script de la entidad la implementa</td>
+</tr>
+<tr>
+  <td><code>e:GetInterface(interfaz)</code></td>
+  <td>Objeto con sus funciones (<code>i:AlCoger(...)</code>; <code>i.script</code> es la instancia), o <code>nil</code></td>
+</tr>
+<tr>
+  <td><code>Interfaces.Call(e, interfaz, &quot;Funcion&quot;, ...)</code></td>
+  <td>La función del primer script que la implementa; devuelve lo suyo</td>
+</tr>
+<tr>
+  <td><code>Interfaces.CallAll(e, interfaz, &quot;Funcion&quot;, ...)</code></td>
+  <td>En todos los que la implementan; devuelve cuántos</td>
+</tr>
+<tr>
+  <td><code>Interfaces.Implements(e, interfaz)</code></td>
+  <td>Igual que <code>e:Implements</code></td>
+</tr>
+<tr>
+  <td><code>Interfaces.Get(nombre)</code></td>
+  <td>La interfaz registrada con ese nombre</td>
+</tr>
+<tr>
+  <td><code>interfaz:IsImplementedBy(e)</code></td>
+  <td>Igual que <code>e:Implements(interfaz)</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Llamar a una función que no está en la interfaz es un error que dice cuáles tiene. En red, una función de la interfaz con
+<code>[Server]</code> o <code>[Multicast]</code> viaja por la red como siempre.</p>
+<h2 id="3-eventos-en-el-inspector-y-por-código">3. Eventos en el Inspector y por código<a class="ancla" href="#3-eventos-en-el-inspector-y-por-código" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un campo <code>Event()</code> es una lista de <strong>enlaces</strong> que se rellena en el Inspector, sin código: cada uno es «<strong>entidad</strong> +
+<strong>script</strong> + <strong>función</strong> (+ un <strong>argumento</strong> opcional)». El script lo lanza con <code>self.evento:Invoke(...)</code> y se llama a todas
+esas funciones. Es lo mismo que los UnityEvent de Unity o los Event Dispatchers de UE5.</p>
+<h3 id="paso-a-paso-una-puerta-que-enciende-una-alarma">Paso a paso: una puerta que enciende una alarma<a class="ancla" href="#paso-a-paso-una-puerta-que-enciende-una-alarma" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">PuertaConEvento</span> = <span class="hl-f">Script</span>()
+<span class="hl-a">--[Tooltip("Lo que pasa al abrirla (rellénalo en el Inspector)")]</span>
+<span class="hl-t">PuertaConEvento</span>.alAbrir = <span class="hl-f">Event</span>()
+<span class="hl-a">--[Hide]</span>
+<span class="hl-t">PuertaConEvento</span>.alCerrar = <span class="hl-f">Event</span>() <span class="hl-c">-- solo por código: no sale en el Inspector</span>
+<span class="hl-t">PuertaConEvento</span>.abierta = <span class="hl-b">false</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaConEvento</span>:<span class="hl-f">Abrir</span>(quien: <span class="hl-t">Entity</span>?)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.abierta <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.abierta = <span class="hl-b">true</span>
+    <span class="hl-b">self</span>.alAbrir:<span class="hl-f">Invoke</span>(quien) <span class="hl-c">-- llama a los enlaces del Inspector y a los Connect</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaConEvento</span>:<span class="hl-f">Cerrar</span>()
+    <span class="hl-b">self</span>.abierta = <span class="hl-b">false</span>
+    <span class="hl-b">self</span>.alCerrar:<span class="hl-f">Invoke</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PuertaConEvento</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">LuzDeAlarma</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">LuzDeAlarma</span>:<span class="hl-f">Encender</span>(quien: <span class="hl-t">Entity</span>?)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"¡Alarma! "</span> .. (<span class="hl-k">if</span> quien <span class="hl-k">then</span> quien.name <span class="hl-k">else</span> <span class="hl-s">"alguien"</span>) .. <span class="hl-s">" ha abierto la puerta"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">LuzDeAlarma</span>:<span class="hl-f">Parpadear</span>(veces: number)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Parpadea "</span> .. veces .. <span class="hl-s">" veces"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">LuzDeAlarma</span></code></pre></div>
+<ol>
+<li>Pon <code>PuertaConEvento</code> en la puerta y <code>LuzDeAlarma</code> en la luz.</li>
+<li>En el Inspector de la puerta, el campo <strong>Al Abrir</strong> es una lista: pulsa <strong>+</strong>.</li>
+<li>En el enlace nuevo, arrastra la luz desde la Jerarquía a <strong>Entidad</strong> (o elígela en la lista).</li>
+<li><strong>Script</strong>: el desplegable enseña los scripts de esa entidad (o «el que tenga la función»).</li>
+<li><strong>Función</strong>: el desplegable enseña las funciones de ese script: elige <code>Encender</code>.</li>
+<li>Opcional: <strong>Argumento</strong>. Vacío, la función recibe los argumentos de <code>Invoke</code> (aquí, <code>quien</code>). Con un valor (<code>3</code>, <code>true</code>,
+un texto), recibe solo ese: un segundo enlace a <code>Parpadear</code> con argumento <code>3</code>.</li>
+</ol>
+<p>La lista tiene lo de todas las listas del Inspector: arrastrar para ordenar, duplicar, quitar y vaciar, y todo con
+deshacer y rehacer (Ctrl+Z / Ctrl+Y, el historial de la barra). Una función que ya no existe se ve en amarillo; al
+lanzarse, un enlace a una entidad borrada o a una función que no existe da un aviso en la Consola (no un error).</p>
+<h3 id="suscribirse-por-código">Suscribirse por código<a class="ancla" href="#suscribirse-por-código" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> conexion = puerta:<span class="hl-f">GetScript</span>(<span class="hl-s">"PuertaConEvento"</span>).alAbrir:<span class="hl-f">Connect</span>(<span class="hl-k">function</span>(quien)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"se abrió"</span>)
+<span class="hl-k">end</span>)
+conexion:<span class="hl-f">Disconnect</span>() <span class="hl-c">-- deja de recibirlo</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>ScriptEvent</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ev:Invoke(...)</code></td>
+  <td>Llama a las suscripciones y después a los enlaces del Inspector. Devuelve cuántas funciones se llamaron</td>
+</tr>
+<tr>
+  <td><code>ev:Connect(fn)</code></td>
+  <td><code>fn(...)</code> en cada <code>Invoke</code>. Devuelve una conexión con <code>:Disconnect()</code> e <code>:IsConnected()</code></td>
+</tr>
+<tr>
+  <td><code>ev:Once(fn)</code></td>
+  <td>Como <code>Connect</code>, solo la próxima vez</td>
+</tr>
+<tr>
+  <td><code>ev:DisconnectAll()</code></td>
+  <td>Quita las suscripciones por código (los enlaces del Inspector se quedan)</td>
+</tr>
+<tr>
+  <td><code>ev:ListenerCount()</code></td>
+  <td>Suscripciones más enlaces</td>
+</tr>
+<tr>
+  <td><code>Event.new()</code></td>
+  <td>Un evento suelto (sin Inspector) para un módulo: <code>local AlMorir = Event.new()</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Una suscripción se quita sola al destruirse <strong>quien se suscribió</strong> o <strong>el dueño del evento</strong>: nunca llama a un <code>self</code> que ya
+no existe. Un error dentro de una función suscrita o enlazada se escribe en la Consola y los demás se siguen llamando.
+<code>self.evento = algo</code> es un error: un <code>Event()</code> no se asigna.</p>
+<h3 id="con-prefabs">Con prefabs<a class="ancla" href="#con-prefabs" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los enlaces guardan la entidad por su identificador, como los campos <code>Entity()</code>. Dentro de un prefab (la puerta con su luz
+hija), cada instancia enlaza con <strong>su</strong> luz: al instanciar, las referencias internas pasan a las entidades nuevas. Un
+enlace a una entidad de la escena (fuera del prefab) se queda apuntando a esa entidad.</p>
+<h3 id="en-red-dónde-se-lanza">En red: dónde se lanza<a class="ancla" href="#en-red-dónde-se-lanza" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Invoke</code> se ejecuta <strong>en la máquina que lo llama</strong>, como una llamada normal: no envía nada por sí mismo. Lo normal en un
+juego en red:</p>
+<ul>
+<li>Lanza el evento <strong>en el servidor</strong> (que es quien decide si la puerta se abre).</li>
+<li>Las funciones enlazadas que tienen que verse en todos (la luz, el sonido) llévalas con <strong><code>[Multicast]</code></strong>: el enlace las
+llama a través de la instancia, así que una función <code>[Multicast]</code> llega a todos y una <code>[Server]</code> llamada desde un cliente
+viaja al servidor, igual que si la llamaras con <code>self:Funcion()</code>. Así funciona en anfitrión y cliente y en servidor
+dedicado.</li>
+<li>Lo que solo es visual y local (un efecto en la pantalla de un jugador) puede lanzarse en el cliente.</li>
+</ul>
+<p>Los enlaces existen en todas las máquinas (van en la escena o en el prefab), porque las entidades de red tienen el mismo
+identificador en todas.</p>
+<h2 id="4-temporizadores-con-mango">4. Temporizadores con mango<a class="ancla" href="#4-temporizadores-con-mango" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Timer</code> es un temporizador que se puede parar, seguir, consultar y cancelar desde fuera:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">VenenoTemporizado</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">VenenoTemporizado</span>.vida = <span class="hl-n">100</span>
+
+<span class="hl-k">function</span> <span class="hl-t">VenenoTemporizado</span>:<span class="hl-f">Envenenar</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._veneno <span class="hl-k">and</span> <span class="hl-b">self</span>._veneno:<span class="hl-f">IsActive</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Cada 0,5 s quita 5 de vida; a los 4 s se cura solo</span>
+    <span class="hl-b">self</span>._veneno = <span class="hl-t">Timer</span>.<span class="hl-f">Every</span>(<span class="hl-n">0.5</span>, <span class="hl-k">function</span>()
+        <span class="hl-b">self</span>.vida -= <span class="hl-n">5</span>
+    <span class="hl-k">end</span>)
+    <span class="hl-b">self</span>._cura = <span class="hl-f">Timer</span>(<span class="hl-n">4</span>, <span class="hl-k">function</span>()
+        <span class="hl-b">self</span>._veneno:<span class="hl-f">Cancel</span>()
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">VenenoTemporizado</span>:<span class="hl-f">Pausar</span>(pausado: boolean)
+    <span class="hl-k">for</span> _, t <span class="hl-k">in</span> { <span class="hl-b">self</span>._veneno, <span class="hl-b">self</span>._cura } <span class="hl-k">do</span>
+        <span class="hl-k">if</span> t <span class="hl-k">then</span>
+            <span class="hl-k">if</span> pausado <span class="hl-k">then</span> t:<span class="hl-f">Pause</span>() <span class="hl-k">else</span> t:<span class="hl-f">Resume</span>() <span class="hl-k">end</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">VenenoTemporizado</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._cura <span class="hl-k">and</span> <span class="hl-b">self</span>._cura:<span class="hl-f">IsActive</span>() <span class="hl-k">then</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Veneno"</span>, <span class="hl-n">20</span>, <span class="hl-n">20</span>)
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Curación en %.1f s"</span>, <span class="hl-b">self</span>._cura:<span class="hl-f">Remaining</span>()))
+        <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">VenenoTemporizado</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Timer(segundos, fn, opciones?)</code></td>
+  <td>Llama a <code>fn(t)</code> una vez (también <code>Timer.After</code>)</td>
+</tr>
+<tr>
+  <td><code>Timer.Every(segundos, fn, opciones?)</code></td>
+  <td>Llama a <code>fn(t)</code> cada tantos segundos</td>
+</tr>
+<tr>
+  <td><code>t:Cancel()</code></td>
+  <td>Lo cancela (<code>true</code> si seguía activo)</td>
+</tr>
+<tr>
+  <td><code>t:Pause()</code> / <code>t:Resume()</code></td>
+  <td>Lo para guardando lo que le falta / sigue desde ahí</td>
+</tr>
+<tr>
+  <td><code>t:Remaining()</code></td>
+  <td>Segundos que faltan para la próxima llamada</td>
+</tr>
+<tr>
+  <td><code>t:IsActive()</code> / <code>t:IsPaused()</code></td>
+  <td>Si va a volver a llamar (en pausa también) / si está en pausa</td>
+</tr>
+<tr>
+  <td><code>t:SetTimeScale(x)</code> / <code>t:GetTimeScale()</code></td>
+  <td>Escala propia: <code>2</code> el doble de rápido, <code>0</code> congelado</td>
+</tr>
+</tbody>
+</table></div>
+<p>Opciones: <code>{ unscaled = true }</code> sigue con el juego en pausa (<code>Time.timeScale = 0</code>; menús), <code>{ timeScale = 2 }</code> es la escala
+propia y <code>{ owner = entidad }</code> lo ata a otra entidad (se cancela si se destruye).</p>
+<ul>
+<li>Se cancela solo al <strong>destruirse el script que lo crea</strong> (o al recargar el fichero, si se creó al cargarlo). A diferencia
+de <code>Task.*</code>, no se cancela al desactivar el script.</li>
+<li>La función se llama directamente: dentro no se puede esperar (<code>Task.Wait</code>); para eso, <code>Task.Spawn</code>.</li>
+<li><code>SetTimeout</code>, <code>CreateThread</code>, <code>Wait</code> y <code>Task.*</code> no cambian: <code>Timer</code> va sobre el mismo planificador.</li>
+</ul>
+<h2 id="5-pools-de-objetos">5. Pools de objetos<a class="ancla" href="#5-pools-de-objetos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Crear y destruir entidades cuesta (instanciar el prefab, <code>Awake</code>, cuerpos de físicas...). Un pool las reutiliza: al
+«destruir» una, se desactiva y se guarda para la siguiente.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el prefab de la bala: se reinicia al salir del pool</span>
+<span class="hl-k">local</span> <span class="hl-t">BalaReutilizable</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">BalaReutilizable</span>.velocidad = <span class="hl-n">40</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BalaReutilizable</span>:<span class="hl-f">OnPoolGet</span>()
+    <span class="hl-b">self</span>._vida = <span class="hl-n">0</span>
+    <span class="hl-t">Physics</span>.<span class="hl-f">SetVelocity</span>(<span class="hl-b">self</span>.entity, <span class="hl-b">self</span>.transform.forward * <span class="hl-b">self</span>.velocidad)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BalaReutilizable</span>:<span class="hl-f">OnPoolRelease</span>()
+    <span class="hl-c">-- lo que haya que limpiar (sus tareas de Task.* y sus tweens se cancelan solos)</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BalaReutilizable</span>:<span class="hl-f">OnCollisionEnter</span>(c)
+    <span class="hl-t">Pool</span>.<span class="hl-f">Release</span>(<span class="hl-b">self</span>.entity) <span class="hl-c">-- vuelve al pool en lugar de destruirse</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">BalaReutilizable</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">ArmaConPool</span> = <span class="hl-f">Script</span>()
+<span class="hl-a">--[Tooltip("Prefab de la bala (con BalaReutilizable y, si quieres, el componente Devolver al pool)")]</span>
+<span class="hl-t">ArmaConPool</span>.bala = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">ArmaConPool</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.bala <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._pool = <span class="hl-f">Pool</span>(<span class="hl-b">self</span>.bala, { inicial = <span class="hl-n">20</span>, maximo = <span class="hl-n">200</span> })
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ArmaConPool</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._pool <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">local</span> cannon = <span class="hl-b">self</span>.entity.position + <span class="hl-b">self</span>.transform.forward
+        <span class="hl-b">self</span>._pool:<span class="hl-f">Get</span>(cannon, <span class="hl-b">self</span>.entity.rotation)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ArmaConPool</span></code></pre></div>
+<ul>
+<li><code>Pool(prefab, { inicial = 20, maximo = 200 })</code> crea el pool con 20 ya creadas (desactivadas). <code>maximo</code> es cuántas libres
+guarda como mucho (las demás se destruyen al devolverlas). Es lo mismo que <code>Pool.Create(prefab, 20, { maxSize = 200 })</code>.</li>
+<li><code>pool:Get(posicion, rotacion)</code> saca una (o crea otra si no queda ninguna), con su cuerpo parado en el sitio nuevo, y llama
+a <code>OnPoolGet()</code> de sus scripts y de los de sus hijos.</li>
+<li><code>pool:Release(e)</code> o <code>Pool.Release(e, segundos?)</code> llama a <code>OnPoolRelease()</code>, cancela sus tareas y tweens, la desactiva y la
+guarda. Una devolución con espera solo vale para esa salida: si la bala se devolvió y se volvió a sacar antes, no la
+devuelve.</li>
+<li>El componente <strong>Devolver al pool</strong> (<code>PoolReturn</code>, en «Scripts») devuelve la entidad sola pasados N segundos desde que
+sale: perfecto para impactos, casquillos y balas perdidas.</li>
+<li>Más: <code>pool:Prewarm(n)</code>, <code>pool:CountActive()</code>, <code>pool:CountInactive()</code>, <code>pool:Clear()</code>, <code>Pool.IsPooled(e)</code>
+(<a href="nativas-juego.html">nativas-juego.md</a>).</li>
+</ul>
+<h3 id="en-red-pools-de-objetos-de-red">En red: pools de objetos de red<a class="ancla" href="#en-red-pools-de-objetos-de-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con un prefab con <strong>Identidad de red</strong>, el pool es de objetos de red y se crea <strong>en el servidor</strong> (en un cliente es un
+error que lo dice):</p>
+<ul>
+<li>Las entidades se crean una vez con <code>Spawn</code> (en el servidor y en todos los clientes) y después <strong>solo se activan y
+desactivan</strong>: el estado activo se replica, así que los clientes las ven aparecer y desaparecer sin crear ni destruir
+entidades de red.</li>
+<li>Al sacarla hay un teletransporte de red: los clientes no ven el salto interpolado desde donde se devolvió.</li>
+<li><code>OnPoolGet</code> y <code>OnPoolRelease</code> se llaman en el servidor. Si los clientes necesitan reiniciar algo, usa campos replicados.</li>
+<li>Sin red (o jugando solo) funciona como un pool local.</li>
+</ul>
+<h3 id="cuánto-se-gana">Cuánto se gana<a class="ancla" href="#cuánto-se-gana" aria-label="Enlace a esta sección">#</a></h3>
+<p>Medido con 1000 balas (prefab con un script), en las pruebas del motor (release, <code>nova_tests.exe utilidades</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>1000 balas</th>
+  <th>Crear y destruir</th>
+  <th>Pool (sacar y devolver)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Local: <code>Scene.Instantiate</code> + <code>Destroy</code> frente a <code>Get</code> + <code>Release</code></td>
+  <td>≈ 195 ms</td>
+  <td>≈ 6 ms (≈ 33 veces menos)</td>
+</tr>
+<tr>
+  <td>Red, pico del servidor en el frame de la orden: <code>Spawn</code> + <code>Destroy</code> frente a <code>Get</code> + <code>Release</code></td>
+  <td>≈ 140–185 ms + 5 ms</td>
+  <td>≈ 8 ms + 2 ms</td>
+</tr>
+<tr>
+  <td>Red, altas y bajas de entidades de red en los clientes</td>
+  <td>2000</td>
+  <td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Lo que cuesta un pool de red: las libres siguen siendo entidades de red (desactivadas) que la red recorre en cada envío.
+Con 1000 libres, unos 1,7 ms por frame en el servidor y otro tanto en cada cliente. Por eso, dimensiona los pools de red a
+lo que de verdad se usa a la vez (con <code>maximo</code>), y para balas que solo se ven, usa un pool <strong>local</strong> en cada máquina (el
+servidor decide los impactos con rayos).</p>
+<h2 id="6-resumen-de-la-api">6. Resumen de la API<a class="ancla" href="#6-resumen-de-la-api" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Dónde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Etiquetas</td>
+  <td><code>Tags.Matches</code>, <code>Tags.IsValid</code>, <code>Tags.Exists</code>, <code>Tags.Parent</code>, <code>Tags.All</code>, <code>Tags.Container</code>, <code>Tags()</code> como campo, <code>TagContainer</code>, <code>e:HasTag</code> (jerárquico), <code>e:HasTagExact</code>, <code>e:HasAnyTag</code>, <code>e:HasAllTags</code>, <code>e:GetTags</code>, <code>Scene.FindAllWithTag</code>, <code>Scene.FindWithTag</code></td>
+</tr>
+<tr>
+  <td>Interfaces</td>
+  <td><code>Interface</code>, <code>Clase:Implements</code>, <code>e:Implements</code>, <code>e:GetInterface</code>, <code>Interfaces.Call</code>, <code>Interfaces.CallAll</code>, <code>Interfaces.Implements</code>, <code>Interfaces.Get</code></td>
+</tr>
+<tr>
+  <td>Eventos</td>
+  <td><code>Event()</code> como campo, <code>Event.new</code>, <code>ev:Invoke</code>, <code>ev:Connect</code>, <code>ev:Once</code>, <code>ev:DisconnectAll</code>, <code>ev:ListenerCount</code>, <code>conexion:Disconnect</code></td>
+</tr>
+<tr>
+  <td>Temporizadores</td>
+  <td><code>Timer</code>, <code>Timer.Every</code>, <code>Timer.After</code>, <code>t:Cancel</code>, <code>t:Pause</code>, <code>t:Resume</code>, <code>t:Remaining</code>, <code>t:IsActive</code>, <code>t:IsPaused</code>, <code>t:SetTimeScale</code></td>
+</tr>
+<tr>
+  <td>Pools</td>
+  <td><code>Pool(prefab, { inicial, maximo })</code>, <code>Pool.Create</code>, <code>pool:Get</code>, <code>pool:Release</code>, <code>Pool.Release</code>, <code>OnPoolGet</code>, <code>OnPoolRelease</code>, componente <strong>Devolver al pool</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Los tipos (<code>TagContainer</code>, <code>ScriptEvent</code>, <code>EventConnection</code>, <code>Timer</code>, <code>InterfaceInfo</code> y <code>GameplayTag</code> con los nombres de las
+etiquetas del proyecto) están en <code>nova.d.luau</code>, que se rehace al cambiar las etiquetas en la ventana.</p>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="escenas-y-componentes.html"><small>Anterior</small>Escenas y componentes</a><a class="sig" href="nativas-juego.html"><small>Siguiente</small>Funciones nativas de juego (Lua)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-gameplay-tags-etiquetas-jerárquicas">1. Gameplay Tags: etiquetas jerárquicas</a></li><li class="n3"><a href="#son-las-etiquetas-de-siempre">Son las etiquetas de siempre</a></li><li class="n3"><a href="#declararlas-en-el-proyecto">Declararlas en el proyecto</a></li><li class="n3"><a href="#en-el-inspector">En el Inspector</a></li><li class="n3"><a href="#campos-tags">Campos Tags()</a></li><li class="n3"><a href="#en-las-entidades">En las entidades</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n2"><a href="#2-interfaces">2. Interfaces</a></li><li class="n3"><a href="#declarar-e-implementar">Declarar e implementar</a></li><li class="n3"><a href="#llamar-sin-saber-qué-script-es">Llamar sin saber qué script es</a></li><li class="n2"><a href="#3-eventos-en-el-inspector-y-por-código">3. Eventos en el Inspector y por código</a></li><li class="n3"><a href="#paso-a-paso-una-puerta-que-enciende-una-alarma">Paso a paso: una puerta que enciende una alarma</a></li><li class="n3"><a href="#suscribirse-por-código">Suscribirse por código</a></li><li class="n3"><a href="#con-prefabs">Con prefabs</a></li><li class="n3"><a href="#en-red-dónde-se-lanza">En red: dónde se lanza</a></li><li class="n2"><a href="#4-temporizadores-con-mango">4. Temporizadores con mango</a></li><li class="n2"><a href="#5-pools-de-objetos">5. Pools de objetos</a></li><li class="n3"><a href="#en-red-pools-de-objetos-de-red">En red: pools de objetos de red</a></li><li class="n3"><a href="#cuánto-se-gana">Cuánto se gana</a></li><li class="n2"><a href="#6-resumen-de-la-api">6. Resumen de la API</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

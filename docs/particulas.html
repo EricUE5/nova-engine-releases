@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partículas · Nova Engine</title>
+<meta name="description" content="El componente Sistema de partículas crea fuego, humo, chispas, explosiones, fogonazos, sangre, lluvia, nieve,
+polvo, salpicaduras, magia u hojas que caen: miles de imágenes pequeñas (o mallas) que nacen, se mueven, cambi">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Partículas · Nova Engine">
+<meta property="og:description" content="El componente Sistema de partículas crea fuego, humo, chispas, explosiones, fogonazos, sangre, lluvia, nieve,
+polvo, salpicaduras, magia u hojas que caen: miles de imágenes pequeñas (o mallas) que nacen, se mueven, cambi">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/particulas.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/particulas.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html" aria-current="page">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="partículas">Partículas</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-crear-un-efecto">1. Crear un efecto</a></li><li class="n2"><a href="#2-el-componente-y-sus-módulos">2. El componente y sus módulos</a></li><li class="n2"><a href="#3-valores-curvas-y-degradados">3. Valores, curvas y degradados</a></li><li class="n2"><a href="#4-la-vista-previa-en-el-editor">4. La vista previa en el editor</a></li><li class="n2"><a href="#5-cómo-se-dibujan">5. Cómo se dibujan</a></li><li class="n2"><a href="#6-colisiones">6. Colisiones</a></li><li class="n2"><a href="#7-subemisores">7. Subemisores</a></li><li class="n2"><a href="#8-rastros-y-cintas">8. Rastros y cintas</a></li><li class="n2"><a href="#9-desde-los-scripts-lua">9. Desde los scripts Lua</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#12-referencia-de-la-api">12. Referencia de la API</a></li><li class="n2"><a href="#13-detalles-y-límites">13. Detalles y límites</a></li></ul></details><p>El componente <strong>Sistema de partículas</strong> crea fuego, humo, chispas, explosiones, fogonazos, sangre, lluvia, nieve,
+polvo, salpicaduras, magia u hojas que caen: miles de imágenes pequeñas (o mallas) que nacen, se mueven, cambian
+de color y de tamaño y mueren. Se configura como en Unity, con <strong>módulos</strong> que se activan por separado, se ve en
+el visor <strong>Escena</strong> sin jugar (vista previa) y se controla desde los <a href="scripts-lua.html">scripts Lua</a> con
+<code>Play</code>, <code>Stop</code>, <code>Emit</code>, <code>EmitAt</code> y <code>Effects.Spawn</code>.</p>
+<p>Las partículas son <strong>solo visuales y locales</strong>: cada máquina simula las suyas. En una partida en red se lanzan en
+todas las máquinas con una función <code>[Multicast]</code> (ver <a href="#10-multijugador">Multijugador</a>).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-crear-un-efecto">Crear un efecto</a></li>
+<li><a href="#2-el-componente-y-sus-módulos">El componente y sus módulos</a></li>
+<li><a href="#3-valores-curvas-y-degradados">Valores, curvas y degradados</a></li>
+<li><a href="#4-la-vista-previa-en-el-editor">La vista previa en el editor</a></li>
+<li><a href="#5-cómo-se-dibujan">Cómo se dibujan</a></li>
+<li><a href="#6-colisiones">Colisiones</a></li>
+<li><a href="#7-subemisores">Subemisores</a></li>
+<li><a href="#8-rastros-y-cintas">Rastros y cintas</a></li>
+<li><a href="#9-desde-los-scripts-lua">Desde los scripts Lua</a></li>
+<li><a href="#10-multijugador">Multijugador</a></li>
+<li><a href="#11-rendimiento">Rendimiento</a></li>
+<li><a href="#12-referencia-de-la-api">Referencia de la API</a></li>
+<li><a href="#13-detalles-y-límites">Detalles y límites</a></li>
+</ol>
+<h2 id="1-crear-un-efecto">1. Crear un efecto<a class="ancla" href="#1-crear-un-efecto" aria-label="Enlace a esta sección">#</a></h2>
+<p>Menú <strong>Entidad &gt; Efectos</strong> (o el botón <strong>+</strong> de la Jerarquía):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué crea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Sistema de partículas</strong></td>
+  <td>Un sistema vacío: círculos suaves que suben (para empezar desde cero)</td>
+</tr>
+<tr>
+  <td><strong>Fuego</strong></td>
+  <td>Llamas animadas (aditivas, con brillo para el bloom), humo encima, brasas y una luz que parpadea</td>
+</tr>
+<tr>
+  <td><strong>Humo</strong></td>
+  <td>Columna de humo iluminada por el sol (recibe sus sombras), que sube, se abre y gira despacio</td>
+</tr>
+<tr>
+  <td><strong>Chispas</strong></td>
+  <td>Chispas estiradas que salen en ráfagas y rebotan en lo que se ve</td>
+</tr>
+<tr>
+  <td><strong>Explosión</strong></td>
+  <td>Bola de fuego, humo oscuro, chispas, destello y onda expansiva en el suelo, con luz (una vez)</td>
+</tr>
+<tr>
+  <td><strong>Fogonazo</strong></td>
+  <td>Destello del cañón, lenguas de fuego, un poco de humo y luz (una vez; emite hacia +Y)</td>
+</tr>
+<tr>
+  <td><strong>Impacto de bala</strong></td>
+  <td>Chispas, polvo y un destello donde da la bala (+Y = la normal de la superficie)</td>
+</tr>
+<tr>
+  <td><strong>Sangre</strong></td>
+  <td>Gotas que caen y dejan manchas en el suelo, con una bruma roja (una vez)</td>
+</tr>
+<tr>
+  <td><strong>Lluvia</strong></td>
+  <td>Gotas en 24 x 24 m que salpican al tocar lo que se ve</td>
+</tr>
+<tr>
+  <td><strong>Nieve</strong></td>
+  <td>Copos que caen despacio con remolinos en 24 x 24 m</td>
+</tr>
+<tr>
+  <td><strong>Polvo</strong></td>
+  <td>Nubes de polvo a ras de suelo que se lleva el viento y motas en el aire</td>
+</tr>
+<tr>
+  <td><strong>Salpicadura</strong></td>
+  <td>Agua que salta (pie de una cascada), con bruma y espuma</td>
+</tr>
+<tr>
+  <td><strong>Magia</strong></td>
+  <td>Destellos que giran y suben, con estelas y una luz violeta</td>
+</tr>
+<tr>
+  <td><strong>Hojas</strong></td>
+  <td>Hojas de otoño (mallas que giran en 3D) que caen y se posan en el suelo</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los que tienen varias partes crean una entidad raíz con el sistema principal e <strong>hijas</strong> con el resto (el humo y
+las brasas del fuego, las cinco partes de la explosión...). Se crean delante de la cámara del editor y quedan
+elegidos: se ven moverse en el visor sin pulsar Jugar.</p>
+<p>En el Inspector, <strong>Aplicar un preajuste...</strong> cambia los valores del sistema elegido por los de un preajuste (y crea
+sus partes como hijas). Todo se deshace con Ctrl+Z y funciona en la <a href="edicion-en-equipo.html">edición en equipo</a>.</p>
+<h2 id="2-el-componente-y-sus-módulos">2. El componente y sus módulos<a class="ancla" href="#2-el-componente-y-sus-módulos" aria-label="Enlace a esta sección">#</a></h2>
+<p>El Inspector muestra el sistema como en Unity: arriba los botones de la vista previa y los preajustes; después
+<strong>Principal</strong> y los módulos, cada uno plegable y con su casilla para activarlo.</p>
+<p><strong>Principal</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Duración, Bucle</td>
+  <td>Segundos de un ciclo; con bucle vuelve a empezar (las ráfagas y las curvas del ciclo se repiten)</td>
+</tr>
+<tr>
+  <td>Precalentar</td>
+  <td>Con bucle: al arrancar ya lleva un ciclo hecho (un fuego que ya está encendido)</td>
+</tr>
+<tr>
+  <td>Retardo inicial</td>
+  <td>Segundos antes de empezar</td>
+</tr>
+<tr>
+  <td>Vida, Velocidad inicial, Tamaño inicial, Rotación inicial, Color inicial</td>
+  <td>Cómo nace cada partícula (<a href="#3-valores-curvas-y-degradados">valores</a>: constante, aleatorio entre dos, curva...)</td>
+</tr>
+<tr>
+  <td>Tamaño 3D, Rotación 3D</td>
+  <td>Tamaño y giro por ejes (las mallas giran en 3D; las billboards solo en la pantalla)</td>
+</tr>
+<tr>
+  <td>Gravedad</td>
+  <td>Multiplica la gravedad de la escena (negativa: suben, como el humo)</td>
+</tr>
+<tr>
+  <td>Espacio de simulación</td>
+  <td><strong>Local</strong>: siguen al emisor (el fogonazo pegado al arma). <strong>Mundo</strong>: se quedan donde nacieron (el humo de un coche)</td>
+</tr>
+<tr>
+  <td>Velocidad de simulación, Tiempo sin escalar</td>
+  <td>Acelerar o frenar; sin escalar no le afecta la cámara lenta</td>
+</tr>
+<tr>
+  <td>Heredar velocidad</td>
+  <td>Parte de la velocidad del emisor que se llevan al nacer</td>
+</tr>
+<tr>
+  <td>Partículas como máximo</td>
+  <td>Límite de vivas a la vez</td>
+</tr>
+<tr>
+  <td>Empezar al cargar</td>
+  <td>Arranca solo al jugar (si no, espera a <code>Play()</code>)</td>
+</tr>
+<tr>
+  <td>Destruir al terminar</td>
+  <td>Sin bucle: borra la entidad cuando acaba y no quedan partículas</td>
+</tr>
+<tr>
+  <td>Semilla fija</td>
+  <td>El mismo efecto cada vez y en todas las máquinas</td>
+</tr>
+<tr>
+  <td>Fuera de pantalla</td>
+  <td><strong>Automático</strong>: los que tienen bucle se pausan si nadie los ve; <strong>Pausar</strong>; <strong>Seguir simulando</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Módulos</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Módulo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Emisión</strong></td>
+  <td>Ritmo por tiempo (partículas por segundo), ritmo por distancia (por metro que se mueve el emisor: estelas) y <strong>ráfagas</strong> (tiempo, cantidad, ciclos, intervalo, probabilidad)</td>
+</tr>
+<tr>
+  <td><strong>Forma</strong></td>
+  <td>Desde dónde y hacia dónde nacen: <strong>Punto</strong>, <strong>Esfera</strong>, <strong>Semiesfera</strong>, <strong>Cono</strong> (radio, ángulo, arco), <strong>Caja</strong>, <strong>Círculo</strong>, <strong>Arista</strong> (una línea) o <strong>Malla</strong> (la superficie de un modelo). <strong>Emitir desde</strong> volumen o superficie, <strong>Dirección aleatoria</strong> y posición, giro y escala de la forma. La forma emite hacia su <strong>+Y</strong></td>
+</tr>
+<tr>
+  <td><strong>Velocidad durante la vida</strong></td>
+  <td>Velocidad que se suma (X, Y, Z en local o en el mundo), <strong>órbita</strong> alrededor del centro, <strong>radial</strong> (alejarse o acercarse) y un multiplicador de la velocidad</td>
+</tr>
+<tr>
+  <td><strong>Limitar velocidad</strong></td>
+  <td>Velocidad máxima con amortiguación y <strong>rozamiento</strong> (frena el humo y las explosiones)</td>
+</tr>
+<tr>
+  <td><strong>Fuerza durante la vida</strong></td>
+  <td>Una aceleración (viento)</td>
+</tr>
+<tr>
+  <td><strong>Color durante la vida</strong></td>
+  <td>Multiplica el color inicial con un degradado (aparecer y desvanecerse)</td>
+</tr>
+<tr>
+  <td><strong>Tamaño durante la vida</strong></td>
+  <td>Una curva que multiplica el tamaño (crecer, encogerse)</td>
+</tr>
+<tr>
+  <td><strong>Rotación durante la vida</strong></td>
+  <td>Velocidad de giro en grados por segundo</td>
+</tr>
+<tr>
+  <td><strong>Ruido</strong></td>
+  <td>Turbulencia (ruido de rizo: remolinos como los del humo) con fuerza, frecuencia, velocidad de cambio y octavas; puede mover, girar y cambiar el tamaño</td>
+</tr>
+<tr>
+  <td><strong>Colisiones</strong></td>
+  <td>Con lo que se ve en pantalla, con planos, con un suelo o con las físicas: rebote, pérdida de velocidad y de vida (<a href="#6-colisiones">Colisiones</a>)</td>
+</tr>
+<tr>
+  <td><strong>Subemisores</strong></td>
+  <td>Otros sistemas que emiten al nacer, al chocar, al morir o durante la vida de cada partícula (<a href="#7-subemisores">Subemisores</a>)</td>
+</tr>
+<tr>
+  <td><strong>Hoja de textura</strong></td>
+  <td>Animación de fotogramas (columnas x filas): toda la hoja o una fila, por la vida o a tantos FPS, fotograma inicial al azar y fundido entre fotogramas</td>
+</tr>
+<tr>
+  <td><strong>Luces</strong></td>
+  <td>Algunas partículas llevan una luz puntual (fuego, fogonazos): proporción, máximo, alcance, intensidad y color</td>
+</tr>
+<tr>
+  <td><strong>Rastros</strong></td>
+  <td>Estelas detrás de cada partícula o una <strong>cinta</strong> que las une (<a href="#8-rastros-y-cintas">Rastros y cintas</a>)</td>
+</tr>
+<tr>
+  <td><strong>Render</strong></td>
+  <td>Cómo se dibujan (<a href="#5-cómo-se-dibujan">Cómo se dibujan</a>)</td>
+</tr>
+<tr>
+  <td><strong>Distancia (LOD)</strong></td>
+  <td>Menos emisión lejos de la cámara</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-valores-curvas-y-degradados">3. Valores, curvas y degradados<a class="ancla" href="#3-valores-curvas-y-degradados" aria-label="Enlace a esta sección">#</a></h2>
+<p>Casi todos los números del sistema son <strong>valores con modo</strong>. El botón <strong>›</strong> a la derecha elige el modo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Modo</th>
+  <th>Qué da</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Constante</td>
+  <td>Siempre lo mismo</td>
+</tr>
+<tr>
+  <td>Aleatorio entre dos</td>
+  <td>Un número al azar entre el mínimo y el máximo (uno por partícula)</td>
+</tr>
+<tr>
+  <td>Curva</td>
+  <td>Una curva por el tiempo (la vida de la partícula, o el ciclo del sistema en los valores iniciales) por un multiplicador</td>
+</tr>
+<tr>
+  <td>Aleatorio entre dos curvas</td>
+  <td>Entre dos curvas, al azar para cada partícula</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con una curva, clic en su miniatura para abrir el <strong>editor de curvas</strong>: arrastra las claves (con Mayús, solo el
+valor), <strong>doble clic</strong> en un hueco añade una, <strong>clic derecho</strong> la quita. Debajo se cambian el tiempo y el valor de
+la clave elegida, la interpolación (suave, lineal o escalonada) y hay curvas hechas (plana, sube, baja, campana,
+entra y sale). Las curvas suaves no se pasan de los valores de sus claves.</p>
+<p>Los colores funcionan igual (color, aleatorio entre dos colores, degradado, aleatorio entre dos degradados y al azar
+del degradado). El <strong>editor de degradados</strong> tiene las claves de alfa arriba y las de color abajo: clic para
+elegirlas, arrastrar para moverlas, doble clic en la barra para añadir y clic derecho para quitar. Los colores son
+HDR: más de 1 brillan.</p>
+<h2 id="4-la-vista-previa-en-el-editor">4. La vista previa en el editor<a class="ancla" href="#4-la-vista-previa-en-el-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Sin jugar, los sistemas de la <strong>entidad elegida</strong> (y los de sus hijas y sus subemisores) se simulan en el visor
+Escena. Abajo a la derecha del visor aparece una barra con <strong>Pausa/Reproducir</strong>, <strong>Reiniciar</strong>, la <strong>velocidad</strong> y
+cuántas partículas hay; los mismos botones están arriba del componente en el Inspector. Al elegir otra entidad se
+borran. Mientras se ve la vista previa, la forma del emisor se dibuja en azul.</p>
+<p>Jugando, los botones del Inspector controlan el sistema de verdad (Reproducir, Pausa, Reiniciar, Parar).</p>
+<h2 id="5-cómo-se-dibujan">5. Cómo se dibujan<a class="ancla" href="#5-cómo-se-dibujan" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Modos</strong> (módulo Render):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Modo</th>
+  <th>Para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Hacia la cámara</td>
+  <td>Lo normal: humo, fuego, chispas redondas</td>
+</tr>
+<tr>
+  <td>Estirada</td>
+  <td>A lo largo de la velocidad (longitud por tamaño y por m/s): chispas, trazadoras, lluvia</td>
+</tr>
+<tr>
+  <td>Horizontal</td>
+  <td>Tumbada en el plano XZ del emisor: ondas expansivas, manchas en el suelo, espuma</td>
+</tr>
+<tr>
+  <td>Vertical</td>
+  <td>De pie y mirando a la cámara solo en horizontal: hierba, columnas de luz</td>
+</tr>
+<tr>
+  <td>Malla</td>
+  <td>Un modelo por partícula, con giro 3D (sin modelo, un cuadrado de 1 x 1: hojas, papeles)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Mezcla</strong>: <strong>Alfa</strong> (humo, polvo), <strong>Aditiva</strong> (fuego, chispas, magia: suman luz), <strong>Premultiplicada</strong> (texturas
+con el alfa ya multiplicado) y <strong>Recorte (opaca)</strong> (hojas: escriben profundidad, sin transparencia).</p>
+<p><strong>Texturas integradas</strong> (hechas con código, sin ficheros): Círculo suave, Humo, Chispa, Fuego (animado: una hoja de
+8 x 8 fotogramas que se reproduce sola durante la vida), Gota de sangre, Anillo, Destello, Hoja y Gota. O una
+<strong>Propia</strong> del proyecto.</p>
+<ul>
+<li><strong>Intensidad (HDR)</strong>: más de 1 hace que brillen y que el <strong>bloom</strong> del <a href="render-y-materiales.html">Entorno</a> las
+recoja (fogonazos, fuego, magia).</li>
+<li><strong>Iluminadas</strong>: luz del sol (con sus sombras: el humo se oscurece a la sombra), luz ambiente del cielo y luces
+puntuales y focos. <strong>Volumen</strong> las hace parecer redondas.</li>
+<li><strong>Partículas suaves</strong>: se funden al tocar el suelo y las paredes en vez de cortarse en línea recta.</li>
+<li><strong>Desvanecer cerca de la cámara</strong>, <strong>Tamaño máximo en pantalla</strong> y <strong>Orden</strong>: por distancia (las de alfa, de atrás
+hacia delante), las más viejas o las más jóvenes primero, o ninguno (más rápido; las aditivas no lo necesitan).</li>
+</ul>
+<p><strong>Dónde van en el frame</strong>: opacos → cielo → agua (ríos, lagos y mar) → transparentes → <strong>partículas</strong> →
+postproceso (bloom, tonos, FXAA). Los sistemas se dibujan de atrás hacia delante. Llevan la <strong>niebla</strong> de la escena
+(las aditivas se apagan con ella) y leen la profundidad de la escena, así que se tapan con lo opaco y se funden con
+él. Debajo del agua no se ven a través de ella: el agua se dibuja antes (las burbujas bajo el agua se ven encima).</p>
+<h2 id="6-colisiones">6. Colisiones<a class="ancla" href="#6-colisiones" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué hace</th>
+  <th>Coste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Con la pantalla</strong></td>
+  <td>Chocan con lo que se ve, usando el buffer de profundidad de la vista (reducido a 1/4 y copiado a la CPU sin esperar a la GPU). <strong>Grosor</strong>: metros detrás de una superficie que aún cuentan</td>
+  <td>Barato; solo con lo que se ve, con 1-3 frames de retraso</td>
+</tr>
+<tr>
+  <td><strong>Planos</strong></td>
+  <td>Entidades cuyo plano XZ (normal +Y) frena las partículas</td>
+  <td>Muy barato</td>
+</tr>
+<tr>
+  <td><strong>Suelo</strong></td>
+  <td>Un suelo plano a una altura</td>
+  <td>Muy barato</td>
+</tr>
+<tr>
+  <td><strong>Con las físicas</strong></td>
+  <td>Rayos contra los colisionadores (solo jugando); <strong>Rayos por frame</strong> reparte un máximo entre frames</td>
+  <td>Para pocas partículas</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rebote</strong> (0 nada, 1 elástico), <strong>Pérdida de velocidad</strong>, <strong>Pérdida de vida</strong> (1 = muere al chocar: la lluvia) y
+<strong>Velocidad mínima</strong> (por debajo, muere).</p>
+<h2 id="7-subemisores">7. Subemisores<a class="ancla" href="#7-subemisores" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un subemisor es otro sistema (normalmente una entidad hija) que emite cuando le pasa algo a una partícula del
+padre: <strong>Al nacer</strong>, <strong>Al chocar</strong> (en el punto del choque; con <strong>Mirar a la normal</strong>, su forma apunta hacia fuera
+de la superficie), <strong>Al morir</strong> o <strong>Durante la vida</strong> (un ritmo por segundo de cada partícula: estelas de humo de
+los fuegos artificiales). Puede heredar el color, el tamaño y parte de la velocidad.</p>
+<p>El hijo usa su propia forma, velocidades y módulos para lo que emite, pero <strong>no emite por su cuenta</strong>. En el
+Inspector, <strong>Crear un hijo subemisor</strong> crea la entidad y la enlaza. La lluvia del preajuste salpica así y la sangre
+mancha el suelo.</p>
+<h2 id="8-rastros-y-cintas">8. Rastros y cintas<a class="ancla" href="#8-rastros-y-cintas" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Por partícula</strong>: cada partícula deja una estela (balas trazadoras, chispas mágicas). <strong>Vida del rastro</strong> es la
+parte de la vida de la partícula que dura cada punto; <strong>Distancia entre puntos</strong>, <strong>Ancho</strong> a lo largo (curva),
+<strong>Color a lo largo</strong> (degradado) y <strong>Proporción</strong> de partículas con rastro.</li>
+<li><strong>Cinta</strong>: une las partículas por orden de nacimiento en una tira (cortes de espada: un emisor en la hoja con
+<strong>ritmo por distancia</strong> y partículas que no se mueven).</li>
+</ul>
+<p>Las tiras miran siempre a la cámara y se dibujan con la textura y la mezcla del sistema.</p>
+<h2 id="9-desde-los-scripts-lua">9. Desde los scripts Lua<a class="ancla" href="#9-desde-los-scripts-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Controlar un sistema de la entidad:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> fuego = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"ParticleSystem"</span>)
+fuego:<span class="hl-f">Play</span>()
+fuego:<span class="hl-f">Stop</span>()        <span class="hl-c">-- deja de emitir; las que hay viven su vida</span>
+fuego:<span class="hl-f">Stop</span>(<span class="hl-b">true</span>)    <span class="hl-c">-- y las borra</span>
+fuego:<span class="hl-f">Pause</span>()
+<span class="hl-f">print</span>(fuego:<span class="hl-f">IsPlaying</span>(), fuego:<span class="hl-f">ParticleCount</span>())</code></pre></div>
+<p>Emitir a mano, donde quieras y con cambios:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> chispas = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"ParticleSystem"</span>)
+chispas:<span class="hl-f">Emit</span>(<span class="hl-n">20</span>)
+chispas:<span class="hl-f">EmitAt</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>), <span class="hl-n">30</span>, { color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.6</span>, <span class="hl-n">0.2</span>, <span class="hl-n">1</span>), size = <span class="hl-n">0.05</span>, normal = <span class="hl-t">Vec3</span>.up, seed = <span class="hl-n">7</span> })</code></pre></div>
+<p>Un efecto ya hecho que se borra solo al terminar (un preajuste por su nombre en español o en inglés, o la ruta de
+un <strong>prefab</strong> tuyo):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Effects</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"Explosión"</span>, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>))
+<span class="hl-t">Effects</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"BulletImpact"</span>, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">2</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>), <span class="hl-t">Quat</span>.<span class="hl-f">FromTo</span>(<span class="hl-t">Vec3</span>.up, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>)))
+<span class="hl-t">Effects</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"prefabs/MiHumo"</span>, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">3</span>))</code></pre></div>
+<p>Cambiar las propiedades principales mientras se juega:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> humo = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"ParticleSystem"</span>)
+humo:<span class="hl-f">SetRate</span>(<span class="hl-n">40</span>)                      <span class="hl-c">-- partículas por segundo</span>
+humo:<span class="hl-f">SetColor</span>(<span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">0.2</span>, <span class="hl-n">0.2</span>, <span class="hl-n">0.2</span>, <span class="hl-n">1</span>))
+humo:<span class="hl-f">SetSize</span>(<span class="hl-n">1</span>, <span class="hl-n">2</span>)                    <span class="hl-c">-- aleatorio entre 1 y 2 m</span>
+humo:<span class="hl-f">SetSpeed</span>(<span class="hl-n">0.5</span>)
+humo:<span class="hl-f">SetLifetime</span>(<span class="hl-n">3</span>, <span class="hl-n">5</span>)
+humo:<span class="hl-f">SetGravity</span>(-<span class="hl-n">0.1</span>)
+humo.simulationSpeed = <span class="hl-n">2</span>              <span class="hl-c">-- los campos sueltos de «Principal» se cambian directamente</span>
+humo:<span class="hl-f">ApplyPreset</span>(<span class="hl-s">"Humo"</span>)</code></pre></div>
+<p>Una antorcha que se enciende y se apaga al pulsar E con la cámara cerca de ella:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Antorcha: E enciende o apaga su fuego (un Sistema de partículas en la misma entidad)</span>
+<span class="hl-k">local</span> <span class="hl-t">Antorcha</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Antorcha</span>.distancia = <span class="hl-n">3</span> <span class="hl-a">--[Range(1, 10)]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Antorcha</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._fuego = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"ParticleSystem"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Antorcha</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> camara <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._fuego <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> cerca = <span class="hl-t">Vec3</span>.<span class="hl-f">Distance</span>(camara.transform.worldPosition, <span class="hl-b">self</span>.transform.worldPosition) &lt; <span class="hl-b">self</span>.distancia
+    <span class="hl-k">if</span> cerca <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"E"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">if</span> <span class="hl-b">self</span>._fuego:<span class="hl-f">IsPlaying</span>() <span class="hl-k">then</span>
+            <span class="hl-b">self</span>._fuego:<span class="hl-f">Stop</span>()
+        <span class="hl-k">else</span>
+            <span class="hl-b">self</span>._fuego:<span class="hl-f">Play</span>()
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Antorcha</span></code></pre></div>
+<h2 id="10-multijugador">10. Multijugador<a class="ancla" href="#10-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las partículas son visuales y <strong>locales</strong>: no se replican. Para que todos vean un efecto, el servidor llama a una
+función <code>[Multicast]</code> y cada máquina lo crea en local. Con una <strong>semilla</strong> (<code>seed</code>) el efecto sale idéntico en todas
+(las mismas direcciones, tamaños y colores). Un <strong>impacto completo</strong> junta las partículas (<code>Effects.Spawn</code>) con una
+marca en la pared (<code>Decals.BulletHole</code>, ver <a href="decals.html">decals.md</a>) en la misma función <code>[Multicast]</code>. Para un
+disparo con compensación de latencia (cajas de impacto), ver
+<a href="multijugador.html#18-disparos-y-compensación-de-latencia">multijugador.md</a>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Disparo en red: el servidor decide el impacto y todas las máquinas ven el fogonazo y las chispas</span>
+<span class="hl-k">local</span> <span class="hl-t">ArmaConEfectos</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">ArmaConEfectos</span>.alcance = <span class="hl-n">80</span> <span class="hl-a">--[Range(5, 200)]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ArmaConEfectos</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">local</span> t = <span class="hl-b">self</span>.transform
+        <span class="hl-b">self</span>:<span class="hl-f">Disparar</span>(t.worldPosition, t.forward)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Cliente dueño -&gt; servidor: el servidor comprueba el disparo</span>
+<span class="hl-a">--[Server]</span>
+<span class="hl-k">function</span> <span class="hl-t">ArmaConEfectos</span>:<span class="hl-f">Disparar</span>(origen: <span class="hl-t">Vector3</span>, direccion: <span class="hl-t">Vector3</span>)
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(origen, direccion, <span class="hl-b">self</span>.alcance, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">local</span> semilla = <span class="hl-t">math</span>.<span class="hl-f">random</span>(<span class="hl-n">1</span>, <span class="hl-n">1000000</span>)
+    <span class="hl-b">self</span>:<span class="hl-f">EfectoDisparo</span>(origen, direccion, semilla)
+    <span class="hl-k">if</span> golpe <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">EfectoImpacto</span>(golpe.point, golpe.normal, semilla)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Servidor -&gt; todos (y el propio servidor): solo efectos, cada máquina los crea en local</span>
+<span class="hl-a">--[Multicast(reliable = false)]</span>
+<span class="hl-k">function</span> <span class="hl-t">ArmaConEfectos</span>:<span class="hl-f">EfectoDisparo</span>(origen: <span class="hl-t">Vector3</span>, direccion: <span class="hl-t">Vector3</span>, semilla: number)
+    <span class="hl-k">local</span> boca = <span class="hl-b">self</span>.entity:<span class="hl-f">FindChild</span>(<span class="hl-s">"Boca"</span>)
+    <span class="hl-k">if</span> boca <span class="hl-k">then</span>
+        <span class="hl-c">-- Colgado de la boca del arma: la sigue (posición y giro locales; la forma emite hacia +Y)</span>
+        <span class="hl-t">Effects</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"Fogonazo"</span>, <span class="hl-t">Vec3</span>.zero, <span class="hl-t">Quat</span>.<span class="hl-f">FromTo</span>(<span class="hl-t">Vec3</span>.up, <span class="hl-t">Vec3</span>.forward), { parent = boca, seed = semilla })
+    <span class="hl-k">else</span>
+        <span class="hl-t">Effects</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"Fogonazo"</span>, origen, <span class="hl-t">Quat</span>.<span class="hl-f">FromTo</span>(<span class="hl-t">Vec3</span>.up, direccion), { seed = semilla })
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-a">--[Multicast(reliable = false)]</span>
+<span class="hl-k">function</span> <span class="hl-t">ArmaConEfectos</span>:<span class="hl-f">EfectoImpacto</span>(punto: <span class="hl-t">Vector3</span>, normal: <span class="hl-t">Vector3</span>, semilla: number)
+    <span class="hl-t">Effects</span>.<span class="hl-f">Spawn</span>(<span class="hl-s">"Impacto de bala"</span>, punto, <span class="hl-t">Quat</span>.<span class="hl-f">FromTo</span>(<span class="hl-t">Vec3</span>.up, normal), { seed = semilla })
+    <span class="hl-t">Decals</span>.<span class="hl-f">BulletHole</span>(punto, normal) <span class="hl-c">-- el agujero en la pared (decals.md)</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ArmaConEfectos</span></code></pre></div>
+<p>Notas:</p>
+<ul>
+<li><code>reliable = false</code>: si un efecto se pierde no pasa nada (y no retrasa lo importante).</li>
+<li>Lo que importa para el juego (el daño, quién ha ganado) lo decide el servidor; el efecto solo se ve.</li>
+<li>Con la misma semilla, cada máquina emite exactamente lo mismo. Lo que pasa después (el ruido, los choques con la
+pantalla) depende de los frames de cada una, así que pequeños detalles pueden variar.</li>
+<li>En el <strong>servidor dedicado</strong> (<code>NovaServer.exe</code>, sin gráficos) las partículas no se simulan: <code>Effects.Spawn</code>
+funciona y la entidad se borra al momento.</li>
+</ul>
+<h2 id="11-rendimiento">11. Rendimiento<a class="ancla" href="#11-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p>La simulación va en la <strong>CPU</strong>, en paralelo con todos los núcleos (trozos de 4096 partículas de todos los sistemas a
+la vez) y con las curvas y degradados en tablas precalculadas. Los datos de cada partícula se suben a la GPU en un
+buffer dinámico (64 bytes por partícula), ordenados por distancia con una ordenación por base. Elegimos la CPU y no
+la GPU (<em>compute shaders</em>) porque así los subemisores, las semillas deterministas, la API de Lua
+(<code>ParticleCount</code>, <code>EmitAt</code>), las luces del módulo Luces y las colisiones con las físicas son directos, y las
+pruebas no necesitan GPU; las colisiones con la pantalla se hacen igualmente con la profundidad copiada a la CPU.</p>
+<p>Medido en el PC de desarrollo (RTX 5060 Ti, 16 hilos, compilación <em>release</em>, 960 x 540), con 10 sistemas con ruido,
+gravedad, color y tamaño durante la vida y suelo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Partículas vivas</th>
+  <th>Simulación</th>
+  <th>Preparar y subir (orden incluido)</th>
+  <th>Frame completo con la GPU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>50.000 (alfa, ordenadas por distancia)</td>
+  <td>~0,9 ms</td>
+  <td>~0,9 ms</td>
+  <td>~2,5-3 ms</td>
+</tr>
+<tr>
+  <td>100.000 (aditivas)</td>
+  <td>~2 ms</td>
+  <td>~0,4 ms</td>
+  <td>~4 ms</td>
+</tr>
+</tbody>
+</table></div>
+<p>(Medianas de 60 frames. La prueba <code>particulas: rendimiento</code> lo mide en cada máquina y exige menos de 6 ms de CPU para
+50.000 en <em>release</em>. El «frame completo» es la escena entera con su suelo, sombras y postproceso.)</p>
+<p>Consejos:</p>
+<ul>
+<li><strong>Fuera de pantalla</strong>: los sistemas con bucle que nadie ve se pausan solos (Automático). Los límites de cada
+sistema se calculan cada frame para el recorte.</li>
+<li><strong>Distancia (LOD)</strong>: menos emisión lejos de la cámara.</li>
+<li><strong>Partículas como máximo</strong>: el límite reserva la memoria una vez (sin crear ni borrar objetos por partícula).</li>
+<li>Las de <strong>mezcla aditiva</strong> no necesitan <strong>Orden</strong>: ponlo en Ninguno.</li>
+<li>El coste en la GPU es sobre todo el <strong>tamaño en pantalla</strong> de las partículas transparentes (humo grande y
+pegado a la cámara). <strong>Tamaño máximo en pantalla</strong> y <strong>Desvanecer cerca de la cámara</strong> ayudan.</li>
+<li>Las <strong>colisiones con las físicas</strong> lanzan rayos: úsalas con pocas partículas.</li>
+</ul>
+<h2 id="12-referencia-de-la-api">12. Referencia de la API<a class="ancla" href="#12-referencia-de-la-api" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Componente <code>ParticleSystem</code></strong> (<code>self:GetComponent(&quot;ParticleSystem&quot;)</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Play()</code></td>
+  <td>Empieza (o sigue si estaba en pausa)</td>
+</tr>
+<tr>
+  <td><code>Stop(borrar?)</code></td>
+  <td>Deja de emitir; con <code>true</code>, borra las partículas</td>
+</tr>
+<tr>
+  <td><code>Pause()</code></td>
+  <td>Congela el sistema</td>
+</tr>
+<tr>
+  <td><code>Clear()</code></td>
+  <td>Borra las partículas</td>
+</tr>
+<tr>
+  <td><code>Restart()</code></td>
+  <td>Empieza de cero</td>
+</tr>
+<tr>
+  <td><code>Emit(n, cambios?)</code></td>
+  <td>Emite <code>n</code> ya, en la forma del emisor</td>
+</tr>
+<tr>
+  <td><code>EmitAt(posicion, n?, cambios?)</code></td>
+  <td>Emite <code>n</code> (1 si no se dice) con la forma centrada en <code>posicion</code> (mundo)</td>
+</tr>
+<tr>
+  <td><code>IsPlaying()</code>, <code>IsPaused()</code>, <code>IsAlive()</code></td>
+  <td>Emitiendo, en pausa, emitiendo o con partículas vivas</td>
+</tr>
+<tr>
+  <td><code>ParticleCount()</code></td>
+  <td>Partículas vivas</td>
+</tr>
+<tr>
+  <td><code>Simulate(segundos)</code></td>
+  <td>Avanza ya ese tiempo (como el precalentado)</td>
+</tr>
+<tr>
+  <td><code>SetRate(porSegundo, porMetro?)</code>, <code>SetColor(color, colorMax?)</code>, <code>SetSize(t, tMax?)</code>, <code>SetSpeed(v, vMax?)</code>, <code>SetLifetime(s, sMax?)</code>, <code>SetGravity(g)</code>, <code>SetIntensity(i)</code>, <code>SetSeed(n?)</code></td>
+  <td>Propiedades principales (con dos números: aleatorio entre ellos)</td>
+</tr>
+<tr>
+  <td><code>ApplyPreset(nombre)</code></td>
+  <td>Los valores de un preajuste (solo este sistema)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los campos del módulo Principal se leen y cambian directamente (<code>ps.loop</code>, <code>ps.maxParticles</code>,
+<code>ps.simulationSpeed</code>, <code>ps.simulationSpace = &quot;Mundo&quot;</code>...). Los módulos son tablas (<code>ps.emission</code>, <code>ps.renderer</code>...):
+se leen como copia y se pueden asignar con una tabla que tenga los campos que cambian.</p>
+<p><strong>Cambios de una emisión</strong> (<code>cambios</code> de <code>Emit</code> y <code>EmitAt</code>): <code>color</code>, <code>size</code> (m), <code>speed</code> (m/s), <code>lifetime</code> (s),
+<code>velocity</code> (Vec3 que se suma, mundo), <code>rotation</code> (Quat: orientación de la forma), <code>normal</code> (Vec3: la forma emite
+hacia ella) y <code>seed</code> (número: la misma emisión en todas las máquinas).</p>
+<p><strong><code>Effects</code></strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Effects.Spawn(efecto, posicion, rotacion?, opciones?)</code></td>
+  <td>Crea un preajuste (o un prefab) ya en marcha y lo devuelve (Entity). Se borra solo al terminar. Opciones: <code>seed</code>, <code>parent</code> (lo sigue), <code>scale</code>, <code>destroy = false</code> (no se borra)</td>
+</tr>
+<tr>
+  <td><code>Effects.Presets()</code></td>
+  <td>Los nombres de los preajustes</td>
+</tr>
+<tr>
+  <td><code>Effects.Has(nombre)</code></td>
+  <td>Si existe ese preajuste</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todo está declarado en <code>nova.d.luau</code> (VS Code autocompleta y comprueba los tipos).</p>
+<h2 id="13-detalles-y-límites">13. Detalles y límites<a class="ancla" href="#13-detalles-y-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>La forma emite hacia <strong>+Y</strong> de la entidad (arriba). Para un arma que apunta a −Z, gira la entidad −90° en X o usa
+<code>Quat.FromTo(Vec3.up, direccion)</code> al crearla.</li>
+<li>Las billboards giran solo en el plano de la pantalla; para giros 3D usa el modo <strong>Malla</strong>.</li>
+<li>Las de <strong>recorte</strong> escriben profundidad pero no proyectan sombra; las partículas no proyectan sombras.</li>
+<li>Las <strong>colisiones con la pantalla</strong> solo conocen lo que se ve (lo que está detrás de algo o fuera de la vista no
+frena) y llegan con 1-3 frames de retraso; para algo exacto usa planos, el suelo o las físicas.</li>
+<li>Las <strong>luces</strong> de las partículas son 32 como mucho en toda la escena (las más intensas) y no hacen sombra.</li>
+<li>Sin gráficos (servidor dedicado) no se simulan.</li>
+<li>En el editor sin jugar solo se simulan los sistemas elegidos (vista previa).</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="splines-carreteras-rios.html"><small>Anterior</small>Splines, carreteras y ríos</a><a class="sig" href="decals.html"><small>Siguiente</small>Decals (calcomanías)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-crear-un-efecto">1. Crear un efecto</a></li><li class="n2"><a href="#2-el-componente-y-sus-módulos">2. El componente y sus módulos</a></li><li class="n2"><a href="#3-valores-curvas-y-degradados">3. Valores, curvas y degradados</a></li><li class="n2"><a href="#4-la-vista-previa-en-el-editor">4. La vista previa en el editor</a></li><li class="n2"><a href="#5-cómo-se-dibujan">5. Cómo se dibujan</a></li><li class="n2"><a href="#6-colisiones">6. Colisiones</a></li><li class="n2"><a href="#7-subemisores">7. Subemisores</a></li><li class="n2"><a href="#8-rastros-y-cintas">8. Rastros y cintas</a></li><li class="n2"><a href="#9-desde-los-scripts-lua">9. Desde los scripts Lua</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#12-referencia-de-la-api">12. Referencia de la API</a></li><li class="n2"><a href="#13-detalles-y-límites">13. Detalles y límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

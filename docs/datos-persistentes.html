@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datos persistentes con cuentas (Nova Datos) · Nova Engine</title>
+<meta name="description" content="Nova Datos guarda los datos de cada jugador que tienen que durar entre partidas: el alijo de un juego de
+extracción, el dinero, la progresión, los desbloqueos. Lo que tiene valor lo guarda el servidor del juego o una
+acc">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Datos persistentes con cuentas (Nova Datos) · Nova Engine">
+<meta property="og:description" content="Nova Datos guarda los datos de cada jugador que tienen que durar entre partidas: el alijo de un juego de
+extracción, el dinero, la progresión, los desbloqueos. Lo que tiene valor lo guarda el servidor del juego o una
+acc">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/datos-persistentes.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/datos-persistentes.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html" aria-current="page">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="datos-persistentes-con-cuentas-nova-datos">Datos persistentes con cuentas (Nova Datos)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-probarlo-ya-modo-local">1. Probarlo ya (modo local)</a></li><li class="n2"><a href="#2-la-tabla-persistence">2. La tabla Persistence</a></li><li class="n2"><a href="#3-ejemplo-el-alijo-de-un-juego-de-extracción">3. Ejemplo: el alijo de un juego de extracción</a></li><li class="n2"><a href="#4-cuentas">4. Cuentas</a></li><li class="n2"><a href="#5-lo-que-puede-hacer-el-jugador-sin-servidor">5. Lo que puede hacer el jugador sin servidor</a></li><li class="n3"><a href="#acciones-del-juego">Acciones del juego</a></li><li class="n3"><a href="#receta-refugio-fuera-de-partida-e-incursión-en-un-servidor">Receta: refugio fuera de partida e incursión en un servidor</a></li><li class="n2"><a href="#6-desplegar-el-servicio-modo-remoto">6. Desplegar el servicio (modo remoto)</a></li><li class="n2"><a href="#7-el-servidor-dedicado-y-su-clave">7. El servidor dedicado y su clave</a></li><li class="n2"><a href="#8-límites">8. Límites</a></li><li class="n2"><a href="#9-seguridad">9. Seguridad</a></li><li class="n2"><a href="#10-probar-el-modo-remoto-sin-desplegar">10. Probar el modo remoto sin desplegar</a></li><li class="n2"><a href="#11-problemas">11. Problemas</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p><strong>Nova Datos</strong> guarda los datos de cada jugador que tienen que durar entre partidas: el alijo de un juego de
+extracción, el dinero, la progresión, los desbloqueos. Lo que tiene valor lo guarda <strong>el servidor del juego</strong> o una
+<strong>acción del juego</strong> que valida el servicio, nunca el jugador a su antojo, así que nadie se puede dar objetos
+editando un fichero.</p>
+<ul>
+<li><strong>Para desarrollar</strong>, el modo <strong>local</strong> guarda todo en ficheros de tu PC: no hay que desplegar nada.</li>
+<li><strong>Para publicar</strong>, el modo <strong>remoto</strong> usa un servicio tuyo en Cloudflare (el plan gratuito sirve para empezar),
+con <strong>cuentas</strong>: la de Steam del jugador o una cuenta propia del juego, sin contraseñas.</li>
+<li>Las operaciones son <strong>atómicas</strong>: con versiones y transacciones, un objeto no se duplica aunque dos servidores
+lo toquen a la vez o el servidor se caiga a medias.</li>
+<li>Todo es <strong>asíncrono</strong>: la respuesta llega a tu función unos milisegundos después y el juego no se para.</li>
+</ul>
+<p>El mismo servicio hace también el <strong>emparejamiento</strong> (colas de partida y servidores bajo demanda):
+<a href="emparejamiento.html">emparejamiento.md</a>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-probarlo-ya-modo-local">Probarlo ya (modo local)</a></li>
+<li><a href="#2-la-tabla-persistence">La tabla Persistence</a></li>
+<li><a href="#3-ejemplo-el-alijo-de-un-juego-de-extracción">Ejemplo: el alijo de un juego de extracción</a></li>
+<li><a href="#4-cuentas">Cuentas</a></li>
+<li><a href="#5-lo-que-puede-hacer-el-jugador-sin-servidor">Lo que puede hacer el jugador sin servidor</a><ul>
+<li><a href="#acciones-del-juego">Acciones del juego</a></li>
+<li><a href="#receta-refugio-fuera-de-partida-e-incursión-en-un-servidor">Receta: refugio fuera de partida e incursión en un servidor</a></li>
+</ul>
+</li>
+<li><a href="#6-desplegar-el-servicio-modo-remoto">Desplegar el servicio (modo remoto)</a></li>
+<li><a href="#7-el-servidor-dedicado-y-su-clave">El servidor dedicado y su clave</a></li>
+<li><a href="#8-límites">Límites</a></li>
+<li><a href="#9-seguridad">Seguridad</a></li>
+<li><a href="#10-probar-el-modo-remoto-sin-desplegar">Probar el modo remoto sin desplegar</a></li>
+<li><a href="#11-problemas">Problemas</a></li>
+<li><span class="enlace-interno-quitado">Para quien desarrolla el motor</span></li>
+</ol>
+<h2 id="1-probarlo-ya-modo-local">1. Probarlo ya (modo local)<a class="ancla" href="#1-probarlo-ya-modo-local" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un proyecto nuevo ya está en modo local (<strong>Ajustes del proyecto &gt; Datos &gt; Modo: Local</strong>). Pon este script en una
+entidad de la escena y pulsa <strong>Jugar</strong>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Monedero</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Monedero</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-c">-- Al entrar cada jugador, 10 monedas más (se suman a las que tenía de otras partidas)</span>
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"playerAccount"</span>, <span class="hl-k">function</span>(jugador, cuenta)
+        <span class="hl-t">Persistence</span>.<span class="hl-f">Update</span>(jugador, <span class="hl-s">"monedas"</span>, <span class="hl-k">function</span>(monedas)
+            <span class="hl-k">return</span> (monedas <span class="hl-k">or</span> <span class="hl-n">0</span>) + <span class="hl-n">10</span>
+        <span class="hl-k">end</span>, <span class="hl-k">function</span>(ok, total)
+            <span class="hl-f">print</span>(cuenta, <span class="hl-s">"tiene"</span>, total, <span class="hl-s">"monedas"</span>)
+        <span class="hl-k">end</span>)
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Monedero</span></code></pre></div>
+<p>Cada vez que juegas, el número sube: el dato vive en la carpeta de datos del juego en tu PC
+(<code>%LOCALAPPDATA%\&lt;tu juego&gt;\datos-locales</code>), una carpeta por cuenta y un fichero por clave. El editor y
+<code>NovaServer.exe</code> del mismo juego comparten esa carpeta.</p>
+<p><code>playerAccount</code> llega cuando el servidor ya sabe <strong>quién es</strong> el jugador (su cuenta). En modo local la cuenta es la
+de Steam si el juego va con Steam (también el simulado) o <code>local:&lt;nombre&gt;</code>.</p>
+<p><code>playerAccount</code> solo llega para los jugadores <strong>que se conectan</strong> (los remotos). El jugador de la propia máquina (el
+anfitrión, o tú en una partida sin red) no lo recibe: para él usa directamente el id <code>0</code> (o su id), que ya tiene
+cuenta; <code>Persistence.GetAccount(0)</code> te la da en cuanto ha entrado.</p>
+<h2 id="2-la-tabla-persistence">2. La tabla Persistence<a class="ancla" href="#2-la-tabla-persistence" aria-label="Enlace a esta sección">#</a></h2>
+<p>Dónde funciona:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Máquina</th>
+  <th><code>Persistence.GetAccess()</code></th>
+  <th>Qué puede hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>El servidor: el anfitrión, <code>NovaServer.exe</code> o la partida de un jugador sin red, en modo <strong>local</strong></td>
+  <td><code>&quot;servidor&quot;</code></td>
+  <td>Todo</td>
+</tr>
+<tr>
+  <td>Un servidor con la <strong>clave</strong> del juego, en modo <strong>remoto</strong> (<code>NovaServer.exe</code>, el de <code>nova-flota</code>)</td>
+  <td><code>&quot;servidor&quot;</code></td>
+  <td>Todo</td>
+</tr>
+<tr>
+  <td>El juego de un jugador en modo <strong>remoto</strong> (sin clave): su menú, su refugio sin red, el anfitrión jugador o un cliente conectado a una partida</td>
+  <td><code>&quot;cliente&quot;</code></td>
+  <td>Solo <strong>sus</strong> documentos, con las reglas del servicio (<a href="#5-lo-que-puede-hacer-el-jugador-sin-servidor">sección 5</a>)</td>
+</tr>
+<tr>
+  <td>Un cliente en modo local, o los datos desactivados</td>
+  <td><code>&quot;no&quot;</code></td>
+  <td>Nada: da un error que lo explica</td>
+</tr>
+</tbody>
+</table></div>
+<p>Así, <strong>en modo remoto el juego lee y escribe siempre en el servicio</strong>, dentro y fuera de las partidas: lo que guarda
+el servidor de una incursión es lo mismo que ve el jugador después en su refugio.</p>
+<p>El <strong>jugador</strong> es su id (el de <code>playerJoined</code> y <code>playerAccount</code>) o directamente su <strong>cuenta</strong> (<code>&quot;steam:7656...&quot;</code>,
+<code>&quot;nova:...&quot;</code>), por ejemplo para tocar el alijo de alguien que no está conectado. La cuenta <code>&quot;global&quot;</code> es del
+juego: un mercado, un mundo persistente, un récord.</p>
+<p>Si pasas el id de un jugador que acaba de entrar y aún no ha presentado su cuenta, la operación <strong>espera</strong> (hasta
+20 segundos) a que la presente.</p>
+<p>Cada documento tiene una <strong>clave</strong> (letras, números, <code>_</code>, <code>.</code> y <code>-</code>; hasta 64) y un <strong>valor</strong>: cualquier cosa que
+quepa en JSON (tablas, listas, textos, números, booleanos; también <code>Vec3</code> y <code>Color</code>). Y una <strong>versión</strong> que sube
+con cada escritura (0 = no existe).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Persistence.Get(jugador, clave, function(valor, version, error) end)</code></td>
+  <td>Lee un documento. Si no existe: <code>nil</code> y versión 0. Si algo falla: <code>nil</code>, 0 y el motivo</td>
+</tr>
+<tr>
+  <td><code>Persistence.Set(jugador, clave, valor, opciones?, function(ok, versionOError, versionActual) end?)</code></td>
+  <td>Guarda. Con <code>{ version = n }</code>, solo si nadie lo cambió desde la versión <code>n</code> (0 = solo si no existe); si no, <code>ok = false</code>, el motivo y la versión de ahora</td>
+</tr>
+<tr>
+  <td><code>Persistence.Delete(jugador, clave, opciones?, function(ok, error) end?)</code></td>
+  <td>Borra (con <code>{ version = n }</code>, solo si sigue en esa versión)</td>
+</tr>
+<tr>
+  <td><code>Persistence.Update(jugador, clave, function(valor, version) return nuevo end, function(ok, nuevoOError) end?)</code></td>
+  <td>Lee, llama a tu función y guarda lo que devuelve <strong>sin perder cambios</strong>: si otro cambio llega antes, vuelve a leer y a llamar a tu función (hasta 10 veces). Devuelve <code>nil</code> para no cambiar nada (<code>ok = false</code>, <code>&quot;cancelado&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>Persistence.Transaction({ { jugador, clave }, ... }, function(valores) return { nuevos } end, function(ok, error) end?)</code></td>
+  <td>Varios documentos (hasta 16, de uno o varios jugadores) <strong>de una vez, todo o nada</strong>, con el mismo reintento que <code>Update</code>. Tu función recibe la lista de valores y devuelve la lista nueva: <code>nil</code> en un sitio lo deja como está; <code>Persistence.DELETE</code> lo borra; devolver <code>nil</code> entero no cambia nada</td>
+</tr>
+<tr>
+  <td><code>Persistence.Action(jugador, nombre, argumentos?, function(ok, resultadoOError) end?)</code></td>
+  <td>Pide una <strong>acción del juego</strong> al servicio (<a href="#acciones-del-juego">sección 5</a>): la valida y la aplica sobre los documentos de ese jugador de una vez. <code>resultado</code> es lo que devuelve la acción. Solo en modo remoto</td>
+</tr>
+<tr>
+  <td><code>Persistence.GetAccount(jugador)</code></td>
+  <td>La cuenta de un jugador conectado, o <code>nil</code> si aún no la ha presentado</td>
+</tr>
+<tr>
+  <td><code>Persistence.GetMode()</code></td>
+  <td><code>&quot;local&quot;</code>, <code>&quot;remoto&quot;</code> o <code>&quot;no&quot;</code></td>
+</tr>
+<tr>
+  <td><code>Persistence.GetAccess()</code></td>
+  <td><code>&quot;servidor&quot;</code>, <code>&quot;cliente&quot;</code> o <code>&quot;no&quot;</code>: qué puede hacer esta máquina (tabla de arriba)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y el evento del servidor <code>playerAccount(jugador, cuenta)</code>: el jugador ya tiene cuenta (llega una vez por conexión,
+justo después de <code>playerJoined</code>).</p>
+<p><strong>Las funciones de <code>Update</code> y <code>Transaction</code> deben ser puras</strong>: que solo calculen el valor nuevo a partir del que
+reciben, sin dar objetos ni cambiar la escena dentro, porque pueden ejecutarse más de una vez. Haz esas cosas en
+el callback final, cuando <code>ok</code> es <code>true</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Cobrar 100 monedas solo si las tiene (nunca baja de 0, aunque dos tiendas cobren a la vez)</span>
+<span class="hl-t">Persistence</span>.<span class="hl-f">Update</span>(jugador, <span class="hl-s">"monedas"</span>, <span class="hl-k">function</span>(monedas)
+    monedas = monedas <span class="hl-k">or</span> <span class="hl-n">0</span>
+    <span class="hl-k">if</span> monedas &lt; <span class="hl-n">100</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">nil</span> <span class="hl-k">end</span> <span class="hl-c">-- no alcanza: no se cambia nada</span>
+    <span class="hl-k">return</span> monedas - <span class="hl-n">100</span>
+<span class="hl-k">end</span>, <span class="hl-k">function</span>(ok, quedan)
+    <span class="hl-k">if</span> ok <span class="hl-k">then</span>
+        <span class="hl-f">DarObjeto</span>(jugador, <span class="hl-s">"botiquin"</span>)
+    <span class="hl-k">else</span>
+        <span class="hl-f">TriggerClientEvent</span>(<span class="hl-s">"tienda:sinDinero"</span>, jugador)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>)</code></pre></div>
+<p><strong>Si el servicio no contesta</strong> (sin Internet un rato), las funciones llaman a tu callback con <code>ok = false</code> y el
+motivo; no se reintentan solas para no aplicar dos veces un cambio que quizá sí llegó. Para lo importante, vuelve a
+intentarlo con <code>Update</code> (que mira la versión).</p>
+<h2 id="3-ejemplo-el-alijo-de-un-juego-de-extracción">3. Ejemplo: el alijo de un juego de extracción<a class="ancla" href="#3-ejemplo-el-alijo-de-un-juego-de-extracción" aria-label="Enlace a esta sección">#</a></h2>
+<p>En un juego tipo <em>Nakwon: Last Paradise</em> cada jugador tiene un <strong>alijo</strong> que dura siempre y, en cada incursión, una
+<strong>mochila</strong> con lo que se lleva. Si muere, pierde la mochila; si extrae, lo que lleva pasa al alijo. Con
+<code>Transaction</code>, el paso es atómico: un objeto nunca está en los dos sitios ni desaparece si el servidor se cae justo
+en ese momento.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">Incursion</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">nuevoAlijo</span>() <span class="hl-k">return</span> { objetos = {}, dinero = <span class="hl-n">0</span>, incursiones = <span class="hl-n">0</span> } <span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Incursion</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+
+    <span class="hl-c">-- Al entrar: equipar desde el alijo. Lo que se lleva sale del alijo y entra en la mochila DE UNA VEZ</span>
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"playerAccount"</span>, <span class="hl-k">function</span>(jugador)
+        <span class="hl-t">Persistence</span>.<span class="hl-f">Transaction</span>({ { jugador, <span class="hl-s">"alijo"</span> }, { jugador, <span class="hl-s">"incursion"</span> } }, <span class="hl-k">function</span>(v)
+            <span class="hl-k">local</span> alijo = v[<span class="hl-n">1</span>] <span class="hl-k">or</span> <span class="hl-f">nuevoAlijo</span>()
+            <span class="hl-k">local</span> mochila = v[<span class="hl-n">2</span>]
+            <span class="hl-k">if</span> mochila <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">nil</span> <span class="hl-k">end</span> <span class="hl-c">-- ya tiene una incursión a medias (se desconectó): la conserva</span>
+            mochila = { objetos = {} }
+            <span class="hl-c">-- Se lleva hasta 2 objetos del alijo</span>
+            <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-t">math</span>.<span class="hl-f">min</span>(<span class="hl-n">2</span>, #alijo.objetos) <span class="hl-k">do</span>
+                <span class="hl-t">table</span>.<span class="hl-f">insert</span>(mochila.objetos, <span class="hl-t">table</span>.<span class="hl-f">remove</span>(alijo.objetos, <span class="hl-n">1</span>))
+            <span class="hl-k">end</span>
+            alijo.incursiones += <span class="hl-n">1</span>
+            <span class="hl-k">return</span> { alijo, mochila }
+        <span class="hl-k">end</span>, <span class="hl-k">function</span>(ok, <span class="hl-t">error</span>)
+            <span class="hl-k">if</span> <span class="hl-k">not</span> ok <span class="hl-k">and</span> <span class="hl-t">error</span> ~= <span class="hl-s">"cancelado"</span> <span class="hl-k">then</span> <span class="hl-t">Log</span>.<span class="hl-f">Warn</span>(<span class="hl-s">"No se pudo equipar: "</span> .. <span class="hl-f">tostring</span>(<span class="hl-t">error</span>)) <span class="hl-k">end</span>
+        <span class="hl-k">end</span>)
+    <span class="hl-k">end</span>)
+
+    <span class="hl-c">-- Botín recogido en la incursión: a la mochila (no al alijo: si muere, lo pierde)</span>
+    <span class="hl-f">RegisterNetEvent</span>(<span class="hl-s">"incursion:recoger"</span>, <span class="hl-k">function</span>(objeto)
+        <span class="hl-k">local</span> jugador = source
+        <span class="hl-t">Persistence</span>.<span class="hl-f">Update</span>(jugador, <span class="hl-s">"incursion"</span>, <span class="hl-k">function</span>(mochila)
+            <span class="hl-k">if</span> <span class="hl-k">not</span> mochila <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">nil</span> <span class="hl-k">end</span>
+            <span class="hl-t">table</span>.<span class="hl-f">insert</span>(mochila.objetos, objeto)
+            <span class="hl-k">return</span> mochila
+        <span class="hl-k">end</span>)
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Extraer: la mochila pasa entera al alijo y deja de existir, de una vez</span>
+<span class="hl-k">function</span> <span class="hl-t">Incursion</span>:<span class="hl-f">Extraer</span>(jugador)
+    <span class="hl-t">Persistence</span>.<span class="hl-f">Transaction</span>({ { jugador, <span class="hl-s">"alijo"</span> }, { jugador, <span class="hl-s">"incursion"</span> } }, <span class="hl-k">function</span>(v)
+        <span class="hl-k">local</span> alijo, mochila = v[<span class="hl-n">1</span>] <span class="hl-k">or</span> <span class="hl-f">nuevoAlijo</span>(), v[<span class="hl-n">2</span>]
+        <span class="hl-k">if</span> <span class="hl-k">not</span> mochila <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">nil</span> <span class="hl-k">end</span>
+        <span class="hl-k">for</span> _, objeto <span class="hl-k">in</span> mochila.objetos <span class="hl-k">do</span> <span class="hl-t">table</span>.<span class="hl-f">insert</span>(alijo.objetos, objeto) <span class="hl-k">end</span>
+        <span class="hl-k">return</span> { alijo, <span class="hl-t">Persistence</span>.DELETE }
+    <span class="hl-k">end</span>, <span class="hl-k">function</span>(ok)
+        <span class="hl-k">if</span> ok <span class="hl-k">then</span> <span class="hl-f">TriggerClientEvent</span>(<span class="hl-s">"incursion:extraido"</span>, jugador) <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Morir: la mochila se pierde (el alijo no se toca)</span>
+<span class="hl-k">function</span> <span class="hl-t">Incursion</span>:<span class="hl-f">Morir</span>(jugador)
+    <span class="hl-t">Persistence</span>.<span class="hl-f">Delete</span>(jugador, <span class="hl-s">"incursion"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Dar un objeto a otro jugador (comercio): sale de un alijo y entra en el otro, o nada</span>
+<span class="hl-k">function</span> <span class="hl-t">Incursion</span>:<span class="hl-f">Dar</span>(de, a, objeto)
+    <span class="hl-t">Persistence</span>.<span class="hl-f">Transaction</span>({ { de, <span class="hl-s">"alijo"</span> }, { a, <span class="hl-s">"alijo"</span> } }, <span class="hl-k">function</span>(v)
+        <span class="hl-k">local</span> origen, destino = v[<span class="hl-n">1</span>], v[<span class="hl-n">2</span>] <span class="hl-k">or</span> <span class="hl-f">nuevoAlijo</span>()
+        <span class="hl-k">if</span> <span class="hl-k">not</span> origen <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">nil</span> <span class="hl-k">end</span>
+        <span class="hl-k">local</span> i = <span class="hl-t">table</span>.<span class="hl-f">find</span>(origen.objetos, objeto)
+        <span class="hl-k">if</span> <span class="hl-k">not</span> i <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-b">nil</span> <span class="hl-k">end</span> <span class="hl-c">-- ya no lo tiene: no se duplica</span>
+        <span class="hl-t">table</span>.<span class="hl-f">remove</span>(origen.objetos, i)
+        <span class="hl-t">table</span>.<span class="hl-f">insert</span>(destino.objetos, objeto)
+        <span class="hl-k">return</span> { origen, destino }
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Incursion</span></code></pre></div>
+<p>Fíjate en que nada se guarda en la memoria del servidor: si el servidor se cierra en mitad de la incursión, al volver
+el jugador conserva su mochila (<code>incursion</code>) y su alijo, sin duplicados.</p>
+<h2 id="4-cuentas">4. Cuentas<a class="ancla" href="#4-cuentas" aria-label="Enlace a esta sección">#</a></h2>
+<p>El motor presenta al jugador <strong>solo</strong> al conectarse a un servidor: el cliente envía un <strong>ticket</strong> firmado por el
+servicio y el servidor lo comprueba antes de lanzar <code>playerAccount</code>. No tienes que hacer nada; si quieres saber la
+cuenta en el cliente (para un menú, para el grupo del emparejamiento), usa la tabla <code>Accounts</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Accounts.Login(opciones?, function(ok, cuentaOError) end?)</code></td>
+  <td>Entra (o devuelve la cuenta ya abierta). <code>{ metodo = &quot;auto&quot; }</code> por defecto: Steam si está iniciado; si no, una cuenta propia. También <code>&quot;steam&quot;</code>, <code>&quot;propia&quot;</code> y <code>&quot;local&quot;</code></td>
+</tr>
+<tr>
+  <td><code>Accounts.GetId()</code></td>
+  <td>La cuenta (<code>&quot;steam:7656...&quot;</code>, <code>&quot;nova:...&quot;</code>, <code>&quot;local:Ana&quot;</code>) o <code>nil</code></td>
+</tr>
+<tr>
+  <td><code>Accounts.IsLoggedIn()</code></td>
+  <td><code>true</code> si ya ha entrado</td>
+</tr>
+<tr>
+  <td><code>Accounts.Logout()</code></td>
+  <td>Sale de la cuenta (y de la cola de emparejamiento)</td>
+</tr>
+<tr>
+  <td><code>Accounts.Read(clave, function(valor, version, error) end)</code></td>
+  <td>Lee un documento <strong>propio</strong> (sección siguiente)</td>
+</tr>
+<tr>
+  <td><code>Accounts.GetMode()</code></td>
+  <td><code>&quot;local&quot;</code>, <code>&quot;remoto&quot;</code> o <code>&quot;no&quot;</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Accounts</span>.<span class="hl-f">Login</span>(<span class="hl-k">function</span>(ok, cuenta)
+    <span class="hl-k">if</span> ok <span class="hl-k">then</span>
+        <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Cuenta"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"Cuenta: "</span> .. cuenta)
+    <span class="hl-k">else</span>
+        <span class="hl-f">UI</span>(<span class="hl-s">"Menu/Cuenta"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"Sin conexión con el servidor de cuentas: "</span> .. cuenta)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>)</code></pre></div>
+<p><strong>Cuentas de Steam.</strong> El juego pide a Steam un ticket para la Web API (<code>GetAuthTicketForWebApi</code>) y el servicio lo
+comprueba con Steam (<code>ISteamUserAuth/AuthenticateUserTicket</code>) usando <strong>tu</strong> clave de editor de la Web API, que solo
+vive en el servicio. La cuenta es <code>steam:&lt;SteamID64&gt;</code> de quien juega (con el préstamo familiar, la de quien juega,
+no la del dueño de la copia). Si el jugador está baneado por el editor en Steam, no entra.</p>
+<p><strong>Cuentas propias</strong> (sin Steam: otras tiendas, pruebas). La primera vez el servicio crea una cuenta <code>nova:...</code> con un
+<strong>secreto</strong> aleatorio de 256 bits que el juego guarda <strong>cifrado para ese usuario de Windows</strong> (DPAPI) en
+<code>%LOCALAPPDATA%\&lt;juego&gt;\cuenta-&lt;id del juego&gt;.dat</code>. No hay contraseñas: el servicio solo guarda un hash del secreto.
+Si el jugador borra ese fichero o cambia de PC, entra con una cuenta nueva; para pasar el progreso de una cuenta
+a otra, hazlo desde tu servidor con <code>Persistence.Transaction</code> sobre las dos cuentas.
+Si la cuenta guardada <strong>no existe en el servicio</strong> («La cuenta no existe o el secreto no es el suyo»: por ejemplo, el
+servicio local se reinició sin <code>--guardar</code> o la URL apunta a otro servicio), el juego crea una cuenta nueva solo, con un
+aviso en el registro, en vez de quedarse sin entrar. El fichero de la anterior queda al lado como
+<code>cuenta-&lt;id del juego&gt;.dat.anterior</code>.</p>
+<p>Las cuentas propias se pueden desactivar (<strong>Ajustes del proyecto &gt; Datos &gt; Cuentas propias</strong>, y <code>cuentasPropias = false</code> en el servicio): entonces solo entra quien tiene Steam.</p>
+<p><strong>Modo local.</strong> No hay servicio: la cuenta es la de Steam (sin comprobar con Steam) o <code>local:&lt;nombre&gt;</code>, y el
+servidor se la cree. Vale para desarrollar, nunca para un juego publicado (cualquiera podría decir que es otro).</p>
+<h2 id="5-lo-que-puede-hacer-el-jugador-sin-servidor">5. Lo que puede hacer el jugador sin servidor<a class="ancla" href="#5-lo-que-puede-hacer-el-jugador-sin-servidor" aria-label="Enlace a esta sección">#</a></h2>
+<p>En <strong>modo remoto</strong>, el juego de cada jugador no tiene la clave de servidor, pero sí la <strong>sesión de su cuenta</strong>. Con
+ella, <code>Persistence</code> funciona también en su juego (en el menú, en un refugio sin red, como anfitrión jugador o
+conectado a una partida) y va <strong>siempre al servicio</strong>, con estas reglas, que pone el servicio y el jugador no se puede
+saltar:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Cómo</th>
+  <th>Configuración del servicio (sección 6)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Leer</strong> sus documentos</td>
+  <td><code>Persistence.Get(0, clave, ...)</code> o <code>Accounts.Read(clave, ...)</code></td>
+  <td>Las claves de <code>lecturaCliente</code> y de <code>escrituraCliente</code></td>
+</tr>
+<tr>
+  <td><strong>Escribir</strong> sus documentos</td>
+  <td><code>Set</code>, <code>Delete</code>, <code>Update</code> y <code>Transaction</code> con el jugador <code>0</code> (o su id, o su cuenta)</td>
+  <td>Solo las claves de <code>escrituraCliente</code></td>
+</tr>
+<tr>
+  <td><strong>Cambiar lo que tiene valor</strong> (dinero, alijo, mejoras)</td>
+  <td><code>Persistence.Action(0, &quot;nombre&quot;, argumentos)</code></td>
+  <td>Las <strong>acciones del juego</strong> (abajo)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>El jugador es <strong>él mismo</strong>: <code>0</code>, su id o su cuenta. Los documentos de otro jugador o los de la cuenta <code>&quot;global&quot;</code>
+dan el error «Sin servidor, un jugador solo lee y escribe sus propios documentos».</li>
+<li><code>escrituraCliente</code> es <strong>confiar en el jugador</strong>: cualquiera con un poco de maña puede escribir ahí lo que quiera.
+Úsalo para lo que no da ventaja: los ajustes, la cámara del refugio, el orden de su inventario cosmético.</li>
+<li>Las escrituras de un jugador tienen un ritmo máximo (20 cada 10 segundos) y los mismos límites que las de un
+servidor (sección 8).</li>
+<li>El juego entra con la cuenta solo (Steam o cuenta propia) la primera vez que usa <code>Persistence</code>; si no puede (sin
+Internet), la operación contesta con el motivo.</li>
+<li>Si la sesión deja de valer (caducó, o el servicio se reinició y no reconoce las sesiones de antes), el servicio
+contesta «Hace falta entrar con la cuenta (o la sesión caducó)»: el juego vuelve a entrar solo con la cuenta guardada
+(una vez) y repite la operación. En el editor, cada <strong>Jugar</strong> empieza sin la sesión ni el emparejamiento de la partida
+anterior.</li>
+<li>En <strong>modo local</strong> no hay cuentas que comprobar: el juego del jugador es el servidor de sí mismo y lo puede todo
+(las reglas del servicio no se comprueban). Prueba las reglas con el servicio local (sección 10).</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Leer el alijo en el menú, sin entrar en ningún servidor</span>
+<span class="hl-t">Accounts</span>.<span class="hl-f">Read</span>(<span class="hl-s">"alijo"</span>, <span class="hl-k">function</span>(alijo, version, <span class="hl-t">error</span>)
+    <span class="hl-k">if</span> <span class="hl-t">error</span> <span class="hl-k">then</span>
+        <span class="hl-f">print</span>(<span class="hl-s">"No se pudo leer el alijo:"</span>, <span class="hl-t">error</span>)
+    <span class="hl-k">elseif</span> alijo <span class="hl-k">then</span>
+        <span class="hl-f">print</span>(<span class="hl-s">"Tienes"</span>, #alijo.objetos, <span class="hl-s">"objetos y"</span>, alijo.dinero, <span class="hl-s">"monedas"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>)</code></pre></div>
+<p>Las demás claves (notas del servidor, anti-trampas, estadísticas internas) solo las ve el servidor.</p>
+<h3 id="acciones-del-juego">Acciones del juego<a class="ancla" href="#acciones-del-juego" aria-label="Enlace a esta sección">#</a></h3>
+<p>Una <strong>acción del juego</strong> es un cambio en los documentos de un jugador que <strong>valida y aplica el servicio</strong>, de una
+vez (todo o nada): comprar en la tienda, mejorar una zona del refugio, fabricar, equipar. El jugador solo elige qué
+acción pide y con qué argumentos; las reglas (precios, requisitos, límites) viven en el servicio, que despliegas tú,
+así que no se pueden saltar.</p>
+<p>Desde el juego (en modo remoto, en cualquier máquina; un servidor con la clave puede pedirla para cualquier jugador):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Tienda</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Tienda</span>:<span class="hl-f">Comprar</span>(objeto: <span class="hl-t">string</span>)
+    <span class="hl-t">Persistence</span>.<span class="hl-f">Action</span>(<span class="hl-n">0</span>, <span class="hl-s">"comprar"</span>, { objeto = objeto }, <span class="hl-k">function</span>(ok, resultado)
+        <span class="hl-k">if</span> ok <span class="hl-k">then</span>
+            <span class="hl-f">print</span>(<span class="hl-s">"Comprado. Te quedan"</span>, resultado.dinero, <span class="hl-s">"monedas"</span>)
+        <span class="hl-k">else</span>
+            <span class="hl-f">print</span>(<span class="hl-s">"No se pudo comprar:"</span>, resultado) <span class="hl-c">-- el motivo: "No tienes bastante dinero"...</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Tienda</span></code></pre></div>
+<p>Las acciones se escriben en el servicio, en <code>datos-server\acciones\index.js</code> (JavaScript, el lenguaje del servicio),
+una vez por juego, y se despliegan con el servicio (<code>desplegar.cmd</code> &gt; 1):</p>
+<div class="codigo"><div class="codigo-cab"><span>JavaScript</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-js">export <span class="hl-k">default</span> {
+  mijuego: {                                  <span class="hl-c">// el id de tu juego</span>
+    comprar: {
+      claves: [<span class="hl-s">"perfil"</span>, <span class="hl-s">"alijo"</span>],            <span class="hl-c">// documentos del jugador que lee y puede cambiar (hasta 16)</span>
+      ejecutar({ args, valores }) {
+        <span class="hl-k">const</span> precios = { botiquin: <span class="hl-n">100</span>, rifle: <span class="hl-n">500</span> };
+        <span class="hl-k">const</span> precio = precios[args?.objeto];
+        <span class="hl-k">if</span> (!precio) <span class="hl-k">return</span> { error: <span class="hl-s">"Ese objeto no está en la tienda"</span> };
+        <span class="hl-k">const</span> [perfil, alijo] = valores;      <span class="hl-c">// null si no existen</span>
+        <span class="hl-k">if</span> (!perfil || perfil.dinero &lt; precio) <span class="hl-k">return</span> { error: <span class="hl-s">"No tienes bastante dinero"</span> };
+        perfil.dinero -= precio;
+        alijo.objetos.push(args.objeto);
+        <span class="hl-k">return</span> { valores: [perfil, alijo], resultado: { dinero: perfil.dinero } };
+      },
+    },
+  },
+};</code></pre></div>
+<ul>
+<li><code>ejecutar</code> recibe <code>cuenta</code>, <code>args</code> (lo que manda el juego: <strong>compruébalo siempre</strong>), <code>valores</code> (los documentos de
+<code>claves</code>, en ese orden), <code>globales</code> (los de la lista <code>globales</code>, documentos de la cuenta <code>&quot;global&quot;</code>, por ejemplo un
+mercado) y <code>ahora</code> (milisegundos).</li>
+<li>Devuelve <code>{ valores, globales, resultado }</code>: en <code>valores</code>, <code>undefined</code> deja el documento como está y <code>null</code> lo
+borra. <code>{ error = &quot;motivo&quot; }</code> no cambia nada y el juego recibe <code>ok = false</code> y el motivo.</li>
+<li>Tiene que ser <strong>síncrona y pura</strong>: solo calcula los documentos nuevos con lo que recibe.</li>
+<li>Las acciones solo existen en <strong>modo remoto</strong> (con el servicio de Cloudflare o el local de Node, que carga el mismo
+fichero). En modo local, <code>Persistence.Action</code> contesta con un error que lo explica.</li>
+</ul>
+<h3 id="receta-refugio-fuera-de-partida-e-incursión-en-un-servidor">Receta: refugio fuera de partida e incursión en un servidor<a class="ancla" href="#receta-refugio-fuera-de-partida-e-incursión-en-un-servidor" aria-label="Enlace a esta sección">#</a></h3>
+<p>Para un juego de extracción (un refugio donde el jugador mejora y se equipa, e incursiones multijugador en servidores
+de <code>nova-flota</code>):</p>
+<ol>
+<li><strong>Modo remoto</strong> en <strong>Ajustes del proyecto &gt; Datos</strong>, también para jugar solo. Así el refugio y las incursiones
+leen y escriben en el mismo sitio.</li>
+<li>En el servicio: <code>lecturaCliente = [&quot;perfil&quot;, &quot;alijo&quot;, &quot;equipo&quot;, &quot;refugio&quot;]</code> (el refugio enseña todo) y
+<code>escrituraCliente = [&quot;ajustes&quot;]</code> (lo que no da ventaja).</li>
+<li>Lo que cambia en el refugio (comprar, vender, fabricar, mejorar zonas, mover objetos del alijo al equipo) son
+<strong>acciones del juego</strong>. El refugio lee con <code>Persistence.Get(0, ...)</code> y cambia con <code>Persistence.Action(0, ...)</code>.</li>
+<li>La incursión la guarda <strong>su servidor</strong> (con la clave): al entrar, del <code>equipo</code> a la mochila; al extraer, de la
+mochila al <code>alijo</code>, con <code>Persistence.Transaction</code> (sección 3).</li>
+<li>Para desarrollar sin desplegar, el servicio local de Node (sección 10) con tus acciones:
+<code>node datos-server\local\servidor-local.js --config mi-config.json</code> (carga <code>datos-server\acciones\index.js</code>, el
+mismo fichero que despliegas; <code>--acciones otro.js</code> carga otro).</li>
+</ol>
+<p>Si prefieres no escribir acciones, la otra forma segura es que el refugio también sea un servidor tuyo (una partida
+de un jugador en <code>nova-flota</code>), que guarda con la clave como en la incursión. Lo que <strong>no</strong> conviene es mezclar
+modos (el refugio en local y la incursión en remoto): son dos sitios distintos y no se ven entre ellos. Para pasar
+los datos de un jugador de local a remoto, léelos en modo local (<code>Persistence.Get</code>) y escríbelos desde un servidor
+con la clave en modo remoto.</p>
+<h2 id="6-desplegar-el-servicio-modo-remoto">6. Desplegar el servicio (modo remoto)<a class="ancla" href="#6-desplegar-el-servicio-modo-remoto" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lo despliegas <strong>tú</strong>, una vez, en tu cuenta de Cloudflare (la misma del relé de Nova Enlace sirve). Hace falta
+<a href="https://nodejs.org" rel="noopener">Node.js</a> (LTS).</p>
+<ol>
+<li><p><strong>El id de tu juego.</strong> En <strong>Ajustes del proyecto &gt; Datos &gt; Id del juego</strong> sale uno a partir del nombre (por
+ejemplo <code>nakwon</code>). Abre <code>datos-server\wrangler.toml</code> y cambia <code>mijuego</code> por ese id en los bloques
+<code>[vars.JUEGOS.mijuego]</code>. Ahí van los ajustes públicos del juego:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ajuste</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>steamAppId</code></td>
+  <td>App ID de tu juego en Steam (para comprobar los tickets). <code>0</code> sin Steam</td>
+</tr>
+<tr>
+  <td><code>cuentasPropias</code></td>
+  <td><code>true</code>: cuentas propias para quien no tiene Steam</td>
+</tr>
+<tr>
+  <td><code>lecturaCliente</code></td>
+  <td>Claves que cada jugador puede leer de sí mismo (<code>[&quot;alijo&quot;, &quot;progreso&quot;]</code>)</td>
+</tr>
+<tr>
+  <td><code>escrituraCliente</code></td>
+  <td>Claves que cada jugador puede <strong>escribir</strong> de sí mismo sin servidor (<code>[&quot;ajustes&quot;]</code>): solo lo que no da ventaja (sección 5)</td>
+</tr>
+<tr>
+  <td><code>modos</code></td>
+  <td>Modos del emparejamiento (<a href="emparejamiento.html#2-los-modos">emparejamiento.md</a>)</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+<li><p><strong>Desplegar.</strong> Doble clic en <code>datos-server\desplegar.cmd</code> &gt; <strong>1</strong>. La primera vez se abre el navegador para
+iniciar sesión en Cloudflare (el script nunca ve tu contraseña). Cuando pregunte si es la primera vez, di <strong>s</strong>:
+genera <code>CLAVE_SERVICIO</code>, el secreto con el que el servicio firma las sesiones y los tickets. Al terminar sale la
+URL, por ejemplo <code>https://nova-datos.TU-SUBDOMINIO.workers.dev</code>.</p>
+</li>
+<li><p><strong>La clave de servidor del juego.</strong> <code>desplegar.cmd</code> &gt; <strong>2</strong> &gt; el id del juego. Crea una clave aleatoria, la sube
+al servicio (secreto <code>CLAVES_SERVIDOR</code>) y te la enseña. Guárdala: la necesitan tus servidores (sección 7). Queda
+también en <code>%LOCALAPPDATA%\NovaEngine\nova-datos\claves-servidor.json</code>, solo en tu PC. Con <strong>cambiar</strong> sale otra y
+la anterior deja de valer (si se filtra).</p>
+</li>
+<li><p><strong>La clave de la Web API de Steam</strong> (si el juego usa Steam). En Steamworks: <strong>Usuarios y permisos &gt; Administrar
+grupos &gt; (tu grupo) &gt; Crear clave de la Web API</strong> (es la clave de editor, no la de usuario). Después
+<code>desplegar.cmd</code> &gt; <strong>3</strong> y pégala: wrangler la pide sin enseñarla y va directa a Cloudflare.</p>
+</li>
+<li><p><strong>En Nova Editor</strong>: <strong>Ajustes del proyecto &gt; Datos</strong>: Modo <strong>Remoto</strong> y la URL del paso 2.</p>
+</li>
+</ol>
+<p>Para comprobarlo, abre la URL en el navegador: debe decir <code>&quot;servicio&quot;:&quot;nova-datos&quot;</code> y <code>&quot;configurado&quot;:true</code> (y
+<code>&quot;steam&quot;:true</code> si pusiste la clave de Steam).</p>
+<p>Si cambias <code>wrangler.toml</code> (otro juego, otros modos, otras claves de lectura), vuelve a desplegar con la opción 1:
+los datos guardados no se tocan.</p>
+<h2 id="7-el-servidor-dedicado-y-su-clave">7. El servidor dedicado y su clave<a class="ancla" href="#7-el-servidor-dedicado-y-su-clave" aria-label="Enlace a esta sección">#</a></h2>
+<p>En modo remoto, quien escribe es <code>NovaServer.exe</code> y para eso necesita la <strong>clave de servidor</strong> del juego. <strong>Nunca va
+en el proyecto ni en el juego publicado</strong> (Publicar juego no la copia y nunca sube <code>clave-datos.txt</code> a Steam).
+<code>NovaServer.exe</code> la busca, por este orden:</p>
+<ol>
+<li>la variable de entorno <code>NOVA_DATOS_CLAVE</code>;</li>
+<li><code>clave-datos.txt</code> junto a <code>NovaServer.exe</code> (un fichero de texto con la clave);</li>
+<li><code>clave-datos.txt</code> en <code>%LOCALAPPDATA%\&lt;tu juego&gt;\</code>.</li>
+</ol>
+<p>Al arrancar escribe de dónde la sacó (nunca la clave) y si el servicio está bien configurado:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">Nova Datos: servicio https://nova-datos.tu-subdominio.workers.dev (juego nakwon)</code></pre></div>
+<p>Argumentos y <code>servidor.json</code> (prioridad: proyecto &lt; <code>servidor.json</code> &lt; argumentos):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave de <code>servidor.json</code> (dentro de <code>&quot;datos&quot;</code>)</th>
+  <th>Argumento</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>modo</code></td>
+  <td><code>--datos-local</code> / <code>--datos-remoto</code></td>
+  <td>Modo de los datos</td>
+</tr>
+<tr>
+  <td><code>url</code></td>
+  <td><code>--datos-url &lt;url&gt;</code></td>
+  <td>URL del servicio</td>
+</tr>
+<tr>
+  <td><code>juego</code></td>
+  <td><code>--datos-juego &lt;id&gt;</code></td>
+  <td>Id del juego en el servicio</td>
+</tr>
+<tr>
+  <td>—</td>
+  <td><code>--partida &lt;id&gt;</code></td>
+  <td>Lo pone <code>nova-flota</code>: el servidor es de esa partida del emparejamiento (<a href="emparejamiento.html">emparejamiento.md</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>El anfitrión jugador</strong> (la partida la abre un jugador desde su juego, con <code>Network.Host</code>) <strong>no tiene la clave</strong>:
+en modo remoto su <code>Persistence</code> es la de un jugador (sección 5): solo sus documentos, con las reglas del servicio, y
+nunca los de los demás jugadores de su partida. Los datos con valor (alijo, dinero) los guarda siempre un servidor
+tuyo o una acción del juego; las partidas de jugadores van bien para modos sin progresión.</p>
+<p>Cuando el servidor se cierra (comando <code>quit</code>, <code>Ctrl+C</code>, el fin de la partida), espera hasta 2 segundos a que
+lleguen al servicio las escrituras pendientes.</p>
+<h2 id="8-límites">8. Límites<a class="ancla" href="#8-límites" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>De Nova Datos</strong> (iguales en local y en remoto, para que lo que funciona en tu PC funcione publicado):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Límite</th>
+  <th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Tamaño de un documento</td>
+  <td>64 KB de JSON</td>
+</tr>
+<tr>
+  <td>Documentos por cuenta</td>
+  <td>100</td>
+</tr>
+<tr>
+  <td>Documentos en una transacción</td>
+  <td>16</td>
+</tr>
+<tr>
+  <td>Espera de una operación a que el jugador presente su cuenta</td>
+  <td>20 s</td>
+</tr>
+<tr>
+  <td>Reintentos de <code>Update</code> y <code>Transaction</code></td>
+  <td>10</td>
+</tr>
+</tbody>
+</table></div>
+<p>Divide los datos en documentos según cómo cambian: <code>alijo</code>, <code>incursion</code>, <code>progreso</code>, <code>ajustes</code>. Un documento por
+cosa que se escribe a la vez es más rápido y choca menos.</p>
+<p><strong>Del plan gratuito de Cloudflare.</strong> Según la documentación de Cloudflare a octubre de 2026 (compruébalo en su
+página de precios: cambian), cada día (se reinicia a las 00:00 UTC):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Recurso</th>
+  <th>Gratis al día</th>
+  <th>Lo que gasta Nova Datos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Peticiones al Worker</td>
+  <td>100.000</td>
+  <td>1 por cada operación de un servidor, cada entrada de un jugador, cada consulta de la cola y cada latido de un lanzador</td>
+</tr>
+<tr>
+  <td>Peticiones a Durable Objects</td>
+  <td>100.000</td>
+  <td>Lo mismo (cada petición del Worker va al objeto del juego) y las alarmas de la cola mientras hay gente buscando</td>
+</tr>
+<tr>
+  <td>Filas escritas (SQLite)</td>
+  <td>100.000</td>
+  <td>1 por documento escrito, +1 si la cuenta estrena documento, +1 por la petición firmada; 1 por entrada de un jugador (como mucho una por hora); 1 por cambio en la cola</td>
+</tr>
+<tr>
+  <td>Filas leídas</td>
+  <td>5.000.000</td>
+  <td>1 por documento leído (más el índice de la cuenta al escribir)</td>
+</tr>
+<tr>
+  <td>Duración de Durable Objects</td>
+  <td>13.000 GB-s</td>
+  <td>El objeto del juego está despierto mientras hay alguien en la cola o un lanzador encendido: 24 h despierto son unos 11.000 GB-s</td>
+</tr>
+<tr>
+  <td>Almacenamiento</td>
+  <td>5 GB en total</td>
+  <td>Un alijo de 2 KB por jugador: 2,5 millones de jugadores</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cuentas aproximadas: un servidor que guarda el alijo de 10 jugadores al entrar y al salir de cada incursión de 20
+minutos gasta unas 60 peticiones y 120 filas escritas por hora. Con el plan gratuito caben del orden de <strong>800 horas
+de servidor al día</strong> en ese ritmo, o unas 50.000 operaciones de datos. Si se pasa, el servicio contesta con un error
+hasta las 00:00 UTC (los servidores lo ven en los callbacks) y el plan de pago de Workers (5 $ al mes) sube los
+límites a millones.</p>
+<p><strong>Rendimiento.</strong> Todos los datos de un juego viven en un solo objeto de Cloudflare (por eso las transacciones entre
+jugadores son atómicas sin trucos): unas cuantas centenas de operaciones por segundo como mucho. Para un juego indie
+sobra; si llegas a ese volumen, escríbenos y lo partimos por jugadores.</p>
+<h2 id="9-seguridad">9. Seguridad<a class="ancla" href="#9-seguridad" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Solo escriben tus servidores.</strong> Cada petición de un servidor va <strong>firmada</strong> con la clave de servidor del juego
+(HMAC-SHA256 de la ruta, el cuerpo, la hora y un número de un solo uso). La clave no viaja nunca; una petición
+copiada no se puede repetir (el número de un solo uso se recuerda) ni cambiar (la firma deja de valer), y caduca a
+los 5 minutos. Si alguien prueba firmas malas, su IP se bloquea un rato.</li>
+<li><strong>Los jugadores solo tocan lo suyo</strong>: leen las claves que tú dejas (<code>lecturaCliente</code>), escriben solo las de
+<code>escrituraCliente</code> (sin valor) y lo demás lo cambian con <strong>acciones del juego</strong>, que ejecuta el servicio con tus
+reglas. La cuenta de cada petición la pone el servicio (la de la sesión), no el jugador.</li>
+<li><strong>Quién es cada jugador</strong> lo dice el servicio, no el jugador: el ticket que presenta al servidor va firmado por
+el servicio y caduca a los 10 minutos. El servidor lo comprueba con el servicio antes de lanzar <code>playerAccount</code>.</li>
+<li><strong>Cuentas de Steam</strong>: comprobadas por Steam con tu clave de editor, que solo vive en Cloudflare como secreto.</li>
+<li><strong>Cuentas propias</strong>: sin contraseñas; un secreto aleatorio cifrado con DPAPI en el PC del jugador y solo su hash
+en el servicio. Crear cuentas tiene un límite por IP (20 por hora).</li>
+<li><strong>Secretos</strong> (<code>CLAVE_SERVICIO</code>, <code>CLAVES_SERVIDOR</code>, <code>STEAM_WEB_API_KEY</code>): solo en Cloudflare (y la clave de servidor
+en tus servidores). Nunca en <code>project.nova</code>, en <code>wrangler.toml</code>, en el juego publicado ni en Steam.</li>
+<li><strong>Modo local</strong>: no comprueba nada (se cree la cuenta que dice el jugador). Solo para desarrollar.</li>
+<li><strong>Privacidad</strong>: el servicio guarda la cuenta (el SteamID o el id propio), la hora de la última entrada y los
+documentos que escriben tus servidores. No guarda IPs (el límite por IP usa un nombre derivado) y no registra
+peticiones (<code>observability</code> desactivado).</li>
+</ul>
+<h2 id="10-probar-el-modo-remoto-sin-desplegar">10. Probar el modo remoto sin desplegar<a class="ancla" href="#10-probar-el-modo-remoto-sin-desplegar" aria-label="Enlace a esta sección">#</a></h2>
+<p>El servicio tiene una versión para tu PC con el <strong>mismo código</strong>, sobre Node:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">node datos-server\local\servidor-local.js --steam-simulado</code></pre></div>
+<p>Escucha en <code>http://127.0.0.1:8788</code> con un juego <code>prueba</code> (su clave de servidor de pruebas sale en la consola).
+Pon en el proyecto <strong>Modo: Remoto</strong>, la URL <code>http://127.0.0.1:8788</code> y el id <code>prueba</code>, y la clave en
+<code>NOVA_DATOS_CLAVE</code> o <code>clave-datos.txt</code> junto a <code>NovaServer.exe</code>. Con <code>--steam-simulado</code> acepta los tickets del Steam
+simulado (<code>NovaGame.exe --steam-simulado Ana</code>); <strong>el servicio de Cloudflare nunca los acepta</strong>. Con
+<code>--config mi-config.json</code> usas tus juegos y claves (los mismos nombres que en Cloudflare: <code>JUEGOS</code>,
+<code>CLAVES_SERVIDOR</code>, <code>CLAVE_SERVICIO</code>) y con <code>--guardar datos.json</code> los datos sobreviven a cerrarlo.</p>
+<h2 id="11-problemas">11. Problemas<a class="ancla" href="#11-problemas" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Mensaje</th>
+  <th>Qué pasa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>«Persistence solo funciona en el servidor o en modo remoto»</td>
+  <td>Lo llamas en un cliente en modo local. Pide al servidor con un evento (<code>TriggerServerEvent</code>) que lo haga él, o usa el modo remoto</td>
+</tr>
+<tr>
+  <td>«El juego no deja a los jugadores escribir '...'»</td>
+  <td>Un jugador sin servidor escribe una clave que no está en <code>escrituraCliente</code>: usa una acción del juego (sección 5) o el servidor</td>
+</tr>
+<tr>
+  <td>«Sin servidor, un jugador solo lee y escribe sus propios documentos»</td>
+  <td>El juego de un jugador toca los documentos de otro o los de <code>&quot;global&quot;</code>: hazlo en el servidor o en una acción</td>
+</tr>
+<tr>
+  <td>«El juego no tiene la acción '...'»</td>
+  <td>Falta en <code>datos-server\acciones\index.js</code> (o no volviste a desplegar), o el id del juego no es el de la acción</td>
+</tr>
+<tr>
+  <td>«Las acciones del juego (...) las ejecuta el servicio»</td>
+  <td><code>Persistence.Action</code> en modo local: prueba con el servicio local de Node (sección 10)</td>
+</tr>
+<tr>
+  <td>«Demasiadas escrituras seguidas»</td>
+  <td>Un jugador escribió más de 20 veces en 10 s: junta los cambios en una transacción o una acción</td>
+</tr>
+<tr>
+  <td>«Falta la clave de servidor del juego»</td>
+  <td>El servidor está en modo remoto y no encuentra la clave (sección 7)</td>
+</tr>
+<tr>
+  <td>«La firma no es buena (¿clave de servidor equivocada?)»</td>
+  <td>La clave del servidor no es la del servicio para ese id de juego (¿la cambiaste con desplegar.cmd?)</td>
+</tr>
+<tr>
+  <td>«La hora de la petición no cuadra»</td>
+  <td>El reloj del PC del servidor va mal (más de 5 minutos): ponlo en hora</td>
+</tr>
+<tr>
+  <td>«El jugador no tiene cuenta todavía»</td>
+  <td>El jugador no presentó su ticket en 20 s: no pudo entrar con su cuenta (sin Internet, el servicio caído)</td>
+</tr>
+<tr>
+  <td>«Este servicio no acepta el Steam simulado»</td>
+  <td>Pruebas con el Steam simulado contra el servicio de Cloudflare: usa el servicio local (sección 10)</td>
+</tr>
+<tr>
+  <td>«Falta steamAppId de este juego»</td>
+  <td>Pon el App ID en <code>wrangler.toml</code> y vuelve a desplegar</td>
+</tr>
+<tr>
+  <td>«Otro cambio llegó antes»</td>
+  <td>Una escritura con <code>{ version = n }</code> que ya no cuadra. Con <code>Update</code> y <code>Transaction</code> se reintenta solo</td>
+</tr>
+<tr>
+  <td>«El documento pasa de 64 KB»</td>
+  <td>Divide el documento en varios</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="emparejamiento.html">emparejamiento.md</a>: colas de partida, <code>nova-flota</code> y anfitrión jugador.</li>
+<li><a href="servidor-dedicado.html">servidor-dedicado.md</a>: <code>NovaServer.exe</code>.</li>
+<li><a href="steam.html">steam.md</a>: Steam en el juego.</li>
+<li><a href="seguridad-red.html">seguridad-red.md</a>: el servidor decide.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="seguridad-red.html"><small>Anterior</small>Seguridad de la red</a><a class="sig" href="emparejamiento.html"><small>Siguiente</small>Emparejamiento y servidores bajo demanda</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-probarlo-ya-modo-local">1. Probarlo ya (modo local)</a></li><li class="n2"><a href="#2-la-tabla-persistence">2. La tabla Persistence</a></li><li class="n2"><a href="#3-ejemplo-el-alijo-de-un-juego-de-extracción">3. Ejemplo: el alijo de un juego de extracción</a></li><li class="n2"><a href="#4-cuentas">4. Cuentas</a></li><li class="n2"><a href="#5-lo-que-puede-hacer-el-jugador-sin-servidor">5. Lo que puede hacer el jugador sin servidor</a></li><li class="n3"><a href="#acciones-del-juego">Acciones del juego</a></li><li class="n3"><a href="#receta-refugio-fuera-de-partida-e-incursión-en-un-servidor">Receta: refugio fuera de partida e incursión en un servidor</a></li><li class="n2"><a href="#6-desplegar-el-servicio-modo-remoto">6. Desplegar el servicio (modo remoto)</a></li><li class="n2"><a href="#7-el-servidor-dedicado-y-su-clave">7. El servidor dedicado y su clave</a></li><li class="n2"><a href="#8-límites">8. Límites</a></li><li class="n2"><a href="#9-seguridad">9. Seguridad</a></li><li class="n2"><a href="#10-probar-el-modo-remoto-sin-desplegar">10. Probar el modo remoto sin desplegar</a></li><li class="n2"><a href="#11-problemas">11. Problemas</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

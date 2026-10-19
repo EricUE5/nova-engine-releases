@@ -1,0 +1,1652 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interfaz del juego (HUD y menús) · Nova Engine</title>
+<meta name="description" content="Nova Engine tiene un creador visual de interfaces: HUD, menús, inventarios y marcadores se montan en el
+editor, en el panel Interfaz, arrastrando widgets y plantillas, y se guardan en la escena como entidades
+con compone">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Interfaz del juego (HUD y menús) · Nova Engine">
+<meta property="og:description" content="Nova Engine tiene un creador visual de interfaces: HUD, menús, inventarios y marcadores se montan en el
+editor, en el panel Interfaz, arrastrando widgets y plantillas, y se guardan en la escena como entidades
+con compone">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/interfaz-ui.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/interfaz-ui.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html" aria-current="page">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="interfaz-del-juego-hud-y-menús">Interfaz del juego (HUD y menús)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#interfaz-visual-u-ongui">Interfaz visual u OnGUI</a></li><li class="n2"><a href="#conceptos">Conceptos</a></li><li class="n3"><a href="#lienzo">Lienzo</a></li><li class="n3"><a href="#rectángulo-anclajes-y-pivote">Rectángulo: anclajes y pivote</a></li><li class="n3"><a href="#escalador-del-lienzo">Escalador del lienzo</a></li><li class="n3"><a href="#orden-de-dibujo-grupos-máscaras-y-pantallas">Orden de dibujo, grupos, máscaras y pantallas</a></li><li class="n2"><a href="#tutorial-1-tu-primer-hud">Tutorial 1: tu primer HUD</a></li><li class="n2"><a href="#tutorial-2-menú-principal-y-de-pausa">Tutorial 2: menú principal y de pausa</a></li><li class="n2"><a href="#el-panel-interfaz">El panel Interfaz</a></li><li class="n2"><a href="#widgets-y-componentes">Widgets y componentes</a></li><li class="n2"><a href="#estilos-temas-y-efectos">Estilos, temas y efectos</a></li><li class="n2"><a href="#biblioteca-de-estilos-desgastado-metal-papel-sci-fi">Biblioteca de estilos: desgastado, metal, papel, sci-fi...</a></li><li class="n3"><a href="#las-piezas">Las piezas</a></li><li class="n3"><a href="#con-el-creador-de-interfaz">Con el creador de interfaz</a></li><li class="n3"><a href="#desde-un-script">Desde un script</a></li><li class="n3"><a href="#nueve-cortes-y-en-mosaico">Nueve cortes (y en mosaico)</a></li><li class="n3"><a href="#barras-segmentadas-rastro-del-daño-y-parpadeo">Barras segmentadas, rastro del daño y parpadeo</a></li><li class="n3"><a href="#desgaste">Desgaste</a></li><li class="n3"><a href="#las-texturas-son-nuestras">Las texturas son nuestras</a></li><li class="n2"><a href="#texto-enriquecido">Texto enriquecido</a></li><li class="n2"><a href="#más-widgets-barra-radial-pestañas-diálogo-lista-tabla-y-selector">Más widgets: barra radial, pestañas, diálogo, lista, tabla y selector</a></li><li class="n2"><a href="#animaciones-con-fotogramas-clave">Animaciones con fotogramas clave</a></li><li class="n2"><a href="#entrada-qué-se-queda-la-interfaz">Entrada: qué se queda la interfaz</a></li><li class="n2"><a href="#la-api-para-los-scripts">La API para los scripts</a></li><li class="n2"><a href="#fuentes-sprites-y-nueve-cortes">Fuentes, sprites y nueve cortes</a></li><li class="n2"><a href="#prefabs-de-interfaz-un-inventario">Prefabs de interfaz: un inventario</a></li><li class="n2"><a href="#arrastrar-y-soltar-tooltips-y-casillas">Arrastrar y soltar, tooltips y casillas</a></li><li class="n3"><a href="#las-piezas-1">Las piezas</a></li><li class="n3"><a href="#cómo-va-un-arrastre">Cómo va un arrastre</a></li><li class="n3"><a href="#eventos-del-puntero">Eventos del puntero</a></li><li class="n3"><a href="#descripciones-emergentes">Descripciones emergentes</a></li><li class="n3"><a href="#casillas-y-rejillas">Casillas y rejillas</a></li><li class="n3"><a href="#ejemplo">Ejemplo</a></li><li class="n2"><a href="#interfaz-en-multijugador">Interfaz en multijugador</a></li><li class="n2"><a href="#crear-la-interfaz-en-equipo">Crear la interfaz en equipo</a></li><li class="n2"><a href="#publicar-y-rendimiento">Publicar y rendimiento</a></li><li class="n2"><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li class="n2"><a href="#límites">Límites</a></li></ul></details><p>Nova Engine tiene un creador visual de interfaces: HUD, menús, inventarios y marcadores se montan en el
+editor, en el panel <strong>Interfaz</strong>, arrastrando widgets y plantillas, y se guardan en la escena como entidades
+con componentes (igual que una luz o un cuerpo rígido). Los scripts Lua solo ponen los datos
+(<code>UI(&quot;HUD/Vida/Barra&quot;):SetValue(vida)</code>) y reaccionan a los clics, o ni eso: un botón puede llamar a una función de
+un script, mostrar una pantalla o salir del juego sin escribir código.</p>
+<p>Los ejemplos en Lua la usan: el HUD del «Rey de la arena» (<code>game/multiplayer_lua</code>: abre <code>Arena.scene</code>, elige la
+entidad <strong>HUD</strong> y mira el panel <strong>Interfaz</strong>) y el inventario de <code>game/inventario_lua</code>
+(<a href="ejemplo-inventario.html">ejemplo-inventario.md</a>).</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#interfaz-visual-u-ongui">Interfaz visual u OnGUI</a></li>
+<li><a href="#conceptos">Conceptos</a></li>
+<li><a href="#tutorial-1-tu-primer-hud">Tutorial 1: tu primer HUD</a></li>
+<li><a href="#tutorial-2-menú-principal-y-de-pausa">Tutorial 2: menú principal y de pausa</a></li>
+<li><a href="#el-panel-interfaz">El panel Interfaz</a></li>
+<li><a href="#widgets-y-componentes">Widgets y componentes</a></li>
+<li><a href="#estilos-temas-y-efectos">Estilos, temas y efectos</a></li>
+<li><a href="#biblioteca-de-estilos-desgastado-metal-papel-sci-fi">Biblioteca de estilos: desgastado, metal, papel, sci-fi...</a></li>
+<li><a href="#texto-enriquecido">Texto enriquecido</a></li>
+<li><a href="#más-widgets-barra-radial-pestañas-diálogo-lista-tabla-y-selector">Más widgets: barra radial, pestañas, diálogo, lista, tabla y selector</a></li>
+<li><a href="#animaciones-con-fotogramas-clave">Animaciones con fotogramas clave</a></li>
+<li><a href="#entrada-qué-se-queda-la-interfaz">Entrada: qué se queda la interfaz</a></li>
+<li><a href="#la-api-para-los-scripts">La API para los scripts</a></li>
+<li><a href="#fuentes-sprites-y-nueve-cortes">Fuentes, sprites y nueve cortes</a></li>
+<li><a href="#prefabs-de-interfaz-un-inventario">Prefabs de interfaz: un inventario</a></li>
+<li><a href="#arrastrar-y-soltar-tooltips-y-casillas">Arrastrar y soltar, tooltips y casillas</a></li>
+<li><a href="#interfaz-en-multijugador">Interfaz en multijugador</a></li>
+<li><a href="#crear-la-interfaz-en-equipo">Crear la interfaz en equipo</a></li>
+<li><a href="#publicar-y-rendimiento">Publicar y rendimiento</a></li>
+<li><a href="#problemas-frecuentes">Problemas frecuentes</a></li>
+<li><a href="#límites">Límites</a></li>
+</ol>
+<h2 id="interfaz-visual-u-ongui">Interfaz visual u OnGUI<a class="ancla" href="#interfaz-visual-u-ongui" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th></th>
+  <th>Interfaz visual (este documento)</th>
+  <th><code>OnGUI</code> con <code>GUI.</code> (<a href="scripts-lua.html#interfaz-mínima-ongui">scripts-lua.md</a>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Se diseña</td>
+  <td>En el editor, viéndola, con anclajes para cualquier resolución</td>
+  <td>Con código, en cada frame</td>
+</tr>
+<tr>
+  <td>Se guarda</td>
+  <td>En la escena o en un prefab</td>
+  <td>En el script</td>
+</tr>
+<tr>
+  <td>Aspecto</td>
+  <td>Libre: colores, esquinas redondeadas, sprites, cualquier fuente TTF</td>
+  <td>Ventanas sencillas de ImGui</td>
+</tr>
+<tr>
+  <td>Mando y teclado</td>
+  <td>Navegación con flechas y mando, foco, pantallas modales</td>
+  <td>Lo básico de ImGui</td>
+</tr>
+<tr>
+  <td>Para qué</td>
+  <td>El HUD y los menús que verá el jugador</td>
+  <td>Depurar, herramientas y menús rápidos</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las dos conviven: OnGUI se dibuja <strong>encima</strong> de la interfaz visual.</p>
+<h2 id="conceptos">Conceptos<a class="ancla" href="#conceptos" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="lienzo">Lienzo<a class="ancla" href="#lienzo" aria-label="Enlace a esta sección">#</a></h3>
+<p>Toda interfaz cuelga de una entidad con <strong>Lienzo</strong> (<code>UiCanvas</code>). Sus descendientes con <strong>Rectángulo (UI)</strong> son
+los elementos. Hay dos modos:</p>
+<ul>
+<li><strong>Pantalla:</strong> encima del juego, en el panel <strong>Juego</strong> del editor y en <code>NovaGame.exe</code>.</li>
+<li><strong>Mundo:</strong> un cartel en la escena 3D (con profundidad: lo tapan las paredes). Con <strong>Mirar a la cámara</strong>
+sirve para los nombres sobre los jugadores. <strong>Píxeles por metro</strong> dice cuánto mide. Con el mismo <strong>Orden</strong>,
+los carteles se pintan de lejos a cerca: el más cercano a la cámara queda delante.</li>
+</ul>
+<p>Si un HUD no tiene botones, desactiva <strong>Recibe entrada</strong> en su lienzo: así nunca se queda con un clic del
+juego (el HUD de la plantilla ya viene así).</p>
+<h3 id="rectángulo-anclajes-y-pivote">Rectángulo: anclajes y pivote<a class="ancla" href="#rectángulo-anclajes-y-pivote" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cada elemento tiene un <strong>Rectángulo (UI)</strong> (<code>UiRect</code>), el equivalente al <code>RectTransform</code> de Unity. La
+posición se mide desde los <strong>anclajes</strong>, que son puntos del padre: <code>0,0</code> es arriba a la izquierda y <code>1,1</code>
+abajo a la derecha (el eje Y va hacia abajo, como en la pantalla).</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">  anclajes juntos (0,1): esquina de abajo a la izquierda      anclajes separados (0,0)-(1,0): barra de arriba
+  +----------------------------------+                       +==================================+
+  |                                  |                       |&lt;-- margen   se estira   margen --&gt;|
+  |                                  |                       |                                  |
+  |  +------+                        |                       |                                  |
+  |  | Vida |  posición (40, -40)    |                       |                                  |
+  |  +------+ desde la esquina       |                       |                                  |
+  x----------------------------------+                       +----------------------------------+
+  ^ anclaje</code></pre></div>
+<ul>
+<li><strong>Anclajes juntos:</strong> el elemento tiene un tamaño fijo y se queda pegado a ese punto del padre (una esquina,
+un borde o el centro). <strong>Tamaño (delta)</strong> es su tamaño.</li>
+<li><strong>Anclajes separados:</strong> el elemento se estira con el padre. <strong>Tamaño (delta)</strong> es lo que se suma (o se
+resta, si es negativo) al espacio entre los anclajes: con <code>(0,0)-(1,0)</code> y <code>-80</code> en X queda una barra con
+40 px de margen a cada lado.</li>
+<li><strong>Pivote:</strong> el punto del elemento que se coloca en la posición, y alrededor del que gira y escala
+(<code>0,0</code> = su esquina de arriba a la izquierda, <code>0.5,0.5</code> = su centro).</li>
+</ul>
+<p>No hace falta hacer cuentas: en el inspector y en el panel hay una rejilla de <strong>preajustes de anclaje</strong>
+(arriba a la izquierda, centro, estirar a lo ancho...). Al elegir uno el elemento <strong>no se mueve</strong>; con
+<strong>Mayús</strong> también cambia el pivote y con <strong>Alt</strong> también lo coloca en ese sitio. El inspector calcula con la
+resolución y el DPI del panel <strong>Interfaz</strong> si se está viendo (si no, con los del panel <strong>Juego</strong>).</p>
+<h3 id="escalador-del-lienzo">Escalador del lienzo<a class="ancla" href="#escalador-del-lienzo" aria-label="Enlace a esta sección">#</a></h3>
+<p>El <strong>Escalador del lienzo</strong> (<code>UiCanvasScaler</code>) adapta la interfaz a cualquier resolución:</p>
+<ul>
+<li><strong>Escalar con la pantalla</strong> (lo normal): diseñas para una <strong>resolución de referencia</strong> (1920 × 1080 por
+defecto) y todo crece o encoge con la ventana. <strong>Ancho ↔ Alto</strong> decide qué manda: <code>0</code> el ancho, <code>1</code> el alto
+y <code>0,5</code> (por defecto) una mezcla, que va bien de 16:9 a 21:9 y en móvil. <strong>Expandir</strong> nunca recorta la
+interfaz y <strong>Encoger</strong> nunca deja huecos.</li>
+<li><strong>Tamaño constante en píxeles:</strong> el mismo tamaño en píxeles en cualquier pantalla, multiplicado por
+<strong>Factor</strong> y, si <strong>Usar el DPI de la pantalla</strong> está marcado, por el escalado de Windows (125 %, 150 %...).</li>
+</ul>
+<h3 id="orden-de-dibujo-grupos-máscaras-y-pantallas">Orden de dibujo, grupos, máscaras y pantallas<a class="ancla" href="#orden-de-dibujo-grupos-máscaras-y-pantallas" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Orden de dibujo = orden en la jerarquía:</strong> cada hijo se dibuja encima de su padre y de los hermanos
+anteriores. Entre lienzos manda su <strong>Orden</strong> (y, entre carteles de Mundo con el mismo, la distancia).</li>
+<li><strong>Grupo de layout</strong> (<code>UiLayoutGroup</code>): coloca a sus hijos en fila, en columna o en rejilla. Los hijos no se
+mueven a mano (su Rectángulo no cambia: el grupo decide). <strong>Elemento de layout</strong> ajusta el tamaño de un hijo
+o lo saca del grupo.</li>
+</ul>
+<p><strong>¿Por qué mis hijos no son iguales (o se salen del grupo)?</strong> Un grupo da a cada hijo su tamaño <strong>preferido</strong>
+(el de su Rectángulo, o el que pide su texto), así que dos paneles de 400 y de 200 no salen iguales. Con
+<strong>Mismo tamaño</strong> todos miden lo mismo y llenan el grupo: (largo del grupo − relleno − espaciados) ÷ número de
+hijos. Si no caben y el grupo controla su tamaño (<strong>Controlar el ancho</strong> o <strong>el alto</strong>), encogen todos a la vez,
+como en Unity, sin bajar de su <strong>Tamaño mínimo</strong> (Elemento de layout); solo se salen si ni los mínimos caben, y
+entonces el inspector del grupo avisa. Los grupos que se crean desde la paleta ya traen <strong>Mismo tamaño</strong> y
+estiran a sus hijos en el otro eje; los de antes se quedan como estaban.</p>
+<ul>
+<li><strong>Máscara (recorte)</strong> (<code>UiMask</code>): recorta a sus hijos con su rectángulo (listas con desplazamiento).</li>
+<li><strong>Grupo (alfa)</strong> (<code>UiCanvasGroup</code>): transparencia e interacción de todo un subárbol (fundidos del HUD).</li>
+<li><strong>Pantalla</strong> (<code>UiScreen</code>): un menú o panel que se muestra y se oculta con su transición (fundido,
+deslizar, escalar), puede bloquear el juego, mostrar el cursor y abrirse con una acción del mapa de entrada
+(por ejemplo <strong>Pausa</strong>: Esc o Start). Si al pulsar la acción hay encima otra pantalla que se está usando y se
+cierra con Esc (un submenú de opciones), se cierra esa primero; una pantalla del HUD siempre visible nunca
+cuenta.</li>
+</ul>
+<h2 id="tutorial-1-tu-primer-hud">Tutorial 1: tu primer HUD<a class="ancla" href="#tutorial-1-tu-primer-hud" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Abre tu escena y el panel <strong>Interfaz</strong> (pestaña junto a <strong>Escena</strong> y <strong>Juego</strong>; si no está, <strong>Ventana &gt;
+Interfaz</strong>). Si la escena no tiene lienzos verás un botón para crear uno, pero no hace falta.</li>
+<li>En la paleta de la izquierda, <strong>Plantillas &gt; HUD</strong>: haz clic (o arrástrala al lienzo). Aparece la entidad
+<strong>HUD</strong> con <strong>Vida</strong> (abajo a la izquierda), <strong>Munición</strong> (abajo a la derecha), <strong>Minimapa</strong>, <strong>Mira</strong> y un
+<strong>Aviso</strong> oculto. Es una entidad normal: se deshace con <strong>Ctrl+Z</strong> y se guarda con la escena.</li>
+<li>Elige <strong>Munición</strong> y arrástrala a otro sitio: las <strong>guías</strong> rosas aparecen al alinearla con los bordes y
+centros de los demás. Con <strong>Mayús</strong> solo se mueve en un eje; con <strong>Ctrl</strong> se desactiva el imán un momento.</li>
+<li>Cambia la resolución de la vista previa (arriba: <strong>2560 × 1080 (21:9)</strong> o <strong>Móvil vertical</strong>) y comprueba
+que todo sigue en su esquina: los anclajes lo resuelven. Esto solo cambia la vista previa, no el juego.</li>
+<li>Arrastra un <code>.ttf</code> desde el panel <strong>Contenido</strong> encima del texto de la munición para cambiarle la fuente.</li>
+<li>Crea un script (en <strong>Contenido</strong>, carpeta <code>scripts</code>, <strong>Crear &gt; Nuevo script...</strong>) llamado <code>HudVida</code>,
+cámbialo por este código, guárdalo y arrástralo a cualquier entidad de la escena (por ejemplo al propio
+<strong>HUD</strong>). No hay que compilar nada:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Vida del jugador en el HUD de la plantilla: barra, número y un aviso cuando queda poca</span>
+<span class="hl-k">local</span> <span class="hl-t">HudVida</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">HudVida</span>.vida = <span class="hl-n">100</span>
+<span class="hl-a">--[Display("Vida máxima")]</span>
+<span class="hl-t">HudVida</span>.vidaMaxima = <span class="hl-n">100</span>
+
+<span class="hl-k">function</span> <span class="hl-t">HudVida</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._parpadeo = <span class="hl-n">0</span>
+    <span class="hl-b">self</span>:<span class="hl-f">Mostrar</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Otro script la llama al recibir un golpe: entidad:GetScript("HudVida"):Herir(10)</span>
+<span class="hl-k">function</span> <span class="hl-t">HudVida</span>:<span class="hl-f">Herir</span>(cantidad: number)
+    <span class="hl-k">local</span> teniaMucha = <span class="hl-b">self</span>.vida &gt; <span class="hl-n">25</span>
+    <span class="hl-b">self</span>.vida = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>.vida - cantidad)
+    <span class="hl-b">self</span>:<span class="hl-f">Mostrar</span>()
+    <span class="hl-c">-- El panel de la vida parpadea en rojo y vuelve a su color</span>
+    <span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida"</span>):<span class="hl-f">TintTo</span>(<span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.35</span>, <span class="hl-n">0.35</span>, <span class="hl-n">1</span>), <span class="hl-n">0.05</span>)
+    <span class="hl-b">self</span>._parpadeo = <span class="hl-n">0.15</span>
+    <span class="hl-k">if</span> teniaMucha <span class="hl-k">and</span> <span class="hl-b">self</span>.vida &lt;= <span class="hl-n">25</span> <span class="hl-k">then</span>
+        <span class="hl-f">UI</span>(<span class="hl-s">"HUD/Aviso"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"¡Te queda poca vida!"</span>):<span class="hl-f">Show</span>():<span class="hl-f">FadeTo</span>(<span class="hl-n">1</span>, <span class="hl-n">0.3</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Sin argumentos: un botón de la interfaz también la puede llamar («Al hacer clic»)</span>
+<span class="hl-k">function</span> <span class="hl-t">HudVida</span>:<span class="hl-f">Curar</span>()
+    <span class="hl-b">self</span>.vida = <span class="hl-b">self</span>.vidaMaxima
+    <span class="hl-b">self</span>:<span class="hl-f">Mostrar</span>()
+    <span class="hl-f">UI</span>(<span class="hl-s">"HUD/Aviso"</span>):<span class="hl-f">Hide</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">HudVida</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._parpadeo &gt; <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._parpadeo -= dt
+        <span class="hl-k">if</span> <span class="hl-b">self</span>._parpadeo &lt;= <span class="hl-n">0</span> <span class="hl-k">then</span>
+            <span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida"</span>):<span class="hl-f">TintTo</span>(<span class="hl-t">Color</span>.white, <span class="hl-n">0.2</span>)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Prueba en el editor: H hiere y C cura</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"H"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Herir</span>(<span class="hl-n">10</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"C"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Curar</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">HudVida</span>:<span class="hl-f">Mostrar</span>()
+    <span class="hl-c">-- La barra va de 0 a 100 (Mínimo y Máximo de la Barra de progreso)</span>
+    <span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida/Barra"</span>):<span class="hl-f">SetValue</span>(<span class="hl-b">self</span>.vida / <span class="hl-b">self</span>.vidaMaxima * <span class="hl-n">100</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida/Valor"</span>):<span class="hl-f">SetText</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%.0f"</span>, <span class="hl-b">self</span>.vida))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">HudVida</span></code></pre></div>
+<ol start="7">
+<li>Pulsa <strong>Jugar</strong> y prueba con <strong>H</strong> y <strong>C</strong>. La barra baja suavemente (<strong>Suavizado</strong> de la Barra de
+progreso) y se pone roja por debajo del <strong>Umbral de valor bajo</strong>.</li>
+</ol>
+<p><code>UI(&quot;HUD/Vida/Barra&quot;)</code> busca <strong>HUD</strong> en toda la escena y después <strong>Vida</strong> y <strong>Barra</strong> entre sus hijos. Si
+cambias un nombre en la jerarquía, cambia también la ruta (el registro avisa una vez si no existe). El botón
+<strong>{ } Código</strong> del panel enseña la ruta y unas líneas de ejemplo del elemento elegido, listas para copiar.</p>
+<h2 id="tutorial-2-menú-principal-y-de-pausa">Tutorial 2: menú principal y de pausa<a class="ancla" href="#tutorial-2-menú-principal-y-de-pausa" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><strong>Plantillas &gt; Menú principal</strong> crea el lienzo <strong>Menú</strong> con la pantalla <strong>MenúPrincipal</strong> (título, botones
+<strong>Jugar</strong>, <strong>Opciones</strong> y <strong>Salir</strong>) y la pantalla <strong>Opciones</strong> (volumen y <strong>Volver</strong>). Ya funcionan sin
+código: <strong>Opciones</strong> muestra su pantalla, <strong>Volver</strong> la oculta, el deslizador cambia el volumen general
+(acción <strong>Volumen de un bus</strong>) y <strong>Salir</strong> cierra el juego.</li>
+<li><strong>Plantillas &gt; Menú de pausa</strong> crea <strong>MenúPausa</strong>, que se abre y se cierra con la acción <strong>Pausa</strong> (Esc o
+Start, del mapa de entrada del proyecto) y bloquea el juego mientras se ve.</li>
+<li>Para <strong>Jugar</strong> hace falta código. Crea este script Lua (<code>MenuEjemplo</code>) y añádelo a la entidad <strong>Menú</strong>:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Menú principal de la plantilla: «Jugar» llama a Jugar() y un deslizador «Música» llama a Musica(valor).</span>
+<span class="hl-c">-- Se enlazan en el inspector: cualquier función de la clase se puede elegir.</span>
+<span class="hl-k">local</span> <span class="hl-t">MenuEjemplo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Entidad que se activa al empezar")]</span>
+<span class="hl-t">MenuEjemplo</span>.jugador = <span class="hl-s">"Jugador"</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuEjemplo</span>:<span class="hl-f">Jugar</span>()
+    <span class="hl-f">UI</span>(<span class="hl-s">"MenúPrincipal"</span>):<span class="hl-f">Hide</span>() <span class="hl-c">-- con su transición</span>
+    <span class="hl-k">local</span> jugador = <span class="hl-t">Scene</span>.<span class="hl-f">Find</span>(<span class="hl-b">self</span>.jugador)
+    <span class="hl-k">if</span> jugador <span class="hl-k">then</span>
+        jugador.active = <span class="hl-b">true</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- El parámetro con tipo decide cómo llega el Valor del evento (aquí, el número del deslizador)</span>
+<span class="hl-k">function</span> <span class="hl-t">MenuEjemplo</span>:<span class="hl-f">Musica</span>(valor: number)
+    <span class="hl-t">Audio</span>.<span class="hl-f">SetBusVolume</span>(<span class="hl-s">"Music"</span>, valor)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuEjemplo</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-c">-- Lo mismo sin el inspector: sondeo del clic de este frame</span>
+    <span class="hl-k">if</span> <span class="hl-f">UI</span>(<span class="hl-s">"MenúPrincipal/Botones/Opciones"</span>):<span class="hl-f">WasClicked</span>() <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Opciones abiertas"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MenuEjemplo</span></code></pre></div>
+<ol start="4">
+<li>Elige el botón <strong>Jugar</strong> y, en el inspector, en <strong>Al hacer clic</strong>, pulsa <strong>Añadir acción</strong>: <strong>Acción</strong> = <strong>Llamar a un
+método</strong>, <strong>Entidad</strong> = <strong>Menú</strong> (o déjala vacía: se busca en el propio botón y sus antepasados), y en
+<strong>Método</strong> elige <code>MenuEjemplo.luau.Jugar()</code>. Salen todas las funciones de las clases de los scripts de esa
+entidad (ver <a href="#la-api-para-los-scripts">La API para los scripts</a>).</li>
+<li>Elige el deslizador <strong>Opciones/Ventana/Volumen</strong> en la <strong>Jerarquía</strong> (el panel enseña la pantalla
+<strong>Opciones</strong>, oculta al empezar, mientras eliges algo suyo; también puedes elegirla en <strong>Ver</strong>). Duplícalo
+(<strong>Ctrl+D</strong>), llámalo <strong>Música</strong>, bájalo un poco y, en
+<strong>Al cambiar</strong>, cambia su acción a <strong>Llamar a un método</strong> con <code>MenuEjemplo.luau.Musica(f64)</code> y <strong>Argumento</strong> =
+<strong>Valor del evento</strong> (el valor del deslizador). Con <strong>Fijo</strong> se pasa siempre el mismo número, texto o
+sí/no.</li>
+<li>Pulsa <strong>Jugar</strong>. Se puede manejar con el ratón, con las flechas e Intro, o con el mando (cruceta o stick y
+A; B o Esc cierra la pantalla si tiene <strong>Cerrar con Esc / B</strong>). El primer botón con foco es el de
+<strong>Seleccionado al abrir</strong> de la pantalla. El teclado y el mando solo navegan una pantalla modal o con
+<strong>Seleccionado al abrir</strong>: un botón suelto del HUD nunca coge el foco solo, así que el stick, A, Espacio y
+las flechas siguen siendo del juego.</li>
+</ol>
+<p>Las acciones sin código de un evento son: <strong>Llamar a un método</strong>, <strong>Activar</strong>, <strong>Desactivar</strong>, <strong>Activar o
+desactivar</strong>, <strong>Mostrar pantalla</strong>, <strong>Ocultar pantalla</strong>, <strong>Mostrar u ocultar pantalla</strong>, <strong>Volumen de un bus</strong>,
+<strong>Desconectar de la partida</strong> (en red), <strong>Salir del juego</strong>, <strong>Reproducir animación</strong>, <strong>Parar animación</strong> y <strong>Aplicar
+estilo</strong> (un tema de la biblioteca de estilos a todo el lienzo o a la entidad del enlace).</p>
+<h2 id="el-panel-interfaz">El panel Interfaz<a class="ancla" href="#el-panel-interfaz" aria-label="Enlace a esta sección">#</a></h2>
+<p>El panel dibuja el lienzo elegido con el mismo código que el juego (una prueba automática comprueba que
+salen los mismos píxeles), a la resolución que elijas y sin que haga falta pulsar <strong>Jugar</strong>.</p>
+<p><strong>Barra de arriba:</strong> <strong>Probar</strong> y <strong>Comparar</strong> (ver más abajo), lienzo que se edita (y <strong>+</strong> para uno nuevo),
+resolución de la vista previa (16:9, 21:9, 16:10, 4:3, móvil, «Igual que el panel Juego» o personalizada),
+girar a vertical, DPI de la vista previa, zoom, <strong>Ajustar</strong>, <strong>Imán</strong> y su paso, <strong>Rejilla</strong>, <strong>Guías</strong>,
+<strong>Reglas</strong> (el icono de la regla), <strong>Fondo</strong> (cuadros, oscuro o claro), <strong>Ver</strong> (<strong>Según la escena</strong>, por defecto: las pantallas activas
+y la que contiene lo que eliges; <strong>Todas las pantallas</strong> a la vez; o solo una), <strong>Ver ocultos</strong>, <strong>Alinear</strong>,
+<strong>Anclaje</strong>, <strong>Sugerir anclaje</strong> (la bombilla), <strong>Tema</strong>, <strong>{ } Código</strong> y las estadísticas del dibujo (ⓘ).</p>
+<p><strong>Paleta (izquierda):</strong> dos pestañas, <strong>Crear</strong> y <strong>Estilos</strong> (la <a href="#biblioteca-de-estilos-desgastado-metal-papel-sci-fi">biblioteca de
+estilos</a>). En <strong>Crear</strong>, los widgets (<strong>Panel</strong>, <strong>Imagen</strong>, <strong>Texto</strong>, <strong>Botón</strong>, <strong>Interruptor</strong>,
+<strong>Deslizador</strong>, <strong>Barra de progreso</strong>, <strong>Campo de texto</strong>, <strong>Vista con desplazamiento</strong>, <strong>Desplegable</strong>,
+<strong>Grupo horizontal</strong>, <strong>Grupo vertical</strong>, <strong>Rejilla</strong>, <strong>Casilla</strong>, <strong>Barra radial</strong>, <strong>Pestañas</strong>, <strong>Diálogo</strong>,
+<strong>Lista</strong>, <strong>Tabla</strong>, <strong>Selector numérico</strong>, <strong>Botón con icono</strong>, <strong>Separador</strong> e <strong>Icono</strong>) y las plantillas
+(<strong>HUD</strong>, <strong>Menú principal</strong>, <strong>Menú de pausa</strong>, <strong>Inventario</strong>, <strong>Marcador</strong>, <strong>Ajustes</strong>, <strong>Sala (lobby)</strong> y
+<strong>Pantalla de carga</strong> (las dos de <a href="lobby-y-escenas.html">lobby-y-escenas.md</a>), <strong>Interfaz: estilos</strong> (la muestra de la
+biblioteca de estilos) y <strong>Tuyas</strong>: clic derecho
+sobre un elemento &gt; <strong>Guardar como plantilla…</strong> la guarda como prefab en <code>assets/ui/plantillas</code>). Un clic crea el
+widget dentro del elemento elegido; arrastrarlo lo crea donde lo sueltes. Las plantillas vienen con el tema
+<strong>Supervivencia</strong> (oscuro, con acento naranja) y los widgets nuevos toman el tema de su lienzo.</p>
+<p><strong>Probar:</strong> la interfaz funciona como al jugar, pero sin jugar: los botones se iluminan y se pulsan, las
+pestañas cambian, las listas se desplazan, los diálogos bloquean lo de detrás, los campos de texto escriben y las
+pantallas se abren y se cierran con sus transiciones. Es una <strong>copia</strong> de la escena con solo el sistema de
+interfaz: no se ejecuta ningún script y lo que cambies probando no se guarda. Lo que haría el juego (llamar a un
+método de un script, salir, desconectar, cambiar el volumen) sale abajo como aviso («Llamaría a
+Menu.Jugar()»). <strong>Reiniciar</strong> vuelve a copiar la escena con lo último que has cambiado; <strong>Dejar de probar</strong>
+vuelve a editar.</p>
+<p><strong>Comparar:</strong> el lienzo a la vez en 16:9 (1920 × 1080), 21:9 (2560 × 1080), 4:3 (1024 × 768) y móvil vertical
+(1080 × 2340). Lo que se sale de la pantalla en cada una se marca en rojo y la etiqueta dice cuántos son. Un clic
+en una la elige como resolución de la vista previa y vuelve a editar.</p>
+<p><strong>Reglas y guías:</strong> con <strong>Reglas</strong> activo hay una regla arriba y otra a la izquierda, en unidades del lienzo.
+Arrastra desde una regla para sacar una guía (azul); el imán se pega a ellas (antes que a los hermanos).
+Arrástrala para moverla y, de vuelta a su regla, para quitarla (clic derecho &gt; <strong>Quitar las guías</strong> las quita
+todas). Las guías se guardan en el lienzo (componente <strong>Guías del editor</strong>) y no se dibujan en el juego.</p>
+<p><strong>Bloquear:</strong> clic derecho &gt; <strong>Bloquear</strong> (o <strong>Ctrl+L</strong>) deja un elemento quieto: el ratón ya no lo elige ni
+lo mueve en el panel (el clic pasa a lo de debajo) y el marco de selección se lo salta; sus hijos también. Se
+sigue eligiendo en la <strong>Jerarquía</strong> (se ve con un candado) y se desbloquea igual. Útil para fondos y paneles
+grandes.</p>
+<p><strong>Copiar y pegar estilo</strong> (clic derecho, o <strong>Ctrl+Alt+C</strong> y <strong>Ctrl+Alt+V</strong>): copia el aspecto (la imagen sin su
+sprite, el texto sin el texto, el estilo con nombre, los efectos y los colores, la transición y la escala al
+pulsar de un botón) y lo pega en los elegidos sin tocar su contenido ni sus eventos.</p>
+<p><strong>Sugerir anclaje:</strong> elige el anclaje según dónde está cada elemento en su padre (una esquina, un borde, el
+centro, o estirar si ocupa casi todo un eje) y lo cambia sin moverlo. Con varios elegidos, cada uno el suyo.</p>
+<p><strong>Tema:</strong> <strong>Usar «Claro»</strong> (o «Supervivencia») cambia de tema todos los elementos del lienzo que usan un estilo
+de tema; <strong>Copiar «…» a la escena para editarlo</strong> crea la entidad «Tema …» con un <strong>Estilo (definición)</strong> por
+estilo (ver <a href="#estilos-temas-y-efectos">Estilos, temas y efectos</a>).</p>
+<p><strong>Arrastrar desde Contenido:</strong> una textura sobre una imagen le cambia el sprite; sobre el vacío crea una
+<strong>Imagen</strong> a su tamaño. Una fuente sobre un texto le cambia la fuente. Un prefab se instancia dentro del
+elemento que haya debajo.</p>
+<p><strong>Con el ratón:</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Gesto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Clic</td>
+  <td>Elige el elemento de encima, dentro del grupo en el que estás (Alt: el más profundo; Ctrl o Mayús: añadir a la selección)</td>
+</tr>
+<tr>
+  <td>Arrastrar un elemento</td>
+  <td>Moverlo, con guías e imán (Mayús: un solo eje; Ctrl: sin imán; Esc: cancelar)</td>
+</tr>
+<tr>
+  <td>Alt al soltar un arrastre</td>
+  <td>Meterlo en el contenedor de debajo (se marca en verde) sin que se mueva</td>
+</tr>
+<tr>
+  <td>Arrastrar dentro de un grupo de layout</td>
+  <td>Cambiar su orden en la fila, columna o rejilla (el grupo lo coloca)</td>
+</tr>
+<tr>
+  <td>Arrastrar en el vacío</td>
+  <td>Selección por marco</td>
+</tr>
+<tr>
+  <td>Asas de los lados y esquinas</td>
+  <td>Redimensionar (Mayús: mantener la proporción; Alt: desde el centro)</td>
+</tr>
+<tr>
+  <td>Asa redonda de arriba</td>
+  <td>Girar (Mayús: de 15 en 15 grados)</td>
+</tr>
+<tr>
+  <td>Círculo del pivote</td>
+  <td>Mover el pivote</td>
+</tr>
+<tr>
+  <td>Doble clic</td>
+  <td>Entrar en un grupo o editar el texto en el sitio (Intro o un clic fuera: aceptar; Esc: cancelar; Ctrl+Intro: nueva línea)</td>
+</tr>
+<tr>
+  <td>Rueda</td>
+  <td>Zoom en el cursor</td>
+</tr>
+<tr>
+  <td>Botón central o Espacio + arrastrar</td>
+  <td>Mover la vista</td>
+</tr>
+<tr>
+  <td>Arrastrar desde una regla</td>
+  <td>Sacar una guía; arrastrar una guía la mueve y soltarla en su regla la quita</td>
+</tr>
+<tr>
+  <td>Clic derecho</td>
+  <td>Crear dentro, agrupar, desagrupar (solo grupos), alinear, orden, anclar, sugerir anclaje, bloquear o desbloquear, copiar y pegar estilo, quitar las guías, guardar como prefab o como plantilla, eliminar</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Con el teclado</strong> (con el panel enfocado): flechas = 1 px (Mayús: 10), <strong>Supr</strong> borra, <strong>F</strong> encuadra la
+selección, <strong>Ctrl+0</strong> ajusta el lienzo, <strong>Ctrl+1</strong> zoom al 100 %, <strong>Ctrl+G</strong> agrupa, <strong>Ctrl+Mayús+G</strong>
+desagrupa, <strong>Ctrl+L</strong> bloquea o desbloquea, <strong>Ctrl+Alt+C</strong> y <strong>Ctrl+Alt+V</strong> copian y pegan el estilo. <strong>Ctrl+Z</strong>,
+<strong>Ctrl+Y</strong>, <strong>Ctrl+C</strong>, <strong>Ctrl+V</strong> y <strong>Ctrl+D</strong> son los del editor (mientras arrastras no se deshace: suelta antes o
+cancela con Esc). Probando, el teclado es de la interfaz que pruebas.</p>
+<p><strong>Desagrupar</strong> solo vale para los grupos (un rectángulo sin imagen, texto, botón, pantalla, máscara ni grupo de
+layout, como los que crea <strong>Agrupar</strong>): sus hijos pasan al padre sin moverse, aunque el grupo esté girado o
+escalado. En la <strong>Jerarquía</strong>, arrastrar un elemento de interfaz a otro padre también conserva su sitio en
+pantalla.</p>
+<p>Todo lo que cambias es un comando normal del editor: se deshace, se rehace y se guarda con la escena. Las
+preferencias del panel (resolución, imán, rejilla, fondo) se guardan para tu usuario, no en el proyecto.</p>
+<p><strong>Inspector:</strong> los componentes de interfaz tienen un inspector propio. El <strong>Rectángulo</strong> muestra la rejilla de
+anclajes, <strong>Llenar el padre</strong>, <strong>Tamaño nativo</strong> (imágenes) y los campos con nombres claros (Izquierda,
+Arriba... cuando está estirado; Pos. X, Ancho... cuando no). Los botones, interruptores, deslizadores, campos
+de texto, desplegables y casillas tienen <strong>Ver estado</strong> (Normal, Encima, Pulsado, Desactivado, Seleccionado) para ver
+sus colores en los paneles sin jugar, y un <strong>Destino de arrastre</strong> lo tiene para verlo con algo encima (<strong>Acepta</strong>
+o <strong>No acepta</strong>). Las listas de eventos eligen los métodos de un desplegable. <strong>Estilo</strong> elige el estilo de una
+lista (por tema), dice cuántos elementos lo usan y lleva a su definición (o copia su tema a la escena para
+editarlo). <strong>Animación de UI</strong> tiene preajustes (<strong>Aparecer</strong>, <strong>Entrar desde la izquierda</strong>, <strong>Entrar desde
+abajo</strong>, <strong>Saltar</strong>, <strong>Latido</strong>, <strong>Parpadeo</strong>, <strong>Agitar</strong>, <strong>Girar</strong>) y <strong>Vista previa</strong>, que la reproduce una vez en
+el panel Interfaz sin jugar.</p>
+<p>Los campos que no se usan con los valores actuales salen <strong>desactivados</strong>, con el motivo al pasar el ratón: los
+bordes de una imagen que no es de <strong>Nueve cortes</strong>, el relleno de una que no es de tipo <strong>Relleno</strong>, la sombra
+sin <strong>Sombra</strong>, el tamaño de un texto con <strong>Tamaño automático</strong> (mandan el mínimo y el máximo), los campos del
+escalador que no son de su modo, la celda de un grupo que no es <strong>Rejilla</strong>, la duración sin transición, los
+colores de un destino sin <strong>Resaltar</strong>... Los que pone el <strong>Estilo</strong> del elemento (su fondo, su forma, su texto, su
+relleno o sus colores por estado) también salen desactivados y dicen qué estilo los pone y qué casilla de <strong>Estilo</strong>
+marcar para usar los suyos («Lo pone el estilo «Supervivencia/Botón». Marca «Colores propios» en Estilo para usar el
+tuyo»). Todos los demás cambian lo que se ve o lo que hace al momento, también jugando (las pruebas <code>inspector ui:</code>
+lo comprueban campo a campo).</p>
+<p><strong>Otros sitios:</strong> <strong>Entidad &gt; Interfaz</strong> y el <strong>+</strong> de la <strong>Jerarquía</strong> crean widgets y plantillas. En el
+visor <strong>Escena</strong> los elementos de un lienzo de pantalla no tienen gizmo 3D (se editan en el panel); los
+lienzos de Mundo sí se colocan allí como cualquier entidad.</p>
+<h2 id="widgets-y-componentes">Widgets y componentes<a class="ancla" href="#widgets-y-componentes" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todos están en el inspector en <strong>Añadir componente &gt; Interfaz</strong>. Un widget de la paleta es una entidad (o unas
+pocas) con estos componentes ya configurados.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Componente</th>
+  <th>Para qué</th>
+  <th>Campos principales</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Lienzo</strong> (<code>UiCanvas</code>)</td>
+  <td>Raíz de una interfaz</td>
+  <td>Modo (Pantalla o Mundo), Orden, Ajustar a píxeles, Recibe entrada, Píxeles por metro, Mirar a la cámara</td>
+</tr>
+<tr>
+  <td><strong>Escalador del lienzo</strong> (<code>UiCanvasScaler</code>)</td>
+  <td>Adaptarse a la resolución</td>
+  <td>Modo, Resolución de referencia, Ajuste, Ancho ↔ Alto, Factor, Usar el DPI</td>
+</tr>
+<tr>
+  <td><strong>Rectángulo (UI)</strong> (<code>UiRect</code>)</td>
+  <td>Posición y tamaño</td>
+  <td>Anclaje mín. y máx., Pivote, Posición, Tamaño (delta), Rotación, Escala</td>
+</tr>
+<tr>
+  <td><strong>Imagen</strong> (<code>UiImage</code>)</td>
+  <td>Rectángulos y sprites</td>
+  <td>Imagen, Color, Tipo (Simple, Nueve cortes, Relleno), Repetir el centro (mosaico), Radio de las esquinas, Radios por esquina, Borde (y discontinuo), Modo del tinte (Multiplicar, Sumar, Silueta, Escala de grises), Método de relleno y Cantidad, Bloquea clics</td>
+</tr>
+<tr>
+  <td><strong>Texto</strong> (<code>UiText</code>)</td>
+  <td>Texto con cualquier fuente</td>
+  <td>Texto, Fuente, Tamaño, Color, alineación, Ajuste de línea, Si no cabe, Contorno, Sombra, Tamaño automático, Texto enriquecido, Mayúsculas, Espaciado entre letras, Interlineado, Degradado, Bloquea clics</td>
+</tr>
+<tr>
+  <td><strong>Texto traducido</strong> (<code>UiLocalized</code>)</td>
+  <td>El Texto en el idioma del jugador</td>
+  <td>Clave (de la tabla de idiomas): el Texto de la misma entidad muestra su traducción y cambia solo con el idioma (<a href="idiomas.html#5-en-la-interfaz-texto-traducido">idiomas.md</a>)</td>
+</tr>
+<tr>
+  <td><strong>Botón</strong> (<code>UiButton</code>)</td>
+  <td>Clic</td>
+  <td>Interactivo, Transición (tinte o cambiar imagen), Colores por estado, Escala al pulsar, Sonido, <strong>Al hacer clic</strong></td>
+</tr>
+<tr>
+  <td><strong>Interruptor</strong> (<code>UiToggle</code>)</td>
+  <td>Sí o no</td>
+  <td>Activado, colores de la casilla y la marca, Grupo (opción única), <strong>Al cambiar</strong></td>
+</tr>
+<tr>
+  <td><strong>Deslizador</strong> (<code>UiSlider</code>)</td>
+  <td>Un número</td>
+  <td>Mínimo, Máximo, Valor, Solo enteros, Dirección, colores, Paso con teclas, <strong>Al cambiar</strong></td>
+</tr>
+<tr>
+  <td><strong>Barra de progreso</strong> (<code>UiProgressBar</code>)</td>
+  <td>Vida, carga</td>
+  <td>Mínimo, Máximo, Valor, Dirección, colores, Umbral de valor bajo, Suavizado, Imagen del relleno y del fondo, Segmentos y su hueco, Rastro del daño, Parpadear con valor bajo</td>
+</tr>
+<tr>
+  <td><strong>Campo de texto</strong> (<code>UiInputField</code>)</td>
+  <td>Escribir</td>
+  <td>Texto, Texto de ayuda, Fuente, Contraseña, Longitud máxima, Contenido (estándar, entero, decimal, alfanumérico), <strong>Al cambiar</strong>, <strong>Al enviar (Intro)</strong></td>
+</tr>
+<tr>
+  <td><strong>Vista con desplazamiento</strong> (<code>UiScrollView</code>)</td>
+  <td>Listas largas</td>
+  <td>Contenido, Horizontal, Vertical, Velocidad de la rueda, Inercia, Elástico, Barra de desplazamiento</td>
+</tr>
+<tr>
+  <td><strong>Desplegable</strong> (<code>UiDropdown</code>)</td>
+  <td>Elegir una opción</td>
+  <td>Opciones, Elegida, colores, Opciones visibles, <strong>Al cambiar</strong></td>
+</tr>
+<tr>
+  <td><strong>Grupo de layout</strong> (<code>UiLayoutGroup</code>)</td>
+  <td>Fila, columna o rejilla</td>
+  <td>Tipo, Relleno, Espaciado, Alineación de los hijos, Controlar y Expandir, Mismo tamaño, Tamaño de celda, Restricción, Ajustar al contenido</td>
+</tr>
+<tr>
+  <td><strong>Elemento de layout</strong> (<code>UiLayoutElement</code>)</td>
+  <td>Un hijo de un grupo</td>
+  <td>Ignorar layout, Tamaño mínimo, preferido y Flexible</td>
+</tr>
+<tr>
+  <td><strong>Máscara (recorte)</strong> (<code>UiMask</code>)</td>
+  <td>Recortar a los hijos</td>
+  <td>Mostrar su imagen</td>
+</tr>
+<tr>
+  <td><strong>Grupo (alfa)</strong> (<code>UiCanvasGroup</code>)</td>
+  <td>Alfa e interacción de un subárbol</td>
+  <td>Alfa, Interactivo, Bloquea clics</td>
+</tr>
+<tr>
+  <td><strong>Pantalla</strong> (<code>UiScreen</code>)</td>
+  <td>Menús y paneles</td>
+  <td>Visible al empezar, Bloquea el juego, Muestra el cursor, Acción que la abre y la cierra, Cerrar con Esc / B, Oculta las demás pantallas, Transición (fundido, deslizar, escala, escala con rebote, fundido y subir, acercar), Transición al ocultarse, Seleccionado al abrir, <strong>Al mostrarse</strong>, <strong>Al ocultarse</strong></td>
+</tr>
+<tr>
+  <td><strong>Animación de UI</strong> (<code>UiAnimation</code>)</td>
+  <td>Animaciones sin código</td>
+  <td>Pistas (Posición, Escala, Alfa, Color o Rotación; desde, hasta, duración, retardo, curva, o fotogramas clave), Al mostrarse, Repetición, Velocidad</td>
+</tr>
+<tr>
+  <td><strong>Efectos</strong> (<code>UiEffects</code>)</td>
+  <td>Degradado y sombras de una imagen</td>
+  <td>Degradado (lineal o radial, dos o tres colores, ángulo), Sombra (desplazamiento, desenfoque, extensión, color), Resplandor, Sombra interior</td>
+</tr>
+<tr>
+  <td><strong>Estilo</strong> (<code>UiStyleRef</code>)</td>
+  <td>Usar un estilo con nombre</td>
+  <td>Estilo, Colores propios, Forma propia, Sin efectos del estilo, Texto propio, Relleno propio, Colores por estado propios</td>
+</tr>
+<tr>
+  <td><strong>Estilo (definición)</strong> (<code>UiStyle</code>)</td>
+  <td>Un estilo de la escena</td>
+  <td>Nombre, Fondo, esquinas, borde, acento, relleno, efectos, fuente y texto, Colores por estado, texturas (fondo, cada estado, relleno, tirador, marca), peligro, rastro, segmentos y desgaste</td>
+</tr>
+<tr>
+  <td><strong>Desgaste</strong> (<code>UiWear</code>)</td>
+  <td>El desgaste de un elemento</td>
+  <td>Cantidad, Semilla, Tamaño del detalle, bordes mellados, pintura saltada, arañazos y suciedad (o los de su estilo)</td>
+</tr>
+<tr>
+  <td><strong>Barra radial</strong> (<code>UiRadialBar</code>)</td>
+  <td>Progreso en un anillo</td>
+  <td>Mínimo, Máximo, Valor, Ángulo inicial, Recorrido, Grosor, Extremos redondeados, colores, Segmentos, Suavizado</td>
+</tr>
+<tr>
+  <td><strong>Pestañas</strong> (<code>UiTabs</code>)</td>
+  <td>Una página por hijo</td>
+  <td>Elegida, Alto de la barra, fuente, Mismo ancho, colores, indicador, <strong>Al cambiar</strong></td>
+</tr>
+<tr>
+  <td><strong>Diálogo</strong> (<code>UiDialog</code>)</td>
+  <td>Ventana modal con botones</td>
+  <td>Oscurecer el fondo, Cerrar al pulsar fuera, Cerrar al pulsar un botón, <strong>Al pulsar un botón</strong></td>
+</tr>
+<tr>
+  <td><strong>Lista</strong> (<code>UiList</code>)</td>
+  <td>Lista o tabla de muchas filas</td>
+  <td>Elementos, Columnas, Elegida, Alto de las filas, Texto enriquecido, colores, Barra de desplazamiento, <strong>Al cambiar</strong>, <strong>Al confirmar</strong></td>
+</tr>
+<tr>
+  <td><strong>Selector numérico</strong> (<code>UiSpinBox</code>)</td>
+  <td>Un número u opción con − y +</td>
+  <td>Valor, Mínimo, Máximo, Paso, Decimales, Dar la vuelta, Opciones, Prefijo, Sufijo, colores, <strong>Al cambiar</strong></td>
+</tr>
+<tr>
+  <td><strong>Icono</strong> (<code>UiIcon</code>)</td>
+  <td>Iconos vectoriales</td>
+  <td>Forma (marca, cruz, más, menos, flechas, círculo, anillo, corazón, estrella, menú, pausa, engranaje, lupa…), Color, Grosor del trazo</td>
+</tr>
+<tr>
+  <td><strong>Guías del editor</strong> (<code>UiGuides</code>)</td>
+  <td>Guías de las reglas del panel</td>
+  <td>Verticales, Horizontales (no se dibujan en el juego)</td>
+</tr>
+<tr>
+  <td><strong>Bloqueado en el editor</strong> (<code>UiLock</code>)</td>
+  <td>No se elige con el ratón en el panel</td>
+  <td>Bloqueado</td>
+</tr>
+<tr>
+  <td><strong>Eventos del puntero</strong> (<code>UiPointerEvents</code>)</td>
+  <td>Entrar, salir, clics con cualquier botón en cualquier elemento</td>
+  <td><strong>Al entrar el puntero</strong>, <strong>Al salir el puntero</strong>, <strong>Al pulsar</strong>, <strong>Al soltar el botón</strong>, <strong>Al hacer clic</strong>, <strong>Al hacer clic derecho</strong>, <strong>Al hacer clic central</strong>, <strong>Al hacer doble clic</strong>, <strong>Al girar la rueda</strong></td>
+</tr>
+<tr>
+  <td><strong>Arrastrable</strong> (<code>UiDraggable</code>)</td>
+  <td>Se puede arrastrar</td>
+  <td>Activo, Modo (Fantasma o Mover el elemento), Fantasma, Alfa del fantasma y del original, Umbral, Botones, Tipo y Valor de la carga, Volver al cancelar, <strong>Al empezar a arrastrar</strong>, <strong>Al terminar de arrastrar</strong></td>
+</tr>
+<tr>
+  <td><strong>Destino de arrastre</strong> (<code>UiDropTarget</code>)</td>
+  <td>Recibe lo que se suelta</td>
+  <td>Activo, Acepta (tipos), Resaltar y sus colores, <strong>Al soltar aquí</strong>, <strong>Al entrar arrastrando</strong>, <strong>Al salir arrastrando</strong></td>
+</tr>
+<tr>
+  <td><strong>Descripción emergente</strong> (<code>UiTooltip</code>)</td>
+  <td>Tooltip</td>
+  <td>Título, Texto, Barra, Retardo, Sigue al cursor, Separación, Ancho máximo, fuente y colores, Plantilla (elemento o prefab), Texto enriquecido</td>
+</tr>
+<tr>
+  <td><strong>Casilla</strong> (<code>UiSlot</code>)</td>
+  <td>Una casilla de inventario o de barra rápida</td>
+  <td>Índice, Elegida, Interactiva, Colores por estado, Color al soltar (válido y no válido), Navegación</td>
+</tr>
+<tr>
+  <td><strong>Rejilla de casillas</strong> (<code>UiSlotGrid</code>)</td>
+  <td>Crea N casillas al jugar</td>
+  <td>Casilla (prefab), Número de casillas, Primer índice</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todos los campos tienen una explicación al pasar el ratón por su nombre en el inspector.</p>
+<h2 id="estilos-temas-y-efectos">Estilos, temas y efectos<a class="ancla" href="#estilos-temas-y-efectos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <strong>estilo</strong> es un aspecto con nombre (como una clase de CSS): fondo, radio de las esquinas (o uno por esquina),
+borde, color de acento, relleno, efectos, fuente, tamaño y color del texto, mayúsculas, espaciado entre letras,
+contorno, sombra y degradado del texto, y los colores de cada estado (normal, encima, pulsado...). Un elemento lo
+usa con el componente <strong>Estilo</strong>; al cambiar el estilo cambian a la vez todos los elementos que lo usan.</p>
+<ul>
+<li><strong>Temas incluidos:</strong> <strong>Supervivencia</strong> (oscuro, con acento naranja, el de las plantillas), <strong>Claro</strong> y los ocho de la
+<a href="#biblioteca-de-estilos-desgastado-metal-papel-sci-fi">biblioteca de estilos</a>, con texturas (<strong>Militar desgastado</strong>,
+<strong>Metal oxidado</strong>, <strong>Papel viejo</strong>...). Todos traen los mismos 20 estilos: <em>Panel, Ventana, Marco, HUD, Botón, Botón
+principal, Botón peligro, Título, Subtítulo, Texto, Texto secundario, Campo, Casilla, Interruptor, Deslizador, Barra,
+Barra segmentada, Pestañas, Lista y Separador</em>. Se nombran con su tema: <code>Supervivencia/Botón</code>, <code>Claro/Panel</code>,
+<code>Militar desgastado/Barra segmentada</code>.</li>
+<li><strong>Cambiar de tema:</strong> <strong>Tema &gt; Usar «Claro»</strong> en el panel Interfaz pasa todo el lienzo al otro tema (un solo
+paso de deshacer); la pestaña <strong>Estilos</strong> de la paleta, además, se lo pone a los elementos que aún no tienen estilo.
+Desde un script: <code>UI(&quot;Menú/Botones/Jugar&quot;):SetStyle(&quot;Claro/Botón principal&quot;)</code>, o un tema entero a un elemento y sus
+hijos con <code>UI(&quot;Menú&quot;):SetStyle(&quot;Claro&quot;)</code>.</li>
+<li><strong>Editar un tema:</strong> <strong>Tema &gt; Copiar «Supervivencia» a la escena para editarlo</strong> crea la entidad «Tema
+Supervivencia» con un <strong>Estilo (definición)</strong> por estilo. Un estilo de la escena con el mismo nombre que uno
+incluido lo sustituye; uno con otro nombre (<code>Mi botón</code>) es un estilo propio que eliges en <strong>Estilo</strong>.</li>
+<li><strong>Lo que el elemento conserva:</strong> en <strong>Estilo</strong>, <em>Colores propios</em>, <em>Forma propia</em>, <em>Texto propio</em>, <em>Relleno
+propio</em>, <em>Colores por estado propios</em> y <em>Sin efectos del estilo</em> hacen que esa parte sea la del propio
+elemento. Un componente <strong>Efectos</strong> en el elemento manda sobre los efectos de su estilo.</li>
+<li><strong>Textos de un botón:</strong> con <em>También a los textos hijos</em> (activo en los estilos de botón), el texto de dentro
+toma la fuente, el color y las mayúsculas del estilo del botón.</li>
+</ul>
+<p><strong>Efectos</strong> (componente <code>UiEffects</code>, o los mismos campos en un estilo), dibujados en el mismo shader que el resto
+y en la misma orden de dibujo (cuestan unos pocos cálculos por píxel):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Efecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Degradado</td>
+  <td>Lineal (con ángulo) o radial, de dos o tres colores; sustituye al color de la imagen</td>
+</tr>
+<tr>
+  <td>Sombra</td>
+  <td>Desplazada, con desenfoque y extensión; respeta las esquinas redondeadas y no se ve a través de un fondo semitransparente</td>
+</tr>
+<tr>
+  <td>Resplandor</td>
+  <td>Un halo alrededor, del color que elijas</td>
+</tr>
+<tr>
+  <td>Sombra interior</td>
+  <td>Hacia dentro, con desplazamiento y desenfoque (campos hundidos, huecos de inventario)</td>
+</tr>
+<tr>
+  <td>Esquinas por separado</td>
+  <td><strong>Radios por esquina</strong> de la imagen (negativo: el radio general)</td>
+</tr>
+<tr>
+  <td>Borde discontinuo</td>
+  <td><strong>Borde discontinuo (trazo)</strong> y su separación</td>
+</tr>
+<tr>
+  <td>Modo del tinte</td>
+  <td>Multiplicar (normal), Sumar (destellos), Silueta (el sprite de un solo color) o Escala de grises (bloqueado)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="biblioteca-de-estilos-desgastado-metal-papel-sci-fi">Biblioteca de estilos: desgastado, metal, papel, sci-fi...<a class="ancla" href="#biblioteca-de-estilos-desgastado-metal-papel-sci-fi" aria-label="Enlace a esta sección">#</a></h2>
+<p>La biblioteca trae <strong>temas completos con texturas</strong>: cada uno viste paneles, ventanas, marcos, barras, botones, casillas,
+interruptores, deslizadores, campos de texto, separadores y ranuras de inventario con el mismo aspecto. Se eligen con un
+clic en el panel <strong>Interfaz</strong> (pestaña <strong>Estilos</strong>) o desde un script, y se combinan con todo lo de <a href="#estilos-temas-y-efectos">Estilos, temas y
+efectos</a>: son temas integrados como <strong>Supervivencia</strong> y <strong>Claro</strong>, pero con texturas.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Estilo</th>
+  <th>Id (Lua)</th>
+  <th>Aspecto</th>
+  <th>Fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Militar desgastado</strong></td>
+  <td><code>militar_desgastado</code></td>
+  <td>Verde oliva y caqui, pintura saltada, arañazos, bordes mellados, marcas de plantilla y tornillos</td>
+  <td>Stardos Stencil (títulos y botones)</td>
+</tr>
+<tr>
+  <td><strong>Metal oxidado</strong></td>
+  <td><code>metal_oxidado</code></td>
+  <td>Chapa industrial cepillada con óxido, remaches y chorretones</td>
+  <td>Black Ops One (títulos y botones)</td>
+</tr>
+<tr>
+  <td><strong>Papel viejo</strong></td>
+  <td><code>papel_viejo</code></td>
+  <td>Papel y cartón gastados, cinta adhesiva, manchas de café y bordes rotos</td>
+  <td>Special Elite (todo, de máquina de escribir)</td>
+</tr>
+<tr>
+  <td><strong>Sci-fi holográfico</strong></td>
+  <td><code>scifi_holografico</code></td>
+  <td>Líneas finas que brillan, esquinas cortadas, rejilla y líneas de barrido</td>
+  <td>Orbitron (títulos y botones)</td>
+</tr>
+<tr>
+  <td><strong>Limpio moderno</strong></td>
+  <td><code>limpio_moderno</code></td>
+  <td>Plano y redondeado con sombras suaves (el de siempre, mejorado)</td>
+  <td>Roboto, la de siempre</td>
+</tr>
+<tr>
+  <td><strong>Terror</strong></td>
+  <td><code>terror_sangre</code></td>
+  <td>Oscuro y sucio, con sangre, zarpazos y bordes rotos</td>
+  <td>Creepster (títulos y botones)</td>
+</tr>
+<tr>
+  <td><strong>Madera medieval</strong></td>
+  <td><code>madera_medieval</code></td>
+  <td>Tablas con vetas, herrajes y clavos</td>
+  <td>MedievalSharp (todo)</td>
+</tr>
+<tr>
+  <td><strong>Pixel art</strong></td>
+  <td><code>pixel_retro</code></td>
+  <td>Bloques de píxeles, bordes duros y bisel de dos tonos</td>
+  <td>Press Start 2P (todo, más pequeña)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las fuentes van <strong>dentro del motor</strong> (como Roboto) y son libres (SIL OFL 1.1 y Apache 2.0, de Google Fonts): se pueden
+usar en un juego que se vende, y su aviso ya va en el <code>LICENCIAS.txt</code> de los juegos publicados (TERCEROS.md). Salen en
+el selector de <strong>Fuente</strong> de cualquier texto o estilo como «Fuentes/Stardos Stencil». Las letras que una fuente no
+tiene (las de otros alfabetos) se toman de Roboto.</p>
+<p>Cada estilo tiene su <strong>paleta</strong>: color del texto y del texto secundario, <strong>acento</strong> (relleno de barras y deslizadores,
+marca de los interruptores), <strong>peligro</strong> (barras con valor bajo), color del rastro del daño y desgaste por defecto.</p>
+<h3 id="las-piezas">Las piezas<a class="ancla" href="#las-piezas" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cada estilo trae estas piezas, que se nombran como cualquier estilo: <code>Militar desgastado/Botón</code>, <code>Papel viejo/Barra segmentada</code>... (también con el id: <code>militar_desgastado/Botón</code>). <strong>Supervivencia</strong> y <strong>Claro</strong> también las tienen.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Pieza</th>
+  <th>Para</th>
+  <th>Lleva</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Panel</strong>, <strong>HUD</strong></td>
+  <td>Fondos, paneles del HUD</td>
+  <td>Textura de nueve cortes con su marco</td>
+</tr>
+<tr>
+  <td><strong>Ventana</strong></td>
+  <td>Ventanas con título</td>
+  <td>Cabecera en la textura</td>
+</tr>
+<tr>
+  <td><strong>Marco</strong></td>
+  <td>Mapas, retratos, barras rápidas</td>
+  <td>Solo el borde: el centro se ve a través</td>
+</tr>
+<tr>
+  <td><strong>Botón</strong>, <strong>Botón principal</strong>, <strong>Botón peligro</strong></td>
+  <td>Botones</td>
+  <td>Una textura por estado: normal, encima, pulsado y desactivado (el principal y el de peligro, con sus colores)</td>
+</tr>
+<tr>
+  <td><strong>Barra</strong>, <strong>Barra segmentada</strong></td>
+  <td>Vida, estamina, carga</td>
+  <td>Canal y relleno (que se tiñe con el acento); la segmentada, en 3 tramos</td>
+</tr>
+<tr>
+  <td><strong>Campo</strong></td>
+  <td>Campos de texto, desplegables, selectores</td>
+  <td>Hundido</td>
+</tr>
+<tr>
+  <td><strong>Casilla</strong></td>
+  <td>Ranuras de inventario y barras rápidas</td>
+  <td>Hundida, con sus estados (encima, elegida, soltar)</td>
+</tr>
+<tr>
+  <td><strong>Interruptor</strong></td>
+  <td>Casillas de sí o no</td>
+  <td>La caja y la marca (que se tiñe con el acento)</td>
+</tr>
+<tr>
+  <td><strong>Deslizador</strong></td>
+  <td>Volumen, sensibilidad</td>
+  <td>Canal, relleno y tirador</td>
+</tr>
+<tr>
+  <td><strong>Separador</strong></td>
+  <td>Líneas entre secciones</td>
+  <td>A trazos, cordón de soldadura, lápiz, línea brillante, sangre...</td>
+</tr>
+<tr>
+  <td><strong>Título</strong>, <strong>Subtítulo</strong>, <strong>Texto</strong>, <strong>Texto secundario</strong></td>
+  <td>Textos</td>
+  <td>Solo el texto (color, mayúsculas, espaciado, sombra)</td>
+</tr>
+<tr>
+  <td><strong>Pestañas</strong>, <strong>Lista</strong></td>
+  <td>Pestañas, listas y tablas</td>
+  <td>El fondo del campo</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="con-el-creador-de-interfaz">Con el creador de interfaz<a class="ancla" href="#con-el-creador-de-interfaz" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li><p>En el panel <strong>Interfaz</strong>, a la izquierda, abre la pestaña <strong>Estilos</strong> (junto a <strong>Crear</strong>). Cada estilo tiene una
+miniatura; con el ratón encima dice cómo es, su fuente y cómo se pone desde Lua.</p>
+</li>
+<li><p>Haz clic en uno para elegirlo y pulsa:</p>
+<ul>
+<li><strong>Aplicar a lo elegido</strong>: lo elegido y todo lo que tiene dentro.</li>
+<li><strong>Aplicar a toda la pantalla</strong>: la pantalla de lo elegido (su <strong>Pantalla</strong>) o, sin nada elegido, todo el lienzo.</li>
+</ul>
+<p>Doble clic en una miniatura hace lo mismo. Cada elemento toma <strong>su pieza</strong>: un botón, <strong>Botón</strong>; una barra de
+progreso, <strong>Barra</strong> (o <strong>Barra segmentada</strong> si tiene más de un segmento); un deslizador, <strong>Deslizador</strong>; una imagen
+llamada «Ventana…», <strong>Ventana</strong>; un texto grande, <strong>Título</strong>... Un elemento que ya usaba un estilo de un tema conserva
+su pieza («Supervivencia/Botón principal» pasa a «Metal oxidado/Botón principal») y uno con un estilo propio («Mi
+botón») no cambia. Los fondos que llenan su padre (el oscurecido de un menú de pausa) y las imágenes con sprite
+(iconos) tampoco. Es un solo paso de <strong>Ctrl+Z</strong> y llega a los demás en la edición en equipo.</p>
+</li>
+<li><p>Debajo, <strong>Desgaste</strong> cambia el de lo elegido (añade un componente <strong>Desgaste</strong>), <strong>Otro dibujo</strong> le da otra semilla y
+<strong>El de su estilo</strong> lo quita.</p>
+</li>
+<li><p><strong>Plantillas &gt; Interfaz: estilos</strong> (pestaña <strong>Crear</strong>) crea una muestra con todo: un HUD de supervivencia con vida,
+estamina, hambre y sed en barras segmentadas, una barra rápida, un mapa con marco, un menú de pausa y un inventario. Su
+desplegable de arriba cambia el estilo de todo en vivo (pulsa <strong>Probar</strong> para verlo sin jugar).</p>
+</li>
+</ol>
+<p>Para retocar un estilo, <strong>Tema &gt; Copiar «Militar desgastado» a la escena para editarlo</strong> (barra del panel): crea un
+<strong>Estilo (definición)</strong> por pieza, con sus texturas, que cambias en el inspector. La <strong>Textura del fondo</strong> y las de cada
+estado pueden ser cualquier imagen del proyecto (las de la biblioteca salen en el selector como «Estilos/Militar
+desgastado/Panel»).</p>
+<h3 id="desde-un-script">Desde un script<a class="ancla" href="#desde-un-script" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-f">UI</span>(<span class="hl-s">"HUD"</span>):<span class="hl-f">SetStyle</span>(<span class="hl-s">"militar_desgastado"</span>)            <span class="hl-c">-- el tema entero: el HUD y sus hijos, cada uno su pieza</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"Pausa"</span>):<span class="hl-f">SetStyle</span>(<span class="hl-s">"Metal oxidado"</span>)               <span class="hl-c">-- por su nombre (también en inglés: "Rusty Metal")</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Mapa"</span>):<span class="hl-f">SetStyle</span>(<span class="hl-s">"Sci-fi holográfico/Marco"</span>) <span class="hl-c">-- una pieza suelta</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida/Barra"</span>):<span class="hl-f">SetWear</span>(<span class="hl-n">0.9</span>, <span class="hl-n">12</span>)               <span class="hl-c">-- más gastada, con su propio dibujo (semilla 12)</span>
+<span class="hl-k">local</span> d = <span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida/Barra"</span>):<span class="hl-f">GetWear</span>()            <span class="hl-c">-- -1: el de su estilo</span></code></pre></div>
+<p>En C++, lo mismo con <code>UI(&quot;HUD&quot;).SetStyle(&quot;militar_desgastado&quot;)</code> y <code>SetWear(0.9f, 12)</code>. Sin código, un botón o un
+desplegable lo hacen con la acción <strong>Aplicar estilo</strong> (en <strong>Al hacer clic</strong> o <strong>Al cambiar</strong>): con <strong>Argumento</strong> =
+<strong>Fijo</strong> se elige el estilo de una lista; con <strong>Valor del evento</strong>, el estilo es la opción elegida del desplegable (así
+funciona el selector de la plantilla). Sin <strong>Entidad</strong>, se aplica a todo el lienzo.</p>
+<h3 id="nueve-cortes-y-en-mosaico">Nueve cortes (y en mosaico)<a class="ancla" href="#nueve-cortes-y-en-mosaico" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las texturas de la biblioteca son de <strong>nueve cortes</strong>: las cuatro esquinas no se estiran nunca, los bordes solo a lo
+largo y el centro en los dos ejes. Así un panel de 200 × 150 y uno de 1200 × 800 tienen el mismo marco. Si el elemento es
+más pequeño que sus bordes, las esquinas encogen en proporción.</p>
+<ul>
+<li>Están al <strong>doble de resolución</strong> (<strong>Escala de los bordes</strong> 0,5): se ven nítidas en 4K y con mipmaps en 1080p.</li>
+<li><strong>Repetir el centro (mosaico)</strong>, en la <strong>Imagen</strong> o en el estilo, repite el centro y los bordes a su tamaño en vez de
+estirarlos (tablas, rejillas, tramas).</li>
+<li>En el inspector, una <strong>Imagen</strong> de nueve cortes (o un <strong>Estilo (definición)</strong> con textura) enseña la textura con sus
+cuatro bordes: <strong>arrástralos</strong> para cambiarlos y mira debajo cómo queda estirada. Con la textura de su estilo se ve,
+pero los bordes los pone el estilo.</li>
+</ul>
+<h3 id="barras-segmentadas-rastro-del-daño-y-parpadeo">Barras segmentadas, rastro del daño y parpadeo<a class="ancla" href="#barras-segmentadas-rastro-del-daño-y-parpadeo" aria-label="Enlace a esta sección">#</a></h3>
+<p>La <strong>Barra de progreso</strong> tiene (además de lo de siempre):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Segmentos</strong> y <strong>Hueco entre segmentos</strong></td>
+  <td>Más de 1: la barra partida en tramos. Cada tramo se llena entero antes del siguiente y el último con algo, <strong>a medias</strong> (con la textura cortada, no aplastada). Con 0, los del estilo (la <strong>Barra segmentada</strong> trae 3)</td>
+</tr>
+<tr>
+  <td><strong>Suavizado</strong></td>
+  <td>El valor que se ve va hacia el de verdad a esa velocidad</td>
+</tr>
+<tr>
+  <td><strong>Rastro del daño</strong>, <strong>Color del rastro</strong>, <strong>Espera del rastro</strong>, <strong>Velocidad del rastro</strong></td>
+  <td>Al bajar, lo perdido se queda de otro color, espera un momento y baja despacio hasta el valor (como en los juegos AAA). Al subir (curar), el rastro sube con él</td>
+</tr>
+<tr>
+  <td><strong>Parpadear con valor bajo</strong> y <strong>Parpadeos por segundo</strong></td>
+  <td>Por debajo del <strong>Umbral de valor bajo</strong>, la barra (con el color de peligro) parpadea</td>
+</tr>
+<tr>
+  <td><strong>Imagen del fondo</strong> y sus bordes</td>
+  <td>El canal con una textura de nueve cortes (con estilo, la del estilo)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con un estilo de la biblioteca, el canal y el relleno son texturas: el relleno se tiñe con el <strong>acento</strong> (y con el color
+de <strong>peligro</strong> cuando está bajo) y los tramos vacíos se ven oscuros. El rastro y el parpadeo solo se ven jugando.</p>
+<h3 id="desgaste">Desgaste<a class="ancla" href="#desgaste" aria-label="Enlace a esta sección">#</a></h3>
+<p>El desgaste se dibuja en el shader de la interfaz (sin más órdenes de dibujo), en unidades del lienzo: es nítido a
+cualquier tamaño y <strong>cada elemento lo dibuja distinto</strong>, porque tiene su propia semilla. Así dos barras del mismo estilo
+nunca son iguales. Tiene cuatro partes, que cada estilo elige:</p>
+<ul>
+<li><strong>Bordes mellados:</strong> mordiscos irregulares desde el borde.</li>
+<li><strong>Pintura saltada:</strong> desconchones (más cerca de los bordes) que dejan ver el <strong>Color bajo la pintura</strong> (metal, óxido,
+sangre...).</li>
+<li><strong>Arañazos:</strong> trazos finos sueltos.</li>
+<li><strong>Suciedad:</strong> manchas grandes y los bordes más oscuros.</li>
+</ul>
+<p>El estilo pone la cantidad (<strong>Desgaste</strong>, de 0 a 1) y las partes; el componente <strong>Desgaste</strong> (<code>UiWear</code>) la cambia en un
+elemento: <strong>Cantidad</strong>, <strong>Semilla</strong> (0: la suya automática) y <strong>Tamaño del detalle</strong>, y sus partes si desmarcas <strong>Tipos
+del estilo</strong>. <strong>Sin efectos del estilo</strong> en el <strong>Estilo</strong> del elemento quita el del estilo. Las texturas ya traen su
+propio desgaste: con 0 se ven como están.</p>
+<h3 id="las-texturas-son-nuestras">Las texturas son nuestras<a class="ancla" href="#las-texturas-son-nuestras" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las texturas no son ficheros: el motor las <strong>pinta por código</strong> (ruido, bordes mellados, pintura saltada, arañazos,
+óxido, remaches, plantilla, cinta, manchas, sangre, líneas de holograma) la primera vez que se dibujan, siempre con los
+mismos píxeles. Son assets integrados («builtin:Estilos/Militar desgastado/Panel») que van con el motor: no hay que
+copiarlas al proyecto ni publicarlas aparte, y se pueden usar en un juego comercial sin ninguna licencia.</p>
+<p>Para verlas, retocarlas en un programa de dibujo o usarlas fuera del motor, <code>nova_estilosgen</code> las exporta a PNG:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">nova_estilosgen C:\MisTexturas                          :: todas, con una miniatura y una hoja por estilo
+nova_estilosgen C:\MisTexturas --estilo papel_viejo     :: solo uno</code></pre></div>
+<p>Una textura retocada se usa como cualquier imagen: cópiala al proyecto y ponla en la <strong>Textura del fondo</strong> de un estilo
+copiado a la escena (o en la <strong>Imagen</strong>).</p>
+<h2 id="texto-enriquecido">Texto enriquecido<a class="ancla" href="#texto-enriquecido" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con <strong>Texto enriquecido</strong> activo, un texto admite etiquetas:</p>
+<div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">&lt;b&gt;negrita&lt;/b&gt;, &lt;i&gt;cursiva&lt;/i&gt;, &lt;u&gt;subrayado&lt;/u&gt;, &lt;s&gt;tachado&lt;/s&gt;
+&lt;color=#ffaa00&gt;naranja&lt;/color&gt;, &lt;color=rojo&gt;rojo&lt;/color&gt;, &lt;size=40&gt;grande&lt;/size&gt;, &lt;size=150%&gt;más&lt;/size&gt;
+&lt;noparse&gt;&lt;b&gt;esto se ve tal cual&lt;/b&gt;&lt;/noparse&gt;</code></pre></div>
+<ul>
+<li><p><strong>Está apagado por defecto</strong> en los <strong>Textos</strong>, <strong>Listas</strong>, <strong>Tablas</strong> y <strong>Descripciones emergentes</strong> nuevos: un
+texto que lleva lo que escribe un jugador (su nombre, el chat) no debe poder cambiar colores ni tamaños. Los de
+escenas guardadas antes de la 0.8.0 se quedan como estaban. Se activa en el Inspector o con
+<code>UI(&quot;HUD/Aviso&quot;):SetRichText(true)</code>.</p>
+</li>
+<li><p>Si un texto con etiquetas lleva algo de un jugador, pásalo por <strong><code>UI.Escape</code></strong>: sus <code>&lt;</code> no abren etiquetas. Solo
+hace falta (y solo vale) con el texto enriquecido activo: en un texto sin él todo se dibuja tal cual.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-f">UI</span>(<span class="hl-s">"Chat/Linea"</span>):<span class="hl-f">SetRichText</span>(<span class="hl-b">true</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"Chat/Linea"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"&lt;b&gt;"</span> .. <span class="hl-t">UI</span>.<span class="hl-f">Escape</span>(nombre) .. <span class="hl-s">"&lt;/b&gt;: "</span> .. <span class="hl-t">UI</span>.<span class="hl-f">Escape</span>(mensaje))</code></pre></div>
+<p>En C++, <code>ui::Escape(texto)</code>.</p>
+</li>
+<li><p><code>&lt;noparse&gt;...&lt;/noparse&gt;</code> dibuja lo de dentro tal cual.</p>
+</li>
+<li><p>Se pueden anidar. Una etiqueta que no existe se dibuja tal cual y una que no se cierra dura hasta el final
+del texto.</p>
+</li>
+<li><p><code>&lt;size&gt;</code> va de la cuarta parte al triple del tamaño del texto (<code>&lt;size=800%&gt;</code> se queda en el triple).</p>
+</li>
+<li><p>Los colores aceptan <code>#rgb</code>, <code>#rrggbb</code>, <code>#rrggbbaa</code> y nombres (<code>rojo</code>, <code>verde</code>, <code>azul</code>, <code>amarillo</code>, <code>naranja</code>,
+<code>blanco</code>, <code>negro</code>, <code>gris</code>... también en inglés).</p>
+</li>
+<li><p>La cursiva es la letra inclinada y la negrita, la letra más gruesa: no hacen falta fuentes aparte.</p>
+</li>
+<li><p>En el texto también: <strong>Mayúsculas</strong>, <strong>Espaciado entre letras</strong>, <strong>Interlineado</strong> y <strong>Degradado</strong> (vertical u
+horizontal, del <strong>Color</strong> al <strong>Color del degradado</strong>). Las <strong>Listas</strong> y las <strong>Tablas</strong> también admiten etiquetas
+en sus celdas (con su <strong>Texto enriquecido</strong> activo).</p>
+</li>
+</ul>
+<h2 id="más-widgets-barra-radial-pestañas-diálogo-lista-tabla-y-selector">Más widgets: barra radial, pestañas, diálogo, lista, tabla y selector<a class="ancla" href="#más-widgets-barra-radial-pestañas-diálogo-lista-tabla-y-selector" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Widget</th>
+  <th>Uso</th>
+  <th>Desde un script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Barra radial</strong></td>
+  <td>Recargas, habilidades, vida circular; con segmentos opcionales y color de valor bajo</td>
+  <td><code>SetValue(75)</code> (de 0 a 100 por defecto)</td>
+</tr>
+<tr>
+  <td><strong>Pestañas</strong></td>
+  <td>Cada hijo es una página y su nombre, el título de su pestaña; solo se ve la elegida. Con el mando, LB y RB cambian de pestaña</td>
+  <td><code>SelectTab(&quot;Sonido&quot;)</code>, <code>SetValue(1)</code>, <code>OnValueChanged</code></td>
+</tr>
+<tr>
+  <td><strong>Diálogo</strong></td>
+  <td>Ventana modal (bloquea lo de detrás) con título, texto y botones; avisa con el índice y el texto del botón pulsado y se cierra</td>
+  <td><code>ShowDialog(&quot;¿Salir?&quot;, &quot;Se perderá la partida&quot;, {&quot;Sí&quot;, &quot;No&quot;})</code>, <code>OnDialogResult</code></td>
+</tr>
+<tr>
+  <td><strong>Lista</strong></td>
+  <td>Miles de filas: solo se forman las que se ven (10 000 filas cuestan lo mismo que 20). Clic, flechas, rueda y arrastre; doble clic o Intro confirman</td>
+  <td><code>SetItems({...})</code>, <code>AddItem</code>, <code>GetItem(i)</code>, <code>OnValueChanged</code>, <code>OnSubmit</code></td>
+</tr>
+<tr>
+  <td><strong>Tabla</strong></td>
+  <td>Una lista con columnas (título, ancho y alineación). <code>SetRows</code> separa las celdas con tabuladores, así una celda puede llevar <code>|</code> (el nombre de un jugador no crea columnas); en una fila escrita a mano sin tabuladores, <code>|</code> separa</td>
+  <td><code>SetColumns({...})</code>, <code>SetRows({{...}, ...})</code></td>
+</tr>
+<tr>
+  <td><strong>Selector numérico</strong></td>
+  <td>Un número con − y + (mantener pulsado repite) o una de varias <strong>Opciones</strong> («Baja, Media, Alta»), con prefijo y sufijo</td>
+  <td><code>SetValue</code>, <code>SetOptions</code></td>
+</tr>
+<tr>
+  <td><strong>Botón con icono</strong> e <strong>Icono</strong></td>
+  <td>Iconos vectoriales nítidos a cualquier tamaño sin sprites</td>
+  <td><code>SetIcon(&quot;Corazón&quot;)</code></td>
+</tr>
+<tr>
+  <td><strong>Separador</strong></td>
+  <td>Una línea fina con degradado</td>
+  <td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>La plantilla <strong>Ajustes</strong> reúne casi todos: pestañas <strong>Gráficos</strong> (selectores, desplegable, interruptores y
+deslizador), <strong>Sonido</strong> (deslizadores enlazados a los buses de audio) y <strong>Controles</strong> (una tabla de teclas), con
+<strong>Restablecer</strong>, <strong>Aplicar</strong> y <strong>Volver</strong>.</p>
+<h2 id="animaciones-con-fotogramas-clave">Animaciones con fotogramas clave<a class="ancla" href="#animaciones-con-fotogramas-clave" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una pista de <strong>Animación de UI</strong> va de <strong>Desde</strong> a <strong>Hasta</strong> en su <strong>Duración</strong>, o pasa por sus <strong>Fotogramas
+clave</strong> (tiempo, valor y curva de llegada a ese fotograma). Las curvas: lineal, entrada, salida y entrada y salida
+cúbicas, suave, con rebote, elástica, con bote y escalón. <strong>Velocidad</strong> la acelera o la frena sin tocar los
+tiempos.</p>
+<ul>
+<li>Se reproduce <strong>al mostrarse</strong> (pantallas incluidas), con el evento <strong>Reproducir animación</strong> de un botón o de
+cualquier enlace del inspector (<strong>Parar animación</strong> la para), o desde un script con <code>PlayAnimation()</code> y
+<code>PlayAnimation(true)</code> (al revés).</li>
+<li><strong>Preajustes</strong> del inspector: Aparecer, Entrar desde la izquierda, Entrar desde abajo, Saltar, Latido,
+Parpadeo, Agitar y Girar. <strong>Vista previa</strong> la reproduce en el panel Interfaz sin jugar.</li>
+<li>Las pantallas tienen además sus transiciones de entrada (fundido, deslizar, escala, escala con rebote, fundido y
+subir, acercar) y una <strong>Transición al ocultarse</strong> distinta si quieres.</li>
+</ul>
+<h2 id="entrada-qué-se-queda-la-interfaz">Entrada: qué se queda la interfaz<a class="ancla" href="#entrada-qué-se-queda-la-interfaz" aria-label="Enlace a esta sección">#</a></h2>
+<p>La interfaz procesa la entrada antes que los scripts (el <code>UiSystem</code> va antes en el frame). Cuando la usa, se
+la <strong>queda</strong>: los scripts del juego no la ven.</p>
+<ul>
+<li><strong>Ratón:</strong> sobre un elemento que <strong>Bloquea clics</strong> (botones, deslizadores, paneles con imagen...) de un
+lienzo que <strong>Recibe entrada</strong>. Así un clic en «Comprar» no dispara el arma. Los textos no bloquean por
+defecto; las imágenes decorativas del HUD de la plantilla tampoco. Cada pulsación es de quien la empieza:
+si giras la cámara con el botón derecho (o cargas un disparo) y el cursor pasa por encima de un panel, el
+juego la sigue viendo hasta que sueltas; una pulsación que empieza en un botón y se suelta fuera tampoco le
+llega al juego.</li>
+<li><strong>Teclado:</strong> mientras un <strong>Campo de texto</strong> tiene el foco (escribir «w» en el chat no mueve al personaje),
+incluido el Intro que lo envía y el Esc que le quita el foco. Con <strong>AltGr</strong> se escriben @, #, €, [, ]...</li>
+<li><strong>Mando:</strong> mientras se navega una pantalla modal o con <strong>Seleccionado al abrir</strong>. Un botón suelto del HUD no
+se queda nunca el mando ni Espacio, Intro, Tab o las flechas, aunque lo hayas pulsado con el ratón. Esc y B
+solo cierran una pantalla que se está usando (modal, con cursor, abierta durante la partida o con el foco
+dentro), no una pantalla del HUD siempre visible.</li>
+<li><strong>Todo:</strong> mientras se ve una pantalla con <strong>Bloquea el juego</strong> (menús de pausa e inventarios).</li>
+<li><strong>Arrastrando</strong> algo de la interfaz con el ratón: los clics, la rueda y mirar con el ratón (también el clic
+que lo cancela y el frame en que se suelta, aunque sea encima del mundo). El teclado sigue siendo del juego
+(se puede andar con el inventario abierto), salvo el Esc que cancela el arrastre: ese no abre la pausa.</li>
+</ul>
+<p>Las consultas del juego (<code>IsKeyDown</code>, <code>WasMousePressed</code>, acciones y ejes) devuelven «nada» mientras la
+interfaz se queda con su dispositivo; la posición del ratón siempre se puede leer. Para saberlo desde un
+script: <code>UI():IsPointerOverUi()</code>, <code>UI():WantsKeyboard()</code> y <code>UI():IsModalOpen()</code>.</p>
+<h2 id="la-api-para-los-scripts">La API para los scripts<a class="ancla" href="#la-api-para-los-scripts" aria-label="Enlace a esta sección">#</a></h2>
+<p>Desde cualquier script Lua (la misma API existe en C++: <a href="scripts-cpp.html#interfaz">scripts-cpp.md</a>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida/Barra"</span>):<span class="hl-f">SetValue</span>(<span class="hl-n">75</span>)                    <span class="hl-c">-- barra, deslizador, interruptor (&gt; 0,5) o desplegable (índice)</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Munición/Cantidad"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"12 / 90"</span>)       <span class="hl-c">-- texto, campo de texto o el texto de un botón</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Aviso"</span>):<span class="hl-f">Show</span>()                               <span class="hl-c">-- pantallas: con su transición; lo demás: activar</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"MenúPausa"</span>):<span class="hl-f">Toggle</span>()
+<span class="hl-f">UI</span>(<span class="hl-s">"Tienda/Comprar"</span>):<span class="hl-f">SetInteractable</span>(<span class="hl-b">self</span>.dinero &gt;= <span class="hl-n">100</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida"</span>):<span class="hl-f">SetColor</span>(<span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>))       <span class="hl-c">-- imagen o texto</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"Inventario/Ventana/Detalles/Icono"</span>):<span class="hl-f">SetSprite</span>(<span class="hl-s">"sprites/espada.png"</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"Tienda"</span>):<span class="hl-f">SetPosition</span>(<span class="hl-t">Vec2</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, -<span class="hl-n">40</span>)):<span class="hl-f">SetSize</span>(<span class="hl-t">Vec2</span>.<span class="hl-f">new</span>(<span class="hl-n">600</span>, <span class="hl-n">400</span>))
+
+<span class="hl-c">-- Lo que pasó este frame (sondeo, en Update)</span>
+<span class="hl-k">if</span> <span class="hl-f">UI</span>(<span class="hl-s">"Menú/Botones/Jugar"</span>):<span class="hl-f">WasClicked</span>() <span class="hl-k">then</span> <span class="hl-b">self</span>:<span class="hl-f">Empezar</span>() <span class="hl-k">end</span>
+<span class="hl-k">if</span> <span class="hl-f">UI</span>(<span class="hl-s">"Opciones/Ventana/Volumen"</span>):<span class="hl-f">ValueChanged</span>() <span class="hl-k">then</span> <span class="hl-b">self</span>._volumen = <span class="hl-f">UI</span>(<span class="hl-s">"Opciones/Ventana/Volumen"</span>):<span class="hl-f">GetValue</span>() <span class="hl-k">end</span>
+<span class="hl-k">if</span> <span class="hl-f">UI</span>(<span class="hl-s">"Chat/Entrada"</span>):<span class="hl-f">WasSubmitted</span>() <span class="hl-k">then</span> <span class="hl-b">self</span>:<span class="hl-f">Enviar</span>(<span class="hl-f">UI</span>(<span class="hl-s">"Chat/Entrada"</span>):<span class="hl-f">GetText</span>()) <span class="hl-k">end</span>
+
+<span class="hl-c">-- Oyentes (en Start): se quitan solos al destruirse el script o el elemento, o al parar el juego</span>
+<span class="hl-k">local</span> id = <span class="hl-f">UI</span>(<span class="hl-s">"Menú/Botones/Jugar"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>(e) <span class="hl-b">self</span>:<span class="hl-f">Empezar</span>() <span class="hl-k">end</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"Opciones/Ventana/Volumen"</span>):<span class="hl-f">OnValueChanged</span>(<span class="hl-k">function</span>(valor) <span class="hl-t">Audio</span>.<span class="hl-f">SetBusVolume</span>(<span class="hl-s">"Music"</span>, valor) <span class="hl-k">end</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"Chat/Entrada"</span>):<span class="hl-f">OnSubmit</span>(<span class="hl-k">function</span>(texto) <span class="hl-b">self</span>:<span class="hl-f">Enviar</span>(texto) <span class="hl-k">end</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"Menú/Botones/Jugar"</span>):<span class="hl-f">RemoveListener</span>(id)            <span class="hl-c">-- si quieres quitarlo antes</span>
+
+<span class="hl-c">-- Animaciones sencillas (tweens)</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Aviso"</span>):<span class="hl-f">FadeTo</span>(<span class="hl-n">0</span>, <span class="hl-n">0.5</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"Tienda"</span>):<span class="hl-f">MoveTo</span>(<span class="hl-t">Vec2</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>), <span class="hl-n">0.3</span>):<span class="hl-f">ScaleTo</span>(<span class="hl-t">Vec2</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">1</span>), <span class="hl-n">0.3</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida"</span>):<span class="hl-f">TintTo</span>(<span class="hl-t">Color</span>.white, <span class="hl-n">0.2</span>)
+
+<span class="hl-c">-- El estado de la interfaz: UI() sin ruta</span>
+<span class="hl-k">if</span> <span class="hl-f">UI</span>():<span class="hl-f">IsPointerOverUi</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+<span class="hl-f">UI</span>():<span class="hl-f">SetFocus</span>(<span class="hl-f">UI</span>(<span class="hl-s">"Menú/Botones/Jugar"</span>))
+<span class="hl-k">local</span> tam = <span class="hl-f">UI</span>():<span class="hl-f">MeasureText</span>(<span class="hl-s">"Hola"</span>, <span class="hl-n">32</span>)
+
+<span class="hl-c">-- Diseño: estilos, pestañas, listas y tablas, diálogos, animaciones e iconos</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"Menú/Botones/Jugar"</span>):<span class="hl-f">SetStyle</span>(<span class="hl-s">"Claro/Botón principal"</span>)          <span class="hl-c">-- GetStyle()</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD"</span>):<span class="hl-f">SetStyle</span>(<span class="hl-s">"militar_desgastado"</span>)                             <span class="hl-c">-- un tema entero: el HUD y sus hijos, cada uno su pieza</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Vida/Barra"</span>):<span class="hl-f">SetWear</span>(<span class="hl-n">0.9</span>, <span class="hl-n">12</span>)                                <span class="hl-c">-- desgaste y semilla (GetWear)</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"Ajustes/Ventana/Pestañas"</span>):<span class="hl-f">SelectTab</span>(<span class="hl-s">"Sonido"</span>)                   <span class="hl-c">-- o SetValue(1)</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"Tienda/Lista"</span>):<span class="hl-f">SetItems</span>({ <span class="hl-s">"Hacha"</span>, <span class="hl-s">"Cuerda"</span> }):<span class="hl-f">AddItem</span>(<span class="hl-s">"Agua"</span>)    <span class="hl-c">-- GetItemCount(); GetItem(0) es "Hacha" (desde 0)</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"Marcador/Tabla"</span>):<span class="hl-f">SetColumns</span>({ <span class="hl-s">"Jugador"</span>, <span class="hl-s">"Puntos"</span> }):<span class="hl-f">SetRows</span>({ { <span class="hl-s">"Ana"</span>, <span class="hl-s">"12"</span> }, { <span class="hl-s">"Luis"</span>, <span class="hl-s">"7"</span> } })
+<span class="hl-f">UI</span>(<span class="hl-s">"Salir"</span>):<span class="hl-f">OnDialogResult</span>(<span class="hl-k">function</span>(boton, texto)
+    <span class="hl-k">if</span> boton == <span class="hl-n">0</span> <span class="hl-k">then</span> <span class="hl-b">self</span>:<span class="hl-f">Salir</span>() <span class="hl-k">end</span>                               <span class="hl-c">-- -1: cerrado pulsando fuera</span>
+<span class="hl-k">end</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"Salir"</span>):<span class="hl-f">ShowDialog</span>(<span class="hl-s">"¿Salir?"</span>, <span class="hl-s">"Se perderá la partida"</span>, { <span class="hl-s">"Sí"</span>, <span class="hl-s">"No"</span> })
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Aviso"</span>):<span class="hl-f">PlayAnimation</span>()                                       <span class="hl-c">-- StopAnimation(), IsAnimationPlaying()</span>
+<span class="hl-f">UI</span>(<span class="hl-s">"HUD/Estado/Icono"</span>):<span class="hl-f">SetIcon</span>(<span class="hl-s">"Corazón"</span>)
+<span class="hl-f">UI</span>(<span class="hl-s">"MenúPausa"</span>):<span class="hl-f">OnShow</span>(<span class="hl-k">function</span>(e) <span class="hl-b">self</span>:<span class="hl-f">PararMusica</span>() <span class="hl-k">end</span>)            <span class="hl-c">-- OnHide: al empezar a ocultarse</span></code></pre></div>
+<ul>
+<li><code>UI(&quot;ruta&quot;)</code> devuelve un elemento (también <code>UI(entidad)</code>), que se puede guardar en una variable. Si la ruta no
+existe, sus funciones no hacen nada y se avisa una vez. Las funciones que cambian algo devuelven el propio
+elemento, así que se pueden encadenar.</li>
+<li><code>UI(&quot;...&quot;)</code> no se puede usar al cargar el script (fuera de sus funciones): hazlo en <code>Awake</code>, <code>Start</code> o después.</li>
+<li>Las funciones que cambian datos escriben en los componentes. Lo que necesita estado de la partida
+(transiciones, foco, sondeo, oyentes, tweens) solo funciona jugando; en el editor sin jugar y en el servidor
+dedicado no hace nada.</li>
+<li>Los oyentes, las cargas de arrastre y los filtros que crea un script son suyos: se quitan solos cuando se
+destruye el script (el personaje muere o la red lo quita).</li>
+<li>Una pantalla que muestras desde un script (<code>Show()</code>) sale ya ese mismo frame con su transición (y sus
+animaciones «al mostrarse» en su primer valor): no se ve entera un instante.</li>
+<li><code>OnShow</code> y <code>OnHide</code> avisan cuando el elemento pasa a verse o deja de verse por lo que sea: <code>Show()</code> y <code>Hide()</code>,
+una acción del inspector, <code>active</code>, su padre o su pantalla. Una pantalla con transición avisa al <strong>empezar</strong>
+a mostrarse o a ocultarse (no al terminar el fundido). Lo que se ve al añadir el oyente no cuenta como cambio.</li>
+<li><code>ShowDialog</code> usa los botones que hay en el «Botones» del diálogo (dos en el de la paleta: duplica uno para
+tener más) y oculta los que sobran. El botón pulsado llega con su índice (desde 0) y su texto; un clic fuera
+(con <strong>Cerrar al pulsar fuera</strong>) llega como -1.</li>
+<li><strong>Eventos del inspector:</strong> <strong>Al hacer clic</strong> y los demás pueden llamar a <strong>cualquier función de la clase</strong>:
+<code>function Menu:Jugar()</code> sale como <code>Menu.luau.Jugar()</code>. Un enlace pasa como mucho un valor, y su tipo sale de la
+anotación del parámetro: <code>function Menu:Volumen(valor: number)</code> recibe el <strong>Valor del evento</strong> como número,
+<code>(texto: string)</code> como texto, <code>(activo: boolean)</code> como sí/no, y un parámetro sin anotación recibe el texto
+(campo de texto) o el número. Las funciones con más parámetros salen en la lista pero no se pueden elegir.
+Dentro, <code>UI():CurrentEvent()</code> da el evento entero.</li>
+<li><strong>{ } Código</strong> enseña las líneas de ejemplo en Lua (o en C++, en un proyecto con scripts C++).</li>
+<li>VS Code completa <code>UI(...)</code> y los elementos, con su ayuda en español, gracias a <code>nova.d.luau</code> y <code>nova.docs.json</code> (la
+extensión de Nova para VS Code con luau-lsp; ver <a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>).</li>
+</ul>
+<h2 id="fuentes-sprites-y-nueve-cortes">Fuentes, sprites y nueve cortes<a class="ancla" href="#fuentes-sprites-y-nueve-cortes" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Fuentes:</strong> copia un <code>.ttf</code> o <code>.otf</code> al proyecto (panel <strong>Contenido</strong>) y arrástralo sobre un texto, o
+elígelo en el campo <strong>Fuente</strong>. Sin fuente se usa <strong>Roboto</strong>, que va dentro del motor. Si a una fuente le
+falta una letra (por ejemplo «¿» o «€»), se toma de Roboto automáticamente (y, si tampoco la tiene, de las fuentes
+de Windows: chino, japonés, coreano...; ver <a href="idiomas.html#7-fuentes-y-caracteres">idiomas.md</a>). Si la fuente de un texto aún no
+está en el proyecto (o su fichero no vale), se ve con Roboto hasta que esté; al copiarla, sustituirla o
+arreglarla, el texto cambia solo, sin reiniciar el editor.</li>
+<li><strong>El texto es nítido a cualquier tamaño</strong> (campos de distancia con signo): se puede escalar y animar. Por
+debajo de unos 14 px pierde algo de definición; para textos muy pequeños sube el <strong>Grosor</strong>.</li>
+<li><strong>Sprites:</strong> cualquier textura del proyecto (PNG, JPG...). <strong>Conservar proporción</strong> evita que se deforme.</li>
+<li><strong>Nueve cortes:</strong> para marcos y botones que se estiran sin deformar las esquinas. <strong>Tipo</strong> = <strong>Nueve
+cortes</strong> y en <strong>Bordes</strong> los píxeles del sprite que no se estiran (izquierda, arriba, derecha, abajo). El inspector
+enseña el sprite con sus bordes, que se arrastran, y cómo queda estirado. <strong>Repetir el centro (mosaico)</strong> repite el
+centro y los bordes en vez de estirarlos (ver <a href="#nueve-cortes-y-en-mosaico">Nueve cortes (y en mosaico)</a>).</li>
+<li><strong>Relleno:</strong> <strong>Tipo</strong> = <strong>Relleno</strong> con <strong>Método de relleno</strong> horizontal, vertical o radial y <strong>Cantidad</strong> de 0 a 1
+(recargas circulares, barras con sprite).</li>
+<li><strong>Esquinas redondeadas y bordes</strong> no necesitan sprites: <strong>Radio de las esquinas</strong> y <strong>Grosor del borde</strong>.</li>
+</ul>
+<p><strong>Licencias:</strong> Roboto (Apache 2.0) ya está en <code>LICENCIAS.txt</code> del juego publicado. Si usas otra fuente,
+comprueba que su licencia permite incluirla en un juego (las SIL OFL, como Karla, lo permiten) y añade su
+aviso a tus créditos (ver <a href="publicar-juego.html">publicar-juego.md</a>).</p>
+<h2 id="prefabs-de-interfaz-un-inventario">Prefabs de interfaz: un inventario<a class="ancla" href="#prefabs-de-interfaz-un-inventario" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cualquier elemento se puede guardar como prefab (clic derecho en la <strong>Jerarquía</strong> &gt; <strong>Crear prefab</strong>, o en el
+panel <strong>Interfaz</strong> &gt; <strong>Guardar como prefab…</strong>) e
+instanciar después dentro de otro, desde el editor o desde un script. La plantilla <strong>Inventario</strong> trae 20
+casillas hechas a mano; este script las crea por código a partir de un prefab de una casilla (sin código lo
+hace la <strong>Rejilla de casillas</strong>: ver <a href="#arrastrar-y-soltar-tooltips-y-casillas">Arrastrar y soltar, tooltips y casillas</a>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Inventario que crea sus casillas con un prefab de interfaz y responde al clic en cada una.</span>
+<span class="hl-c">-- El prefab: una casilla de la plantilla Inventario (Imagen + Casilla, con los hijos "Icono" y "Cantidad")</span>
+<span class="hl-k">local</span> <span class="hl-t">InventarioCasillas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Display("Prefab de la casilla")]</span>
+<span class="hl-t">InventarioCasillas</span>.casilla = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+<span class="hl-a">--[Range(1, 100), Int, Display("Casillas")]</span>
+<span class="hl-t">InventarioCasillas</span>.numero = <span class="hl-n">12</span>
+
+<span class="hl-k">function</span> <span class="hl-t">InventarioCasillas</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> contenido = <span class="hl-f">UI</span>(<span class="hl-s">"Inventario/Ventana/Casillas/Contenido"</span>):<span class="hl-f">GetEntity</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.casilla <span class="hl-k">or</span> <span class="hl-k">not</span> contenido <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-b">self</span>.numero <span class="hl-k">do</span>
+        <span class="hl-c">-- La rejilla del contenido las coloca solas</span>
+        <span class="hl-k">local</span> e = <span class="hl-t">Scene</span>.<span class="hl-f">Instantiate</span>(<span class="hl-b">self</span>.casilla, <span class="hl-b">nil</span>, contenido)
+        <span class="hl-k">if</span> e <span class="hl-k">then</span>
+            <span class="hl-k">local</span> casilla = <span class="hl-f">UI</span>(e)
+            casilla:<span class="hl-f">Child</span>(<span class="hl-s">"Cantidad"</span>):<span class="hl-f">SetText</span>(<span class="hl-f">tostring</span>(i))
+            casilla:<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>() <span class="hl-b">self</span>:<span class="hl-f">Elegir</span>(i) <span class="hl-k">end</span>) <span class="hl-c">-- se quita solo al destruirse el script</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">InventarioCasillas</span>:<span class="hl-f">Elegir</span>(i: number)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Inventario/Ventana/Detalles/Texto"</span>):<span class="hl-f">SetText</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Casilla %d"</span>, i))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">InventarioCasillas</span></code></pre></div>
+<p>Los prefabs de interfaz se aplican y se revierten como los demás (<a href="prefabs.html">prefabs.md</a>).</p>
+<h2 id="arrastrar-y-soltar-tooltips-y-casillas">Arrastrar y soltar, tooltips y casillas<a class="ancla" href="#arrastrar-y-soltar-tooltips-y-casillas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo lo que necesita un inventario como el de Rust: casillas en rejilla, una barra rápida, las casillas de la
+ropa y un contenedor de botín al lado; arrastrar objetos entre ellas, partir montones, tirarlos al suelo y ver
+su descripción al dejar el puntero encima. El motor pone las piezas genéricas; qué objeto hay en cada casilla
+lo decide tu script. El ejemplo completo, en red y con el servidor al mando, es <code>game/inventario_lua</code>
+(<a href="ejemplo-inventario.html">ejemplo-inventario.md</a>).</p>
+<h3 id="las-piezas-1">Las piezas<a class="ancla" href="#las-piezas-1" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Componente</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Arrastrable</strong></td>
+  <td>Se puede arrastrar. Por defecto un <strong>fantasma</strong> (una copia, o solo su hijo <strong>Fantasma</strong>, por ejemplo el icono) sigue al cursor y el original se queda atenuado. Con <strong>Mover el elemento</strong>, el elemento se queda donde lo sueltes (ventanas).</td>
+</tr>
+<tr>
+  <td><strong>Destino de arrastre</strong></td>
+  <td>Recibe lo que se suelta. <strong>Acepta (tipos)</strong> filtra por el tipo de la carga (vacío: todo; <code>ropa*</code>: los tipos que empiezan por <code>ropa</code>) y se resalta en verde o en rojo al pasar por encima.</td>
+</tr>
+<tr>
+  <td><strong>Descripción emergente</strong></td>
+  <td>El tooltip: título, líneas de texto y una barra (durabilidad, carga), o una <strong>plantilla</strong> tuya.</td>
+</tr>
+<tr>
+  <td><strong>Casilla</strong></td>
+  <td>Índice y estados (encima, pulsada, <strong>Elegida</strong>, soltar válido o no) que tiñen su imagen; se elige con el teclado y el mando.</td>
+</tr>
+<tr>
+  <td><strong>Rejilla de casillas</strong></td>
+  <td>Al jugar crea N copias del prefab de una casilla y les da su índice (ponle un <strong>Grupo de layout</strong> en rejilla).</td>
+</tr>
+<tr>
+  <td><strong>Eventos del puntero</strong></td>
+  <td>Entrar, salir, pulsar, soltar, clic con cualquier botón, doble clic y rueda en cualquier elemento.</td>
+</tr>
+</tbody>
+</table></div>
+<p>El widget <strong>Casilla</strong> de la paleta (y las 20 de la plantilla <strong>Inventario</strong>) ya lleva todo eso: fondo con
+<strong>Casilla</strong>, <strong>Arrastrable</strong> (desactivado hasta que le pongas un objeto, con el fantasma en su <strong>Icono</strong>),
+<strong>Destino de arrastre</strong> y <strong>Descripción emergente</strong>, y los hijos <strong>Icono</strong>, <strong>Cantidad</strong> y <strong>Durabilidad</strong> (una
+barra de progreso de 0 a 100), ocultos hasta que un script los rellena. Es solo un patrón: cámbialo como quieras.</p>
+<h3 id="cómo-va-un-arrastre">Cómo va un arrastre<a class="ancla" href="#cómo-va-un-arrastre" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Pulsas encima de algo <strong>Arrastrable</strong> y mueves el ratón más que su <strong>Umbral</strong> (6 px): empieza el arrastre
+(<strong>Al empezar a arrastrar</strong>). Si lo sueltas antes, es un clic normal.</li>
+<li>Al pasar por encima de un <strong>Destino de arrastre</strong> se resalta: verde si acepta la carga y rojo si no (en
+una <strong>Casilla</strong>, sus colores <strong>al soltar</strong>).</li>
+<li>Al soltar, el resultado llega en <strong>Al terminar de arrastrar</strong> (<code>EndDrag</code>, en el origen):</li>
+</ol>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Resultado (<code>UiDropResult</code>)</th>
+  <th>Cuándo</th>
+  <th>El fantasma</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Dropped</code></td>
+  <td>En un destino que acepta. Antes le llega <strong>Al soltar aquí</strong> (<code>Drop</code>) al destino</td>
+  <td>Desaparece</td>
+</tr>
+<tr>
+  <td><code>Rejected</code></td>
+  <td>En un destino que no acepta</td>
+  <td>Vuelve a su sitio</td>
+</tr>
+<tr>
+  <td><code>NoTarget</code></td>
+  <td>Encima de la interfaz, pero no en un destino (o en su propio sitio)</td>
+  <td>Vuelve a su sitio</td>
+</tr>
+<tr>
+  <td><code>Outside</code></td>
+  <td>Fuera de la interfaz: por ejemplo, <strong>tirar el objeto al suelo</strong></td>
+  <td>Desaparece</td>
+</tr>
+<tr>
+  <td><code>Cancelled</code></td>
+  <td><strong>Esc</strong>, <strong>clic derecho</strong> (otro botón), <strong>B</strong>, <code>UI():CancelDrag()</code> o el elemento desaparece (se cerró su pantalla)</td>
+  <td>Vuelve a su sitio</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Mientras arrastras, el juego no recibe los clics, la rueda ni mirar con el ratón; el teclado sí (se puede
+andar). El Esc que cancela no abre el menú de pausa.</li>
+<li><strong>Con el mando o el teclado:</strong> con el foco en una casilla, <strong>A</strong> (o Intro) la coge, la cruceta la lleva a
+otra y <strong>A</strong> la suelta; <strong>B</strong> (o Esc) cancela. Con el foco quieto sale la descripción de la casilla, debajo.</li>
+<li>La <strong>carga</strong> de un arrastre es un tipo (lo miran los destinos) y un valor pequeño: el <strong>Tipo</strong> y el <strong>Valor</strong>
+del <strong>Arrastrable</strong>, o lo que ponga un script con <code>casilla:SetDragPayload(valor, &quot;objeto&quot;)</code> (en Lua, cualquier
+valor: una tabla con el objeto, por ejemplo). Para filtros más finos que <strong>Acepta</strong>, <code>SetDropFilter</code> en el
+destino.</li>
+</ul>
+<h3 id="eventos-del-puntero">Eventos del puntero<a class="ancla" href="#eventos-del-puntero" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cualquier elemento con <strong>Eventos del puntero</strong>, con un componente de los de arriba o con un oyente de un
+script recibe <strong>PointerEnter</strong> y <strong>PointerExit</strong> (pasar por encima de un hijo no es salir), <strong>PointerDown</strong> y
+<strong>PointerUp</strong> (este, el elemento en el que se pulsó), <strong>PointerClick</strong> (con cualquier botón; el doble clic es un
+segundo clic en menos de 0,35 s) y <strong>PointerScroll</strong> (la rueda). El evento (la tabla <code>e</code> que reciben los
+oyentes) trae:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>pointer.position</code> y <code>pointer.canvasPosition</code></td>
+  <td>Dónde está el puntero: en píxeles de la vista (como <code>ScreenRect</code>) y en unidades del lienzo</td>
+</tr>
+<tr>
+  <td><code>type</code>, <code>element</code></td>
+  <td>El tipo de evento (<code>&quot;PointerClick&quot;</code>, <code>&quot;Drop&quot;</code>...) y el elemento que lo recibe</td>
+</tr>
+<tr>
+  <td><code>pointer.button</code></td>
+  <td>0 izquierdo, 1 derecho, 2 central (255: mando o teclado)</td>
+</tr>
+<tr>
+  <td><code>pointer.clickCount</code></td>
+  <td>1 clic, 2 doble clic...</td>
+</tr>
+<tr>
+  <td><code>pointer.shift</code>, <code>ctrl</code>, <code>alt</code></td>
+  <td>Teclas pulsadas (AltGr no cuenta como Ctrl ni Alt)</td>
+</tr>
+<tr>
+  <td><code>pointer.delta</code>, <code>pressPosition</code>, <code>wheel</code></td>
+  <td>Movimiento de este frame, dónde se pulsó y pasos de la rueda</td>
+</tr>
+<tr>
+  <td><code>hovered</code></td>
+  <td>El elemento más profundo bajo el puntero (por ejemplo el icono dentro de la casilla)</td>
+</tr>
+<tr>
+  <td><code>drag.source</code>, <code>drag.target</code>, <code>drag.payload</code>, <code>drag.accepted</code>, <code>drag.result</code></td>
+  <td>El arrastre (en <code>BeginDrag</code>, <code>Drag</code>, <code>EndDrag</code>, <code>Drop</code>, <code>DragEnter</code> y <code>DragExit</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Fuera de un evento (por ejemplo en <code>Update</code>, para seguir el ratón), <code>UI(elemento):ViewToCanvas(Input.MouseViewPosition())</code>
+pasa píxeles de la vista a unidades de su lienzo, <code>UI(elemento):CanvasToView(pos)</code> al revés y
+<code>UI(elemento):GetScale()</code> da la escala del lienzo (la del escalador): no hace falta repetir su fórmula.
+<code>UI(rejilla):CellAt(posVista)</code> da la casilla (el hijo) bajo ese punto y su número, o <code>nil</code>.</p>
+<p>Un método enlazado en el inspector (<strong>Al soltar aquí</strong>, <strong>Al hacer clic derecho</strong>...) recibe como <strong>Valor del
+evento</strong> el valor de la carga (o el número de clics); el resto lo lee con <code>UI():CurrentEvent()</code>.</p>
+<h3 id="descripciones-emergentes">Descripciones emergentes<a class="ancla" href="#descripciones-emergentes" aria-label="Enlace a esta sección">#</a></h3>
+<p>Salen tras el <strong>Retardo</strong> (0,5 s) con el puntero quieto encima, siguen al cursor y nunca se salen de la pantalla
+(cambian de lado junto al borde). Un clic las oculta hasta que el puntero sale del elemento y no salen mientras
+arrastras. Desde un script: <code>UI(&quot;...&quot;):SetTooltip(&quot;Hacha&quot;, &quot;Daño 25\nPeso 1,5 kg&quot;, 0.6)</code> (título, texto y
+barra; sin barra, <code>-1</code>). Para un aspecto propio, pon en <strong>Plantilla</strong> un elemento oculto de la interfaz (o un
+prefab) con hijos <strong>Título</strong> y <strong>Texto</strong> (textos) y <strong>Barra</strong> (barra de progreso o imagen con relleno): se
+muestra, se rellena y se coloca en lugar de la integrada.</p>
+<h3 id="casillas-y-rejillas">Casillas y rejillas<a class="ancla" href="#casillas-y-rejillas" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Rejilla de casillas:</strong> elige el prefab de una casilla (clic derecho en una casilla &gt; <strong>Crear prefab</strong>) y el
+número. Al jugar se crean como hijas suyas, en orden y con <strong>Índice</strong> = <strong>Primer índice</strong> + 0, 1, 2...; se
+llaman como el prefab y su índice («Casilla 0», «Casilla 1»...). <code>UI(&quot;...&quot;):SetSlotCount(n)</code> las cambia jugando
+(un contenedor de botín de otro tamaño) y <code>UI(&quot;...&quot;):Slot(i)</code> da la casilla de índice <code>i</code>. Cambiar jugando el
+número, el primer índice o el prefab (en el Inspector o desde un script) las rehace; con otro prefab se
+sustituyen las creadas con el anterior (las que hiciste a mano en el editor se quedan).</li>
+<li><strong>Elegida</strong> (<code>casilla:SetSlotSelected(true)</code>) marca la casilla activa de una barra rápida.</li>
+<li><strong>Cantidad y durabilidad</strong> son hijos normales: <code>casilla:Child(&quot;Cantidad&quot;):SetText(&quot;x12&quot;)</code> y
+<code>casilla:Child(&quot;Durabilidad&quot;):Show():SetValue(80)</code>.</li>
+</ul>
+<h3 id="ejemplo">Ejemplo<a class="ancla" href="#ejemplo" aria-label="Enlace a esta sección">#</a></h3>
+<p>Añade este script a la plantilla <strong>Inventario</strong> (en <strong>Rejilla</strong> deja la ruta del contenido de la rejilla). La
+carga de un arrastre puede ser <strong>cualquier valor de Lua</strong> (aquí, la tabla con el objeto) y llega tal cual en
+<code>e.drag.payload</code>; el evento es una tabla con los campos de arriba (<code>e.pointer.shift</code>, <code>e.drag.source</code>,
+<code>e.drag.result</code>, que es un texto: <code>&quot;Dropped&quot;</code>, <code>&quot;Rejected&quot;</code>, <code>&quot;NoTarget&quot;</code>, <code>&quot;Outside&quot;</code> o <code>&quot;Cancelled&quot;</code>) y sus
+elementos (<code>e.element</code>, <code>e.drag.source</code>...) son elementos de <code>UI</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Inventario con arrastrar y soltar sobre las casillas de la plantilla Inventario: soltar mueve o cambia de</span>
+<span class="hl-c">-- sitio, junta montones del mismo objeto, Mayús al soltar parte el montón y soltar fuera lo tira al suelo</span>
+<span class="hl-k">local</span> <span class="hl-t">InventarioArrastre</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">InventarioArrastre</span>.rejilla = <span class="hl-s">"Inventario/Ventana/Casillas/Contenido"</span>
+
+<span class="hl-k">local</span> <span class="hl-t">CASILLAS</span> = <span class="hl-n">20</span>
+
+<span class="hl-k">function</span> <span class="hl-t">InventarioArrastre</span>:<span class="hl-f">Start</span>()
+    <span class="hl-c">-- Cada casilla: false (vacía) o { nombre, cantidad, durabilidad } (sin durabilidad: no se gasta)</span>
+    <span class="hl-b">self</span>._objetos = <span class="hl-t">table</span>.<span class="hl-f">create</span>(<span class="hl-t">CASILLAS</span>, <span class="hl-b">false</span>)
+    <span class="hl-b">self</span>._objetos[<span class="hl-n">1</span>] = { nombre = <span class="hl-s">"Piedra"</span>, cantidad = <span class="hl-n">30</span> }
+    <span class="hl-b">self</span>._objetos[<span class="hl-n">2</span>] = { nombre = <span class="hl-s">"Hacha"</span>, cantidad = <span class="hl-n">1</span>, durabilidad = <span class="hl-n">0.8</span> }
+    <span class="hl-k">local</span> rejilla = <span class="hl-f">UI</span>(<span class="hl-b">self</span>.rejilla)
+    <span class="hl-k">for</span> i = <span class="hl-n">0</span>, <span class="hl-t">CASILLAS</span> - <span class="hl-n">1</span> <span class="hl-k">do</span>
+        <span class="hl-k">local</span> casilla = rejilla:<span class="hl-f">Slot</span>(i) <span class="hl-c">-- los índices de las casillas empiezan en 0</span>
+        casilla:<span class="hl-f">OnDrop</span>(<span class="hl-k">function</span>(e)
+            <span class="hl-b">self</span>:<span class="hl-f">Soltar</span>(e.drag.source:<span class="hl-f">GetSlotIndex</span>() + <span class="hl-n">1</span>, e.element:<span class="hl-f">GetSlotIndex</span>() + <span class="hl-n">1</span>, e.pointer.shift)
+        <span class="hl-k">end</span>)
+        casilla:<span class="hl-f">OnEndDrag</span>(<span class="hl-k">function</span>(e)
+            <span class="hl-k">if</span> e.drag.result == <span class="hl-s">"Outside"</span> <span class="hl-k">then</span>
+                <span class="hl-b">self</span>:<span class="hl-f">Tirar</span>(e.element:<span class="hl-f">GetSlotIndex</span>() + <span class="hl-n">1</span>)
+            <span class="hl-k">end</span>
+        <span class="hl-k">end</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>:<span class="hl-f">Pintar</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">InventarioArrastre</span>:<span class="hl-f">Soltar</span>(de: number, a: number, partir: boolean)
+    <span class="hl-k">local</span> origen, destino = <span class="hl-b">self</span>._objetos[de], <span class="hl-b">self</span>._objetos[a]
+    <span class="hl-k">if</span> de == a <span class="hl-k">or</span> <span class="hl-k">not</span> origen <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> partir <span class="hl-k">and</span> <span class="hl-k">not</span> destino <span class="hl-k">and</span> origen.cantidad &gt; <span class="hl-n">1</span> <span class="hl-k">then</span>
+        <span class="hl-k">local</span> mitad = origen.cantidad // <span class="hl-n">2</span> <span class="hl-c">-- Mayús: la mitad del montón</span>
+        <span class="hl-b">self</span>._objetos[a] = { nombre = origen.nombre, cantidad = mitad }
+        origen.cantidad -= mitad
+    <span class="hl-k">elseif</span> destino <span class="hl-k">and</span> destino.nombre == origen.nombre <span class="hl-k">and</span> <span class="hl-k">not</span> origen.durabilidad <span class="hl-k">then</span>
+        destino.cantidad += origen.cantidad <span class="hl-c">-- el mismo objeto: se juntan</span>
+        <span class="hl-b">self</span>._objetos[de] = <span class="hl-b">false</span>
+    <span class="hl-k">else</span>
+        <span class="hl-b">self</span>._objetos[de], <span class="hl-b">self</span>._objetos[a] = destino, origen <span class="hl-c">-- cambian de sitio</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>:<span class="hl-f">Pintar</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">InventarioArrastre</span>:<span class="hl-f">Tirar</span>(i: number)
+    <span class="hl-k">local</span> objeto = <span class="hl-b">self</span>._objetos[i]
+    <span class="hl-k">if</span> objeto <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Al suelo: %s x%d"</span>, objeto.nombre, objeto.cantidad)) <span class="hl-c">-- en red: pedirlo con un [Server]</span>
+        <span class="hl-b">self</span>._objetos[i] = <span class="hl-b">false</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Pintar</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">InventarioArrastre</span>:<span class="hl-f">Pintar</span>()
+    <span class="hl-k">local</span> rejilla = <span class="hl-f">UI</span>(<span class="hl-b">self</span>.rejilla)
+    <span class="hl-k">for</span> i = <span class="hl-n">0</span>, <span class="hl-t">CASILLAS</span> - <span class="hl-n">1</span> <span class="hl-k">do</span>
+        <span class="hl-k">local</span> objeto, casilla = <span class="hl-b">self</span>._objetos[i + <span class="hl-n">1</span>], rejilla:<span class="hl-f">Slot</span>(i)
+        casilla:<span class="hl-f">Child</span>(<span class="hl-s">"Icono"</span>):<span class="hl-f">SetVisible</span>(objeto ~= <span class="hl-b">false</span>)
+        casilla:<span class="hl-f">Child</span>(<span class="hl-s">"Cantidad"</span>):<span class="hl-f">SetText</span>(<span class="hl-k">if</span> objeto <span class="hl-k">and</span> objeto.cantidad &gt; <span class="hl-n">1</span> <span class="hl-k">then</span> <span class="hl-s">"x"</span> .. objeto.cantidad <span class="hl-k">else</span> <span class="hl-s">""</span>)
+        casilla:<span class="hl-f">Child</span>(<span class="hl-s">"Durabilidad"</span>):<span class="hl-f">SetVisible</span>(objeto ~= <span class="hl-b">false</span> <span class="hl-k">and</span> objeto.durabilidad ~= <span class="hl-b">nil</span>)
+        casilla:<span class="hl-f">SetDraggable</span>(objeto ~= <span class="hl-b">false</span>)
+        <span class="hl-k">if</span> objeto <span class="hl-k">then</span>
+            casilla:<span class="hl-f">SetDragPayload</span>(objeto, <span class="hl-s">"objeto"</span>)
+            casilla:<span class="hl-f">SetTooltip</span>(objeto.nombre, <span class="hl-s">"Cantidad: "</span> .. objeto.cantidad, objeto.durabilidad <span class="hl-k">or</span> -<span class="hl-n">1</span>)
+            <span class="hl-k">if</span> objeto.durabilidad <span class="hl-k">then</span>
+                casilla:<span class="hl-f">Child</span>(<span class="hl-s">"Durabilidad"</span>):<span class="hl-f">SetValue</span>(objeto.durabilidad * <span class="hl-n">100</span>)
+            <span class="hl-k">end</span>
+        <span class="hl-k">else</span>
+            casilla:<span class="hl-f">SetDragPayload</span>(<span class="hl-b">nil</span>):<span class="hl-f">SetTooltipEnabled</span>(<span class="hl-b">false</span>)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">InventarioArrastre</span></code></pre></div>
+<ul>
+<li>Para otros eventos, <code>casilla:On(&quot;DragEnter&quot;, function(e) ... end)</code> sirve para cualquier tipo, y
+<code>casilla:SetDropFilter(function(e) return not e.drag.payload.pesado end)</code> añade un filtro a un destino.</li>
+<li><code>UI():IsDragging()</code>, <code>UI():DragSource()</code>, <code>UI():DropTarget()</code>, <code>UI():DragPayload()</code> y <code>UI():CancelDrag()</code>
+dicen qué se está arrastrando ahora (o lo cancelan).</li>
+<li>Las cargas, los oyentes y los filtros que crea un script son suyos: se quitan al destruirse (y los de un
+manejador del bloque principal, al recargar el fichero).</li>
+<li>En multijugador, <code>Soltar</code> y <code>Tirar</code> pedirían el cambio al servidor con una función <code>--[Server]</code> y pintarían
+cuando llegue la respuesta (la interfaz es local). Así lo hace el inventario de <code>game/inventario_lua</code>
+(<a href="ejemplo-inventario.html">ejemplo-inventario.md</a>).</li>
+</ul>
+<h2 id="interfaz-en-multijugador">Interfaz en multijugador<a class="ancla" href="#interfaz-en-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>La interfaz es local:</strong> cada máquina dibuja la suya y sus cambios no se envían por la red. Lo que deba
+verse en todas (puntos, vida) se replica en los scripts del juego (campos <code>--[Replicated]</code>, con su <code>onChange</code>)
+y cada máquina lo pone en su HUD.</li>
+<li><strong>Un botón que hace algo en la partida</strong> llama a una función del script, y esa función se lo pide al servidor
+con una función <code>--[Server]</code>, como cualquier otra acción del jugador.</li>
+<li><strong>El servidor dedicado</strong> no dibuja nada y <code>UI()</code> no hace nada en él.</li>
+<li><strong>El ejemplo:</strong> el HUD del «Rey de la arena» (<code>game/multiplayer_lua</code>, entidad <strong>HUD</strong> de <code>Arena.scene</code>)
+muestra el marcador, la vida, los anuncios, los avisos y el chat. Su módulo <code>Interfaz.luau</code> solo pone los datos
+con <code>UI(&quot;HUD/...&quot;)</code>, y el campo de texto del chat envía lo escrito al servidor. Ver
+<a href="scripts-lua.html#103-interfazluau-todo-lo-que-se-ve-en-un-sitio">scripts-lua.md</a>.</li>
+</ul>
+<h2 id="crear-la-interfaz-en-equipo">Crear la interfaz en equipo<a class="ancla" href="#crear-la-interfaz-en-equipo" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con la <a href="edicion-en-equipo.html">edición en equipo</a> (<strong>Equipo &gt; Crear sesión de equipo...</strong> o <strong>Unirse a una
+sesión...</strong>) varias personas montan la interfaz a la vez, cada una en su panel <strong>Interfaz</strong>. Los lienzos y los
+widgets son entidades de la escena, así que todo lo que se hace en el panel, en el inspector o en la jerarquía
+(crear, plantillas, mover, redimensionar, girar, anclar, alinear, agrupar, ordenar, escribir, cambiar una imagen
+o una fuente, borrar) llega a los demás como cualquier otro cambio de la escena, en el mismo orden para todos.
+También las casillas, lo que se arrastra y dónde se suelta, las descripciones emergentes, los eventos del
+puntero y <strong>Mismo tamaño</strong> de los grupos (ver <a href="#arrastrar-y-soltar-tooltips-y-casillas">Arrastrar y soltar, tooltips y
+casillas</a>), y lo del diseño: bloquear y desbloquear, las guías de las
+reglas, pegar estilo, el anclaje sugerido, cambiar de tema o copiarlo a la escena, el estilo de un elemento y los
+preajustes de animación. <strong>Probar</strong> y <strong>Comparar</strong> son de cada persona: no cambian la escena.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>En el panel Interfaz</th>
+  <th>Qué ves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Lo que otra persona tiene elegido</td>
+  <td>Un borde fino de su color con su nombre encima</td>
+</tr>
+<tr>
+  <td>Lo que otra persona está cambiando (arrastra, redimensiona, gira, escribe en el sitio)</td>
+  <td>Un borde grueso de su color, un candado y lo que hace («Ana · moviendo «Vida»»); el elemento se mueve en tu panel mientras lo arrastra</td>
+</tr>
+<tr>
+  <td>Intentar cambiar ese elemento</td>
+  <td>No te deja y la barra dice por qué («Ana está editando «Vida»»); en cuanto suelta, ya puedes</td>
+</tr>
+<tr>
+  <td>Empezar a arrastrar lo mismo a la vez</td>
+  <td>Se queda quien llegó antes; al otro se le deshace el arrastre con un aviso</td>
+</tr>
+<tr>
+  <td>Rol <strong>Solo ver</strong>, o la escena de la sesión abriéndose</td>
+  <td>El panel no crea ni cambia nada y lo explica en la barra</td>
+</tr>
+</tbody>
+</table></div>
+<p>Mientras escribes en un texto con doble clic, ese texto queda bloqueado para los demás hasta que aceptas o
+cancelas. <strong>Ctrl+Z</strong> deshace solo tus cambios; si otra persona tocó después el mismo elemento, ese deshacer se
+niega con un aviso (ver <a href="edicion-en-equipo.html#4-trabajar-juntos">Trabajar juntos</a>). Los cambios de dos personas
+en campos distintos del mismo elemento sin bloqueo (por ejemplo, una cambia la posición desde el inspector y la
+otra el tamaño) se conservan los dos.</p>
+<p>Las fuentes y los sprites que añade alguien al proyecto llegan a todos con su <code>.meta</code> (mismo UUID), así que los
+textos y las imágenes que los usan se ven igual en todos los PC. Las fuentes de hasta 8 MB bajan con lo básico,
+antes de abrir la escena. Si una fuente llega después que el cambio que la usa (alguien la añade y se la pone a
+un texto enseguida, o pesa más de 8 MB), ese texto se ve con Roboto unos segundos y cambia solo en cuanto llega,
+sin reiniciar el editor; si alguien sustituye el fichero de una fuente, los textos que la usan cambian también.
+Las preferencias del panel (resolución de la vista previa, zoom, imán, fondo) son de cada persona y no se envían.</p>
+<h2 id="publicar-y-rendimiento">Publicar y rendimiento<a class="ancla" href="#publicar-y-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Publicar</strong> (<a href="publicar-juego.html">publicar-juego.md</a>) no necesita nada especial: las fuentes y sprites van
+con los assets (con sus <code>.meta</code>) y el shader de la interfaz (<code>shaders/ui.hlsl</code>) con los demás. Hay una prueba
+automática que publica el ejemplo multijugador en C++ y comprueba que el juego publicado dibuja el HUD.</p>
+<p><strong>Rendimiento:</strong></p>
+<ul>
+<li>Todo lo que comparte textura se dibuja en una sola orden: rectángulos, esquinas redondeadas y texto van
+juntos. Cada sprite distinto, máscara o lienzo abre otra. Las estadísticas (ⓘ del panel) dicen cuántas
+órdenes hay.</li>
+<li>Una interfaz de 2000 elementos se prepara en unos 0,5 ms por frame (layout y lista de dibujo, versión
+release) y sin reservar memoria a partir del segundo frame. Lo comprueba una prueba automática, que admite
+hasta 2 ms para no fallar en un PC lento o con el render por software (WARP).</li>
+<li>El texto se compone una vez y se guarda: cambiarlo cada frame con el mismo valor no cuesta casi nada. La
+caché guarda lo que se ha usado en los últimos frames (aunque sean miles de textos distintos) y solo quita lo
+que ya no se usa, así que un cronómetro no obliga a rehacer el resto del HUD.</li>
+<li>Lo que queda fuera de una máscara o de una vista con desplazamiento no se sube a la GPU: una lista de
+cientos de filas solo cuesta las que se ven.</li>
+<li>Las letras se dibujan bajo demanda en un atlas de hasta 4 páginas de 2048 × 2048. Si se llena (muchas
+fuentes y alfabetos), se vacía y se rehace solo.</li>
+<li>Los estilos, los efectos (degradados, sombras, resplandor, esquinas por separado, bordes discontinuos), el
+texto enriquecido, las barras radiales y los iconos se dibujan con el mismo shader y en la misma orden que lo
+demás: no añaden órdenes de dibujo. Una prueba automática prepara a la vez el HUD, el inventario y los ajustes
+de las plantillas (100 elementos con estilos y efectos) en menos de 1,5 ms y sin reservar memoria por frame
+(unos 0,7 ms en depuración).</li>
+<li>Una <strong>Lista</strong> o <strong>Tabla</strong> de 10 000 filas solo forma las que se ven: otra prueba mide menos de 1 ms por frame
+sin reservas, también mientras se desplaza.</li>
+<li><strong>Biblioteca de estilos:</strong> cada textura que se usa se pinta una vez (unos milisegundos, con todos los núcleos) y se
+sube a la GPU con mipmaps; un estilo entero ocupa unos 5 MB de vídeo. Cada textura distinta abre otra orden de dibujo
+(como cualquier sprite). El desgaste son unos cálculos de ruido por píxel en el mismo shader.</li>
+</ul>
+<p>Para verlas sin abrir el editor, las pruebas guardan capturas en <code>build/&lt;configuración&gt;/test_output</code>:
+<code>ui_plantilla_hud.png</code>, <code>ui_plantilla_menu.png</code>, <code>ui_plantilla_pausa.png</code>, <code>ui_plantilla_inventario.png</code>,
+<code>ui_plantilla_marcador.png</code> y <code>ui_plantilla_ajustes.png</code> (las plantillas a 1280 × 720), <code>ui_diseno_efectos.png</code>
+y <code>ui_diseno_texto.png</code> (efectos, texto enriquecido, barras radiales e iconos), las del editor sin ventana
+<code>editor_plantilla_*.png</code>, <code>editor_probar.png</code> y <code>editor_comparar.png</code>, y las de la biblioteca de estilos en <code>estilosui/</code>
+(<code>estilo_&lt;id&gt;.png</code> con la muestra en cada estilo, <code>barras_segmentadas.png</code>, <code>desgaste_0.png</code> y <code>desgaste_1.png</code>,
+<code>estilos_juego.png</code> de NovaGame.exe y <code>editor_estilos.png</code>). Las de cada estilo también están en <code>capturas-estilosui/</code>
+del código fuente.</p>
+<h2 id="problemas-frecuentes">Problemas frecuentes<a class="ancla" href="#problemas-frecuentes" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>«El clic dispara el arma»:</strong> el elemento no <strong>Bloquea clics</strong> o su lienzo no <strong>Recibe entrada</strong>. Marca
+<strong>Bloquea clics</strong> en la imagen del panel o del botón.</li>
+<li><strong>«Un HUD sin botones se queda con los clics»:</strong> desmarca <strong>Recibe entrada</strong> en su lienzo.</li>
+<li><strong>«El método no aparece en Al hacer clic»:</strong> la función tiene que ser de la clase (<code>function Menu:Jugar()</code>,
+no <code>local function</code>) y el script no puede tener errores (mira la Consola). El script debe estar en la entidad
+elegida en <strong>Entidad</strong> (o en el botón o sus antepasados, si la dejas vacía). En un script C++, falta
+<code>NOVA_METHOD(Metodo)</code> o no has compilado los scripts (Ctrl+B).</li>
+<li><strong>«UI(&quot;...&quot;) no hace nada»:</strong> mira el registro: avisa una vez si la ruta no existe. Las rutas usan los
+nombres de la jerarquía, con tildes y mayúsculas.</li>
+<li><strong>«El texto sale borroso»:</strong> es muy pequeño (menos de 14 px en pantalla); sube el tamaño o el <strong>Grosor</strong>.</li>
+<li><strong>«Los hijos de un grupo no son iguales o se salen»:</strong> activa <strong>Mismo tamaño</strong> en el grupo (o <strong>Expandir</strong>) o
+reduce sus tamaños; ver <a href="#orden-de-dibujo-grupos-máscaras-y-pantallas">¿Por qué mis hijos no son iguales?</a>.</li>
+<li><strong>«Mis cambios en modo juego se pierden»:</strong> como el resto de la escena, al parar el juego vuelve a como
+estaba. Haz los cambios sin jugar.</li>
+<li><strong>«Al pausar el editor se para la interfaz»:</strong> es lo esperado (pausa todo). Para pausar el juego con un
+menú usa una pantalla con <strong>Bloquea el juego</strong>.</li>
+<li><strong>«En el panel se ve distinto que en el juego»:</strong> comprueba la resolución de la vista previa y el DPI de
+la barra del panel (el panel empieza en 100 %; el juego usa el escalado de Windows); con <strong>Igual que el panel
+Juego</strong> y el mismo DPI se ve exactamente igual.</li>
+<li><strong>«En el panel no puedo elegir los botones del menú»:</strong> una pantalla a pantalla completa los tapa. Pon <strong>Ver</strong>
+en <strong>Según la escena</strong> (por defecto) o en la pantalla que quieres editar. Si el clic atraviesa un elemento,
+está <strong>bloqueado</strong> (candado en la Jerarquía): <strong>Ctrl+L</strong> lo desbloquea.</li>
+<li><strong>«Probando, el botón no hace nada»:</strong> los scripts no se ejecutan al probar; abajo sale el aviso de lo que haría
+(«Llamaría a Menu.Jugar()»). Para probar con los scripts, pulsa <strong>Jugar</strong>.</li>
+<li><strong>«Apliqué un estilo y un elemento no cambió»:</strong> tiene un estilo propio (no de un tema), es un fondo que llena su padre
+o una imagen con sprite (un icono), o está bloqueado. Ponle la pieza a mano en su <strong>Estilo</strong> (<code>Militar desgastado/Panel</code>).</li>
+<li><strong>«Las barras de la biblioteca se ven muy finas»:</strong> el canal y el relleno tienen bordes de 12 a 14 unidades; a menos
+de unos 24 de alto, encogen. Dale más alto o quita los <strong>Segmentos</strong>.</li>
+<li><strong>«Cambié un estilo y no cambia el elemento»:</strong> mira en su <strong>Estilo</strong> si tiene marcado <em>Colores propios</em>,
+<em>Forma propia</em>, <em>Texto propio</em>... (esa parte es suya), o si tiene un componente <strong>Efectos</strong> (manda sobre los del
+estilo).</li>
+</ul>
+<h2 id="límites">Límites<a class="ancla" href="#límites" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todavía no tiene: escritura con IME ni idiomas de derecha a izquierda, teclado virtual, localización, máscaras
+giradas o redondeadas, clic en los lienzos de Mundo (ni arrastrar en ellos), un editor de línea de tiempo para
+las animaciones (hay fotogramas clave en el inspector, tweens y transiciones de pantalla), lienzos anidados con
+orden propio ni pantalla táctil. El texto enriquecido no tiene imágenes dentro del texto ni enlaces, la cursiva y
+la negrita son de la misma fuente (inclinada y más gruesa), y los iconos son las formas incluidas (para otros, usa
+una imagen). <strong>Probar</strong> no ejecuta scripts. Las casillas de una <strong>Rejilla de casillas</strong> solo se ven al jugar (en
+el editor, crea una a mano para diseñarla). La biblioteca de estilos no tiene texturas para la barra radial (usa el color
+de su acento).</p>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="voz.html"><small>Anterior</small>Chat de voz: proximidad, llamadas y radios</a><a class="sig" href="idiomas.html"><small>Siguiente</small>Idiomas</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#interfaz-visual-u-ongui">Interfaz visual u OnGUI</a></li><li class="n2"><a href="#conceptos">Conceptos</a></li><li class="n3"><a href="#lienzo">Lienzo</a></li><li class="n3"><a href="#rectángulo-anclajes-y-pivote">Rectángulo: anclajes y pivote</a></li><li class="n3"><a href="#escalador-del-lienzo">Escalador del lienzo</a></li><li class="n3"><a href="#orden-de-dibujo-grupos-máscaras-y-pantallas">Orden de dibujo, grupos, máscaras y pantallas</a></li><li class="n2"><a href="#tutorial-1-tu-primer-hud">Tutorial 1: tu primer HUD</a></li><li class="n2"><a href="#tutorial-2-menú-principal-y-de-pausa">Tutorial 2: menú principal y de pausa</a></li><li class="n2"><a href="#el-panel-interfaz">El panel Interfaz</a></li><li class="n2"><a href="#widgets-y-componentes">Widgets y componentes</a></li><li class="n2"><a href="#estilos-temas-y-efectos">Estilos, temas y efectos</a></li><li class="n2"><a href="#biblioteca-de-estilos-desgastado-metal-papel-sci-fi">Biblioteca de estilos: desgastado, metal, papel, sci-fi...</a></li><li class="n3"><a href="#las-piezas">Las piezas</a></li><li class="n3"><a href="#con-el-creador-de-interfaz">Con el creador de interfaz</a></li><li class="n3"><a href="#desde-un-script">Desde un script</a></li><li class="n3"><a href="#nueve-cortes-y-en-mosaico">Nueve cortes (y en mosaico)</a></li><li class="n3"><a href="#barras-segmentadas-rastro-del-daño-y-parpadeo">Barras segmentadas, rastro del daño y parpadeo</a></li><li class="n3"><a href="#desgaste">Desgaste</a></li><li class="n3"><a href="#las-texturas-son-nuestras">Las texturas son nuestras</a></li><li class="n2"><a href="#texto-enriquecido">Texto enriquecido</a></li><li class="n2"><a href="#más-widgets-barra-radial-pestañas-diálogo-lista-tabla-y-selector">Más widgets: barra radial, pestañas, diálogo, lista, tabla y selector</a></li><li class="n2"><a href="#animaciones-con-fotogramas-clave">Animaciones con fotogramas clave</a></li><li class="n2"><a href="#entrada-qué-se-queda-la-interfaz">Entrada: qué se queda la interfaz</a></li><li class="n2"><a href="#la-api-para-los-scripts">La API para los scripts</a></li><li class="n2"><a href="#fuentes-sprites-y-nueve-cortes">Fuentes, sprites y nueve cortes</a></li><li class="n2"><a href="#prefabs-de-interfaz-un-inventario">Prefabs de interfaz: un inventario</a></li><li class="n2"><a href="#arrastrar-y-soltar-tooltips-y-casillas">Arrastrar y soltar, tooltips y casillas</a></li><li class="n3"><a href="#las-piezas-1">Las piezas</a></li><li class="n3"><a href="#cómo-va-un-arrastre">Cómo va un arrastre</a></li><li class="n3"><a href="#eventos-del-puntero">Eventos del puntero</a></li><li class="n3"><a href="#descripciones-emergentes">Descripciones emergentes</a></li><li class="n3"><a href="#casillas-y-rejillas">Casillas y rejillas</a></li><li class="n3"><a href="#ejemplo">Ejemplo</a></li><li class="n2"><a href="#interfaz-en-multijugador">Interfaz en multijugador</a></li><li class="n2"><a href="#crear-la-interfaz-en-equipo">Crear la interfaz en equipo</a></li><li class="n2"><a href="#publicar-y-rendimiento">Publicar y rendimiento</a></li><li class="n2"><a href="#problemas-frecuentes">Problemas frecuentes</a></li><li class="n2"><a href="#límites">Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

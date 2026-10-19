@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splines, carreteras y ríos · Nova Engine</title>
+<meta name="description" content="Una spline es una curva que pasa por unos puntos que colocas en el visor. Sobre ella el motor construye
+carreteras (con sus carriles, arcenes, aceras y colisión para que los coches y los personajes las pisen), ríos
+(agua">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Splines, carreteras y ríos · Nova Engine">
+<meta property="og:description" content="Una spline es una curva que pasa por unos puntos que colocas en el visor. Sobre ella el motor construye
+carreteras (con sus carriles, arcenes, aceras y colisión para que los coches y los personajes las pisen), ríos
+(agua">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/splines-carreteras-rios.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/splines-carreteras-rios.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html" aria-current="page">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="splines-carreteras-y-ríos">Splines, carreteras y ríos</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-crear-una-spline-una-carretera-o-un-río">1. Crear una spline, una carretera o un río</a></li><li class="n2"><a href="#2-editar-los-puntos-en-el-visor">2. Editar los puntos en el visor</a></li><li class="n2"><a href="#3-el-componente-spline">3. El componente Spline</a></li><li class="n2"><a href="#4-carreteras">4. Carreteras</a></li><li class="n2"><a href="#5-cruces">5. Cruces</a></li><li class="n2"><a href="#6-ríos-y-lagos">6. Ríos y lagos</a></li><li class="n2"><a href="#7-el-terreno-adaptarlo-aplanar-y-tallar">7. El terreno: adaptarlo, aplanar y tallar</a></li><li class="n3"><a href="#adaptar-el-terreno-en-vivo-sin-destruirlo">Adaptar el terreno (en vivo, sin destruirlo)</a></li><li class="n3"><a href="#aplanar-y-tallar-de-una-vez">Aplanar y tallar de una vez</a></li><li class="n2"><a href="#8-desde-los-scripts-lua">8. Desde los scripts Lua</a></li><li class="n3"><a href="#un-coche-que-recorre-una-carretera">Un coche que recorre una carretera</a></li><li class="n3"><a href="#una-cámara-sobre-un-riel">Una cámara sobre un riel</a></li><li class="n3"><a href="#una-barca-que-flota-y-se-deja-llevar-por-la-corriente">Una barca que flota y se deja llevar por la corriente</a></li><li class="n3"><a href="#bajo-el-agua">¿Bajo el agua?</a></li><li class="n3"><a href="#se-ha-salido-de-la-carretera">¿Se ha salido de la carretera?</a></li><li class="n3"><a href="#una-carretera-hecha-por-código">Una carretera hecha por código</a></li><li class="n2"><a href="#9-referencia-de-la-api">9. Referencia de la API</a></li><li class="n2"><a href="#10-detalles-y-límites">10. Detalles y límites</a></li></ul></details><p>Una <strong>spline</strong> es una curva que pasa por unos puntos que colocas en el visor. Sobre ella el motor construye
+<strong>carreteras</strong> (con sus carriles, arcenes, aceras y colisión para que los coches y los personajes las pisen), <strong>ríos</strong>
+(agua que corre en el orden de los puntos) y <strong>lagos</strong> (agua quieta dentro de una curva cerrada). Una spline sola
+también sirve de <strong>ruta</strong>: para que un coche de la IA, un barco o una cámara la recorran.</p>
+<p>Todo se edita en el visor <strong>Escena</strong> y en el <strong>Inspector</strong>, se deshace con Ctrl+Z, funciona en la
+<a href="edicion-en-equipo.html">edición en equipo</a> y se usa desde los <a href="scripts-lua.html">scripts Lua</a>. Con un terreno debajo,
+las carreteras se apoyan en él y lo <strong>adaptan</strong> a su paso (si subes la carretera, el terreno sube con un terraplén; si
+la bajas, corta la ladera) y los ríos <strong>tallan su cauce</strong>, sin destruir el terreno: al mover o borrar la carretera, el
+terreno vuelve a estar como antes.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-crear-una-spline-una-carretera-o-un-río">Crear una spline, una carretera o un río</a></li>
+<li><a href="#2-editar-los-puntos-en-el-visor">Editar los puntos en el visor</a></li>
+<li><a href="#3-el-componente-spline">El componente Spline</a></li>
+<li><a href="#4-carreteras">Carreteras</a></li>
+<li><a href="#5-cruces">Cruces</a></li>
+<li><a href="#6-ríos-y-lagos">Ríos y lagos</a></li>
+<li><a href="#7-el-terreno-adaptarlo-aplanar-y-tallar">El terreno: adaptarlo, aplanar y tallar</a></li>
+<li><a href="#8-desde-los-scripts-lua">Desde los scripts Lua</a></li>
+<li><a href="#9-referencia-de-la-api">Referencia de la API</a></li>
+<li><a href="#10-detalles-y-límites">Detalles y límites</a></li>
+</ol>
+<h2 id="1-crear-una-spline-una-carretera-o-un-río">1. Crear una spline, una carretera o un río<a class="ancla" href="#1-crear-una-spline-una-carretera-o-un-río" aria-label="Enlace a esta sección">#</a></h2>
+<p>Menú <strong>Entidad &gt; Splines</strong> (o el botón <strong>+</strong> de la Jerarquía):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué crea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Spline</strong></td>
+  <td>Una curva sola (rutas de NPC, de cámaras, de barcos)</td>
+</tr>
+<tr>
+  <td><strong>Carretera</strong> &gt; <em>Carretera de 2 carriles</em>, <em>Camino de tierra</em>, <em>Autopista</em>, <em>Calle con aceras</em></td>
+  <td>Spline + Carretera con ese preajuste</td>
+</tr>
+<tr>
+  <td><strong>Cruce en T</strong> / <strong>Cruce en X</strong></td>
+  <td>Un cruce donde terminan las carreteras</td>
+</tr>
+<tr>
+  <td><strong>Río</strong></td>
+  <td>Spline + Río: el agua corre del primer punto al último</td>
+</tr>
+<tr>
+  <td><strong>Lago</strong></td>
+  <td>Spline cerrada + Lago: agua plana dentro de la curva</td>
+</tr>
+</tbody>
+</table></div>
+<p>Se crean delante de la cámara del editor, con sus puntos apoyados en el suelo (el terreno o las mallas de la
+escena), y quedan seleccionados para seguir editándolos. Las carreteras y los ríos creados sobre un terreno empiezan
+con <strong>Adaptar el terreno</strong> (o <strong>Tallar el cauce automáticamente</strong>) encendido (ver <a href="#7-el-terreno-adaptarlo-aplanar-y-tallar">7</a>).</p>
+<h2 id="2-editar-los-puntos-en-el-visor">2. Editar los puntos en el visor<a class="ancla" href="#2-editar-los-puntos-en-el-visor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con una entidad con <strong>Spline</strong> seleccionada, el visor Escena muestra la curva (en amarillo, por encima de todo),
+sus puntos numerados desde 0 y una barra arriba a la derecha con la longitud y las opciones.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Acción</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Elegir un punto</td>
+  <td>Clic en él (el gizmo pasa a ese punto)</td>
+</tr>
+<tr>
+  <td>Elegir varios</td>
+  <td><strong>Ctrl+clic</strong> o <strong>Mayús+clic</strong> en otros puntos (otro clic con Ctrl o Mayús lo quita). El gizmo va al centro de los elegidos; el último es el <strong>activo</strong></td>
+</tr>
+<tr>
+  <td>Moverlos, girarlos o escalarlos</td>
+  <td>El gizmo del editor, con los mismos botones y atajos que con las entidades: <strong>W</strong> mover, <strong>E</strong> girar, <strong>R</strong> escalar, <strong>Local / Global</strong> y el imán (Ctrl invierte el ajuste a la rejilla). Ver abajo</td>
+</tr>
+<tr>
+  <td>Añadir un punto al final</td>
+  <td><strong>Ctrl+clic</strong> en el suelo (terreno o mallas)</td>
+</tr>
+<tr>
+  <td>Insertar un punto entre dos</td>
+  <td>Clic en el rombo verde que hay a mitad de camino</td>
+</tr>
+<tr>
+  <td>Borrar los puntos elegidos</td>
+  <td><strong>Supr</strong> (todos en un paso del historial)</td>
+</tr>
+<tr>
+  <td>Soltar los puntos</td>
+  <td><strong>Esc</strong> o clic fuera de la curva (la entidad sigue elegida)</td>
+</tr>
+<tr>
+  <td>Asas Bézier</td>
+  <td>Con el tipo <strong>Bézier</strong> y un solo punto elegido se ven sus dos asas: clic en una y arrástrala. Las dos se mueven alineadas; con <strong>Alt</strong>, solo la que arrastras</td>
+</tr>
+<tr>
+  <td>Mover, girar o escalar la curva entera</td>
+  <td>Sin ningún punto elegido, el gizmo es el de la entidad (los puntos van con ella; la carretera, el agua y el terreno adaptado se rehacen)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Local y Global con los puntos.</strong> Con <strong>Global</strong> los ejes del gizmo son los del mundo. Con <strong>Local</strong> son los del
+punto a lo largo de la curva: el eje <strong>azul (Z)</strong> es la dirección de la curva, el <strong>verde (Y)</strong> es arriba (inclinado
+con el peralte) y el <strong>rojo (X)</strong> es la derecha. Con varios puntos, los del punto activo.</p>
+<p><strong>Girar un punto</strong> cambia la dirección con la que la curva pasa por él (sus asas):</p>
+<ul>
+<li>Alrededor del eje azul en <strong>Local</strong> (la propia curva) cambia el <strong>peralte</strong> del punto y nada más.</li>
+<li>En cualquier otro eje gira la dirección de la curva. Una spline <strong>Catmull-Rom</strong> o <strong>Lineal</strong> no guarda asas: al girar
+un punto solo pasa a <strong>Bézier</strong> con exactamente la misma forma (las asas automáticas, o las de los tramos rectos) y
+las asas de ese punto se vuelven fijas. <strong>Asas automáticas</strong> en el Inspector y Ctrl+Z vuelven atrás.</li>
+<li>Con varios puntos, giran alrededor de su centro (y sus asas con ellos); lo girado alrededor de la curva en cada punto
+se suma a su peralte.</li>
+</ul>
+<p><strong>Escalar un punto</strong> (el gizmo de escala usa siempre los ejes del punto):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Eje</th>
+  <th>Qué cambia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Rojo (X, a lo ancho)</td>
+  <td>La <strong>Anchura (x)</strong> del punto: la carretera o el río se ensancha ahí</td>
+</tr>
+<tr>
+  <td>Azul (Z, a lo largo)</td>
+  <td>La longitud de sus <strong>asas</strong>: lo abierta o cerrada que es la curva al pasar por él (también pasa a Bézier con la misma forma)</td>
+</tr>
+<tr>
+  <td>Verde (Y)</td>
+  <td>Nada</td>
+</tr>
+<tr>
+  <td>Centro</td>
+  <td>Las dos cosas a la vez y, con varios puntos, también su distancia al centro (el tramo entero más grande o más pequeño)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cada gesto (de pulsar a soltar) es un paso del historial; Ctrl+Z espera a que sueltes el gizmo.</p>
+<p>En la barra:</p>
+<ul>
+<li><strong>Ajustar al suelo</strong>: al mover puntos en horizontal se apoyan en el suelo. Además, el <strong>extremo</strong> de una
+carretera (cuando es el único punto elegido) se engancha (a menos de 2 m) al final de los brazos de un cruce y a los
+extremos de otras carreteras. Con <strong>Adaptar el terreno</strong>, los puntos se apoyan en el terreno de debajo, no en el
+terraplén de su propia carretera.</li>
+<li><strong>Todo al suelo</strong>: apoya todos los puntos en el suelo de una vez.</li>
+<li><strong>Invertir</strong>: invierte el orden de los puntos. En un río cambia el sentido de la corriente.</li>
+</ul>
+<p>Cada cambio (mover, girar, escalar, añadir, insertar, borrar, invertir) es un paso del historial: Ctrl+Z lo deshace y,
+en una sesión de equipo, los demás lo ven al momento.</p>
+<h2 id="3-el-componente-spline">3. El componente Spline<a class="ancla" href="#3-el-componente-spline" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Puntos</strong></td>
+  <td>Posición (en el espacio de la entidad), asas Bézier, <strong>Anchura (x)</strong> (multiplica la anchura de la carretera o del río en ese punto) y <strong>Peralte</strong> (grados de giro alrededor de la curva)</td>
+</tr>
+<tr>
+  <td><strong>Tipo</strong></td>
+  <td><strong>Catmull-Rom</strong> (por defecto: pasa por todos los puntos, sin bucles aunque estén desiguales), <strong>Bézier</strong> (con asas; un punto con sus dos asas a cero usa las automáticas) o <strong>Lineal</strong> (tramos rectos)</td>
+</tr>
+<tr>
+  <td><strong>Cerrada</strong></td>
+  <td>Une el último punto con el primero</td>
+</tr>
+<tr>
+  <td><strong>Orientación</strong></td>
+  <td><strong>Arriba del mundo</strong> (carreteras y ríos: nunca se tuercen) o <strong>Transporte paralelo</strong> (curvas que suben en vertical o dan vueltas, como una montaña rusa)</td>
+</tr>
+</tbody>
+</table></div>
+<p>El Inspector muestra el número de puntos y la longitud. Con el tipo Bézier, <strong>Asas automáticas</strong> vuelve a las asas
+calculadas.</p>
+<p>Las distancias a lo largo de la curva son de <strong>longitud de arco</strong>: <code>GetPoint(0.5)</code> es la mitad del recorrido en
+metros, aunque los puntos estén desiguales, y un seguidor a velocidad constante va de verdad a velocidad constante.</p>
+<h2 id="4-carreteras">4. Carreteras<a class="ancla" href="#4-carreteras" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Carretera</strong> construye una malla a lo largo del Spline de la misma entidad. No se guarda en la
+escena: se rehace sola cuando cambian los puntos, un campo o el suelo de debajo.</p>
+<p><strong>Preajustes</strong> (botones arriba del componente, o <code>road:ApplyPreset(...)</code> en Lua):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preajuste</th>
+  <th>Calzada</th>
+  <th>Marcas</th>
+  <th>Arcenes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Carretera de 2 carriles</td>
+  <td>7 m de asfalto</td>
+  <td>Línea central discontinua y líneas de borde</td>
+  <td>1 m de grava</td>
+</tr>
+<tr>
+  <td>Camino de tierra</td>
+  <td>3,5 m de tierra con rodadas</td>
+  <td>Ninguna</td>
+  <td>0,6 m de hierba</td>
+</tr>
+<tr>
+  <td>Autopista</td>
+  <td>14 m, 4 carriles</td>
+  <td>Doble línea continua en el centro, separación de carriles y bordes</td>
+  <td>2,5 m de asfalto</td>
+</tr>
+<tr>
+  <td>Calle con aceras</td>
+  <td>6,5 m de asfalto</td>
+  <td>Línea central continua</td>
+  <td>Aceras de 2 m con bordillo de 15 cm</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Campos</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Grupo</th>
+  <th>Campos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Calzada</td>
+  <td><strong>Anchura</strong> (metros, sin arcenes), <strong>Carriles</strong>, <strong>Firme</strong> (asfalto, tierra u hormigón), <strong>Línea central</strong> (ninguna, discontinua, continua, doble continua), <strong>Líneas de borde</strong></td>
+</tr>
+<tr>
+  <td>Arcenes y aceras</td>
+  <td><strong>Arcén</strong> (metros a cada lado) y su <strong>Tipo</strong> (grava, tierra, asfalto, hierba), <strong>Aceras</strong> con su anchura y la <strong>Altura del bordillo</strong></td>
+</tr>
+<tr>
+  <td>Suelo</td>
+  <td><strong>Apoyar en el suelo</strong>: cada vértice se apoya en el terreno o en las mallas estáticas, a la <strong>Altura sobre el suelo</strong>; el <strong>Faldón</strong> es una pared bajo los bordes que tapa los huecos con el terreno</td>
+</tr>
+<tr>
+  <td>Malla</td>
+  <td><strong>Longitud de tramo</strong> (metros entre secciones), <strong>Divisiones a lo ancho</strong> (más = sigue mejor un suelo irregular), <strong>Colisión</strong>, <strong>Proyecta sombras</strong></td>
+</tr>
+<tr>
+  <td>Terreno</td>
+  <td><strong>Adaptar el terreno</strong> (el terreno sigue a la carretera sin destruirse) y su <strong>Talud</strong> (grados de la pendiente del terraplén y del desmonte), <strong>Margen</strong> (metros llanos más allá de los arcenes), <strong>Transición</strong> (redondea el pie del talud; al aplanar, la transición hasta el terreno de alrededor) y la <strong>Capa bajo los arcenes</strong> (ver <a href="#7-el-terreno-adaptarlo-aplanar-y-tallar">7</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las texturas (asfalto, tierra, grava, hierba, hormigón, bordillo y la pintura de las marcas) se generan en código:
+no hay que importar nada. Las marcas van en la textura de la calzada, que se repite cada 12 m a lo largo
+(rayas discontinuas de 4 m con huecos de 8 m).</p>
+<p><strong>Colisión</strong>: al jugar, cada carretera con <strong>Colisión</strong> recibe un colisionador de malla con su forma (estático),
+así que los coches, los personajes y las pelotas ruedan por ella. Si cambias la carretera jugando, el colisionador
+se rehace. Si la entidad ya tiene su propio <strong>Colisionador</strong>, se respeta el tuyo.</p>
+<h2 id="5-cruces">5. Cruces<a class="ancla" href="#5-cruces" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Cruce</strong> es un tablero de asfalto en <strong>T</strong> (brazos hacia -X, +X y -Z de la entidad) o en <strong>X</strong>
+(los cuatro), con esquinas redondeadas, líneas de detención al final de cada brazo y colisión.</p>
+<p>Para unir carreteras a un cruce:</p>
+<ol>
+<li>Coloca el cruce (gíralo con el gizmo si hace falta).</li>
+<li>Arrastra el extremo de cada carretera hasta el final de un brazo: con <strong>Ajustar al suelo</strong> se engancha solo.</li>
+<li>O pulsa <strong>Enganchar carreteras cercanas</strong> en el cruce: los extremos de carreteras a menos de 6 m de un brazo se
+mueven hasta el final de ese brazo (un solo paso del historial).</li>
+</ol>
+<p>Para que la carretera llegue recta al brazo, pon su penúltimo punto en la dirección del brazo.</p>
+<h2 id="6-ríos-y-lagos">6. Ríos y lagos<a class="ancla" href="#6-ríos-y-lagos" aria-label="Enlace a esta sección">#</a></h2>
+<p>El <strong>Río</strong> es una superficie de agua a lo largo de la curva: plana a lo ancho y siguiendo la pendiente de los
+puntos. El agua corre en el <strong>orden de los puntos</strong> (del 0 al último); <strong>Invertir</strong> en la barra del visor cambia el
+sentido. La <strong>Velocidad de la corriente</strong> es la del centro: en las orillas es un 30 % y donde el río se estrecha
+(anchura de los puntos menor que 1) va algo más deprisa.</p>
+<p>El <strong>Lago</strong> rellena la curva cerrada con agua a la altura media de sus puntos más la <strong>Altura del agua</strong>.</p>
+<p><strong>Aspecto del agua</strong> (el mismo en el mar del terreno):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Color poco profundo / profundo</td>
+  <td>Los colores del agua según los metros que hay hasta el fondo</td>
+</tr>
+<tr>
+  <td>Claridad</td>
+  <td>Metros de agua a través de los que aún se ve el fondo: el agua es <strong>transparente según la profundidad</strong> (se ve el lecho en las orillas y se oscurece en lo hondo; el rojo se apaga antes que el azul). Bajo el agua, cuánto se ve</td>
+</tr>
+<tr>
+  <td>Tamaño e intensidad de las ondas</td>
+  <td>Las <strong>ondas finas</strong> (un mapa de normales hecho en código que se desplaza con el viento o la corriente)</td>
+</tr>
+<tr>
+  <td>Espuma y su profundidad</td>
+  <td>Espuma blanca donde el agua es poco profunda (orillas) y alrededor de los objetos</td>
+</tr>
+<tr>
+  <td>Reflejos y rugosidad</td>
+  <td>Reflejo del cielo según el ángulo (fresnel), con las <a href="nubes.html">nubes</a> del Entorno (nítidas en el agua en calma), y el brillo del sol</td>
+</tr>
+<tr>
+  <td><strong>Olas</strong></td>
+  <td>Las olas grandes, que mueven la superficie (abajo). Con los botones <strong>Calma</strong>, <strong>Lago</strong>, <strong>Mar</strong> y <strong>Tormenta</strong></td>
+</tr>
+<tr>
+  <td>Refracción</td>
+  <td>Cuánto se deforma el fondo visto a través del agua</td>
+</tr>
+<tr>
+  <td>Cáusticas</td>
+  <td>La red de luz que las olas dibujan en el fondo (también vista desde dentro del agua)</td>
+</tr>
+<tr>
+  <td>Luz en las crestas</td>
+  <td>La luz que atraviesa las olas (más a contraluz)</td>
+</tr>
+<tr>
+  <td>Franjas en la orilla</td>
+  <td>Espuma que va y viene en la orilla</td>
+</tr>
+<tr>
+  <td>Espuma en los objetos</td>
+  <td>El anillo de espuma alrededor de lo que atraviesa la superficie: rocas, columnas, barcas, personajes</td>
+</tr>
+<tr>
+  <td>Borde suave</td>
+  <td>Metros de agua en los que el borde se funde con el suelo o con un objeto (sin una línea dura)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Olas</strong> (suma de 8 ondas de Gerstner: crestas afiladas que avanzan):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Altura</td>
+  <td>Metros de valle a cresta de las olas grandes (más o menos; 0 = sin olas)</td>
+</tr>
+<tr>
+  <td>Longitud</td>
+  <td>Metros entre crestas de las olas más largas; las demás son más cortas</td>
+</tr>
+<tr>
+  <td>Crestas afiladas</td>
+  <td>0 = redondeadas, 1 = puntiagudas (nunca llegan a darse la vuelta)</td>
+</tr>
+<tr>
+  <td>Dirección</td>
+  <td>Grados hacia donde avanzan (0 = +X, 90 = +Z). En un río es respecto a la corriente: van con ella</td>
+</tr>
+<tr>
+  <td>Viento</td>
+  <td>m/s: mueve las ondas finas, alinea las olas y hace espuma en las crestas</td>
+</tr>
+<tr>
+  <td>Velocidad</td>
+  <td>Multiplica la velocidad de las olas (las largas van más deprisa, como en el mar)</td>
+</tr>
+<tr>
+  <td>Espuma en las crestas</td>
+  <td>Borregos en las crestas más empinadas</td>
+</tr>
+<tr>
+  <td>Calma en la orilla</td>
+  <td>Metros de profundidad en los que las olas se apagan al llegar a la orilla (con un terreno debajo): no atraviesan la playa</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preajuste</th>
+  <th>Altura</th>
+  <th>Longitud</th>
+  <th>Para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Calma</td>
+  <td>0,04 m</td>
+  <td>2 m</td>
+  <td>Un estanque o un día sin viento</td>
+</tr>
+<tr>
+  <td>Lago</td>
+  <td>0,18 m</td>
+  <td>5 m</td>
+  <td>Lagos (el de serie de un <strong>Lago</strong>)</td>
+</tr>
+<tr>
+  <td>Mar</td>
+  <td>1 m</td>
+  <td>28 m</td>
+  <td>El mar (el de serie del mar del terreno)</td>
+</tr>
+<tr>
+  <td>Tormenta</td>
+  <td>3,2 m</td>
+  <td>55 m</td>
+  <td>Temporal, con mucha espuma</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los ríos tienen de serie olas pequeñas (5 cm) que van con la corriente; los lagos, las de <strong>Lago</strong>.</p>
+<ul>
+<li><strong>Lo que flota</strong> sube y baja con estas olas: la superficie la calcula la CPU con la misma fórmula que la tarjeta
+gráfica (ver <a href="fisicas.html#flotación-buoyancy">Flotación</a> y <code>Water.HeightAt</code> en los scripts).</li>
+<li><strong>Orillas</strong>: la espuma sale donde hay poca agua entre la superficie y lo que se ve debajo (el terreno o una
+malla), con franjas que van y vienen; el borde se funde con el suelo y las olas se apagan antes de llegar.</li>
+<li><strong>Objetos en el agua</strong>: lo opaco que atraviesa la superficie cerca de la cámara (unos 128 m alrededor en calidad
+alta) se dibuja desde arriba y desde abajo en un <strong>mapa de contacto</strong>: alrededor de lo que cruza el agua sale un
+anillo de espuma por todos los lados, también por los que no tienen nada detrás en la vista.</li>
+<li><strong>Bajo el agua</strong>: con la cámara dentro del agua la imagen se nubla y se tiñe según la claridad (más oscura cuanto
+más hondo), ondula un poco, el fondo y lo que hay dentro tienen <strong>cáusticas</strong>, entran <strong>rayos de luz</strong> y la
+superficie vista desde abajo deja ver el cielo solo en un círculo (la ventana de Snell; fuera refleja el agua).
+Con la cámara a ras de agua la imagen se parte por la línea del agua. Los sonidos 3D se oyen apagados (el
+<strong>Oyente de audio</strong> tiene «Bajo el agua (Hz)»: 0 = sin filtro).</li>
+</ul>
+<p>El agua recibe las <strong>sombras</strong> del sol de la escena. Se puede elegir con el ratón en el visor.</p>
+<p><strong>Calidad</strong> (<strong>Editar &gt; Ajustes del proyecto... &gt; Render &gt; Calidad del agua</strong>, o en <code>project.nova</code>
+<code>&quot;render&quot;: {&quot;calidadAgua&quot;: 0, 1 o 2}</code>; de serie 2, alta): en la baja, la rejilla del mar es
+más basta (1 m entre vértices junto a la cámara, en vez de 0,4 m), no hay mapa de contacto (la espuma de los objetos
+sale solo por la diferencia de profundidad) ni rayos de luz bajo el agua; la media usa un mapa de contacto más
+pequeño. El agua de una isla de 768 m con mar, río y lago cuesta unos 0,3 ms de la tarjeta gráfica a 1920 x 1080 en
+una gráfica actual (la prueba de rendimiento lo comprueba).</p>
+<h2 id="7-el-terreno-adaptarlo-aplanar-y-tallar">7. El terreno: adaptarlo, aplanar y tallar<a class="ancla" href="#7-el-terreno-adaptarlo-aplanar-y-tallar" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con un <strong>Terreno</strong> debajo (ver <a href="terreno.html">terreno.md</a>), las carreteras con <strong>Apoyar en el suelo</strong> se apoyan en él.
+Al pintar o esculpir el terreno, solo se rehacen las carreteras que tienen debajo lo que ha cambiado.</p>
+<h3 id="adaptar-el-terreno-en-vivo-sin-destruirlo">Adaptar el terreno (en vivo, sin destruirlo)<a class="ancla" href="#adaptar-el-terreno-en-vivo-sin-destruirlo" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con <strong>Adaptar el terreno</strong> (campo de la Carretera) el terreno sigue a la carretera mientras la editas:</p>
+<ul>
+<li>Bajo la calzada, los arcenes y el <strong>Margen</strong>, el terreno queda a la altura de la curva.</li>
+<li>A los lados, un <strong>talud</strong> con la pendiente del campo <strong>Talud</strong> (35° por defecto): si la carretera va por encima
+del terreno se hace un <strong>terraplén</strong> («la montaña se adapta a la carretera»); si va por debajo, un <strong>desmonte</strong> que
+corta la ladera. Donde el terreno ya está dentro de esa pendiente no se toca. <strong>Transición</strong> redondea el pie del
+talud. El talud llega hasta 60 m a cada lado (los últimos metros se funden con el terreno).</li>
+<li>Al arrastrar un punto, girarlo, mover la entidad entera o cambiar un campo, el terreno se rehace en el momento
+(unos 2 ms por cambio para una carretera de 200 m en Release, solo en los trozos que cambian).</li>
+<li><strong>No destruye el terreno</strong>: lo que se ve es el terreno esculpido con la carretera encima. Si mueves la carretera,
+el terreno de donde estaba vuelve a ser exactamente el de antes; si la borras, apagas la opción o deshaces, también.
+Lo que esculpas a mano debajo se conserva (y se ve en cuanto la carretera se va), aunque mientras la carretera
+adapte el terreno, ella manda en su zona.</li>
+</ul>
+<p><strong>Tallar el cauce automáticamente</strong> (campo del Río) es lo mismo para un río: el lecho baja la <strong>Profundidad del
+cauce</strong> en el centro (en parábola hasta el nivel del agua en el borde), la <strong>Orilla</strong> queda justo por encima del
+agua y el <strong>Talud de las orillas</strong> corta el terreno que queda más alto. Solo baja el terreno, nunca lo sube. Donde una
+carretera que adapta el terreno cruza un río que talla su cauce, manda la carretera (lo rellena con su terraplén):
+para un puente, apaga la opción en ese tramo (o parte la carretera en dos).</p>
+<p><strong>Por defecto</strong>: las carreteras y los ríos que se crean desde <strong>Entidad &gt; Splines</strong> sobre un terreno empiezan con la
+opción encendida. Los que se añaden con <strong>Añadir componente</strong> o desde Lua empiezan apagados, y las escenas hechas
+antes de esta versión no cambian al abrirlas.</p>
+<p><strong>Fijar en el terreno</strong> (botón de la Carretera con la opción encendida; <strong>Fijar el cauce en el terreno</strong> en el Río):
+el terraplén y el desmonte pasan a ser terreno esculpido, como si los hubieras hecho con el pincel, se pinta la
+<strong>Capa bajo los arcenes</strong> (o la de las orillas) y la opción se apaga. Sirve para retocar a mano el talud. Después, si
+mueves la carretera, el terreno fijado se queda donde estaba. Es un solo paso del historial.</p>
+<p><strong>Deshacer, equipo y ficheros</strong>: la carretera no guarda nada en el terreno. Cada editor (y cada máquina al jugar)
+calcula el terreno adaptado a partir de la escena, así que:</p>
+<ul>
+<li>Ctrl+Z del gesto de la carretera devuelve el terreno de antes; Ctrl+Z de un pincel también, como siempre.</li>
+<li>En una sesión de equipo, si una persona mueve la carretera mientras otra esculpe debajo, las dos ven el mismo
+terreno: viajan los comandos de siempre (el de la carretera y el del pincel) y cada editor rehace el terreno igual.</li>
+<li>El fichero <code>.terrain</code> y la escena guardan el terreno esculpido; el adaptado se rehace al abrir la escena y al
+empezar a jugar (antes que las físicas: las colisiones ya llevan el terraplén).</li>
+</ul>
+<h3 id="aplanar-y-tallar-de-una-vez">Aplanar y tallar de una vez<a class="ancla" href="#aplanar-y-tallar-de-una-vez" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con la opción apagada, los botones cambian el terreno esculpido una sola vez (después, mover la carretera no lo
+cambia):</p>
+<ul>
+<li><strong>Aplanar terreno</strong> (botón de la Carretera): deja el terreno bajo la calzada, los arcenes y el <strong>Margen</strong> a la
+altura de la curva, con una <strong>Transición</strong> suave hasta el terreno de alrededor, y pinta la <strong>Capa bajo los
+arcenes</strong> (por ejemplo grava o tierra; -1 = ninguna). Coloca primero los puntos sobre el terreno (<strong>Todo al
+suelo</strong>) y después aplana: así la carretera queda llana y sin cortes.</li>
+<li><strong>Tallar cauce</strong> (botón del Río): excava el lecho bajo el agua (la <strong>Profundidad del cauce</strong> en el centro y el
+nivel del agua en el borde), deja la <strong>Orilla</strong> justo por encima del agua, suaviza la <strong>Transición</strong> y pinta la
+<strong>Capa de las orillas</strong> (arena o barro). Solo baja el terreno, nunca lo sube.</li>
+<li><strong>Tallar cauce</strong> (botón del Lago): el fondo baja hacia el centro hasta la <strong>Profundidad</strong> y la orilla se pinta. Los
+lagos no tienen la versión en vivo.</li>
+</ul>
+<p>Cada botón es un solo paso del historial (Ctrl+Z deshace el terreno entero tal como estaba) y se replica en la
+edición en equipo como cualquier pincel del terreno.</p>
+<h2 id="8-desde-los-scripts-lua">8. Desde los scripts Lua<a class="ancla" href="#8-desde-los-scripts-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los métodos del componente <strong>Spline</strong> trabajan en el <strong>mundo</strong> (la posición y el giro de la entidad cuentan) y
+tienen dos formas de decir dónde: <code>t</code> (de 0 al principio a 1 al final, por longitud) o metros a lo largo de la
+curva. Los puntos de control se numeran desde 0, como en el visor.</p>
+<h3 id="un-coche-que-recorre-una-carretera">Un coche que recorre una carretera<a class="ancla" href="#un-coche-que-recorre-una-carretera" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Spline.Follow</code> añade un <strong>Seguidor de spline</strong> a la entidad: se mueve al jugar, a velocidad constante y girando
+con la curva. El +Z de la entidad (el frente de los modelos glTF) mira hacia donde avanza.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Coche de la IA que recorre la carretera de su campo «ruta» por el carril derecho</span>
+<span class="hl-k">local</span> <span class="hl-t">CocheDeRuta</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Entidad con la carretera (o cualquier Spline) que recorre")]</span>
+<span class="hl-t">CocheDeRuta</span>.ruta = <span class="hl-f">Entity</span>()
+<span class="hl-a">--[Range(0, 40), Tooltip("Metros por segundo")]</span>
+<span class="hl-t">CocheDeRuta</span>.velocidad = <span class="hl-n">12</span>
+<span class="hl-a">--[Tooltip("Metros a la derecha del centro de la calzada")]</span>
+<span class="hl-t">CocheDeRuta</span>.carril = <span class="hl-n">1.75</span>
+
+<span class="hl-k">function</span> <span class="hl-t">CocheDeRuta</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.ruta <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> seguidor = <span class="hl-t">Spline</span>.<span class="hl-f">Follow</span>(<span class="hl-b">self</span>.entity, <span class="hl-b">self</span>.ruta, <span class="hl-b">self</span>.velocidad, <span class="hl-s">"Repetir"</span>)
+    seguidor.offset = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-b">self</span>.carril, <span class="hl-n">0</span>, <span class="hl-n">0</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CocheDeRuta</span></code></pre></div>
+<p>El seguidor también se puede poner en el Inspector (<strong>Añadir componente &gt; Splines &gt; Seguidor de spline</strong>). Al
+llegar al final: <strong>Repetir</strong>, <strong>Ida y vuelta</strong> o <strong>Parar</strong>. En una partida en red, las entidades de red las mueve el
+servidor y los clientes reciben su posición.</p>
+<h3 id="una-cámara-sobre-un-riel">Una cámara sobre un riel<a class="ancla" href="#una-cámara-sobre-un-riel" aria-label="Enlace a esta sección">#</a></h3>
+<p>Para controlar tú el movimiento, <code>GetPoint(t)</code> da el punto a esa fracción del recorrido:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Cámara que recorre una spline en 'duracion' segundos mirando a un objetivo</span>
+<span class="hl-k">local</span> <span class="hl-t">CamaraDeRiel</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">CamaraDeRiel</span>.riel = <span class="hl-f">Entity</span>()
+<span class="hl-t">CamaraDeRiel</span>.objetivo = <span class="hl-f">Entity</span>()
+<span class="hl-a">--[Range(1, 120), Tooltip("Segundos por vuelta")]</span>
+<span class="hl-t">CamaraDeRiel</span>.duracion = <span class="hl-n">20</span>
+
+<span class="hl-k">function</span> <span class="hl-t">CamaraDeRiel</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.riel <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> curva = <span class="hl-b">self</span>.riel:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Spline"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> curva <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._t = ((<span class="hl-b">self</span>._t <span class="hl-k">or</span> <span class="hl-n">0</span>) + dt / <span class="hl-b">self</span>.duracion) % <span class="hl-n">1</span>
+    <span class="hl-b">self</span>.transform.worldPosition = curva:<span class="hl-f">GetPoint</span>(<span class="hl-b">self</span>._t)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.objetivo <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.transform:<span class="hl-f">LookAt</span>(<span class="hl-b">self</span>.objetivo)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CamaraDeRiel</span></code></pre></div>
+<h3 id="una-barca-que-flota-y-se-deja-llevar-por-la-corriente">Una barca que flota y se deja llevar por la corriente<a class="ancla" href="#una-barca-que-flota-y-se-deja-llevar-por-la-corriente" aria-label="Enlace a esta sección">#</a></h3>
+<p>Lo más sencillo es el componente <strong>Flotación</strong> (<a href="fisicas.html#flotación-buoyancy">fisicas.md</a>): con un Cuerpo rígido
+dinámico, la barca flota a su calado, se balancea con las olas y baja por los ríos sin escribir código. A mano, con
+un script, <code>Water.Sample(pos)</code> dice si un punto está en el agua (mar, lago o río), a qué altura está la superficie
+<strong>con las olas</strong>, cuántos metros hay hundidos y la velocidad de la corriente (<code>Water.FlowAt</code> da solo la corriente):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Barca (cuerpo rígido dinámico) que flota en el agua (con sus olas) y se deja llevar por la corriente</span>
+<span class="hl-k">local</span> <span class="hl-t">Barca</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0, 100), Tooltip("Empuje hacia arriba por metro hundido (N)")]</span>
+<span class="hl-t">Barca</span>.flotacion = <span class="hl-n">30</span>
+<span class="hl-a">--[Range(0, 10), Tooltip("Cuánto la arrastra la corriente")]</span>
+<span class="hl-t">Barca</span>.arrastre = <span class="hl-n">2</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Barca</span>:<span class="hl-f">FixedUpdate</span>(dt: number)
+    <span class="hl-k">local</span> cuerpo = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"RigidBody"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> cuerpo <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> agua = <span class="hl-t">Water</span>.<span class="hl-f">Sample</span>(<span class="hl-b">self</span>.transform.worldPosition)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> agua <span class="hl-k">or</span> agua.depth &lt;= <span class="hl-n">0</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-c">-- Empuje según lo hundida que está y la corriente tira de ella</span>
+    <span class="hl-k">local</span> empuje = <span class="hl-t">math</span>.<span class="hl-f">min</span>(agua.depth, <span class="hl-n">1</span>) * <span class="hl-b">self</span>.flotacion
+    cuerpo:<span class="hl-f">AddForce</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, empuje, <span class="hl-n">0</span>))
+    cuerpo:<span class="hl-f">AddForce</span>((agua.velocity - cuerpo.velocity) * <span class="hl-b">self</span>.arrastre)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Barca</span></code></pre></div>
+<h3 id="bajo-el-agua">¿Bajo el agua?<a class="ancla" href="#bajo-el-agua" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Water.IsUnderwater(pos)</code> dice si un punto está bajo la superficie (con las olas que se ven). Un buzo que gasta el
+aire con la cabeza dentro del agua y lo recupera fuera:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Buceo: con la cabeza bajo el agua se gasta el aire; fuera se recupera</span>
+<span class="hl-k">local</span> <span class="hl-t">Buceo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(1, 120), Tooltip("Segundos de aire")]</span>
+<span class="hl-t">Buceo</span>.aireMaximo = <span class="hl-n">30</span>
+<span class="hl-a">--[Tooltip("Altura de la cabeza sobre los pies (m)")]</span>
+<span class="hl-t">Buceo</span>.alturaCabeza = <span class="hl-n">1.7</span>
+
+<span class="hl-t">Buceo</span>.aire = <span class="hl-n">30</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Buceo</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> cabeza = <span class="hl-b">self</span>.transform.worldPosition + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>.alturaCabeza, <span class="hl-n">0</span>)
+    <span class="hl-k">if</span> <span class="hl-t">Water</span>.<span class="hl-f">IsUnderwater</span>(cabeza) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.aire = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-b">self</span>.aire - dt, <span class="hl-n">0</span>)
+    <span class="hl-k">else</span>
+        <span class="hl-b">self</span>.aire = <span class="hl-t">math</span>.<span class="hl-f">min</span>(<span class="hl-b">self</span>.aire + dt * <span class="hl-n">4</span>, <span class="hl-b">self</span>.aireMaximo)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Buceo</span></code></pre></div>
+<h3 id="se-ha-salido-de-la-carretera">¿Se ha salido de la carretera?<a class="ancla" href="#se-ha-salido-de-la-carretera" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>ClosestPoint</code> devuelve el punto de la curva más cercano, su <code>t</code> y los metros recorridos hasta él:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Avisa cuando el personaje se sale de la calzada</span>
+<span class="hl-k">local</span> <span class="hl-t">FueraDePista</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">FueraDePista</span>.carretera = <span class="hl-f">Entity</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">FueraDePista</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.carretera <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> curva = <span class="hl-b">self</span>.carretera:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Spline"</span>)
+    <span class="hl-k">local</span> calzada = <span class="hl-b">self</span>.carretera:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Road"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> curva <span class="hl-k">or</span> <span class="hl-k">not</span> calzada <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> pos = <span class="hl-b">self</span>.transform.worldPosition
+    <span class="hl-k">local</span> punto, t = curva:<span class="hl-f">ClosestPoint</span>(pos)
+    <span class="hl-k">local</span> mitad = calzada.width * curva:<span class="hl-f">GetWidth</span>(t) * <span class="hl-n">0.5</span>
+    <span class="hl-k">local</span> fuera = <span class="hl-t">Vec3</span>.<span class="hl-f">Distance</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(pos.x, <span class="hl-n">0</span>, pos.z), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(punto.x, <span class="hl-n">0</span>, punto.z)) &gt; mitad
+    <span class="hl-k">if</span> fuera ~= <span class="hl-b">self</span>._fuera <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._fuera = fuera
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-k">if</span> fuera <span class="hl-k">then</span> <span class="hl-s">"¡Fuera de la carretera!"</span> <span class="hl-k">else</span> <span class="hl-s">"De vuelta en la carretera"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">FueraDePista</span></code></pre></div>
+<h3 id="una-carretera-hecha-por-código">Una carretera hecha por código<a class="ancla" href="#una-carretera-hecha-por-código" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los puntos se pueden añadir y mover desde Lua (en el mundo); la malla y su colisión se rehacen solas. Con
+<code>adaptTerrain</code> el terreno también se adapta jugando (y se rehace si el script mueve los puntos):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Crea un camino de tierra que pasa por los hijos de esta entidad, en orden, y adapta el terreno a su paso</span>
+<span class="hl-k">local</span> <span class="hl-t">CaminoGenerado</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">CaminoGenerado</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> camino = <span class="hl-t">Scene</span>.<span class="hl-f">Create</span>(<span class="hl-s">"Camino generado"</span>)
+    <span class="hl-k">local</span> curva = camino:<span class="hl-f">AddComponent</span>(<span class="hl-s">"Spline"</span>)
+    <span class="hl-k">for</span> _, hijo <span class="hl-k">in</span> <span class="hl-b">self</span>.entity.children <span class="hl-k">do</span>
+        curva:<span class="hl-f">AddPoint</span>(hijo.transform.worldPosition)
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> calzada = camino:<span class="hl-f">AddComponent</span>(<span class="hl-s">"Road"</span>)
+    calzada:<span class="hl-f">ApplyPreset</span>(<span class="hl-s">"Camino de tierra"</span>)
+    calzada.adaptTerrain = <span class="hl-b">true</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Camino de %.0f m"</span>, curva:<span class="hl-f">Length</span>()))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CaminoGenerado</span></code></pre></div>
+<p>El terreno adaptado no viaja por la red: cada máquina lo calcula con sus carreteras, igual que la malla de la
+carretera. Las de la escena son las mismas en todas; si un script crea o mueve una carretera solo en el servidor, los
+clientes no la ven (ni a ella ni a su terraplén). Para que todos la vean, el script tiene que ejecutarse en todas las
+máquinas (por ejemplo con un <code>[Multicast]</code>, ver <a href="multijugador.html">multijugador.md</a>).</p>
+<h2 id="9-referencia-de-la-api">9. Referencia de la API<a class="ancla" href="#9-referencia-de-la-api" aria-label="Enlace a esta sección">#</a></h2>
+<p>Funciones globales:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Water.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>HeightAt(x, z)</code> (o <code>HeightAt(pos)</code>)</td>
+  <td>Altura del agua <strong>con las olas</strong> (mar, lagos y ríos) sobre ese punto, o <code>nil</code> si no hay agua (o es tierra firme)</td>
+</tr>
+<tr>
+  <td><code>NormalAt(x, z)</code></td>
+  <td>Normal de la superficie (arriba si no hay agua)</td>
+</tr>
+<tr>
+  <td><code>IsUnderwater(pos)</code></td>
+  <td><code>true</code> si el punto está bajo la superficie</td>
+</tr>
+<tr>
+  <td><code>DepthAt(pos)</code></td>
+  <td>Metros que el punto está bajo la superficie (negativo: por encima), o <code>nil</code></td>
+</tr>
+<tr>
+  <td><code>FlowAt(pos)</code></td>
+  <td>Corriente (Vec3, m/s); cero en el mar y en los lagos</td>
+</tr>
+<tr>
+  <td><code>Sample(pos)</code></td>
+  <td><code>{ height, baseHeight, normal, velocity, depth, floor, entity, kind }</code> o <code>nil</code>: altura con y sin olas, normal, corriente, metros bajo la superficie, altura del terreno debajo (si hay), la entidad (terreno, lago o río) y <code>kind</code> (<code>&quot;Mar&quot;</code>, <code>&quot;Lago&quot;</code> o <code>&quot;Río&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>Time()</code></td>
+  <td>Reloj de las olas (s): el de la partida, igual en el anfitrión y en los clientes</td>
+</tr>
+<tr>
+  <td><code>ApplyPreset(entidad, nombre)</code></td>
+  <td>Pone las olas de un preajuste (<code>&quot;Calma&quot;</code>, <code>&quot;Lago&quot;</code>, <code>&quot;Mar&quot;</code> o <code>&quot;Tormenta&quot;</code>) al río, lago o terreno de la entidad. En red, cámbialo en todas las máquinas (por ejemplo con un evento)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>River.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>FlowAt(pos)</code></td>
+  <td>Velocidad de la corriente (Vec3, m/s) en ese punto del mundo; cero fuera del agua o en un lago</td>
+</tr>
+<tr>
+  <td><code>SurfaceAt(pos)</code></td>
+  <td>Altura de la superficie del agua (ríos y lagos) <strong>sin las olas</strong> sobre ese punto, o <code>nil</code> si no está en el agua</td>
+</tr>
+<tr>
+  <td><code>Sample(pos)</code></td>
+  <td><code>{ velocity, surface, depth, entity }</code> (depth: metros bajo la superficie, negativo si está por encima) o <code>nil</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Spline.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Follow(entidad, ruta, velocidad?, modo?)</code></td>
+  <td>Pone (o cambia) el Seguidor de spline de <code>entidad</code> para recorrer el Spline de <code>ruta</code> a <code>velocidad</code> m/s; <code>modo</code>: <code>&quot;Repetir&quot;</code>, <code>&quot;Ida y vuelta&quot;</code> o <code>&quot;Parar&quot;</code>. Devuelve el componente</td>
+</tr>
+</tbody>
+</table></div>
+<p>Métodos del componente <strong>Spline</strong> (<code>entidad:GetComponent(&quot;Spline&quot;)</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>Devuelve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>GetPoint(t)</code>, <code>GetPointAtDistance(metros)</code></td>
+  <td>Punto del mundo</td>
+</tr>
+<tr>
+  <td><code>GetTangent(t)</code>, <code>GetTangentAtDistance(metros)</code></td>
+  <td>Dirección hacia delante (unitaria)</td>
+</tr>
+<tr>
+  <td><code>GetUp(t)</code>, <code>GetRight(t)</code></td>
+  <td>Arriba y derecha de la curva en ese punto</td>
+</tr>
+<tr>
+  <td><code>GetRotation(t)</code></td>
+  <td>Giro con el +Z a lo largo de la curva (para colocar modelos)</td>
+</tr>
+<tr>
+  <td><code>GetWidth(t)</code></td>
+  <td>Anchura (x) interpolada de los puntos</td>
+</tr>
+<tr>
+  <td><code>ClosestPoint(pos)</code></td>
+  <td>Punto más cercano, su <code>t</code> y sus metros</td>
+</tr>
+<tr>
+  <td><code>Length()</code></td>
+  <td>Longitud en metros</td>
+</tr>
+<tr>
+  <td><code>PointCount()</code>, <code>GetControlPoint(i)</code>, <code>SetControlPoint(i, pos)</code>, <code>AddPoint(pos)</code>, <code>RemovePoint(i)</code></td>
+  <td>Los puntos de control (desde 0; posiciones del mundo)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Otros componentes: <code>River:FlowAt(pos)</code> y <code>River:SurfaceAt(pos)</code> (solo ese río), <code>Lake:SurfaceAt(pos)</code>,
+<code>Road:ApplyPreset(nombre)</code> y <code>SplineFollower:Play()</code> / <code>SplineFollower:Stop()</code>. Los campos de todos los componentes
+(<code>road.width</code>, <code>road.adaptTerrain</code>, <code>road.conformSlope</code>, <code>river.flowSpeed</code>, <code>river.autoCarve</code>, <code>seguidor.speed</code>,
+<code>seguidor.distance</code>...) se leen y se escriben como los de cualquier otro componente. VS Code los autocompleta con
+<code>nova.d.luau</code>.</p>
+<p>Desde C++ (avanzado): <code>nova/spline/SplineComponents.h</code> (componentes y ayudas en el mundo: <code>SplineFrameWorld</code>,
+<code>SplineClosestWorld</code>, <code>SampleWater</code>), <code>nova/spline/SplineCurve.h</code> (la curva), <code>nova/render/Water.h</code> (el agua para
+otras mallas: <code>AddWaterSurface</code>, <code>AddSeaSurface</code>), <code>nova/water/WaterWaves.h</code> (las olas en la CPU),
+<code>nova/water/WaterQuery.h</code> (<code>WaterWorld</code>: el agua de la escena con sus olas en un instante; <code>WaterClock</code>),
+<code>nova/water/Buoyancy.h</code> (la flotación) y <code>nova/spline/SplineTerrain.h</code> (el terreno: <code>SyncTerrainConform</code> pone al día
+el terreno adaptado, <code>ConformStampKey</code> da la clave del sello de una carretera, <code>BakeTerrainConform</code> lo fija y
+<code>GroundQuery::ExcludeTerrainStamp</code> consulta el suelo sin él; el modelo de sellos del terreno está en
+<a href="terreno.html">terreno.md</a>). En el editor, <code>editor/spline/SplinePointEdit.h</code> tiene los
+marcos de los puntos y mover, girar y escalar puntos.</p>
+<h2 id="10-detalles-y-límites">10. Detalles y límites<a class="ancla" href="#10-detalles-y-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Las mallas no se guardan</strong>: la escena guarda los puntos y los ajustes y cada máquina genera lo mismo (también
+el servidor dedicado, que solo necesita la colisión).</li>
+<li><strong>Suelo</strong>: el terreno y las mallas estáticas (con <strong>Malla</strong>, sin cuerpo rígido dinámico ni cinemático). Una
+carretera nunca se apoya en otra carretera. Con un puente o un tejado por encima, cuenta lo que está como mucho
+5 m sobre la curva.</li>
+<li><strong>Cruces</strong>: el cruce es una pieza aparte donde terminan las carreteras; las carreteras no se cortan ni se unen
+solas donde se cruzan. Para un cruce en mitad de una carretera, pártela en dos (dos entidades) y une los
+extremos a los brazos.</li>
+<li><strong>Peralte</strong>: gira la carretera solo cuando <strong>Apoyar en el suelo</strong> está apagado (si no, manda el suelo). Con
+<strong>Adaptar el terreno</strong>, la zona plana es horizontal a lo ancho (el peralte no inclina el terraplén).</li>
+<li><strong>Terreno adaptado</strong>: el talud llega hasta 60 m a cada lado de la zona plana (para más, un puente o un muro); la
+<strong>Capa bajo los arcenes</strong> solo se pinta al <strong>Fijar</strong> o al <strong>Aplanar</strong> (pintar en vivo no es no destructivo); los
+lagos solo se tallan con su botón. Si dos carreteras que adaptan el terreno se cruzan, se aplican en un orden fijo (el
+mismo en todas las máquinas) y la segunda manda donde se tocan: para un cruce a nivel, usa un <strong>Cruce</strong>.</li>
+<li><strong>Agua</strong>: una superficie por río o lago, sin cascadas (para un salto de agua, usa dos ríos). Las olas no
+rompen (las crestas se afilan pero no se dan la vuelta) y lo que flota no las mueve: el agua no tiene estela ni
+salpica. La refracción y la espuma de los objetos usan lo que se ve en la imagen y en el mapa de contacto
+alrededor de la cámara: más lejos, la espuma sale solo por la diferencia de profundidad (por el lado de la cámara).</li>
+<li><strong>Olas y vértices</strong>: el mar se dibuja con una rejilla que sigue a la cámara; lejos, las olas que miden menos de
+unos vértices dejan de mover la superficie (siguen en la luz). Lo que flota usa siempre todas: cerca de la cámara
+la superficie dibujada y la de la CPU coinciden al centímetro.</li>
+<li><strong>Rendimiento</strong>: una carretera de 10 km con 1.000 puntos se genera en menos de un cuarto de segundo y solo cuando
+cambia; las consultas de Lua (<code>GetPoint</code>, <code>ClosestPoint</code>, <code>River.FlowAt</code>) no generan nada.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="vegetacion.html"><small>Anterior</small>Vegetación pintada: árboles, rocas, hierba y flores</a><a class="sig" href="particulas.html"><small>Siguiente</small>Partículas</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-crear-una-spline-una-carretera-o-un-río">1. Crear una spline, una carretera o un río</a></li><li class="n2"><a href="#2-editar-los-puntos-en-el-visor">2. Editar los puntos en el visor</a></li><li class="n2"><a href="#3-el-componente-spline">3. El componente Spline</a></li><li class="n2"><a href="#4-carreteras">4. Carreteras</a></li><li class="n2"><a href="#5-cruces">5. Cruces</a></li><li class="n2"><a href="#6-ríos-y-lagos">6. Ríos y lagos</a></li><li class="n2"><a href="#7-el-terreno-adaptarlo-aplanar-y-tallar">7. El terreno: adaptarlo, aplanar y tallar</a></li><li class="n3"><a href="#adaptar-el-terreno-en-vivo-sin-destruirlo">Adaptar el terreno (en vivo, sin destruirlo)</a></li><li class="n3"><a href="#aplanar-y-tallar-de-una-vez">Aplanar y tallar de una vez</a></li><li class="n2"><a href="#8-desde-los-scripts-lua">8. Desde los scripts Lua</a></li><li class="n3"><a href="#un-coche-que-recorre-una-carretera">Un coche que recorre una carretera</a></li><li class="n3"><a href="#una-cámara-sobre-un-riel">Una cámara sobre un riel</a></li><li class="n3"><a href="#una-barca-que-flota-y-se-deja-llevar-por-la-corriente">Una barca que flota y se deja llevar por la corriente</a></li><li class="n3"><a href="#bajo-el-agua">¿Bajo el agua?</a></li><li class="n3"><a href="#se-ha-salido-de-la-carretera">¿Se ha salido de la carretera?</a></li><li class="n3"><a href="#una-carretera-hecha-por-código">Una carretera hecha por código</a></li><li class="n2"><a href="#9-referencia-de-la-api">9. Referencia de la API</a></li><li class="n2"><a href="#10-detalles-y-límites">10. Detalles y límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

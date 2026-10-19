@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escenas y componentes · Nova Engine</title>
+<meta name="description" content="Este documento explica cómo se organizan las escenas de Nova Engine: entidades, jerarquía, el Transform,
+todos los componentes del motor con sus campos, cómo se usan desde los scripts Lua, el formato JSON de los
+ficheros">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Escenas y componentes · Nova Engine">
+<meta property="og:description" content="Este documento explica cómo se organizan las escenas de Nova Engine: entidades, jerarquía, el Transform,
+todos los componentes del motor con sus campos, cómo se usan desde los scripts Lua, el formato JSON de los
+ficheros">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/escenas-y-componentes.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/escenas-y-componentes.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html" aria-current="page">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="escenas-y-componentes">Escenas y componentes</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#entidades">Entidades</a></li><li class="n3"><a href="#jerarquía-y-transform">Jerarquía y Transform</a></li><li class="n2"><a href="#componentes-del-motor">Componentes del motor</a></li><li class="n3"><a href="#transform-transform">Transform (Transform)</a></li><li class="n3"><a href="#camera-cámara">Camera (Cámara)</a></li><li class="n3"><a href="#directionallight-luz-direccional">DirectionalLight (Luz direccional)</a></li><li class="n3"><a href="#pointlight-luz-puntual">PointLight (Luz puntual)</a></li><li class="n3"><a href="#spotlight-foco">SpotLight (Foco)</a></li><li class="n3"><a href="#environment-entorno">Environment (Entorno)</a></li><li class="n3"><a href="#fogvolume-volumen-de-niebla">FogVolume (Volumen de niebla)</a></li><li class="n3"><a href="#meshrenderer-malla">MeshRenderer (Malla)</a></li><li class="n3"><a href="#skinnedmeshrenderer-malla-con-huesos">SkinnedMeshRenderer (Malla con huesos)</a></li><li class="n3"><a href="#animator-animador">Animator (Animador)</a></li><li class="n3"><a href="#boneattachment-enganche-a-hueso">BoneAttachment (Enganche a hueso)</a></li><li class="n3"><a href="#ik">IK</a></li><li class="n3"><a href="#script-scripts">Script (Scripts)</a></li><li class="n3"><a href="#leer-y-cambiar-componentes-desde-un-script">Leer y cambiar componentes desde un script</a></li><li class="n3"><a href="#físicas-audio-y-red">Físicas, audio y red</a></li><li class="n3"><a href="#interfaz">Interfaz</a></li><li class="n3"><a href="#efectos">Efectos</a></li><li class="n3"><a href="#tags-etiquetas">Tags (Etiquetas)</a></li><li class="n3"><a href="#prefabinstance-instancia-de-prefab">PrefabInstance (Instancia de prefab)</a></li><li class="n3"><a href="#name-y-unknowncomponents">Name y UnknownComponents</a></li><li class="n2"><a href="#formato-de-los-ficheros-scene">Formato de los ficheros .scene</a></li><li class="n2"><a href="#datos-propios-los-campos-de-un-script">Datos propios: los campos de un script</a></li><li class="n3"><a href="#componentes-y-sistemas-en-c">Componentes y sistemas en C++</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Este documento explica cómo se organizan las escenas de Nova Engine: entidades, jerarquía, el <code>Transform</code>,
+todos los componentes del motor con sus campos, cómo se usan desde los scripts Lua, el formato JSON de los
+ficheros <code>.scene</code> y cómo guardar datos propios en las entidades con los campos de un script.</p>
+<h2 id="entidades">Entidades<a class="ancla" href="#entidades" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una escena es una lista de entidades. Cada entidad tiene:</p>
+<ul>
+<li>Un <strong>UUID</strong> estable de 64 bits, que es lo que se guarda en los ficheros y lo que usan las referencias entre
+entidades (en Lua, <code>entidad.id</code>, un texto).</li>
+<li>Siempre, un nombre (el que se ve en la Jerarquía) y un <code>Transform</code>.</li>
+<li>Los componentes que le añadas (luces, mallas, cuerpos rígidos, sonidos, scripts...).</li>
+<li>Un estado <strong>activo</strong>. Una entidad inactiva, o con un ancestro inactivo, no se dibuja ni ejecuta scripts ni
+animaciones.</li>
+</ul>
+<p>En un script Lua, la entidad del script es <code>self.entity</code> y cualquier otra se busca con <code>Scene.Find(&quot;Puerta&quot;)</code>,
+<code>Scene.FindByTag(&quot;Enemigo&quot;)</code> o un campo <code>Entity()</code> que se elige en el Inspector. Una entidad es un valor
+<code>Entity</code> con sus datos y funciones:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>entidad.</code></th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>name</code>, <code>active</code></td>
+  <td>Nombre y si está activa (se pueden cambiar)</td>
+</tr>
+<tr>
+  <td><code>activeInHierarchy</code></td>
+  <td>Activa ella y todos sus padres</td>
+</tr>
+<tr>
+  <td><code>id</code></td>
+  <td>UUID (texto); <code>Scene.FindById(id)</code> la vuelve a encontrar</td>
+</tr>
+<tr>
+  <td><code>parent</code>, <code>children</code></td>
+  <td>Padre (se puede cambiar) e hijos</td>
+</tr>
+<tr>
+  <td><code>position</code>, <code>rotation</code></td>
+  <td>Posición y rotación <strong>en el mundo</strong> (se pueden cambiar)</td>
+</tr>
+<tr>
+  <td><code>transform</code></td>
+  <td>Su <code>Transform</code> (local: ver abajo)</td>
+</tr>
+<tr>
+  <td><code>GetComponent(n)</code>, <code>AddComponent(n)</code>, <code>HasComponent(n)</code>, <code>RemoveComponent(n)</code></td>
+  <td>Componentes por su nombre (<code>&quot;PointLight&quot;</code>, <code>&quot;RigidBody&quot;</code>...)</td>
+</tr>
+<tr>
+  <td><code>GetScript(n)</code>, <code>AddScript(n)</code></td>
+  <td>Sus scripts, Lua o C++ (<code>&quot;Puerta&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>SetParent(padre, mantenerMundo?)</code>, <code>FindChild(nombre)</code></td>
+  <td>Cambiar de padre; un descendiente por su nombre o su ruta (<code>&quot;Puerta/Bisagra&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>Destroy(segundos?)</code>, <code>IsValid()</code></td>
+  <td>Destruirla con todos sus hijos (al final del frame o con espera); si sigue existiendo</td>
+</tr>
+</tbody>
+</table></div>
+<p>La API completa de la escena (<code>Scene.Create</code>, <code>Scene.Instantiate</code>, <code>Scene.FindAllWithComponent</code>, cambiar de
+escena...) está en <a href="scripts-lua.html#entidades-y-escena">scripts-lua.md</a>.</p>
+<h3 id="jerarquía-y-transform">Jerarquía y Transform<a class="ancla" href="#jerarquía-y-transform" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las entidades forman un árbol. El <code>Transform</code> de una entidad es <strong>local</strong> respecto a su padre: la matriz de
+mundo es <code>padre * local</code>. Tiene <code>position</code> (metros), <code>rotation</code> (un <code>Quat</code>; el Inspector la muestra en grados de
+Euler) y <code>scale</code>. Desde un script:</p>
+<ul>
+<li><code>self.transform.position</code>, <code>rotation</code> y <code>scale</code> son los locales; <code>self.entity.position</code> y <code>rotation</code> (o
+<code>self.transform.worldPosition</code> y <code>worldRotation</code>), los del mundo.</li>
+<li><code>self.transform.forward</code>, <code>right</code> y <code>up</code> son las direcciones de la entidad en el mundo (<code>forward</code> es −Z).</li>
+<li>Los vectores son <strong>valores</strong>: <code>self.transform.position.x = 1</code> no cambia nada. Asigna el vector entero.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Crea una fila de farolas hijas de esta entidad al empezar y apaga la última al pulsar L</span>
+<span class="hl-k">local</span> <span class="hl-t">Farolas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(1, 20), Int]</span>
+<span class="hl-t">Farolas</span>.cantidad = <span class="hl-n">4</span>
+<span class="hl-a">--[Range(0.5, 10)]</span>
+<span class="hl-t">Farolas</span>.separacion = <span class="hl-n">3</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Farolas</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-b">self</span>.cantidad <span class="hl-k">do</span>
+        <span class="hl-k">local</span> farola = <span class="hl-t">Scene</span>.<span class="hl-f">Create</span>(<span class="hl-s">"Farola "</span> .. i, <span class="hl-b">self</span>.entity) <span class="hl-c">-- hija de esta entidad</span>
+        farola.transform.position = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>((i - <span class="hl-n">1</span>) * <span class="hl-b">self</span>.separacion, <span class="hl-n">2.5</span>, <span class="hl-n">0</span>) <span class="hl-c">-- local: respecto al padre</span>
+        farola:<span class="hl-f">AddTag</span>(<span class="hl-s">"Farola"</span>)
+        <span class="hl-k">local</span> luz = farola:<span class="hl-f">AddComponent</span>(<span class="hl-s">"PointLight"</span>)
+        luz.color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.85</span>, <span class="hl-n">0.6</span>)
+        luz.intensity = <span class="hl-n">12</span>
+        luz.range = <span class="hl-n">6</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Farolas</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"L"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">local</span> ultima = <span class="hl-b">self</span>.entity:<span class="hl-f">FindChild</span>(<span class="hl-s">"Farola "</span> .. <span class="hl-b">self</span>.cantidad)
+        <span class="hl-k">if</span> ultima <span class="hl-k">then</span>
+            ultima.active = <span class="hl-k">not</span> ultima.active
+        <span class="hl-k">end</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Farolas en la escena:"</span>, #<span class="hl-t">Scene</span>.<span class="hl-f">FindAllByTag</span>(<span class="hl-s">"Farola"</span>))
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Farolas</span></code></pre></div>
+<h2 id="componentes-del-motor">Componentes del motor<a class="ancla" href="#componentes-del-motor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Entre paréntesis, el nombre que muestra el Inspector. Los componentes <code>Name</code>, <code>PrefabInstance</code> y
+<code>UnknownComponents</code> no aparecen en el menú <strong>Añadir componente</strong>.</p>
+<h3 id="transform-transform">Transform (Transform)<a class="ancla" href="#transform-transform" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>position</code> (Posición)</td>
+  <td><code>Vec3</code></td>
+  <td>0, 0, 0</td>
+  <td>Local respecto al padre</td>
+</tr>
+<tr>
+  <td><code>rotation</code> (Rotación)</td>
+  <td><code>Quat</code></td>
+  <td>identidad</td>
+  <td>Se edita en grados de Euler</td>
+</tr>
+<tr>
+  <td><code>scale</code> (Escala)</td>
+  <td><code>Vec3</code></td>
+  <td>1, 1, 1</td>
+  <td></td>
+</tr>
+</tbody>
+</table></div>
+<p>En multijugador, la posición y la rotación (y la escala, si se marca) se replican con el componente <strong>Transform
+de red</strong>, no con estos campos: ver <a href="multijugador.html#5-componentes-de-red">multijugador.md</a>.</p>
+<h3 id="camera-cámara">Camera (Cámara)<a class="ancla" href="#camera-cámara" aria-label="Enlace a esta sección">#</a></h3>
+<p>La cámara mira hacia su eje -Z local.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>projection</code> (Proyección)</td>
+  <td>opción</td>
+  <td>Perspectiva</td>
+  <td>Perspectiva u Ortográfica</td>
+</tr>
+<tr>
+  <td><code>fieldOfView</code> (Campo de visión)</td>
+  <td>número</td>
+  <td>60</td>
+  <td>Grados, vertical (10 a 120)</td>
+</tr>
+<tr>
+  <td><code>orthographicSize</code> (Tamaño ortográfico)</td>
+  <td>número</td>
+  <td>5</td>
+  <td>Media altura visible en modo ortográfico</td>
+</tr>
+<tr>
+  <td><code>nearClip</code> (Plano cercano)</td>
+  <td>número</td>
+  <td>0.1</td>
+  <td>Metros</td>
+</tr>
+<tr>
+  <td><code>farClip</code> (Plano lejano)</td>
+  <td>número</td>
+  <td>500</td>
+  <td>Metros. Si queda por delante del cercano, se dibuja con el lejano justo detrás del cercano</td>
+</tr>
+<tr>
+  <td><code>primary</code> (Principal)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>La cámara que usa el juego. Si ninguna activa lo tiene, se usa la primera cámara activa</td>
+</tr>
+</tbody>
+</table></div>
+<p>La cámara no tiene color de fondo ni postproceso propios: el fondo es el cielo y el postproceso (exposición,
+bloom, FXAA...) es del componente Entorno.</p>
+<h3 id="directionallight-luz-direccional">DirectionalLight (Luz direccional)<a class="ancla" href="#directionallight-luz-direccional" aria-label="Enlace a esta sección">#</a></h3>
+<p>El sol. Ilumina en la dirección -Z de la entidad. Solo se usa la primera luz direccional activa.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>color</code></td>
+  <td>color</td>
+  <td>1, 0.96, 0.9</td>
+  <td>Lineal</td>
+</tr>
+<tr>
+  <td><code>intensity</code> (Intensidad)</td>
+  <td>número</td>
+  <td>3</td>
+  <td>0 a 50</td>
+</tr>
+<tr>
+  <td><code>volumetricIntensity</code> (Intensidad volumétrica)</td>
+  <td>número</td>
+  <td>1</td>
+  <td>Cuánto ilumina la niebla con «Luz volumétrica»: rayos de sol (0 = nada)</td>
+</tr>
+<tr>
+  <td><code>castShadows</code> (Proyectar sombras)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>shadowDistance</code> (Distancia de sombras)</td>
+  <td>número</td>
+  <td>60</td>
+  <td>Metros que cubren las cascadas</td>
+</tr>
+<tr>
+  <td><code>shadowCascades</code> (Cascadas)</td>
+  <td>entero</td>
+  <td>4</td>
+  <td>1 a 4</td>
+</tr>
+<tr>
+  <td><code>shadowResolution</code> (Resolución)</td>
+  <td>opción</td>
+  <td>2048</td>
+  <td>256, 512, 1024, 2048 o 4096 texeles de lado por cascada (en WARP, 1024 como mucho)</td>
+</tr>
+<tr>
+  <td><code>shadowSoftness</code> (Suavidad)</td>
+  <td>número</td>
+  <td>1</td>
+  <td>Radio del filtro PCF en texeles (0 = bordes duros, hasta 6)</td>
+</tr>
+<tr>
+  <td><code>shadowBias</code> (Sesgo de sombra)</td>
+  <td>número</td>
+  <td>0.0005</td>
+  <td>Evita el &quot;acné&quot; de sombras (en profundidad de la cascada)</td>
+</tr>
+<tr>
+  <td><code>shadowNormalBias</code> (Sesgo normal)</td>
+  <td>número</td>
+  <td>0.02</td>
+  <td>Desplaza la muestra a lo largo de la normal</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="pointlight-luz-puntual">PointLight (Luz puntual)<a class="ancla" href="#pointlight-luz-puntual" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>color</code></td>
+  <td>color</td>
+  <td>1, 1, 1</td>
+  <td>Lineal</td>
+</tr>
+<tr>
+  <td><code>intensity</code> (Intensidad)</td>
+  <td>número</td>
+  <td>5</td>
+  <td>0 a 500</td>
+</tr>
+<tr>
+  <td><code>range</code> (Alcance)</td>
+  <td>número</td>
+  <td>8</td>
+  <td>Metros; la luz llega a 0 en este radio</td>
+</tr>
+<tr>
+  <td><code>volumetricIntensity</code> (Intensidad volumétrica)</td>
+  <td>número</td>
+  <td>1</td>
+  <td>Cuánto ilumina la niebla con «Luz volumétrica»: el halo de una farola (0 = nada)</td>
+</tr>
+<tr>
+  <td><code>castShadows</code> (Proyectar sombras)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>La luz no atraviesa los objetos que proyectan sombra</td>
+</tr>
+<tr>
+  <td><code>shadowResolution</code> (Resolución)</td>
+  <td>opción</td>
+  <td>512</td>
+  <td>Texeles de lado de cada una de las 6 caras del cubo de sombras</td>
+</tr>
+<tr>
+  <td><code>shadowBias</code> (Sesgo de sombra)</td>
+  <td>número</td>
+  <td>1</td>
+  <td>En texeles del mapa de sombras</td>
+</tr>
+<tr>
+  <td><code>shadowNormalBias</code> (Sesgo normal)</td>
+  <td>número</td>
+  <td>1.5</td>
+  <td>En texeles, a lo largo de la normal</td>
+</tr>
+<tr>
+  <td><code>shadowSoftness</code> (Suavidad)</td>
+  <td>número</td>
+  <td>1</td>
+  <td>Radio del filtro PCF en texeles (0 = bordes duros, hasta 6)</td>
+</tr>
+<tr>
+  <td><code>shadowNearPlane</code> (Plano cercano)</td>
+  <td>número</td>
+  <td>0.05</td>
+  <td>Metros: lo que está más cerca de la luz no proyecta sombra</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="spotlight-foco">SpotLight (Foco)<a class="ancla" href="#spotlight-foco" aria-label="Enlace a esta sección">#</a></h3>
+<p>Apunta hacia el eje -Z de la entidad.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>color</code></td>
+  <td>color</td>
+  <td>1, 1, 1</td>
+  <td>Lineal</td>
+</tr>
+<tr>
+  <td><code>intensity</code> (Intensidad)</td>
+  <td>número</td>
+  <td>10</td>
+  <td>0 a 500</td>
+</tr>
+<tr>
+  <td><code>range</code> (Alcance)</td>
+  <td>número</td>
+  <td>12</td>
+  <td>Metros</td>
+</tr>
+<tr>
+  <td><code>innerAngle</code> (Ángulo interior)</td>
+  <td>número</td>
+  <td>20</td>
+  <td>Grados, mitad del cono, zona con intensidad completa</td>
+</tr>
+<tr>
+  <td><code>outerAngle</code> (Ángulo exterior)</td>
+  <td>número</td>
+  <td>30</td>
+  <td>Grados, mitad del cono, borde donde la luz llega a 0</td>
+</tr>
+<tr>
+  <td><code>volumetricIntensity</code> (Intensidad volumétrica)</td>
+  <td>número</td>
+  <td>1</td>
+  <td>Cuánto ilumina la niebla con «Luz volumétrica»: el cono de una linterna (0 = nada)</td>
+</tr>
+<tr>
+  <td><code>castShadows</code>, <code>shadowBias</code>, <code>shadowNormalBias</code>, <code>shadowSoftness</code>, <code>shadowNearPlane</code></td>
+  <td></td>
+  <td></td>
+  <td>Como en la luz puntual</td>
+</tr>
+<tr>
+  <td><code>shadowResolution</code> (Resolución)</td>
+  <td>opción</td>
+  <td>1024</td>
+  <td>Texeles de lado del mapa de sombras del foco</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cómo funcionan las sombras de las luces y qué hacer si se ven rayas o huecos: ver
+<a href="render-y-materiales.html#sombras">render-y-materiales.md</a>.</p>
+<h3 id="environment-entorno">Environment (Entorno)<a class="ancla" href="#environment-entorno" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cielo, luz ambiente, niebla, postproceso y nubes volumétricas. Solo se usa el primer Entorno activo de la escena.
+Sus campos se explican uno a uno en <a href="render-y-materiales.html#componente-entorno">render-y-materiales.md</a> y los de la
+sección <strong>Nubes</strong> (<code>cloudsEnabled</code>, <code>cloudCoverage</code>...) en <a href="nubes.html#3-ajustes-de-las-nubes">nubes.md</a>.
+La sección <strong>Niebla y luz volumétrica</strong> (con sus preajustes) está en <a href="niebla-volumetrica.html">niebla-volumetrica.md</a>.</p>
+<h3 id="fogvolume-volumen-de-niebla">FogVolume (Volumen de niebla)<a class="ancla" href="#fogvolume-volumen-de-niebla" aria-label="Enlace a esta sección">#</a></h3>
+<p>Niebla local con forma de caja, esfera o elipsoide (con la transformación de la entidad): humo en una habitación,
+bruma en un valle, niebla sobre un lago. Se ve con la <strong>Luz volumétrica</strong> del Entorno activa. Sus campos (<code>shape</code>,
+<code>size</code>, <code>radius</code>, <code>density</code>, <code>color</code>, <code>edgeFalloff</code>, <code>noiseStrength</code>, <code>noiseScale</code>, <code>priority</code>) se explican en
+<a href="niebla-volumetrica.html#5-volúmenes-de-niebla">niebla-volumetrica.md</a>.</p>
+<h3 id="meshrenderer-malla">MeshRenderer (Malla)<a class="ancla" href="#meshrenderer-malla" aria-label="Enlace a esta sección">#</a></h3>
+<p>Dibuja una malla estática de un modelo glTF o de una primitiva del motor.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>model</code> (Modelo)</td>
+  <td>asset (Model)</td>
+  <td>ninguno</td>
+  <td>Modelo o primitiva integrada (<code>builtin:Cubo</code>, <code>builtin:Esfera</code>...)</td>
+</tr>
+<tr>
+  <td><code>mesh</code> (Malla)</td>
+  <td>entero</td>
+  <td>0</td>
+  <td>Índice de la malla dentro del modelo; -1 dibuja todas con las transformaciones de sus nodos</td>
+</tr>
+<tr>
+  <td><code>materials</code> (Materiales)</td>
+  <td>lista de assets (Material)</td>
+  <td>vacío</td>
+  <td>Sustituye los materiales del modelo, uno por submalla en orden. Los huecos usan el material del modelo</td>
+</tr>
+<tr>
+  <td><code>castShadows</code> (Proyecta sombras)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Hace sombra al sol, a las luces puntuales y a los focos</td>
+</tr>
+<tr>
+  <td><code>receiveShadows</code> (Recibe sombras)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Si se desactiva, ninguna luz le hace sombra (la luz le llega igual)</td>
+</tr>
+<tr>
+  <td><code>visible</code> (Visible)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Desmarcado no se dibuja; la entidad, sus scripts y sus físicas siguen activos</td>
+</tr>
+<tr>
+  <td><code>shadowOnly</code> (Solo sombra)</td>
+  <td>booleano</td>
+  <td>false</td>
+  <td>Proyecta su sombra pero no se dibuja ni se puede seleccionar en la vista (con <code>castShadows</code>)</td>
+</tr>
+<tr>
+  <td><code>ownerVisibility</code> (Visibilidad en red)</td>
+  <td>opción</td>
+  <td>Todos</td>
+  <td><code>&quot;Todos&quot;</code>, <code>&quot;Solo el propietario&quot;</code> (brazos en primera persona) u <code>&quot;Oculto para el propietario&quot;</code> (su cuerpo: el dueño solo ve la sombra)</td>
+</tr>
+</tbody>
+</table></div>
+<p>En el Inspector, <code>castShadows</code> y <code>shadowOnly</code> son una sola opción, <strong>Sombras</strong>: Activadas, Desactivadas o Solo
+sombra (ver <a href="render-y-materiales.html#modos-de-sombra-de-las-mallas">render-y-materiales.md</a>).</p>
+<p>Primitivas integradas: Cubo (1 m), Esfera (radio 0,5 m), Plano (10 x 10 m), Cilindro, Cápsula y Cono.</p>
+<h3 id="skinnedmeshrenderer-malla-con-huesos">SkinnedMeshRenderer (Malla con huesos)<a class="ancla" href="#skinnedmeshrenderer-malla-con-huesos" aria-label="Enlace a esta sección">#</a></h3>
+<p>Malla con piel. Toma la pose del <code>Animator</code> de su propia entidad o del ancestro más cercano que lo tenga (si
+ese Animator usa el mismo modelo); si no, se dibuja en la pose de reposo. Se coloca con la transformación de la
+entidad del Animator (o con la suya propia si no hay ninguno), no con la de la entidad hija.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>model</code> (Modelo)</td>
+  <td>asset (Model)</td>
+  <td>ninguno</td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>mesh</code> (Malla)</td>
+  <td>entero</td>
+  <td>0</td>
+  <td>Índice de la malla en el modelo</td>
+</tr>
+<tr>
+  <td><code>skin</code> (Piel)</td>
+  <td>entero</td>
+  <td>0</td>
+  <td>Índice del esqueleto (skin) en el modelo</td>
+</tr>
+<tr>
+  <td><code>materials</code> (Materiales)</td>
+  <td>lista de assets (Material)</td>
+  <td>vacío</td>
+  <td>Igual que en Malla</td>
+</tr>
+<tr>
+  <td><code>castShadows</code> (Proyecta sombras)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Igual que en Malla</td>
+</tr>
+<tr>
+  <td><code>receiveShadows</code> (Recibe sombras)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Igual que en Malla</td>
+</tr>
+<tr>
+  <td><code>visible</code> (Visible)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Igual que en Malla</td>
+</tr>
+<tr>
+  <td><code>shadowOnly</code> (Solo sombra), <code>ownerVisibility</code> (Visibilidad en red)</td>
+  <td></td>
+  <td></td>
+  <td>Igual que en Malla</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="animator-animador">Animator (Animador)<a class="ancla" href="#animator-animador" aria-label="Enlace a esta sección">#</a></h3>
+<p>Reproduce las animaciones de un modelo. Explicado a fondo en
+<a href="modelos-y-animaciones.html#el-componente-animator">modelos-y-animaciones.md</a>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>model</code> (Modelo)</td>
+  <td>asset (Model)</td>
+  <td>ninguno</td>
+  <td>De dónde salen el esqueleto y los clips</td>
+</tr>
+<tr>
+  <td><code>controller</code> (Controlador)</td>
+  <td>asset (AnimatorController)</td>
+  <td>ninguno</td>
+  <td>Opcional (<code>.controller</code>)</td>
+</tr>
+<tr>
+  <td><code>clip</code> (Clip)</td>
+  <td>texto</td>
+  <td>vacío</td>
+  <td>Sin controlador: clip a reproducir (vacío = el primero)</td>
+</tr>
+<tr>
+  <td><code>speed</code> (Velocidad)</td>
+  <td>número</td>
+  <td>1</td>
+  <td>Multiplicador de velocidad</td>
+</tr>
+<tr>
+  <td><code>loop</code> (Bucle)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Sin controlador: repetir el clip</td>
+</tr>
+<tr>
+  <td><code>playInEditor</code> (Previsualizar)</td>
+  <td>booleano</td>
+  <td>true</td>
+  <td>Animar también en el editor sin pulsar Play</td>
+</tr>
+<tr>
+  <td><code>applyRootMotion</code> (Root motion)</td>
+  <td>booleano</td>
+  <td>false</td>
+  <td>El desplazamiento horizontal del hueso raíz mueve la entidad al jugar</td>
+</tr>
+<tr>
+  <td><code>rootMotionBone</code> (Hueso raíz)</td>
+  <td>texto</td>
+  <td>vacío</td>
+  <td>Hueso del root motion (vacío = el primero del esqueleto)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="boneattachment-enganche-a-hueso">BoneAttachment (Enganche a hueso)<a class="ancla" href="#boneattachment-enganche-a-hueso" aria-label="Enlace a esta sección">#</a></h3>
+<p>La entidad sigue un hueso (o un nodo vacío o un socket) del Animador de su antepasado más cercano o de la entidad
+de <strong>Animador</strong>. Su Transform es el desplazamiento respecto al hueso. Ver
+<a href="modelos-y-animaciones.html#enganchar-objetos-a-huesos">modelos-y-animaciones.md</a>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>animator</code> (Animador)</td>
+  <td>entidad</td>
+  <td>ninguna</td>
+  <td>Entidad con el Animador (vacío = el antepasado más cercano que lo tenga)</td>
+</tr>
+<tr>
+  <td><code>bone</code> (Hueso)</td>
+  <td>texto</td>
+  <td>vacío</td>
+  <td>Hueso, nodo vacío o socket del modelo (el Inspector tiene la lista)</td>
+</tr>
+<tr>
+  <td><code>inheritScale</code> (Heredar escala)</td>
+  <td>booleano</td>
+  <td>false</td>
+  <td>Heredar la escala del hueso y del personaje</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ik">IK<a class="ancla" href="#ik" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cinemática inversa sobre el Animador de la misma entidad: cadenas de <strong>Apuntar</strong> (<code>aims</code>: nombre, activo, peso,
+huesos, eje que apunta, objetivo, posición del objetivo, ángulo máximo) y <strong>Extremidades</strong> (<code>limbs</code>: nombre,
+activo, peso, mano o pie, objetivo, posición del objetivo, copiar rotación, pista). Ver
+<a href="modelos-y-animaciones.html#cinemática-inversa-ik">modelos-y-animaciones.md</a>.</p>
+<h3 id="script-scripts">Script (Scripts)<a class="ancla" href="#script-scripts" aria-label="Enlace a esta sección">#</a></h3>
+<p>Lista de scripts de la entidad: normalmente scripts Lua (<code>scripts/*.luau</code>, ver <a href="scripts-lua.html">scripts-lua.md</a>)
+y, si el proyecto los tiene, también de C++ (<a href="scripts-cpp.html">scripts-cpp.md</a>). Una entidad puede tener varios.
+Cada script tiene su casilla de activado y sus campos, que salen en el Inspector y se guardan con la escena. Se
+añaden arrastrando el fichero desde <strong>Contenido</strong> a la entidad, con <strong>Añadir script</strong> o desde otro script
+(<code>entidad:AddScript(&quot;Puerta&quot;)</code>).</p>
+<h3 id="leer-y-cambiar-componentes-desde-un-script">Leer y cambiar componentes desde un script<a class="ancla" href="#leer-y-cambiar-componentes-desde-un-script" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>GetComponent</code> devuelve el componente con <strong>todos sus campos</strong>, con los mismos nombres que estas tablas (los de
+la primera columna), o <code>nil</code> si la entidad no lo tiene. Lo que cambies jugando tiene efecto al momento:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+<span class="hl-k">if</span> camara <span class="hl-k">then</span>
+    camara:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Camera"</span>).fieldOfView = <span class="hl-n">40</span>       <span class="hl-c">-- zoom</span>
+<span class="hl-k">end</span>
+<span class="hl-k">local</span> luz = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"PointLight"</span>)
+<span class="hl-k">if</span> luz <span class="hl-k">then</span>
+    luz.intensity = luz.intensity * <span class="hl-n">0.5</span>                  <span class="hl-c">-- números</span>
+    luz.castShadows = <span class="hl-b">false</span>                              <span class="hl-c">-- booleanos</span>
+<span class="hl-k">end</span>
+<span class="hl-k">local</span> malla = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"MeshRenderer"</span>)
+<span class="hl-k">if</span> malla <span class="hl-k">then</span>
+    malla.visible = <span class="hl-b">false</span>                                <span class="hl-c">-- deja de dibujarse; scripts y físicas siguen</span>
+<span class="hl-k">end</span>
+<span class="hl-k">local</span> proyeccion = camara <span class="hl-k">and</span> camara:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Camera"</span>).projection <span class="hl-c">-- las opciones son textos: "Perspectiva"</span></code></pre></div>
+<p>Los campos de tipo lista (como <code>materials</code>) son una <strong>copia</strong>: cambiar un elemento no cambia nada; asigna la lista
+entera. Algunos componentes tienen funciones extra (<code>RigidBody:AddImpulse</code>, <code>Animator:SetFloat</code>,
+<code>AudioSource:Play</code>, <code>MeshRenderer:SetColor</code>...): ver <a href="scripts-lua.html#entidades-y-escena">scripts-lua.md</a>.</p>
+<h3 id="físicas-audio-y-red">Físicas, audio y red<a class="ancla" href="#físicas-audio-y-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>Estos componentes tienen su propio documento con todos sus campos:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Componente (Inspector)</th>
+  <th>Categoría</th>
+  <th>Para qué</th>
+  <th>Documento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Collider</code> (Colisionador)</td>
+  <td>Física</td>
+  <td>Forma de colisión. Sin cuerpo rígido es nivel estático; como sensor avisa con <code>OnTriggerEnter</code></td>
+  <td><a href="fisicas.html#colisionador-collider">fisicas.md</a></td>
+</tr>
+<tr>
+  <td><code>RigidBody</code> (Cuerpo rígido)</td>
+  <td>Física</td>
+  <td>La entidad se mueve con las físicas (estático, cinemático o dinámico)</td>
+  <td><a href="fisicas.html#cuerpo-rígido-rigidbody">fisicas.md</a></td>
+</tr>
+<tr>
+  <td><code>CharacterController</code> (Controlador de personaje)</td>
+  <td>Física</td>
+  <td>Jugadores y NPCs: andar, escalones, rampas, saltar, empujar</td>
+  <td><a href="fisicas.html#controlador-de-personaje-charactercontroller">fisicas.md</a></td>
+</tr>
+<tr>
+  <td><code>Joint</code> (Articulación)</td>
+  <td>Física</td>
+  <td>Une dos cuerpos (bisagra, rótula, corredera, distancia, fija)</td>
+  <td><a href="fisicas.html#articulación-joint">fisicas.md</a></td>
+</tr>
+<tr>
+  <td><code>Hitbox</code> (Caja de impacto)</td>
+  <td>Física</td>
+  <td>Forma para los disparos (cabeza, torso...) con su multiplicador de daño; no choca. La usan <code>Physics.RaycastRewind</code> y <code>Physics.RaycastHitboxes</code></td>
+  <td><a href="multijugador.html#181-cajas-de-impacto">multijugador.md</a></td>
+</tr>
+<tr>
+  <td><code>AudioSource</code> (Fuente de audio)</td>
+  <td>Audio</td>
+  <td>Reproduce un sonido en 2D o en 3D desde la entidad</td>
+  <td><a href="audio.html#fuente-de-audio-audiosource">audio.md</a></td>
+</tr>
+<tr>
+  <td><code>AudioListener</code> (Oyente de audio)</td>
+  <td>Audio</td>
+  <td>La «oreja» (normalmente en la cámara) y el volumen general</td>
+  <td><a href="audio.html#oyente-de-audio-audiolistener">audio.md</a></td>
+</tr>
+<tr>
+  <td><code>NetworkIdentity</code> (Identidad de red)</td>
+  <td>Red</td>
+  <td>La entidad existe en la red: el servidor la crea en los clientes</td>
+  <td><a href="multijugador.html#identidad-de-red-networkidentity">multijugador.md</a></td>
+</tr>
+<tr>
+  <td><code>NetworkTransform</code> (Transform de red)</td>
+  <td>Red</td>
+  <td>Replica posición y rotación, interpoladas en los clientes</td>
+  <td><a href="multijugador.html#transform-de-red-networktransform">multijugador.md</a></td>
+</tr>
+<tr>
+  <td><code>NetworkAnimator</code> (Animador de red)</td>
+  <td>Red</td>
+  <td>Replica los parámetros, disparadores y pesos de capa del Animador</td>
+  <td><a href="multijugador.html#animador-de-red-networkanimator">multijugador.md</a></td>
+</tr>
+<tr>
+  <td><code>PlayerSpawner</code> (Aparición de jugadores)</td>
+  <td>Red</td>
+  <td>Crea un personaje (prefab) por cada jugador que entra</td>
+  <td><a href="multijugador.html#aparición-de-jugadores-playerspawner">multijugador.md</a></td>
+</tr>
+<tr>
+  <td><code>Vehicle</code> (Vehículo)</td>
+  <td>Vehículos</td>
+  <td>Coche, moto u orugas: ruedas con suspensión, motor y caja de cambios (con Colisionador y Cuerpo rígido dinámico)</td>
+  <td><a href="vehiculos.html#2-coches-motos-y-orugas-el-componente-vehículo">vehiculos.md</a></td>
+</tr>
+<tr>
+  <td><code>Aircraft</code> (Aeronave)</td>
+  <td>Vehículos</td>
+  <td>Helicóptero o avión: colectivo, cabeceo, alabeo y guiñada, estabilización, motor y daño</td>
+  <td><a href="vehiculos.html#3-helicópteros-y-aviones-el-componente-aeronave">vehiculos.md</a></td>
+</tr>
+<tr>
+  <td><code>VehicleSeats</code> (Asientos)</td>
+  <td>Vehículos</td>
+  <td>Asientos de conductor y pasajeros; subir y bajar con F</td>
+  <td><a href="vehiculos.html#4-asientos-subir-y-bajar">vehiculos.md</a></td>
+</tr>
+<tr>
+  <td><code>VehicleCamera</code> (Cámara de vehículo)</td>
+  <td>Vehículos</td>
+  <td>En la cámara: sigue al vehículo del jugador local en tercera o primera persona</td>
+  <td><a href="vehiculos.html#6-cámara-de-vehículo">vehiculos.md</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Los campos de estado que escriben las físicas o la red (velocidad del personaje, dueño de la entidad...) se ven
+en el Inspector como solo lectura y no se guardan.</p>
+<h3 id="interfaz">Interfaz<a class="ancla" href="#interfaz" aria-label="Enlace a esta sección">#</a></h3>
+<p>La categoría <strong>Interfaz</strong> del menú <strong>Añadir componente</strong> tiene los componentes del HUD y los menús: <strong>Lienzo</strong>
+(<code>UiCanvas</code>), <strong>Escalador del lienzo</strong>, <strong>Rectángulo (UI)</strong> (<code>UiRect</code>, que en los elementos de interfaz
+sustituye al Transform), <strong>Imagen</strong>, <strong>Texto</strong>, <strong>Botón</strong>, <strong>Interruptor</strong>, <strong>Deslizador</strong>, <strong>Barra de
+progreso</strong>, <strong>Campo de texto</strong>, <strong>Vista con desplazamiento</strong>, <strong>Desplegable</strong>, <strong>Grupo de layout</strong>,
+<strong>Elemento de layout</strong>, <strong>Máscara (recorte)</strong>, <strong>Grupo (alfa)</strong>, <strong>Pantalla</strong> y <strong>Animación de UI</strong>. Se guardan
+en la escena como los demás (los enums por su texto, por ejemplo <code>&quot;mode&quot;: &quot;Pantalla&quot;</code>) y se editan
+visualmente en el panel <strong>Interfaz</strong>. La tabla con todos sus campos está en
+<a href="interfaz-ui.html#widgets-y-componentes">interfaz-ui.md</a>.</p>
+<h3 id="efectos">Efectos<a class="ancla" href="#efectos" aria-label="Enlace a esta sección">#</a></h3>
+<p>La categoría <strong>Efectos</strong> tiene el <strong>Sistema de partículas</strong> (<code>ParticleSystem</code>): fuego, humo, chispas, explosiones,
+lluvia... con sus módulos, sus preajustes (menú <strong>Entidad &gt; Efectos</strong>) y la API de Lua (<code>Play</code>, <code>Stop</code>, <code>Emit</code>,
+<code>EmitAt</code>, <code>Effects.Spawn</code>). Todo está en <a href="particulas.html">particulas.md</a>.</p>
+<h3 id="tags-etiquetas">Tags (Etiquetas)<a class="ancla" href="#tags-etiquetas" aria-label="Enlace a esta sección">#</a></h3>
+<p>Una lista de textos (<code>&quot;Enemigo&quot;</code>, <code>&quot;Recogible&quot;</code>...) para encontrar entidades sin depender de su nombre. Desde
+un script: <code>Scene.FindByTag(&quot;Enemigo&quot;)</code>, <code>Scene.FindAllByTag(...)</code>, <code>entidad:HasTag(...)</code>, <code>AddTag</code> y
+<code>RemoveTag</code> (ver <a href="scripts-lua.html#entidades-y-escena">scripts-lua.md</a>). Desde la 0.9.24 son <strong>etiquetas de juego</strong>
+jerárquicas (<code>Objeto.Botin.Oro</code>): <code>HasTag(&quot;Objeto.Botin&quot;)</code> encaja también con sus hijas, se eligen en el Inspector con un
+selector en árbol y se replican si la entidad tiene Identidad de red (ver <a href="utilidades-lua.html">utilidades-lua.md</a>).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>values</code> (Etiquetas)</td>
+  <td>lista de textos</td>
+  <td>vacío</td>
+  <td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="prefabinstance-instancia-de-prefab">PrefabInstance (Instancia de prefab)<a class="ancla" href="#prefabinstance-instancia-de-prefab" aria-label="Enlace a esta sección">#</a></h3>
+<p>Marca la raíz de una instancia de prefab. Tiene un solo campo, <code>prefab</code> (el asset del prefab, solo lectura).
+Ver <a href="prefabs.html">prefabs.md</a>.</p>
+<h3 id="name-y-unknowncomponents">Name y UnknownComponents<a class="ancla" href="#name-y-unknowncomponents" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Name</code> guarda el nombre de la entidad (en los ficheros va en la clave <code>&quot;name&quot;</code> de la entidad).
+<code>UnknownComponents</code> es interno: conserva los datos de componentes cuyo tipo no está registrado (por ejemplo, un
+componente de C++ de un proyecto cuya DLL no está cargada) para no perderlos al guardar.</p>
+<h2 id="formato-de-los-ficheros-scene">Formato de los ficheros .scene<a class="ancla" href="#formato-de-los-ficheros-scene" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una escena es un fichero JSON con la cabecera <code>&quot;nova&quot;: &quot;scene&quot;</code>, la versión del formato, el nombre y la lista
+de entidades. Las entidades van en profundidad (cada padre antes que sus hijos) y conservan el orden entre
+hermanos. Este es un fragmento real de <code>game/sample/assets/scenes/Principal.scene</code> (el sol, un grupo vacío y
+una caja hija que es instancia de un prefab):</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"nova"</span>: <span class="hl-s">"scene"</span>,
+  <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"name"</span>: <span class="hl-s">"Principal"</span>,
+  <span class="hl-k">"entities"</span>: [
+    {
+      <span class="hl-k">"id"</span>: <span class="hl-s">"35d0ae69e25f21e8"</span>,
+      <span class="hl-k">"name"</span>: <span class="hl-s">"Sol"</span>,
+      <span class="hl-k">"components"</span>: {
+        <span class="hl-k">"Transform"</span>: {
+          <span class="hl-k">"position"</span>: [<span class="hl-n">0</span>, <span class="hl-n">10</span>, <span class="hl-n">0</span>],
+          <span class="hl-k">"rotation"</span>: [<span class="hl-n">-0.1660347</span>, <span class="hl-n">-0.802113</span>, <span class="hl-n">-0.2606223</span>, <span class="hl-n">0.5110023</span>],
+          <span class="hl-k">"scale"</span>: [<span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>]
+        },
+        <span class="hl-k">"DirectionalLight"</span>: {
+          <span class="hl-k">"color"</span>: [<span class="hl-n">1</span>, <span class="hl-n">0.94</span>, <span class="hl-n">0.84</span>],
+          <span class="hl-k">"intensity"</span>: <span class="hl-n">4</span>,
+          <span class="hl-k">"castShadows"</span>: <span class="hl-b">true</span>,
+          <span class="hl-k">"shadowDistance"</span>: <span class="hl-n">45</span>,
+          <span class="hl-k">"shadowBias"</span>: <span class="hl-n">5e-04</span>,
+          <span class="hl-k">"shadowNormalBias"</span>: <span class="hl-n">0.02</span>
+        }
+      }
+    },
+    {
+      <span class="hl-k">"id"</span>: <span class="hl-s">"6dc6bb5e946904f7"</span>,
+      <span class="hl-k">"name"</span>: <span class="hl-s">"Cajas"</span>,
+      <span class="hl-k">"components"</span>: {
+        <span class="hl-k">"Transform"</span>: {
+          <span class="hl-k">"position"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>],
+          <span class="hl-k">"rotation"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>],
+          <span class="hl-k">"scale"</span>: [<span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>]
+        }
+      }
+    },
+    {
+      <span class="hl-k">"id"</span>: <span class="hl-s">"5ba71783e81bdabe"</span>,
+      <span class="hl-k">"parent"</span>: <span class="hl-s">"6dc6bb5e946904f7"</span>,
+      <span class="hl-k">"name"</span>: <span class="hl-s">"Caja"</span>,
+      <span class="hl-k">"components"</span>: {
+        <span class="hl-k">"Transform"</span>: {
+          <span class="hl-k">"position"</span>: [<span class="hl-n">-3.2</span>, <span class="hl-n">0.5</span>, <span class="hl-n">-3.5</span>],
+          <span class="hl-k">"rotation"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0.104528464</span>, <span class="hl-n">0</span>, <span class="hl-n">0.9945219</span>],
+          <span class="hl-k">"scale"</span>: [<span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>]
+        },
+        <span class="hl-k">"MeshRenderer"</span>: {
+          <span class="hl-k">"model"</span>: {
+            <span class="hl-k">"id"</span>: <span class="hl-s">"00000000000b0001"</span>,
+            <span class="hl-k">"path"</span>: <span class="hl-s">"builtin:Cubo"</span>
+          },
+          <span class="hl-k">"mesh"</span>: <span class="hl-n">0</span>,
+          <span class="hl-k">"materials"</span>: [
+            {
+              <span class="hl-k">"id"</span>: <span class="hl-s">"22eeb8cc1fa2d1f9"</span>,
+              <span class="hl-k">"path"</span>: <span class="hl-s">"materials/Caja.mat"</span>
+            }
+          ],
+          <span class="hl-k">"castShadows"</span>: <span class="hl-b">true</span>
+        },
+        <span class="hl-k">"PrefabInstance"</span>: {
+          <span class="hl-k">"prefab"</span>: {
+            <span class="hl-k">"id"</span>: <span class="hl-s">"5853267f37d0fcae"</span>,
+            <span class="hl-k">"path"</span>: <span class="hl-s">"prefabs/Caja.prefab"</span>
+          }
+        }
+      }
+    }
+  ]
+}</code></pre></div>
+<p>Reglas del formato:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Elemento</th>
+  <th>Cómo se escribe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>id</code>, <code>parent</code></td>
+  <td>UUID en 16 dígitos hexadecimales. Sin <code>parent</code>, la entidad es raíz</td>
+</tr>
+<tr>
+  <td><code>active</code></td>
+  <td>Solo aparece si la entidad está inactiva (<code>&quot;active&quot;: false</code>)</td>
+</tr>
+<tr>
+  <td><code>components</code></td>
+  <td>Objeto con una clave por componente: su nombre (<code>&quot;PointLight&quot;</code>, <code>&quot;RigidBody&quot;</code>...)</td>
+</tr>
+<tr>
+  <td><code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code></td>
+  <td>Arrays de 2, 3 o 4 números</td>
+</tr>
+<tr>
+  <td><code>Quat</code></td>
+  <td>Array <code>[x, y, z, w]</code></td>
+</tr>
+<tr>
+  <td>Opciones</td>
+  <td>El nombre de la opción (por ejemplo <code>&quot;projection&quot;: &quot;Perspectiva&quot;</code>)</td>
+</tr>
+<tr>
+  <td>Asset</td>
+  <td>Objeto <code>{&quot;id&quot;: ..., &quot;path&quot;: ...}</code> o <code>null</code>. Si el <code>id</code> ya no existe (se perdió el <code>.meta</code>), se busca por <code>path</code></td>
+</tr>
+<tr>
+  <td>Entidad</td>
+  <td>El UUID de la entidad como texto, o <code>null</code></td>
+</tr>
+<tr>
+  <td>Listas</td>
+  <td>Array</td>
+</tr>
+<tr>
+  <td>Estructuras</td>
+  <td>Objeto con sus campos</td>
+</tr>
+</tbody>
+</table></div>
+<p>El componente <code>Script</code> tiene su propio formato: una lista de scripts con su nombre (el del fichero para los Lua),
+sus campos y, si está desactivado, <code>&quot;enabled&quot;: false</code>. Los campos que falten toman su valor por defecto. Este es
+el rotador de <code>game/sample_lua/assets/scenes/Principal.scene</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"Script"</span>: {
+  <span class="hl-k">"scripts"</span>: [
+    {
+      <span class="hl-k">"type"</span>: <span class="hl-s">"Rotador.luau"</span>,
+      <span class="hl-k">"fields"</span>: {
+        <span class="hl-k">"eje"</span>: [<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>],
+        <span class="hl-k">"gradosPorSegundo"</span>: <span class="hl-n">60</span>
+      }
+    }
+  ]
+}</code></pre></div>
+<p>Al cargar, los campos que no aparecen en el fichero conservan el valor por defecto del tipo, y los que el tipo
+ya no tiene se ignoran. El lector de JSON admite comentarios de línea (<code>// ...</code>), útil al editar a mano.</p>
+<p>Los prefabs (<code>.prefab</code>) usan el mismo formato con <code>&quot;nova&quot;: &quot;prefab&quot;</code>; ver <a href="prefabs.html">prefabs.md</a>.</p>
+<h2 id="datos-propios-los-campos-de-un-script">Datos propios: los campos de un script<a class="ancla" href="#datos-propios-los-campos-de-un-script" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para guardar datos propios en una entidad (la vida, el equipo, el dinero de una caja fuerte...) no hace falta un
+componente nuevo: un script Lua con <strong>campos</strong> hace ese papel. Sus campos salen en el Inspector, se guardan con
+la escena, entran en los prefabs, en el deshacer y en la edición en equipo, y con <code>--[Replicated]</code> viajan por la
+red. Todos los atributos y tipos de campo están en <a href="scripts-lua.html#5-atributos">scripts-lua.md</a>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Puntos de vida de cualquier entidad: los demás scripts la usan con entidad:GetScript("Salud")</span>
+<span class="hl-k">local</span> <span class="hl-t">Salud</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Header("Vida")]</span>
+<span class="hl-a">--[Range(0, 1000), Tooltip("Vida actual"), Replicated(onChange = "AlCambiar")]</span>
+<span class="hl-t">Salud</span>.vida = <span class="hl-n">100</span>
+<span class="hl-a">--[Range(1, 1000), Display("Vida máxima")]</span>
+<span class="hl-t">Salud</span>.maxima = <span class="hl-n">100</span>
+<span class="hl-t">Salud</span>.invencible = <span class="hl-b">false</span>
+<span class="hl-t">Salud</span>.equipo = <span class="hl-f">Enum</span>({ <span class="hl-s">"Rojo"</span>, <span class="hl-s">"Azul"</span> }, <span class="hl-s">"Rojo"</span>)
+<span class="hl-a">--[Color, Display("Color de la barra")]</span>
+<span class="hl-t">Salud</span>.colorBarra = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0.2</span>, <span class="hl-n">0.9</span>, <span class="hl-n">0.3</span>)
+
+<span class="hl-a">--[Header("Al morir")]</span>
+<span class="hl-a">--[Tooltip("Prefab que aparece en su lugar (opcional)")]</span>
+<span class="hl-t">Salud</span>.restos = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+
+<span class="hl-c">-- En el servidor (o sin red): quita vida y, a cero, deja los restos y destruye la entidad</span>
+<span class="hl-k">function</span> <span class="hl-t">Salud</span>:<span class="hl-f">Danar</span>(cantidad: number)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.invencible <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.vida = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>.vida - cantidad)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.vida == <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-k">if</span> <span class="hl-b">self</span>.restos <span class="hl-k">then</span>
+            <span class="hl-t">Scene</span>.<span class="hl-f">Instantiate</span>(<span class="hl-b">self</span>.restos, <span class="hl-b">self</span>.entity.position)
+        <span class="hl-k">end</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Destroy</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Salud</span>:<span class="hl-f">Curar</span>()
+    <span class="hl-k">if</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.vida = <span class="hl-b">self</span>.maxima
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- En los clientes, cuando llega un valor nuevo de la vida (con Identidad de red)</span>
+<span class="hl-k">function</span> <span class="hl-t">Salud</span>:<span class="hl-f">AlCambiar</span>()
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s tiene %d de vida"</span>, <span class="hl-b">self</span>.name, <span class="hl-b">self</span>.vida))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Salud</span></code></pre></div>
+<p>Otro script la usa así:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> salud = golpe.entity:<span class="hl-f">GetScript</span>(<span class="hl-s">"Salud"</span>)
+<span class="hl-k">if</span> salud <span class="hl-k">then</span>
+    salud:<span class="hl-f">Danar</span>(<span class="hl-n">25</span>)
+<span class="hl-k">end</span></code></pre></div>
+<h3 id="componentes-y-sistemas-en-c">Componentes y sistemas en C++<a class="ancla" href="#componentes-y-sistemas-en-c" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los scripts Lua no crean tipos de componente nuevos: un script con campos hace ese papel. Si un proyecto
+necesita un componente de C++ de verdad (por ejemplo, para un sistema que recorre miles de entidades en cada
+frame), se declara con <code>NOVA_COMPONENT</code> y <code>NOVA_SYSTEM</code> en la DLL de scripts C++ del proyecto: ver
+<a href="scripts-cpp.html#componentes-y-sistemas-propios">scripts-cpp.md</a>. Los componentes de C++ salen en <strong>Añadir
+componente</strong> y se usan desde Lua como los del motor (<code>GetComponent(&quot;Salud&quot;)</code>). Cómo está hecha la escena por
+dentro (manejadores, almacenes, reflexión) está en <span class="enlace-interno-quitado">arquitectura.md</span>.</p>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li>
+<li><a href="render-y-materiales.html">Render y materiales</a></li>
+<li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li>
+<li><a href="prefabs.html">Prefabs</a></li>
+<li><a href="fisicas.html">Físicas</a>, <a href="audio.html">Audio</a> y <a href="multijugador.html">Multijugador</a></li>
+<li><a href="editor.html">Editor</a></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="scripts-lua.html"><small>Anterior</small>Scripts en Lua</a><a class="sig" href="utilidades-lua.html"><small>Siguiente</small>Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#entidades">Entidades</a></li><li class="n3"><a href="#jerarquía-y-transform">Jerarquía y Transform</a></li><li class="n2"><a href="#componentes-del-motor">Componentes del motor</a></li><li class="n3"><a href="#transform-transform">Transform (Transform)</a></li><li class="n3"><a href="#camera-cámara">Camera (Cámara)</a></li><li class="n3"><a href="#directionallight-luz-direccional">DirectionalLight (Luz direccional)</a></li><li class="n3"><a href="#pointlight-luz-puntual">PointLight (Luz puntual)</a></li><li class="n3"><a href="#spotlight-foco">SpotLight (Foco)</a></li><li class="n3"><a href="#environment-entorno">Environment (Entorno)</a></li><li class="n3"><a href="#fogvolume-volumen-de-niebla">FogVolume (Volumen de niebla)</a></li><li class="n3"><a href="#meshrenderer-malla">MeshRenderer (Malla)</a></li><li class="n3"><a href="#skinnedmeshrenderer-malla-con-huesos">SkinnedMeshRenderer (Malla con huesos)</a></li><li class="n3"><a href="#animator-animador">Animator (Animador)</a></li><li class="n3"><a href="#boneattachment-enganche-a-hueso">BoneAttachment (Enganche a hueso)</a></li><li class="n3"><a href="#ik">IK</a></li><li class="n3"><a href="#script-scripts">Script (Scripts)</a></li><li class="n3"><a href="#leer-y-cambiar-componentes-desde-un-script">Leer y cambiar componentes desde un script</a></li><li class="n3"><a href="#físicas-audio-y-red">Físicas, audio y red</a></li><li class="n3"><a href="#interfaz">Interfaz</a></li><li class="n3"><a href="#efectos">Efectos</a></li><li class="n3"><a href="#tags-etiquetas">Tags (Etiquetas)</a></li><li class="n3"><a href="#prefabinstance-instancia-de-prefab">PrefabInstance (Instancia de prefab)</a></li><li class="n3"><a href="#name-y-unknowncomponents">Name y UnknownComponents</a></li><li class="n2"><a href="#formato-de-los-ficheros-scene">Formato de los ficheros .scene</a></li><li class="n2"><a href="#datos-propios-los-campos-de-un-script">Datos propios: los campos de un script</a></li><li class="n3"><a href="#componentes-y-sistemas-en-c">Componentes y sistemas en C++</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

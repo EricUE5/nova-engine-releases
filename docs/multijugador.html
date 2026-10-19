@@ -1,0 +1,2352 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multijugador: tutorial y guía · Nova Engine</title>
+<meta name="description" content="Esta guía enseña a hacer juegos multijugador con Nova Engine sin tocar la red a bajo nivel: se marcan las
+entidades que existen en la red y, en los scripts Lua, los campos y las funciones que viajan, con atributos en
+com">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Multijugador: tutorial y guía · Nova Engine">
+<meta property="og:description" content="Esta guía enseña a hacer juegos multijugador con Nova Engine sin tocar la red a bajo nivel: se marcan las
+entidades que existen en la red y, en los scripts Lua, los campos y las funciones que viajan, con atributos en
+com">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/multijugador.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/multijugador.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html" aria-current="page">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="multijugador-tutorial-y-guía">Multijugador: tutorial y guía</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-prueba-el-ejemplo-en-cinco-minutos">1. Prueba el ejemplo en cinco minutos</a></li><li class="n2"><a href="#2-conceptos">2. Conceptos</a></li><li class="n3"><a href="#servidor-autoritativo">Servidor autoritativo</a></li><li class="n3"><a href="#replicación">Replicación</a></li><li class="n3"><a href="#interpolación">Interpolación</a></li><li class="n3"><a href="#predicción-y-reconciliación">Predicción y reconciliación</a></li><li class="n3"><a href="#funciones-de-red-rpc">Funciones de red (RPC)</a></li><li class="n3"><a href="#dueño-ownership">Dueño (ownership)</a></li><li class="n3"><a href="#modos-de-red">Modos de red</a></li><li class="n2"><a href="#3-cómo-encaja-todo">3. Cómo encaja todo</a></li><li class="n2"><a href="#4-tutorial-arena-de-monedas">4. Tutorial: Arena de monedas</a></li><li class="n3"><a href="#41-crear-el-proyecto">4.1 Crear el proyecto</a></li><li class="n3"><a href="#42-ajustes-de-red-del-proyecto">4.2 Ajustes de red del proyecto</a></li><li class="n3"><a href="#43-el-mapa-suelo-y-cajas-con-físicas-del-servidor">4.3 El mapa: suelo y cajas con físicas del servidor</a></li><li class="n3"><a href="#44-el-prefab-del-jugador">4.4 El prefab del jugador</a></li><li class="n3"><a href="#45-la-aparición-de-jugadores">4.5 La aparición de jugadores</a></li><li class="n3"><a href="#46-los-scripts">4.6 Los scripts</a></li><li class="n3"><a href="#47-probarlo">4.7 Probarlo</a></li><li class="n2"><a href="#5-componentes-de-red">5. Componentes de red</a></li><li class="n3"><a href="#identidad-de-red-networkidentity">Identidad de red (NetworkIdentity)</a></li><li class="n3"><a href="#transform-de-red-networktransform">Transform de red (NetworkTransform)</a></li><li class="n3"><a href="#animador-de-red-networkanimator">Animador de red (NetworkAnimator)</a></li><li class="n3"><a href="#aparición-de-jugadores-playerspawner">Aparición de jugadores (PlayerSpawner)</a></li><li class="n2"><a href="#6-autoridad-quién-ejecuta-qué">6. Autoridad: quién ejecuta qué</a></li><li class="n2"><a href="#7-campos-replicados">7. Campos replicados</a></li><li class="n2"><a href="#8-funciones-de-red-server-client-y-multicast">8. Funciones de red: [Server], [Client] y [Multicast]</a></li><li class="n2"><a href="#9-movimiento-predicho-con-charactercontroller">9. Movimiento predicho con CharacterController</a></li><li class="n2"><a href="#10-objetos-con-física-del-servidor">10. Objetos con física del servidor</a></li><li class="n2"><a href="#11-crear-y-destruir-objetos-durante-la-partida">11. Crear y destruir objetos durante la partida</a></li><li class="n2"><a href="#12-interfaz-en-partida-y-menú">12. Interfaz en partida y menú</a></li><li class="n2"><a href="#13-modos-de-juego-del-editor">13. Modos de juego del editor</a></li><li class="n3"><a href="#registros-server-y-client">Registros: Server: y Client:</a></li><li class="n2"><a href="#14-estadísticas-f3-red-mala-y-red-local">14. Estadísticas (F3), red mala y red local</a></li><li class="n3"><a href="#estadísticas">Estadísticas</a></li><li class="n3"><a href="#probar-con-red-mala">Probar con red mala</a></li><li class="n3"><a href="#red-local-lan">Red local (LAN)</a></li><li class="n3"><a href="#por-internet-con-un-código-nova-enlace">Por Internet con un código (Nova Enlace)</a></li><li class="n2"><a href="#15-los-ejemplos">15. Los ejemplos</a></li><li class="n2"><a href="#16-errores-comunes">16. Errores comunes</a></li><li class="n2"><a href="#17-limitaciones-actuales">17. Limitaciones actuales</a></li><li class="n2"><a href="#18-disparos-y-compensación-de-latencia">18. Disparos y compensación de latencia</a></li><li class="n3"><a href="#181-cajas-de-impacto">18.1 Cajas de impacto</a></li><li class="n3"><a href="#182-disparar-con-el-servidor-al-mando">18.2 Disparar con el servidor al mando</a></li><li class="n3"><a href="#183-referencia">18.3 Referencia</a></li><li class="n3"><a href="#184-trampas-que-evita-y-las-que-no">18.4 Trampas que evita (y las que no)</a></li><li class="n3"><a href="#185-cómo-funciona">18.5 Cómo funciona</a></li><li class="n2"><a href="#19-sala-escenas-sincronizadas-chat-e-interacciones">19. Sala, escenas sincronizadas, chat e interacciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Esta guía enseña a hacer juegos multijugador con Nova Engine sin tocar la red a bajo nivel: se marcan las
+entidades que existen en la red y, en los scripts Lua, los campos y las funciones que viajan, con atributos en
+comentarios (<code>--[Replicated]</code>, <code>--[Server]</code>, <code>--[Client]</code>, <code>--[Multicast]</code>). El motor se encarga del resto
+(conexiones, replicación, predicción del personaje, interpolación y llamadas remotas). Un mismo fichero sirve
+para el servidor y para los clientes.</p>
+<p>Empieza probando el ejemplo <code>game/multiplayer_lua</code> («Rey de la arena»), explica los conceptos, construye paso a
+paso un juego pequeño («Arena de monedas») y termina con la referencia de cada pieza y los errores frecuentes.</p>
+<p>Antes conviene haber leído <a href="empezar.html">empezar.md</a>, <a href="scripts-lua.html">scripts-lua.md</a> (sobre todo su sección
+<a href="scripts-lua.html#9-multijugador">9. Multijugador</a>, la referencia completa de la red en Lua) y
+<a href="escenas-y-componentes.html">escenas-y-componentes.md</a>. Otros documentos relacionados:</p>
+<ul>
+<li><a href="servidor-dedicado.html">servidor-dedicado.md</a>: <code>NovaServer.exe</code>, puertos, firewall y servidores en un VPS.</li>
+<li><a href="steam.html">steam.md</a>: partidas por Steam (transporte Steam, sin abrir puertos), lobbies con invitaciones, logros y
+publicación; se prueba sin Steam con el Steam simulado.</li>
+<li><a href="enlace.html">enlace.md</a>: jugar por Internet con un código (<code>NOVA-XXXX-XXXX</code>), sin abrir puertos ni VPN (Nova Enlace).</li>
+<li><a href="fisicas.html">fisicas.md</a> y <a href="audio.html">audio.md</a>: los componentes de físicas y audio que usa el tutorial.</li>
+<li><a href="ejemplo-inventario.html">ejemplo-inventario.md</a>: un inventario como el de Rust, en red y con el servidor al mando.</li>
+<li><a href="lobby-y-escenas.html">lobby-y-escenas.md</a>: sala (lobby) con «Listo» e invitaciones, cambio de escena sincronizado con
+pantalla de carga, <code>GetOwner(id)</code>, objetos <strong>Interactuables</strong> y el chat de texto de la partida.</li>
+<li><a href="scripts-cpp.html#red-campos-replicados-rpcs-y-network">scripts-cpp.md</a>: la red desde scripts C++ (opcional), con
+el mismo tutorial en C++; y <span class="enlace-interno-quitado">red.md</span>, la librería de red <code>nova_net</code> por dentro (para quien desarrolla
+el motor).</li>
+</ul>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-prueba-el-ejemplo-en-cinco-minutos">Prueba el ejemplo en cinco minutos</a></li>
+<li><a href="#2-conceptos">Conceptos</a></li>
+<li><a href="#3-cómo-encaja-todo">Cómo encaja todo</a></li>
+<li><a href="#4-tutorial-arena-de-monedas">Tutorial: Arena de monedas</a></li>
+<li><a href="#5-componentes-de-red">Componentes de red</a></li>
+<li><a href="#6-autoridad-quién-ejecuta-qué">Autoridad: quién ejecuta qué</a></li>
+<li><a href="#7-campos-replicados">Campos replicados</a></li>
+<li><a href="#8-funciones-de-red-server-client-y-multicast">Funciones de red: <code>[Server]</code>, <code>[Client]</code> y <code>[Multicast]</code></a></li>
+<li><a href="#9-movimiento-predicho-con-charactercontroller">Movimiento predicho con CharacterController</a></li>
+<li><a href="#10-objetos-con-física-del-servidor">Objetos con física del servidor</a></li>
+<li><a href="#11-crear-y-destruir-objetos-durante-la-partida">Crear y destruir objetos durante la partida</a></li>
+<li><a href="#12-interfaz-en-partida-y-menú">Interfaz en partida y menú</a></li>
+<li><a href="#13-modos-de-juego-del-editor">Modos de juego del editor</a></li>
+<li><a href="#14-estadísticas-f3-red-mala-y-red-local">Estadísticas (F3), red mala y red local</a></li>
+<li><a href="#15-los-ejemplos">Los ejemplos</a></li>
+<li><a href="#16-errores-comunes">Errores comunes</a></li>
+<li><a href="#17-limitaciones-actuales">Limitaciones actuales</a></li>
+<li><a href="#18-disparos-y-compensación-de-latencia">Disparos y compensación de latencia</a></li>
+<li><a href="#19-sala-escenas-sincronizadas-chat-e-interacciones">Sala, escenas sincronizadas, chat e interacciones</a></li>
+</ol>
+<p>Y en la sección 13: <a href="#registros-server-y-client">Registros: Server: y Client:</a>.</p>
+<h2 id="1-prueba-el-ejemplo-en-cinco-minutos">1. Prueba el ejemplo en cinco minutos<a class="ancla" href="#1-prueba-el-ejemplo-en-cinco-minutos" aria-label="Enlace a esta sección">#</a></h2>
+<p>«Rey de la arena» (<code>game/multiplayer_lua</code>) es un juego en red completo hecho solo con Lua: varios jugadores en
+una plataforma flotante se empujan con <strong>E</strong>; cada empujón quita vida y, cuanta menos vida tienes, más lejos sales
+volando. El último en pie gana la ronda. No hay que compilar nada propio: sus scripts los carga el motor.</p>
+<p>Ábrelo en el editor (desde el repositorio, después de <code>tools\build.cmd</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaEditor.exe --project game\multiplayer_lua</code></pre></div>
+<p>En la barra de herramientas, junto a los botones de reproducir, pausa y avanzar, hay un desplegable con el
+<strong>modo de juego</strong>. Elige <strong>Anfitrión + clientes</strong>, deja 1 cliente y pulsa reproducir (Ctrl+P): el editor juega como
+anfitrión y abre una ventana de <code>NovaGame.exe</code> conectada a él. Mueve a cada personaje por separado y empuja al
+otro con <strong>E</strong>: las dos pantallas ven lo mismo. Al parar, el editor cierra la ventana del cliente.</p>
+<p>Sin el editor, un anfitrión y un cliente en el mismo PC (el ejemplo usa el puerto 7778):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaGame.exe --project game\multiplayer_lua --host --name Ana
+build\debug\bin\NovaGame.exe --project game\multiplayer_lua --connect 127.0.0.1:7778 --name Beto</code></pre></div>
+<p><strong>Por Internet con un código</strong> (sin abrir puertos ni VPN, también con CG-NAT): el anfitrión añade <code>--relay</code> y el
+código (<code>NOVA-7K2F-Q9XM</code>) sale en pantalla, en su registro y con <strong>F3</strong>; quien se une lo escribe en vez de la IP:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaGame.exe --project game\multiplayer_lua --host --relay --name Ana
+build\debug\bin\NovaGame.exe --project game\multiplayer_lua --connect NOVA-7K2F-Q9XM --name Beto</code></pre></div>
+<p>En el editor, <strong>Jugar &gt; Por Internet (código)</strong> (o la casilla <strong>Por código</strong> junto al modo de juego) hace lo mismo al
+jugar como anfitrión: el código sale en la barra de herramientas con <strong>Copiar código</strong>. El menú del tutorial
+(<a href="#4-tutorial-arena-de-monedas">sección 4</a>) tiene el botón <strong>Crear partida por Internet (código)</strong> y el servidor
+dedicado, <code>--relay</code>. Antes hay que desplegar el relé una vez en tu cuenta gratuita de Cloudflare:
+<a href="enlace.html">enlace.md</a>.</p>
+<p>Y con un servidor dedicado (una consola sin ventana de juego) y los jugadores como clientes:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaServer.exe --project game\multiplayer_lua
+build\debug\bin\NovaGame.exe --project game\multiplayer_lua --connect 127.0.0.1:7778 --name Ana
+build\debug\bin\NovaGame.exe --project game\multiplayer_lua --connect 127.0.0.1:7778 --name Beto</code></pre></div>
+<p>Controles del ejemplo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Control</th>
+  <th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>W A S D o stick izquierdo</td>
+  <td>Moverse</td>
+</tr>
+<tr>
+  <td>Mayús izquierda</td>
+  <td>Correr</td>
+</tr>
+<tr>
+  <td>E</td>
+  <td>Empujar al que tienes delante</td>
+</tr>
+<tr>
+  <td>Intro o T</td>
+  <td>Escribir en el chat</td>
+</tr>
+<tr>
+  <td>1 a 4</td>
+  <td>Mensajes rápidos</td>
+</tr>
+<tr>
+  <td>Botón derecho del ratón + mover</td>
+  <td>Girar la cámara</td>
+</tr>
+<tr>
+  <td>F3</td>
+  <td>Estadísticas de red</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cómo está hecho, paso a paso, está en <a href="scripts-lua.html#10-tutorial-rey-de-la-arena">scripts-lua.md</a>. Con el motor
+instalado, el inventario multijugador se prueba creando un proyecto con la plantilla <strong>Inventario tipo Rust (Lua)</strong>
+en Nova Hub (<a href="ejemplo-inventario.html">ejemplo-inventario.md</a>).</p>
+<h2 id="2-conceptos">2. Conceptos<a class="ancla" href="#2-conceptos" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="servidor-autoritativo">Servidor autoritativo<a class="ancla" href="#servidor-autoritativo" aria-label="Enlace a esta sección">#</a></h3>
+<p>Una sola máquina, el <strong>servidor</strong>, decide el estado real de la partida: dónde está cada personaje, cuántos
+puntos tiene, qué cajas se han movido. Los demás jugadores son <strong>clientes</strong>: envían sus controles y sus
+peticiones, y dibujan lo que el servidor les manda. Así un cliente modificado no puede teletransportarse ni
+darse puntos, porque el servidor no le hace caso.</p>
+<p>El servidor puede ser:</p>
+<ul>
+<li><strong>Anfitrión</strong> (<em>listen server</em>): el juego de uno de los jugadores hace de servidor y además juega. Es lo
+normal entre amigos.</li>
+<li><strong>Servidor dedicado</strong>: <code>NovaServer.exe</code>, un proceso sin ventana ni sonido que solo simula la partida (en tu
+PC, en otro PC o en un servidor alquilado). Ver <a href="servidor-dedicado.html">servidor-dedicado.md</a>.</li>
+</ul>
+<p>Los mismos scripts sirven para todos los casos: cada máquina ejecuta el mismo fichero y las funciones
+<code>IsServer()</code>, <code>self:IsLocalPlayer()</code>, etc. deciden qué parte le toca (sección 6).</p>
+<h3 id="replicación">Replicación<a class="ancla" href="#replicación" aria-label="Enlace a esta sección">#</a></h3>
+<p>El servidor <strong>replica</strong> a los clientes las entidades que tienen el componente <strong>Identidad de red</strong>
+(<code>NetworkIdentity</code>): cuando aparece una, los clientes la crean; cuando se destruye, la destruyen. De cada
+entidad de red se envía:</p>
+<ul>
+<li>la posición y la rotación, si tiene <strong>Transform de red</strong> (<code>NetworkTransform</code>);</li>
+<li>los parámetros, disparadores y pesos de capa del Animador, si tiene <strong>Animador de red</strong> (<code>NetworkAnimator</code>);</li>
+<li>los campos de sus scripts marcados con <code>--[Replicated]</code> (y sus tablas replicadas).</li>
+</ul>
+<p>El servidor manda 30 actualizaciones por segundo con <strong>solo lo que ha cambiado</strong> desde lo último que cada
+cliente confirmó. Si un paquete se pierde no pasa nada: el siguiente vuelve a incluir lo que falte.</p>
+<h3 id="interpolación">Interpolación<a class="ancla" href="#interpolación" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los datos llegan a saltos (30 veces por segundo, y con algo de variación). Para que los objetos de otros se
+muevan suaves, los clientes los dibujan <strong>un poco en el pasado</strong> (unos 100 ms) e interpolan entre dos estados
+recibidos. Es invisible para el jugador y no hay que programar nada.</p>
+<h3 id="predicción-y-reconciliación">Predicción y reconciliación<a class="ancla" href="#predicción-y-reconciliación" aria-label="Enlace a esta sección">#</a></h3>
+<p>Si el personaje propio esperase a la respuesta del servidor, los controles tendrían el retraso de un viaje de
+ida y vuelta (el <em>ping</em>). Por eso el cliente <strong>predice</strong>: mueve su personaje al instante con el mismo
+<code>CharacterController</code> que usa el servidor y envía los controles. Cuando llega el estado confirmado por el
+servidor, lo compara con lo que predijo para ese instante; si no coincide (te ha empujado otro jugador, por
+ejemplo), <strong>reconcilia</strong>: vuelve al estado del servidor y re-simula los controles que el servidor aún no ha
+visto. La pequeña diferencia se suaviza en 0,15 s.</p>
+<p>En Nova esto es automático para cualquier personaje con <code>CharacterController</code> + <code>NetworkTransform</code> que sea de
+un jugador (sección 9).</p>
+<h3 id="funciones-de-red-rpc">Funciones de red (RPC)<a class="ancla" href="#funciones-de-red-rpc" aria-label="Enlace a esta sección">#</a></h3>
+<p>Una función de red (RPC, llamada remota) es una función de un script que se ejecuta en otra máquina. En Lua se
+marca con un atributo y se llama como cualquier otra (<code>self:Empujar()</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Atributo</th>
+  <th>Quién la llama</th>
+  <th>Dónde se ejecuta</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>--[Server]</code></td>
+  <td>El cliente dueño de la entidad (en un script <code>[Global]</code>, cualquiera)</td>
+  <td>En el servidor</td>
+  <td>Pedir algo: disparar, empujar, usar un objeto</td>
+</tr>
+<tr>
+  <td><code>--[Client]</code></td>
+  <td>El servidor</td>
+  <td>En el cliente dueño (o en el jugador de <code>self:To(id)</code>)</td>
+  <td>Avisos privados: «sin munición», «has subido de nivel»</td>
+</tr>
+<tr>
+  <td><code>--[Multicast]</code></td>
+  <td>El servidor</td>
+  <td>En el servidor y en todos los clientes</td>
+  <td>Efectos: sonidos, partículas, mensajes para todos</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las funciones <code>[Server]</code> son <strong>peticiones</strong>: el servidor comprueba si son válidas antes de hacer nada.</p>
+<h3 id="dueño-ownership">Dueño (ownership)<a class="ancla" href="#dueño-ownership" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cada entidad de red tiene un <strong>dueño</strong>: el id de un jugador o 0 (el servidor). El personaje de cada jugador
+es suyo; las cajas, los NPC y las monedas son del servidor. Ser dueño permite llamar a las funciones <code>[Server]</code>
+de esa entidad, recibir sus campos <code>OwnerOnly</code> y sus <code>[Client]</code> y, si es un personaje, predecir su movimiento.</p>
+<h3 id="modos-de-red">Modos de red<a class="ancla" href="#modos-de-red" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Modo (<code>Network.Mode()</code>)</th>
+  <th>Qué es</th>
+  <th><code>IsServer()</code></th>
+  <th><code>IsClient()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>&quot;None&quot;</code></td>
+  <td>Sin sesión (el menú principal)</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td><code>&quot;Offline&quot;</code></td>
+  <td>Un jugador: la partida en local, sin sockets</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td><code>&quot;Host&quot;</code></td>
+  <td>Anfitrión: servidor + jugador local</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td><code>&quot;Client&quot;</code></td>
+  <td>Conectado a otro servidor</td>
+  <td>no</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td><code>&quot;DedicatedServer&quot;</code></td>
+  <td><code>NovaServer.exe</code>: servidor sin jugador local</td>
+  <td>sí</td>
+  <td>no</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Offline</code> usa exactamente el mismo camino que <code>Host</code> (un servidor en memoria con el jugador local), así que si
+el juego funciona en un jugador, la lógica del servidor ya está probada.</p>
+<h2 id="3-cómo-encaja-todo">3. Cómo encaja todo<a class="ancla" href="#3-cómo-encaja-todo" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto"> NovaGame.exe / NovaEditor.exe / NovaServer.exe
+        |  una sesión de red por partida (anfitrión, cliente, servidor dedicado o un jugador)
+        v
+ Escena que se juega
+   Red (orden -1000)       arranca y para la sesión con la escena, un tick de red por paso fijo
+   Físicas (-100)          simula cajas y personajes (el servidor) o los sigue (los clientes)
+   Scripts (0)             tus scripts Lua: IsServer(), funciones [Server]/[Client]/[Multicast], Network.
+   Animación (100), audio (200)
+        |
+        v
+ nova_net (UDP): conexión, replicación por deltas, predicción, interpolación, llamadas remotas</code></pre></div>
+<ul>
+<li>La <strong>sesión</strong> empieza cuando la escena empieza a jugarse y termina al pararla.</li>
+<li>El <strong>esquema de red</strong> (qué componentes, campos y funciones de red existen) sale de los scripts: los campos
+<code>--[Replicated]</code>, las funciones <code>[Server]</code>/<code>[Client]</code>/<code>[Multicast]</code> con los tipos de sus parámetros, y los de
+los componentes del motor (y de C++, si el proyecto tiene scripts C++). Servidor y clientes tienen que tener
+exactamente los mismos scripts: al conectar se compara una huella y, si no coincide, la conexión se rechaza con
+«versión incompatible».</li>
+<li>El <strong>identificador del juego</strong> sale del nombre del proyecto (<code>name</code> de <code>project.nova</code>): dos juegos con
+nombres distintos no se pueden conectar ni se ven en la red local.</li>
+<li>El menú del juego no arranca sesiones él mismo: pide una partida con <code>Network.Host()</code>, <code>Network.Connect(...)</code> o
+<code>Network.PlayOffline()</code> y el juego (<code>NovaGame.exe</code> o el editor) <strong>recarga la escena inicial</strong> y la arranca con
+esa sesión.</li>
+</ul>
+<h2 id="4-tutorial-arena-de-monedas">4. Tutorial: Arena de monedas<a class="ancla" href="#4-tutorial-arena-de-monedas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Vas a construir un juego pequeño con todo lo importante, solo con Lua (sin Visual Studio ni compilar nada):</p>
+<ul>
+<li>cada jugador maneja un personaje con movimiento predicho;</li>
+<li>el servidor hace aparecer monedas; quien toca una gana puntos (campo replicado con <code>onChange</code>);</li>
+<li>con <strong>E</strong> se empujan cajas con físicas del servidor (función <code>[Server]</code>), gastando cargas que solo ve el dueño
+(campo <code>OwnerOnly</code>) y que avisan en privado si se acaban (función <code>[Client]</code>);</li>
+<li>un sonido de empujón suena en todas las pantallas (función <code>[Multicast]</code>);</li>
+<li>marcador, cámara y menú con <code>OnGUI</code>.</li>
+</ul>
+<p>Los scripts de este tutorial se comprueban solos: las pruebas automáticas del motor los copian de este documento
+y juegan una partida con un servidor dedicado y dos clientes (sección 4.7).</p>
+<h3 id="41-crear-el-proyecto">4.1 Crear el proyecto<a class="ancla" href="#41-crear-el-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>En Nova Hub, <strong>Nuevo proyecto</strong> con la plantilla <strong>Vacío (Lua)</strong> (la que sale elegida) y el nombre
+<code>ArenaDeMonedas</code> (desde el código fuente del motor, en el editor: <strong>Archivo &gt; Nuevo proyecto...</strong>). Ábrelo en
+el editor y borra el <strong>Cubo</strong> de ejemplo.</li>
+<li>Copia estos assets, arrastrándolos desde el Explorador de Windows al panel <strong>Contenido</strong> (el editor los
+registra con su <code>.meta</code>):<ul>
+<li><code>CesiumMan.glb</code> (y su <code>CesiumMan.LICENSE.md</code>) y <code>Personaje.controller</code>: están en <code>game\sample_lua\assets</code>
+del repositorio y en los proyectos creados con la plantilla <strong>Ejemplo 3D (Lua)</strong>;</li>
+<li>dos sonidos cortos en WAV para el punto y el empujón (por ejemplo <code>salto.wav</code> y <code>empujon.wav</code> de
+<code>game\multiplayer_lua\assets\sonidos</code>, que se generan al compilar el motor). Son opcionales.</li>
+</ul>
+</li>
+</ol>
+<p>Los scripts del tutorial van en la carpeta <code>scripts</code> del proyecto. Créalos en la sección 4.6 con <strong>Contenido &gt;
+scripts &gt; Crear &gt; Nuevo script...</strong> (el nombre del script es el del fichero: <code>Jugador</code>, <code>Moneda</code>...).</p>
+<h3 id="42-ajustes-de-red-del-proyecto">4.2 Ajustes de red del proyecto<a class="ancla" href="#42-ajustes-de-red-del-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Editar &gt; Ajustes del proyecto &gt; Red</strong> guarda la sección <code>red</code> de <code>project.nova</code>, que leen el editor,
+<code>NovaGame.exe</code> y <code>NovaServer.exe</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"red"</span>: {
+  <span class="hl-k">"puerto"</span>: <span class="hl-n">7777</span>,
+  <span class="hl-k">"maxJugadores"</span>: <span class="hl-n">8</span>,
+  <span class="hl-k">"nombreServidor"</span>: <span class="hl-s">"Arena de monedas"</span>
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>puerto</code></td>
+  <td>Puerto UDP en el que escucha el servidor (anfitrión o dedicado) y al que se conectan los clientes</td>
+</tr>
+<tr>
+  <td><code>maxJugadores</code></td>
+  <td>Plazas de la partida</td>
+</tr>
+<tr>
+  <td><code>nombreServidor</code></td>
+  <td>Nombre que se ve en la lista de partidas de la red local</td>
+</tr>
+<tr>
+  <td><code>modoInicial</code></td>
+  <td><strong>Al arrancar el juego</strong>: cómo empieza <code>NovaGame.exe</code> sin <code>--solo</code>, <code>--host</code> ni <code>--connect</code>. <code>&quot;Ninguno&quot;</code> (por defecto: sin sesión, el menú del juego la pide), <code>&quot;Solo&quot;</code> (un jugador) o <code>&quot;Anfitrion&quot;</code>. <code>--sin-red</code> lo ignora</td>
+</tr>
+</tbody>
+</table></div>
+<p>El <strong>nombre del juego</strong> (pestaña General) identifica al juego en la red: no lo cambies entre versiones que
+deban poder jugar juntas.</p>
+<p>Los controles del proyecto nuevo ya traen las acciones y ejes que usa el tutorial (<code>MoverX</code>, <code>MoverY</code>,
+<code>Saltar</code>, <code>Correr</code>, <code>Accion</code> y <code>Pausa</code>); ver <a href="editor.html#controles-acciones-y-ejes">editor.md</a>.</p>
+<h3 id="43-el-mapa-suelo-y-cajas-con-físicas-del-servidor">4.3 El mapa: suelo y cajas con físicas del servidor<a class="ancla" href="#43-el-mapa-suelo-y-cajas-con-físicas-del-servidor" aria-label="Enlace a esta sección">#</a></h3>
+<p>La escena inicial ya tiene Sol, Entorno, Cámara y un Suelo con <strong>Colisionador</strong> (nivel estático):</p>
+<ol>
+<li>Añade unas paredes o una rampa con <strong>Entidad &gt; Objeto 3D &gt; Cubo</strong> (las primitivas de ese menú ya traen
+colisionador; se escala con la entidad).</li>
+<li>Crea una caja que se pueda empujar: <strong>Entidad &gt; Objeto 3D &gt; Cubo</strong>, y añádele:<ul>
+<li><strong>Cuerpo rígido</strong>: tipo Dinámico, masa 10;</li>
+<li><strong>Identidad de red</strong> y <strong>Transform de red</strong>: la caja pasa a ser un objeto de red. El servidor la simula y
+los clientes la ven moverse; en los clientes su cuerpo pasa a cinemático y sigue lo que llega por red. Si se
+te olvida, el Inspector lo avisa en el Cuerpo rígido: el botón <strong>Sincronizar en red</strong> añade los dos.</li>
+</ul>
+</li>
+<li>Clic derecho sobre la caja en la Jerarquía &gt; <strong>Crear prefab</strong>, y coloca varias copias arrastrando el prefab
+desde <strong>Contenido</strong> al visor.</li>
+</ol>
+<p>Los objetos de red colocados en el mapa (como estas cajas) los tienen ya todas las máquinas, porque todas
+cargan el mismo fichero <code>.scene</code>: el servidor solo les dice a los clientes cuáles son y dónde están, por el
+UUID de la entidad. Mientras el cliente no recibe el objeto del servidor, lo mantiene oculto.</p>
+<h3 id="44-el-prefab-del-jugador">4.4 El prefab del jugador<a class="ancla" href="#44-el-prefab-del-jugador" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Arrastra <code>CesiumMan.glb</code> desde <strong>Contenido</strong> al visor: se crea una entidad raíz con <strong>Animador</strong> y los hijos
+con las mallas. Renómbrala <code>Jugador</code>.</li>
+<li>En el <strong>Animador</strong>, pon <strong>Controlador</strong> = <code>Personaje.controller</code> (mezcla quieto, andar y correr según el
+parámetro <code>velocidad</code>).</li>
+<li>Añade a la raíz:<ul>
+<li><strong>Controlador de personaje</strong>: radio 0,3, altura 1,6, velocidad 2,2, velocidad corriendo 5;</li>
+<li><strong>Identidad de red</strong>;</li>
+<li><strong>Transform de red</strong> (con Posición y Rotación marcados);</li>
+<li><strong>Animador de red</strong>, con <code>velocidad</code> en <strong>Parámetros</strong>;</li>
+<li>el script <code>Jugador</code> (sección 4.6: arrástralo desde <strong>Contenido</strong>) y, en sus campos, los sonidos del punto y
+del empujón.</li>
+</ul>
+</li>
+<li>Clic derecho &gt; <strong>Crear prefab</strong> y <strong>borra el jugador de la escena</strong>: los personajes no se colocan en el
+mapa, los crea el servidor cuando entra cada jugador.</li>
+</ol>
+<p>No hace falta rellenar el campo <strong>Prefab</strong> de la Identidad de red: el servidor sabe de qué prefab sale cada
+instancia.</p>
+<h3 id="45-la-aparición-de-jugadores">4.5 La aparición de jugadores<a class="ancla" href="#45-la-aparición-de-jugadores" aria-label="Enlace a esta sección">#</a></h3>
+<p>Crea una entidad vacía <code>Aparición de jugadores</code> en el centro del mapa y añádele <strong>Aparición de jugadores</strong>
+(<code>PlayerSpawner</code>) con <strong>Prefab del jugador</strong> = el prefab <code>Jugador</code> y <strong>Radio</strong> = 3. Cada jugador que entra
+aparece en un punto distinto de ese círculo, mirando hacia el centro.</p>
+<h3 id="46-los-scripts">4.6 Los scripts<a class="ancla" href="#46-los-scripts" aria-label="Enlace a esta sección">#</a></h3>
+<h4 id="el-jugador">El jugador<a class="ancla" href="#el-jugador" aria-label="Enlace a esta sección">#</a></h4>
+<p>El script del jugador se ejecuta en <strong>todas</strong> las máquinas que tienen ese personaje, así que cada parte
+empieza preguntando a quién le toca:</p>
+<ul>
+<li>los <strong>controles</strong> solo en la máquina del dueño (<code>self:IsLocalPlayer()</code>): se escriben en el
+<code>CharacterController</code> y la red se encarga de predecirlos y enviarlos;</li>
+<li>la <strong>animación</strong> la calculan el servidor y el dueño; los demás la reciben con el Animador de red;</li>
+<li>las <strong>reglas</strong> (recargar cargas, empujar, sumar puntos, devolver al jugador si se cae) solo en el servidor.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Personaje de cada jugador (prefab Jugador): controles, puntos, cargas de empujón y funciones de red</span>
+<span class="hl-k">local</span> <span class="hl-t">Jugador</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Header("Ajustes")]</span>
+<span class="hl-a">--[Range(0, 5), Tooltip("Metros por delante del personaje")]</span>
+<span class="hl-t">Jugador</span>.alcanceEmpujon = <span class="hl-n">1.4</span>
+<span class="hl-a">--[Range(0, 30), Tooltip("m/s que gana cada caja empujada")]</span>
+<span class="hl-t">Jugador</span>.fuerzaEmpujon = <span class="hl-n">5</span>
+<span class="hl-a">--[Range(1, 10)]</span>
+<span class="hl-t">Jugador</span>.cargasMaximas = <span class="hl-n">3</span> <span class="hl-a">--[Int]</span>
+<span class="hl-a">--[Range(0.1, 30)]</span>
+<span class="hl-t">Jugador</span>.segundosPorCarga = <span class="hl-n">2</span>
+<span class="hl-t">Jugador</span>.sonidoPunto = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+<span class="hl-t">Jugador</span>.sonidoEmpujon = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+
+<span class="hl-a">--[Header("Estado (lo cambia el servidor)")]</span>
+<span class="hl-a">--[Replicated(onChange = "AlCambiarPuntos"), ReadOnly, NoSave]</span>
+<span class="hl-t">Jugador</span>.puntos = <span class="hl-n">0</span> <span class="hl-a">--[Int]</span>
+<span class="hl-a">--[Replicated(condition = "OwnerOnly"), Range(0, 10), ReadOnly, NoSave]</span>
+<span class="hl-t">Jugador</span>.cargas = <span class="hl-n">3</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-b">self</span>._recarga = <span class="hl-n">0</span>
+    <span class="hl-b">self</span>._aviso = <span class="hl-s">""</span>
+    <span class="hl-b">self</span>._avisoTiempo = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">OnNetworkSpawn</span>()
+    <span class="hl-c">-- Servidor: al crearse el personaje. Clientes: al recibirlo (los campos replicados ya traen su valor)</span>
+    <span class="hl-k">if</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.cargas = <span class="hl-b">self</span>.cargasMaximas
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> identidad = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"NetworkIdentity"</span>)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Aparece %s con %d puntos"</span>, identidad.ownerName, <span class="hl-b">self</span>.puntos))
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">MostrarAviso</span>(<span class="hl-s">"WASD para moverte, E para empujar"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Controles del jugador de esta máquina, relativos a la cámara</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">LeerControles</span>(<span class="hl-b">self</span>, personaje)
+    <span class="hl-k">local</span> adelante = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, -<span class="hl-n">1</span>)
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> camara <span class="hl-k">then</span>
+        <span class="hl-k">local</span> f = camara.transform.forward
+        f = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(f.x, <span class="hl-n">0</span>, f.z)
+        <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">LengthSq</span>(f) &gt; <span class="hl-n">1e-6</span> <span class="hl-k">then</span>
+            adelante = <span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(f)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> derecha = <span class="hl-t">Vec3</span>.<span class="hl-f">Cross</span>(adelante, <span class="hl-t">Vec3</span>.up)
+    <span class="hl-k">local</span> direccion = derecha * <span class="hl-t">Input</span>.<span class="hl-f">GetAxis</span>(<span class="hl-s">"MoverX"</span>) + adelante * <span class="hl-t">Input</span>.<span class="hl-f">GetAxis</span>(<span class="hl-s">"MoverY"</span>)
+    <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(direccion) &gt; <span class="hl-n">1</span> <span class="hl-k">then</span>
+        direccion = <span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(direccion)
+    <span class="hl-k">end</span>
+    personaje:<span class="hl-f">Move</span>(direccion, <span class="hl-t">Input</span>.<span class="hl-f">IsActionDown</span>(<span class="hl-s">"Correr"</span>))
+    <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(direccion) &gt; <span class="hl-n">0.1</span> <span class="hl-k">then</span>
+        personaje:<span class="hl-f">Face</span>(<span class="hl-t">math</span>.<span class="hl-f">atan2</span>(direccion.x, direccion.z)) <span class="hl-c">-- los modelos glTF miran hacia +Z</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Saltar"</span>) <span class="hl-k">then</span>
+        personaje:<span class="hl-f">Jump</span>()
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Accion"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Empujar</span>() <span class="hl-c">-- [Server]: viaja al servidor (en el anfitrión o jugando solo, se ejecuta aquí)</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> personaje = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"CharacterController"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> personaje <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- 1. Controles: solo el jugador de esta máquina. La red predice el movimiento y lo envía al servidor</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+        <span class="hl-f">LeerControles</span>(<span class="hl-b">self</span>, personaje)
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- 2. Animación: la calculan el servidor y el dueño; los demás la reciben (Animador de red)</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">HasAuthority</span>() <span class="hl-k">or</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">local</span> animador = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+        <span class="hl-k">if</span> animador <span class="hl-k">then</span>
+            <span class="hl-k">local</span> v = personaje.velocity
+            animador:<span class="hl-f">SetFloat</span>(<span class="hl-s">"velocidad"</span>, <span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(v.x, <span class="hl-n">0</span>, v.z)))
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._avisoTiempo &gt; <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._avisoTiempo -= dt
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">FixedUpdate</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- las reglas de la partida solo las aplica el servidor</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.cargas &lt; <span class="hl-b">self</span>.cargasMaximas <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._recarga += dt
+        <span class="hl-k">if</span> <span class="hl-b">self</span>._recarga &gt;= <span class="hl-b">self</span>.segundosPorCarga <span class="hl-k">then</span>
+            <span class="hl-b">self</span>._recarga = <span class="hl-n">0</span>
+            <span class="hl-b">self</span>.cargas += <span class="hl-n">1</span> <span class="hl-c">-- se replica solo (y solo al dueño)</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Si se cae del mapa, vuelve al centro sin interpolar en los clientes</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.entity.position.y &lt; -<span class="hl-n">10</span> <span class="hl-k">then</span>
+        <span class="hl-t">Network</span>.<span class="hl-f">Teleport</span>(<span class="hl-b">self</span>.entity, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>))
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Servidor: suma puntos (lo llama la moneda)</span>
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">SumarPuntos</span>(cantidad: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.puntos += cantidad
+    <span class="hl-c">-- El anfitrión no recibe onChange (el valor nace en su máquina): llama al mismo código</span>
+    <span class="hl-k">if</span> <span class="hl-f">IsClient</span>() <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">AlCambiarPuntos</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- onChange de 'puntos': ha llegado un valor nuevo (en los clientes)</span>
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">AlCambiarPuntos</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- el marcador ya lo enseña; el sonido, solo para quien puntúa</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.sonidoPunto <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot2D</span>(<span class="hl-b">self</span>.sonidoPunto, <span class="hl-n">0.8</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>:<span class="hl-f">MostrarAviso</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"¡%d puntos!"</span>, <span class="hl-b">self</span>.puntos))
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Lo pide el dueño (tecla E) y se ejecuta en el servidor: el motor ya ha comprobado que quien llama es el dueño</span>
+<span class="hl-c">-- de este personaje y que no pasa de 4 por segundo</span>
+<span class="hl-a">--[Server(rate = 4)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">Empujar</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.cargas &lt;= <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Aviso</span>(<span class="hl-s">"Sin cargas: espera un momento"</span>) <span class="hl-c">-- [Client]: solo lo ve el dueño</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.cargas -= <span class="hl-n">1</span>
+    <span class="hl-k">local</span> posicion = <span class="hl-b">self</span>.entity.position
+    <span class="hl-k">local</span> frente = <span class="hl-b">self</span>.entity.rotation * <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>)
+    <span class="hl-k">local</span> centro = posicion + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0.8</span>, <span class="hl-n">0</span>) + frente * <span class="hl-b">self</span>.alcanceEmpujon
+    <span class="hl-k">local</span> cajas = <span class="hl-t">Physics</span>.<span class="hl-f">OverlapSphere</span>(centro, <span class="hl-n">1</span>, { layers = <span class="hl-t">Physics</span>.Layer.Dynamic, ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">for</span> _, caja <span class="hl-k">in</span> cajas <span class="hl-k">do</span>
+        <span class="hl-k">local</span> cuerpo = caja:<span class="hl-f">GetComponent</span>(<span class="hl-s">"RigidBody"</span>)
+        <span class="hl-k">if</span> cuerpo <span class="hl-k">and</span> cuerpo.<span class="hl-k">type</span> == <span class="hl-s">"Dinámico"</span> <span class="hl-k">then</span>
+            <span class="hl-k">local</span> d = caja.position - posicion
+            d = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(d.x, <span class="hl-n">0</span>, d.z)
+            d = <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">LengthSq</span>(d) &gt; <span class="hl-n">1e-4</span> <span class="hl-k">then</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(d) <span class="hl-k">else</span> frente
+            d = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(d.x, <span class="hl-n">0.35</span>, d.z) <span class="hl-c">-- un poco hacia arriba</span>
+            <span class="hl-t">Physics</span>.<span class="hl-f">AddImpulse</span>(caja, d * (<span class="hl-t">math</span>.<span class="hl-f">max</span>(cuerpo.mass, <span class="hl-n">0.1</span>) * <span class="hl-b">self</span>.fuerzaEmpujon))
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>:<span class="hl-f">EfectoEmpujon</span>(centro) <span class="hl-c">-- [Multicast]: el sonido en todas las pantallas</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- El servidor la llama y se ejecuta en todas las máquinas (no fiable: si se pierde, no pasa nada)</span>
+<span class="hl-a">--[Multicast(reliable = false)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">EfectoEmpujon</span>(donde: <span class="hl-t">Vector3</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.sonidoEmpujon <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.sonidoEmpujon, donde) <span class="hl-c">-- en un servidor dedicado no hace nada</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- El servidor la llama y se ejecuta solo en la máquina del dueño</span>
+<span class="hl-a">--[Client]</span>
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">Aviso</span>(texto: <span class="hl-t">string</span>)
+    <span class="hl-b">self</span>:<span class="hl-f">MostrarAviso</span>(texto)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">MostrarAviso</span>(texto: <span class="hl-t">string</span>)
+    <span class="hl-b">self</span>._aviso = texto
+    <span class="hl-b">self</span>._avisoTiempo = <span class="hl-n">2.5</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Aviso: "</span> .. texto)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- HUD del jugador local: las cargas (campo OwnerOnly) y los avisos</span>
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> vista = <span class="hl-t">GUI</span>.<span class="hl-f">ViewSize</span>()
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Cargas"</span>, vista.x * <span class="hl-n">0.5</span> - <span class="hl-n">100</span>, vista.y - <span class="hl-n">90</span>)
+    <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Cargas de empujón: %d / %d"</span>, <span class="hl-b">self</span>.cargas, <span class="hl-b">self</span>.cargasMaximas))
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._avisoTiempo &gt; <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-b">self</span>._aviso)
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Jugador</span></code></pre></div>
+<p>Detalles que conviene entender:</p>
+<ul>
+<li><code>personaje:Move</code>, <code>Face</code> y <code>Jump</code> <strong>no mueven nada</strong> en ese momento: guardan la entrada. En cada paso fijo
+la red la recoge, la simula en la máquina del dueño (predicción) y la envía al servidor, que la simula
+también. Nunca muevas el <code>Transform</code> de un personaje de red a mano.</li>
+<li><code>self:Empujar()</code> desde el cliente viaja al servidor; en el anfitrión o en un jugador (<code>Offline</code>) se ejecuta en
+el acto. El código es el mismo.</li>
+<li>En <code>Empujar</code>, el servidor valida (¿le quedan cargas?) antes de hacer nada: un cliente tramposo puede llamar
+a la función cuando quiera, pero no puede saltarse esa comprobación. Que quien llama es el dueño y el límite de
+4 por segundo (<code>rate = 4</code>) los comprueba el motor.</li>
+<li>Los parámetros de las funciones de red llevan tipo (<code>donde: Vector3</code>, <code>texto: string</code>) y se comprueban siempre:
+un tipo que no encaja es un error en quien llama (sección 8).</li>
+<li><code>AlCambiarPuntos</code> (el <code>onChange</code> de <code>puntos</code>) solo se llama en los clientes: cuando llega un valor nuevo y, al
+aparecer el personaje, si su valor inicial no es el del prefab. El anfitrión no lo recibe (el valor nace en su
+máquina): por eso <code>SumarPuntos</code> lo llama a mano.</li>
+</ul>
+<h4 id="la-moneda">La moneda<a class="ancla" href="#la-moneda" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Moneda: gira en todas las máquinas y, en el servidor, da puntos al jugador que la toca</span>
+<span class="hl-k">local</span> <span class="hl-t">Moneda</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(1, 100), Display("Puntos")]</span>
+<span class="hl-t">Moneda</span>.valor = <span class="hl-n">1</span> <span class="hl-a">--[Int]</span>
+<span class="hl-a">--[Range(0, 720), Tooltip("Grados por segundo")]</span>
+<span class="hl-t">Moneda</span>.velocidadGiro = <span class="hl-n">180</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Moneda</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-b">self</span>._recogida = <span class="hl-b">false</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Moneda</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-c">-- Giro decorativo: cada máquina gira su copia (el Transform de red no replica la rotación)</span>
+    <span class="hl-b">self</span>.transform:<span class="hl-f">Rotate</span>(<span class="hl-t">Vec3</span>.up, <span class="hl-t">math</span>.<span class="hl-f">rad</span>(<span class="hl-b">self</span>.velocidadGiro) * dt)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Moneda</span>:<span class="hl-f">OnTriggerEnter</span>(otra)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">or</span> <span class="hl-b">self</span>._recogida <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- los clientes también reciben el aviso: lo ignoran</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> jugador = otra:<span class="hl-f">GetScript</span>(<span class="hl-s">"Jugador"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> jugador <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- una caja u otra cosa</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._recogida = <span class="hl-b">true</span>
+    jugador:<span class="hl-f">SumarPuntos</span>(<span class="hl-b">self</span>.valor)
+    <span class="hl-b">self</span>:<span class="hl-f">Destroy</span>() <span class="hl-c">-- destruida en el servidor: desaparece en todos los clientes</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Moneda</span></code></pre></div>
+<p>El prefab de la moneda, en el editor:</p>
+<ol>
+<li><strong>Entidad &gt; Entidad vacía</strong>, llámala <code>Moneda</code>. Añádele <strong>Colisionador</strong> (forma Esfera, radio 0,6, marca
+<strong>Es sensor</strong>), <strong>Identidad de red</strong>, <strong>Transform de red</strong> con <strong>Rotación desmarcada</strong> (cada máquina la gira
+por su cuenta: menos tráfico) y el script <code>Moneda</code>.</li>
+<li>Crea un <strong>Objeto 3D &gt; Cilindro</strong> y arrástralo sobre <code>Moneda</code> en la Jerarquía para que sea su hijo. Ponle
+posición (0, 0, 0), escala (0,6, 0,05, 0,6), rotación (90, 0, 0) y un material dorado (metálico 1, rugosidad
+0,3). El giro se aplica a la raíz, así que la moneda gira de canto.</li>
+<li>Clic derecho en <code>Moneda</code> &gt; <strong>Crear prefab</strong> y bórrala de la escena.</li>
+</ol>
+<p>Un colisionador <strong>sensor</strong> no choca: avisa con <code>OnTriggerEnter</code> cuando algo entra. El aviso llega en todas las
+máquinas que simulan físicas, por eso la moneda comprueba <code>IsServer()</code>: solo el servidor reparte puntos.
+<code>otra:GetScript(&quot;Jugador&quot;)</code> da el script del personaje que entra, y se le llama como a cualquier función.</p>
+<h4 id="el-generador-de-monedas">El generador de monedas<a class="ancla" href="#el-generador-de-monedas" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Generador de monedas: solo el servidor las crea (Spawn), en un círculo alrededor de esta entidad</span>
+<span class="hl-k">local</span> <span class="hl-t">GeneradorDeMonedas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Display("Prefab de la moneda"), Tooltip("Con Identidad de red y Transform de red")]</span>
+<span class="hl-t">GeneradorDeMonedas</span>.prefabMoneda = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+<span class="hl-a">--[Range(0.1, 60), Tooltip("Segundos entre monedas")]</span>
+<span class="hl-t">GeneradorDeMonedas</span>.intervalo = <span class="hl-n">3</span>
+<span class="hl-a">--[Range(1, 50), Display("Máximo a la vez")]</span>
+<span class="hl-t">GeneradorDeMonedas</span>.maximo = <span class="hl-n">5</span> <span class="hl-a">--[Int]</span>
+<span class="hl-a">--[Range(0, 50)]</span>
+<span class="hl-t">GeneradorDeMonedas</span>.radio = <span class="hl-n">8</span>
+
+<span class="hl-k">function</span> <span class="hl-t">GeneradorDeMonedas</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-b">self</span>._tiempo = <span class="hl-n">0</span>
+    <span class="hl-b">self</span>._monedas = {} <span class="hl-c">-- las que ha creado y siguen en el mapa</span>
+    <span class="hl-b">self</span>._azar = <span class="hl-t">Random</span>.<span class="hl-f">new</span>(<span class="hl-n">12345</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">GeneradorDeMonedas</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-c">-- En los clientes y en el menú (sin partida) no se crea nada</span>
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">or</span> <span class="hl-t">Network</span>.<span class="hl-f">Mode</span>() == <span class="hl-s">"None"</span> <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.prefabMoneda <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._tiempo += dt
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._tiempo &lt; <span class="hl-b">self</span>.intervalo <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._tiempo = <span class="hl-n">0</span>
+    <span class="hl-c">-- Olvidar las que ya se han recogido</span>
+    <span class="hl-k">local</span> quedan = {}
+    <span class="hl-k">for</span> _, moneda <span class="hl-k">in</span> <span class="hl-b">self</span>._monedas <span class="hl-k">do</span>
+        <span class="hl-k">if</span> moneda:<span class="hl-f">IsValid</span>() <span class="hl-k">then</span>
+            <span class="hl-t">table</span>.<span class="hl-f">insert</span>(quedan, moneda)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._monedas = quedan
+    <span class="hl-k">if</span> #quedan &gt;= <span class="hl-b">self</span>.maximo <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> angulo = <span class="hl-b">self</span>._azar:<span class="hl-f">Number</span>(<span class="hl-n">0</span>, <span class="hl-n">2</span> * <span class="hl-t">math</span>.pi)
+    <span class="hl-k">local</span> distancia = <span class="hl-t">math</span>.<span class="hl-f">sqrt</span>(<span class="hl-b">self</span>._azar:<span class="hl-f">Number</span>()) * <span class="hl-b">self</span>.radio
+    <span class="hl-k">local</span> posicion = <span class="hl-b">self</span>.entity.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-t">math</span>.<span class="hl-f">sin</span>(angulo) * distancia, <span class="hl-n">0.6</span>, <span class="hl-t">math</span>.<span class="hl-f">cos</span>(angulo) * distancia)
+    <span class="hl-c">-- Spawn crea la moneda en el servidor y en todos los clientes (con el mismo prefab)</span>
+    <span class="hl-k">local</span> moneda = <span class="hl-f">Spawn</span>(<span class="hl-b">self</span>.prefabMoneda, posicion)
+    <span class="hl-k">if</span> moneda <span class="hl-k">then</span>
+        <span class="hl-t">table</span>.<span class="hl-f">insert</span>(<span class="hl-b">self</span>._monedas, moneda)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">GeneradorDeMonedas</span></code></pre></div>
+<p>Ponlo en una entidad vacía <code>Generador</code> en el centro del mapa, con <strong>Prefab de la moneda</strong> = <code>Moneda</code>.</p>
+<h4 id="marcador-cámara-y-menú">Marcador, cámara y menú<a class="ancla" href="#marcador-cámara-y-menú" aria-label="Enlace a esta sección">#</a></h4>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Marcador: los puntos de todos los jugadores (campo replicado), de más a menos</span>
+<span class="hl-k">local</span> <span class="hl-t">MarcadorArena</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">MarcadorArena</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">if</span> <span class="hl-t">Network</span>.<span class="hl-f">Mode</span>() == <span class="hl-s">"None"</span> <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- en el menú no hay marcador</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> filas = {}
+    <span class="hl-k">for</span> _, e <span class="hl-k">in</span> <span class="hl-t">Scene</span>.<span class="hl-f">FindAllWithComponent</span>(<span class="hl-s">"NetworkIdentity"</span>) <span class="hl-k">do</span>
+        <span class="hl-k">local</span> identidad = e:<span class="hl-f">GetComponent</span>(<span class="hl-s">"NetworkIdentity"</span>)
+        <span class="hl-k">local</span> jugador = identidad.isPlayer <span class="hl-k">and</span> e:<span class="hl-f">GetScript</span>(<span class="hl-s">"Jugador"</span>)
+        <span class="hl-k">if</span> jugador <span class="hl-k">then</span>
+            <span class="hl-k">local</span> yo = identidad.owner == <span class="hl-t">Network</span>.<span class="hl-f">LocalClientId</span>()
+            <span class="hl-t">table</span>.<span class="hl-f">insert</span>(filas, { nombre = identidad.ownerName, puntos = jugador.puntos, yo = yo })
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">table</span>.<span class="hl-f">sort</span>(filas, <span class="hl-k">function</span>(a, b)
+        <span class="hl-k">return</span> a.puntos &gt; b.puntos
+    <span class="hl-k">end</span>)
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Marcador"</span>, <span class="hl-t">GUI</span>.<span class="hl-f">ViewSize</span>().x * <span class="hl-n">0.5</span> - <span class="hl-n">80</span>, <span class="hl-n">10</span>)
+    <span class="hl-k">for</span> _, fila <span class="hl-k">in</span> filas <span class="hl-k">do</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s%s  %d"</span>, <span class="hl-k">if</span> fila.yo <span class="hl-k">then</span> <span class="hl-s">"&gt; "</span> <span class="hl-k">else</span> <span class="hl-s">""</span>, fila.nombre, fila.puntos))
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MarcadorArena</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Cámara que sigue al jugador de esta máquina; sin jugador (menú, conectando) gira sobre el mapa</span>
+<span class="hl-k">local</span> <span class="hl-t">CamaraArena</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(1, 30)]</span>
+<span class="hl-t">CamaraArena</span>.distancia = <span class="hl-n">6</span>
+<span class="hl-a">--[Range(0, 20)]</span>
+<span class="hl-t">CamaraArena</span>.altura = <span class="hl-n">2.5</span>
+<span class="hl-a">--[Range(0.5, 50)]</span>
+<span class="hl-t">CamaraArena</span>.suavizado = <span class="hl-n">8</span>
+
+<span class="hl-k">function</span> <span class="hl-t">CamaraArena</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-b">self</span>._giro = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">CamaraArena</span>:<span class="hl-f">LateUpdate</span>(dt: number)
+    <span class="hl-k">local</span> jugador = <span class="hl-t">Network</span>.<span class="hl-f">GetLocalPlayer</span>() <span class="hl-c">-- el personaje de ESTA máquina (o nil)</span>
+    <span class="hl-k">local</span> objetivo = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>)
+    <span class="hl-k">if</span> jugador <span class="hl-k">then</span>
+        <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">IsMouseDown</span>(<span class="hl-s">"RatonDer"</span>) <span class="hl-k">then</span>
+            <span class="hl-b">self</span>._giro -= <span class="hl-t">Input</span>.<span class="hl-f">MouseDelta</span>().x * <span class="hl-n">0.2</span>
+        <span class="hl-k">end</span>
+        objetivo = jugador.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1.2</span>, <span class="hl-n">0</span>)
+    <span class="hl-k">else</span>
+        <span class="hl-b">self</span>._giro += <span class="hl-n">10</span> * dt <span class="hl-c">-- vista general mientras no hay personaje</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> deseada = objetivo + <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>._giro, <span class="hl-n">0</span>) * <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>.altura, <span class="hl-b">self</span>.distancia)
+    <span class="hl-k">local</span> ojo = <span class="hl-t">Vec3</span>.<span class="hl-f">Lerp</span>(<span class="hl-b">self</span>.entity.position, deseada, <span class="hl-t">math</span>.<span class="hl-f">clamp</span>(<span class="hl-b">self</span>.suavizado * dt, <span class="hl-n">0</span>, <span class="hl-n">1</span>))
+    <span class="hl-b">self</span>.entity.position = ojo
+    <span class="hl-b">self</span>.entity.rotation = <span class="hl-t">Quat</span>.<span class="hl-f">LookRotation</span>(objetivo - ojo)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CamaraArena</span></code></pre></div>
+<p>El menú no arranca la red por su cuenta: pide la partida con <code>Network.PlayOffline()</code>, <code>Network.Host()</code> o
+<code>Network.Connect(ip)</code> (con el puerto y el nombre del servidor del proyecto) y <code>NovaGame.exe</code> recarga la escena
+inicial con esa sesión; el editor hace lo mismo con su escena. <strong>Crear partida por Internet (código)</strong> usa
+<code>Network.Host({ relay = true })</code> (Nova Enlace, <a href="enlace.html">enlace.md</a>): devuelve el código al momento, o <code>nil</code> y el
+motivo si el relé no contesta; durante la partida, <code>Network.GetCode()</code> lo da para enseñarlo.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Menú principal (sin partida) y de pausa (en partida). Cada botón pide una partida al juego (NovaGame.exe o el</span>
+<span class="hl-c">-- editor), que recarga la escena inicial y la arranca</span>
+<span class="hl-k">local</span> <span class="hl-t">MenuArena</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">MenuArena</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-b">self</span>._nombre = <span class="hl-t">Network</span>.<span class="hl-f">PlayerName</span>()
+    <span class="hl-b">self</span>._ip = <span class="hl-s">"127.0.0.1"</span>
+    <span class="hl-b">self</span>._aviso = <span class="hl-s">""</span>
+    <span class="hl-b">self</span>._pausa = <span class="hl-b">false</span>
+    <span class="hl-b">self</span>._buscando = <span class="hl-b">false</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuArena</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> enMenu = <span class="hl-t">Network</span>.<span class="hl-f">Mode</span>() == <span class="hl-s">"None"</span>
+    <span class="hl-c">-- Buscar partidas en la red local solo mientras se ve el menú</span>
+    <span class="hl-k">if</span> enMenu <span class="hl-k">and</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._buscando <span class="hl-k">then</span>
+        <span class="hl-t">Network</span>.<span class="hl-f">StartLanSearch</span>()
+        <span class="hl-b">self</span>._buscando = <span class="hl-b">true</span>
+    <span class="hl-k">elseif</span> <span class="hl-k">not</span> enMenu <span class="hl-k">and</span> <span class="hl-b">self</span>._buscando <span class="hl-k">then</span>
+        <span class="hl-t">Network</span>.<span class="hl-f">StopLanSearch</span>()
+        <span class="hl-b">self</span>._buscando = <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-k">not</span> enMenu <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Pausa"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._pausa = <span class="hl-k">not</span> <span class="hl-b">self</span>._pausa
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuArena</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">local</span> vista = <span class="hl-t">GUI</span>.<span class="hl-f">ViewSize</span>()
+    <span class="hl-k">if</span> <span class="hl-t">Network</span>.<span class="hl-f">Mode</span>() == <span class="hl-s">"None"</span> <span class="hl-k">then</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Arena de monedas"</span>, vista.x * <span class="hl-n">0.5</span> - <span class="hl-n">160</span>, vista.y * <span class="hl-n">0.3</span>)
+        <span class="hl-k">local</span> nombre = <span class="hl-t">GUI</span>.<span class="hl-f">InputText</span>(<span class="hl-s">"Tu nombre"</span>, <span class="hl-b">self</span>._nombre, <span class="hl-n">31</span>)
+        <span class="hl-k">if</span> nombre ~= <span class="hl-b">self</span>._nombre <span class="hl-k">then</span>
+            <span class="hl-b">self</span>._nombre = nombre
+            <span class="hl-t">Network</span>.<span class="hl-f">SetPlayerName</span>(nombre)
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">Network</span>.<span class="hl-f">LastError</span>() ~= <span class="hl-s">""</span> <span class="hl-k">then</span>
+            <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">Network</span>.<span class="hl-f">LastError</span>()) <span class="hl-c">-- por qué se acabó la última partida</span>
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-b">self</span>._aviso ~= <span class="hl-s">""</span> <span class="hl-k">then</span>
+            <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-b">self</span>._aviso)
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Jugar solo"</span>) <span class="hl-k">then</span>
+            <span class="hl-t">Network</span>.<span class="hl-f">PlayOffline</span>()
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Crear partida"</span>) <span class="hl-k">then</span>
+            <span class="hl-t">Network</span>.<span class="hl-f">Host</span>()
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Crear partida por Internet (código)"</span>) <span class="hl-k">then</span>
+            <span class="hl-c">-- Nova Enlace: el código al momento ("NOVA-7K2F-Q9XM"), o nil y el motivo si el relé no contesta</span>
+            <span class="hl-k">local</span> codigo, motivo = <span class="hl-t">Network</span>.<span class="hl-f">Host</span>({ relay = <span class="hl-b">true</span> })
+            <span class="hl-k">if</span> <span class="hl-k">not</span> codigo <span class="hl-k">then</span>
+                <span class="hl-b">self</span>._aviso = motivo <span class="hl-k">or</span> <span class="hl-s">"No se pudo crear la partida por código"</span>
+            <span class="hl-k">end</span>
+        <span class="hl-k">end</span>
+        <span class="hl-b">self</span>._ip = <span class="hl-t">GUI</span>.<span class="hl-f">InputText</span>(<span class="hl-s">"IP o código"</span>, <span class="hl-b">self</span>._ip, <span class="hl-n">63</span>)
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Unirse"</span>) <span class="hl-k">then</span>
+            <span class="hl-t">Network</span>.<span class="hl-f">Connect</span>(<span class="hl-b">self</span>._ip) <span class="hl-c">-- "ip", "ip:puerto" o el código de una partida por Internet</span>
+        <span class="hl-k">end</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Separator</span>()
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-s">"Partidas en la red local:"</span>)
+        <span class="hl-k">for</span> _, partida <span class="hl-k">in</span> <span class="hl-t">Network</span>.<span class="hl-f">LanServers</span>() <span class="hl-k">do</span>
+            <span class="hl-k">local</span> texto = <span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s (%d/%d)"</span>, partida.name, partida.players, partida.maxPlayers)
+            <span class="hl-k">if</span> partida.compatible <span class="hl-k">and</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(texto) <span class="hl-k">then</span>
+                <span class="hl-t">Network</span>.<span class="hl-f">Connect</span>(partida.address)
+            <span class="hl-k">end</span>
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Salir"</span>) <span class="hl-k">then</span>
+            <span class="hl-t">Application</span>.<span class="hl-f">Quit</span>()
+        <span class="hl-k">end</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> codigo = <span class="hl-t">Network</span>.<span class="hl-f">GetCode</span>() <span class="hl-c">-- "" si la partida no va por código</span>
+    <span class="hl-k">if</span> codigo ~= <span class="hl-s">""</span> <span class="hl-k">then</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Código"</span>, <span class="hl-n">10</span>, <span class="hl-n">10</span>)
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-s">"Código de la partida: "</span> .. codigo)
+        <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._pausa <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Pausa"</span>, vista.x * <span class="hl-n">0.5</span> - <span class="hl-n">120</span>, vista.y * <span class="hl-n">0.4</span>)
+    <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">Network</span>.<span class="hl-f">StatusText</span>())
+    <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Continuar"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._pausa = <span class="hl-b">false</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Desconectar"</span>) <span class="hl-k">then</span>
+        <span class="hl-t">Network</span>.<span class="hl-f">Disconnect</span>() <span class="hl-c">-- vuelve al menú principal</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Salir del juego"</span>) <span class="hl-k">then</span>
+        <span class="hl-t">Application</span>.<span class="hl-f">Quit</span>()
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MenuArena</span></code></pre></div>
+<p>No hay nada que compilar: al guardar cada script, el editor lo carga. Después, en la escena:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Entidad</th>
+  <th>Componentes y scripts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Cámara</code></td>
+  <td>Cámara y el script <code>CamaraArena</code></td>
+</tr>
+<tr>
+  <td><code>Menú</code> (vacía)</td>
+  <td>Los scripts <code>MenuArena</code> y <code>MarcadorArena</code></td>
+</tr>
+<tr>
+  <td><code>Generador</code> (vacía, en el centro)</td>
+  <td>El script <code>GeneradorDeMonedas</code> con el prefab <code>Moneda</code></td>
+</tr>
+<tr>
+  <td><code>Aparición de jugadores</code></td>
+  <td>Aparición de jugadores con el prefab <code>Jugador</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Y en el prefab <code>Jugador</code>, el script <code>Jugador</code> (sección 4.4). Guarda la escena (Ctrl+S).</p>
+<p>Para un HUD con mejor aspecto que <code>OnGUI</code> (marcador, cargas y avisos con sus fuentes y anclajes), monta la
+interfaz en el panel <strong>Interfaz</strong> y pon los datos con <code>UI(&quot;HUD/...&quot;)</code>: ver <a href="interfaz-ui.html">interfaz-ui.md</a> y el
+HUD del «Rey de la arena».</p>
+<h3 id="47-probarlo">4.7 Probarlo<a class="ancla" href="#47-probarlo" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li><strong>Jugar (solo)</strong> en el editor: tu personaje aparece, las monedas también y al tocarlas sube el marcador.
+Es el modo <code>Offline</code>: todo en local, pero por el mismo camino que una partida en red.</li>
+<li><strong>Anfitrión + clientes</strong> con 1 o 2 clientes: el editor es el anfitrión y cada ventana de <code>NovaGame.exe</code>, un
+cliente. Comprueba que el marcador es el mismo en todas, que las cargas solo las ve cada uno y que el aviso
+«Sin cargas» solo le sale a quien empuja de más.</li>
+<li>Pulsa <strong>F3</strong> en cada ventana: ping, pérdida, correcciones de la predicción... (sección 14).</li>
+<li>Cambia algo de un script con el juego en marcha y guárdalo: el editor lo recarga sin parar la partida.</li>
+<li>Con el juego publicado o desde la línea de comandos (desde el código fuente, con los ejecutables de
+<code>build\debug\bin</code>; con el motor instalado, los de su carpeta <code>bin</code>):</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaGame.exe --project &lt;carpeta&gt;\ArenaDeMonedas
+NovaServer.exe --project &lt;carpeta&gt;\ArenaDeMonedas
+NovaGame.exe --project &lt;carpeta&gt;\ArenaDeMonedas --connect 127.0.0.1 --name Beto --stats</code></pre></div>
+<p>La primera muestra el menú (sin opciones de red el juego empieza sin sesión). Las otras dos son un servidor
+dedicado y un cliente conectado a él.</p>
+<p>La prueba automática <code>documentacion: el tutorial multijugador en Lua</code> (en <code>tests/test_lua_ejemplos.cpp</code>) copia
+estos scripts de este documento, monta el mapa y juega con un servidor dedicado y dos clientes en memoria: Ana
+recoge una moneda (el punto llega a todos y la moneda desaparece en todos) y empuja hasta gastar sus cargas (que
+Beto nunca recibe) y le sale el aviso «Sin cargas».</p>
+<h2 id="5-componentes-de-red">5. Componentes de red<a class="ancla" href="#5-componentes-de-red" aria-label="Enlace a esta sección">#</a></h2>
+<p>Están en la categoría <strong>Red</strong> de <strong>Añadir componente</strong>.</p>
+<h3 id="identidad-de-red-networkidentity">Identidad de red (<code>NetworkIdentity</code>)<a class="ancla" href="#identidad-de-red-networkidentity" aria-label="Enlace a esta sección">#</a></h3>
+<p>La entidad existe en la red: el servidor la crea en los clientes. Sin este componente, nada de la entidad se
+replica (ni los campos <code>--[Replicated]</code> de sus scripts).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Tipo</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>prefab</code> (Prefab)</td>
+  <td>asset (Prefab)</td>
+  <td>Prefab con el que la crean los clientes. Vacío = objeto colocado en el mapa, o instancia de prefab (se usa su prefab)</td>
+</tr>
+<tr>
+  <td><code>isPlayer</code> (Es jugador)</td>
+  <td>booleano</td>
+  <td>Solo en partida. Personaje de un jugador (lo marca <code>PlayerSpawner</code>). Replicado</td>
+</tr>
+<tr>
+  <td><code>ownerName</code> (Nombre del dueño)</td>
+  <td>texto</td>
+  <td>Solo en partida. Nombre del jugador dueño. Replicado</td>
+</tr>
+<tr>
+  <td><code>netId</code> (Id de red)</td>
+  <td>entero</td>
+  <td>Solo en partida. Id que asigna el servidor; es el mismo en todas las máquinas</td>
+</tr>
+<tr>
+  <td><code>owner</code> (Dueño)</td>
+  <td>entero</td>
+  <td>Solo en partida. Id del jugador dueño (0 = el servidor)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Desde un script: <code>self:GetComponent(&quot;NetworkIdentity&quot;).ownerName</code>, o <code>Network.GetOwner(entidad)</code> y
+<code>GetPlayerName(id)</code>.</p>
+<ul>
+<li><strong>Objetos del mapa</strong>: los clientes los cargan con la escena y los ocultan hasta que el servidor se los
+envía. Se reconocen por el UUID de la entidad, así que servidor y clientes deben cargar <strong>el mismo fichero de
+escena</strong>. También se replican los que empiezan <strong>desactivados</strong>: el servidor envía su estado activo, así que
+una puerta que el servidor activa después (<code>puerta.active = true</code>) aparece en todos.</li>
+<li><strong>Objetos creados en partida</strong>: deben salir de un prefab (sección 11). Los clientes los crean con el mismo
+UUID que tienen en el servidor (y sus hijos también).</li>
+</ul>
+<h3 id="transform-de-red-networktransform">Transform de red (<code>NetworkTransform</code>)<a class="ancla" href="#transform-de-red-networktransform" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>syncPosition</code> (Posición)</td>
+  <td>sí</td>
+  <td>Posición en el mundo (precisión de 1 cm)</td>
+</tr>
+<tr>
+  <td><code>syncRotation</code> (Rotación)</td>
+  <td>sí</td>
+  <td>Rotación en el mundo (comprimida)</td>
+</tr>
+<tr>
+  <td><code>syncScale</code> (Escala)</td>
+  <td>no</td>
+  <td>Escala local. Se decide al crear la entidad en la red: cambiarlo jugando no cuenta hasta la próxima vez que se cree</td>
+</tr>
+<tr>
+  <td><code>interpolate</code> (Interpolar)</td>
+  <td>sí</td>
+  <td>En los clientes, interpolar entre los estados recibidos. Sin interpolar, el objeto salta a cada actualización</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><p><strong>Posición</strong>, <strong>Rotación</strong> e <strong>Interpolar</strong> se miran en cada frame en los clientes: desmarcarlos jugando (en el
+Inspector del cliente) deja de aplicar lo que llega del servidor al momento.</p>
+</li>
+<li><p>En los clientes, un objeto con <strong>Cuerpo rígido</strong> y Transform de red deja de simularse: pasa a cinemático y
+sigue lo que llega del servidor (sección 10).</p>
+</li>
+<li><p>Un objeto con <strong>Cuerpo rígido</strong> dinámico pero <strong>sin</strong> Identidad de red (una pelota colocada en el mapa) lo
+simula cada máquina por su cuenta: con la menor diferencia de tiempo, cada jugador lo ve en un sitio distinto.
+El Inspector lo avisa en el Cuerpo rígido y el botón <strong>Sincronizar en red</strong> le añade Identidad de red y
+Transform de red (del servidor), con deshacer (y para todo el equipo en una sesión de edición en equipo). Desde
+un script no hace falta nada más: el servidor la mueve y los clientes la ven igual.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el servidor: empujar la pelota (los clientes la ven moverse sola)</span>
+<span class="hl-k">if</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+    <span class="hl-k">local</span> pelota = <span class="hl-t">Scene</span>.<span class="hl-f">Find</span>(<span class="hl-s">"Pelota"</span>)
+    <span class="hl-t">Physics</span>.<span class="hl-f">AddImpulse</span>(pelota, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">4</span>, <span class="hl-n">2</span>))
+<span class="hl-k">end</span></code></pre></div>
+</li>
+<li><p>En el personaje de un jugador (con <code>CharacterController</code>), el dueño no interpola su posición: la
+<strong>predice</strong>. Los demás jugadores la reciben interpolada (sección 9).</p>
+</li>
+<li><p>Un objeto creado en partida necesita Transform de red con Posición para aparecer en su sitio en los
+clientes; sin él aparecería donde está guardado en el prefab.</p>
+</li>
+</ul>
+<h3 id="animador-de-red-networkanimator">Animador de red (<code>NetworkAnimator</code>)<a class="ancla" href="#animador-de-red-networkanimator" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>parameters</code> (Parámetros)</td>
+  <td>vacío</td>
+  <td>Parámetros a replicar. Vacío = todos los float, int y bool del controlador</td>
+</tr>
+<tr>
+  <td><code>smoothing</code> (Suavizado)</td>
+  <td>12</td>
+  <td>Suavizado de los valores en los clientes (0 = sin suavizar)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Necesita un <strong>Animador</strong> en la misma entidad. El servidor envía los valores a todos menos al dueño (que
+calcula los suyos).</li>
+<li>Los parámetros <code>float</code> se suavizan en los clientes; los <code>int</code> y <code>bool</code> llegan tal cual.</li>
+<li>Los <strong>disparadores</strong> (<em>triggers</em>) se replican desde la 0.9.0: un contador por disparador; el cliente dispara cada
+vez que cambia (al entrar en la partida no repite los disparos viejos).</li>
+<li>Los <strong>pesos de capa</strong> que pone un script del servidor (<code>animador:SetLayerWeight</code>) también se replican
+(suavizados); los que dependen de un parámetro ya llegan con el parámetro.</li>
+<li><strong>Parámetros</strong> y <strong>Suavizado</strong> se miran en cada envío y en cada frame: cambiarlos jugando vale al momento.</li>
+<li>Como mucho 40 parámetros por entidad (con más, se replican 40 y se avisa una vez en el registro), con
+valores entre -255 y 255 (precisión 1/128), 16 disparadores y 16 capas.</li>
+<li>El <strong>IK</strong> y los <strong>enganches a huesos</strong> no se replican: cada máquina los calcula con lo que recibe (por ejemplo,
+un ángulo de apuntar replicado; ver la <a href="modelos-y-animaciones.html#receta-shooter-en-tercera-persona">receta del shooter</a>).</li>
+</ul>
+<h3 id="aparición-de-jugadores-playerspawner">Aparición de jugadores (<code>PlayerSpawner</code>)<a class="ancla" href="#aparición-de-jugadores-playerspawner" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>playerPrefab</code> (Prefab del jugador)</td>
+  <td>ninguno</td>
+  <td>Debe tener Identidad de red (y normalmente Controlador de personaje y Transform de red)</td>
+</tr>
+<tr>
+  <td><code>radius</code> (Radio)</td>
+  <td>3</td>
+  <td>Los jugadores aparecen en un círculo de este radio alrededor de la entidad</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>El servidor usa el <strong>primer</strong> <code>PlayerSpawner</code> activo con prefab. Por cada jugador que entra (también el
+local del anfitrión) instancia el prefab, le pone <code>isPlayer</code>, <code>ownerName</code> y el jugador como dueño, y lo
+replica. Al salir el jugador se destruyen, en todas las máquinas y también en el servidor, su personaje y
+todo lo que se creó con él como dueño (<code>Spawn(..., { owner = id })</code>).</li>
+<li>Los puntos del círculo no se repiten (ángulo áureo) y cada personaje aparece mirando al centro.</li>
+<li>Sin <code>PlayerSpawner</code> los jugadores se conectan pero no tienen personaje (aviso en el log).</li>
+<li>Cambiar el prefab o el radio jugando vale para los jugadores que entren después.</li>
+<li>El script del personaje sabe que ya tiene dueño en <code>OnNetworkSpawn()</code>: ahí puede apuntarse en las reglas de la
+partida (como <code>Jugador.luau</code> del «Rey de la arena» con <code>Global(&quot;Rondas&quot;)</code>).</li>
+</ul>
+<h2 id="6-autoridad-quién-ejecuta-qué">6. Autoridad: quién ejecuta qué<a class="ancla" href="#6-autoridad-quién-ejecuta-qué" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada máquina ejecuta todos los scripts de las entidades que tiene. Estas funciones deciden qué parte le toca a
+cada una:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Sin sesión (<code>None</code>)</th>
+  <th>Un jugador (<code>Offline</code>) o anfitrión</th>
+  <th>Cliente</th>
+  <th>Servidor dedicado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>IsServer()</code> (o <code>self:IsServer()</code>)</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>no</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td><code>IsClient()</code> (o <code>self:IsClient()</code>)</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>no</td>
+</tr>
+<tr>
+  <td><code>self:HasAuthority()</code></td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>no</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td><code>self:IsOwner()</code></td>
+  <td>nunca (no hay dueños)</td>
+  <td>si la entidad es del jugador local</td>
+  <td>si es de este jugador</td>
+  <td>nunca</td>
+</tr>
+<tr>
+  <td><code>self:IsLocalPlayer()</code></td>
+  <td>nunca</td>
+  <td>si es el personaje del jugador local</td>
+  <td>si es su personaje</td>
+  <td>nunca</td>
+</tr>
+</tbody>
+</table></div>
+<p>Reglas prácticas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Dónde</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Reglas de la partida (puntos, vida, quién gana, IA, aparecer objetos)</td>
+  <td>Servidor</td>
+  <td><code>if not IsServer() then return end</code></td>
+</tr>
+<tr>
+  <td>Leer los controles y moverse</td>
+  <td>Dueño</td>
+  <td><code>if self:IsLocalPlayer() then personaje:Move(...) end</code></td>
+</tr>
+<tr>
+  <td>Sonidos, efectos, interfaz</td>
+  <td>Máquinas con pantalla</td>
+  <td><code>IsClient()</code>, o simplemente <code>Audio.</code> (no hace nada en el servidor dedicado)</td>
+</tr>
+<tr>
+  <td>Pedir algo al servidor</td>
+  <td>Dueño</td>
+  <td>Una función <code>--[Server]</code></td>
+</tr>
+<tr>
+  <td>Cambiar un campo replicado</td>
+  <td>Servidor</td>
+  <td>Asignarlo; llega solo a los clientes</td>
+</tr>
+<tr>
+  <td>Reglas de toda la partida (rondas, marcador)</td>
+  <td>Servidor</td>
+  <td>Un script <code>--[Global]</code> (<a href="scripts-lua.html#97-scripts-global">scripts-lua.md</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Network.</code> da acceso al resto:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Network.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Mode()</code>, <code>IsRunning()</code>, <code>IsConnected()</code></td>
+  <td>Modo de la sesión; si hay sesión; cliente: dentro de la partida, servidor: escuchando</td>
+</tr>
+<tr>
+  <td><code>IsHost()</code>, <code>IsDedicatedServer()</code></td>
+  <td>Anfitrión u Offline; servidor dedicado</td>
+</tr>
+<tr>
+  <td><code>LocalClientId()</code>, <code>GetLocalPlayer()</code></td>
+  <td>Id del jugador de esta máquina (0 en el servidor dedicado y sin red) y su personaje (o <code>nil</code>)</td>
+</tr>
+<tr>
+  <td><code>PlayerName()</code>, <code>SetPlayerName(nombre)</code></td>
+  <td>Nombre del jugador local (tal y como lo ven los demás); cambiarlo, también en plena partida (sección 12, «Nombres de los jugadores»)</td>
+</tr>
+<tr>
+  <td><code>Players()</code>, <code>GetPing(id?)</code></td>
+  <td>Jugadores con su id, nombre, ping y si es local; el ping de uno (o el de esta máquina)</td>
+</tr>
+<tr>
+  <td><code>Spawn(prefab, pos, rot, { owner })</code>, <code>SetOwner(e, id)</code>, <code>GetOwner(e)</code></td>
+  <td>Servidor: crear objetos de red y cambiar su dueño (sección 11)</td>
+</tr>
+<tr>
+  <td><code>Teleport(e, pos, rot?)</code></td>
+  <td>Servidor: mueve una entidad sin interpolar en los clientes (reapariciones, portales). Con un personaje predicho, su dueño se corrige y los demás no ven el salto a medio camino</td>
+</tr>
+<tr>
+  <td><code>Kick(id, motivo?)</code></td>
+  <td>Servidor: expulsar a un jugador remoto</td>
+</tr>
+<tr>
+  <td><code>Stats()</code>, <code>StatusText()</code>, <code>LastError()</code></td>
+  <td>Estadísticas, texto de estado («Conectado a ...») y último error (se conserva al volver al menú)</td>
+</tr>
+<tr>
+  <td><code>Host(opciones?)</code>, <code>Connect(direccion, opciones?)</code>, <code>PlayOffline()</code>, <code>Disconnect()</code></td>
+  <td>Pedir una partida (o salir de ella) desde un menú (sección 12)</td>
+</tr>
+<tr>
+  <td><code>StartLanSearch()</code>, <code>StopLanSearch()</code>, <code>LanServers()</code></td>
+  <td>Partidas en la red local</td>
+</tr>
+</tbody>
+</table></div>
+<p>Dentro de una función <code>[Server]</code>, <code>source</code> es el id del jugador que la llamó (0 = el propio servidor). <code>Physics.</code>
+y <code>Audio.</code> funcionan igual en todas las máquinas: en una escena sin físicas o en un servidor sin audio no hacen
+nada, así que el código compartido no necesita comprobar nada. La referencia completa, con los eventos al
+estilo FiveM, las llamadas con respuesta y las tablas replicadas, está en
+<a href="scripts-lua.html#9-multijugador">scripts-lua.md</a>.</p>
+<h2 id="7-campos-replicados">7. Campos replicados<a class="ancla" href="#7-campos-replicados" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cualquier campo de un script puede replicarse con <code>--[Replicated]</code> encima (o al final de su línea):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Replicated, Range(0, 100), Step(0.1)]</span>
+<span class="hl-t">Jugador</span>.vida = <span class="hl-n">100</span>                       <span class="hl-c">-- todos</span>
+<span class="hl-a">--[Replicated(condition = "OwnerOnly")]</span>
+<span class="hl-t">Jugador</span>.municion = <span class="hl-n">30</span> <span class="hl-a">--[Int]            -- solo el dueño</span>
+<span class="hl-a">--[Replicated(condition = "SkipOwner")]</span>
+<span class="hl-t">Jugador</span>.apuntando = <span class="hl-b">false</span>                <span class="hl-c">-- todos menos el dueño</span>
+<span class="hl-a">--[Replicated(onChange = "AlCambiarPuntos")]</span>
+<span class="hl-t">Jugador</span>.puntos = <span class="hl-n">0</span> <span class="hl-a">--[Int]               -- con aviso al llegar</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Condición</th>
+  <th>Quién lo recibe</th>
+  <th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>&quot;All&quot;</code> (por defecto)</td>
+  <td>Todos los que tienen la entidad</td>
+  <td>Vida, puntos, equipo, nombre</td>
+</tr>
+<tr>
+  <td><code>&quot;OwnerOnly&quot;</code></td>
+  <td>Solo el dueño de la entidad</td>
+  <td>Munición, inventario, cargas, objetivos secretos</td>
+</tr>
+<tr>
+  <td><code>&quot;SkipOwner&quot;</code></td>
+  <td>Todos menos el dueño</td>
+  <td>Lo que el dueño ya calcula o predice</td>
+</tr>
+</tbody>
+</table></div>
+<p>En las máquinas que no lo reciben, un campo <code>OwnerOnly</code> (o uno <code>SkipOwner</code> en la del dueño) conserva su valor
+local: el del prefab o la escena al aparecer la entidad, o el que le ponga el script de esa máquina. En el
+tutorial, Beto ve siempre las cargas de Ana con el valor del prefab (3): no uses ese valor para nada.</p>
+<p><strong>onChange.</strong> <code>--[Replicated(onChange = &quot;Funcion&quot;)]</code> llama a esa función de la clase (sin argumentos) cuando
+llega un valor nuevo:</p>
+<ul>
+<li>solo en los <strong>clientes</strong>: el servidor (y el anfitrión, que es servidor) no lo recibe, como en Unreal,
+porque el valor nace ahí. Si el anfitrión necesita el mismo efecto, llama a la función a mano tras cambiar el
+valor (como <code>SumarPuntos</code> en el tutorial);</li>
+<li>también con los <strong>valores iniciales</strong>: al aparecer la entidad en un cliente se llama para cada campo cuyo
+valor recibido es distinto del local (el del prefab o la escena). <code>OnNetworkSpawn()</code> llega antes, con todos
+los campos ya puestos;</li>
+<li><code>OnReplicated()</code> se llama una vez por cada actualización que cambió algo de ese script, después de todos los
+<code>onChange</code>: sirve para redibujar algo que depende de varios campos a la vez.</li>
+</ul>
+<p><strong>Tipos</strong> y cómo viajan:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tipo del campo</th>
+  <th>En la red</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Booleano</td>
+  <td>1 bit</td>
+</tr>
+<tr>
+  <td>Número entero (<code>--[Int]</code>)</td>
+  <td>Con <code>Range(min, max)</code>: solo los bits necesarios. Sin rango: entero comprimido</td>
+</tr>
+<tr>
+  <td>Número decimal</td>
+  <td>Con <code>Range(min, max)</code>: cuantizado con la precisión de <code>Step(x)</code> o, sin <code>Step</code>, (máx − mín) / 4096. Sin rango: los 32 bits</td>
+</tr>
+<tr>
+  <td><code>Enum(...)</code></td>
+  <td>Solo los bits necesarios</td>
+</tr>
+<tr>
+  <td><code>Vec2</code>, <code>Vec3</code></td>
+  <td>Precisión de 1 mm</td>
+</tr>
+<tr>
+  <td><code>Quat</code></td>
+  <td>Comprimido</td>
+</tr>
+<tr>
+  <td>Texto</td>
+  <td>Hasta 256 bytes</td>
+</tr>
+<tr>
+  <td><code>Entity()</code>, <code>Asset(...)</code></td>
+  <td>Por su UUID</td>
+</tr>
+<tr>
+  <td>Tabla (<code>--[Replicated] X.t = {}</code>)</td>
+  <td>Solo las claves que cambian, hasta 1024 claves y 64 KB (<a href="scripts-lua.html#93-campos-replicados">scripts-lua.md</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Reglas:</p>
+<ul>
+<li>Solo el <strong>servidor</strong> cambia los campos replicados. Si un cliente cambia uno, el cambio se queda en esa
+máquina hasta que el servidor envía un valor nuevo; para pedir un cambio, usa una función <code>[Server]</code>.</li>
+<li>Ojo con el rango de los números decimales: <code>Range(0, 1000)</code> sin <code>Step</code> da una precisión de ~0,24. Añade
+<code>Step(0.01)</code> si necesitas más.</li>
+<li>Con <code>Range(min, max)</code>, un valor fuera del rango llega <strong>recortado</strong> a los clientes (el rango del Inspector es
+también el de la red): usa un rango que cubra todos los valores que puede tomar el campo.</li>
+<li>Los scripts de una entidad de red se fijan al crearla: un script añadido a la entidad después de que aparezca
+en la red no replica sus campos.</li>
+<li>Un campo <code>Entity()</code> replicado (o un parámetro <code>Entity</code> de una función de red) vale en todas las máquinas: los
+objetos del mapa tienen el mismo UUID en todas, y los creados en partida desde un prefab se crean en los
+clientes con el UUID del servidor (sección 11).</li>
+<li>Una entidad de red desactivada también está en la red: el servidor replica su estado activo y
+<code>OnNetworkSpawn</code> le llega cuando se activa.</li>
+<li>Cada campo replicado forma parte del esquema de red: añadir, quitar o cambiar el tipo o el rango de uno hace
+incompatibles las versiones del juego (sección 16).</li>
+</ul>
+<h2 id="8-funciones-de-red-server-client-y-multicast">8. Funciones de red: <code>[Server]</code>, <code>[Client]</code> y <code>[Multicast]</code><a class="ancla" href="#8-funciones-de-red-server-client-y-multicast" aria-label="Enlace a esta sección">#</a></h2>
+<p>Se declaran con un atributo encima de la función y <strong>se llaman como cualquier función</strong> (<code>self:Abrir()</code>): en el
+lado correcto se ejecutan ahí mismo; si no, viajan por la red.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Server(rate = 10)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Torreta</span>:<span class="hl-f">Disparar</span>(direccion: <span class="hl-t">Vector3</span>) <span class="hl-k">end</span>   <span class="hl-c">-- el dueño pide disparar (como mucho 10 por segundo)</span>
+<span class="hl-a">--[Client]</span>
+<span class="hl-k">function</span> <span class="hl-t">Torreta</span>:<span class="hl-f">Retroceso</span>(fuerza: number) <span class="hl-k">end</span>      <span class="hl-c">-- el servidor avisa al dueño (o a otro: self:To(id))</span>
+<span class="hl-a">--[Multicast(reliable = false)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Torreta</span>:<span class="hl-f">Fogonazo</span>(donde: <span class="hl-t">Vector3</span>) <span class="hl-k">end</span>       <span class="hl-c">-- efecto para todos (si se pierde, no pasa nada)</span></code></pre></div>
+<p>Opciones:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>reliable = false</code></td>
+  <td>Sin garantía de entrega (efectos y entradas que se repiten). Por defecto son fiables y ordenadas</td>
+</tr>
+<tr>
+  <td><code>rate = N</code></td>
+  <td><code>[Server]</code>: llamadas por segundo que acepta el servidor de cada jugador; las demás se descartan</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y, para las <code>[Server]</code>, atributos de seguridad que el motor comprueba antes de ejecutarla (lo rechazado no se ejecuta
+y queda en el registro de seguridad; ver <a href="seguridad-red.html#5-funciones-server-seguras">seguridad-red.md</a>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Atributo</th>
+  <th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>RateLimit(N)</code></td>
+  <td>Lo mismo que <code>rate = N</code></td>
+</tr>
+<tr>
+  <td><code>ArgRange(&quot;param&quot;, min, max)</code></td>
+  <td>Ese parámetro (número) entre <code>min</code> y <code>max</code></td>
+</tr>
+<tr>
+  <td><code>MaxLength(&quot;param&quot;, N)</code></td>
+  <td>Ese parámetro (texto o tabla) como mucho <code>N</code> caracteres o elementos</td>
+</tr>
+<tr>
+  <td><code>Validate(&quot;Funcion&quot;)</code></td>
+  <td>Llama antes a esa función de la clase con los mismos argumentos: <code>false</code> (y el motivo) la rechaza</td>
+</tr>
+<tr>
+  <td><code>AnyCaller</code></td>
+  <td>En un script de entidad, cualquier jugador puede llamarla (no solo el dueño): puertas, botones, cofres</td>
+</tr>
+<tr>
+  <td><code>OwnerOnly</code></td>
+  <td>Solo el dueño (lo normal en un script de entidad; escrito, queda claro)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Server, RateLimit(2), ArgRange("cantidad", 1, 10), Validate("PuedeComprar")]</span>
+<span class="hl-k">function</span> <span class="hl-t">Tienda</span>:<span class="hl-f">Comprar</span>(articulo: <span class="hl-t">string</span>, cantidad: integer) <span class="hl-k">end</span></code></pre></div>
+<p>Dónde se ejecuta cada una:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Llamada desde</th>
+  <th><code>[Server]</code></th>
+  <th><code>[Client]</code></th>
+  <th><code>[Multicast]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Cliente</td>
+  <td>Viaja al servidor (si es el dueño de la entidad, el script es <code>[Global]</code> o la función lleva <code>AnyCaller</code>)</td>
+  <td>En su máquina, solo para sí mismo</td>
+  <td>Error: solo la puede llamar el servidor</td>
+</tr>
+<tr>
+  <td>Anfitrión / Offline</td>
+  <td>En el acto, en esta máquina</td>
+  <td>En el cliente dueño (o aquí si el dueño es el jugador local)</td>
+  <td>Aquí y en todos los clientes</td>
+</tr>
+<tr>
+  <td>Servidor dedicado</td>
+  <td>En el acto, en el servidor</td>
+  <td>En el cliente dueño</td>
+  <td>En el servidor y en todos los clientes</td>
+</tr>
+<tr>
+  <td>Sin sesión (<code>None</code>)</td>
+  <td>Aquí</td>
+  <td>Aquí</td>
+  <td>Aquí</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Dentro de una función <code>[Server]</code>, <code>source</code> es el id del jugador que la llamó (0 = el propio servidor). Si lo
+necesitas más tarde (en un <code>SetTimeout</code>), cópialo a un <code>local</code>.</li>
+<li><code>self:To(id):Funcion(...)</code> envía un <code>[Client]</code> a ese jugador en lugar de al dueño: así se contesta a quien
+llamó a un <code>[Server]</code> de un script <code>[Global]</code> (<code>self:To(source):Aviso(&quot;...&quot;)</code>). Un <code>[Client]</code> sin <code>To</code> en algo
+sin dueño (un <code>[Global]</code>, un objeto del servidor) es un error que lo explica.</li>
+<li>En un script <code>[Global]</code> (sin entidad ni dueño), cualquier jugador puede llamar a sus <code>[Server]</code>: valida con
+<code>source</code> quién es.</li>
+<li>Una <code>[Multicast]</code> también se ejecuta en el propio servidor, sea anfitrión o dedicado (en el dedicado no suena
+nada: <code>Audio.</code> no hace nada allí). Aun así, la lógica de la partida queda más clara en el código del servidor
+que la llama; deja la <code>[Multicast]</code> para efectos (sonidos, partículas, mensajes).</li>
+<li>Las funciones de red no devuelven valores: si el cliente necesita una respuesta, el servidor se la envía con un
+<code>[Client]</code> (o usa <code>TriggerServerCallback</code>, ver
+<a href="scripts-lua.html#910-llamadas-al-servidor-con-respuesta">scripts-lua.md</a>).</li>
+</ul>
+<p><strong>Parámetros.</strong> Llevan tipo con las anotaciones de Luau y se comprueban siempre, también sin red: <code>number</code>,
+<code>integer</code> (o <code>int</code>), <code>boolean</code>, <code>string</code>, <code>Vector3</code> (o <code>Vec3</code>), <code>Vector2</code>, <code>Vector4</code>, <code>Quat</code>, <code>Color</code>, <code>Entity</code>,
+<code>Asset</code> y textos de una lista (<code>&quot;a&quot; | &quot;b&quot;</code>). Sin anotación, un valor cualquiera con límites (números, textos de
+hasta 4 KB, vectores, entidades y tablas pequeñas). Como mucho 8 KB de argumentos por llamada. El número y el
+tipo de los argumentos se comprueban: si no encajan, es un error en quien llama (con fichero y línea) y no se
+envía nada. El motor también descarta los números NaN o infinitos de los parámetros <code>number</code>; el resto lo
+compruebas tú (distancias, esperas, que esté vivo, la longitud de los textos):
+<a href="scripts-lua.html#98-límites-y-validación">scripts-lua.md</a>.</p>
+<p>Los tipos de los parámetros forman parte del esquema de red (sección 16). Para traer código de FiveM, también
+hay eventos con nombre (<code>TriggerServerEvent</code>, <code>RegisterNetEvent</code>...):
+<a href="scripts-lua.html#12-eventos-al-estilo-fivem">scripts-lua.md</a>.</p>
+<h2 id="9-movimiento-predicho-con-charactercontroller">9. Movimiento predicho con CharacterController<a class="ancla" href="#9-movimiento-predicho-con-charactercontroller" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un personaje con <strong>Controlador de personaje</strong>, <strong>Transform de red</strong> e <strong>Identidad de red</strong> cuyo dueño es un
+jugador (todo lo que crea <code>PlayerSpawner</code>) se predice solo:</p>
+<ol>
+<li>El script del dueño escribe la entrada: <code>personaje:Move(direccion, correr)</code>, <code>personaje:Face(guinada)</code> y
+<code>personaje:Jump()</code>. La dirección va en coordenadas del mundo (longitud 0 a 1) y la guiñada en radianes (0 =
+mirando hacia +Z).</li>
+<li>En cada paso fijo (60 Hz), la red toma esa entrada, la simula al instante en la máquina del dueño con el
+<code>CharacterController</code> y la envía al servidor.</li>
+<li>El servidor simula la misma entrada con el mismo <code>CharacterController</code> (es la versión que vale).</li>
+<li>El dueño compara el estado del servidor con el que predijo. Si se separan más de 1 cm, vuelve al del
+servidor, re-simula las entradas pendientes y suaviza la diferencia en 0,15 s. Si se separan más de 3 m, salta
+directamente.</li>
+<li>Los demás jugadores ven el personaje interpolado, y <code>velocity</code> y <code>grounded</code> actualizados para animar (<code>velocity</code> es lo
+que se mueve su posición interpolada, desde la 0.9.16; antes se quedaba en 0 en las máquinas que no lo simulan).</li>
+</ol>
+<p>Los paquetes del motor <strong>Primera persona</strong> y <strong>Tercera persona</strong> (<a href="paquetes.html">paquetes.md</a>) traen un personaje así ya
+hecho, con agacharse, cabeceo replicado y la animación de todos los jugadores.</p>
+<p>Reglas:</p>
+<ul>
+<li>Escribe la entrada solo en la máquina del dueño (<code>self:IsLocalPlayer()</code>) y no muevas el <code>Transform</code> del
+personaje. Para reaparecer o teletransportar, usa <code>Network.Teleport(...)</code> en el servidor; para empujarlo,
+<code>personaje:Push(velocidad)</code> en el servidor (lo recibe su dueño al reconciliar).</li>
+<li>La simulación usa los campos del <code>CharacterController</code> (velocidades, salto, pendientes, escalones): deben ser
+iguales en servidor y cliente (salen del mismo prefab).</li>
+<li>Los choques con el nivel estático se predicen perfectamente. Los choques con objetos que se mueven (cajas,
+otros jugadores) pueden causar pequeñas correcciones, que se suavizan.</li>
+<li>Un personaje del servidor (un NPC con <code>CharacterController</code> y dueño 0) no se predice: lo simula el servidor
+con la entrada que le dé su script (<code>personaje:Move</code>) y los clientes lo ven interpolado.</li>
+<li>El servidor descarta las entradas con valores no válidos (NaN, infinitos), limita la dirección a longitud 1
+y aplica como mucho una entrada por tick: un cliente no puede ir más rápido de lo que permite el
+<code>CharacterController</code> del servidor.</li>
+<li>Si el dueño deja de enviar entradas (se cuelga, corta la red), pasados 6 ticks (0,1 s) el servidor simula su
+personaje con la entrada neutra (sin moverse ni saltar): la gravedad sigue actuando y no se queda flotando.
+Cuando vuelven las entradas, el dueño se corrige solo.</li>
+</ul>
+<p>El «Rey de la arena» usa otra forma: personajes con <strong>cuerpo rígido</strong> que mueve el servidor según lo que pide el
+dueño (sin predicción), para que los empujones los lancen de verdad
+(<a href="scripts-lua.html#102-cómo-está-montado">scripts-lua.md</a>).</p>
+<h2 id="10-objetos-con-física-del-servidor">10. Objetos con física del servidor<a class="ancla" href="#10-objetos-con-física-del-servidor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una caja con <strong>Cuerpo rígido</strong> dinámico + <strong>Colisionador</strong> + <strong>Identidad de red</strong> + <strong>Transform de red</strong>:</p>
+<ul>
+<li>en el <strong>servidor</strong>, la simulan las físicas normalmente: cae, choca, la empujan los personajes y las fuerzas;</li>
+<li>en los <strong>clientes</strong>, el cuerpo pasa a cinemático y sigue la posición que llega del servidor. Así no se
+separan nunca, y los personajes predichos chocan con ella donde está.</li>
+</ul>
+<p>Para moverla, actúa en el servidor: <code>Physics.AddImpulse(caja, impulso)</code> dentro de una función <code>[Server]</code> (como
+<code>Empujar</code> en el tutorial) o en la lógica del servidor. Un impulso en un cliente no hace nada, porque allí la
+caja es cinemática.</p>
+<p>Un objeto con físicas <strong>sin</strong> Identidad de red se simula por separado en cada máquina y cada una lo verá en un
+sitio distinto. Solo vale para cosas que no importan para el juego (escombros, decoración).</p>
+<p><strong>Lo que flota</strong> (componente <a href="fisicas.html#flotación-buoyancy">Flotación</a>) es igual: lo simula el servidor y llega a
+los clientes con su Transform de red. Las olas del agua van con el <strong>reloj de la partida</strong>
+(<code>NetworkManager::SessionTime</code>, en Lua <code>Water.Time()</code>): en el servidor, el de sus ticks; en cada cliente, el instante
+en el que dibuja lo que llega del servidor (su estimación de la hora del servidor menos la interpolación, unos
+100 ms). Así todos ven las mismas olas y la barca que llega por la red cuadra con ellas, sin enviar nada más por la
+red.</p>
+<h2 id="11-crear-y-destruir-objetos-durante-la-partida">11. Crear y destruir objetos durante la partida<a class="ancla" href="#11-crear-y-destruir-objetos-durante-la-partida" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Crear</strong> (siempre en el servidor):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Crea el prefab en el servidor y en todos los clientes. 'owner' es el dueño (por defecto 0, el servidor; el id de</span>
+<span class="hl-c">-- un jugador si debe poder llamar a las funciones [Server] de ese objeto)</span>
+<span class="hl-k">local</span> bala = <span class="hl-f">Spawn</span>(<span class="hl-b">self</span>.prefabBala, origen, rotacion, { owner = source })</code></pre></div>
+<p>Requisitos:</p>
+<ul>
+<li>el objeto debe salir de un <strong>prefab</strong> con <strong>Identidad de red</strong> (los clientes lo crean con él). Una entidad
+hecha a mano en partida no se puede replicar (aviso: «se creó durante la partida y no tiene prefab»);</li>
+<li>el prefab debe tener <strong>Transform de red</strong>, o los clientes no sabrán dónde ponerlo.</li>
+</ul>
+<p>Cuando <code>Spawn</code> devuelve la entidad, el <code>Awake</code> de sus scripts ya ha pasado: lo que el servidor escriba en sus
+campos replicados en la línea siguiente viaja en el primer envío. En un cliente, <code>Spawn</code> es un error que lo
+explica, y <code>Scene.Instantiate</code> crea un objeto <strong>solo local</strong>, útil para efectos (casquillos, chispas).</p>
+<p><strong>Destruir</strong>: <code>entidad:Destroy()</code> (o <code>self:Destroy()</code>) en el servidor la destruye en todos. En un cliente solo
+la destruye en esa máquina. Lo que se creó con un jugador como dueño se destruye solo cuando ese jugador sale.</p>
+<p><strong>Señalar objetos de red entre máquinas.</strong> Un objeto creado desde un prefab tiene el mismo UUID en todas las
+máquinas (el servidor envía el de la raíz y los de los hijos se derivan de él), así que un campo <code>Entity()</code>
+replicado o un parámetro <code>Entity</code> de una función de red sirve para decir «esta caja». El <code>netId</code> de la Identidad
+de red también es el mismo en todas:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Entidad de red por su netId (o nil)</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">BuscarPorNetId</span>(netId: number): <span class="hl-t">Entity</span>?
+    <span class="hl-k">for</span> _, e <span class="hl-k">in</span> <span class="hl-t">Scene</span>.<span class="hl-f">FindAllWithComponent</span>(<span class="hl-s">"NetworkIdentity"</span>) <span class="hl-k">do</span>
+        <span class="hl-k">if</span> e:<span class="hl-f">GetComponent</span>(<span class="hl-s">"NetworkIdentity"</span>).netId == netId <span class="hl-k">then</span>
+            <span class="hl-k">return</span> e
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-b">nil</span>
+<span class="hl-k">end</span></code></pre></div>
+<h2 id="12-interfaz-en-partida-y-menú">12. Interfaz en partida y menú<a class="ancla" href="#12-interfaz-en-partida-y-menú" aria-label="Enlace a esta sección">#</a></h2>
+<p>El HUD y los menús que verá el jugador se montan con el creador visual del editor (panel <strong>Interfaz</strong>) y los
+scripts solo ponen los datos con <code>UI(&quot;HUD/...&quot;)</code>: ver <a href="interfaz-ui.html">interfaz-ui.md</a>. La interfaz es local
+(cada máquina dibuja la suya): un botón que deba hacer algo en la partida llama a una función del script que se
+lo pide al servidor con un <code>[Server]</code>. Para depurar y para menús rápidos está <code>OnGUI</code> con <code>GUI.</code> (como el
+tutorial). En el servidor dedicado no se dibuja nada.</p>
+<p>El motor ya dibuja por su cuenta, encima de la vista del juego:</p>
+<ul>
+<li>el estado de la conexión del cliente mientras conecta o si falla («Conectando a ...», «versión
+incompatible...»);</li>
+<li>los mensajes de la partida abajo a la izquierda durante 8 s («Ana se ha unido a la partida», «Beto ha salido
+(tiempo de espera agotado)», los <code>say</code> del servidor). Los avisos de entrar y salir salen <strong>en el idioma del juego</strong> de
+cada máquina (el servidor los manda con una clave: <code>nova.red.unido</code> y <code>nova.red.salido</code>); una tabla de idiomas del
+proyecto con esas claves (con <code>{nombre}</code> y <code>{motivo}</code>) cambia el texto, y <code>Network.SetSystemMessages(false)</code> los quita
+del HUD y del chat de esa máquina para que el juego ponga los suyos con los eventos <code>playerJoined</code>/<code>playerDropped</code> (en el servidor) o <code>Lobby.OnChanged</code>;</li>
+<li>las estadísticas de red con F3 (sección 14).</li>
+</ul>
+<p><strong>El flujo del menú:</strong></p>
+<ol>
+<li><code>NovaGame.exe</code> sin <code>--host</code>, <code>--connect</code> ni <code>--solo</code> arranca la escena inicial <strong>sin sesión</strong> (modo
+<code>&quot;None&quot;</code>; salvo que el proyecto diga otra cosa en <code>red.modoInicial</code>): el menú lo detecta con
+<code>Network.Mode() == &quot;None&quot;</code>.</li>
+<li>El menú pide una partida: <code>Network.PlayOffline()</code>, <code>Network.Host({ port, maxPlayers, serverName, password })</code>
+o <code>Network.Connect(&quot;ip:puerto&quot;, { password })</code> (las opciones son opcionales: sin ellas, las del proyecto).</li>
+<li>El juego recarga la escena inicial y la arranca con esa sesión. En <code>NovaGame.exe</code>, el nombre del jugador
+(<code>Network.SetPlayerName</code>) se guarda en <code>%LOCALAPPDATA%\&lt;nombre del juego&gt;\opciones.json</code> para la próxima vez.</li>
+<li>Para volver al menú, <code>Network.Disconnect()</code>. Si el servidor se cierra o expulsa al jugador, el cliente vuelve
+solo al menú y <code>Network.LastError()</code> explica por qué: se conserva en el menú y se borra al empezar otra
+partida (desconectarse uno mismo no cuenta como error).</li>
+</ol>
+<p><strong>Nombres de los jugadores.</strong> Cada jugador entra con el nombre de <code>Network.SetPlayerName(nombre)</code> (en <code>NovaGame.exe</code>, el
+guardado, <code>--name</code> o el de Steam; en el editor, el de la sección 13). El servidor lo limpia (sin caracteres de control
+ni invisibles, como mucho 24 letras) y lo hace <strong>único</strong> sin distinguir mayúsculas: si ya hay una «Ana», la segunda
+entra como «Ana 2» (y la siguiente, «Ana 3»). <code>SetPlayerName</code> funciona <strong>también ya en la partida</strong>: en el anfitrión
+cambia al momento; en un cliente se pide al servidor, que lo valida igual y lo envía a todos. Si se llama muchas veces
+seguidas (una caja de texto mientras escribes), el servidor aplica tres al momento y después uno cada 2 s, siempre el
+último. El nombre nuevo lo ven <code>GetPlayerName(id)</code>, <code>Network.Players()</code>, <code>Lobby.GetPlayers()</code>, el chat (<code>Chat.*</code>), el
+nombre del personaje (<code>NetworkIdentity.ownerName</code>) y los avisos «… se ha unido» de quien entre después;
+<code>Network.PlayerName()</code> devuelve el tuyo como lo ven los demás («Ana 2»).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- /nombre &lt;nuevo&gt; en el chat: cambia el nombre de este jugador en plena partida</span>
+<span class="hl-k">local</span> <span class="hl-t">CambiarNombre</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">CambiarNombre</span>:<span class="hl-f">Start</span>()
+    <span class="hl-t">Chat</span>.<span class="hl-f">OnMessage</span>(<span class="hl-k">function</span>(m: <span class="hl-t">ChatMessage</span>)
+        <span class="hl-k">if</span> m.jugador == <span class="hl-t">Network</span>.<span class="hl-f">LocalClientId</span>() <span class="hl-k">and</span> <span class="hl-t">string</span>.<span class="hl-f">sub</span>(m.texto, <span class="hl-n">1</span>, <span class="hl-n">8</span>) == <span class="hl-s">"/nombre "</span> <span class="hl-k">then</span>
+            <span class="hl-t">Network</span>.<span class="hl-f">SetPlayerName</span>(<span class="hl-t">string</span>.<span class="hl-f">sub</span>(m.texto, <span class="hl-n">9</span>))
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CambiarNombre</span></code></pre></div>
+<p>En el editor, <strong>Jugar</strong> siempre arranca con una sesión (sección 13), así que el menú principal no aparece; para
+probarlo usa <code>NovaGame.exe --project &lt;proyecto&gt;</code> sin opciones de red. <strong>Desconectar</strong> desde el menú de pausa
+para el modo juego del editor. Un menú hecho con la interfaz visual está en
+<a href="scripts-lua.html#911-empezar-y-unirse-a-partidas-desde-lua-menús">scripts-lua.md</a>.</p>
+<h2 id="13-modos-de-juego-del-editor">13. Modos de juego del editor<a class="ancla" href="#13-modos-de-juego-del-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p>El desplegable de la barra de herramientas (junto al botón de reproducir) y el menú <strong>Jugar</strong> eligen cómo se
+juega:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Modo</th>
+  <th>Sesión</th>
+  <th>Qué pasa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Jugar (solo)</strong> (Ctrl+P)</td>
+  <td><code>Offline</code></td>
+  <td>Un jugador, sin sockets. Si la escena no tiene componentes de red, es el modo juego de siempre</td>
+</tr>
+<tr>
+  <td><strong>Jugar como anfitrión</strong></td>
+  <td><code>Host</code></td>
+  <td>El editor es servidor y jugador; otros pueden conectarse a tu IP</td>
+</tr>
+<tr>
+  <td><strong>Anfitrión + clientes</strong></td>
+  <td><code>Host</code></td>
+  <td>Como el anterior y además abre de 1 a 4 ventanas de <code>NovaGame.exe</code> conectadas a <code>127.0.0.1</code> (con tu nombre y un número: «Marta 2», «Marta 3»...). Al parar, el editor las cierra</td>
+</tr>
+<tr>
+  <td><strong>Conectar a...</strong></td>
+  <td><code>Client</code></td>
+  <td>Pide la IP y el puerto (por ejemplo <code>192.168.1.20:7777</code>), o un código <code>NOVA-...</code>, y se une a otra partida</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con <strong>Jugar &gt; Por Internet (código)</strong> (o la casilla <strong>Por código</strong> junto al desplegable), los dos modos de
+anfitrión crean también una sala en el relé de Nova Enlace: el código sale en la barra de herramientas
+(<strong>Copiar código</strong>) y con <strong>F3</strong> (<a href="enlace.html">enlace.md</a>).</p>
+<ul>
+<li>El jugador del editor se llama como tú: en una sesión de equipo (<strong>Equipo &gt; Jugar en equipo</strong> incluido), con tu
+nombre de la sesión; si no, con <strong>Editar &gt; Preferencias del editor &gt; Jugar &gt; Tu nombre en las partidas</strong> (vacío =
+tu usuario de Windows). Un script puede cambiarlo con <code>Network.SetPlayerName</code> (sección 12). El puerto, las plazas,
+el nombre del servidor, la versión del protocolo y la relevancia salen de <strong>Ajustes del proyecto &gt; Red</strong>.</li>
+<li>Las ventanas de <strong>Anfitrión + clientes</strong> cargan la misma escena que el editor (<code>--scene</code>): la guardada o, si
+tiene cambios sin guardar o no se ha guardado nunca, una copia temporal en
+<code>%LOCALAPPDATA%\NovaEngine\partida_clientes.scene</code> (tu fichero no se toca).</li>
+<li>Con el modo juego <strong>en pausa</strong> la red sigue viva (recibe y envía, sin simular): los clientes no se
+desconectan. Con el editor <strong>minimizado</strong>, una partida en red sigue jugándose.</li>
+<li><strong>Guardar un script Lua</strong> con el juego en marcha lo recarga sin parar la partida y sin perder el estado. Si
+cambias las funciones de red o los campos replicados, la huella de la red cambia: vuelve a empezar la partida
+para que los clientes se conecten con los mismos scripts.</li>
+<li><strong>Jugar &gt; Simular red mala</strong> añade latencia y pérdida a esta máquina (sección 14).</li>
+<li><strong>Jugar &gt; Estadísticas de red</strong> (o F3 con el panel Juego enfocado) muestra las estadísticas en el panel
+Juego. <strong>Jugar &gt; Formas de física en el visor</strong> dibuja los colisionadores en el visor Escena.</li>
+<li>Si el puerto está ocupado (por ejemplo, otro anfitrión abierto), la barra de estado lo dice y el modo juego
+sigue sin red.</li>
+</ul>
+<h3 id="registros-server-y-client">Registros: Server: y Client:<a class="ancla" href="#registros-server-y-client" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con red, los mensajes del registro (los de los scripts: <code>Log.*</code>, <code>print</code>, errores de Lua; y los de la red del motor,
+«Red: ...») llevan delante de qué lado salen. Se ve en la Consola del editor (con color y el filtro
+<strong>Todo / Server / Client</strong>), en <code>editor.log</code>, en el log de NovaGame y en la consola y el log de NovaServer:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">[   3.120] INFO  Server: Red: Anfitrión en el puerto 28200
+[   3.415] INFO  Host: ronda 1
+[   3.433] INFO  Client: puntos 5</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Dónde se ejecuta</th>
+  <th>Prefijo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Sin red, <strong>Jugar (solo)</strong></td>
+  <td>ninguno</td>
+</tr>
+<tr>
+  <td>Servidor dedicado (NovaServer, o el editor como servidor)</td>
+  <td><code>Server:</code></td>
+</tr>
+<tr>
+  <td>Cliente (NovaGame <code>--connect</code>, <strong>Jugar &gt; Conectar a...</strong>)</td>
+  <td><code>Client:</code></td>
+</tr>
+<tr>
+  <td>Varios clientes en el mismo proceso (pruebas)</td>
+  <td><code>Client 2:</code>, <code>Client 3:</code>... (el id del jugador)</td>
+</tr>
+<tr>
+  <td>Anfitrión: función <code>[Server]</code>, evento de <code>TriggerServerEvent</code>, <code>RegisterServerCallback</code>, la red del servidor</td>
+  <td><code>Server:</code></td>
+</tr>
+<tr>
+  <td>Anfitrión: función <code>[Client]</code>, evento de <code>TriggerClientEvent</code>, respuesta de <code>TriggerServerCallback</code></td>
+  <td><code>Client:</code></td>
+</tr>
+<tr>
+  <td>Anfitrión: el resto (<code>Start</code>, <code>Update</code>, <code>[Multicast]</code>... el código común)</td>
+  <td><code>Host:</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Cómo se decide: cada escena que se juega tiene su lado, que pone la red al arrancar la sesión (según el modo:
+<code>DedicatedServer</code>, <code>Client</code> o <code>Host</code>); lo que se escribe mientras se ejecuta esa escena (sus sistemas, sus scripts, su
+red) sale con él. En el anfitrión, la red del motor y lo que llega a una función <code>[Server]</code> o a un evento para el
+servidor se marca como del servidor, y lo que llega a una función <code>[Client]</code> o a un evento para los clientes, como
+del cliente. Un <code>if IsClient() then ... end</code> en el anfitrión no cambia el prefijo (allí <code>IsServer()</code> e <code>IsClient()</code> son
+verdad a la vez): si quieres separar esas líneas, escríbelas desde una función <code>[Client]</code> o un evento.</p>
+<ul>
+<li>El texto del mensaje no cambia (el prefijo lo pone quien lo enseña): lo que buscan tus herramientas en el texto sigue
+igual; las líneas de los ficheros sí llevan el prefijo entre el nivel y el mensaje.</li>
+<li><strong>Jugar &gt; Anfitrión + clientes</strong>: el editor es el anfitrión (<code>Server:</code>/<code>Host:</code>/<code>Client:</code> en su Consola) y cada
+ventana de NovaGame escribe <code>Client:</code> en su propio log.</li>
+<li>Para quitarlo: <strong>Preferencias del editor &gt; Consola &gt; Mostrar Server:/Client: en los mensajes</strong> (Consola y
+<code>editor.log</code>) y <code>--log-sin-lado</code> en NovaGame.exe y NovaServer.exe.</li>
+</ul>
+<h2 id="14-estadísticas-f3-red-mala-y-red-local">14. Estadísticas (F3), red mala y red local<a class="ancla" href="#14-estadísticas-f3-red-mala-y-red-local" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="estadísticas">Estadísticas<a class="ancla" href="#estadísticas" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>F3</strong> (en <code>NovaGame.exe</code>, o en el panel Juego del editor) muestra arriba a la derecha:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Línea</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Red</td>
+  <td>Modo de la sesión y si hay conexión</td>
+</tr>
+<tr>
+  <td>Código (Nova Enlace)</td>
+  <td>Solo en partidas por código: el que hay que compartir (<a href="enlace.html">enlace.md</a>)</td>
+</tr>
+<tr>
+  <td>Ping, Pérdida</td>
+  <td>Tiempo de ida y vuelta (con su variación) y porcentaje de paquetes perdidos. En el servidor, la media de los jugadores</td>
+</tr>
+<tr>
+  <td>Bajada, Subida</td>
+  <td>KB/s recibidos y enviados</td>
+</tr>
+<tr>
+  <td>Entidades, Jugadores, Tick</td>
+  <td>Entidades de red, jugadores y tick del servidor</td>
+</tr>
+<tr>
+  <td>Correcciones, Error</td>
+  <td>Solo clientes: veces que el servidor ha corregido la predicción y el último error en metros</td>
+</tr>
+<tr>
+  <td>RPCs</td>
+  <td>Llamadas de red enviadas y recibidas</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>NovaGame.exe --stats</code> arranca con ellas visibles. Desde un script, <code>Network.Stats()</code> devuelve <code>{ rtt, jitter, loss, kbIn, kbOut, players, entities, tick }</code> y <code>Network.GetPing()</code> el ping de esta máquina.</p>
+<p>Valores sanos: muchas correcciones seguidas o un error que crece indican que cliente y servidor no simulan lo
+mismo (sección 16). Con red buena las correcciones se quedan en 0 casi siempre.</p>
+<h3 id="probar-con-red-mala">Probar con red mala<a class="ancla" href="#probar-con-red-mala" aria-label="Enlace a esta sección">#</a></h3>
+<p>Para probar a mano con red mala, abre el juego con <code>--sim-latencia</code> y <code>--sim-perdida</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaGame.exe --project game\multiplayer_lua --host --sim-latencia 150 --sim-perdida 3</code></pre></div>
+<p>La latencia (ms) se suma al ping de esta máquina y la pérdida (%) se aplica en cada sentido. En el editor está
+en <strong>Jugar &gt; Simular red mala</strong>. Como anfitrión afecta a todos los clientes. Solo con UDP: no con Steam ni en
+<strong>Jugar (solo)</strong>. Y nada sustituye a probar entre dos PC de verdad (o por wifi) con F3 abierto.</p>
+<p>Las pruebas automáticas del motor juegan los ejemplos sin ventanas, con un servidor dedicado y dos clientes en
+el mismo proceso conectados por una red en memoria (<code>tests/test_lua_ejemplos.cpp</code> con el «Rey de la arena» y este
+tutorial, y <code>tests/test_multiplayer.cpp</code> con latencia y pérdida simuladas). Cómo escribir una prueba así desde
+C++ está en <a href="scripts-cpp.html#una-prueba-con-red-mala">scripts-cpp.md</a>.</p>
+<h3 id="red-local-lan">Red local (LAN)<a class="ancla" href="#red-local-lan" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>Un anfitrión o un servidor dedicado responden a las búsquedas en la red local (en <code>NovaGame.exe</code> siempre; en
+<code>NovaServer.exe</code>, la clave <code>lan</code> de <code>servidor.json</code>). En <code>Offline</code> nunca.</li>
+<li>El menú busca con <code>Network.StartLanSearch()</code> y lee <code>Network.LanServers()</code> cada frame: dirección
+(<code>ip:puerto</code>), nombre, mapa, jugadores y plazas, si tiene contraseña, ping y si es <strong>compatible</strong> (misma
+versión de protocolo). Se pregunta cada 1,5 s por <em>broadcast</em> a los puertos del proyecto (el configurado y
+los 3 siguientes) y una partida desaparece de la lista si no responde en 5 s.</li>
+<li>Solo funciona dentro de la misma subred (misma wifi o router) y el Firewall de Windows debe permitir UDP
+entrante al juego (la primera vez que el juego crea una partida, Windows pregunta). Ver
+<a href="servidor-dedicado.html#puertos-firewall-y-router">servidor-dedicado.md</a>.</li>
+<li>Para jugar por Internet sin abrir puertos, usa un código de Nova Enlace (<a href="enlace.html">enlace.md</a>) o Steam
+(<a href="steam.html">steam.md</a>).</li>
+</ul>
+<h3 id="por-internet-con-un-código-nova-enlace">Por Internet con un código (Nova Enlace)<a class="ancla" href="#por-internet-con-un-código-nova-enlace" aria-label="Enlace a esta sección">#</a></h3>
+<p>El anfitrión crea una sala en el relé (tu Worker de Cloudflare, desplegado una vez) y los demás entran con su
+código, sin abrir puertos ni VPN. Todo lo demás (replicación, RPCs, contraseña, predicción) funciona igual: el relé
+solo lleva los paquetes de <code>nova_net</code>. El anfitrión sigue aceptando por UDP a los de su red local.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Dónde</th>
+  <th>Anfitrión</th>
+  <th>Cliente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>C++ (<code>NetworkSessionDesc</code>)</td>
+  <td><code>useRelay = true</code>; el código, en <code>Network().SessionCode()</code></td>
+  <td><code>address = &quot;relay:NOVA-7K2F-Q9XM&quot;</code> (o el código tal cual)</td>
+</tr>
+<tr>
+  <td>Lua</td>
+  <td><code>local codigo, motivo = Network.Host({ relay = true })</code> (<code>nil</code> y el motivo si el relé no contesta); <code>Network.GetCode()</code></td>
+  <td><code>Network.Connect(&quot;NOVA-7K2F-Q9XM&quot;)</code></td>
+</tr>
+<tr>
+  <td><code>NovaGame.exe</code></td>
+  <td><code>--host --relay</code></td>
+  <td><code>--connect NOVA-7K2F-Q9XM</code></td>
+</tr>
+<tr>
+  <td><code>NovaServer.exe</code></td>
+  <td><code>--relay</code> (o <code>&quot;enlace&quot;: true</code> en <code>servidor.json</code>): el código sale en la consola y con el comando <code>codigo</code></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Editor</td>
+  <td><strong>Jugar &gt; Por Internet (código)</strong>; en una sesión de equipo por código, <strong>Equipo &gt; Jugar en equipo</strong></td>
+  <td><strong>Jugar &gt; Conectar a...</strong> acepta códigos</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>relayUrl</code> (o <code>--relay-url</code>, o <code>&quot;enlaceUrl&quot;</code> en la sección <code>&quot;red&quot;</code> de <code>project.nova</code>) elige otro relé. Límites del
+plan gratuito, latencia, privacidad y problemas: <a href="enlace.html">enlace.md</a>.</p>
+<h2 id="15-los-ejemplos">15. Los ejemplos<a class="ancla" href="#15-los-ejemplos" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ejemplo</th>
+  <th>Qué enseña</th>
+  <th>Dónde se explica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>game/multiplayer_lua</code> («Rey de la arena»)</td>
+  <td>Personajes con cuerpo rígido movidos por el servidor, empujones con espera y rayo grueso, vida replicada con <code>onChange</code>, rondas en un script <code>[Global]</code>, avisos con <code>self:To(id)</code>, chat escrito y un HUD con el creador de interfaces</td>
+  <td><a href="scripts-lua.html#10-tutorial-rey-de-la-arena">scripts-lua.md</a></td>
+</tr>
+<tr>
+  <td><code>game/inventario_lua</code> (inventario tipo Rust)</td>
+  <td>El inventario vive en el servidor y llega solo a su dueño; arrastrar y soltar, cajas de botín, tirar y coger, todo validado en el servidor</td>
+  <td><a href="ejemplo-inventario.html">ejemplo-inventario.md</a></td>
+</tr>
+<tr>
+  <td>El tutorial de esta guía («Arena de monedas»)</td>
+  <td>Movimiento predicho, monedas con <code>Spawn</code>, campos <code>OwnerOnly</code>, <code>[Server]</code>, <code>[Client]</code> y <code>[Multicast]</code></td>
+  <td><a href="#4-tutorial-arena-de-monedas">Sección 4</a></td>
+</tr>
+<tr>
+  <td><code>game/fiesta_lua</code> («Fiesta»)</td>
+  <td>Sala con la plantilla «Sala (lobby)» (código, «Listo», ajustes, Empezar), rondas que cambian de escena para todos con pantalla de carga, primera persona, botones <strong>Interactuables</strong> y chat</td>
+  <td><a href="lobby-y-escenas.html#2-el-ejemplo-fiesta">lobby-y-escenas.md</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Los dos ejemplos en Lua se juegan en las pruebas automáticas con un servidor dedicado y dos clientes (el «Rey de
+la arena», también con <code>NovaServer.exe</code> de verdad por UDP): son un buen modelo para probar tus juegos. El
+ejemplo multijugador en C++ (<code>game/multiplayer_sample</code>) y su recorrido están en
+<a href="scripts-cpp.html#el-ejemplo-multijugador-en-c">scripts-cpp.md</a>.</p>
+<h2 id="16-errores-comunes">16. Errores comunes<a class="ancla" href="#16-errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Síntoma</th>
+  <th>Causa y solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>«versión incompatible: versión del juego distinta» al conectar</td>
+  <td>Servidor y cliente no tienen los mismos scripts (otras funciones de red o campos replicados) o la misma versión del motor: publica cliente y servidor juntos</td>
+</tr>
+<tr>
+  <td>La partida no aparece en la red local / «el servidor no responde»</td>
+  <td>Distinto nombre de juego en <code>project.nova</code> (es el identificador en la red), firewall, otra subred o puerto equivocado</td>
+</tr>
+<tr>
+  <td>Un objeto de red no aparece en el cliente</td>
+  <td>Servidor y cliente cargan escenas distintas (los dos deben jugar el mismo fichero), o el objeto se creó en partida sin prefab</td>
+</tr>
+<tr>
+  <td>El objeto creado en partida aparece en el origen en los clientes</td>
+  <td>Falta <strong>Transform de red</strong> en el prefab</td>
+</tr>
+<tr>
+  <td>Los jugadores se conectan pero no tienen personaje</td>
+  <td>Falta <code>PlayerSpawner</code>, está inactivo o su prefab no tiene Identidad de red</td>
+</tr>
+<tr>
+  <td>Mi personaje no se mueve en el cliente</td>
+  <td>Se escribe la entrada fuera de <code>self:IsLocalPlayer()</code>, se mueve el <code>Transform</code> a mano o falta Transform de red. En el editor, el panel Juego debe tener el foco</td>
+</tr>
+<tr>
+  <td>Todos los personajes se mueven con mis teclas</td>
+  <td>Falta <code>if self:IsLocalPlayer() then</code> alrededor de los controles</td>
+</tr>
+<tr>
+  <td>Correcciones constantes (F3)</td>
+  <td>Cliente y servidor simulan distinto: velocidades del <code>CharacterController</code> cambiadas por un script solo en una máquina, o el <code>Transform</code> del personaje movido a mano</td>
+</tr>
+<tr>
+  <td>Un campo replicado no cambia en los clientes</td>
+  <td>Se cambia en un cliente (solo el servidor manda), la entidad no tiene Identidad de red, el tipo no se puede replicar (mira el log) o el script se añadió después de que la entidad apareciera en la red</td>
+</tr>
+<tr>
+  <td><code>onChange</code> no se llama</td>
+  <td>Es normal en el servidor y en el anfitrión. Con los valores iniciales solo se llama si son distintos del valor local (el del prefab)</td>
+</tr>
+<tr>
+  <td><code>[Server] X solo la puede llamar el dueño de 'E'</code></td>
+  <td>Llamas a un <code>[Server]</code> de una entidad que no es tuya: hazlo desde tu personaje, o pon la función en un script <code>[Global]</code></td>
+</tr>
+<tr>
+  <td><code>[Multicast] X solo la puede llamar el servidor</code></td>
+  <td>Envuélvelo en <code>if IsServer() then</code> o pídeselo al servidor con un <code>[Server]</code></td>
+</tr>
+<tr>
+  <td><code>X espera 2 argumento(s) y se llamó con 1</code> / <code>se esperaba un número y llegó string</code></td>
+  <td>Los parámetros de las funciones de red tienen número y tipo fijos</td>
+</tr>
+<tr>
+  <td>Una función <code>[Server]</code> no hace nada</td>
+  <td>Se supera su <code>rate</code>, o la valida el servidor y la descarta (mira tus comprobaciones)</td>
+</tr>
+<tr>
+  <td>Una caja se ve en sitios distintos en cada pantalla</td>
+  <td>Le falta Identidad de red o Transform de red: cada máquina la simula por su cuenta</td>
+</tr>
+<tr>
+  <td>Un campo <code>Entity()</code> replicado no encuentra la entidad</td>
+  <td>Apunta a algo que no está en la red (sin Identidad de red, o creado en partida sin prefab)</td>
+</tr>
+<tr>
+  <td>«No se pudo abrir el puerto UDP 7777 (¿está en uso?)»</td>
+  <td>Ya hay un anfitrión o un servidor abierto en esta máquina con ese puerto</td>
+</tr>
+<tr>
+  <td>Un número replicado pierde precisión</td>
+  <td>Su <code>Range</code> es grande y no tiene <code>Step</code> (sección 7)</td>
+</tr>
+<tr>
+  <td>«No hay ninguna sesión ni partida con el código...» o «No se encuentra el relé de Nova Enlace...»</td>
+  <td>Código mal copiado o partida cerrada; o el relé sin desplegar o con otra URL: <a href="enlace.html#9-problemas">enlace.md</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Más errores de los scripts Lua (con sus mensajes) en <a href="scripts-lua.html#17-errores-comunes">scripts-lua.md</a>.</p>
+<p><strong>Versiones.</strong> Lo que hace incompatibles dos versiones del juego en red:</p>
+<ul>
+<li>cambiar el <strong>nombre del juego</strong> (<code>name</code> de <code>project.nova</code>);</li>
+<li>añadir, quitar, renombrar o cambiar el tipo, el rango o la condición de un <strong>campo replicado</strong>;</li>
+<li>añadir, quitar o renombrar <strong>funciones de red</strong>, o cambiar su atributo, los tipos de sus parámetros o
+<code>reliable</code>;</li>
+<li>otra versión del motor que cambie su esquema (los componentes de red del motor también forman parte de él);</li>
+<li>la <strong>versión del protocolo</strong> (<code>versionProtocolo</code> en <strong>Ajustes del proyecto &gt; Red</strong>, 1 por defecto).</li>
+</ul>
+<p>Los cambios de lógica, gráficos o mapas que no tocan nada de eso no se detectan: un cliente viejo podría unirse
+a un servidor nuevo con otro mapa. Para impedirlo, sube la versión del protocolo al publicar. Publica cliente y
+servidor a la vez (en Steam los clientes se actualizan solos; el servidor dedicado lo actualizas tú:
+<a href="servidor-dedicado.html">servidor-dedicado.md</a>).</p>
+<h2 id="17-limitaciones-actuales">17. Limitaciones actuales<a class="ancla" href="#17-limitaciones-actuales" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Solo IPv4 (los nombres se resuelven a IPv4). El tráfico va autenticado pero sin cifrar (con el transporte de
+Steam sí va cifrado).</li>
+<li>Resolver un nombre (<code>--connect mi-servidor.com</code>) es bloqueante: el juego se detiene un momento mientras
+responde el DNS.</li>
+<li>Sin migración del anfitrión: si el anfitrión sale, la partida termina.</li>
+<li>La compensación de latencia (sección 18) rebobina las cajas de impacto, no el escenario: una plataforma que
+se mueve se prueba donde está ahora.</li>
+<li>En red no vale <code>Scene.Load</code>: se cambia de escena con <code>Network.LoadScene</code> desde el servidor (sección 19). Llevar a
+un jugador a otra escena distinta de la del servidor la convierte en una escena <strong>local</strong> suya (sin objetos de red).</li>
+<li>Los scripts de una entidad de red se fijan al crearla en la red.</li>
+<li>No se replican <code>Vec4</code> ni <code>Color</code> en campos sueltos (sí dentro de una tabla replicada).</li>
+<li>Sin predicción propia desde Lua: el <code>CharacterController</code> de los jugadores se predice solo; otros movimientos
+los simula el servidor.</li>
+<li>El servidor (también el anfitrión) no recibe <code>onChange</code>: llama a la función a mano si lo necesita.</li>
+</ul>
+<h2 id="18-disparos-y-compensación-de-latencia">18. Disparos y compensación de latencia<a class="ancla" href="#18-disparos-y-compensación-de-latencia" aria-label="Enlace a esta sección">#</a></h2>
+<p>En una partida en red cada jugador ve a los demás <strong>en el pasado</strong>: lo que el servidor le envía tarda medio ping
+en llegar y, además, las entidades remotas se dibujan interpoladas unos 100 ms por detrás (sección 2). Con 80 ms
+de ping, alguien que corre a 5 m/s se ve más de un metro por detrás de donde está en el servidor. Si el
+servidor comprobase cada disparo con las posiciones de ahora, quien apunta bien fallaría.</p>
+<p>El motor lo resuelve como Counter-Strike, Valorant u Overwatch: el <strong>servidor rebobina</strong>. Guarda, en cada tick,
+la pose de todas las <strong>cajas de impacto</strong> del último segundo; cuando le llega un disparo, las pone donde las veía
+quien disparó, lanza el rayo y las devuelve a su sitio. Desde Lua es una sola llamada:
+<code>Physics.RaycastRewind(origen, direccion, distancia, source)</code>.</p>
+<h3 id="181-cajas-de-impacto">18.1 Cajas de impacto<a class="ancla" href="#181-cajas-de-impacto" aria-label="Enlace a esta sección">#</a></h3>
+<p>La <strong>Caja de impacto</strong> (componente <code>Hitbox</code>, en <strong>Añadir componente &gt; Física</strong>) es una forma para los disparos:
+<strong>cápsula</strong>, <strong>esfera</strong> o <strong>caja</strong>, con su centro y su giro. <strong>No es un colisionador</strong>: no choca, no frena a nadie
+y las físicas no la ven. Un personaje lleva varias, cada una en una entidad hija:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Forma (<code>shape</code>)</td>
+  <td><code>&quot;Cápsula&quot;</code> (a lo largo de su eje Y), <code>&quot;Esfera&quot;</code> o <code>&quot;Caja&quot;</code></td>
+</tr>
+<tr>
+  <td>Centro, Rotación (<code>center</code>, <code>rotation</code>)</td>
+  <td>Desplazamiento y giro respecto a su entidad (o a su hueso)</td>
+</tr>
+<tr>
+  <td>Radio, Altura, Tamaño (<code>radius</code>, <code>height</code>, <code>size</code>)</td>
+  <td>Medidas en metros (cada forma usa las suyas; las demás se ven desactivadas)</td>
+</tr>
+<tr>
+  <td>Parte (<code>part</code>)</td>
+  <td>Lo que devuelve el disparo: <code>&quot;cabeza&quot;</code>, <code>&quot;torso&quot;</code>, <code>&quot;brazo&quot;</code>, <code>&quot;pierna&quot;</code>...</td>
+</tr>
+<tr>
+  <td>Multiplicador de daño (<code>damageMultiplier</code>)</td>
+  <td>Por ejemplo, 2 en la cabeza y 0,75 en brazos y piernas</td>
+</tr>
+<tr>
+  <td>Hueso (<code>bone</code>)</td>
+  <td>Vacío: sigue a su entidad. Con el nombre de un hueso, sigue a ese hueso del <strong>Animator</strong> del personaje: el de la caja o un ancestro y, si no hay, el de dentro del personaje (un hijo «Modelo» con el Animator). Las medidas y el centro van entonces en metros, girados con el hueso. Si no lo encuentra, sigue a su entidad y el Inspector lo avisa</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Preajuste «Humanoide»</strong>: en el Inspector de una caja de impacto, o en el del <strong>Controlador de personaje</strong> si
+aún no tiene ninguna, el botón <strong>Preajuste: Humanoide</strong> crea las cajas del personaje como hijas suyas: cabeza
+(×2), torso (×1), brazos y piernas (×0,75). Si su modelo tiene huesos reconocibles (<code>head</code> o el último del
+cuello, <code>spine</code>/<code>chest</code>, <code>arm</code>, <code>leg</code>/<code>thigh</code>... como los de Mixamo, Blender o CesiumMan), cada caja sigue a su
+hueso; si no, se reparten por la cápsula del <code>CharacterController</code>. Sin hueso de la cabeza (CesiumMan), la esfera
+va entre lo alto del cuello (o de la columna) y lo alto del modelo, del tamaño de ese hueco. El Animator puede estar
+en el personaje o en un hijo suyo; si alguna caja no encuentra su hueso, la barra de estado y el registro lo dicen. Se deshace con Ctrl+Z, llega a los demás en
+la edición en equipo y, si lo vuelves a pulsar, sustituye las que creó antes.</li>
+<li><strong>Ver las cajas</strong>: al seleccionar el personaje (o una caja) se dibujan en el visor <strong>Escena</strong> (rojo la cabeza,
+naranja el torso, amarillo los miembros). Con <strong>Jugar &gt; Formas de física en el visor</strong> se ven las de todos.</li>
+<li>Que estén <strong>activas</strong>: una caja desactivada (<code>SetActive(false)</code>, por ejemplo al morir) no se puede tocar, ni
+rebobinada.</li>
+<li>Van en el <strong>prefab del personaje</strong>, igual en el servidor y en los clientes.</li>
+</ul>
+<h3 id="182-disparar-con-el-servidor-al-mando">18.2 Disparar con el servidor al mando<a class="ancla" href="#182-disparar-con-el-servidor-al-mando" aria-label="Enlace a esta sección">#</a></h3>
+<p>El patrón completo: el dueño dispara (efectos al momento, sin esperar al servidor) y pide el disparo con un
+<code>[Server]</code> que lleva el origen, la dirección y <strong>la hora de lo que estaba viendo</strong> (<code>Network.GetViewTime()</code>). El
+servidor valida el origen, rebobina a esa hora (nunca más de lo que justifica su ping) y aplica el daño con el
+multiplicador de la parte tocada.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Arma de disparo instantáneo con compensación de latencia: en el prefab del jugador (con sus cajas de impacto)</span>
+<span class="hl-k">local</span> <span class="hl-t">ArmaHitscan</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Header("Arma"), Range(1, 200)]</span>
+<span class="hl-t">ArmaHitscan</span>.dano = <span class="hl-n">25</span>
+<span class="hl-a">--[Range(1, 1000), Tooltip("Metros")]</span>
+<span class="hl-t">ArmaHitscan</span>.alcance = <span class="hl-n">120</span>
+
+<span class="hl-a">--[Replicated]</span>
+<span class="hl-t">ArmaHitscan</span>.vida = <span class="hl-n">100</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-c">-- Dueño: dispara con la acción «Disparar» desde la cámara</span>
+<span class="hl-k">function</span> <span class="hl-t">ArmaHitscan</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> camara <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> origen = camara.position
+    <span class="hl-k">local</span> direccion = camara.transform.forward
+    <span class="hl-c">-- Efectos al momento con lo que ve esta máquina (el servidor decide el daño)</span>
+    <span class="hl-k">local</span> predicho = <span class="hl-t">Physics</span>.<span class="hl-f">RaycastHitboxes</span>(origen, direccion, <span class="hl-b">self</span>.alcance)
+    <span class="hl-k">if</span> predicho <span class="hl-k">then</span>
+        <span class="hl-t">Debug</span>.<span class="hl-f">DrawLine</span>(origen, predicho.point, <span class="hl-b">nil</span>, <span class="hl-n">0.2</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>:<span class="hl-f">Disparar</span>(origen, direccion, <span class="hl-t">Network</span>.<span class="hl-f">GetViewTime</span>())
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Servidor: como mucho 10 disparos por segundo de cada jugador (las demás llamadas se descartan)</span>
+<span class="hl-a">--[Server(rate = 10)]</span>
+<span class="hl-k">function</span> <span class="hl-t">ArmaHitscan</span>:<span class="hl-f">Disparar</span>(origen: <span class="hl-t">Vector3</span>, direccion: <span class="hl-t">Vector3</span>, vista: number)
+    <span class="hl-c">-- El origen tiene que estar en su personaje (con 1 m de margen); si no, se usa el de sus ojos</span>
+    <span class="hl-k">local</span> valido, seguro = <span class="hl-t">Physics</span>.<span class="hl-f">ValidateShotOrigin</span>(source, origen, <span class="hl-n">1.0</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> valido <span class="hl-k">then</span>
+        origen = seguro
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">RaycastRewind</span>(origen, direccion, <span class="hl-b">self</span>.alcance, source, { time = vista })
+    <span class="hl-k">if</span> golpe <span class="hl-k">and</span> golpe.isHitbox <span class="hl-k">then</span>
+        <span class="hl-k">local</span> victima = golpe.entity:<span class="hl-f">GetScript</span>(<span class="hl-s">"ArmaHitscan"</span>)
+        <span class="hl-k">if</span> victima <span class="hl-k">then</span>
+            victima.vida = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-n">0</span>, victima.vida - <span class="hl-t">math</span>.<span class="hl-f">floor</span>(<span class="hl-b">self</span>.dano * golpe.multiplier))
+            <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s: %s (x%g)"</span>, golpe.entity.name, golpe.part <span class="hl-k">or</span> <span class="hl-s">"?"</span>, golpe.multiplier))
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>:<span class="hl-f">Impacto</span>(<span class="hl-k">if</span> golpe <span class="hl-k">then</span> golpe.point <span class="hl-k">else</span> origen + direccion * <span class="hl-b">self</span>.alcance)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Todos: el impacto (sonido, chispas...)</span>
+<span class="hl-a">--[Multicast(reliable = false)]</span>
+<span class="hl-k">function</span> <span class="hl-t">ArmaHitscan</span>:<span class="hl-f">Impacto</span>(donde: <span class="hl-t">Vector3</span>)
+    <span class="hl-t">Debug</span>.<span class="hl-f">DrawSphere</span>(donde, <span class="hl-n">0.1</span>, <span class="hl-b">nil</span>, <span class="hl-n">0.3</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ArmaHitscan</span></code></pre></div>
+<p>Por qué así:</p>
+<ul>
+<li><strong><code>source</code></strong> dice quién dispara: el servidor busca su ping, no le deja darse a sí mismo (ni a su personaje ni a
+sus cajas) y comprueba su origen.</li>
+<li><strong><code>{ time = vista }</code></strong> es exacto: rebobina justo a lo que mostraba la pantalla del tirador, incluida la
+interpolación. Sin <code>time</code>, el servidor lo estima con su ping (<code>Physics.GetRewindTime(source)</code>: ida y vuelta +
+el retardo de la interpolación + un paso fijo), que también acierta casi siempre.</li>
+<li><strong><code>rate = 10</code></strong> en el <code>[Server]</code> limita la cadencia (anti trampas): el motor descarta las llamadas de más.
+Comprueba tú lo demás (munición, que esté vivo, el tiempo entre disparos de esa arma).</li>
+<li><strong>El escenario no se rebobina</strong>: el rayo prueba las físicas tal como están (capas Estático y Dinámico; los
+personajes van por sus cajas), así que una pared delante para el disparo.</li>
+</ul>
+<h3 id="183-referencia">18.3 Referencia<a class="ancla" href="#183-referencia" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Physics.</code> / <code>Network.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Physics.RaycastRewind(origen, direccion, distancia, tirador, opciones?)</code></td>
+  <td>Solo en el servidor (en un cliente es un error claro). Rayo contra el escenario y las cajas rebobinadas a lo que veía el jugador <code>tirador</code> (su <code>source</code>). Devuelve el impacto (o <code>nil</code>) y los segundos rebobinados</td>
+</tr>
+<tr>
+  <td><code>Physics.RaycastHitboxes(origen, direccion, distancia?, opciones?)</code></td>
+  <td>La misma consulta con las poses de ahora, en cualquier máquina: efectos predichos en el cliente, bots o armas del servidor. Por defecto no toca al tirador: en un cliente, el jugador local (sus efectos predichos); en el servidor, el que llamó a la función <code>[Server]</code> (<code>source</code>) o, si el script es del personaje del jugador del anfitrión, ese jugador. Los bots y las armas del servidor no excluyen a nadie: en un anfitrión <strong>sí pueden darle a su jugador</strong></td>
+</tr>
+<tr>
+  <td><code>Physics.GetRewindTime(jugador)</code></td>
+  <td>Segundos que ese jugador ve en el pasado según su ping (0 para el servidor, el jugador del anfitrión o sin red)</td>
+</tr>
+<tr>
+  <td><code>Physics.ValidateShotOrigin(jugador, origen, tolerancia?)</code></td>
+  <td><code>true</code> si el origen está en la cápsula de su personaje más la tolerancia (1 m por defecto); devuelve también un origen seguro (sus ojos)</td>
+</tr>
+<tr>
+  <td><code>Network.GetViewTime()</code></td>
+  <td>Hora del servidor de lo que esta máquina ve ahora de los demás. Envíala con el disparo</td>
+</tr>
+<tr>
+  <td><code>Network.GetServerTime()</code></td>
+  <td>Hora del servidor (en un cliente, su estimación). En segundos, desde que empezó la partida</td>
+</tr>
+</tbody>
+</table></div>
+<p>Opciones (todas opcionales):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>time</code></td>
+  <td>(por el ping)</td>
+  <td>La hora de <code>Network.GetViewTime()</code> del tirador</td>
+</tr>
+<tr>
+  <td><code>rewind</code></td>
+  <td></td>
+  <td>O los segundos que rebobinar, tal cual (pruebas, repeticiones)</td>
+</tr>
+<tr>
+  <td><code>maxRewind</code></td>
+  <td><code>0.4</code></td>
+  <td>Tope del rebobinado: con más ping se apunta algo por delante. Nunca más de 1 s (lo que se guarda)</td>
+</tr>
+<tr>
+  <td><code>tolerance</code></td>
+  <td><code>0.1</code></td>
+  <td>Con <code>time</code>: cuánto puede ir más atrás que la estimación por su ping (jitter y pérdidas)</td>
+</tr>
+<tr>
+  <td><code>radius</code></td>
+  <td><code>0</code></td>
+  <td>Mayor que 0: una esfera de ese radio en vez de un rayo (balas gruesas, proyectiles)</td>
+</tr>
+<tr>
+  <td><code>layers</code></td>
+  <td>Estático + Dinámico</td>
+  <td>Capas del escenario (<code>Physics.Layer</code>)</td>
+</tr>
+<tr>
+  <td><code>world</code>, <code>hitboxes</code></td>
+  <td><code>true</code>, <code>true</code></td>
+  <td>Probar el escenario y las cajas</td>
+</tr>
+<tr>
+  <td><code>triggers</code></td>
+  <td><code>false</code></td>
+  <td>El escenario incluye sensores</td>
+</tr>
+<tr>
+  <td><code>ignore</code></td>
+  <td></td>
+  <td>Otra entidad (y sus hijos) que no se puede tocar</td>
+</tr>
+<tr>
+  <td><code>ignoreShooter</code></td>
+  <td>(ver abajo)</td>
+  <td><code>false</code>: no se excluye a nadie. <code>true</code>: no tocar al tirador (en <code>RaycastHitboxes</code> desde el servidor sin tirador, el jugador local del anfitrión). Sin decirlo: en <code>RaycastRewind</code>, el <code>tirador</code>; en <code>RaycastHitboxes</code>, el de la regla de arriba</td>
+</tr>
+</tbody>
+</table></div>
+<p>El impacto es una tabla: <code>entity</code> (el personaje dueño de la caja, o lo que se tocó del escenario), <code>hitbox</code> (la
+entidad de la caja; <code>nil</code> en el escenario), <code>point</code>, <code>normal</code>, <code>distance</code>, <code>part</code> (<code>nil</code> en el escenario),
+<code>multiplier</code> (1 en el escenario) e <code>isHitbox</code>.</p>
+<h3 id="184-trampas-que-evita-y-las-que-no">18.4 Trampas que evita (y las que no)<a class="ancla" href="#184-trampas-que-evita-y-las-que-no" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Rebobinar demasiado</strong> («backtrack»): la hora que envía el cliente no puede ir más atrás que su ping estimado
+más <code>tolerance</code>, ni más que <code>maxRewind</code>. Si lo intenta, se recorta.</li>
+<li><strong>Disparar desde otro sitio</strong>: <code>Physics.ValidateShotOrigin</code> (o compara tú con <code>self.entity.position</code>).</li>
+<li><strong>Cadencia</strong>: <code>--[Server(rate = N)]</code>. Los parámetros <code>number</code> con NaN o infinito los descarta el motor; las
+direcciones se normalizan.</li>
+<li><strong>No evita</strong> los <em>aimbots</em> ni los <em>wallhacks</em>: el cliente sigue sabiendo dónde está todo lo que se le envía
+(para limitarlo, la relevancia de la red y <code>SetObservers</code>).</li>
+</ul>
+<h3 id="185-cómo-funciona">18.5 Cómo funciona<a class="ancla" href="#185-cómo-funciona" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>Un sistema del motor (justo después de la red) guarda en el servidor la pose de cada caja en cada tick, con la
+hora del tick: la misma con la que los clientes interpolan. Con huesos, la pose del Animator del servidor (sus
+parámetros llegan a los clientes con el <code>NetworkAnimator</code>); las poses intermedias se interpolan.</li>
+<li>Coste: unos 60 registros por caja y segundo. 100 cajas de 32 jugadores = poco más de 0,3 MB.</li>
+<li>En el anfitrión, el jugador local ve el presente: sus disparos no se rebobinan.</li>
+<li>Sin red (un jugador), <code>RaycastRewind</code> funciona como <code>RaycastHitboxes</code>.</li>
+<li>Desde C++: <code>nova::RaycastRewind(scene, origen, dir, distancia, jugador, impacto, opciones)</code> y compañía, en
+<code>nova/physics/LagCompensation.h</code>.</li>
+</ul>
+<p><strong>Cuerpo en primera persona.</strong> Para que el jugador no vea su propio cuerpo desde dentro pero sí su sombra (y los
+demás lo vean entero), pon en las mallas del cuerpo <strong>Visibilidad en red: Oculto para el propietario</strong>, y en los
+brazos de primera persona <strong>Solo el propietario</strong>. Ver
+<a href="render-y-materiales.html#modos-de-sombra-de-las-mallas">render-y-materiales.md</a>.</p>
+<h2 id="19-sala-escenas-sincronizadas-chat-e-interacciones">19. Sala, escenas sincronizadas, chat e interacciones<a class="ancla" href="#19-sala-escenas-sincronizadas-chat-e-interacciones" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para juegos por rondas (una sala donde se junta la gente y partidas que cambian de mapa) el motor trae piezas listas
+para usar. La guía completa, con el ejemplo <code>game/fiesta_lua</code>, está en <a href="lobby-y-escenas.html">lobby-y-escenas.md</a>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Pieza</th>
+  <th>Qué hace</th>
+  <th>En Lua</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Sala (lobby)</td>
+  <td>Crear la partida (con código de Nova Enlace), jugadores con «Listo», líder, expulsar, máximo de jugadores, ajustes que ven todos, cuenta atrás y Empezar. Plantilla <strong>Sala (lobby)</strong> en el panel Interfaz</td>
+  <td><code>Lobby.Host</code>, <code>Lobby.SetReady</code>, <code>Lobby.Start</code>, <code>Lobby.GetPlayers</code>...</td>
+</tr>
+<tr>
+  <td>Cambio de escena sincronizado</td>
+  <td>El servidor cambia la escena de todos (o de unos jugadores); cada uno carga con su pantalla de carga y el servidor espera a todos antes de dar la salida. Los personajes salen en la escena nueva y quien entra tarde carga la actual</td>
+  <td><code>Network.LoadScene(&quot;scenes/Ronda&quot;)</code>, <code>OnAllPlayersLoaded</code></td>
+</tr>
+<tr>
+  <td>Pantalla de carga</td>
+  <td>Integrada o la tuya (plantilla <strong>Pantalla de carga</strong> guardada como prefab)</td>
+  <td><code>{ pantallaCarga = &quot;prefabs/Carga&quot; }</code>, <code>LoadingScreen.*</code></td>
+</tr>
+<tr>
+  <td>Objeto de un jugador</td>
+  <td>El personaje de un id (<code>source</code>) en cualquier máquina</td>
+  <td><code>Network.GetPlayerEntity(id)</code> (o <code>GetPlayerEntity(id)</code>, <code>GetOwner(id)</code>), <code>GetOwnedEntities(id)</code></td>
+</tr>
+<tr>
+  <td>Interactuable</td>
+  <td>Componente: «Pulsa E para …», mantener pulsado, uno a la vez; lo valida el servidor</td>
+  <td><code>function X:OnInteract(jugador)</code></td>
+</tr>
+<tr>
+  <td>Chat de texto</td>
+  <td>Intro para escribir, canales todos/equipo, mensajes del sistema, filtro en el servidor</td>
+  <td><code>Chat.Send</code>, <code>Chat.OnMessage</code>, <code>Chat.SetFilter</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el servidor, cuando acaba una ronda: todos a la siguiente escena con la pantalla de carga</span>
+<span class="hl-t">Network</span>.<span class="hl-f">LoadScene</span>(<span class="hl-s">"scenes/Ronda"</span>, { pantallaCarga = <span class="hl-s">"prefabs/Carga"</span>, esperarATodos = <span class="hl-b">true</span> })
+
+<span class="hl-c">-- En cualquier script: el personaje del jugador que llamó a una función [Server]</span>
+<span class="hl-k">local</span> personaje = <span class="hl-t">Network</span>.<span class="hl-f">GetPlayerEntity</span>(source)</code></pre></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="scripts-lua.html">Scripts en Lua</a> (sección 9: la red en Lua completa)</li>
+<li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li>
+<li><a href="servidor-dedicado.html">Servidor dedicado</a></li>
+<li><a href="steam.html">Steam</a></li>
+<li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li>
+<li><a href="voz.html">Chat de voz</a>: proximidad, llamadas y radios</li>
+<li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li>
+<li><a href="fisicas.html">Físicas</a> y <a href="audio.html">Audio</a></li>
+<li><a href="escenas-y-componentes.html">Escenas y componentes</a></li>
+<li><a href="publicar-juego.html">Publicar el juego</a></li>
+<li><a href="scripts-cpp.html">Scripts en C++</a> (la red desde C++) y <span class="enlace-interno-quitado">Red a bajo nivel (<code>nova_net</code>)</span></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="idiomas.html"><small>Anterior</small>Idiomas</a><a class="sig" href="lobby-y-escenas.html"><small>Siguiente</small>Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-prueba-el-ejemplo-en-cinco-minutos">1. Prueba el ejemplo en cinco minutos</a></li><li class="n2"><a href="#2-conceptos">2. Conceptos</a></li><li class="n3"><a href="#servidor-autoritativo">Servidor autoritativo</a></li><li class="n3"><a href="#replicación">Replicación</a></li><li class="n3"><a href="#interpolación">Interpolación</a></li><li class="n3"><a href="#predicción-y-reconciliación">Predicción y reconciliación</a></li><li class="n3"><a href="#funciones-de-red-rpc">Funciones de red (RPC)</a></li><li class="n3"><a href="#dueño-ownership">Dueño (ownership)</a></li><li class="n3"><a href="#modos-de-red">Modos de red</a></li><li class="n2"><a href="#3-cómo-encaja-todo">3. Cómo encaja todo</a></li><li class="n2"><a href="#4-tutorial-arena-de-monedas">4. Tutorial: Arena de monedas</a></li><li class="n3"><a href="#41-crear-el-proyecto">4.1 Crear el proyecto</a></li><li class="n3"><a href="#42-ajustes-de-red-del-proyecto">4.2 Ajustes de red del proyecto</a></li><li class="n3"><a href="#43-el-mapa-suelo-y-cajas-con-físicas-del-servidor">4.3 El mapa: suelo y cajas con físicas del servidor</a></li><li class="n3"><a href="#44-el-prefab-del-jugador">4.4 El prefab del jugador</a></li><li class="n3"><a href="#45-la-aparición-de-jugadores">4.5 La aparición de jugadores</a></li><li class="n3"><a href="#46-los-scripts">4.6 Los scripts</a></li><li class="n3"><a href="#47-probarlo">4.7 Probarlo</a></li><li class="n2"><a href="#5-componentes-de-red">5. Componentes de red</a></li><li class="n3"><a href="#identidad-de-red-networkidentity">Identidad de red (NetworkIdentity)</a></li><li class="n3"><a href="#transform-de-red-networktransform">Transform de red (NetworkTransform)</a></li><li class="n3"><a href="#animador-de-red-networkanimator">Animador de red (NetworkAnimator)</a></li><li class="n3"><a href="#aparición-de-jugadores-playerspawner">Aparición de jugadores (PlayerSpawner)</a></li><li class="n2"><a href="#6-autoridad-quién-ejecuta-qué">6. Autoridad: quién ejecuta qué</a></li><li class="n2"><a href="#7-campos-replicados">7. Campos replicados</a></li><li class="n2"><a href="#8-funciones-de-red-server-client-y-multicast">8. Funciones de red: [Server], [Client] y [Multicast]</a></li><li class="n2"><a href="#9-movimiento-predicho-con-charactercontroller">9. Movimiento predicho con CharacterController</a></li><li class="n2"><a href="#10-objetos-con-física-del-servidor">10. Objetos con física del servidor</a></li><li class="n2"><a href="#11-crear-y-destruir-objetos-durante-la-partida">11. Crear y destruir objetos durante la partida</a></li><li class="n2"><a href="#12-interfaz-en-partida-y-menú">12. Interfaz en partida y menú</a></li><li class="n2"><a href="#13-modos-de-juego-del-editor">13. Modos de juego del editor</a></li><li class="n3"><a href="#registros-server-y-client">Registros: Server: y Client:</a></li><li class="n2"><a href="#14-estadísticas-f3-red-mala-y-red-local">14. Estadísticas (F3), red mala y red local</a></li><li class="n3"><a href="#estadísticas">Estadísticas</a></li><li class="n3"><a href="#probar-con-red-mala">Probar con red mala</a></li><li class="n3"><a href="#red-local-lan">Red local (LAN)</a></li><li class="n3"><a href="#por-internet-con-un-código-nova-enlace">Por Internet con un código (Nova Enlace)</a></li><li class="n2"><a href="#15-los-ejemplos">15. Los ejemplos</a></li><li class="n2"><a href="#16-errores-comunes">16. Errores comunes</a></li><li class="n2"><a href="#17-limitaciones-actuales">17. Limitaciones actuales</a></li><li class="n2"><a href="#18-disparos-y-compensación-de-latencia">18. Disparos y compensación de latencia</a></li><li class="n3"><a href="#181-cajas-de-impacto">18.1 Cajas de impacto</a></li><li class="n3"><a href="#182-disparar-con-el-servidor-al-mando">18.2 Disparar con el servidor al mando</a></li><li class="n3"><a href="#183-referencia">18.3 Referencia</a></li><li class="n3"><a href="#184-trampas-que-evita-y-las-que-no">18.4 Trampas que evita (y las que no)</a></li><li class="n3"><a href="#185-cómo-funciona">18.5 Cómo funciona</a></li><li class="n2"><a href="#19-sala-escenas-sincronizadas-chat-e-interacciones">19. Sala, escenas sincronizadas, chat e interacciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

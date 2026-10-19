@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prefabs · Nova Engine</title>
+<meta name="description" content="Un prefab es una entidad con sus hijos y componentes guardada en un fichero (.prefab) para reutilizarla:
+cajas, enemigos, monedas, faroles... Este documento explica cómo crear prefabs, cómo es su formato, cómo
+instanciar">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Prefabs · Nova Engine">
+<meta property="og:description" content="Un prefab es una entidad con sus hijos y componentes guardada en un fichero (.prefab) para reutilizarla:
+cajas, enemigos, monedas, faroles... Este documento explica cómo crear prefabs, cómo es su formato, cómo
+instanciar">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/prefabs.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/prefabs.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html" aria-current="page">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="prefabs">Prefabs</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#crear-un-prefab">Crear un prefab</a></li><li class="n2"><a href="#formato-prefab">Formato .prefab</a></li><li class="n2"><a href="#instanciar">Instanciar</a></li><li class="n3"><a href="#desde-el-editor">Desde el editor</a></li><li class="n3"><a href="#desde-un-script">Desde un script</a></li><li class="n2"><a href="#el-componente-prefabinstance">El componente PrefabInstance</a></li><li class="n2"><a href="#referencias-internas">Referencias internas</a></li><li class="n2"><a href="#prefabs-de-interfaz">Prefabs de interfaz</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Un prefab es una entidad con sus hijos y componentes guardada en un fichero (<code>.prefab</code>) para reutilizarla:
+cajas, enemigos, monedas, faroles... Este documento explica cómo crear prefabs, cómo es su formato, cómo
+instanciarlos desde el editor y desde código, y qué hacen los botones Aplicar y Revertir.</p>
+<h2 id="crear-un-prefab">Crear un prefab<a class="ancla" href="#crear-un-prefab" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Prepara la entidad en la escena con sus hijos, componentes y scripts.</li>
+<li>En la <strong>Jerarquía</strong>, haz clic derecho sobre ella y elige <strong>Crear prefab</strong>.</li>
+</ol>
+<p>El prefab se guarda:</p>
+<ul>
+<li>en la carpeta que tengas abierta en <strong>Contenido</strong>, o</li>
+<li>en <code>assets/prefabs/</code> si <strong>Contenido</strong> está en la raíz de <code>assets/</code>.</li>
+</ul>
+<p>El fichero se llama como la entidad (<code>Caja.prefab</code>); si ya existe, se añade un número (<code>Caja 2.prefab</code>). La
+entidad original se convierte en una <strong>instancia</strong> del prefab: recibe el componente <strong>Instancia de prefab</strong> y se
+muestra en azul en la Jerarquía. Crear el prefab se puede deshacer (la entidad deja de ser instancia; el fichero
+se queda).</p>
+<h2 id="formato-prefab">Formato .prefab<a class="ancla" href="#formato-prefab" aria-label="Enlace a esta sección">#</a></h2>
+<p>Es el mismo formato JSON que las escenas (ver
+<a href="escenas-y-componentes.html#formato-de-los-ficheros-scene">escenas-y-componentes.md</a>), con <code>&quot;nova&quot;: &quot;prefab&quot;</code>.
+La primera entidad es la raíz y no tiene <code>parent</code> ni <code>PrefabInstance</code>. Este es el prefab real
+<code>game/sample/assets/prefabs/Caja.prefab</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"nova"</span>: <span class="hl-s">"prefab"</span>,
+  <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"name"</span>: <span class="hl-s">"Caja"</span>,
+  <span class="hl-k">"entities"</span>: [
+    {
+      <span class="hl-k">"id"</span>: <span class="hl-s">"a15e9eebebed3a17"</span>,
+      <span class="hl-k">"name"</span>: <span class="hl-s">"Caja"</span>,
+      <span class="hl-k">"components"</span>: {
+        <span class="hl-k">"Transform"</span>: {
+          <span class="hl-k">"position"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0.5</span>, <span class="hl-n">0</span>],
+          <span class="hl-k">"rotation"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>],
+          <span class="hl-k">"scale"</span>: [<span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>]
+        },
+        <span class="hl-k">"MeshRenderer"</span>: {
+          <span class="hl-k">"model"</span>: {
+            <span class="hl-k">"id"</span>: <span class="hl-s">"00000000000b0001"</span>,
+            <span class="hl-k">"path"</span>: <span class="hl-s">"builtin:Cubo"</span>
+          },
+          <span class="hl-k">"mesh"</span>: <span class="hl-n">0</span>,
+          <span class="hl-k">"materials"</span>: [
+            {
+              <span class="hl-k">"id"</span>: <span class="hl-s">"22eeb8cc1fa2d1f9"</span>,
+              <span class="hl-k">"path"</span>: <span class="hl-s">"materials/Caja.mat"</span>
+            }
+          ],
+          <span class="hl-k">"castShadows"</span>: <span class="hl-b">true</span>
+        }
+      }
+    }
+  ]
+}</code></pre></div>
+<p>Los UUID de dentro del prefab solo sirven para enlazar padres, hijos y referencias entre sus entidades: cada
+instancia recibe UUID nuevos. El de la raíz es nuevo (o el que se pida) y los de los hijos se derivan de él, así
+que con el mismo UUID de raíz salen siempre los mismos (lo usan <strong>Revertir</strong> y la red, que crea los objetos en
+los clientes con los UUID del servidor).</p>
+<h2 id="instanciar">Instanciar<a class="ancla" href="#instanciar" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="desde-el-editor">Desde el editor<a class="ancla" href="#desde-el-editor" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Cómo</th>
+  <th>Dónde aparece</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Arrastrar el prefab desde <strong>Contenido</strong> al visor <strong>Escena</strong></td>
+  <td>En el punto del suelo bajo el ratón (conserva la altura de la raíz del prefab)</td>
+</tr>
+<tr>
+  <td>Arrastrar el prefab sobre una entidad de la <strong>Jerarquía</strong></td>
+  <td>Como hija de esa entidad</td>
+</tr>
+<tr>
+  <td>Seleccionar el prefab en <strong>Contenido</strong> y pulsar <strong>Instanciar en la escena</strong> en el Inspector</td>
+  <td>Delante de la cámara del editor</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="desde-un-script">Desde un script<a class="ancla" href="#desde-un-script" aria-label="Enlace a esta sección">#</a></h3>
+<p>Declara un campo <code>Asset(&quot;Prefab&quot;)</code> (se elige el prefab en el Inspector) y usa
+<code>Scene.Instantiate(prefab, posicion?, padre?, rotacion?)</code>. La posición es en coordenadas del mundo; el prefab
+también puede ser su ruta (<code>&quot;prefabs/Caja&quot;</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Crea una caja (u otro prefab) en fila cada vez que se pulsa la acción Accion (E)</span>
+<span class="hl-k">local</span> <span class="hl-t">GeneradorDeCajas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Prefab que se crea al pulsar Accion")]</span>
+<span class="hl-t">GeneradorDeCajas</span>.prefab = <span class="hl-f">Asset</span>(<span class="hl-s">"Prefab"</span>)
+<span class="hl-a">--[Range(0, 10)]</span>
+<span class="hl-t">GeneradorDeCajas</span>.separacion = <span class="hl-n">1.5</span>
+
+<span class="hl-k">function</span> <span class="hl-t">GeneradorDeCajas</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._creados = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">GeneradorDeCajas</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Accion"</span>) <span class="hl-k">or</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.prefab <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> posicion = <span class="hl-b">self</span>.entity.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-b">self</span>.separacion * <span class="hl-b">self</span>._creados)
+    <span class="hl-k">local</span> caja = <span class="hl-t">Scene</span>.<span class="hl-f">Instantiate</span>(<span class="hl-b">self</span>.prefab, posicion)
+    <span class="hl-k">if</span> caja <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._creados += <span class="hl-n">1</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Creada la instancia %d (%s)"</span>, <span class="hl-b">self</span>._creados, caja.name))
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">GeneradorDeCajas</span></code></pre></div>
+<p><code>Scene.Instantiate</code> devuelve la raíz de la nueva instancia (o <code>nil</code> si el prefab no existe). Cuando vuelve, el
+<code>Awake</code> de sus scripts ya ha pasado (se puede escribir en sus campos en la línea siguiente) y su <code>Start</code> llega al
+principio del frame siguiente. La instancia solo existe en esta máquina: en una partida en red, el servidor crea
+los objetos que deben ver todos con <code>Spawn</code> (ver
+<a href="multijugador.html#11-crear-y-destruir-objetos-durante-la-partida">multijugador.md</a>). Para destruirla,
+<code>caja:Destroy()</code> o <code>Scene.Destroy(caja, segundos)</code>.</p>
+<h2 id="el-componente-prefabinstance">El componente PrefabInstance<a class="ancla" href="#el-componente-prefabinstance" aria-label="Enlace a esta sección">#</a></h2>
+<p>La raíz de cada instancia lleva el componente <strong>Instancia de prefab</strong> (<code>PrefabInstance</code>), con un único campo de
+solo lectura: <code>prefab</code>, el asset del fichero de origen. El Inspector no lo muestra como un componente
+normal, sino como una barra azul encima de los componentes con tres botones:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Botón</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Seleccionar</strong></td>
+  <td>Muestra el fichero del prefab en el Inspector</td>
+</tr>
+<tr>
+  <td><strong>Aplicar</strong></td>
+  <td>Guarda esta instancia (con sus hijos y componentes actuales) en el fichero del prefab. Lo siguiente que se instancia o se revierte ya usa lo guardado (sin esperar a la recarga)</td>
+</tr>
+<tr>
+  <td><strong>Revertir</strong></td>
+  <td>Borra la instancia y crea otra nueva desde el fichero, en el mismo padre, posición entre hermanos y transformación. La raíz conserva su UUID, así que las referencias a ella siguen valiendo. Se deshace en un solo paso</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ten en cuenta:</p>
+<ul>
+<li><strong>Aplicar</strong> solo cambia el fichero. Las demás instancias que ya están en las escenas <strong>no se actualizan</strong>:
+cada escena guarda una copia completa de sus instancias. Usa <strong>Revertir</strong> en cada una si quieres traer los
+cambios.</li>
+<li><strong>Revertir</strong> sustituye solo la instancia que muestra el Inspector. La raíz conserva su UUID y los hijos
+reciben UUID derivados de él: tras el primer <strong>Revertir</strong>, los siguientes conservan también los de los hijos.
+Una referencia de fuera (un campo <code>Entity()</code>) a un hijo de una instancia creada antes de este cambio deja de
+encontrarlo la primera vez.</li>
+</ul>
+<h2 id="referencias-internas">Referencias internas<a class="ancla" href="#referencias-internas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Al instanciar, las referencias a entidades que apuntan a entidades <strong>del propio prefab</strong> se reasignan a las
+entidades nuevas de la instancia, también las de los campos de los scripts. Por ejemplo, si un prefab de
+enemigo tiene un script con un campo <code>Enemigo.arma = Entity()</code> que apunta a su hijo &quot;Arma&quot;, cada instancia
+apunta a su propia arma. Las referencias a entidades de fuera del prefab se conservan tal cual.</p>
+<h2 id="prefabs-de-interfaz">Prefabs de interfaz<a class="ancla" href="#prefabs-de-interfaz" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un elemento de interfaz (un panel, un botón, una casilla de inventario o un menú entero) se guarda como prefab
+igual que cualquier entidad (clic derecho en la <strong>Jerarquía</strong> &gt; <strong>Crear prefab</strong>). Al instanciarlo dentro de
+un lienzo (desde el panel <strong>Interfaz</strong>, arrastrándolo al lienzo, o desde un script con
+<code>Scene.Instantiate(prefab, nil, padre)</code>) conserva sus anclajes y su tamaño, y los grupos de layout lo colocan
+solos. En el panel <strong>Interfaz</strong>, clic derecho &gt; <strong>Guardar como plantilla…</strong> lo guarda en <code>assets/ui/plantillas</code> y
+aparece en la paleta, en <strong>Tuyas</strong>. Ejemplo completo (un inventario que crea sus casillas):
+<a href="interfaz-ui.html#prefabs-de-interfaz-un-inventario">interfaz-ui.md</a>.</p>
+<h2 id="limitaciones">Limitaciones<a class="ancla" href="#limitaciones" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Sin overrides por campo</strong>: una instancia no recuerda qué campos cambiaste respecto al prefab. Es una copia
+independiente que conserva un enlace al fichero.</li>
+<li><strong>Sin prefabs anidados con herencia</strong>: si un prefab contiene otra instancia de prefab, se guarda como una
+copia normal (su componente <code>PrefabInstance</code> se conserva como dato, pero los cambios del prefab interior no se
+propagan).</li>
+<li>Los cambios en un <code>.prefab</code> no se propagan solos a las instancias existentes (ver <strong>Aplicar</strong> y
+<strong>Revertir</strong>).</li>
+</ul>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li>
+<li><a href="escenas-y-componentes.html">Escenas y componentes</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="editor.html">Editor</a></li>
+<li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="animacion-objetos.html"><small>Anterior</small>Animación de objetos: puertas, ascensores y luces con claves</a><a class="sig" href="fisicas.html"><small>Siguiente</small>Físicas</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#crear-un-prefab">Crear un prefab</a></li><li class="n2"><a href="#formato-prefab">Formato .prefab</a></li><li class="n2"><a href="#instanciar">Instanciar</a></li><li class="n3"><a href="#desde-el-editor">Desde el editor</a></li><li class="n3"><a href="#desde-un-script">Desde un script</a></li><li class="n2"><a href="#el-componente-prefabinstance">El componente PrefabInstance</a></li><li class="n2"><a href="#referencias-internas">Referencias internas</a></li><li class="n2"><a href="#prefabs-de-interfaz">Prefabs de interfaz</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

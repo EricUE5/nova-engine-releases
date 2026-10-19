@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datos de juego: structs, listas, Data Assets, tablas, enums y curvas · Nova Engine</title>
+<meta name="description" content="Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
+escritos dentro del código. Nova Engine tiene las mismas herramientas que Unity y Unreal Engine 5 para">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Datos de juego: structs, listas, Data Assets, tablas, enums y curvas · Nova Engine">
+<meta property="og:description" content="Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
+escritos dentro del código. Nova Engine tiene las mismas herramientas que Unity y Unreal Engine 5 para">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/datos.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/datos.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html" aria-current="page">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="datos-de-juego-structs-listas-data-assets-tablas-enums-y-curvas">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos</a></li><li class="n3"><a href="#1-el-tipo-de-datos-struct">1. El tipo de datos: Struct</a></li><li class="n3"><a href="#2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector</a></li><li class="n3"><a href="#3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto</a></li><li class="n3"><a href="#4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)</a></li><li class="n3"><a href="#5-un-enum-compartido">5. Un enum compartido</a></li><li class="n3"><a href="#6-curvas">6. Curvas</a></li><li class="n3"><a href="#7-todo-junto">7. Todo junto</a></li><li class="n2"><a href="#valores-en-lua-copias">Valores en Lua: copias</a></li><li class="n2"><a href="#multijugador">Multijugador</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#ficheros">Ficheros</a></li><li class="n2"><a href="#avisos-y-límites">Avisos y límites</a></li></ul></details><p>Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
+escritos dentro del código. Nova Engine tiene las mismas herramientas que Unity y Unreal Engine 5 para separarlos,
+todas declaradas en Lua y editables en el editor:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>En Nova</th>
+  <th>Para qué</th>
+  <th>En Unity</th>
+  <th>En UE5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Struct({...})</code></td>
+  <td>un tipo de datos con sus campos (nombre, precio, peso, icono...)</td>
+  <td>clase <code>[Serializable]</code></td>
+  <td><code>USTRUCT</code></td>
+</tr>
+<tr>
+  <td><code>List(...)</code>, <code>Dict(...)</code></td>
+  <td>listas y diccionarios en el Inspector</td>
+  <td><code>List&lt;T&gt;</code></td>
+  <td><code>TArray</code>, <code>TMap</code></td>
+</tr>
+<tr>
+  <td><strong>Data Asset</strong> (<code>.datos</code>)</td>
+  <td>un asset con los valores de un struct: <code>Lingote.datos</code></td>
+  <td><code>ScriptableObject</code></td>
+  <td>Data Asset</td>
+</tr>
+<tr>
+  <td><strong>Data Table</strong> (<code>.tabla</code>)</td>
+  <td>filas de un struct, como una hoja de cálculo, con CSV</td>
+  <td>—</td>
+  <td>Data Table</td>
+</tr>
+<tr>
+  <td><strong>Enum</strong> (<code>.enum</code>)</td>
+  <td>una lista de valores con nombre que comparten varios scripts</td>
+  <td><code>enum</code></td>
+  <td><code>UENUM</code></td>
+</tr>
+<tr>
+  <td><strong>Curva</strong> (<code>.curva</code>, <code>Curve()</code>)</td>
+  <td>una función y = f(x) dibujada con puntos</td>
+  <td><code>AnimationCurve</code></td>
+  <td>Curve Float</td>
+</tr>
+</tbody>
+</table></div>
+<p>Todo se guarda con la escena o el prefab (o en su propio asset), tiene deshacer y rehacer, funciona en la
+<a href="edicion-en-equipo.html">edición en equipo</a>, se recarga en caliente al cambiarlo, viaja en el <code>.novapak</code> al publicar y sale
+en el autocompletado de VS Code y del <a href="editor-scripts.html">editor de scripts</a>.</p>
+<p>El ejemplo completo de esta guía está en <code>game/botin_lua</code>, en el código del motor (ábrelo con <strong>Archivo &gt; Abrir proyecto</strong>). Con el
+motor instalado, los pasos de abajo lo montan desde un proyecto «Vacío (Lua)» en unos minutos.</p>
+<h2 id="paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos<a class="ancla" href="#paso-a-paso-el-botín-de-un-juego-de-robos" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="1-el-tipo-de-datos-struct">1. El tipo de datos: Struct<a class="ancla" href="#1-el-tipo-de-datos-struct" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un objeto del botín tiene un nombre, un precio, un peso, un tipo y un icono. Se declara una vez, en un <strong>módulo</strong> (un
+script que no es una clase y que otros piden con <code>require</code>), por ejemplo <code>scripts/datos/Objeto.luau</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Objeto</span> = <span class="hl-f">Struct</span>({
+    nombre = <span class="hl-s">""</span>,
+    <span class="hl-a">--[Tooltip("Lo que paga el perista")]</span>
+    precio = <span class="hl-n">0</span>, <span class="hl-a">--[Int]</span>
+    <span class="hl-a">--[Range(0, 50)]</span>
+    peso = <span class="hl-n">1.0</span>,
+    tipo = <span class="hl-f">Enum</span>(<span class="hl-s">"TipoObjeto"</span>, <span class="hl-s">"Botín"</span>), <span class="hl-c">-- el enum compartido (paso 5)</span>
+    icono = <span class="hl-f">Asset</span>(<span class="hl-s">"Texture"</span>),
+    <span class="hl-a">--[Range(0, 1)]</span>
+    rareza = <span class="hl-n">0.5</span>,
+})
+
+<span class="hl-k">return</span> <span class="hl-t">Objeto</span></code></pre></div>
+<ul>
+<li>Cada campo es como un campo de un script: el tipo sale del valor (número, texto, booleano, <code>Vec3</code>, <code>Color</code>,
+<code>Entity()</code>, <code>Asset(&quot;Tipo&quot;)</code>, <code>Enum(...)</code>, otro struct, <code>List(...)</code>, <code>Curve()</code>...) y el valor es el de por defecto.</li>
+<li>Los <strong>atributos</strong> van igual que en los scripts (<code>--[Range(0, 1)]</code>, <code>--[Int]</code>, <code>--[Tooltip(&quot;...&quot;)]</code>...), al final de la
+línea del campo o en la línea de encima.</li>
+<li>Los campos salen <strong>en el orden en el que están escritos</strong> (en el Inspector y en las columnas de las tablas).</li>
+<li>El nombre del struct es el del <code>local</code> (<code>Objeto</code>). También se puede dar a mano: <code>Struct(&quot;Objeto&quot;, {...})</code>.</li>
+<li>Si cambias el struct (un campo nuevo, otro valor por defecto), los scripts que lo usan se recargan y los valores ya
+guardados se conservan <strong>por nombre</strong>: un campo nuevo sale con su valor por defecto y uno que desaparece se ignora.</li>
+</ul>
+<h3 id="2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector<a class="ancla" href="#2-una-lista-de-structs-en-el-inspector" aria-label="Enlace a esta sección">#</a></h3>
+<p>En el script de la furgoneta de la banda (<code>scripts/Botin.luau</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Objeto</span> = <span class="hl-f">require</span>(<span class="hl-s">"./datos/Objeto"</span>)
+
+<span class="hl-k">local</span> <span class="hl-t">Botin</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Header("Botín")]</span>
+<span class="hl-t">Botin</span>.furgoneta = <span class="hl-f">List</span>(<span class="hl-t">Objeto</span>)   <span class="hl-c">-- lo que lleva la banda</span>
+<span class="hl-t">Botin</span>.destacado = <span class="hl-f">Asset</span>(<span class="hl-s">"Objeto"</span>) <span class="hl-c">-- un Data Asset de tipo Objeto (paso 3)</span>
+<span class="hl-t">Botin</span>.calor = <span class="hl-n">0.2</span> <span class="hl-a">--[Range(0, 1)]</span>
+<span class="hl-t">Botin</span>.pagoSegunCalor = <span class="hl-f">Curve</span>(<span class="hl-s">"entrada"</span>) <span class="hl-c">-- paso 6</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Botin</span></code></pre></div>
+<p>En el Inspector, <strong>Furgoneta</strong> es una lista plegable:</p>
+<ul>
+<li><strong>+</strong> añade un elemento (con los valores por defecto del struct) y <strong>×</strong> vacía la lista.</li>
+<li>Cada elemento se despliega con sus campos, como un componente. El botón de la papelera lo quita.</li>
+<li>El <strong>asa</strong> (⋯) de cada elemento: arrástrala encima del asa de otro elemento para <strong>moverlo</strong> ahí, o haz clic para
+<strong>Duplicar</strong>, <strong>Subir</strong>, <strong>Bajar</strong> o <strong>Quitar</strong>.</li>
+<li>Todo se deshace con <strong>Ctrl+Z</strong> y llega a los demás en la edición en equipo.</li>
+</ul>
+<p>Otras formas de declarar listas y diccionarios:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Botin</span>.pesos = <span class="hl-f">List</span>(<span class="hl-n">0</span>)                     <span class="hl-c">-- lista de números</span>
+<span class="hl-t">Botin</span>.nombres = <span class="hl-f">List</span>(<span class="hl-s">""</span>, { <span class="hl-s">"a"</span>, <span class="hl-s">"b"</span> })     <span class="hl-c">-- de textos, con valores iniciales</span>
+<span class="hl-t">Botin</span>.puertas = <span class="hl-f">List</span>(<span class="hl-f">Entity</span>())            <span class="hl-c">-- de entidades</span>
+<span class="hl-t">Botin</span>.iconos = <span class="hl-f">List</span>(<span class="hl-f">Asset</span>(<span class="hl-s">"Texture"</span>))     <span class="hl-c">-- de assets</span>
+<span class="hl-t">Botin</span>.multiplicadores = <span class="hl-f">Dict</span>(<span class="hl-n">1.0</span>)         <span class="hl-c">-- diccionario texto -&gt; número</span>
+<span class="hl-t">Botin</span>.porTienda = <span class="hl-f">Dict</span>(<span class="hl-t">Objeto</span>)            <span class="hl-c">-- texto -&gt; struct</span>
+<span class="hl-t">Botin</span>.precios = { <span class="hl-n">10</span>, <span class="hl-n">20</span> } <span class="hl-a">--[List(number)] -- una tabla con su tipo en un atributo</span>
+<span class="hl-t">Botin</span>.extras = {} <span class="hl-a">--[List(Objeto)]           -- (también --[List(Asset, "Texture")] y --[Dict(number)])</span>
+<span class="hl-t">Botin</span>.especial = <span class="hl-f">Objeto</span>({ nombre = <span class="hl-s">"Corona"</span>, precio = <span class="hl-n">5000</span> }) <span class="hl-c">-- un struct con otros valores por defecto</span></code></pre></div>
+<h3 id="3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto<a class="ancla" href="#3-data-assets-un-asset-por-objeto" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un <strong>Data Asset</strong> es un fichero <code>.datos</code> con los valores de un struct: <code>Lingote.datos</code>, <code>Corona.datos</code>... Así un
+diseñador cambia el precio del lingote sin tocar ningún script ni ninguna escena.</p>
+<ol>
+<li>En <strong>Contenido</strong>, entra en la carpeta donde lo quieres (por ejemplo <code>datos/objetos</code>).</li>
+<li><strong>Crear &gt; Datos (Data Asset) &gt; Objeto</strong>. El menú lista los structs de tus scripts.</li>
+<li>Elígelo: el <strong>Inspector</strong> enseña sus campos, como un componente. Cada cambio se guarda al soltar el campo, con
+deshacer.</li>
+<li>Para usarlo, arrástralo a un campo <code>Asset(&quot;Objeto&quot;)</code> de un script (el selector solo ofrece Data Assets de ese tipo;
+<code>Asset(&quot;Datos&quot;)</code> acepta cualquiera).</li>
+</ol>
+<p>En Lua, el asset se lee como una tabla:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> d = <span class="hl-b">self</span>.destacado      <span class="hl-c">-- campo Asset("Objeto")</span>
+<span class="hl-f">print</span>(d.nombre, d.precio)     <span class="hl-c">-- sus valores</span>
+<span class="hl-k">local</span> todo = d:<span class="hl-f">Get</span>()          <span class="hl-c">-- la tabla entera</span>
+<span class="hl-k">local</span> lingote = <span class="hl-f">DataAsset</span>(<span class="hl-s">"Lingote"</span>)          <span class="hl-c">-- por su nombre (o su ruta: "datos/objetos/Lingote.datos")</span></code></pre></div>
+<h3 id="4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)<a class="ancla" href="#4-la-data-table-del-botín-y-excel" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con muchos objetos es más cómodo una <strong>tabla</strong>: una fila por objeto, una columna por campo.</p>
+<ol>
+<li><strong>Contenido &gt; Crear &gt; Tabla de datos &gt; Objeto</strong>. Se abre la ventana <strong>Tabla de datos</strong> (también con doble clic en una
+<code>.tabla</code>, o <strong>Ventana &gt; Tabla de datos</strong>).</li>
+<li><strong>+ Fila</strong> añade una fila con los valores por defecto. La primera columna es la <strong>clave</strong> de la fila (<code>Corona</code>,
+<code>Lingote</code>...): doble clic en ella para cambiarla (no puede repetirse).</li>
+<li>Cada celda se edita en su sitio (números, textos, casillas, desplegables de enums y de assets). Las celdas de
+structs, listas y curvas se editan con su botón ⋯.</li>
+<li><strong>Buscar</strong> filtra las filas (por cualquier celda, sin importar tildes) y un clic en una cabecera <strong>ordena</strong> la vista.</li>
+<li><strong>Duplicar</strong> y <strong>Borrar</strong> actúan sobre la fila elegida. Todo tiene deshacer.</li>
+</ol>
+<p><strong>CSV y hojas de cálculo:</strong></p>
+<ul>
+<li><strong>Exportar CSV…</strong> guarda la tabla en un <code>.csv</code> (primera columna <code>clave</code>, una por campo).</li>
+<li><strong>Importar CSV…</strong> sustituye las filas por las del fichero: separador <code>,</code>, <code>;</code> o tabulador, comillas, números con punto
+o con coma (<code>12,5</code>). Las columnas se reconocen por el nombre del campo o por su nombre visible; las que no son campos se
+ignoran con un aviso.</li>
+<li><strong>Copiar</strong> deja las filas (o la elegida) con tabuladores para <strong>pegarlas en Excel o Google Sheets</strong>, y <strong>Pegar</strong> hace
+lo contrario: con la fila de cabecera, las filas se ponen por clave (las que ya están solo cambian en las columnas
+pegadas); sin cabecera, las celdas van por orden desde la fila elegida.</li>
+</ul>
+<p>En Lua:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> t = <span class="hl-f">DataTable</span>(<span class="hl-s">"Botin"</span>)               <span class="hl-c">-- por su nombre o su ruta</span>
+<span class="hl-f">print</span>(t:<span class="hl-f">Row</span>(<span class="hl-s">"Corona"</span>).precio)              <span class="hl-c">-- una fila (nil si no existe)</span>
+<span class="hl-k">for</span> _, fila <span class="hl-k">in</span> t:<span class="hl-f">Rows</span>() <span class="hl-k">do</span>                 <span class="hl-c">-- todas, en su orden; cada una con .clave</span>
+    <span class="hl-f">print</span>(fila.clave, fila.precio)
+<span class="hl-k">end</span>
+<span class="hl-k">local</span> caros = t:<span class="hl-f">Filter</span>(<span class="hl-k">function</span>(f) <span class="hl-k">return</span> f.precio &gt;= <span class="hl-n">1000</span> <span class="hl-k">end</span>)
+<span class="hl-k">local</span> barato = t:<span class="hl-f">Find</span>(<span class="hl-k">function</span>(f, clave) <span class="hl-k">return</span> f.precio &lt; <span class="hl-n">100</span> <span class="hl-k">end</span>)
+<span class="hl-f">print</span>(t:<span class="hl-f">Count</span>(), t:<span class="hl-f">Has</span>(<span class="hl-s">"Reloj"</span>), <span class="hl-t">table</span>.<span class="hl-f">concat</span>(t:<span class="hl-f">Keys</span>(), <span class="hl-s">", "</span>))</code></pre></div>
+<p>Las filas son <strong>de solo lectura</strong> (las comparten todos los scripts). Para cambiar algo en la partida, cópialo:
+<code>local mio = table.clone(t:Row(&quot;Corona&quot;))</code>.</p>
+<h3 id="5-un-enum-compartido">5. Un enum compartido<a class="ancla" href="#5-un-enum-compartido" aria-label="Enlace a esta sección">#</a></h3>
+<p>El tipo de objeto (Arma, Botín, Consumible) lo usan varios structs y scripts. En vez de escribir la lista en cada sitio:</p>
+<ol>
+<li><strong>Contenido &gt; Crear &gt; Enum</strong> y renómbralo <code>TipoObjeto.enum</code>.</li>
+<li>En el Inspector, <strong>Añadir valor</strong>, cambia los nombres y ordénalos.</li>
+<li>Úsalo con su nombre: <code>Enum(&quot;TipoObjeto&quot;)</code> o con otro valor por defecto: <code>Enum(&quot;TipoObjeto&quot;, &quot;Arma&quot;)</code>.</li>
+</ol>
+<p>El Inspector enseña un desplegable y en Lua el valor es el texto (<code>if o.tipo == &quot;Arma&quot; then</code>). Cambiar el nombre de un
+valor no cambia los que ya estaban guardados.</p>
+<p>También se puede compartir un enum desde un módulo de Lua:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- scripts/datos/Tipos.luau</span>
+<span class="hl-k">local</span> <span class="hl-t">Tipos</span> = {}
+<span class="hl-t">Tipos</span>.Rareza = <span class="hl-f">Enum</span>({ <span class="hl-s">"Común"</span>, <span class="hl-s">"Rara"</span>, <span class="hl-s">"Épica"</span> })
+<span class="hl-k">return</span> <span class="hl-t">Tipos</span>
+
+<span class="hl-c">-- en otro script</span>
+<span class="hl-k">local</span> <span class="hl-t">Tipos</span> = <span class="hl-f">require</span>(<span class="hl-s">"./datos/Tipos"</span>)
+<span class="hl-t">Arma</span>.rareza = <span class="hl-t">Tipos</span>.Rareza                 <span class="hl-c">-- el primero por defecto</span>
+<span class="hl-t">Arma</span>.rarezaJefe = <span class="hl-t">Tipos</span>.Rareza:<span class="hl-f">Default</span>(<span class="hl-s">"Épica"</span>)</code></pre></div>
+<h3 id="6-curvas">6. Curvas<a class="ancla" href="#6-curvas" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cuánto paga el perista según lo «caliente» que esté el botín: poco recién robado, el precio entero cuando ya nadie lo
+busca. Eso es una curva.</p>
+<ul>
+<li>Como campo: <code>Botin.pagoSegunCalor = Curve()</code> (o un preajuste: <code>Curve(&quot;suave&quot;)</code>, <code>&quot;lineal&quot;</code>, <code>&quot;entrada&quot;</code>, <code>&quot;salida&quot;</code>,
+<code>&quot;constante&quot;</code>, <code>&quot;plana&quot;</code>, <code>&quot;campana&quot;</code>; o puntos: <code>Curve({ {0, 0.2}, {1, 1} })</code>). En el Inspector se ve en pequeño y,
+desplegada, se edita.</li>
+<li>Como asset compartido: <strong>Contenido &gt; Crear &gt; Curva</strong> (<code>.curva</code>); se edita en el Inspector y se usa en un campo
+<code>Asset(&quot;Curva&quot;)</code>.</li>
+</ul>
+<p>En el editor de curvas: <strong>arrastra</strong> los puntos, <strong>doble clic</strong> en un hueco añade uno y el <strong>clic derecho</strong> en un punto
+cambia su interpolación hasta el siguiente (constante, lineal, Bézier, entrada suave, salida suave, suave), sus tangentes
+(automáticas, libres —con asas para arrastrar— o planas) o lo quita. El clic derecho en un hueco aplica un preajuste.
+Son las mismas curvas que la <a href="animacion-objetos.html">Línea de tiempo</a>.</p>
+<p>En Lua:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> factor = <span class="hl-b">self</span>.pagoSegunCalor:<span class="hl-f">Evaluate</span>(<span class="hl-n">1</span> - <span class="hl-b">self</span>.calor)   <span class="hl-c">-- campo Curve()</span>
+<span class="hl-k">local</span> f2 = <span class="hl-b">self</span>.curvaDelPerista:<span class="hl-f">Evaluate</span>(<span class="hl-n">0.5</span>)                 <span class="hl-c">-- campo Asset("Curva")</span></code></pre></div>
+<p>Antes del primer punto vale lo del primero y después del último, lo del último. <code>curva.minX</code>, <code>curva.maxX</code>,
+<code>curva.count</code> y <code>curva:Points()</code> dan sus puntos.</p>
+<h3 id="7-todo-junto">7. Todo junto<a class="ancla" href="#7-todo-junto" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Botin</span>:<span class="hl-f">Valor</span>(objeto)
+    <span class="hl-k">local</span> curva = <span class="hl-b">self</span>.curvaDelPerista <span class="hl-k">or</span> <span class="hl-b">self</span>.pagoSegunCalor
+    <span class="hl-k">return</span> <span class="hl-t">math</span>.<span class="hl-f">floor</span>(objeto.precio * curva:<span class="hl-f">Evaluate</span>(<span class="hl-n">1</span> - <span class="hl-b">self</span>.calor) + <span class="hl-n">0.5</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Botin</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> tabla = <span class="hl-f">DataTable</span>(<span class="hl-s">"Botin"</span>)
+    <span class="hl-k">local</span> total = <span class="hl-n">0</span>
+    <span class="hl-k">for</span> _, objeto <span class="hl-k">in</span> <span class="hl-b">self</span>.furgoneta <span class="hl-k">do</span>
+        total += <span class="hl-b">self</span>:<span class="hl-f">Valor</span>(tabla:<span class="hl-f">Row</span>(objeto.nombre) <span class="hl-k">or</span> objeto)
+    <span class="hl-k">end</span>
+    <span class="hl-f">print</span>(<span class="hl-s">"La furgoneta vale"</span>, total)
+<span class="hl-k">end</span></code></pre></div>
+<h2 id="valores-en-lua-copias">Valores en Lua: copias<a class="ancla" href="#valores-en-lua-copias" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>self.furgoneta</code>, <code>self.destacado</code> (de un struct) y los demás campos compuestos devuelven <strong>una copia</strong> como tabla de
+Lua. Cambiarla no cambia el campo: hay que <strong>volver a asignarla</strong>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> lista = <span class="hl-b">self</span>.furgoneta
+<span class="hl-t">table</span>.<span class="hl-f">insert</span>(lista, <span class="hl-f">Objeto</span>({ nombre = <span class="hl-s">"Cuadro"</span>, precio = <span class="hl-n">900</span> }))
+<span class="hl-b">self</span>.furgoneta = lista               <span class="hl-c">-- ahora sí</span>
+<span class="hl-b">self</span>.precios = { oro = <span class="hl-n">11</span> }          <span class="hl-c">-- un diccionario entero</span></code></pre></div>
+<p>Guarda la copia en un <code>local</code> si la usas varias veces en el mismo frame (cada lectura crea una tabla). <code>Objeto()</code> crea un
+valor con los valores por defecto y <code>Objeto({ precio = 5 })</code>, con esos cambios.</p>
+<h2 id="multijugador">Multijugador<a class="ancla" href="#multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los structs y las listas no se replican como campos (no caben en las instantáneas de la red, que llevan valores
+pequeños): si pones <code>--[Replicated]</code> encima, el motor avisa. Para enviarlos a los clientes, guárdalos en una
+<a href="multijugador.html">tabla replicada</a>, que respeta sus límites (1024 claves y 64 KB por tabla):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Replicated]</span>
+<span class="hl-t">Caja</span>.contenido = {}
+
+<span class="hl-k">function</span> <span class="hl-t">Caja</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.contenido.objeto = <span class="hl-b">self</span>.objeto            <span class="hl-c">-- un struct</span>
+        <span class="hl-b">self</span>.contenido.lista = { <span class="hl-f">Objeto</span>({ nombre = <span class="hl-s">"A"</span> }), <span class="hl-f">Objeto</span>({ nombre = <span class="hl-s">"B"</span> }) }
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Las Data Tables, los Data Assets, los enums y las curvas son assets: los tienen todos los jugadores (van en el juego), así
+que no hace falta enviarlos.</p>
+<h2 id="publicar">Publicar<a class="ancla" href="#publicar" aria-label="Enlace a esta sección">#</a></h2>
+<p>No hay que hacer nada: los <code>.datos</code>, <code>.tabla</code>, <code>.enum</code> y <code>.curva</code> van en el <code>.novapak</code> como cualquier otro asset, y los
+scripts guardan en su bytecode el orden de los campos de sus structs.</p>
+<h2 id="autocompletado">Autocompletado<a class="ancla" href="#autocompletado" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>nova.d.luau</code> (VS Code y el editor de scripts integrado) declara:</p>
+<ul>
+<li>un tipo por cada struct (<code>Objeto</code> con sus campos y sus tipos; los enums, con sus valores entre comillas);</li>
+<li><code>DataTable(&quot;Botin&quot;)</code> con el tipo de sus filas: <code>t:Row(&quot;Corona&quot;).</code> completa <code>precio</code>, <code>peso</code>...;</li>
+<li>los enums compartidos como tipos (<code>TipoObjeto</code>);</li>
+<li>los campos de tus scripts: <code>List(Objeto)</code> es <code>{Objeto}</code>, <code>Asset(&quot;Objeto&quot;)</code> es un asset con los campos de <code>Objeto</code>,
+<code>Enum({...})</code> y <code>Enum(&quot;TipoObjeto&quot;)</code> sus valores y <code>Curve()</code> una <code>CurveValue</code> con <code>Evaluate</code>.</li>
+</ul>
+<p>Se rehace solo al guardar un script o al crear una tabla o un enum (si el proyecto ya usa <code>nova.d.luau</code>).</p>
+<h2 id="ficheros">Ficheros<a class="ancla" href="#ficheros" aria-label="Enlace a esta sección">#</a></h2>
+<p>Son JSON (se pueden revisar en git o editar con un editor de texto; el motor los recarga al guardarlos):</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">// datos/objetos/Lingote.datos
+{ <span class="hl-k">"formato"</span>: <span class="hl-s">"nova-datos"</span>, <span class="hl-k">"version"</span>: <span class="hl-n">1</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"Objeto"</span>,
+  <span class="hl-k">"valores"</span>: { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Lingote de oro"</span>, <span class="hl-k">"precio"</span>: <span class="hl-n">500</span>, <span class="hl-k">"peso"</span>: <span class="hl-n">12.5</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"Botín"</span>, <span class="hl-k">"icono"</span>: <span class="hl-b">null</span>, <span class="hl-k">"rareza"</span>: <span class="hl-n">0.3</span> } }
+
+// datos/Botin.tabla
+{ <span class="hl-k">"formato"</span>: <span class="hl-s">"nova-tabla"</span>, <span class="hl-k">"version"</span>: <span class="hl-n">1</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"Objeto"</span>,
+  <span class="hl-k">"filas"</span>: [ { <span class="hl-k">"clave"</span>: <span class="hl-s">"Corona"</span>, <span class="hl-k">"valores"</span>: { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Corona real"</span>, <span class="hl-k">"precio"</span>: <span class="hl-n">5000</span> } } ] }
+
+// datos/TipoObjeto.enum
+{ <span class="hl-k">"formato"</span>: <span class="hl-s">"nova-enum"</span>, <span class="hl-k">"version"</span>: <span class="hl-n">1</span>, <span class="hl-k">"valores"</span>: [<span class="hl-s">"Arma"</span>, <span class="hl-s">"Botín"</span>, <span class="hl-s">"Consumible"</span>] }
+
+// datos/PagoSegunCalor.curva
+{ <span class="hl-k">"formato"</span>: <span class="hl-s">"nova-curva"</span>, <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"claves"</span>: [ { <span class="hl-k">"t"</span>: <span class="hl-n">0</span>, <span class="hl-k">"v"</span>: <span class="hl-n">0.25</span>, <span class="hl-k">"entrada"</span>: <span class="hl-n">0</span>, <span class="hl-k">"salida"</span>: <span class="hl-n">0</span>, <span class="hl-k">"interp"</span>: <span class="hl-s">"suave"</span>, <span class="hl-k">"tangentes"</span>: <span class="hl-s">"auto"</span> } ] }</code></pre></div>
+<p>Un campo que falta toma su valor por defecto y uno que sobra se ignora.</p>
+<h2 id="avisos-y-límites">Avisos y límites<a class="ancla" href="#avisos-y-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Un <code>Struct</code> sin nombre (sin <code>local</code> ni nombre a mano) se llama <code>Struct&lt;línea&gt;</code> y avisa: dale un nombre para usarlo en
+Data Assets y tablas.</li>
+<li>Dos structs con el mismo nombre en scripts distintos: gana el último que se carga.</li>
+<li>Si un Data Asset o una tabla son de un struct que ya no existe (renombrado, o un script con errores), el editor lo dice y
+no los toca: los valores siguen en el fichero.</li>
+<li><code>Enum(&quot;Nombre&quot;)</code> necesita que exista <code>Nombre.enum</code> en <code>assets/</code>: si no, el script no carga y la Consola lo dice.</li>
+<li><code>Asset(&quot;Datos&quot;)</code>, <code>Asset(&quot;Tabla&quot;)</code> y <code>Asset(&quot;Curva&quot;)</code> aceptan cualquier asset de esa clase; <code>Asset(&quot;Objeto&quot;)</code>, solo Data
+Assets de ese struct.</li>
+<li>En un asset, <code>id</code>, <code>path</code> y <code>valid</code> son del asset: si tu struct tiene un campo con ese nombre, léelo con <code>asset:Get().id</code>.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="herramientas-lua.html"><small>Anterior</small>Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a><a class="sig" href="ejemplo-inventario.html"><small>Siguiente</small>Ejemplo: inventario tipo Rust (Lua)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos</a></li><li class="n3"><a href="#1-el-tipo-de-datos-struct">1. El tipo de datos: Struct</a></li><li class="n3"><a href="#2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector</a></li><li class="n3"><a href="#3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto</a></li><li class="n3"><a href="#4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)</a></li><li class="n3"><a href="#5-un-enum-compartido">5. Un enum compartido</a></li><li class="n3"><a href="#6-curvas">6. Curvas</a></li><li class="n3"><a href="#7-todo-junto">7. Todo junto</a></li><li class="n2"><a href="#valores-en-lua-copias">Valores en Lua: copias</a></li><li class="n2"><a href="#multijugador">Multijugador</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#ficheros">Ficheros</a></li><li class="n2"><a href="#avisos-y-límites">Avisos y límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

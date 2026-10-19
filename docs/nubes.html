@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nubes volumétricas · Nova Engine</title>
+<meta name="description" content="El componente Entorno puede dibujar nubes volumétricas: cúmulos, cielos cubiertos, tormentas o nubes de
+atardecer que se mueven con el viento y cambian de forma, tapan el sol, hacen sombra sobre el terreno y los
+objetos,">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Nubes volumétricas · Nova Engine">
+<meta property="og:description" content="El componente Entorno puede dibujar nubes volumétricas: cúmulos, cielos cubiertos, tormentas o nubes de
+atardecer que se mueven con el viento y cambian de forma, tapan el sol, hacen sombra sobre el terreno y los
+objetos,">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/nubes.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/nubes.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html" aria-current="page">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="nubes-volumétricas">Nubes volumétricas</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-poner-nubes-en-una-escena">1. Poner nubes en una escena</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-ajustes-de-las-nubes">3. Ajustes de las nubes</a></li><li class="n2"><a href="#4-sombras-reflejos-y-niebla">4. Sombras, reflejos y niebla</a></li><li class="n2"><a href="#5-atardeceres">5. Atardeceres</a></li><li class="n2"><a href="#6-calidad-y-rendimiento">6. Calidad y rendimiento</a></li><li class="n2"><a href="#7-desde-los-scripts-lua">7. Desde los scripts Lua</a></li><li class="n2"><a href="#8-multijugador-el-mismo-cielo-para-todos">8. Multijugador: el mismo cielo para todos</a></li><li class="n2"><a href="#9-edición-en-equipo-y-deshacer">9. Edición en equipo y deshacer</a></li><li class="n2"><a href="#10-límites-conocidos">10. Límites conocidos</a></li></ul></details><p>El componente <strong>Entorno</strong> puede dibujar <strong>nubes volumétricas</strong>: cúmulos, cielos cubiertos, tormentas o nubes de
+atardecer que se mueven con el viento y cambian de forma, tapan el sol, <strong>hacen sombra</strong> sobre el terreno y los
+objetos, salen en los <strong>reflejos</strong> (agua, metales) y se funden con la niebla a lo lejos. Se ven bien desde el suelo y
+desde un avión por encima de ellas, y en una partida en red <strong>todos los jugadores ven las mismas nubes</strong>.</p>
+<p>Se ajustan en el Inspector (sección <strong>Nubes</strong> del Entorno, con seis preajustes) y desde los scripts Lua
+(<code>Environment.SetClouds</code>, <code>Environment.TransitionClouds</code> para cambiar el tiempo poco a poco).</p>
+<p>Por dentro siguen la técnica de <em>Horizon Zero Dawn</em> (Nubis): se lanzan rayos a través de una capa de nubes hecha con
+ruido 3D, a media o a un cuarto de resolución, y se acumulan entre frames.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-poner-nubes-en-una-escena">Poner nubes en una escena</a></li>
+<li><a href="#2-preajustes">Preajustes</a></li>
+<li><a href="#3-ajustes-de-las-nubes">Ajustes de las nubes</a></li>
+<li><a href="#4-sombras-reflejos-y-niebla">Sombras, reflejos y niebla</a></li>
+<li><a href="#5-atardeceres">Atardeceres</a></li>
+<li><a href="#6-calidad-y-rendimiento">Calidad y rendimiento</a></li>
+<li><a href="#7-desde-los-scripts-lua">Desde los scripts Lua</a></li>
+<li><a href="#8-multijugador-el-mismo-cielo-para-todos">Multijugador: el mismo cielo para todos</a></li>
+<li><a href="#9-edición-en-equipo-y-deshacer">Edición en equipo y deshacer</a></li>
+<li><a href="#10-límites-conocidos">Límites conocidos</a></li>
+<li><span class="enlace-interno-quitado">Para quien programa el motor (C++)</span></li>
+</ol>
+<h2 id="1-poner-nubes-en-una-escena">1. Poner nubes en una escena<a class="ancla" href="#1-poner-nubes-en-una-escena" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Selecciona la entidad con el componente <strong>Entorno</strong> (o añádelo: <strong>Añadir componente &gt; Render &gt; Entorno</strong>).</li>
+<li>Al final del Inspector, en la sección <strong>Nubes</strong>, marca <strong>Nubes</strong>.</li>
+<li>Pulsa un preajuste (<strong>Cúmulos</strong>, por ejemplo) y retoca lo que quieras.</li>
+</ol>
+<p>Los cambios se ven al momento en los visores <strong>Escena</strong> y <strong>Juego</strong>. En el editor las nubes se mueven con el tiempo
+que lleva abierta la escena (pon <strong>Velocidad del viento</strong> y <strong>Evolución</strong> a 0 si las quieres quietas mientras
+editas); jugando, con el reloj de la partida.</p>
+<p>Las escenas que ya tenías no cambian: las nubes vienen apagadas.</p>
+<h2 id="2-preajustes">2. Preajustes<a class="ancla" href="#2-preajustes" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los botones de la sección <strong>Nubes</strong> cambian todos los ajustes de una vez (con deshacer). Conservan la <strong>Semilla</strong> y la
+<strong>Dirección del viento</strong>, que son de tu mundo y no del tiempo que hace. El botón del preajuste que coincide con los
+ajustes actuales se ve resaltado; si has retocado algo, pone <em>(personalizado)</em>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preajuste</th>
+  <th>Cómo es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Despejado</strong></td>
+  <td>Sin nubes (siguen activas: desde aquí una transición las hace aparecer poco a poco)</td>
+</tr>
+<tr>
+  <td><strong>Pocas nubes</strong></td>
+  <td>Cúmulos pequeños y sueltos de buen tiempo</td>
+</tr>
+<tr>
+  <td><strong>Cúmulos</strong></td>
+  <td>Cúmulos altos y algodonosos, con sombras marcadas en el suelo</td>
+</tr>
+<tr>
+  <td><strong>Nublado</strong></td>
+  <td>Cielo cubierto de estratocúmulos grises hasta el horizonte</td>
+</tr>
+<tr>
+  <td><strong>Tormenta</strong></td>
+  <td>Nubes muy densas y oscuras, con lluvia por abajo y viento fuerte</td>
+</tr>
+<tr>
+  <td><strong>Atardecer</strong></td>
+  <td>Nubes medias y finas con luz cálida y mucho borde plateado. Para un atardecer completo, baja también el sol (gira la <strong>Luz direccional</strong> hasta que quede casi en el horizonte)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-ajustes-de-las-nubes">3. Ajustes de las nubes<a class="ancla" href="#3-ajustes-de-las-nubes" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todos tienen una explicación al pasar el ratón por encima. Con <strong>Nubes</strong> desmarcado, los demás aparecen
+desactivados. Son campos del Entorno (<code>cloudCoverage</code>, <code>cloudWindSpeed</code>...): se guardan en la escena, se pueden
+copiar y pegar con el menú del componente y se leen y se escriben desde los scripts.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Inspector</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>cloudsEnabled</code></td>
+  <td>Nubes</td>
+  <td>false</td>
+  <td>Activa las nubes (y su sombra)</td>
+</tr>
+<tr>
+  <td><code>cloudCoverage</code></td>
+  <td>Cobertura</td>
+  <td>0.45</td>
+  <td>Cuánto cielo tapan: 0 = despejado, 1 = cubierto del todo</td>
+</tr>
+<tr>
+  <td><code>cloudDensity</code></td>
+  <td>Densidad</td>
+  <td>1</td>
+  <td>Lo opacas que son: con más densidad se ven más sólidas y más oscuras por dentro</td>
+</tr>
+<tr>
+  <td><code>cloudType</code></td>
+  <td>Tipo</td>
+  <td>0.7</td>
+  <td>0 = estratos (capas finas y planas), 1 = cúmulos (torres altas y redondeadas)</td>
+</tr>
+<tr>
+  <td><code>cloudPrecipitation</code></td>
+  <td>Precipitación</td>
+  <td>0</td>
+  <td>Nubes de lluvia: más densas y oscuras por abajo</td>
+</tr>
+<tr>
+  <td><code>cloudBaseHeight</code></td>
+  <td>Altura de la base</td>
+  <td>1500</td>
+  <td>Metros sobre y = 0 a los que empiezan</td>
+</tr>
+<tr>
+  <td><code>cloudThickness</code></td>
+  <td>Grosor</td>
+  <td>2500</td>
+  <td>Metros de alto de la capa (los cúmulos llegan hasta arriba; los estratos se quedan abajo)</td>
+</tr>
+<tr>
+  <td><code>cloudWindDirection</code></td>
+  <td>Dirección del viento</td>
+  <td>30</td>
+  <td>Grados hacia los que sopla: 0 = hacia +X, 90 = hacia +Z</td>
+</tr>
+<tr>
+  <td><code>cloudWindSpeed</code></td>
+  <td>Velocidad del viento</td>
+  <td>10</td>
+  <td>Metros por segundo que avanzan</td>
+</tr>
+<tr>
+  <td><code>cloudEvolution</code></td>
+  <td>Evolución</td>
+  <td>1</td>
+  <td>Lo rápido que cambian de forma mientras avanzan (0 = solo se desplazan)</td>
+</tr>
+<tr>
+  <td><code>cloudAbsorption</code></td>
+  <td>Absorción</td>
+  <td>1</td>
+  <td>Cuánta luz del sol absorben: con más, la parte de abajo y la de espaldas al sol son más oscuras</td>
+</tr>
+<tr>
+  <td><code>cloudAmbient</code></td>
+  <td>Luz ambiente</td>
+  <td>1</td>
+  <td>Luz del cielo que reciben: aclara las zonas a la sombra</td>
+</tr>
+<tr>
+  <td><code>cloudSilverLining</code></td>
+  <td>Borde plateado</td>
+  <td>1</td>
+  <td>Brillo de los bordes cuando miras hacia el sol a través de ellas</td>
+</tr>
+<tr>
+  <td><code>cloudPowder</code></td>
+  <td>Efecto polvo</td>
+  <td>0.5</td>
+  <td>Oscurece los bordes que dan la espalda al sol (más sensación de volumen)</td>
+</tr>
+<tr>
+  <td><code>cloudTint</code></td>
+  <td>Tinte</td>
+  <td>blanco</td>
+  <td>Color que multiplica su luz (cálido para un atardecer)</td>
+</tr>
+<tr>
+  <td><code>cloudShadowStrength</code></td>
+  <td>Fuerza de las sombras</td>
+  <td>0.7</td>
+  <td>Sombra sobre el terreno y los objetos (0 = sin sombras)</td>
+</tr>
+<tr>
+  <td><code>cloudDetail</code></td>
+  <td>Detalle</td>
+  <td>0.6</td>
+  <td>Erosión de los bordes con ruido fino: 0 = formas suaves, 1 = bordes deshilachados</td>
+</tr>
+<tr>
+  <td><code>cloudHorizonFade</code></td>
+  <td>Fundido en el horizonte</td>
+  <td>0.5</td>
+  <td>Cuánto se funden con la bruma las nubes lejanas</td>
+</tr>
+<tr>
+  <td><code>cloudSeed</code></td>
+  <td>Semilla</td>
+  <td>0</td>
+  <td>Cambia dónde hay nubes (el mapa del tiempo). Con la misma semilla, todos ven las mismas</td>
+</tr>
+</tbody>
+</table></div>
+<p>La capa de nubes se curva con el radio de la Tierra: a lo lejos baja hacia el horizonte como en la realidad.</p>
+<h2 id="4-sombras-reflejos-y-niebla">4. Sombras, reflejos y niebla<a class="ancla" href="#4-sombras-reflejos-y-niebla" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Sombras.</strong> Las nubes oscurecen el terreno, la vegetación, las mallas y el agua por donde pasan (con
+<strong>Fuerza de las sombras</strong>). Bajo un cielo cubierto todo queda a la sombra: el sol directo y su brillo en los
+materiales se atenúan. La sombra cubre 16 km alrededor de la cámara; más lejos se usa la media según la
+cobertura. Las mallas con <strong>Recibe sombras</strong> desmarcado tampoco reciben la de las nubes.</li>
+<li><strong>Reflejos y luz ambiente.</strong> El cielo de los reflejos (agua, metales, superficies pulidas) y de la luz ambiente
+lleva las nubes: con el cielo cubierto los reflejos son grises y la luz se vuelve más difusa. Ese cielo se rehace a
+baja frecuencia (cuando las nubes avanzan unas decenas de metros, cambian sus ajustes o la cámara se aleja unos
+cientos de metros), no en cada frame.</li>
+<li><strong>Niebla y bruma.</strong> Las nubes lejanas toman el color de la bruma del horizonte y, si no cubren todo el cielo, se
+desvanecen (<strong>Fundido en el horizonte</strong>). La niebla del Entorno también se aplica a las nubes y, con nubes, toma el
+color del cielo nublado: las montañas lejanas se pierden en gris bajo un cielo cubierto.</li>
+</ul>
+<h2 id="5-atardeceres">5. Atardeceres<a class="ancla" href="#5-atardeceres" aria-label="Enlace a esta sección">#</a></h2>
+<p>La luz que llega a las nubes atraviesa la atmósfera desde el sol: con el sol bajo se vuelve <strong>anaranjada y rojiza</strong>
+sola, aunque la luz direccional sea blanca. Para un atardecer:</p>
+<ol>
+<li>Gira la <strong>Luz direccional</strong> hasta que el sol quede a pocos grados sobre el horizonte (y, si quieres, dale un
+color cálido al suelo).</li>
+<li>Pulsa el preajuste <strong>Atardecer</strong> (nubes medias y finas, tinte cálido y mucho borde plateado).</li>
+<li>Mira hacia el sol: los bordes de las nubes brillan (borde plateado).</li>
+</ol>
+<p>Con el sol un poco por debajo del horizonte, las nubes altas siguen iluminadas por debajo mientras el suelo ya está a
+oscuras.</p>
+<h2 id="6-calidad-y-rendimiento">6. Calidad y rendimiento<a class="ancla" href="#6-calidad-y-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p>En <strong>Editar &gt; Ajustes del proyecto... &gt; Render</strong>, <strong>Calidad de las nubes</strong> (clave <code>calidadNubes</code> de la sección
+<code>render</code> de <code>project.nova</code>, se aplica al momento):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Calidad</th>
+  <th>Resolución de las nubes</th>
+  <th>Pasos del rayo</th>
+  <th>Pasos hacia el sol</th>
+  <th>Mapa de sombras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Baja</td>
+  <td>1/4 (en cada eje)</td>
+  <td>48</td>
+  <td>4</td>
+  <td>512 x 512</td>
+</tr>
+<tr>
+  <td>Media</td>
+  <td>1/2</td>
+  <td>48</td>
+  <td>4</td>
+  <td>512 x 512</td>
+</tr>
+<tr>
+  <td><strong>Alta</strong> (por defecto)</td>
+  <td>1/2</td>
+  <td>64</td>
+  <td>6</td>
+  <td>1024 x 1024</td>
+</tr>
+<tr>
+  <td>Ultra</td>
+  <td>1/2</td>
+  <td>96</td>
+  <td>6</td>
+  <td>1024 x 1024</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"render"</span>: {
+  <span class="hl-k">"calidadNubes"</span>: <span class="hl-s">"Alta"</span>
+}</code></pre></div>
+<p>Coste en la GPU medido a 1920 x 1080 en una GeForce RTX 5060 Ti (compilación <code>release</code>, prueba
+<code>nubes: rendimiento a 1080p</code>; sombra de las nubes, rayos, acumulación y composición):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Calidad</th>
+  <th>Cúmulos</th>
+  <th>Nublado</th>
+  <th>Tormenta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Baja</td>
+  <td>0,40 ms</td>
+  <td>0,35 ms</td>
+  <td>0,31 ms</td>
+</tr>
+<tr>
+  <td>Media</td>
+  <td>0,80 ms</td>
+  <td>0,85 ms</td>
+  <td>0,70 ms</td>
+</tr>
+<tr>
+  <td>Alta</td>
+  <td>1,06 ms</td>
+  <td>1,51 ms</td>
+  <td>1,19 ms</td>
+</tr>
+<tr>
+  <td>Ultra</td>
+  <td>1,38 ms</td>
+  <td>1,99 ms</td>
+  <td>1,15 ms</td>
+</tr>
+</tbody>
+</table></div>
+<p>El último valor medido aparece en el Inspector del Entorno y en la pestaña Render de los ajustes del proyecto. Rehacer
+el cielo con nubes de los reflejos cuesta menos de medio milisegundo en el frame en que toca (cada pocos segundos). La primera
+vez que se usan, los ruidos de las nubes se generan en la GPU (unas decenas de milisegundos, una sola vez por
+ejecución). Con el render por software (WARP) se usa siempre la calidad Baja.</p>
+<p>Las nubes se dibujan a menor resolución y se acumulan entre frames: con la cámara quieta quedan nítidas y sin
+parpadeo en unos 10-20 frames; al girar rápido pueden verse un poco más blandas durante ese tiempo.</p>
+<h2 id="7-desde-los-scripts-lua">7. Desde los scripts Lua<a class="ancla" href="#7-desde-los-scripts-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>El global <code>Environment</code> trabaja con el Entorno activo de la escena (el que se dibuja). Los ajustes son los mismos
+campos con nombres cortos: <code>coverage</code>, <code>windSpeed</code>, <code>tint</code>...</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Environment.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>GetClouds()</code></td>
+  <td>Tabla con todos los ajustes: <code>enabled</code>, <code>coverage</code>, <code>density</code>, <code>type</code>, <code>precipitation</code>, <code>baseHeight</code>, <code>thickness</code>, <code>windDirection</code>, <code>windSpeed</code>, <code>evolution</code>, <code>absorption</code>, <code>ambient</code>, <code>silverLining</code>, <code>powder</code>, <code>tint</code> (Color), <code>shadowStrength</code>, <code>detail</code>, <code>horizonFade</code> y <code>seed</code></td>
+</tr>
+<tr>
+  <td><code>SetClouds(ajustes)</code></td>
+  <td>Cambia al momento solo lo que trae la tabla: <code>Environment.SetClouds({ coverage = 0.8, windSpeed = 20 })</code>. Una clave que no existe da un error con las válidas</td>
+</tr>
+<tr>
+  <td><code>SetCloudPreset(nombre)</code></td>
+  <td>Pone un preajuste al momento (<code>&quot;Nublado&quot;</code>; con o sin tildes)</td>
+</tr>
+<tr>
+  <td><code>TransitionClouds(destino, segundos)</code></td>
+  <td>Cambio suave hacia un preajuste (<code>&quot;Tormenta&quot;</code>) o una tabla de ajustes, en esos segundos del reloj de las nubes. Si las nubes estaban apagadas, aparecen desde cobertura 0; para apagarlas poco a poco pasa <code>{ enabled = false }</code></td>
+</tr>
+<tr>
+  <td><code>IsTransitioning()</code></td>
+  <td>true mientras dura una transición</td>
+</tr>
+<tr>
+  <td><code>GetCloudPreset()</code></td>
+  <td>El preajuste que coincide con los ajustes actuales, o nil</td>
+</tr>
+<tr>
+  <td><code>GetCloudPresets()</code></td>
+  <td>Los nombres de los seis preajustes</td>
+</tr>
+<tr>
+  <td><code>GetCloudTime()</code></td>
+  <td>Reloj de las nubes (segundos; el mismo en todas las máquinas de una partida)</td>
+</tr>
+</tbody>
+</table></div>
+<p>También se pueden cambiar los campos del componente directamente:
+<code>Scene.FindWithComponent(&quot;Environment&quot;):GetComponent(&quot;Environment&quot;).cloudCoverage = 0.9</code>.</p>
+<p>Un ciclo del tiempo que cambia el cielo cada dos minutos (ponlo en la entidad del Entorno):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Ciclo del tiempo: cada cierto tiempo el servidor pasa a otro cielo con una transicion suave. En una partida en red,</span>
+<span class="hl-c">-- pon NetworkIdentity en el Entorno: los clientes reciben el cambio.</span>
+<span class="hl-k">local</span> <span class="hl-t">CicloDelTiempo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(10, 3600), Tooltip("Segundos entre cambios")]</span>
+<span class="hl-t">CicloDelTiempo</span>.intervalo = <span class="hl-n">120</span>
+<span class="hl-a">--[Range(1, 600), Tooltip("Segundos que dura cada cambio")]</span>
+<span class="hl-t">CicloDelTiempo</span>.transicion = <span class="hl-n">40</span>
+<span class="hl-t">CicloDelTiempo</span>.semilla = <span class="hl-n">3</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-k">local</span> <span class="hl-t">CIELOS</span> = { <span class="hl-s">"Pocas nubes"</span>, <span class="hl-s">"Cúmulos"</span>, <span class="hl-s">"Nublado"</span>, <span class="hl-s">"Tormenta"</span>, <span class="hl-s">"Nublado"</span>, <span class="hl-s">"Cúmulos"</span> }
+
+<span class="hl-k">function</span> <span class="hl-t">CicloDelTiempo</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._azar = <span class="hl-t">Random</span>.<span class="hl-f">new</span>(<span class="hl-b">self</span>.semilla)
+    <span class="hl-b">self</span>._siguiente = <span class="hl-b">self</span>.intervalo
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">CicloDelTiempo</span>:<span class="hl-f">Update</span>(dt)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._siguiente -= dt
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._siguiente &gt; <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._siguiente = <span class="hl-b">self</span>.intervalo
+    <span class="hl-k">local</span> cielo = <span class="hl-t">CIELOS</span>[<span class="hl-b">self</span>._azar:<span class="hl-f">Integer</span>(<span class="hl-n">1</span>, #<span class="hl-t">CIELOS</span>)]
+    <span class="hl-t">Environment</span>.<span class="hl-f">TransitionClouds</span>(cielo, <span class="hl-b">self</span>.transicion)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"El tiempo cambia a:"</span>, cielo)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CicloDelTiempo</span></code></pre></div>
+<p>Y un panel solar que carga según lo nublado que esté:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> nubes = <span class="hl-t">Environment</span>.<span class="hl-f">GetClouds</span>()
+<span class="hl-k">local</span> sol = <span class="hl-k">if</span> nubes.enabled <span class="hl-k">then</span> <span class="hl-n">1</span> - nubes.coverage * nubes.shadowStrength <span class="hl-k">else</span> <span class="hl-n">1</span></code></pre></div>
+<h2 id="8-multijugador-el-mismo-cielo-para-todos">8. Multijugador: el mismo cielo para todos<a class="ancla" href="#8-multijugador-el-mismo-cielo-para-todos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Reloj de las nubes.</strong> El viento y la evolución dependen solo de los ajustes y del reloj de las nubes, que en una
+partida en red es el del servidor (sus ticks; los clientes lo reciben con cada actualización y lo suavizan). Por
+eso todos ven las nubes en el mismo sitio aunque hayan entrado en momentos distintos.</li>
+<li><strong>Cambios del servidor.</strong> Los campos de las nubes del Entorno son <strong>replicados</strong>: si la entidad del Entorno tiene
+<strong>NetworkIdentity</strong>, lo que cambie el servidor (desde Lua, <code>SetClouds</code> o <code>TransitionClouds</code>) llega a los clientes como
+cualquier otro campo replicado, también a quien entra después. Durante una transición el servidor envía los
+valores intermedios.</li>
+<li><strong>En un cliente</strong>, con el Entorno replicado, <code>SetClouds</code>, <code>SetCloudPreset</code> y <code>TransitionClouds</code> dan un error claro:
+el tiempo lo manda el servidor. Sin NetworkIdentity cada máquina lleva su Entorno (útil para un juego de un jugador
+o un cielo que no importa sincronizar).</li>
+<li>Cuando cambian el viento o la evolución, el desplazamiento recorrido hasta ese momento se guarda (se <em>ancla</em>) y se
+replica también: las nubes no saltan y los clientes parten del mismo punto.</li>
+</ul>
+<h2 id="9-edición-en-equipo-y-deshacer">9. Edición en equipo y deshacer<a class="ancla" href="#9-edición-en-equipo-y-deshacer" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los campos y los preajustes de las nubes se editan como cualquier otro campo del Inspector: cada cambio es un paso
+de deshacer y, en una sesión de edición en equipo (<a href="edicion-en-equipo.html">edicion-en-equipo.md</a>), llega a los demás
+al momento. El movimiento de las nubes en el visor del editor es local (cada editor tiene su reloj).</p>
+<h2 id="10-límites-conocidos">10. Límites conocidos<a class="ancla" href="#10-límites-conocidos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Se puede volar a través de las nubes y por encima de ellas, pero dentro de una nube muy densa se ve poco detalle
+(el rayo empieza en la cámara con pasos finos que crecen con la distancia).</li>
+<li>Una sola capa de nubes (no hay cirros altos separados).</li>
+<li>Las cámaras ortográficas (vistas de planta del editor) no dibujan nubes ni su sombra.</li>
+<li>Los objetos transparentes (cristales, partículas) se dibujan encima de las nubes: bien para un cristal delante del
+cielo, pero un objeto transparente que estuviera detrás de una nube (lejos y por encima de ella) se vería delante.</li>
+<li>La sombra de las nubes se calcula sobre la base de la capa: un pico que entra en la nube recibe la sombra de toda
+la capa.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="niebla-volumetrica.html"><small>Anterior</small>Niebla y luz volumétrica</a><a class="sig" href="terreno.html"><small>Siguiente</small>Terreno</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-poner-nubes-en-una-escena">1. Poner nubes en una escena</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-ajustes-de-las-nubes">3. Ajustes de las nubes</a></li><li class="n2"><a href="#4-sombras-reflejos-y-niebla">4. Sombras, reflejos y niebla</a></li><li class="n2"><a href="#5-atardeceres">5. Atardeceres</a></li><li class="n2"><a href="#6-calidad-y-rendimiento">6. Calidad y rendimiento</a></li><li class="n2"><a href="#7-desde-los-scripts-lua">7. Desde los scripts Lua</a></li><li class="n2"><a href="#8-multijugador-el-mismo-cielo-para-todos">8. Multijugador: el mismo cielo para todos</a></li><li class="n2"><a href="#9-edición-en-equipo-y-deshacer">9. Edición en equipo y deshacer</a></li><li class="n2"><a href="#10-límites-conocidos">10. Límites conocidos</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

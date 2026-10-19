@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Físicas · Nova Engine</title>
+<meta name="description" content="Las físicas de Nova Engine usan Jolt Physics 5.6 (la librería de
+Horizon Forbidden West y Death Stranding 2). En el juego se usan con componentes: añades
+Colisionador, Cuerpo rígido, Controlador de personaje, Articulació">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Físicas · Nova Engine">
+<meta property="og:description" content="Las físicas de Nova Engine usan Jolt Physics 5.6 (la librería de
+Horizon Forbidden West y Death Stranding 2). En el juego se usan con componentes: añades
+Colisionador, Cuerpo rígido, Controlador de personaje, Articulació">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/fisicas.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/fisicas.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html" aria-current="page">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="físicas">Físicas</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#primeros-pasos">Primeros pasos</a></li><li class="n2"><a href="#colisionador-collider">Colisionador (Collider)</a></li><li class="n2"><a href="#cuerpo-rígido-rigidbody">Cuerpo rígido (RigidBody)</a></li><li class="n3"><a href="#cambiar-los-campos-jugando">Cambiar los campos jugando</a></li><li class="n2"><a href="#controlador-de-personaje-charactercontroller">Controlador de personaje (CharacterController)</a></li><li class="n2"><a href="#articulación-joint">Articulación (Joint)</a></li><li class="n2"><a href="#flotación-buoyancy">Flotación (Buoyancy)</a></li><li class="n2"><a href="#choques-y-sensores-en-los-scripts">Choques y sensores en los scripts</a></li><li class="n2"><a href="#consultas-y-fuerzas-desde-los-scripts-physics">Consultas y fuerzas desde los scripts: Physics</a></li><li class="n2"><a href="#mover-objetos-paso-fijo-interpolación-y-teletransportes">Mover objetos: paso fijo, interpolación y teletransportes</a></li><li class="n2"><a href="#ver-las-formas-de-colisión">Ver las formas de colisión</a></li><li class="n2"><a href="#ejemplos-de-scripts">Ejemplos de scripts</a></li><li class="n3"><a href="#personaje-sencillo-un-jugador-o-multijugador">Personaje sencillo (un jugador o multijugador)</a></li><li class="n3"><a href="#plataforma-móvil">Plataforma móvil</a></li><li class="n3"><a href="#disparar-con-un-rayo">Disparar con un rayo</a></li><li class="n3"><a href="#sonido-al-chocar">Sonido al chocar</a></li><li class="n3"><a href="#zona-de-caída">Zona de caída</a></li><li class="n2"><a href="#cajas-de-impacto-y-disparos-en-red">Cajas de impacto y disparos en red</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Las físicas de Nova Engine usan <a href="https://github.com/jrouwe/JoltPhysics" rel="noopener">Jolt Physics</a> 5.6 (la librería de
+<em>Horizon Forbidden West</em> y <em>Death Stranding 2</em>). En el juego se usan con <strong>componentes</strong>: añades
+<strong>Colisionador</strong>, <strong>Cuerpo rígido</strong>, <strong>Controlador de personaje</strong>, <strong>Articulación</strong> o <strong>Flotación</strong> a las entidades en el
+editor, el motor crea y simula los cuerpos al jugar, y los scripts Lua reciben los choques y hacen consultas
+con <code>Physics.</code> (rayos, barridos, solapes y fuerzas).</p>
+<p>Las físicas en partidas multijugador (quién simula qué) están en
+<a href="multijugador.html#10-objetos-con-física-del-servidor">multijugador.md</a>. La librería <code>nova_physics</code> por dentro
+(el mundo de Jolt, formas, determinismo y <em>rollback</em>, en C++) está en <span class="enlace-interno-quitado">libreria-fisicas.md</span>,
+para quien desarrolla el motor.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#primeros-pasos">Primeros pasos</a></li>
+<li><a href="#colisionador-collider">Colisionador (Collider)</a></li>
+<li><a href="#cuerpo-rígido-rigidbody">Cuerpo rígido (RigidBody)</a></li>
+<li><a href="#controlador-de-personaje-charactercontroller">Controlador de personaje (CharacterController)</a></li>
+<li><a href="#articulación-joint">Articulación (Joint)</a></li>
+<li><a href="#flotación-buoyancy">Flotación (Buoyancy)</a></li>
+<li><a href="#choques-y-sensores-en-los-scripts">Choques y sensores en los scripts</a></li>
+<li><a href="#consultas-y-fuerzas-desde-los-scripts-physics">Consultas y fuerzas desde los scripts: Physics</a></li>
+<li><a href="#mover-objetos-paso-fijo-interpolación-y-teletransportes">Mover objetos: paso fijo, interpolación y teletransportes</a></li>
+<li><a href="#ver-las-formas-de-colisión">Ver las formas de colisión</a></li>
+<li><a href="#ejemplos-de-scripts">Ejemplos de scripts</a></li>
+<li><a href="#cajas-de-impacto-y-disparos-en-red">Cajas de impacto y disparos en red</a></li>
+</ol>
+<h2 id="primeros-pasos">Primeros pasos<a class="ancla" href="#primeros-pasos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una caja que cae sobre el suelo, sin escribir código:</p>
+<ol>
+<li>El suelo de una escena nueva ya tiene <strong>Colisionador</strong> (categoría <strong>Física</strong>): un plano de 10 x 10 m escalado
+4 veces con una caja fina de <strong>Tamaño</strong> = (10, 0,1, 10) y <strong>Centro</strong> = (0, -0,05, 0) (el tamaño se multiplica
+por la escala). Un colisionador sin cuerpo rígido es <strong>nivel estático</strong>: no se mueve nunca y es lo más
+barato. En un suelo propio, añádeselo tú.</li>
+<li>Crea un cubo (<strong>Entidad &gt; Objeto 3D &gt; Cubo</strong>): las primitivas creadas desde ese menú ya llevan un
+colisionador de su forma (opción <strong>Con colisionador</strong> del mismo menú). Súbelo a 3 m y añádele <strong>Cuerpo
+rígido</strong> (tipo Dinámico). Si la entidad aún no tiene colisionador, <strong>Añadir componente &gt; Cuerpo rígido</strong> le pone
+también el que encaja con su malla (una esfera, una caja, una cápsula...), en el mismo paso de deshacer.</li>
+<li>Pulsa <strong>Ctrl+P</strong>: la caja cae y se queda quieta sobre el suelo (con <strong>Rebote</strong> mayor que 0, rebota).</li>
+</ol>
+<p>Al empezar a jugar, el sistema de físicas crea un mundo de Jolt para la escena y un cuerpo por cada entidad
+activa con estos componentes. Los cambia o los destruye si cambian los componentes durante la partida, y lo
+destruye todo al parar. Fuera del modo juego no hay simulación (el visor solo dibuja las formas).</p>
+<p>Unidades: metros, kilogramos, segundos y newtons. El eje Y es arriba y la gravedad es (0, -9,81, 0) salvo que
+cambies <strong>Gravedad</strong> en <strong>Editar &gt; Ajustes del proyecto &gt; Física</strong> (sección <code>fisicas</code> de <code>project.nova</code>; la usan
+el editor, <code>NovaGame.exe</code> y <code>NovaServer.exe</code>, y cambiarla jugando se aplica al momento). Un script puede
+cambiarla en su partida con <code>Physics.SetGravity(Vec3.new(0, -5, 0))</code>.</p>
+<h2 id="colisionador-collider">Colisionador (Collider)<a class="ancla" href="#colisionador-collider" aria-label="Enlace a esta sección">#</a></h2>
+<p>La forma de colisión de la entidad.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>shape</code> (Forma)</td>
+  <td>Caja</td>
+  <td>Caja, Esfera, Cápsula, Cilindro, Malla o Envolvente convexa</td>
+</tr>
+<tr>
+  <td><code>size</code> (Tamaño)</td>
+  <td>1, 1, 1</td>
+  <td>Caja: medidas completas en metros</td>
+</tr>
+<tr>
+  <td><code>radius</code> (Radio)</td>
+  <td>0,5</td>
+  <td>Esfera, cápsula y cilindro</td>
+</tr>
+<tr>
+  <td><code>height</code> (Altura)</td>
+  <td>2</td>
+  <td>Cápsula y cilindro: altura total en el eje Y (la cápsula incluye sus extremos redondeados)</td>
+</tr>
+<tr>
+  <td><code>mesh</code> (Modelo)</td>
+  <td>ninguno</td>
+  <td>Malla y envolvente convexa: modelo glTF o primitiva de la que sale la forma</td>
+</tr>
+<tr>
+  <td><code>meshIndex</code> (Índice de malla)</td>
+  <td>-1</td>
+  <td>Malla del modelo; -1 = todas, con las transformaciones de sus nodos (sin las mallas con huesos)</td>
+</tr>
+<tr>
+  <td><code>center</code> (Centro)</td>
+  <td>0, 0, 0</td>
+  <td>Desplazamiento respecto a la entidad</td>
+</tr>
+<tr>
+  <td><code>rotation</code> (Rotación)</td>
+  <td>identidad</td>
+  <td>Giro respecto a la entidad</td>
+</tr>
+<tr>
+  <td><code>isTrigger</code> (Es sensor)</td>
+  <td>no</td>
+  <td>No choca: avisa con <code>OnTriggerEnter</code> / <code>OnTriggerExit</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>La escala de la entidad se aplica a la forma</strong>: el tamaño de la caja se multiplica por la escala, el radio
+de la esfera por el mayor de los tres ejes, y en cápsulas y cilindros el radio por el mayor de X y Z y la
+altura por Y. Por eso un cubo de 1 m escalado a (40, 1, 40) solo necesita un colisionador por defecto. Las
+mallas se escalan vértice a vértice.</li>
+<li><strong>Sin Cuerpo rígido</strong>, el colisionador es nivel estático; si además es sensor, es una zona de activación que
+detecta también objetos dormidos y personajes.</li>
+<li>Una <strong>Malla</strong> solo puede ser estática o cinemática (no tiene volumen). En un cuerpo dinámico se usa su
+envolvente convexa (aviso en el log). Para objetos que se mueven, mejor formas simples o una envolvente
+convexa; deja las mallas para el nivel.</li>
+<li>Las formas de malla se calculan al empezar a jugar y se reutilizan entre entidades con el mismo modelo y la
+misma escala. Si el modelo se reimporta, la forma se vuelve a calcular.</li>
+<li>En el Inspector solo están activas las medidas de la forma elegida (el <strong>Tamaño</strong> de una caja, el <strong>Radio</strong> y la
+<strong>Altura</strong> de una cápsula...); el resto se ven desactivadas.</li>
+</ul>
+<h2 id="cuerpo-rígido-rigidbody">Cuerpo rígido (RigidBody)<a class="ancla" href="#cuerpo-rígido-rigidbody" aria-label="Enlace a esta sección">#</a></h2>
+<p>Hace que la entidad se mueva con las físicas. Necesita un <strong>Colisionador</strong> en la misma entidad: sin él no cae ni
+choca con nada (aviso en el log y no se crea). El Inspector lo avisa en el propio Cuerpo rígido, con un botón
+<strong>Añadir colisionador</strong> que pone el de la forma de su malla (esfera → Esfera con su radio, cubo → Caja con sus
+medidas, cápsula → Cápsula; cualquier otra malla, una Caja con sus límites). Al revés, un Colisionador sin Cuerpo
+rígido es un obstáculo fijo, y el Inspector también lo dice.</p>
+<p><strong>En un juego en red</strong> (la escena tiene una Aparición de jugadores o algún objeto con Identidad de red, el
+proyecto tiene ajustes de red o estás en una sesión de equipo), un Cuerpo rígido <strong>dinámico</strong> sin <strong>Identidad
+de red</strong> lo simula cada máquina por su cuenta, así que cada jugador lo ve en un sitio distinto. El Inspector lo
+avisa («Este objeto tiene física pero no está en la red...») con el botón <strong>Sincronizar en red</strong>, que añade
+<strong>Identidad de red</strong> y <strong>Transform de red</strong> (del servidor): entonces solo lo simula el servidor y los clientes lo
+reciben y lo interpolan (<a href="multijugador.html#transform-de-red-networktransform">multijugador</a>).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>type</code> (Tipo)</td>
+  <td>Dinámico</td>
+  <td><strong>Estático</strong>: no se mueve. <strong>Cinemático</strong>: lo mueve el juego (puertas, plataformas, ascensores) y empuja a los dinámicos. <strong>Dinámico</strong>: lo mueve la simulación</td>
+</tr>
+<tr>
+  <td><code>mass</code> (Masa)</td>
+  <td>1</td>
+  <td>kg. 0 = calculada por el volumen (densidad del agua)</td>
+</tr>
+<tr>
+  <td><code>friction</code> (Fricción)</td>
+  <td>0,5</td>
+  <td>0 a 1</td>
+</tr>
+<tr>
+  <td><code>restitution</code> (Rebote)</td>
+  <td>0</td>
+  <td>0 a 1</td>
+</tr>
+<tr>
+  <td><code>linearDamping</code>, <code>angularDamping</code> (Amortiguación)</td>
+  <td>0,05</td>
+  <td>Frenado del movimiento y del giro</td>
+</tr>
+<tr>
+  <td><code>gravityFactor</code> (Factor de gravedad)</td>
+  <td>1</td>
+  <td>0 = flota; negativo = sube</td>
+</tr>
+<tr>
+  <td><code>continuousCollision</code> (Colisión continua)</td>
+  <td>no</td>
+  <td>Para objetos pequeños y rápidos que podrían atravesar paredes</td>
+</tr>
+<tr>
+  <td><code>interpolate</code> (Interpolar)</td>
+  <td>sí</td>
+  <td>Suaviza el <code>Transform</code> entre pasos de física</td>
+</tr>
+<tr>
+  <td><code>lockPositionX/Y/Z</code>, <code>lockRotationX/Y/Z</code> (Bloquear)</td>
+  <td>no</td>
+  <td>Impide moverse o girar en ese eje (juegos 2D, objetos que no deben volcar)</td>
+</tr>
+<tr>
+  <td><code>layer</code> (Capa)</td>
+  <td>Automática</td>
+  <td>Automática: Estática si es estático y Dinámica si no (Sensor si el colisionador es sensor). También Jugador, Sensor o Escombros</td>
+</tr>
+</tbody>
+</table></div>
+<p>Capas y con qué chocan:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Capa</th>
+  <th>Choca con</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Estática</td>
+  <td>Dinámica, Jugador, Escombros</td>
+</tr>
+<tr>
+  <td>Dinámica</td>
+  <td>Todas</td>
+</tr>
+<tr>
+  <td>Jugador (los personajes)</td>
+  <td>Estática, Dinámica, Jugador, Sensor</td>
+</tr>
+<tr>
+  <td>Sensor</td>
+  <td>Dinámica, Jugador</td>
+</tr>
+<tr>
+  <td>Escombros</td>
+  <td>Estática, Dinámica (no con los personajes ni con otros escombros)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Desde un script, <code>self:GetComponent(&quot;RigidBody&quot;)</code> da el cuerpo con todos sus campos (los enums son textos:
+<code>cuerpo.type == &quot;Dinámico&quot;</code>) y además <code>velocity</code>, <code>angularVelocity</code>, <code>sleeping</code>, <code>isKinematic</code>, <code>AddForce</code>,
+<code>AddForceAtPoint</code>, <code>AddImpulse</code>, <code>AddImpulseAtPoint</code>, <code>AddTorque</code>, <code>WakeUp</code>, <code>Sleep</code>, <code>Teleport</code> y, para los
+cinemáticos, <code>MovePosition</code> y <code>MoveRotation</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> cuerpo = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"RigidBody"</span>)
+<span class="hl-k">if</span> cuerpo <span class="hl-k">then</span>
+    cuerpo:<span class="hl-f">AddImpulse</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">5</span>, <span class="hl-n">0</span>)) <span class="hl-c">-- un salto (N·s)</span>
+    cuerpo.gravityFactor = <span class="hl-n">0.5</span>           <span class="hl-c">-- cae más despacio (se aplica al momento)</span>
+<span class="hl-k">end</span></code></pre></div>
+<h3 id="cambiar-los-campos-jugando">Cambiar los campos jugando<a class="ancla" href="#cambiar-los-campos-jugando" aria-label="Enlace a esta sección">#</a></h3>
+<p>Todo lo que se cambia en el Inspector (o desde un script, un deshacer o la edición en equipo) llega a Jolt en el
+siguiente paso de física (en <strong>Pausa</strong>, al momento):</p>
+<ul>
+<li><strong>Fricción</strong>, <strong>Rebote</strong> y <strong>Factor de gravedad</strong> se cambian en el cuerpo sin recrearlo (un cuerpo dormido se
+despierta para notar la gravedad nueva).</li>
+<li>Cualquier otro campo del cuerpo, del colisionador, del controlador de personaje (salvo las velocidades, que se
+leen en cada paso) o la escala de la entidad <strong>vuelve a crear el cuerpo</strong>. Se decide comparando una huella de
+todos los campos que se guardan: un campo nuevo cuenta solo. El cuerpo nuevo sigue con la posición y las
+velocidades que llevaba (salvo si en el mismo paso el juego movió la entidad: eso es un teletransporte).</li>
+<li>Cambiar un campo de la <strong>Articulación</strong> la vuelve a crear entre los mismos cuerpos.</li>
+<li>Desactivar la entidad lo quita del mundo; activarla lo vuelve a crear.</li>
+<li>Con los seis <strong>Bloquear</strong> marcados el cuerpo no se mueve con la simulación: es cinemático (sigue a su
+<code>Transform</code>).</li>
+</ul>
+<h2 id="controlador-de-personaje-charactercontroller">Controlador de personaje (CharacterController)<a class="ancla" href="#controlador-de-personaje-charactercontroller" aria-label="Enlace a esta sección">#</a></h2>
+<p>Mueve jugadores y NPCs: anda, sube escalones y rampas, se pega al suelo al bajar, resbala en pendientes
+demasiado inclinadas, salta, empuja objetos dinámicos y se sube a plataformas móviles. Es una cápsula con los
+<strong>pies en el origen de la entidad</strong>. No necesita Colisionador ni Cuerpo rígido (si los tiene, se ignoran).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>radius</code> (Radio), <code>height</code> (Altura)</td>
+  <td>0,3 / 1,8</td>
+  <td>Medidas de la cápsula</td>
+</tr>
+<tr>
+  <td><code>maxSlope</code> (Pendiente máxima)</td>
+  <td>45</td>
+  <td>Grados por los que puede andar</td>
+</tr>
+<tr>
+  <td><code>stepHeight</code> (Altura de escalón)</td>
+  <td>0,35</td>
+  <td>Escalones que sube solo</td>
+</tr>
+<tr>
+  <td><code>speed</code> (Velocidad)</td>
+  <td>2</td>
+  <td>m/s andando</td>
+</tr>
+<tr>
+  <td><code>runSpeed</code> (Velocidad corriendo)</td>
+  <td>5</td>
+  <td>m/s corriendo</td>
+</tr>
+<tr>
+  <td><code>jumpSpeed</code> (Impulso de salto)</td>
+  <td>5</td>
+  <td>m/s hacia arriba (altura ≈ v² / 2g: 5 m/s son ~1,27 m)</td>
+</tr>
+<tr>
+  <td><code>airControl</code> (Control en el aire)</td>
+  <td>5</td>
+  <td>m/s² de control en el aire</td>
+</tr>
+<tr>
+  <td><code>groundAcceleration</code> (Aceleración en el suelo)</td>
+  <td>0</td>
+  <td>m/s² hasta la velocidad pedida en el suelo (0 = al momento): inercia al arrancar</td>
+</tr>
+<tr>
+  <td><code>groundDeceleration</code> (Frenada en el suelo)</td>
+  <td>0</td>
+  <td>m/s² al frenar o soltar la tecla (0 = la de la aceleración)</td>
+</tr>
+<tr>
+  <td><code>pushForce</code> (Fuerza de empuje)</td>
+  <td>300</td>
+  <td>N con los que empuja objetos dinámicos</td>
+</tr>
+<tr>
+  <td><code>mass</code> (Masa)</td>
+  <td>70</td>
+  <td>kg</td>
+</tr>
+<tr>
+  <td><code>velocity</code> (Velocidad actual)</td>
+  <td>—</td>
+  <td>Solo lectura: la <strong>real</strong> (lo que se ha movido tras chocar; contra una pared, 0)</td>
+</tr>
+<tr>
+  <td><code>grounded</code> (En el suelo)</td>
+  <td>—</td>
+  <td>Solo lectura: está apoyado</td>
+</tr>
+</tbody>
+</table></div>
+<p>Se maneja escribiendo su <strong>entrada</strong> desde un script; se aplica en el siguiente paso fijo:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> personaje = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"CharacterController"</span>)
+personaje:<span class="hl-f">Move</span>(direccion, correr) <span class="hl-c">-- dirección horizontal en el mundo, longitud 0..1 (no se acumula: se sustituye)</span>
+personaje:<span class="hl-f">Face</span>(guinada)           <span class="hl-c">-- radianes; 0 = mirando hacia +Z (como los modelos glTF)</span>
+personaje:<span class="hl-f">Jump</span>()                  <span class="hl-c">-- salta en el siguiente paso fijo si está en el suelo</span></code></pre></div>
+<ul>
+<li><p>No muevas su <code>Transform</code> para andar: escribirlo lo <strong>teletransporta</strong> (al momento, también con muchos fps). Sí
+sirve para reaparecer.</p>
+</li>
+<li><p><code>personaje:SetHeight(altura)</code> cambia la altura de la cápsula <strong>sin recrear el personaje</strong> (agacharse con altura
+graduable). Devuelve <code>false</code> si no cabe, por ejemplo debajo de una mesa, y se queda como estaba:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">if</span> <span class="hl-k">not</span> personaje:<span class="hl-f">SetHeight</span>(<span class="hl-n">1.8</span>) <span class="hl-k">then</span>
+    <span class="hl-c">-- sigue agachado: hay algo encima</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Cambiar <code>height</code>, la aceleración o el salto desde un script o el Inspector también va en caliente.</p>
+</li>
+<li><p>Gira solo alrededor del eje vertical (siempre está de pie).</p>
+</li>
+<li><p>Los personajes entran en los sensores (<code>OnTriggerEnter</code>), empujan cajas y las cajas les chocan. No esperes
+<code>OnCollisionEnter</code> por tocar el suelo o las paredes: usa <code>grounded</code>.</p>
+</li>
+<li><p><code>personaje:Push(velocidad)</code> le da un empujón (m/s que se suman a su velocidad; con algo hacia arriba sale
+despedido). En una partida en red solo lo puede hacer el servidor.</p>
+</li>
+<li><p>En multijugador, el del jugador se predice solo: ver
+<a href="multijugador.html#9-movimiento-predicho-con-charactercontroller">multijugador.md</a>.</p>
+</li>
+</ul>
+<h2 id="articulación-joint">Articulación (Joint)<a class="ancla" href="#articulación-joint" aria-label="Enlace a esta sección">#</a></h2>
+<p>Une el cuerpo rígido de la entidad con el de otra entidad, o con el mundo. Las dos entidades necesitan
+<strong>Cuerpo rígido</strong> (y Colisionador); la articulación se crea cuando existen los dos cuerpos.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>type</code> (Tipo)</td>
+  <td>Bisagra</td>
+  <td><strong>Fija</strong> (pegados), <strong>Bisagra</strong> (puertas, ruedas), <strong>Rótula</strong> (cadenas, lámparas), <strong>Corredera</strong> (ascensores, cajones), <strong>Distancia</strong> (cuerda)</td>
+</tr>
+<tr>
+  <td><code>connectedBody</code> (Cuerpo conectado)</td>
+  <td>vacío</td>
+  <td>Otra entidad con Cuerpo rígido (arrástrala desde la Jerarquía). Vacío = el mundo</td>
+</tr>
+<tr>
+  <td><code>anchor</code> (Anclaje)</td>
+  <td>0, 0, 0</td>
+  <td>Punto de unión, local a esta entidad (se escala con ella)</td>
+</tr>
+<tr>
+  <td><code>axis</code> (Eje)</td>
+  <td>0, 1, 0</td>
+  <td>Eje de giro (bisagra) o de deslizamiento (corredera), local</td>
+</tr>
+<tr>
+  <td><code>useLimits</code>, <code>minLimit</code>, <code>maxLimit</code> (Límites)</td>
+  <td>no, -45, 45</td>
+  <td>Grados en la bisagra (-180 a 180); metros en la corredera (el mínimo ≤ 0 ≤ máximo) y en la distancia</td>
+</tr>
+<tr>
+  <td><code>motor</code>, <code>motorSpeed</code>, <code>motorForce</code> (Motor)</td>
+  <td>no, 90, 1000</td>
+  <td>Velocidad en grados/s o m/s y fuerza máxima en N·m o N</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Los puntos se toman en la posición que tienen las entidades al empezar a jugar.</li>
+<li>Una <strong>Distancia</strong> unida a otro cuerpo va del anclaje de esta entidad al centro del otro. Unida al mundo, va
+del centro de esta entidad al <strong>anclaje</strong>, que queda fijo en el mundo (una lámpara colgando del techo: pon el
+anclaje en el punto del techo, por ejemplo 1,5 m por encima, y cuelga 1,5 m por debajo). Sin límites, la
+cuerda mide lo que había entre los dos puntos al empezar; con límites, puede estirarse entre el mínimo y el
+máximo (con el anclaje en el centro, una correa de 0 al máximo alrededor del sitio donde empezó).</li>
+<li>Desde un script, <code>self:GetComponent(&quot;Joint&quot;)</code> da sus campos (cambiar <code>motorSpeed</code> jugando abre o cierra una
+puerta con motor) y <code>GetPosition()</code>: el ángulo de una bisagra (grados) o la posición de una corredera (m).</li>
+<li>La prueba <code>fisicas: articulaciones y cuerpos cinematicos</code> (<code>tests/test_physics_audio.cpp</code>) tiene una lámpara
+colgando de una rótula y una plataforma cinemática que empuja una caja.</li>
+</ul>
+<h2 id="flotación-buoyancy">Flotación (Buoyancy)<a class="ancla" href="#flotación-buoyancy" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con <strong>Flotación</strong> lo que se pone en el agua (el mar de un terreno, un lago o un río) se adapta a ella, con las
+<strong>mismas olas que se ven</strong>: el motor calcula la superficie con la misma fórmula en la CPU y en la tarjeta gráfica.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Modo</th>
+  <th>Con</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Física</strong></td>
+  <td>Cuerpo rígido <strong>dinámico</strong> y Colisionador</td>
+  <td>En cada paso fijo mira el agua en varios puntos del cuerpo y empuja hacia arriba cada uno según lo hundido que está (Arquímedes): flota a su calado, se balancea y se inclina con las olas, el agua lo frena y la corriente de los ríos lo arrastra</td>
+</tr>
+<tr>
+  <td><strong>Seguir las olas</strong></td>
+  <td>nada (sin físicas) o un Cuerpo rígido cinemático</td>
+  <td>Coloca la entidad sobre la superficie y la inclina con ella (boyas, decorados, pájaros posados); con <strong>Dejarse llevar</strong> avanza con la corriente</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>mode</code> (Modo)</td>
+  <td>Física</td>
+  <td><strong>Física</strong> o <strong>Seguir las olas</strong></td>
+</tr>
+<tr>
+  <td><code>volume</code> (Volumen)</td>
+  <td>0</td>
+  <td>m³ que desplaza hundido del todo; 0 = el de su colisionador (caja, esfera, cápsula o cilindro con la escala de la entidad; una malla cuenta la mitad de su caja)</td>
+</tr>
+<tr>
+  <td><code>buoyancy</code> (Flotabilidad)</td>
+  <td>1</td>
+  <td>Multiplica el empuje (1 = Arquímedes)</td>
+</tr>
+<tr>
+  <td><code>waterDensity</code> (Densidad del agua)</td>
+  <td>1000</td>
+  <td>kg/m³ (agua de mar: 1025)</td>
+</tr>
+<tr>
+  <td><code>linearDrag</code> (Frenado)</td>
+  <td>2</td>
+  <td>Lo que frena el agua (por segundo, con todo el cuerpo hundido)</td>
+</tr>
+<tr>
+  <td><code>angularDrag</code> (Frenado del giro)</td>
+  <td>2</td>
+  <td>Igual para el giro</td>
+</tr>
+<tr>
+  <td><code>currentFactor</code> (Corriente)</td>
+  <td>1</td>
+  <td>Cuánto lo arrastra la corriente de un río (0 a 1)</td>
+</tr>
+<tr>
+  <td><code>points</code> (Puntos)</td>
+  <td>vacío</td>
+  <td>Puntos de muestreo (locales). Vacío = una rejilla en la caja del colisionador: 2 capas en vertical y de 2 a 4 en cada lado según su forma (8 en un cubo, 16 en una barca alargada)</td>
+</tr>
+<tr>
+  <td><code>heightOffset</code> (Altura sobre el agua)</td>
+  <td>0</td>
+  <td>Seguir las olas: metros sobre la superficie</td>
+</tr>
+<tr>
+  <td><code>tilt</code> (Inclinación)</td>
+  <td>1</td>
+  <td>Seguir las olas: 0 = siempre recto</td>
+</tr>
+<tr>
+  <td><code>smoothing</code> (Suavizado)</td>
+  <td>0,1</td>
+  <td>Seguir las olas: segundos</td>
+</tr>
+<tr>
+  <td><code>drift</code> (Dejarse llevar)</td>
+  <td>no</td>
+  <td>Seguir las olas: avanza con la corriente</td>
+</tr>
+<tr>
+  <td><code>submerged</code>, <code>inWater</code> (Hundido, En el agua)</td>
+  <td>—</td>
+  <td>Solo lectura al jugar: fracción hundida (0 a 1) y si toca el agua</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Cuánto se hunde</strong>: lo que pesa entre lo que desplaza. Una caja de 1 m³ y 500 kg queda hundida 0,5 m (el
+centro en la superficie); una de 2000 kg se hunde. Un cubo de densidad intermedia flota <strong>inclinado</strong> (es lo
+que hace un cubo de verdad: así es más estable); una barca alargada y baja flota recta.</li>
+<li>Las olas se apagan donde hay poca profundidad (con un terreno debajo), así que en la orilla lo que flota se
+queda quieto. En un río, la corriente es la de <code>River.FlowAt</code>: máxima en el centro.</li>
+<li>Si se queda quieto en agua sin olas, el cuerpo se duerme como cualquier otro; con olas o corriente nunca se duerme.</li>
+<li><strong>En red</strong>: lo que flota con físicas lo simula el servidor (el anfitrión) y se replica como cualquier cuerpo
+rígido de red (con <strong>NetworkIdentity</strong> y <strong>NetworkTransform</strong>); en los clientes sigue su Transform. Las olas usan
+el <strong>reloj de la partida</strong> (<code>NetworkManager::SessionTime</code>): en el anfitrión, el de sus ticks; en un cliente, el
+instante en el que dibuja lo que mueve el servidor (su hora estimada menos la interpolación). Así el anfitrión y
+los clientes ven las mismas olas y la barca que llega por la red cuadra con ellas. Sin red, el reloj es el de la
+escena (sus pasos fijos). «Seguir las olas» lo hace cada máquina (sin red) o el servidor (con NetworkIdentity).</li>
+<li>Para un script: <code>self:GetComponent(&quot;Buoyancy&quot;)</code> da sus campos (<code>submerged</code>, <code>inWater</code>...) y <code>Water.Sample(pos)</code>
+la superficie en cualquier punto (altura con las olas, normal, corriente y profundidad; ver
+<a href="splines-carreteras-rios.html#8-desde-los-scripts-lua">splines-carreteras-rios.md</a>).</li>
+</ul>
+<p>Una lancha: flota con su <strong>Flotación</strong> (y su Cuerpo rígido) y el script solo la empuja hacia delante mientras
+toca el agua:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Lancha (Cuerpo rígido dinámico + Colisionador + Flotación): el motor empuja hacia delante (+Z del modelo)</span>
+<span class="hl-c">-- solo mientras está en el agua</span>
+<span class="hl-k">local</span> <span class="hl-t">Lancha</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(0, 20000), Tooltip("Empuje del motor a tope (N)")]</span>
+<span class="hl-t">Lancha</span>.empuje = <span class="hl-n">3000</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Lancha</span>:<span class="hl-f">FixedUpdate</span>(dt: number)
+    <span class="hl-k">local</span> flotacion = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Buoyancy"</span>)
+    <span class="hl-k">local</span> cuerpo = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"RigidBody"</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> flotacion <span class="hl-k">or</span> <span class="hl-k">not</span> cuerpo <span class="hl-k">or</span> <span class="hl-k">not</span> flotacion.inWater <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> adelante = <span class="hl-b">self</span>.transform:<span class="hl-f">TransformDirection</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">1</span>))
+    cuerpo:<span class="hl-f">AddForce</span>(adelante * (<span class="hl-b">self</span>.empuje * <span class="hl-t">Input</span>.<span class="hl-f">GetAxis</span>(<span class="hl-s">"MoverY"</span>)))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Lancha</span></code></pre></div>
+<p>Las pruebas <code>flotacion:</code> (<code>tests/test_agua_flotacion.cpp</code>) comprueban el calado de la caja de 500 kg, la caja que
+se hunde, la barca entre olas, el tronco que baja por un río, «Seguir las olas» y la partida en red.</p>
+<h2 id="choques-y-sensores-en-los-scripts">Choques y sensores en los scripts<a class="ancla" href="#choques-y-sensores-en-los-scripts" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los scripts de una entidad con cuerpo (o con Controlador de personaje) reciben estas funciones si las escriben:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">MiScript</span>:<span class="hl-f">OnCollisionEnter</span>(choque) <span class="hl-k">end</span> <span class="hl-c">-- empieza a tocar otro cuerpo</span>
+<span class="hl-k">function</span> <span class="hl-t">MiScript</span>:<span class="hl-f">OnCollisionExit</span>(choque) <span class="hl-k">end</span>  <span class="hl-c">-- deja de tocarlo</span>
+<span class="hl-k">function</span> <span class="hl-t">MiScript</span>:<span class="hl-f">OnTriggerEnter</span>(otra) <span class="hl-k">end</span>     <span class="hl-c">-- entra en un sensor (o algo entra en el mío): la otra entidad</span>
+<span class="hl-k">function</span> <span class="hl-t">MiScript</span>:<span class="hl-f">OnTriggerExit</span>(otra) <span class="hl-k">end</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo de <code>choque</code></th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>other</code></td>
+  <td>La otra entidad</td>
+</tr>
+<tr>
+  <td><code>point</code></td>
+  <td>Punto de contacto en el mundo (cero en <code>Exit</code>)</td>
+</tr>
+<tr>
+  <td><code>normal</code></td>
+  <td>Normal desde esta entidad hacia la otra (cero en <code>Exit</code>)</td>
+</tr>
+<tr>
+  <td><code>impulse</code></td>
+  <td>Impulso estimado del choque en N·s: útil para el volumen de un golpe o el daño por caída</td>
+</tr>
+<tr>
+  <td><code>relativeSpeed</code></td>
+  <td>Velocidad de acercamiento en m/s</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Los dos cuerpos reciben el aviso (cada uno con la otra entidad en <code>other</code> y la normal hacia el otro).</li>
+<li>Con los sensores, también los dos: el sensor recibe <code>OnTriggerEnter(objeto)</code> y el objeto que entra recibe
+<code>OnTriggerEnter(sensor)</code>.</li>
+<li>Se llaman en el paso fijo, después de simular, solo en scripts activos. Puedes destruir entidades dentro
+(<code>otra:Destroy()</code>, <code>self:Destroy()</code>).</li>
+<li>Un objeto que se duerme apoyado no genera <code>OnCollisionExit</code>.</li>
+<li>En multijugador, los avisos llegan en todas las máquinas que simulan: la lógica (dar puntos, quitar vida) va
+dentro de <code>if IsServer() then ... end</code>.</li>
+</ul>
+<h2 id="consultas-y-fuerzas-desde-los-scripts-physics">Consultas y fuerzas desde los scripts: Physics<a class="ancla" href="#consultas-y-fuerzas-desde-los-scripts-physics" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Physics.</code> funciona siempre: fuera del modo juego, o en una escena sin físicas, las consultas no tocan nada y el
+resto no hace nada (<code>Physics.IsAvailable()</code> dice si hay físicas de verdad).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Physics.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Raycast(origen, direccion, distancia?, consulta?)</code></td>
+  <td>El primer choque: <code>{entity, point, normal, distance}</code> o <code>nil</code></td>
+</tr>
+<tr>
+  <td><code>RaycastAll(...)</code></td>
+  <td>Todos los choques, ordenados por distancia</td>
+</tr>
+<tr>
+  <td><code>SphereCast(radio, origen, direccion, distancia?, consulta?)</code></td>
+  <td>Una esfera lanzada: balas gruesas, «¿cabe por aquí?», cámaras que no atraviesan paredes</td>
+</tr>
+<tr>
+  <td><code>BoxCast(mitades, centro, direccion, distancia?, rotacion?, consulta?)</code>, <code>CapsuleCast(radio, altura, centro, direccion, distancia?, rotacion?, consulta?)</code></td>
+  <td>Lo mismo con una caja o una cápsula de pie</td>
+</tr>
+<tr>
+  <td><code>OverlapSphere(centro, radio, consulta?)</code>, <code>OverlapBox(centro, mitades, rotacion?, consulta?)</code>, <code>OverlapCapsule(centro, radio, altura, rotacion?, consulta?)</code></td>
+  <td>Entidades que tocan esa forma (explosiones, empujones)</td>
+</tr>
+<tr>
+  <td><code>AddForce(e, f)</code>, <code>AddForceAtPoint(e, f, p)</code>, <code>AddImpulse(e, i)</code>, <code>AddImpulseAtPoint(e, i, p)</code>, <code>AddTorque(e, t)</code></td>
+  <td>Fuerzas (N) e impulsos (N·s) sobre cuerpos dinámicos (en los demás no hacen nada)</td>
+</tr>
+<tr>
+  <td><code>GetVelocity(e)</code>, <code>SetVelocity(e, v)</code>, <code>GetAngularVelocity(e)</code>, <code>SetAngularVelocity(e, w)</code></td>
+  <td>Velocidad de un cuerpo dinámico (o de un personaje); la angular en radianes por segundo</td>
+</tr>
+<tr>
+  <td><code>Teleport(e, pos, rot?)</code></td>
+  <td>Mueve un cuerpo o personaje al instante, sin interpolar</td>
+</tr>
+<tr>
+  <td><code>IsSleeping(e)</code>, <code>WakeUp(e)</code>, <code>Sleep(e)</code></td>
+  <td>Cuerpos dormidos (los quietos no gastan CPU)</td>
+</tr>
+<tr>
+  <td><code>GetGravity()</code>, <code>SetGravity(g)</code>, <code>IsAvailable()</code></td>
+  <td>Mundo</td>
+</tr>
+<tr>
+  <td><code>RaycastRewind(origen, direccion, distancia, tirador, opciones?)</code></td>
+  <td>Solo en el servidor: rayo contra el escenario y las <strong>cajas de impacto</strong> rebobinadas a lo que veía ese jugador (compensación de latencia). Devuelve <code>{entity, hitbox, point, normal, distance, part, multiplier, isHitbox}</code> o <code>nil</code>, y los segundos rebobinados</td>
+</tr>
+<tr>
+  <td><code>RaycastHitboxes(origen, direccion, distancia?, opciones?)</code></td>
+  <td>Lo mismo sin rebobinar, en cualquier máquina (efectos predichos, bots). En un cliente no toca al jugador local; en el servidor, solo al que dispara si lo hay (<code>source</code>, o el script del personaje del anfitrión): un bot del servidor sí le da al jugador del anfitrión. <code>ignoreShooter = false</code> no excluye a nadie</td>
+</tr>
+<tr>
+  <td><code>GetRewindTime(jugador)</code>, <code>ValidateShotOrigin(jugador, origen, tolerancia?)</code></td>
+  <td>Cuánto rebobina ese jugador por su ping; si el origen de su disparo está en su personaje</td>
+</tr>
+<tr>
+  <td><code>Layer.Static</code>, <code>.Dynamic</code>, <code>.Player</code>, <code>.Trigger</code>, <code>.Debris</code>, <code>.All</code></td>
+  <td>Capas para <code>consulta.layers</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>consulta</code> es una tabla opcional, la misma en todas: <code>layers</code> (las capas que cuentan; se suman, por defecto todas),
+<code>ignore</code> (una entidad a ignorar, por ejemplo la que dispara, o una lista), <code>triggers</code> (incluir sensores; por defecto
+no) y <code>maxDistance</code> (tope de la distancia). Hay más consultas (<code>Linecast</code>, <code>CheckSphere</code>, <code>LineOfSight</code>, lotes de
+rayos repartidos entre los núcleos, <code>ClosestPoint</code>, <code>ComputePenetration</code>, <code>IgnoreCollision</code>, la matriz de capas
+jugando y <code>GetContacts</code>) en <a href="nativas-juego.html#1-físicas-la-misma-consulta-en-todas">nativas-juego.md</a>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> consulta = { layers = <span class="hl-t">Physics</span>.Layer.Static + <span class="hl-t">Physics</span>.Layer.Dynamic, ignore = <span class="hl-b">self</span>.entity }
+<span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(origen, direccion, <span class="hl-n">50</span>, consulta)
+<span class="hl-k">if</span> golpe <span class="hl-k">and</span> golpe.entity <span class="hl-k">then</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Toca %s a %.1f m"</span>, golpe.entity.name, golpe.distance))
+<span class="hl-k">end</span></code></pre></div>
+<p>La referencia completa de la API de los scripts está en
+<a href="scripts-lua.html#físicas">scripts-lua.md</a>.</p>
+<h2 id="mover-objetos-paso-fijo-interpolación-y-teletransportes">Mover objetos: paso fijo, interpolación y teletransportes<a class="ancla" href="#mover-objetos-paso-fijo-interpolación-y-teletransportes" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Las físicas se simulan a <strong>paso fijo</strong> (el <strong>Paso fijo</strong> de los ajustes del proyecto, 60 Hz por defecto), antes
+que los scripts. Las fuerzas e impulsos se aplican en el siguiente paso. Lo que empuja o mueve cuerpos cada
+paso va mejor en <code>FixedUpdate(dt)</code>.</li>
+<li>Entre pasos, el <code>Transform</code> de los cuerpos dinámicos y de los personajes se <strong>interpola</strong> para que se vean
+suaves aunque el juego vaya a más FPS.</li>
+<li>Escribir el <code>Transform</code> (o <code>entidad.position</code>) de un cuerpo <strong>dinámico</strong> o de un personaje lo
+<strong>teletransporta</strong> (sin velocidad nueva). <code>Physics.Teleport</code> hace lo mismo de forma explícita; en una partida
+en red, <code>Network.Teleport</code> además avisa a los clientes para que no interpolen el salto.</li>
+<li>Un cuerpo <strong>cinemático</strong> sigue a su <code>Transform</code>: muévelo cada frame o cada paso fijo (o con
+<code>cuerpo:MovePosition</code>) y empujará a lo que encuentre (plataformas, puertas, ascensores).</li>
+<li>Mover un cuerpo <strong>estático</strong> funciona, pero es caro y no empuja nada: usa Cinemático para lo que se mueve.</li>
+</ul>
+<h2 id="ver-las-formas-de-colisión">Ver las formas de colisión<a class="ancla" href="#ver-las-formas-de-colisión" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las formas de la <strong>entidad seleccionada</strong> se ven siempre en el visor <strong>Escena</strong> (en verde, encima de todo): su
+colisionador, la cápsula de su controlador de personaje y el anclaje y el eje de su articulación. Salen de los
+componentes: cambian en cuanto tocas el Inspector.</p>
+<p><strong>Jugar &gt; Formas de física en el visor</strong> (o el botón del rayo del visor) dibuja además las de <strong>todos</strong>:</p>
+<ul>
+<li>sin jugar, el contorno de cada colisionador (verde: estático, azul: con cuerpo rígido, amarillo: sensor; las
+mallas y envolventes con las aristas de su modelo, o su caja si tienen más de 20 000 triángulos), la cápsula
+de cada personaje y las articulaciones;</li>
+<li>jugando, las formas reales de Jolt, los puntos de contacto, las articulaciones y los personajes.</li>
+</ul>
+<p>Para dibujar tus propios rayos y zonas mientras se juega, <code>Debug.DrawRay</code>, <code>Debug.DrawSphere</code>... (ver
+<a href="scripts-lua.html#dibujo-de-depuración">scripts-lua.md</a>).</p>
+<h2 id="ejemplos-de-scripts">Ejemplos de scripts<a class="ancla" href="#ejemplos-de-scripts" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada ejemplo es un script Lua completo (créalo con <strong>Nuevo script...</strong> y pega el código). Necesitan los
+componentes que se indican.</p>
+<h3 id="personaje-sencillo-un-jugador-o-multijugador">Personaje sencillo (un jugador o multijugador)<a class="ancla" href="#personaje-sencillo-un-jugador-o-multijugador" aria-label="Enlace a esta sección">#</a></h3>
+<p>En una entidad con <strong>Controlador de personaje</strong>. Si la entidad es de red, solo la maneja su dueño; sin red, la
+maneja el jugador.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Personaje sencillo: WASD relativo a la cámara, Mayús para correr y Espacio para saltar</span>
+<span class="hl-k">local</span> <span class="hl-t">PersonajeSimple</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">PersonajeSimple</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._personaje = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"CharacterController"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PersonajeSimple</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-c">-- En red, solo el dueño lee los controles; sin red no hay dueño y lo maneja esta máquina</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>:<span class="hl-f">HasComponent</span>(<span class="hl-s">"NetworkIdentity"</span>) <span class="hl-k">and</span> <span class="hl-k">not</span> <span class="hl-b">self</span>:<span class="hl-f">IsLocalPlayer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> personaje = <span class="hl-b">self</span>._personaje
+    <span class="hl-k">if</span> <span class="hl-k">not</span> personaje <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- "Adelante" es hacia donde mira la cámara, sin la inclinación</span>
+    <span class="hl-k">local</span> adelante = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, -<span class="hl-n">1</span>)
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> camara <span class="hl-k">then</span>
+        <span class="hl-k">local</span> f = camara.transform.forward
+        f = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(f.x, <span class="hl-n">0</span>, f.z)
+        <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">LengthSq</span>(f) &gt; <span class="hl-n">1e-6</span> <span class="hl-k">then</span>
+            adelante = <span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(f)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> derecha = <span class="hl-t">Vec3</span>.<span class="hl-f">Cross</span>(adelante, <span class="hl-t">Vec3</span>.up)
+    <span class="hl-k">local</span> direccion = derecha * <span class="hl-t">Input</span>.<span class="hl-f">GetAxis</span>(<span class="hl-s">"MoverX"</span>) + adelante * <span class="hl-t">Input</span>.<span class="hl-f">GetAxis</span>(<span class="hl-s">"MoverY"</span>)
+    <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(direccion) &gt; <span class="hl-n">1</span> <span class="hl-k">then</span>
+        direccion = <span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(direccion)
+    <span class="hl-k">end</span>
+    personaje:<span class="hl-f">Move</span>(direccion, <span class="hl-t">Input</span>.<span class="hl-f">IsActionDown</span>(<span class="hl-s">"Correr"</span>))
+    <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Length</span>(direccion) &gt; <span class="hl-n">0.1</span> <span class="hl-k">then</span>
+        personaje:<span class="hl-f">Face</span>(<span class="hl-t">math</span>.<span class="hl-f">atan2</span>(direccion.x, direccion.z)) <span class="hl-c">-- los modelos glTF miran hacia +Z</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Saltar"</span>) <span class="hl-k">then</span>
+        personaje:<span class="hl-f">Jump</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PersonajeSimple</span></code></pre></div>
+<h3 id="plataforma-móvil">Plataforma móvil<a class="ancla" href="#plataforma-móvil" aria-label="Enlace a esta sección">#</a></h3>
+<p>En una entidad con <strong>Colisionador</strong> y <strong>Cuerpo rígido</strong> de tipo <strong>Cinemático</strong>. Los personajes y las cajas que
+están encima viajan con ella.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Plataforma cinemática que va y viene entre su posición inicial y otra</span>
+<span class="hl-k">local</span> <span class="hl-t">PlataformaMovil</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Metros desde la posición inicial")]</span>
+<span class="hl-t">PlataformaMovil</span>.recorrido = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">6</span>)
+<span class="hl-a">--[Range(0.1, 60), Display("Segundos por viaje")]</span>
+<span class="hl-t">PlataformaMovil</span>.segundosPorViaje = <span class="hl-n">4</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PlataformaMovil</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-b">self</span>._inicio = <span class="hl-b">self</span>.transform.position
+    <span class="hl-b">self</span>._tiempo = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PlataformaMovil</span>:<span class="hl-f">FixedUpdate</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- en multijugador la mueve el servidor (con Transform de red)</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._tiempo += dt
+    <span class="hl-k">local</span> periodo = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-b">self</span>.segundosPorViaje, <span class="hl-n">0.1</span>) * <span class="hl-n">2</span>
+    <span class="hl-k">local</span> t = <span class="hl-n">0.5</span> - <span class="hl-n">0.5</span> * <span class="hl-t">math</span>.<span class="hl-f">cos</span>(<span class="hl-b">self</span>._tiempo * <span class="hl-n">2</span> * <span class="hl-t">math</span>.pi / periodo) <span class="hl-c">-- ida y vuelta suave</span>
+    <span class="hl-b">self</span>.transform.position = <span class="hl-b">self</span>._inicio + <span class="hl-b">self</span>.recorrido * t
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PlataformaMovil</span></code></pre></div>
+<h3 id="disparar-con-un-rayo">Disparar con un rayo<a class="ancla" href="#disparar-con-un-rayo" aria-label="Enlace a esta sección">#</a></h3>
+<p>En cualquier entidad (por ejemplo la cámara). Con la acción <code>Disparar</code> (clic izquierdo) lanza un rayo desde la
+cámara y empuja lo que toque si es dinámico. En multijugador, el disparo sería una función <code>--[Server]</code> y el
+rayo lo lanzaría el servidor (como <code>Empujar</code> en el <a href="multijugador.html#4-tutorial-arena-de-monedas">tutorial</a>).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Dispara un rayo desde la cámara principal y empuja el objeto dinámico que toque</span>
+<span class="hl-k">local</span> <span class="hl-t">DisparoConRayo</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(1, 1000), Tooltip("Metros")]</span>
+<span class="hl-t">DisparoConRayo</span>.alcance = <span class="hl-n">100</span>
+<span class="hl-a">--[Range(0, 1000), Tooltip("Impulso en N·s")]</span>
+<span class="hl-t">DisparoConRayo</span>.fuerza = <span class="hl-n">20</span>
+
+<span class="hl-k">function</span> <span class="hl-t">DisparoConRayo</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> camara <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> direccion = camara.transform.forward
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(camara.position, direccion, <span class="hl-b">self</span>.alcance, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">if</span> <span class="hl-k">not</span> golpe <span class="hl-k">or</span> <span class="hl-k">not</span> golpe.entity <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Impacto en '%s' a %.1f m"</span>, golpe.entity.name, golpe.distance))
+    <span class="hl-k">local</span> cuerpo = golpe.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"RigidBody"</span>)
+    <span class="hl-k">if</span> cuerpo <span class="hl-k">and</span> cuerpo.<span class="hl-k">type</span> == <span class="hl-s">"Dinámico"</span> <span class="hl-k">then</span>
+        <span class="hl-t">Physics</span>.<span class="hl-f">AddImpulseAtPoint</span>(golpe.entity, direccion * <span class="hl-b">self</span>.fuerza, golpe.point)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">DisparoConRayo</span></code></pre></div>
+<h3 id="sonido-al-chocar">Sonido al chocar<a class="ancla" href="#sonido-al-chocar" aria-label="Enlace a esta sección">#</a></h3>
+<p>En un objeto con <strong>Colisionador</strong> y <strong>Cuerpo rígido</strong>. El volumen depende de la fuerza del golpe.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Sonido de golpe con volumen según el impulso del choque</span>
+<span class="hl-k">local</span> <span class="hl-t">SonidoDeGolpe</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">SonidoDeGolpe</span>.sonido = <span class="hl-f">Asset</span>(<span class="hl-s">"Audio"</span>)
+<span class="hl-a">--[Range(0, 100), Tooltip("N·s: por debajo no suena (roces, apoyos)")]</span>
+<span class="hl-t">SonidoDeGolpe</span>.impulsoMinimo = <span class="hl-n">2</span>
+<span class="hl-a">--[Range(0.1, 1000), Tooltip("N·s: a partir de aquí suena al máximo")]</span>
+<span class="hl-t">SonidoDeGolpe</span>.impulsoMaximo = <span class="hl-n">40</span>
+
+<span class="hl-k">function</span> <span class="hl-t">SonidoDeGolpe</span>:<span class="hl-f">OnCollisionEnter</span>(choque)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.sonido <span class="hl-k">or</span> choque.impulse &lt; <span class="hl-b">self</span>.impulsoMinimo <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> volumen = <span class="hl-t">math</span>.<span class="hl-f">clamp</span>(choque.impulse / <span class="hl-b">self</span>.impulsoMaximo, <span class="hl-n">0.1</span>, <span class="hl-n">1</span>)
+    <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.sonido, choque.point, volumen) <span class="hl-c">-- en un servidor dedicado no hace nada</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">SonidoDeGolpe</span></code></pre></div>
+<h3 id="zona-de-caída">Zona de caída<a class="ancla" href="#zona-de-caída" aria-label="Enlace a esta sección">#</a></h3>
+<p>En una entidad con <strong>Colisionador</strong> marcado como <strong>Es sensor</strong> (sin cuerpo rígido), grande y debajo del mapa:
+devuelve a los personajes que caen.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Sensor bajo el mapa: los personajes que caen vuelven al punto de reaparición</span>
+<span class="hl-k">local</span> <span class="hl-t">ZonaDeCaida</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">ZonaDeCaida</span>.puntoDeVuelta = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">ZonaDeCaida</span>:<span class="hl-f">OnTriggerEnter</span>(otra)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">or</span> <span class="hl-k">not</span> otra:<span class="hl-f">HasComponent</span>(<span class="hl-s">"CharacterController"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- En red, Network.Teleport avisa a los clientes para que no interpolen el salto; sin red, lo mueve sin más</span>
+    <span class="hl-t">Network</span>.<span class="hl-f">Teleport</span>(otra, <span class="hl-b">self</span>.puntoDeVuelta)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ZonaDeCaida</span></code></pre></div>
+<p>Más ejemplos con físicas en <a href="scripts-lua.html#físicas">scripts-lua.md</a> (una linterna que empuja lo que ilumina) y
+en <code>game/multiplayer_lua</code> («Rey de la arena»: empujones con un rayo grueso y caídas). Los mismos ejemplos en C++
+están en <a href="scripts-cpp.html#ejemplos-en-c">scripts-cpp.md</a>.</p>
+<h2 id="cajas-de-impacto-y-disparos-en-red">Cajas de impacto y disparos en red<a class="ancla" href="#cajas-de-impacto-y-disparos-en-red" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para los disparos de un juego de acción no se usan los colisionadores sino la <strong>Caja de impacto</strong> (componente
+<code>Hitbox</code>, categoría <strong>Física</strong>): una cápsula, esfera o caja con su <strong>parte</strong> del cuerpo (<code>&quot;cabeza&quot;</code>, <code>&quot;torso&quot;</code>...)
+y su <strong>multiplicador de daño</strong>, que puede seguir a un hueso del personaje. No choca ni frena: solo la ven
+<code>Physics.RaycastRewind</code> y <code>Physics.RaycastHitboxes</code>. El botón <strong>Preajuste: Humanoide</strong> del Inspector crea las de un
+personaje en un clic (desde los huesos de su modelo o desde la cápsula de su <code>CharacterController</code>).</p>
+<p>En una partida en red, el servidor guarda la pose de todas las cajas del último segundo y <code>RaycastRewind</code> las pone
+donde las veía quien disparó (su ping y la interpolación): así se acierta donde se apuntaba aunque el otro ya se
+haya movido. El escenario (las físicas) no se rebobina. Todo, con el patrón completo de un arma en Lua, en
+<a href="multijugador.html#18-disparos-y-compensación-de-latencia">multijugador.md</a>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Server(rate = 10)]</span>
+<span class="hl-k">function</span> <span class="hl-t">Arma</span>:<span class="hl-f">Disparar</span>(origen: <span class="hl-t">Vector3</span>, direccion: <span class="hl-t">Vector3</span>, vista: number)
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">RaycastRewind</span>(origen, direccion, <span class="hl-n">100</span>, source, { time = vista })
+    <span class="hl-k">if</span> golpe <span class="hl-k">and</span> golpe.isHitbox <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s en la %s (x%g)"</span>, golpe.entity.name, golpe.part, golpe.multiplier))
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Las cajas de la entidad seleccionada (y de sus hijas) se ven en el visor <strong>Escena</strong>; con <strong>Jugar &gt; Formas de
+física en el visor</strong>, las de todos (en naranja).</p>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="escenas-y-componentes.html">Escenas y componentes</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="multijugador.html">Multijugador</a></li>
+<li><a href="audio.html">Audio</a></li>
+<li><a href="destruccion.html">Destrucción</a>: objetos que se rompen en trozos (puertas, cristales, paredes, barriles)</li>
+<li><span class="enlace-interno-quitado">La librería de físicas (<code>nova_physics</code>)</span>, para quien desarrolla el motor</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="prefabs.html"><small>Anterior</small>Prefabs</a><a class="sig" href="vehiculos.html"><small>Siguiente</small>Vehículos: coches, motos, orugas, helicópteros y aviones</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#primeros-pasos">Primeros pasos</a></li><li class="n2"><a href="#colisionador-collider">Colisionador (Collider)</a></li><li class="n2"><a href="#cuerpo-rígido-rigidbody">Cuerpo rígido (RigidBody)</a></li><li class="n3"><a href="#cambiar-los-campos-jugando">Cambiar los campos jugando</a></li><li class="n2"><a href="#controlador-de-personaje-charactercontroller">Controlador de personaje (CharacterController)</a></li><li class="n2"><a href="#articulación-joint">Articulación (Joint)</a></li><li class="n2"><a href="#flotación-buoyancy">Flotación (Buoyancy)</a></li><li class="n2"><a href="#choques-y-sensores-en-los-scripts">Choques y sensores en los scripts</a></li><li class="n2"><a href="#consultas-y-fuerzas-desde-los-scripts-physics">Consultas y fuerzas desde los scripts: Physics</a></li><li class="n2"><a href="#mover-objetos-paso-fijo-interpolación-y-teletransportes">Mover objetos: paso fijo, interpolación y teletransportes</a></li><li class="n2"><a href="#ver-las-formas-de-colisión">Ver las formas de colisión</a></li><li class="n2"><a href="#ejemplos-de-scripts">Ejemplos de scripts</a></li><li class="n3"><a href="#personaje-sencillo-un-jugador-o-multijugador">Personaje sencillo (un jugador o multijugador)</a></li><li class="n3"><a href="#plataforma-móvil">Plataforma móvil</a></li><li class="n3"><a href="#disparar-con-un-rayo">Disparar con un rayo</a></li><li class="n3"><a href="#sonido-al-chocar">Sonido al chocar</a></li><li class="n3"><a href="#zona-de-caída">Zona de caída</a></li><li class="n2"><a href="#cajas-de-impacto-y-disparos-en-red">Cajas de impacto y disparos en red</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

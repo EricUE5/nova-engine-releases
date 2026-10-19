@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio · Nova Engine</title>
+<meta name="description" content="El audio de Nova Engine usa miniaudio 0.11 (un solo fichero, dominio público / MIT-0).
+En el juego se usa con componentes y desde los scripts Lua: sonidos en el panel Contenido, Fuente de
+audio y Oyente de audio en las e">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Audio · Nova Engine">
+<meta property="og:description" content="El audio de Nova Engine usa miniaudio 0.11 (un solo fichero, dominio público / MIT-0).
+En el juego se usa con componentes y desde los scripts Lua: sonidos en el panel Contenido, Fuente de
+audio y Oyente de audio en las e">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/audio.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/audio.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo" open><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html" aria-current="page">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="audio">Audio</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#sonidos-en-el-proyecto">Sonidos en el proyecto</a></li><li class="n2"><a href="#fuente-de-audio-audiosource">Fuente de audio (AudioSource)</a></li><li class="n2"><a href="#oyente-de-audio-audiolistener">Oyente de audio (AudioListener)</a></li><li class="n2"><a href="#sonidos-desde-los-scripts-audio">Sonidos desde los scripts: Audio</a></li><li class="n2"><a href="#buses-y-opciones-de-volumen-en-el-juego">Buses y opciones de volumen en el juego</a></li><li class="n2"><a href="#audio-en-el-editor-el-juego-el-servidor-y-las-pruebas">Audio en el editor, el juego, el servidor y las pruebas</a></li><li class="n2"><a href="#sonido-en-multijugador">Sonido en multijugador</a></li><li class="n2"><a href="#ejemplos-de-scripts">Ejemplos de scripts</a></li><li class="n3"><a href="#radio-que-suena-al-acercarse">Radio que suena al acercarse</a></li><li class="n3"><a href="#opciones-de-sonido">Opciones de sonido</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>El audio de Nova Engine usa <a href="https://miniaud.io" rel="noopener">miniaudio</a> 0.11 (un solo fichero, dominio público / MIT-0).
+En el juego se usa con <strong>componentes</strong> y desde los scripts Lua: sonidos en el panel <strong>Contenido</strong>, <strong>Fuente de
+audio</strong> y <strong>Oyente de audio</strong> en las entidades, y <code>Audio.</code> en los scripts para sonidos de un solo uso, pausar y
+seguir, y las opciones de volumen.</p>
+<p>La librería <code>nova_audio</code> por dentro (el motor de audio, voces, sonido 3D y modo offline, en C++) está en
+<span class="enlace-interno-quitado">libreria-audio.md</span>, para quien desarrolla el motor.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#sonidos-en-el-proyecto">Sonidos en el proyecto</a></li>
+<li><a href="#fuente-de-audio-audiosource">Fuente de audio (AudioSource)</a></li>
+<li><a href="#oyente-de-audio-audiolistener">Oyente de audio (AudioListener)</a></li>
+<li><a href="#sonidos-desde-los-scripts-audio">Sonidos desde los scripts: Audio</a></li>
+<li><a href="#buses-y-opciones-de-volumen-en-el-juego">Buses y opciones de volumen en el juego</a></li>
+<li><a href="#audio-en-el-editor-el-juego-el-servidor-y-las-pruebas">Audio en el editor, el juego, el servidor y las pruebas</a></li>
+<li><a href="#sonido-en-multijugador">Sonido en multijugador</a></li>
+<li><a href="#ejemplos-de-scripts">Ejemplos de scripts</a></li>
+</ol>
+<h2 id="sonidos-en-el-proyecto">Sonidos en el proyecto<a class="ancla" href="#sonidos-en-el-proyecto" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Arrastra los ficheros <strong>WAV, FLAC o MP3</strong> desde el Explorador de Windows al panel <strong>Contenido</strong> (por ejemplo,
+a una carpeta <code>sonidos</code>). El editor los copia y les crea su <code>.meta</code>, como a cualquier asset.</li>
+<li>Al seleccionar un sonido, el <strong>Inspector</strong> muestra su tamaño y duración y un botón <strong>Escuchar</strong> (suena por el
+bus de interfaz).</li>
+<li>Se asignan arrastrándolos a un campo de sonido del Inspector (el <strong>Sonido</strong> de una Fuente de audio o el campo
+<code>Asset(&quot;Audio&quot;)</code> de un script), o desde código por su ruta: <code>Audio.PlayOneShot2D(&quot;sonidos/clic.wav&quot;)</code>.</li>
+<li>Efectos cortos en WAV (se cargan enteros en memoria, sin coste al reproducir); música y ambientes largos en
+MP3 o FLAC con <strong>Streaming</strong> activado.</li>
+<li>Los ficheros <code>.ogg</code> <strong>no se admiten</strong> (falta el decodificador de Vorbis): Contenido no los muestra (avisa
+de cuántos hay ocultos en la carpeta), arrastrarlos al editor no los importa y no son assets de audio.
+Conviértelos a WAV, FLAC o MP3.</li>
+</ul>
+<h2 id="fuente-de-audio-audiosource">Fuente de audio (AudioSource)<a class="ancla" href="#fuente-de-audio-audiosource" aria-label="Enlace a esta sección">#</a></h2>
+<p>Reproduce un sonido en 2D o en 3D desde la posición de la entidad (categoría <strong>Audio</strong>).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>clip</code> (Sonido)</td>
+  <td>ninguno</td>
+  <td>WAV, FLAC o MP3</td>
+</tr>
+<tr>
+  <td><code>volume</code> (Volumen)</td>
+  <td>1</td>
+  <td>0 a 2</td>
+</tr>
+<tr>
+  <td><code>pitch</code> (Tono)</td>
+  <td>1</td>
+  <td>2 = una octava más agudo (y el doble de rápido)</td>
+</tr>
+<tr>
+  <td><code>loop</code> (Bucle)</td>
+  <td>no</td>
+  <td>Repetir sin fin (música, ambientes, motores)</td>
+</tr>
+<tr>
+  <td><code>playOnStart</code> (Reproducir al empezar)</td>
+  <td>sí</td>
+  <td>Empieza a sonar al jugar la escena, y también cuando la fuente aparece o se activa jugando (un prefab creado, una entidad activada, el componente añadido)</td>
+</tr>
+<tr>
+  <td><code>spatial</code> (3D)</td>
+  <td>sí</td>
+  <td>Suena desde la entidad y sigue su posición; sin marcar, suena igual en los dos oídos (música, interfaz)</td>
+</tr>
+<tr>
+  <td><code>minDistance</code> (Distancia mínima)</td>
+  <td>1</td>
+  <td>Hasta esta distancia, volumen completo</td>
+</tr>
+<tr>
+  <td><code>maxDistance</code> (Distancia máxima)</td>
+  <td>40</td>
+  <td>A partir de aquí ya no baja más</td>
+</tr>
+<tr>
+  <td><code>rolloff</code> (Atenuación)</td>
+  <td>Inversa</td>
+  <td>Inversa, Lineal, Exponencial o Ninguna (fórmulas en <span class="enlace-interno-quitado">libreria-audio.md</span>)</td>
+</tr>
+<tr>
+  <td><code>bus</code> (Bus)</td>
+  <td>Efectos</td>
+  <td>Master, Música, Efectos, Voces o Interfaz</td>
+</tr>
+<tr>
+  <td><code>stream</code> (Streaming)</td>
+  <td>no</td>
+  <td>Decodificar mientras suena: menos memoria para música larga</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Cada frame, la voz sigue la posición de su entidad. <strong>Cambiar un campo mientras suena se aplica al momento</strong>
+(en el Inspector, desde un script, con un deshacer o por la edición en equipo): volumen, tono, bucle,
+atenuación y distancias cambian en la voz; <strong>Sonido</strong>, <strong>Streaming</strong>, <strong>3D</strong> y <strong>Bus</strong> la vuelven a lanzar
+(desde el mismo punto, salvo si cambia el sonido, que empieza desde el principio). Si ya no sonaba, la
+siguiente vez que suene usa los valores nuevos.</li>
+<li>En el Inspector, las distancias y la atenuación de un sonido 2D salen desactivadas (no se usan).</li>
+<li>Si la entidad se destruye, se desactiva o pierde el componente, el sonido se para; al volver a activarla
+suena otra vez si tiene <strong>Reproducir al empezar</strong>.</li>
+<li>Con el juego en <strong>Pausa</strong> (editor), las voces se pausan y siguen donde estaban al continuar.</li>
+<li>Desde un script: <code>Audio.Play(entidad)</code> la (re)lanza desde el principio, <code>Audio.Stop(entidad)</code> la para,
+<code>Audio.Pause(entidad)</code> y <code>Audio.Resume(entidad)</code> la pausan y la siguen desde el mismo punto, y
+<code>Audio.IsPlaying(entidad)</code> dice si suena. También con el componente:
+<code>self:GetComponent(&quot;AudioSource&quot;):Play()</code>, y sus campos <code>volume</code>, <code>pitch</code> y <code>loop</code> cambian sonando.</li>
+</ul>
+<h2 id="oyente-de-audio-audiolistener">Oyente de audio (AudioListener)<a class="ancla" href="#oyente-de-audio-audiolistener" aria-label="Enlace a esta sección">#</a></h2>
+<p>La «oreja» del jugador, normalmente en la cámara (categoría <strong>Audio</strong>). Se usa el primer oyente activo de la
+escena; sin ninguno, la cámara principal.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Por defecto</th>
+  <th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>volume</code> (Volumen general)</td>
+  <td>1</td>
+  <td>Volumen de toda la salida (0 a 2), encima del bus Master</td>
+</tr>
+</tbody>
+</table></div>
+<p>El sistema de audio aplica este campo al volumen de salida del motor en cada frame (sin oyente, queda a 1). Se
+<strong>multiplica</strong> con el bus Master, que queda libre para las opciones del juego: <code>Audio.SetBusVolume(&quot;Master&quot;, ...)</code> funciona y no se sobrescribe. El volumen final es voz × bus × Master × oyente.</p>
+<h2 id="sonidos-desde-los-scripts-audio">Sonidos desde los scripts: Audio<a class="ancla" href="#sonidos-desde-los-scripts-audio" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Audio.</code> funciona siempre: en un servidor dedicado, sin motor de audio o fuera del modo juego no hace nada, así
+que el código del juego puede llamarla en cualquier máquina.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Audio.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>PlayOneShot(sonido, posicion, volumen?, tono?, bus?)</code></td>
+  <td>Sonido 3D de un solo uso en un punto del mundo (pasos, golpes, explosiones). Atenuación inversa entre 1 y 40 m. Se libera solo al acabar</td>
+</tr>
+<tr>
+  <td><code>PlayOneShot(sonido, posicion, { volume, pitch, bus, minDistance, maxDistance, rolloff, attenuation })</code></td>
+  <td>Lo mismo eligiendo hasta dónde se oye: disparos, explosiones y rugidos lejanos (ver abajo)</td>
+</tr>
+<tr>
+  <td><code>PlayOneShot2D(sonido, volumen?, tono?, bus?)</code></td>
+  <td>Sonido 2D de un solo uso (interfaz, avisos)</td>
+</tr>
+<tr>
+  <td><code>Play(e)</code>, <code>Stop(e)</code>, <code>IsPlaying(e)</code></td>
+  <td>La Fuente de audio de una entidad</td>
+</tr>
+<tr>
+  <td><code>Pause(e)</code>, <code>Resume(e)</code>, <code>IsPaused(e)</code></td>
+  <td>Pausarla y seguir desde el mismo punto</td>
+</tr>
+<tr>
+  <td><code>SetBusVolume(bus, v)</code>, <code>GetBusVolume(bus)</code>, <code>SetBusMuted(bus, b)</code></td>
+  <td>Volumen de un bus y silenciarlo sin perder su volumen (opciones del juego)</td>
+</tr>
+</tbody>
+</table></div>
+<p>El sonido es un <code>Asset</code> (un campo <code>Asset(&quot;Audio&quot;)</code> que se elige en el Inspector) o su ruta en <code>assets/</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un paso en los pies del personaje, con algo de variación en el tono</span>
+<span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.sonidoPaso, <span class="hl-b">self</span>.entity.position, <span class="hl-n">0.6</span>, <span class="hl-n">0.9</span> + <span class="hl-n">0.2</span> * <span class="hl-t">math</span>.<span class="hl-f">random</span>())
+<span class="hl-c">-- Un clic de interfaz</span>
+<span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot2D</span>(<span class="hl-s">"sonidos/clic.wav"</span>)
+<span class="hl-c">-- Una explosión que se oye en todo el mapa: a todo volumen hasta 15 m y bajando poco a poco hasta 800 m</span>
+<span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot</span>(<span class="hl-b">self</span>.explosion, <span class="hl-b">self</span>.entity.position, { minDistance = <span class="hl-n">15</span>, maxDistance = <span class="hl-n">800</span>, rolloff = <span class="hl-n">0.6</span> })</code></pre></div>
+<p>Si el fichero no se puede cargar (no existe o su formato no se admite), no suena y se avisa una vez en el log.
+Con un campo <code>Asset</code> vacío (<code>nil</code>) no suena: compruébalo antes (<code>if self.sonido then ... end</code>).</p>
+<h2 id="buses-y-opciones-de-volumen-en-el-juego">Buses y opciones de volumen en el juego<a class="ancla" href="#buses-y-opciones-de-volumen-en-el-juego" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo sonido va por un bus. El volumen final es voz × bus × Master × el del Oyente de audio:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Bus (en los scripts)</th>
+  <th>En el Inspector</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>&quot;Master&quot;</code></td>
+  <td>Master</td>
+  <td>Volumen general de las opciones del juego (encima va el del Oyente de audio)</td>
+</tr>
+<tr>
+  <td><code>&quot;Music&quot;</code></td>
+  <td>Música</td>
+  <td>Música y ambientes</td>
+</tr>
+<tr>
+  <td><code>&quot;Sfx&quot;</code></td>
+  <td>Efectos</td>
+  <td>Efectos del mundo (por defecto en Fuente de audio y <code>PlayOneShot</code>)</td>
+</tr>
+<tr>
+  <td><code>&quot;Voice&quot;</code></td>
+  <td>Voces</td>
+  <td>Diálogos</td>
+</tr>
+<tr>
+  <td><code>&quot;Ui&quot;</code></td>
+  <td>Interfaz</td>
+  <td>Interfaz (por defecto en <code>PlayOneShot2D</code> y en <strong>Escuchar</strong> del editor)</td>
+</tr>
+</tbody>
+</table></div>
+<p>El ejemplo <a href="#opciones-de-sonido">Opciones de sonido</a> tiene un menú con un deslizador por bus, y la plantilla
+<strong>Menú principal</strong> de la <a href="interfaz-ui.html#tutorial-2-menú-principal-y-de-pausa">interfaz</a> cambia el volumen sin
+código (acción <strong>Volumen de un bus</strong>). Para recordar el volumen elegido entre partidas, guárdalo con
+<code>PlayerPrefs</code> (<a href="scripts-lua.html#datos-guardados">scripts-lua.md</a>).</p>
+<h2 id="audio-en-el-editor-el-juego-el-servidor-y-las-pruebas">Audio en el editor, el juego, el servidor y las pruebas<a class="ancla" href="#audio-en-el-editor-el-juego-el-servidor-y-las-pruebas" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Programa</th>
+  <th>Motor de audio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Editor</td>
+  <td>La tarjeta de sonido (el modo juego y el botón <strong>Escuchar</strong> suenan)</td>
+</tr>
+<tr>
+  <td><code>NovaGame.exe</code></td>
+  <td>La tarjeta de sonido. Si falla (sin altavoces), sigue en silencio. <code>--mute</code> o <code>--hidden</code>: sin sonido</td>
+</tr>
+<tr>
+  <td><code>NovaServer.exe</code></td>
+  <td>Ninguno: <code>Audio.</code> no hace nada</td>
+</tr>
+<tr>
+  <td>Pruebas</td>
+  <td>Audio nulo: mezcla sin abrir ningún dispositivo</td>
+</tr>
+</tbody>
+</table></div>
+<p>En una escena que juega como servidor dedicado no suena nada aunque el proceso tenga audio.</p>
+<h2 id="sonido-en-multijugador">Sonido en multijugador<a class="ancla" href="#sonido-en-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<p>El sonido es local: cada máquina con pantalla reproduce el suyo. Tres formas de que suene lo mismo en todas:</p>
+<ul>
+<li><strong>Derivarlo de lo que ya se replica</strong>: los pasos y el salto pueden sonar en cada máquina a partir del
+movimiento que ve (la velocidad del personaje). No gasta red.</li>
+<li><strong>Una función <code>--[Multicast]</code></strong> que llama el servidor para eventos puntuales (<code>EfectoGolpe</code> en el «Rey de la
+arena», <code>EfectoEmpujon</code> en el <a href="multijugador.html#4-tutorial-arena-de-monedas">tutorial</a>). También se ejecuta en el
+servidor dedicado, pero allí <code>Audio.</code> no hace nada.</li>
+<li><strong>Un <code>onChange</code></strong> cuando cambia un campo replicado (el sonido de punto del tutorial).</li>
+</ul>
+<p>Ver <a href="multijugador.html#8-funciones-de-red-server-client-y-multicast">multijugador.md</a>.</p>
+<h2 id="ejemplos-de-scripts">Ejemplos de scripts<a class="ancla" href="#ejemplos-de-scripts" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="radio-que-suena-al-acercarse">Radio que suena al acercarse<a class="ancla" href="#radio-que-suena-al-acercarse" aria-label="Enlace a esta sección">#</a></h3>
+<p>En una entidad con <strong>Colisionador</strong> marcado como <strong>Es sensor</strong> (por ejemplo una esfera de radio 4) y <strong>Fuente
+de audio</strong> con <strong>Bucle</strong> y sin <strong>Reproducir al empezar</strong>. Suena mientras tu personaje está dentro.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Radio que suena mientras el personaje del jugador está dentro de su sensor</span>
+<span class="hl-k">local</span> <span class="hl-t">RadioDeZona</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-c">-- El sonido es local: cada máquina reacciona solo a su propio personaje</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">EsMiPersonaje</span>(otra: <span class="hl-t">Entity</span>): boolean
+    <span class="hl-k">local</span> mio = <span class="hl-t">Network</span>.<span class="hl-f">GetLocalPlayer</span>()
+    <span class="hl-k">if</span> mio <span class="hl-k">then</span>
+        <span class="hl-k">return</span> otra == mio <span class="hl-c">-- partida en red</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> otra:<span class="hl-f">HasComponent</span>(<span class="hl-s">"CharacterController"</span>) <span class="hl-c">-- un jugador sin red</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">RadioDeZona</span>:<span class="hl-f">OnTriggerEnter</span>(otra)
+    <span class="hl-k">if</span> <span class="hl-f">EsMiPersonaje</span>(otra) <span class="hl-k">and</span> <span class="hl-k">not</span> <span class="hl-t">Audio</span>.<span class="hl-f">IsPlaying</span>(<span class="hl-b">self</span>.entity) <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">Play</span>(<span class="hl-b">self</span>.entity)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">RadioDeZona</span>:<span class="hl-f">OnTriggerExit</span>(otra)
+    <span class="hl-k">if</span> <span class="hl-f">EsMiPersonaje</span>(otra) <span class="hl-k">then</span>
+        <span class="hl-t">Audio</span>.<span class="hl-f">Stop</span>(<span class="hl-b">self</span>.entity)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">RadioDeZona</span></code></pre></div>
+<h3 id="opciones-de-sonido">Opciones de sonido<a class="ancla" href="#opciones-de-sonido" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un menú rápido con <code>OnGUI</code> para el volumen general (el del Oyente de audio), la música y los efectos, que
+recuerda lo elegido con <code>PlayerPrefs</code>. Para el menú que verá el jugador, mejor la <a href="interfaz-ui.html">interfaz</a>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Opciones de volumen: general (AudioListener), música y efectos (buses), guardadas entre partidas</span>
+<span class="hl-k">local</span> <span class="hl-t">OpcionesDeSonido</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Slider(0, 1)]</span>
+<span class="hl-t">OpcionesDeSonido</span>.musica = <span class="hl-n">0.8</span>
+<span class="hl-a">--[Slider(0, 1)]</span>
+<span class="hl-t">OpcionesDeSonido</span>.efectos = <span class="hl-n">1</span>
+<span class="hl-t">OpcionesDeSonido</span>.visible = <span class="hl-b">true</span>
+
+<span class="hl-k">function</span> <span class="hl-t">OpcionesDeSonido</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>.musica = <span class="hl-t">PlayerPrefs</span>.<span class="hl-f">Get</span>(<span class="hl-s">"musica"</span>, <span class="hl-b">self</span>.musica)
+    <span class="hl-b">self</span>.efectos = <span class="hl-t">PlayerPrefs</span>.<span class="hl-f">Get</span>(<span class="hl-s">"efectos"</span>, <span class="hl-b">self</span>.efectos)
+    <span class="hl-t">Audio</span>.<span class="hl-f">SetBusVolume</span>(<span class="hl-s">"Music"</span>, <span class="hl-b">self</span>.musica)
+    <span class="hl-t">Audio</span>.<span class="hl-f">SetBusVolume</span>(<span class="hl-s">"Sfx"</span>, <span class="hl-b">self</span>.efectos)
+    <span class="hl-k">local</span> camara = <span class="hl-t">Scene</span>.<span class="hl-f">FindWithComponent</span>(<span class="hl-s">"AudioListener"</span>)
+    <span class="hl-b">self</span>._oyente = camara <span class="hl-k">and</span> camara:<span class="hl-f">GetComponent</span>(<span class="hl-s">"AudioListener"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">OpcionesDeSonido</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.visible <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Sonido"</span>, <span class="hl-n">20</span>, <span class="hl-n">60</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._oyente <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._oyente.volume = <span class="hl-t">GUI</span>.<span class="hl-f">Slider</span>(<span class="hl-s">"General"</span>, <span class="hl-b">self</span>._oyente.volume, <span class="hl-n">0</span>, <span class="hl-n">1</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> musica = <span class="hl-t">GUI</span>.<span class="hl-f">Slider</span>(<span class="hl-s">"Música"</span>, <span class="hl-b">self</span>.musica, <span class="hl-n">0</span>, <span class="hl-n">1</span>)
+    <span class="hl-k">if</span> musica ~= <span class="hl-b">self</span>.musica <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.musica = musica
+        <span class="hl-t">Audio</span>.<span class="hl-f">SetBusVolume</span>(<span class="hl-s">"Music"</span>, musica)
+        <span class="hl-t">PlayerPrefs</span>.<span class="hl-f">Set</span>(<span class="hl-s">"musica"</span>, musica)
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> efectos = <span class="hl-t">GUI</span>.<span class="hl-f">Slider</span>(<span class="hl-s">"Efectos"</span>, <span class="hl-b">self</span>.efectos, <span class="hl-n">0</span>, <span class="hl-n">1</span>)
+    <span class="hl-k">if</span> efectos ~= <span class="hl-b">self</span>.efectos <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.efectos = efectos
+        <span class="hl-t">Audio</span>.<span class="hl-f">SetBusVolume</span>(<span class="hl-s">"Sfx"</span>, efectos)
+        <span class="hl-t">PlayerPrefs</span>.<span class="hl-f">Set</span>(<span class="hl-s">"efectos"</span>, efectos)
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">OpcionesDeSonido</span></code></pre></div>
+<p>El <a href="fisicas.html#sonido-al-chocar">sonido al chocar</a> de <a href="fisicas.html">fisicas.md</a>, la campana de
+<a href="scripts-lua.html#audio">scripts-lua.md</a> y los pasos de <code>game/multiplayer_lua/scripts/Jugador.luau</code> son otros
+ejemplos. Los mismos ejemplos en C++ están en <a href="scripts-cpp.html#ejemplos-en-c">scripts-cpp.md</a>.</p>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="fisicas.html">Físicas</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="multijugador.html">Multijugador</a></li>
+<li><span class="enlace-interno-quitado">La librería de audio (<code>nova_audio</code>)</span>, para quien desarrolla el motor</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="navegacion.html"><small>Anterior</small>Navegación: bots que encuentran el camino</a><a class="sig" href="voz.html"><small>Siguiente</small>Chat de voz: proximidad, llamadas y radios</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#sonidos-en-el-proyecto">Sonidos en el proyecto</a></li><li class="n2"><a href="#fuente-de-audio-audiosource">Fuente de audio (AudioSource)</a></li><li class="n2"><a href="#oyente-de-audio-audiolistener">Oyente de audio (AudioListener)</a></li><li class="n2"><a href="#sonidos-desde-los-scripts-audio">Sonidos desde los scripts: Audio</a></li><li class="n2"><a href="#buses-y-opciones-de-volumen-en-el-juego">Buses y opciones de volumen en el juego</a></li><li class="n2"><a href="#audio-en-el-editor-el-juego-el-servidor-y-las-pruebas">Audio en el editor, el juego, el servidor y las pruebas</a></li><li class="n2"><a href="#sonido-en-multijugador">Sonido en multijugador</a></li><li class="n2"><a href="#ejemplos-de-scripts">Ejemplos de scripts</a></li><li class="n3"><a href="#radio-que-suena-al-acercarse">Radio que suena al acercarse</a></li><li class="n3"><a href="#opciones-de-sonido">Opciones de sonido</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

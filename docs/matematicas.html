@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matemáticas, geometría y ruido · Nova Engine</title>
+<meta name="description" content="Todo lo de matemáticas de los scripts Lua: vectores, rotaciones, matrices y colores con la API de Unity, rayos,
+planos, cajas y esferas, lo que ve la cámara, geometría (polígonos, intersecciones, curvas) y ruido procedur">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Matemáticas, geometría y ruido · Nova Engine">
+<meta property="og:description" content="Todo lo de matemáticas de los scripts Lua: vectores, rotaciones, matrices y colores con la API de Unity, rayos,
+planos, cajas y esferas, lo que ve la cámara, geometría (polígonos, intersecciones, curvas) y ruido procedur">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/matematicas.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/matematicas.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html" aria-current="page">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="matemáticas-geometría-y-ruido">Matemáticas, geometría y ruido</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-rápido-y-lento-lo-que-conviene-saber">1. Rápido y lento: lo que conviene saber</a></li><li class="n2"><a href="#2-vectores-vec3-vec2-y-vec4">2. Vectores: Vec3, Vec2 y Vec4</a></li><li class="n2"><a href="#3-rotaciones-quat">3. Rotaciones: Quat</a></li><li class="n2"><a href="#4-matrices-mat4">4. Matrices: Mat4</a></li><li class="n2"><a href="#5-colores-color">5. Colores: Color</a></li><li class="n2"><a href="#6-mathf">6. Mathf</a></li><li class="n2"><a href="#7-random">7. Random</a></li><li class="n2"><a href="#8-rayos-planos-cajas-y-esferas">8. Rayos, planos, cajas y esferas</a></li><li class="n2"><a href="#9-lo-que-ve-la-cámara-frustum">9. Lo que ve la cámara: Frustum</a></li><li class="n2"><a href="#10-geometry">10. Geometry</a></li><li class="n3"><a href="#rayos-contra-figuras">Rayos contra figuras</a></li><li class="n3"><a href="#puntos-más-cercanos-y-distancias">Puntos más cercanos y distancias</a></li><li class="n3"><a href="#polígonos-2d">Polígonos 2D</a></li><li class="n3"><a href="#curvas">Curvas</a></li><li class="n2"><a href="#11-ruido-noise">11. Ruido: Noise</a></li><li class="n3"><a href="#una-rejilla-entera-de-una-vez-fill">Una rejilla entera de una vez: Fill</a></li><li class="n2"><a href="#12-rendimiento">12. Rendimiento</a></li><li class="n2"><a href="#13-si-vienes-de-unity">13. Si vienes de Unity</a></li><li class="n2"><a href="#14-referencia">14. Referencia</a></li></ul></details><p>Todo lo de matemáticas de los scripts Lua: vectores, rotaciones, matrices y colores con la API de Unity, rayos,
+planos, cajas y esferas, lo que ve la cámara, geometría (polígonos, intersecciones, curvas) y ruido procedural para
+generar mundos. Por dentro es C++ nativo del motor; desde Lua se usa como cualquier otra función, sin compilar nada.</p>
+<p>La lista corta de la API está en <a href="scripts-lua.html#matemáticas">scripts-lua.md</a>; aquí está todo con ejemplos y con lo
+que cuesta cada cosa.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-rápido-y-lento-lo-que-conviene-saber">Rápido y lento: lo que conviene saber</a></li>
+<li><a href="#2-vectores-vec3-vec2-y-vec4">Vectores: <code>Vec3</code>, <code>Vec2</code> y <code>Vec4</code></a></li>
+<li><a href="#3-rotaciones-quat">Rotaciones: <code>Quat</code></a></li>
+<li><a href="#4-matrices-mat4">Matrices: <code>Mat4</code></a></li>
+<li><a href="#5-colores-color">Colores: <code>Color</code></a></li>
+<li><a href="#6-mathf"><code>Mathf</code></a></li>
+<li><a href="#7-random"><code>Random</code></a></li>
+<li><a href="#8-rayos-planos-cajas-y-esferas">Rayos, planos, cajas y esferas</a></li>
+<li><a href="#9-lo-que-ve-la-cámara-frustum">Lo que ve la cámara: <code>Frustum</code></a></li>
+<li><a href="#10-geometry"><code>Geometry</code></a></li>
+<li><a href="#11-ruido-noise">Ruido: <code>Noise</code></a></li>
+<li><a href="#12-rendimiento">Rendimiento</a></li>
+<li><a href="#13-si-vienes-de-unity">Si vienes de Unity</a></li>
+<li><a href="#14-referencia">Referencia</a></li>
+</ol>
+<h2 id="1-rápido-y-lento-lo-que-conviene-saber">1. Rápido y lento: lo que conviene saber<a class="ancla" href="#1-rápido-y-lento-lo-que-conviene-saber" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong><code>Vec3</code> es el <code>vector</code> nativo de Luau</strong>: crear uno, sumarlo o multiplicarlo no reserva memoria. <code>Vec3.Dot</code>,
+<code>Vec3.Cross</code>, <code>Vec3.Length</code>, <code>Vec3.Min</code>, <code>Vec3.Max</code>, <code>Vec3.Lerp</code>, <code>Vec3.Floor</code>, <code>Vec3.Ceil</code>, <code>Vec3.Abs</code> y
+<code>Vec3.Clamp</code> son además <strong>instrucciones de la máquina virtual</strong>: no llaman a ninguna función. Escritas así, con
+<code>Vec3.</code> delante, son lo más rápido que hay.</li>
+<li><code>v:Dot(w)</code> hace lo mismo que <code>Vec3.Dot(v, w)</code>, pero como llamada a una función (unas tres veces más lento). En
+bucles grandes, mejor <code>Vec3.Dot(v, w)</code>.</li>
+<li><code>Vec2</code>, <code>Vec4</code>, <code>Quat</code>, <code>Color</code>, <code>Mat4</code> y los tipos de geometría son valores guardados por el motor: sus campos
+(<code>q.x</code>, <code>c.r</code>, <code>m.translation</code>) se leen sin llamar a ninguna función y sus métodos (<code>q:Rotate(v)</code>) se llaman
+directamente. Cada operación que da un valor nuevo (<code>q * q</code>, <code>Vec2.new</code>) sí reserva un poco de memoria: en un
+bucle de miles de vueltas por frame, guarda los que no cambian en variables <code>local</code> fuera del bucle.</li>
+<li>Para mucho trabajo de una vez, las funciones nativas ganan de lejos: <code>Fill</code> (de un generador de <code>Noise.new</code>)
+rellena una rejilla de 512 × 512 en 1,4 ms; en Lua, el mismo ruido tarda unos 250 ms. Ver
+<a href="#12-rendimiento">Rendimiento</a>.</li>
+<li>Todo es <strong>determinista</strong>: <code>Random</code> y <code>Noise</code> con la misma semilla dan lo mismo en todas las máquinas (servidor y
+clientes), así que un mapa generado con una semilla sale igual para todos sin enviarlo por la red.</li>
+</ul>
+<h2 id="2-vectores-vec3-vec2-y-vec4">2. Vectores: <code>Vec3</code>, <code>Vec2</code> y <code>Vec4</code><a class="ancla" href="#2-vectores-vec3-vec2-y-vec4" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> a = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">2</span>, <span class="hl-n">3</span>)
+<span class="hl-k">local</span> b = a + <span class="hl-t">Vec3</span>.up * <span class="hl-n">2</span>          <span class="hl-c">-- + - * / funcionan; a.x, a.y, a.z</span>
+<span class="hl-k">local</span> dist = <span class="hl-t">Vec3</span>.<span class="hl-f">Distance</span>(a, b)   <span class="hl-c">-- 2</span>
+<span class="hl-k">local</span> dir = <span class="hl-t">Vec3</span>.<span class="hl-f">Normalize</span>(b - a)  <span class="hl-c">-- longitud 1 (con (0, 0, 0) da (0, 0, 0))</span>
+<span class="hl-k">local</span> angulo = <span class="hl-t">Vec3</span>.<span class="hl-f">Angle</span>(<span class="hl-t">Vec3</span>.right, <span class="hl-t">Vec3</span>.up)  <span class="hl-c">-- 90 (grados)</span></code></pre></div>
+<p>Las direcciones con nombre: <code>Vec3.up</code> (+Y), <code>Vec3.down</code>, <code>Vec3.right</code> (+X), <code>Vec3.left</code>, <code>Vec3.forward</code> (−Z: hacia
+donde miran las cámaras) y <code>Vec3.back</code>; además <code>Vec3.zero</code>, <code>Vec3.one</code>, <code>Vec3.positiveInfinity</code> y
+<code>Vec3.negativeInfinity</code>.</p>
+<p>Lo de Unity está todo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Vec3.Project(v, normal)</code>, <code>Vec3.ProjectOnPlane(v, normal)</code></td>
+  <td>La parte de <code>v</code> en una dirección, o <code>v</code> sin ella (moverse pegado a una pendiente)</td>
+</tr>
+<tr>
+  <td><code>Vec3.Reflect(direccion, normal)</code></td>
+  <td>Rebotes</td>
+</tr>
+<tr>
+  <td><code>Vec3.ClampMagnitude(v, maxima)</code></td>
+  <td>Limitar una velocidad</td>
+</tr>
+<tr>
+  <td><code>Vec3.SignedAngle(desde, hasta, eje)</code></td>
+  <td>Ángulo con signo en grados (girar a la izquierda o a la derecha)</td>
+</tr>
+<tr>
+  <td><code>Vec3.Slerp(a, b, t)</code></td>
+  <td>Girar una dirección por el camino corto</td>
+</tr>
+<tr>
+  <td><code>Vec3.RotateTowards(actual, objetivo, radianes, longitud?)</code></td>
+  <td>Girar como mucho tantos radianes (como en Unity)</td>
+</tr>
+<tr>
+  <td><code>Vec3.SmoothDamp(actual, objetivo, velocidad, tiempo, dt, maxima?)</code></td>
+  <td>Seguir algo sin pasarse: devuelve la posición y la velocidad nueva</td>
+</tr>
+<tr>
+  <td><code>Vec3.Scale</code>, <code>Abs</code>, <code>Floor</code>, <code>Ceil</code>, <code>Round</code>, <code>Clamp</code>, <code>Sum</code>, <code>Approximately</code>, <code>DistanceSq</code></td>
+  <td>Componente a componente, redondeos y comparaciones</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Andar por una cuesta: quitar a la velocidad la parte que va contra el suelo</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">PegarAlSuelo</span>(velocidad: <span class="hl-t">Vector3</span>, normalDelSuelo: <span class="hl-t">Vector3</span>): <span class="hl-t">Vector3</span>
+    <span class="hl-k">return</span> <span class="hl-t">Vec3</span>.<span class="hl-f">ProjectOnPlane</span>(velocidad, normalDelSuelo)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Una pelota que rebota en una pared</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">Rebote</span>(velocidad: <span class="hl-t">Vector3</span>, normalDeLaPared: <span class="hl-t">Vector3</span>): <span class="hl-t">Vector3</span>
+    <span class="hl-k">return</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Reflect</span>(velocidad, normalDeLaPared) * <span class="hl-n">0.8</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Una cámara que sigue al jugador sin tirones, con <code>Vec3.SmoothDamp</code> (la velocidad se guarda entre frames):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">CamaraSuave</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">CamaraSuave</span>.objetivo = <span class="hl-f">Entity</span>()
+<span class="hl-a">--[Range(0.05, 2), Tooltip("Segundos que tarda en alcanzar al objetivo (más = más suave)")]</span>
+<span class="hl-t">CamaraSuave</span>.suavidad = <span class="hl-n">0.3</span>
+<span class="hl-t">CamaraSuave</span>.distancia = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">4</span>, <span class="hl-n">8</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">CamaraSuave</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._velocidad = <span class="hl-t">Vec3</span>.zero
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">CamaraSuave</span>:<span class="hl-f">LateUpdate</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.objetivo <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> destino = <span class="hl-b">self</span>.objetivo.position + <span class="hl-b">self</span>.distancia
+    <span class="hl-k">local</span> t = <span class="hl-b">self</span>.transform
+    t.worldPosition, <span class="hl-b">self</span>._velocidad = <span class="hl-t">Vec3</span>.<span class="hl-f">SmoothDamp</span>(t.worldPosition, destino, <span class="hl-b">self</span>._velocidad, <span class="hl-b">self</span>.suavidad, dt)
+    t:<span class="hl-f">LookAt</span>(<span class="hl-b">self</span>.objetivo.position)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">CamaraSuave</span></code></pre></div>
+<p><code>Vec2</code> tiene lo mismo en 2D (sin <code>Slerp</code>), y además lo propio del plano: <code>Vec2.Perpendicular(v)</code> (girado 90° en
+sentido antihorario), <code>Vec2.Rotate(v, grados)</code>, <code>Vec2.FromAngle(grados)</code>, <code>Vec2.SignedAngle(desde, hasta)</code> y
+<code>Vec2.Cross(a, b)</code> (un número: positivo si <code>b</code> gira a la izquierda de <code>a</code>). Las direcciones: <code>Vec2.up</code>, <code>.down</code>,
+<code>.left</code>, <code>.right</code>. <code>Vec4</code> tiene las operaciones básicas (<code>Length</code>, <code>Normalize</code>, <code>Distance</code>, <code>Min</code>, <code>Max</code>, <code>Scale</code>,
+<code>Abs</code>, <code>Dot</code>, <code>Lerp</code>) y <code>v.xyz</code>.</p>
+<p>Cuidado con dos cosas que vienen de Lua y no de Unity: <code>Vec3.Lerp</code> no limita <code>t</code> (con <code>t = 2</code> va el doble de lejos;
+<code>Mathf.Lerp</code> sí lo limita) y los vectores son valores: <code>t.position.x = 1</code> no cambia nada, hay que asignar el vector
+entero (<code>t.position = Vec3.new(1, t.position.y, t.position.z)</code>).</p>
+<h2 id="3-rotaciones-quat">3. Rotaciones: <code>Quat</code><a class="ancla" href="#3-rotaciones-quat" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> giro = <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(<span class="hl-n">0</span>, <span class="hl-n">90</span>, <span class="hl-n">0</span>)              <span class="hl-c">-- grados, como el Inspector</span>
+<span class="hl-k">local</span> igual = <span class="hl-t">Quat</span>.<span class="hl-f">AngleAxis</span>(<span class="hl-n">90</span>, <span class="hl-t">Vec3</span>.up)      <span class="hl-c">-- grados y eje, como en Unity</span>
+<span class="hl-k">local</span> tambien = <span class="hl-t">Quat</span>.<span class="hl-f">FromAxisAngle</span>(<span class="hl-t">Vec3</span>.up, <span class="hl-t">math</span>.<span class="hl-f">rad</span>(<span class="hl-n">90</span>)) <span class="hl-c">-- eje y radianes</span>
+<span class="hl-k">local</span> delante = giro * <span class="hl-t">Vec3</span>.forward            <span class="hl-c">-- gira un vector (igual que giro:Rotate(Vec3.forward))</span>
+<span class="hl-k">local</span> ambos = giro * <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(<span class="hl-n">30</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>)      <span class="hl-c">-- primero el de la derecha</span>
+<span class="hl-k">local</span> grados, eje = giro:<span class="hl-f">ToAngleAxis</span>()         <span class="hl-c">-- 90, (0, 1, 0)</span></code></pre></div>
+<ul>
+<li><code>Quat.LookRotation(delante, arriba?)</code>: la rotación que mira hacia <code>delante</code> (−Z del objeto) con <code>arriba</code> opcional.</li>
+<li><code>Quat.RotateTowards(desde, hasta, gradosMaximos)</code>: torretas y cabezas que giran a una velocidad fija.</li>
+<li><code>Quat.Angle(a, b)</code> (grados), <code>Quat.Dot</code>, <code>Quat.Slerp</code>, <code>Quat.Nlerp</code>, <code>Quat.Inverse</code>, <code>Quat.FromTo(a, b)</code>,
+<code>Quat.Approximately(a, b, grados?)</code> (<code>q</code> y <code>-q</code> son la misma rotación).</li>
+<li><code>q:Forward()</code>, <code>q:Right()</code>, <code>q:Up()</code>, <code>q:ToEuler()</code> (grados).</li>
+</ul>
+<p>Una torreta que gira hacia su objetivo como mucho tantos grados por segundo, solo en horizontal:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">TorretaGiratoria</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">TorretaGiratoria</span>.objetivo = <span class="hl-f">Entity</span>()
+<span class="hl-a">--[Range(10, 720), Tooltip("Grados por segundo")]</span>
+<span class="hl-t">TorretaGiratoria</span>.velocidadGiro = <span class="hl-n">90</span>
+<span class="hl-a">--[Range(1, 45), Tooltip("Dispara si apunta con menos de estos grados de error")]</span>
+<span class="hl-t">TorretaGiratoria</span>.tolerancia = <span class="hl-n">5</span>
+
+<span class="hl-k">function</span> <span class="hl-t">TorretaGiratoria</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.objetivo <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> t = <span class="hl-b">self</span>.transform
+    <span class="hl-c">-- Sin la altura: la torreta gira sobre su eje vertical y no cabecea</span>
+    <span class="hl-k">local</span> hacia = <span class="hl-t">Vec3</span>.<span class="hl-f">ProjectOnPlane</span>(<span class="hl-b">self</span>.objetivo.position - t.worldPosition, <span class="hl-t">Vec3</span>.up)
+    <span class="hl-k">if</span> <span class="hl-t">Vec3</span>.<span class="hl-f">LengthSq</span>(hacia) &lt; <span class="hl-n">0.0001</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> deseada = <span class="hl-t">Quat</span>.<span class="hl-f">LookRotation</span>(hacia, <span class="hl-t">Vec3</span>.up)
+    t.worldRotation = <span class="hl-t">Quat</span>.<span class="hl-f">RotateTowards</span>(t.worldRotation, deseada, <span class="hl-b">self</span>.velocidadGiro * dt)
+    <span class="hl-k">if</span> <span class="hl-t">Quat</span>.<span class="hl-f">Angle</span>(t.worldRotation, deseada) &lt; <span class="hl-b">self</span>.tolerancia <span class="hl-k">then</span>
+        <span class="hl-c">-- ...disparar</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">TorretaGiratoria</span></code></pre></div>
+<h2 id="4-matrices-mat4">4. Matrices: <code>Mat4</code><a class="ancla" href="#4-matrices-mat4" aria-label="Enlace a esta sección">#</a></h2>
+<p>Casi nunca hacen falta (para mover cosas está <code>Transform</code>), pero están completas: <code>Mat4.TRS(posicion, rotacion?, escala?)</code>, <code>Mat4.Translation</code>, <code>Mat4.Rotation</code>, <code>Mat4.Scale</code>, <code>Mat4.LookAt</code>, <code>Mat4.Perspective(gradosVerticales, aspecto, cerca, lejos)</code>, <code>Mat4.Ortho(izquierda, derecha, abajo, arriba, cerca, lejos)</code>, <code>Mat4.FromColumns</code>,
+<code>Mat4.Multiply</code>, <code>Mat4.Inverse</code>, <code>Mat4.Transpose</code> y <code>Mat4.Determinant</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> m = <span class="hl-t">Mat4</span>.<span class="hl-f">TRS</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>), <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(<span class="hl-n">0</span>, <span class="hl-n">45</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.one * <span class="hl-n">2</span>)
+<span class="hl-k">local</span> punto = m:<span class="hl-f">TransformPoint</span>(<span class="hl-t">Vec3</span>.forward)        <span class="hl-c">-- con posición, rotación y escala (igual que m * v)</span>
+<span class="hl-k">local</span> solo = m:<span class="hl-f">TransformDirection</span>(<span class="hl-t">Vec3</span>.forward)     <span class="hl-c">-- solo la rotación</span>
+<span class="hl-k">local</span> local_ = m:<span class="hl-f">InverseTransformPoint</span>(punto)       <span class="hl-c">-- de vuelta: (0, 0, -1)</span>
+<span class="hl-k">local</span> pos, rot, escala = m:<span class="hl-f">Decompose</span>()
+<span class="hl-k">local</span> columna = m:<span class="hl-f">GetColumn</span>(<span class="hl-n">4</span>)                      <span class="hl-c">-- Vec4: la posición (las columnas van de 1 a 4)</span></code></pre></div>
+<p><code>m * Vec4</code> da un <code>Vec4</code>, y <code>m:ProjectPoint(p)</code> transforma y divide por <code>w</code> (puntos con una matriz de proyección).
+Las proyecciones son diestras (la cámara mira a −Z) con profundidad de 0 (cerca) a 1 (lejos).</p>
+<h2 id="5-colores-color">5. Colores: <code>Color</code><a class="ancla" href="#5-colores-color" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> naranja = <span class="hl-t">Color</span>.<span class="hl-f">FromHex</span>(<span class="hl-s">"#ff8800"</span>)          <span class="hl-c">-- también "#f80", "#ff880080" y sin "#"</span>
+<span class="hl-k">local</span> texto = naranja:<span class="hl-f">ToHex</span>()                     <span class="hl-c">-- "#FF8800" (con :ToHex(true), también el alfa)</span>
+<span class="hl-k">local</span> arcoiris = <span class="hl-t">Color</span>.<span class="hl-f">HSVToRGB</span>(<span class="hl-t">Time</span>.time * <span class="hl-n">0.1</span> % <span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>)  <span class="hl-c">-- tono, saturación y valor de 0 a 1</span>
+<span class="hl-k">local</span> tono, saturacion, valor = <span class="hl-t">Color</span>.<span class="hl-f">RGBToHSV</span>(naranja)
+<span class="hl-k">local</span> medio = naranja:<span class="hl-f">WithAlpha</span>(<span class="hl-n">0.5</span>)
+<span class="hl-k">local</span> luz = naranja:<span class="hl-f">ToLinear</span>()                    <span class="hl-c">-- de sRGB (el selector de color) a lineal (lo que usa la luz)</span></code></pre></div>
+<p><code>+ - * /</code> funcionan con colores y números; <code>c.r</code>, <code>c.g</code>, <code>c.b</code>, <code>c.a</code> y <code>c.rgb</code> (un <code>Vec3</code>). <code>Mathf.GammaToLinear</code>
+y <code>Mathf.LinearToGamma</code> hacen lo mismo con un número.</p>
+<h2 id="6-mathf">6. <code>Mathf</code><a class="ancla" href="#6-mathf" aria-label="Enlace a esta sección">#</a></h2>
+<p>Además de la librería <code>math</code> de Luau (<code>math.clamp</code>, <code>math.lerp</code>, <code>math.round</code>, <code>math.noise</code>...):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Mathf.Clamp(v, min, max)</code>, <code>Mathf.Clamp01(v)</code></td>
+  <td>Limitar</td>
+</tr>
+<tr>
+  <td><code>Mathf.Lerp(a, b, t)</code></td>
+  <td>Con <code>t</code> limitado a 0..1 (<code>Mathf.LerpUnclamped</code> no lo limita)</td>
+</tr>
+<tr>
+  <td><code>Mathf.InverseLerp(a, b, v)</code>, <code>Mathf.Remap(v, desdeMin, desdeMax, hastaMin, hastaMax)</code></td>
+  <td>Fracciones y cambios de rango</td>
+</tr>
+<tr>
+  <td><code>Mathf.SmoothStep</code>, <code>Mathf.Step(borde, x)</code></td>
+  <td>Curvas suaves y escalones</td>
+</tr>
+<tr>
+  <td><code>Mathf.MoveTowards</code>, <code>Mathf.SmoothDamp</code></td>
+  <td>Acercarse a un valor</td>
+</tr>
+<tr>
+  <td><code>Mathf.DeltaAngle</code>, <code>Mathf.LerpAngle</code></td>
+  <td>Ángulos en grados por el camino corto</td>
+</tr>
+<tr>
+  <td><code>Mathf.Repeat</code>, <code>Mathf.PingPong</code>, <code>Mathf.Wrap(v, min, max)</code></td>
+  <td>Valores que dan la vuelta</td>
+</tr>
+<tr>
+  <td><code>Mathf.Sign(v)</code></td>
+  <td>1 o −1 (con 0 da 1, como en Unity; <code>math.sign(0)</code> da 0)</td>
+</tr>
+<tr>
+  <td><code>Mathf.FloorToInt</code>, <code>Mathf.CeilToInt</code>, <code>Mathf.RoundToInt</code></td>
+  <td>Enteros (los .5 se alejan del cero)</td>
+</tr>
+<tr>
+  <td><code>Mathf.IsPowerOfTwo</code>, <code>Mathf.NextPowerOfTwo</code>, <code>Mathf.ClosestPowerOfTwo</code></td>
+  <td>Potencias de dos (texturas)</td>
+</tr>
+<tr>
+  <td><code>Mathf.GammaToLinear</code>, <code>Mathf.LinearToGamma</code></td>
+  <td>Espacio de color</td>
+</tr>
+<tr>
+  <td><code>Mathf.Approximately(a, b, margen?)</code></td>
+  <td>Comparar decimales</td>
+</tr>
+<tr>
+  <td><code>Mathf.PI</code>, <code>Mathf.Infinity</code>, <code>Mathf.NegativeInfinity</code>, <code>Mathf.Epsilon</code>, <code>Mathf.Deg2Rad</code>, <code>Mathf.Rad2Deg</code></td>
+  <td>Constantes</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="7-random">7. <code>Random</code><a class="ancla" href="#7-random" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Random.new(semilla)</code> crea un generador propio (<code>Random.Number()</code>... usan el de la máquina virtual). Con la misma
+semilla da la misma secuencia en todas las máquinas: sirve para botines o mapas iguales para todos.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué da</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Number(min?, max?)</code>, <code>Integer(min, max)</code>, <code>Bool(probabilidad?)</code></td>
+  <td>Números y sí/no</td>
+</tr>
+<tr>
+  <td><code>Gaussian(media?, desviacion?)</code></td>
+  <td>Una «campana»: valores que se agrupan alrededor de la media (daño variable, dispersión de disparos)</td>
+</tr>
+<tr>
+  <td><code>WeightedIndex(pesos)</code>, <code>WeightedPick(elementos, pesos)</code></td>
+  <td>Elegir según la probabilidad de cada uno</td>
+</tr>
+<tr>
+  <td><code>Pick(lista)</code>, <code>Shuffle(lista)</code></td>
+  <td>Elegir uno o desordenar</td>
+</tr>
+<tr>
+  <td><code>Rotation()</code></td>
+  <td>Una rotación con todas las orientaciones igual de probables</td>
+</tr>
+<tr>
+  <td><code>InsideUnitSphere()</code>, <code>OnUnitSphere()</code>, <code>InsideBox(min, max)</code></td>
+  <td>Puntos en 3D</td>
+</tr>
+<tr>
+  <td><code>InsideUnitCircle()</code>, <code>OnUnitCircle()</code>, <code>InsideAnnulus(radioInterior, radioExterior)</code></td>
+  <td>Puntos en 2D (<code>Vec2</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">BotinConPesos</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("La misma semilla da el mismo botín en todas las máquinas")]</span>
+<span class="hl-t">BotinConPesos</span>.semilla = <span class="hl-n">1234</span>
+
+<span class="hl-k">local</span> <span class="hl-t">OBJETOS</span> = { <span class="hl-s">"madera"</span>, <span class="hl-s">"piedra"</span>, <span class="hl-s">"metal"</span>, <span class="hl-s">"gema"</span> }
+<span class="hl-k">local</span> <span class="hl-t">PESOS</span> = { <span class="hl-n">60</span>, <span class="hl-n">30</span>, <span class="hl-n">9</span>, <span class="hl-n">1</span> } <span class="hl-c">-- de cada 100 cofres, 1 da una gema</span>
+
+<span class="hl-k">function</span> <span class="hl-t">BotinConPesos</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> azar = <span class="hl-t">Random</span>.<span class="hl-f">new</span>(<span class="hl-b">self</span>.semilla)
+    <span class="hl-k">local</span> botin = {}
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-n">3</span> <span class="hl-k">do</span>
+        botin[i] = azar:<span class="hl-f">WeightedPick</span>(<span class="hl-t">OBJETOS</span>, <span class="hl-t">PESOS</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- Aparecer alrededor del cofre: ni encima ni a más de 3 m</span>
+    <span class="hl-k">local</span> p = azar:<span class="hl-f">InsideAnnulus</span>(<span class="hl-n">1</span>, <span class="hl-n">3</span>)
+    <span class="hl-k">local</span> dondeCae = <span class="hl-b">self</span>.entity.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(p.x, <span class="hl-n">0</span>, p.y)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Botín:"</span>, <span class="hl-t">table</span>.<span class="hl-f">concat</span>(botin, <span class="hl-s">", "</span>), <span class="hl-s">"en"</span>, dondeCae)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">BotinConPesos</span></code></pre></div>
+<p>Nada de lo aleatorio usa funciones de la librería de C cuyo redondeo cambia de un procesador a otro (senos,
+logaritmos...): por eso es igual en todas las máquinas.</p>
+<h2 id="8-rayos-planos-cajas-y-esferas">8. Rayos, planos, cajas y esferas<a class="ancla" href="#8-rayos-planos-cajas-y-esferas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Son valores, como los vectores: no se cambian, se crean otros.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> rayo = <span class="hl-t">Ray</span>.<span class="hl-f">new</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">10</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.down)  <span class="hl-c">-- la dirección se normaliza</span>
+<span class="hl-k">local</span> suelo = <span class="hl-t">Plane</span>.<span class="hl-f">new</span>(<span class="hl-t">Vec3</span>.up, <span class="hl-t">Vec3</span>.zero)           <span class="hl-c">-- normal y un punto del plano</span>
+<span class="hl-k">local</span> d = suelo:<span class="hl-f">Raycast</span>(rayo)                         <span class="hl-c">-- 10 (o nil si no lo corta)</span>
+<span class="hl-k">local</span> punto = rayo:<span class="hl-f">GetPoint</span>(d)
+
+<span class="hl-k">local</span> caja = <span class="hl-t">Bounds</span>.<span class="hl-f">new</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">4</span>, <span class="hl-n">2</span>, <span class="hl-n">4</span>))   <span class="hl-c">-- centro y tamaño</span>
+caja = caja:<span class="hl-f">Encapsulate</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">5</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>))                      <span class="hl-c">-- devuelve otra caja</span>
+<span class="hl-k">if</span> caja:<span class="hl-f">Contains</span>(punto) <span class="hl-k">then</span> <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"dentro"</span>) <span class="hl-k">end</span>
+
+<span class="hl-k">local</span> esfera = <span class="hl-t">Sphere</span>.<span class="hl-f">new</span>(<span class="hl-t">Vec3</span>.zero, <span class="hl-n">2</span>)
+<span class="hl-k">local</span> entra = esfera:<span class="hl-f">IntersectRay</span>(rayo)              <span class="hl-c">-- distancia a la que entra (0 si sale de dentro) o nil</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tipo</th>
+  <th>Crear</th>
+  <th>Campos y métodos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Ray</code></td>
+  <td><code>Ray.new(origen, direccion)</code></td>
+  <td><code>origin</code>, <code>direction</code>, <code>GetPoint(distancia)</code>, <code>ClosestPoint(p)</code></td>
+</tr>
+<tr>
+  <td><code>Plane</code></td>
+  <td><code>Plane.new(normal, punto)</code>, <code>Plane.new(normal, distancia)</code>, <code>Plane.FromPoints(a, b, c)</code></td>
+  <td><code>normal</code>, <code>distance</code>, <code>GetDistanceToPoint(p)</code> (con signo), <code>ClosestPoint(p)</code>, <code>Raycast(rayo, max?)</code>, <code>GetSide(p)</code>, <code>SameSide(a, b)</code>, <code>Flip()</code>, <code>Translate(desplazamiento)</code></td>
+</tr>
+<tr>
+  <td><code>Bounds</code></td>
+  <td><code>Bounds.new(centro, tamaño)</code>, <code>Bounds.FromMinMax(a, b)</code>, <code>Bounds.FromPoints(lista)</code></td>
+  <td><code>center</code>, <code>size</code>, <code>extents</code>, <code>min</code>, <code>max</code>, <code>Contains</code>, <code>Intersects</code>, <code>ClosestPoint</code>, <code>Distance</code>, <code>Encapsulate</code>, <code>Expand</code>, <code>IntersectRay(rayo, max?)</code></td>
+</tr>
+<tr>
+  <td><code>Sphere</code></td>
+  <td><code>Sphere.new(centro, radio)</code>, <code>Sphere.FromPoints(lista)</code></td>
+  <td><code>center</code>, <code>radius</code>, <code>Contains</code>, <code>Intersects</code> (esfera o caja), <code>ClosestPoint</code>, <code>Distance</code>, <code>IntersectRay(rayo, max?)</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Plane</code> sigue la convención de Unity: <code>Vec3.Dot(normal, p) + distance == 0</code>. Por eso <code>Plane.new(Vec3.up, -5)</code> es el
+plano <code>y = 5</code>; con un punto (<code>Plane.new(Vec3.up, Vec3.new(0, 5, 0))</code>) no hay que pensarlo.</p>
+<p>Estos rayos son matemáticos: no tocan nada de la escena. Para chocar con los objetos del mapa, <code>Physics.Raycast</code>
+(<a href="fisicas.html">fisicas.md</a>).</p>
+<h2 id="9-lo-que-ve-la-cámara-frustum">9. Lo que ve la cámara: <code>Frustum</code><a class="ancla" href="#9-lo-que-ve-la-cámara-frustum" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Frustum.FromCamera()</code> da el volumen que ve la cámara principal (o la que se le pase) con el aspecto de la vista del
+juego. Sirve para no hacer trabajo con lo que no sale en pantalla:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">SoloLoVisible</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">SoloLoVisible</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._enemigos = <span class="hl-t">Scene</span>.<span class="hl-f">FindAllByTag</span>(<span class="hl-s">"Enemigo"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">SoloLoVisible</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> vista = <span class="hl-t">Frustum</span>.<span class="hl-f">FromCamera</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> vista <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span> <span class="hl-c">-- sin cámara</span>
+    <span class="hl-k">for</span> _, enemigo <span class="hl-k">in</span> <span class="hl-f">ipairs</span>(<span class="hl-b">self</span>._enemigos) <span class="hl-k">do</span>
+        <span class="hl-k">if</span> enemigo:<span class="hl-f">IsValid</span>() <span class="hl-k">then</span>
+            <span class="hl-c">-- Una esfera de 1 m alrededor del enemigo: si no se ve nada de ella, su animación se para</span>
+            <span class="hl-k">local</span> seVe = vista:<span class="hl-f">IntersectsSphere</span>(enemigo.position, <span class="hl-n">1</span>)
+            <span class="hl-k">local</span> animador = enemigo:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+            <span class="hl-k">if</span> animador <span class="hl-k">then</span> animador.speed = seVe <span class="hl-k">and</span> <span class="hl-n">1</span> <span class="hl-k">or</span> <span class="hl-n">0</span> <span class="hl-k">end</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">SoloLoVisible</span></code></pre></div>
+<p>También <code>vista:ContainsPoint(p)</code>, <code>vista:IntersectsBounds(caja)</code>, <code>vista:IntersectsBox(min, max)</code>,
+<code>vista:GetPlanes()</code> y <code>Frustum.FromMatrix(proyeccion * vista)</code> para una cámara propia. Las pruebas son
+conservadoras: algo que toca el borde cuenta como visible.</p>
+<h2 id="10-geometry">10. <code>Geometry</code><a class="ancla" href="#10-geometry" aria-label="Enlace a esta sección">#</a></h2>
+<p>Funciones nativas sin estado. No crean tablas de más: un rayo que no toca devuelve <code>nil</code> y uno que toca, la
+distancia. La dirección de los rayos no hace falta normalizarla y todas aceptan una distancia máxima al final.</p>
+<h3 id="rayos-contra-figuras">Rayos contra figuras<a class="ancla" href="#rayos-contra-figuras" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Figura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Geometry.RayPlane(origen, dir, puntoDelPlano, normal, max?)</code></td>
+  <td>Plano</td>
+</tr>
+<tr>
+  <td><code>Geometry.RaySphere(origen, dir, centro, radio, max?)</code></td>
+  <td>Esfera</td>
+</tr>
+<tr>
+  <td><code>Geometry.RayBox(origen, dir, min, max, max?)</code></td>
+  <td>Caja alineada con los ejes</td>
+</tr>
+<tr>
+  <td><code>Geometry.RayOrientedBox(origen, dir, centro, medioTamaño, rotacion, max?)</code></td>
+  <td>Caja girada</td>
+</tr>
+<tr>
+  <td><code>Geometry.RayTriangle(origen, dir, a, b, c, max?, soloDelante?)</code></td>
+  <td>Triángulo: distancia y coordenadas <code>u</code>, <code>v</code></td>
+</tr>
+<tr>
+  <td><code>Geometry.RayCapsule(origen, dir, a, b, radio, max?)</code></td>
+  <td>Cápsula (segmento con radio)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si el origen está dentro de la figura, la distancia es 0.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- ¿El clic del ratón cae sobre la zona de aterrizaje (una caja girada)?</span>
+<span class="hl-k">local</span> origen, dir = <span class="hl-t">Camera</span>.<span class="hl-f">MouseRay</span>()
+<span class="hl-k">if</span> origen <span class="hl-k">then</span>
+    <span class="hl-k">local</span> d = <span class="hl-t">Geometry</span>.<span class="hl-f">RayOrientedBox</span>(origen, dir, <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">10</span>, <span class="hl-n">0</span>, <span class="hl-n">5</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">3</span>, <span class="hl-n">0.1</span>, <span class="hl-n">6</span>), <span class="hl-t">Quat</span>.<span class="hl-f">Euler</span>(<span class="hl-n">0</span>, <span class="hl-n">30</span>, <span class="hl-n">0</span>))
+    <span class="hl-k">if</span> d <span class="hl-k">then</span> <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"aterrizar en"</span>, origen + dir * d) <span class="hl-k">end</span>
+<span class="hl-k">end</span></code></pre></div>
+<h3 id="puntos-más-cercanos-y-distancias">Puntos más cercanos y distancias<a class="ancla" href="#puntos-más-cercanos-y-distancias" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Geometry.ClosestPointOnSegment(p, a, b)</code> (y su posición <code>t</code>), <code>Geometry.ClosestPointOnLine(p, origen, dir)</code>,
+<code>Geometry.ClosestPointsOnSegments(a1, a2, b1, b2)</code>, <code>Geometry.ClosestPointOnTriangle(p, a, b, c)</code>,
+<code>Geometry.DistancePointSegment</code>, <code>Geometry.DistancePointLine</code>, <code>Geometry.DistanceSegmentSegment</code>,
+<code>Geometry.DistancePointTriangle</code>, <code>Geometry.Barycentric(p, a, b, c)</code>, <code>Geometry.TriangleNormal</code> y
+<code>Geometry.TriangleArea</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un láser (segmento) que hace daño a quien pase a menos de 0,5 m</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">TocaElLaser</span>(posicion: <span class="hl-t">Vector3</span>, inicio: <span class="hl-t">Vector3</span>, fin: <span class="hl-t">Vector3</span>): boolean
+    <span class="hl-k">return</span> <span class="hl-t">Geometry</span>.<span class="hl-f">DistancePointSegment</span>(posicion, inicio, fin) &lt; <span class="hl-n">0.5</span>
+<span class="hl-k">end</span></code></pre></div>
+<h3 id="polígonos-2d">Polígonos 2D<a class="ancla" href="#polígonos-2d" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las funciones de polígonos aceptan listas de <code>Vec2</code>, o de <code>Vec3</code> <strong>sobre el suelo</strong> (usan <code>x</code> y <code>z</code>; los resultados
+llevan la altura de los puntos de entrada): una zona del mapa se marca con <code>Vec3</code> sin convertir nada.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Geometry.PointInPolygon(punto, poligono)</code></td>
+  <td>¿Está dentro? (cóncavos también)</td>
+</tr>
+<tr>
+  <td><code>Geometry.PolygonArea(poligono)</code></td>
+  <td>Área con signo: positiva en sentido antihorario</td>
+</tr>
+<tr>
+  <td><code>Geometry.PolygonCentroid(poligono)</code></td>
+  <td>El centro de masas</td>
+</tr>
+<tr>
+  <td><code>Geometry.ConvexHull(puntos)</code></td>
+  <td>El borde convexo de una nube de puntos</td>
+</tr>
+<tr>
+  <td><code>Geometry.Triangulate(poligono)</code></td>
+  <td>Triángulos (índices de 3 en 3) y si se pudo: para hacer mallas o repartir cosas por el área</td>
+</tr>
+<tr>
+  <td><code>Geometry.OffsetPolygon(poligono, distancia, limitePunta?)</code></td>
+  <td>El borde desplazado hacia fuera (o hacia dentro con distancia negativa)</td>
+</tr>
+<tr>
+  <td><code>Geometry.LineIntersection</code>, <code>Geometry.SegmentIntersection</code></td>
+  <td>Cortes de rectas y segmentos</td>
+</tr>
+<tr>
+  <td><code>Geometry.CircleIntersection</code>, <code>Geometry.LineCircleIntersection</code></td>
+  <td>Cortes con circunferencias</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">ZonaSegura</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-c">-- Las esquinas de la zona, en orden (se usan x y z)</span>
+<span class="hl-k">local</span> <span class="hl-t">ESQUINAS</span> = { <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">20</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">20</span>, <span class="hl-n">0</span>, <span class="hl-n">10</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">10</span>, <span class="hl-n">0</span>, <span class="hl-n">25</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">15</span>) }
+
+<span class="hl-a">--[Range(0, 10), Tooltip("Metros de margen alrededor de la zona")]</span>
+<span class="hl-t">ZonaSegura</span>.margen = <span class="hl-n">2</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ZonaSegura</span>:<span class="hl-f">Start</span>()
+    <span class="hl-c">-- El borde con el margen se calcula una vez</span>
+    <span class="hl-b">self</span>._conMargen = <span class="hl-t">Geometry</span>.<span class="hl-f">OffsetPolygon</span>(<span class="hl-t">ESQUINAS</span>, <span class="hl-b">self</span>.margen)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Zona de"</span>, <span class="hl-t">math</span>.<span class="hl-f">abs</span>(<span class="hl-t">Geometry</span>.<span class="hl-f">PolygonArea</span>(<span class="hl-t">ESQUINAS</span>)), <span class="hl-s">"m2 con centro en"</span>, <span class="hl-t">Geometry</span>.<span class="hl-f">PolygonCentroid</span>(<span class="hl-t">ESQUINAS</span>))
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">ZonaSegura</span>:<span class="hl-f">EstaDentro</span>(posicion: <span class="hl-t">Vector3</span>): boolean
+    <span class="hl-k">return</span> <span class="hl-t">Geometry</span>.<span class="hl-f">PointInPolygon</span>(posicion, <span class="hl-b">self</span>._conMargen)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ZonaSegura</span></code></pre></div>
+<p><code>Triangulate</code> falla (devuelve <code>false</code> con los triángulos que pudo sacar) si el polígono se cruza consigo mismo;
+los puntos repetidos y alineados no le molestan. <code>OffsetPolygon</code> no deshace los cruces que aparecen al encoger
+mucho un polígono cóncavo.</p>
+<h3 id="curvas">Curvas<a class="ancla" href="#curvas" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Geometry.Bezier(p0, p1, p2, p3, t)</code> (cúbica) o <code>Geometry.Bezier(p0, p1, p2, t)</code> (cuadrática), <code>Geometry.BezierTangent</code>
+y <code>Geometry.BezierLength</code>; <code>Geometry.CatmullRom(p0, p1, p2, p3, t, alpha?)</code> (el tramo de <code>p1</code> a <code>p2</code>, pasa por los
+puntos), <code>Geometry.CatmullRomTangent</code> y <code>Geometry.CatmullRomLength</code>. Valen con <code>Vec2</code> y con <code>Vec3</code>. Con <code>alpha = 0,5</code>
+(centrípeta) la curva no hace bucles cuando los puntos están muy juntos. Para rutas largas con editor, gizmos y
+seguidores está el componente Spline (<a href="splines-carreteras-rios.html">splines-carreteras-rios.md</a>).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un proyectil que sigue un arco Bézier de A a B a velocidad constante</span>
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">ArcoDeProyectil</span>(a: <span class="hl-t">Vector3</span>, b: <span class="hl-t">Vector3</span>)
+    <span class="hl-k">local</span> control = (a + b) / <span class="hl-n">2</span> + <span class="hl-t">Vec3</span>.up * <span class="hl-n">6</span>
+    <span class="hl-k">local</span> largo = <span class="hl-t">Geometry</span>.<span class="hl-f">BezierLength</span>(a, control, b)
+    <span class="hl-k">return</span> <span class="hl-k">function</span>(recorrido: number): <span class="hl-t">Vector3</span>
+        <span class="hl-k">return</span> <span class="hl-t">Geometry</span>.<span class="hl-f">Bezier</span>(a, control, b, <span class="hl-t">math</span>.<span class="hl-f">clamp</span>(recorrido / largo, <span class="hl-n">0</span>, <span class="hl-n">1</span>))
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>(Con la cuadrática la velocidad no es exactamente constante; para eso, reparte por longitud.)</p>
+<h2 id="11-ruido-noise">11. Ruido: <code>Noise</code><a class="ancla" href="#11-ruido-noise" aria-label="Enlace a esta sección">#</a></h2>
+<p>Ruido procedural nativo, determinista con su semilla: el mismo valor en todas las máquinas.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> h = <span class="hl-t">Noise</span>.<span class="hl-f">Perlin</span>(x * <span class="hl-n">0.05</span>, z * <span class="hl-n">0.05</span>)   <span class="hl-c">-- de -1 a 1 (más o menos), semilla 0</span>
+<span class="hl-k">local</span> n3 = <span class="hl-t">Noise</span>.<span class="hl-f">Simplex</span>(x, y, z)             <span class="hl-c">-- 1D, 2D o 3D según cuántas coordenadas (o un Vec2 / Vec3)</span>
+<span class="hl-k">local</span> f1, f2, celda = <span class="hl-t">Noise</span>.<span class="hl-f">Worley</span>(x, z)      <span class="hl-c">-- celular: distancias al punto más cercano y al segundo</span></code></pre></div>
+<p>Para elegir la semilla y el tipo, un generador:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> ruido = <span class="hl-t">Noise</span>.<span class="hl-f">new</span>({
+    seed = <span class="hl-n">42</span>,           <span class="hl-c">-- un entero</span>
+    <span class="hl-k">type</span> = <span class="hl-s">"Simplex"</span>,    <span class="hl-c">-- "Perlin" (por defecto), "Simplex", "Value" o "Worley"</span>
+    fractal = <span class="hl-s">"Fbm"</span>,     <span class="hl-c">-- lo que hace Sample: "None", "Fbm", "Ridged" (crestas) o "Billow" (ondulado)</span>
+    octaves = <span class="hl-n">5</span>,         <span class="hl-c">-- capas del fractal</span>
+    lacunarity = <span class="hl-n">2</span>,      <span class="hl-c">-- cuánto más fina es cada capa</span>
+    gain = <span class="hl-n">0.5</span>,          <span class="hl-c">-- cuánto pesa cada capa</span>
+    frequency = <span class="hl-n">1</span> / <span class="hl-n">100</span>, <span class="hl-c">-- formas de unos 100 m</span>
+    warp = <span class="hl-n">20</span>,           <span class="hl-c">-- metros de deformación del dominio (formas más orgánicas); 0 = nada</span>
+})
+<span class="hl-k">local</span> altura = ruido:<span class="hl-f">Sample</span>(x, z) * <span class="hl-n">40</span>       <span class="hl-c">-- lo que dicen los ajustes</span>
+<span class="hl-k">local</span> montes = ruido:<span class="hl-f">Ridged</span>(x, z)            <span class="hl-c">-- crestas de 0 a 1</span>
+<span class="hl-k">local</span> rizo = ruido:<span class="hl-f">Curl</span>(x, z)                <span class="hl-c">-- remolinos (Vec2; con x, y, z da un Vec3): humo, partículas</span></code></pre></div>
+<p><code>ruido:Perlin</code>, <code>:Simplex</code>, <code>:Value</code>, <code>:Worley</code>, <code>:Fbm</code>, <code>:Ridged</code>, <code>:Billow</code>, <code>:Warp</code> y <code>:Curl</code> usan la semilla y
+la frecuencia del generador. El ruido 2D de Perlin y Simplex, y sus fBm y crestas, son <strong>los mismos del generador de
+terrenos</strong>: <code>Noise.new({ seed = 1337, type = &quot;Simplex&quot; }):Fbm(x, z)</code> da lo mismo que el terreno con esa semilla y
+esas octavas.</p>
+<h3 id="una-rejilla-entera-de-una-vez-fill">Una rejilla entera de una vez: <code>Fill</code><a class="ancla" href="#una-rejilla-entera-de-una-vez-fill" aria-label="Enlace a esta sección">#</a></h3>
+<p>Llamar a <code>Sample</code> para cada punto desde Lua cuesta una llamada por muestra. <code>Fill</code> rellena un <code>buffer</code> (o una tabla)
+con una rejilla entera en <strong>una sola llamada</strong>, repartida entre los núcleos del procesador:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">MapaDeAlturas</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(16, 1024)]</span>
+<span class="hl-t">MapaDeAlturas</span>.lado = <span class="hl-n">256</span>
+<span class="hl-t">MapaDeAlturas</span>.semilla = <span class="hl-n">7</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MapaDeAlturas</span>:<span class="hl-f">Start</span>()
+    <span class="hl-k">local</span> lado = <span class="hl-b">self</span>.lado
+    <span class="hl-k">local</span> ruido = <span class="hl-t">Noise</span>.<span class="hl-f">new</span>({ seed = <span class="hl-b">self</span>.semilla, <span class="hl-k">type</span> = <span class="hl-s">"Simplex"</span>, fractal = <span class="hl-s">"Fbm"</span>, octaves = <span class="hl-n">5</span>, frequency = <span class="hl-n">1</span> / <span class="hl-n">64</span> })
+    <span class="hl-c">-- lado x lado floats de 32 bits: alturas de 0 a 30 m, una muestra cada 2 m</span>
+    <span class="hl-k">local</span> alturas = <span class="hl-t">buffer</span>.<span class="hl-f">create</span>(lado * lado * <span class="hl-n">4</span>)
+    ruido:<span class="hl-f">Fill</span>(alturas, lado, lado, { step = <span class="hl-n">2</span>, amplitude = <span class="hl-n">15</span>, bias = <span class="hl-n">15</span> })
+    <span class="hl-c">-- Leer una: la de la casilla (i, j) está en (i + j * lado) * 4</span>
+    <span class="hl-k">local</span> centro = <span class="hl-t">buffer</span>.<span class="hl-f">readf32</span>(alturas, (lado // <span class="hl-n">2</span> + lado // <span class="hl-n">2</span> * lado) * <span class="hl-n">4</span>)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Altura en el centro:"</span>, centro)
+    <span class="hl-b">self</span>._alturas = alturas
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MapaDeAlturas</span></code></pre></div>
+<p>Opciones de <code>Fill</code>: <code>x</code> e <code>y</code> (la primera muestra), <code>step</code> (separación), <code>z</code> o <code>depth</code> (un corte o un volumen en 3D),
+<code>amplitude</code> y <code>bias</code> (el valor se multiplica y se le suma), <code>format</code> (<code>&quot;f32&quot;</code> por defecto, <code>&quot;f64&quot;</code>, o <code>&quot;u8&quot;</code> de 0 a
+255 para imágenes: <code>amplitude = 0.5, bias = 0.5</code> pasa de −1..1 a 0..1) y <code>offset</code> (en bytes, dentro del buffer). Con
+una tabla en lugar del buffer, la rellena desde el índice 1 con los valores por filas.</p>
+<h2 id="12-rendimiento">12. Rendimiento<a class="ancla" href="#12-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p>Medido con las pruebas <code>nova_tests &quot;mates rendimiento&quot;</code> (compilación release, un procesador de escritorio con otros
+programas en marcha; son la mejor de tres vueltas). Lo que importa son las proporciones.</p>
+<p><strong>Operaciones de los tipos</strong> (nanosegundos por operación; «0.9.1» es el motor antes de este cambio):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Operación</th>
+  <th>0.9.1</th>
+  <th>Ahora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Vec3.Dot(a, b)</code></td>
+  <td>25 ns</td>
+  <td>10 ns</td>
+</tr>
+<tr>
+  <td><code>Vec3.Cross(a, b)</code></td>
+  <td>23 ns</td>
+  <td>10 ns</td>
+</tr>
+<tr>
+  <td><code>Vec3.Lerp(a, b, t)</code></td>
+  <td>27 ns</td>
+  <td>11 ns</td>
+</tr>
+<tr>
+  <td><code>q.x</code> (campo de un <code>Quat</code>)</td>
+  <td>27 ns</td>
+  <td>11 ns</td>
+</tr>
+<tr>
+  <td><code>v2.x</code> (campo de un <code>Vec2</code>)</td>
+  <td>26 ns</td>
+  <td>11 ns</td>
+</tr>
+<tr>
+  <td><code>q:Rotate(v)</code></td>
+  <td>63 ns</td>
+  <td>25 ns</td>
+</tr>
+<tr>
+  <td><code>m:TransformPoint(v)</code></td>
+  <td>76 ns</td>
+  <td>28 ns</td>
+</tr>
+<tr>
+  <td><code>a.x * b.x + a.y * b.y + a.z * b.z</code> (el producto escalar a mano)</td>
+  <td>40 ns</td>
+  <td>40 ns</td>
+</tr>
+<tr>
+  <td><code>Vec3.Normalize</code>, <code>Vec3.Distance</code> (llamada a C++)</td>
+  <td>25 ns</td>
+  <td>25 ns</td>
+</tr>
+<tr>
+  <td><code>q * q</code> (crea un <code>Quat</code>)</td>
+  <td>53 ns</td>
+  <td>52 ns</td>
+</tr>
+</tbody>
+</table></div>
+<p>Un bucle vacío de Lua cuesta unos 4 ns por vuelta. <code>Vec3.Dot</code> cuesta ahora lo mismo que <code>vector.dot</code> de Luau, y
+cuatro veces menos que escribirlo a mano.</p>
+<p><strong>Lo nativo frente al mismo cálculo escrito en Lua:</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Trabajo</th>
+  <th>Nativo</th>
+  <th>En Lua</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ruido:Fill</code> de 512 × 512 (Perlin con fBm de 4 octavas)</td>
+  <td>1,4 ms</td>
+  <td>252 ms</td>
+  <td>× 180</td>
+</tr>
+<tr>
+  <td>Lo mismo con <code>ruido:Sample(x, y)</code> muestra a muestra desde Lua</td>
+  <td>25 ms</td>
+  <td>252 ms</td>
+  <td>× 10</td>
+</tr>
+<tr>
+  <td><code>Geometry.ConvexHull</code> de 20 000 puntos</td>
+  <td>2,1 ms</td>
+  <td>25 ms</td>
+  <td>× 12</td>
+</tr>
+<tr>
+  <td><code>Geometry.RayOrientedBox</code>, 300 000 rayos</td>
+  <td>26 ms</td>
+  <td>142 ms</td>
+  <td>× 5,5</td>
+</tr>
+<tr>
+  <td><code>Geometry.PointInPolygon</code>, 100 000 puntos en un polígono de 64 vértices</td>
+  <td>101 ms</td>
+  <td>308 ms</td>
+  <td>× 3</td>
+</tr>
+<tr>
+  <td><code>Geometry.RayTriangle</code>, 300 000 rayos</td>
+  <td>19 ms</td>
+  <td>20 ms</td>
+  <td>× 1,1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Conclusiones:</p>
+<ul>
+<li>Para mucho trabajo de una vez (generar un mapa, una malla, una nube de puntos), las funciones que reciben la lista
+entera (<code>Fill</code>, <code>ConvexHull</code>, <code>Triangulate</code>) son lo más rápido con diferencia.</li>
+<li>Las cuentas con <code>Vec3</code> escritas en Lua ya van casi a la velocidad de C++ (rayo contra triángulo: × 1,1), porque
+las operaciones de <code>Vec3</code> son instrucciones de la máquina virtual. Lo nativo gana cuando hay más cuentas por
+llamada (cajas giradas, cápsulas, polígonos, ruido).</li>
+<li><code>PointInPolygon</code> pasa la mayor parte del tiempo leyendo los vértices de la tabla (unos 15 ns cada uno): con un
+polígono de 64 vértices cuesta 1 µs por consulta, de sobra para comprobar a todos los jugadores cada frame.</li>
+</ul>
+<h2 id="13-si-vienes-de-unity">13. Si vienes de Unity<a class="ancla" href="#13-si-vienes-de-unity" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Unity (C#)</th>
+  <th>Nova (Lua)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>new Vector3(1, 2, 3)</code>, <code>Vector3.up</code>, <code>v.magnitude</code>, <code>v.normalized</code></td>
+  <td><code>Vec3.new(1, 2, 3)</code>, <code>Vec3.up</code>, <code>Vec3.Length(v)</code>, <code>Vec3.Normalize(v)</code></td>
+</tr>
+<tr>
+  <td><code>Vector3.forward</code> (+Z)</td>
+  <td><code>Vec3.forward</code> es <strong>−Z</strong> (hacia donde miran las cámaras); <code>Vec3.back</code> es +Z</td>
+</tr>
+<tr>
+  <td><code>Quaternion.Euler(x, y, z)</code>, <code>Quaternion.AngleAxis(grados, eje)</code></td>
+  <td><code>Quat.Euler(x, y, z)</code>, <code>Quat.AngleAxis(grados, eje)</code></td>
+</tr>
+<tr>
+  <td><code>transform.rotation * Vector3.forward</code></td>
+  <td><code>self.transform.rotation * Vec3.forward</code> (o <code>self.transform.forward</code>)</td>
+</tr>
+<tr>
+  <td><code>Vector3.RotateTowards</code> (radianes), <code>Quaternion.RotateTowards</code> (grados)</td>
+  <td>Igual: <code>Vec3.RotateTowards</code> en radianes, <code>Quat.RotateTowards</code> en grados</td>
+</tr>
+<tr>
+  <td><code>Mathf.Clamp</code>, <code>Mathf.Lerp</code>, <code>Mathf.SmoothDamp(ref velocidad)</code></td>
+  <td><code>Mathf.Clamp</code>, <code>Mathf.Lerp</code>, <code>x, vel = Mathf.SmoothDamp(x, objetivo, vel, tiempo, dt)</code> (devuelve la velocidad)</td>
+</tr>
+<tr>
+  <td><code>Mathf.RoundToInt(2.5)</code> da 2 (redondeo al par)</td>
+  <td><code>Mathf.RoundToInt(2.5)</code> da 3 (como <code>math.round</code>)</td>
+</tr>
+<tr>
+  <td><code>Mathf.Epsilon</code> (el float más pequeño)</td>
+  <td><code>Mathf.Epsilon</code> es 0,000001 (un margen útil)</td>
+</tr>
+<tr>
+  <td><code>Range(a, b)</code>, <code>insideUnitSphere</code> y <code>rotationUniform</code> de <code>UnityEngine.Random</code></td>
+  <td><code>Random.Number(a, b)</code> / <code>Random.Integer(a, b)</code>, <code>Random.InsideUnitSphere()</code>, <code>Random.Rotation()</code></td>
+</tr>
+<tr>
+  <td><code>new Plane(normal, punto)</code>, <code>plane.Raycast(ray, out d)</code></td>
+  <td><code>Plane.new(normal, punto)</code>, <code>local d = plano:Raycast(rayo)</code> (o <code>nil</code>)</td>
+</tr>
+<tr>
+  <td><code>bounds.Encapsulate(p)</code> (la cambia)</td>
+  <td><code>caja = caja:Encapsulate(p)</code> (devuelve otra: los valores no cambian)</td>
+</tr>
+<tr>
+  <td><code>GeometryUtility.TestPlanesAABB(planos, caja)</code></td>
+  <td><code>Frustum.FromCamera():IntersectsBounds(caja)</code></td>
+</tr>
+<tr>
+  <td><code>PerlinNoise(x, y)</code> de <code>UnityEngine.Mathf</code> (de 0 a 1)</td>
+  <td><code>Noise.Perlin(x, y)</code> (de −1 a 1: <code>* 0.5 + 0.5</code> para 0..1)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="14-referencia">14. Referencia<a class="ancla" href="#14-referencia" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lo nuevo de cada tabla (lo de antes sigue igual):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Vec3.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Project</code>, <code>ProjectOnPlane</code>, <code>Reflect</code>, <code>ClampMagnitude</code>, <code>SignedAngle</code>, <code>Slerp</code>, <code>RotateTowards</code>, <code>SmoothDamp</code></td>
+  <td>Al estilo de Unity</td>
+</tr>
+<tr>
+  <td><code>Scale</code>, <code>Abs</code>, <code>Floor</code>, <code>Ceil</code>, <code>Round</code>, <code>Clamp</code>, <code>Sum</code>, <code>Approximately</code>, <code>DistanceSq</code></td>
+  <td>Componente a componente</td>
+</tr>
+<tr>
+  <td><code>positiveInfinity</code>, <code>negativeInfinity</code></td>
+  <td>Constantes</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Vec2.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Perpendicular</code>, <code>Rotate</code>, <code>FromAngle</code>, <code>Angle</code>, <code>SignedAngle</code>, <code>Cross</code></td>
+  <td>Lo propio del plano</td>
+</tr>
+<tr>
+  <td><code>LengthSq</code>, <code>DistanceSq</code>, <code>Reflect</code>, <code>ClampMagnitude</code>, <code>MoveTowards</code>, <code>SmoothDamp</code></td>
+  <td>Como en <code>Vec3</code></td>
+</tr>
+<tr>
+  <td><code>Min</code>, <code>Max</code>, <code>Scale</code>, <code>Abs</code>, <code>Floor</code>, <code>Ceil</code>, <code>Round</code>, <code>Clamp</code>, <code>Sum</code>, <code>Approximately</code></td>
+  <td>Componente a componente</td>
+</tr>
+<tr>
+  <td><code>up</code>, <code>down</code>, <code>left</code>, <code>right</code></td>
+  <td>Direcciones</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Quat.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>AngleAxis</code>, <code>Angle</code>, <code>Dot</code>, <code>RotateTowards</code>, <code>Approximately</code></td>
+  <td>Al estilo de Unity (grados)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Mat4.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Perspective</code>, <code>Ortho</code>, <code>FromColumns</code>, <code>Multiply</code>, <code>Transpose</code>, <code>Determinant</code></td>
+  <td>Crear y combinar</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Color.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>HSVToRGB</code>, <code>RGBToHSV</code>, <code>ToHex</code>, <code>ToLinear</code>, <code>ToGamma</code>, <code>WithAlpha</code></td>
+  <td>Espacios de color y texto</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Mathf.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Clamp</code>, <code>Clamp01</code>, <code>Sign</code>, <code>FloorToInt</code>, <code>CeilToInt</code>, <code>RoundToInt</code>, <code>LerpUnclamped</code></td>
+  <td>Números</td>
+</tr>
+<tr>
+  <td><code>IsPowerOfTwo</code>, <code>NextPowerOfTwo</code>, <code>ClosestPowerOfTwo</code>, <code>GammaToLinear</code>, <code>LinearToGamma</code>, <code>Remap</code>, <code>Wrap</code>, <code>Step</code></td>
+  <td>Más ayudas</td>
+</tr>
+<tr>
+  <td><code>Infinity</code>, <code>NegativeInfinity</code>, <code>Epsilon</code>, <code>Deg2Rad</code>, <code>Rad2Deg</code></td>
+  <td>Constantes</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Random.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Gaussian</code>, <code>WeightedIndex</code>, <code>WeightedPick</code>, <code>Rotation</code>, <code>InsideBox</code>, <code>InsideAnnulus</code>, <code>OnUnitCircle</code></td>
+  <td>También como métodos de un generador (<code>azar:Gaussian()</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Geometry.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>RayPlane</code>, <code>RaySphere</code>, <code>RayBox</code>, <code>RayOrientedBox</code>, <code>RayTriangle</code>, <code>RayCapsule</code></td>
+  <td>Rayos</td>
+</tr>
+<tr>
+  <td><code>ClosestPointOnSegment</code>, <code>ClosestPointOnLine</code>, <code>ClosestPointsOnSegments</code>, <code>ClosestPointOnTriangle</code></td>
+  <td>Puntos más cercanos</td>
+</tr>
+<tr>
+  <td><code>DistancePointSegment</code>, <code>DistancePointLine</code>, <code>DistanceSegmentSegment</code>, <code>DistancePointTriangle</code></td>
+  <td>Distancias</td>
+</tr>
+<tr>
+  <td><code>Barycentric</code>, <code>TriangleNormal</code>, <code>TriangleArea</code></td>
+  <td>Triángulos</td>
+</tr>
+<tr>
+  <td><code>PointInPolygon</code>, <code>PolygonArea</code>, <code>PolygonCentroid</code>, <code>ConvexHull</code>, <code>Triangulate</code>, <code>OffsetPolygon</code></td>
+  <td>Polígonos 2D</td>
+</tr>
+<tr>
+  <td><code>LineIntersection</code>, <code>SegmentIntersection</code>, <code>CircleIntersection</code>, <code>LineCircleIntersection</code></td>
+  <td>Rectas y circunferencias</td>
+</tr>
+<tr>
+  <td><code>Bezier</code>, <code>BezierTangent</code>, <code>BezierLength</code>, <code>CatmullRom</code>, <code>CatmullRomTangent</code>, <code>CatmullRomLength</code></td>
+  <td>Curvas</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Noise.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Perlin</code>, <code>Simplex</code>, <code>Value</code>, <code>Worley</code></td>
+  <td>Semilla 0</td>
+</tr>
+<tr>
+  <td><code>new(opciones)</code></td>
+  <td>Un generador: <code>Perlin</code>, <code>Simplex</code>, <code>Value</code>, <code>Worley</code>, <code>Fbm</code>, <code>Ridged</code>, <code>Billow</code>, <code>Sample</code>, <code>Warp</code>, <code>Curl</code>, <code>Fill</code> y <code>seed</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Ray.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>new</code></td>
+  <td>Ver la <a href="#8-rayos-planos-cajas-y-esferas">sección 8</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Plane.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>new</code>, <code>FromPoints</code></td>
+  <td>Ver la <a href="#8-rayos-planos-cajas-y-esferas">sección 8</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Bounds.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>new</code>, <code>FromMinMax</code>, <code>FromPoints</code></td>
+  <td>Ver la <a href="#8-rayos-planos-cajas-y-esferas">sección 8</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Sphere.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>new</code>, <code>FromPoints</code></td>
+  <td>Ver la <a href="#8-rayos-planos-cajas-y-esferas">sección 8</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Frustum.</code></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>FromCamera</code>, <code>FromMatrix</code></td>
+  <td>Ver la <a href="#9-lo-que-ve-la-cámara-frustum">sección 9</a></td>
+</tr>
+</tbody>
+</table></div>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="nativas-juego.html"><small>Anterior</small>Funciones nativas de juego (Lua)</a><a class="sig" href="herramientas-lua.html"><small>Siguiente</small>Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-rápido-y-lento-lo-que-conviene-saber">1. Rápido y lento: lo que conviene saber</a></li><li class="n2"><a href="#2-vectores-vec3-vec2-y-vec4">2. Vectores: Vec3, Vec2 y Vec4</a></li><li class="n2"><a href="#3-rotaciones-quat">3. Rotaciones: Quat</a></li><li class="n2"><a href="#4-matrices-mat4">4. Matrices: Mat4</a></li><li class="n2"><a href="#5-colores-color">5. Colores: Color</a></li><li class="n2"><a href="#6-mathf">6. Mathf</a></li><li class="n2"><a href="#7-random">7. Random</a></li><li class="n2"><a href="#8-rayos-planos-cajas-y-esferas">8. Rayos, planos, cajas y esferas</a></li><li class="n2"><a href="#9-lo-que-ve-la-cámara-frustum">9. Lo que ve la cámara: Frustum</a></li><li class="n2"><a href="#10-geometry">10. Geometry</a></li><li class="n3"><a href="#rayos-contra-figuras">Rayos contra figuras</a></li><li class="n3"><a href="#puntos-más-cercanos-y-distancias">Puntos más cercanos y distancias</a></li><li class="n3"><a href="#polígonos-2d">Polígonos 2D</a></li><li class="n3"><a href="#curvas">Curvas</a></li><li class="n2"><a href="#11-ruido-noise">11. Ruido: Noise</a></li><li class="n3"><a href="#una-rejilla-entera-de-una-vez-fill">Una rejilla entera de una vez: Fill</a></li><li class="n2"><a href="#12-rendimiento">12. Rendimiento</a></li><li class="n2"><a href="#13-si-vienes-de-unity">13. Si vienes de Unity</a></li><li class="n2"><a href="#14-referencia">14. Referencia</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,2213 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El editor (NovaEditor.exe) · Nova Engine</title>
+<meta name="description" content="Esta guía describe el editor de Nova Engine: sus paneles, los atajos de teclado, la cámara del visor, los
+gizmos, la selección, arrastrar y soltar, el modo juego (también en red), el deshacer, la recarga de scripts,
+los ">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="El editor (NovaEditor.exe) · Nova Engine">
+<meta property="og:description" content="Esta guía describe el editor de Nova Engine: sus paneles, los atajos de teclado, la cámara del visor, los
+gizmos, la selección, arrastrar y soltar, el modo juego (también en red), el deshacer, la recarga de scripts,
+los ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/editor.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/editor.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html" aria-current="page">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="el-editor-novaeditorexe">El editor (NovaEditor.exe)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#paneles">Paneles</a></li><li class="n3"><a href="#barra-de-menús">Barra de menús</a></li><li class="n3"><a href="#barra-de-herramientas">Barra de herramientas</a></li><li class="n3"><a href="#barra-de-estado">Barra de estado</a></li><li class="n3"><a href="#avisos-emergentes">Avisos emergentes</a></li><li class="n3"><a href="#jerarquía">Jerarquía</a></li><li class="n3"><a href="#inspector">Inspector</a></li><li class="n3"><a href="#escena">Escena</a></li><li class="n3"><a href="#juego">Juego</a></li><li class="n3"><a href="#interfaz">Interfaz</a></li><li class="n3"><a href="#contenido">Contenido</a></li><li class="n3"><a href="#consola">Consola</a></li><li class="n2"><a href="#pestañas-de-editor">Pestañas de editor</a></li><li class="n2"><a href="#espacio-animación">Espacio Animación</a></li><li class="n2"><a href="#distribuciones">Distribuciones</a></li><li class="n2"><a href="#tema">Tema</a></li><li class="n2"><a href="#pantalla-de-carga">Pantalla de carga</a></li><li class="n2"><a href="#recuperar-la-sesión">Recuperar la sesión</a></li><li class="n3"><a href="#lo-que-se-guarda">Lo que se guarda</a></li><li class="n3"><a href="#al-abrir-el-proyecto">Al abrir el proyecto</a></li><li class="n3"><a href="#si-el-editor-se-cerró-por-un-fallo">Si el editor se cerró por un fallo</a></li><li class="n3"><a href="#en-una-sesión-de-edición-en-equipo">En una sesión de edición en equipo</a></li><li class="n3"><a href="#preferencias">Preferencias</a></li><li class="n2"><a href="#menús-al-estilo-ue5">Menús al estilo UE5</a></li><li class="n3"><a href="#seleccionar">Seleccionar</a></li><li class="n3"><a href="#compilar">Compilar</a></li><li class="n3"><a href="#herramientas">Herramientas</a></li><li class="n3"><a href="#ventana-nivel-visor-y-registros">Ventana: Nivel, Visor y Registros</a></li><li class="n3"><a href="#crear-en-contenido">Crear en Contenido</a></li><li class="n2"><a href="#atajos-de-teclado">Atajos de teclado</a></li><li class="n2"><a href="#cámara-del-visor-escena">Cámara del visor Escena</a></li><li class="n2"><a href="#gizmos">Gizmos</a></li><li class="n2"><a href="#editar-el-pivote">Editar el pivote</a></li><li class="n2"><a href="#bajar-al-suelo">Bajar al suelo</a></li><li class="n2"><a href="#selección-con-clic-en-el-visor">Selección con clic en el visor</a></li><li class="n2"><a href="#arrastrar-y-soltar">Arrastrar y soltar</a></li><li class="n2"><a href="#copiar-y-pegar">Copiar y pegar</a></li><li class="n2"><a href="#modo-juego">Modo juego</a></li><li class="n3"><a href="#pantalla-completa-al-jugar">Pantalla completa al jugar</a></li><li class="n3"><a href="#el-ratón-al-jugar">El ratón al jugar</a></li><li class="n3"><a href="#modos-de-juego-en-red">Modos de juego en red</a></li><li class="n2"><a href="#deshacer-y-rehacer">Deshacer y rehacer</a></li><li class="n3"><a href="#comandos-serializables-base-de-la-edición-colaborativa">Comandos serializables (base de la edición colaborativa)</a></li><li class="n2"><a href="#recarga-de-scripts">Recarga de scripts</a></li><li class="n2"><a href="#ajustes-del-proyecto">Ajustes del proyecto</a></li><li class="n3"><a href="#controles-acciones-y-ejes">Controles: acciones y ejes</a></li><li class="n2"><a href="#preferencias-del-editor">Preferencias del editor</a></li><li class="n2"><a href="#idioma-del-editor">Idioma del editor</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#ficheros-del-editor">Ficheros del editor</a></li><li class="n3"><a href="#si-el-editor-se-cierra-por-un-error">Si el editor se cierra por un error</a></li><li class="n2"><a href="#opciones-de-línea-de-comandos">Opciones de línea de comandos</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Esta guía describe el editor de Nova Engine: sus paneles, los atajos de teclado, la cámara del visor, los
+gizmos, la selección, arrastrar y soltar, el modo juego (también en red), el deshacer, la recarga de scripts,
+los scripts en Contenido y el editor de código, los ajustes del proyecto (con los controles), las preferencias
+del editor (también el <a href="#idioma-del-editor">idioma</a>: español o inglés), la publicación y las opciones de línea de
+comandos. Los scripts del juego se escriben en Lua y no se
+compilan: el editor los recarga al guardarlos (<a href="scripts-lua.html">scripts-lua.md</a>).</p>
+<h2 id="paneles">Paneles<a class="ancla" href="#paneles" aria-label="Enlace a esta sección">#</a></h2>
+<p>El diseño por defecto coloca la <strong>Jerarquía</strong> a la izquierda, el <strong>Inspector</strong> a la derecha, los visores
+<strong>Escena</strong> y <strong>Juego</strong> en el centro, y <strong>Contenido</strong>, <strong>Consola</strong> y el espacio <strong>Animación</strong> abajo. Los paneles se
+pueden arrastrar y acoplar donde quieras; <strong>Ventana &gt; Distribución</strong> tiene otras distribuciones (Animación,
+Interfaz, Mundo / Terreno), guarda la tuya con un nombre y <strong>Restablecer distribución</strong> vuelve a colocarlo todo (ver
+<a href="#distribuciones">Distribuciones</a>).</p>
+<p>Desde la 0.9.24 el editor tiene un <strong>tema nuevo</strong>, propio de Nova: oscuro, con el <strong>violeta de Nova</strong> como acento,
+barras con los botones en «pastillas», <strong>Jugar</strong> en verde en el centro, avisos emergentes abajo a la derecha y una barra
+de estado con la Consola y el cajón de Contenido. El de antes sigue como <strong>Clásico</strong> y hay una variante <strong>Clara</strong>
+(ver <a href="#tema">Tema</a>).</p>
+<h3 id="barra-de-menús">Barra de menús<a class="ancla" href="#barra-de-menús" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Menú</th>
+  <th>Opciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Archivo</td>
+  <td>Nueva escena, Abrir escena..., Guardar escena, Guardar escena como..., Nuevo proyecto..., Abrir proyecto..., Proyectos recientes, Publicar juego..., Salir</td>
+</tr>
+<tr>
+  <td>Editar</td>
+  <td><strong>Deshacer</strong> y <strong>Rehacer</strong> con el nombre de la acción («Deshacer: crear entidad»), Copiar, Pegar, Duplicar, Eliminar, Encuadrar selección, Ajustes del proyecto..., Preferencias del editor...</td>
+</tr>
+<tr>
+  <td>Seleccionar</td>
+  <td><strong>Seleccionar todo</strong> (Ctrl+A), <strong>Quitar selección</strong> (Esc), <strong>Invertir selección</strong> (Ctrl+I), <strong>Jerarquía (con sus hijos)</strong>, <strong>Todos del mismo tipo</strong> (Ctrl+Mayús+A) y los submenús <strong>Por tipo</strong> (luces, mallas estáticas, mallas con esqueleto, cámaras, partículas, sonidos, decals), <strong>Por clase de script</strong>, <strong>Por material</strong> (el de la selección o uno de la lista), <strong>Por etiqueta</strong> y <strong>Por capa</strong> (ver <a href="#menús-al-estilo-ue5">Menús al estilo UE5</a>)</td>
+</tr>
+<tr>
+  <td>Entidad</td>
+  <td>Entidad vacía, Objeto 3D (Cubo, Esfera, Plano, Cilindro, Cápsula, Cono y la opción <strong>Con colisionador</strong>), Luz (direccional, puntual, foco), Cámara, Entorno (cielo y niebla), <strong>Volumen de niebla</strong> (ver <a href="niebla-volumetrica.html#5-volúmenes-de-niebla">niebla-volumetrica.md</a>), <strong>Interfaz</strong> (lienzo, widgets y plantillas de HUD y menús, ver <a href="interfaz-ui.html">interfaz-ui.md</a>), <strong>Efectos</strong> (sistema de partículas y preajustes: fuego, humo, explosión, fogonazo, lluvia..., ver <a href="particulas.html">particulas.md</a>), <strong>Navegación</strong> (malla de navegación, agente, obstáculo, enlace y área, ver <a href="navegacion.html">navegacion.md</a>) y, abajo, <strong>Bajar al suelo</strong> (Fin), <strong>Bajar el pivote al suelo</strong> (Mayús+Fin) y <strong>Bajar y alinear con el suelo</strong> (Alt+Fin) (ver <a href="#bajar-al-suelo">Bajar al suelo</a>)</td>
+</tr>
+<tr>
+  <td>Jugar</td>
+  <td>Jugar (solo), Jugar como anfitrión, Anfitrión + clientes (1 a 4 ventanas de <code>NovaGame.exe</code>), <strong>Por Internet (código)</strong> (Nova Enlace) y Copiar el código, Conectar a..., Simular red mala (latencia y pérdida), Argumentos del juego (<code>Application.GetArgs</code>), Detener, Estadísticas de red (F3), Formas de física en el visor y, jugando en red, el estado de la conexión</td>
+</tr>
+<tr>
+  <td>Scripts</td>
+  <td><strong>Nuevo script...</strong> (Lua), <strong>Nuevo script C++ (avanzado)...</strong>, <strong>Compilar scripts</strong> (solo para los scripts C++: en un proyecto solo con Lua sale desactivado, con el motivo), <strong>Recargar scripts</strong> (Ctrl+R: todos los Lua desde el disco y la DLL de los C++ si la hay) y, abajo, «Scripts en Lua: sin compilar» o el módulo C++ cargado</td>
+</tr>
+<tr>
+  <td>Compilar</td>
+  <td><strong>Compilar todo</strong> (iluminación horneada, navegación de todas las superficies, sondas de reflejos y validación, en segundo plano), <strong>Iluminación</strong> (Solo iluminación, Calidad de la iluminación, Información de iluminación..., Estadísticas de iluminación, Limpiar iluminación), <strong>Navegación</strong>, <strong>Sondas de reflejos</strong>, <strong>Validar datos</strong> y <strong>Registro de compilación</strong></td>
+</tr>
+<tr>
+  <td>Herramientas</td>
+  <td><strong>Buscar en scripts...</strong> (Ctrl+Mayús+F), <strong>Validar datos</strong>, <strong>Combinar mallas</strong>, <strong>Uso de recursos</strong>, <strong>Idiomas</strong> (panel de localización), <strong>Etiquetas de juego</strong>, <strong>Depurar</strong> (Perfilador, Visual Logger, Variables de consola, Estadísticas del visor) y <strong>Abrir carpeta del proyecto</strong></td>
+</tr>
+<tr>
+  <td>Paquetes</td>
+  <td><strong>Paquetes del motor...</strong>: Primera persona y Tercera persona listas para multijugador, con Instalar / Actualizar / Instalado (ver <a href="paquetes.html">paquetes.md</a>)</td>
+</tr>
+<tr>
+  <td>Equipo</td>
+  <td>Crear sesión de equipo..., Unirse a una sesión..., Sesiones recientes y, en una sesión, Panel del equipo, Copiar invitación, Guardar todo, Jugar en equipo..., Resincronizar escena, Abrir carpeta de trabajo, Salir de la sesión y Compilar scripts del equipo (ver <a href="edicion-en-equipo.html">edicion-en-equipo.md</a>)</td>
+</tr>
+<tr>
+  <td>Ventana</td>
+  <td><strong>Distribución</strong> (preajustes, las tuyas, guardar y restablecer; ver <a href="#distribuciones">Distribuciones</a>) y las ventanas por grupos: <strong>Escena</strong> (Jerarquía, Inspector, Contenido, <strong>Cajón de Contenido</strong> con Ctrl+Espacio, Consola), <strong>Animación</strong> (el <a href="#espacio-animación">espacio Animación</a>, con una entrada por pestaña: Animador, Humanoide, Vista previa de clips, Animar huesos y Línea de tiempo), <strong>Mundo</strong> (Terreno, <strong>Navegación</strong>, ver <a href="navegacion.html#9-el-panel-navegación-del-editor">navegacion.md</a>, e <strong>Iluminación</strong>, ver <a href="iluminacion-horneada.html#4-el-panel-iluminación">iluminacion-horneada.md</a>), <strong>Nivel</strong> (<strong>Mezclador de luces</strong>, <strong>Capas</strong> y <strong>Ajustes del mundo</strong>), <strong>Interfaz</strong> (el creador de interfaz e Idiomas), <strong>IA</strong> (Árbol de comportamiento), <strong>Red y equipo</strong> (Panel del equipo y Estadísticas de red), <strong>Depuración</strong> (<strong>Perfilador</strong>, ver <a href="rendimiento.html#8-el-perfilador">rendimiento.md</a>, Estadísticas del visor, Formas de física, Variables de consola, Problemas y Visual Logger), <strong>Visor</strong> (<strong>Mostrar barra del visor</strong> con Ctrl+Mayús+T, <strong>Mostrar interfaz del visor</strong> y <strong>Visor a pantalla completa</strong> con Mayús+F11) y <strong>Registros</strong> (<strong>Registro de mensajes</strong>). La <strong>Demo de ImGui</strong> solo sale con la opción de desarrollador (<code>--dev</code>)</td>
+</tr>
+<tr>
+  <td>Ayuda</td>
+  <td>Acerca de Nova Engine (con la versión), Documentación (la documentación en HTML; desde el código fuente sin generarla, la carpeta <code>docs</code>), Buscar actualizaciones… (abre Nova Hub, ver <a href="instalar.html#actualizaciones">instalar.md</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>IA</strong> (árboles de comportamiento): <strong>Entidad &gt; IA &gt; Agente IA</strong> crea un personaje que piensa con un árbol, <strong>Ventana &gt;
+Árbol de comportamiento</strong> abre la ventana del árbol (también con doble clic en un <code>.bt</code>) y <strong>Contenido &gt; Crear &gt; Árbol de
+comportamiento</strong> crea uno. Ver <a href="ia-arboles.html#3-la-ventana-árbol-de-comportamiento">ia-arboles.md</a>.</p>
+<p>A la derecha de la barra se ven el <strong>proyecto</strong> y la <strong>escena</strong> abierta (<code>Mi juego &gt; Principal.scene</code>); con cambios sin
+guardar, la escena sale en amarillo con un asterisco.</p>
+<h3 id="barra-de-herramientas">Barra de herramientas<a class="ancla" href="#barra-de-herramientas" aria-label="Enlace a esta sección">#</a></h3>
+<p>De izquierda a derecha, con los botones agrupados en pastillas:</p>
+<ul>
+<li><strong>Mover / Rotar / Escalar</strong> (W / E / R): modo del gizmo; el elegido, con el color de acento.</li>
+<li><strong>Local / Global</strong>: espacio del gizmo.</li>
+<li><strong>Imán</strong>: ajuste a la rejilla, con el paso al lado (metros, grados o factor de escala según el modo).</li>
+<li>En el centro, <strong>Jugar</strong> (verde; jugando se vuelve <strong>Detener</strong>, en rojo), <strong>Pausa</strong> y <strong>Avanzar un frame</strong>, y a su
+lado el <strong>modo de juego</strong>: Jugar (solo), Jugar como anfitrión, Anfitrión + clientes (con el número de clientes) o
+Conectar a... (ver <a href="#modo-juego">Modo juego</a>).</li>
+<li>A la derecha: <strong>Compilar scripts</strong> (solo en los proyectos con scripts C++; los de Lua no se compilan), el selector
+de <strong>distribución</strong> y <strong>Deshacer</strong> y <strong>Rehacer</strong> con la lista del <strong>historial</strong> (ver
+<a href="#deshacer-y-rehacer">Deshacer y rehacer</a>).</li>
+</ul>
+<h3 id="barra-de-estado">Barra de estado<a class="ancla" href="#barra-de-estado" aria-label="Enlace a esta sección">#</a></h3>
+<p>Abajo del todo:</p>
+<ul>
+<li><strong>Contenido</strong>: sube o esconde el <a href="#cajón-de-contenido">cajón de Contenido</a> (como Ctrl+Espacio).</li>
+<li><strong>Consola</strong>, con el número de <strong>errores</strong> (rojo) y <strong>avisos</strong> (amarillo): un clic la enseña.</li>
+<li><strong>Comando</strong>: la línea de comandos de la consola del juego (<code>help</code>, <code>fps</code>, <code>tp</code>, <code>timescale</code>, los <code>RegisterCommand</code> de
+tus scripts y las variables de consola, con autocompletado e historial). Jugando va a la partida; la salida sale en la
+Consola. Ver <a href="herramientas-lua.html">herramientas-lua.md</a>.</li>
+<li>El último mensaje (o «Listo») y, en una sesión de equipo, su estado.</li>
+<li>A la derecha, las entidades, los objetos dibujados, las luces y los FPS. En modo juego la barra se pone verde.</li>
+</ul>
+<h3 id="avisos-emergentes">Avisos emergentes<a class="ancla" href="#avisos-emergentes" aria-label="Enlace a esta sección">#</a></h3>
+<p>Lo importante sale también como un <strong>aviso</strong> abajo a la derecha, que se desvanece solo (antes si lo cierras con la <strong>X</strong>;
+con el ratón encima se queda): la escena guardada, un error al guardar, la compilación de los scripts (bien o con
+errores), un error en un script Lua al guardarlo, el modo juego sin red, el código de una partida por Internet, la
+conexión de una sesión de equipo y sus avisos, y la búsqueda de actualizaciones. Los que tienen algo que hacer llevan
+botones: <strong>Ver en la Consola</strong>, <strong>Reintentar</strong> (compilar otra vez, volver a jugar), <strong>Abrir script</strong> (en la línea del
+error) o <strong>Copiar código</strong>. Si el mismo aviso llega varias veces seguidas no se repite: sale una vez con «×3». Todos
+quedan también en la Consola y en <code>editor.log</code> («Aviso: ...»).</p>
+<h3 id="jerarquía">Jerarquía<a class="ancla" href="#jerarquía" aria-label="Enlace a esta sección">#</a></h3>
+<p>Árbol de entidades de la escena, como un <em>Outliner</em>: buscador arriba, columnas <strong>Nombre</strong> y <strong>Tipo</strong>, un <strong>ojo</strong> por
+fila y, al pie, «N entidades (M seleccionadas)».</p>
+<ul>
+<li><strong>Tipo</strong>: el componente principal de la entidad (Cámara, Luz direccional, Malla, Animador, Cuerpo rígido...). Una
+entidad sin componentes que tiene hijos hace de <strong>carpeta</strong> (icono de carpeta, «Carpeta»): sirve para ordenar.</li>
+<li><strong>Ojo</strong>: muestra u oculta la entidad (la activa o la desactiva, con sus hijos), con deshacer. Las ocultas se ven en
+gris con el ojo tachado.</li>
+<li>En una sesión de equipo, el <strong>candado</strong> con el color de quien está editando una entidad y los puntos de color de lo
+que tienen elegido los demás.</li>
+<li>Clic: selecciona. <strong>Ctrl+clic</strong>: añade o quita de la selección. Doble clic: selecciona y encuadra.</li>
+<li>Botón <strong>+</strong>: crea una entidad vacía, un cubo, una esfera, un plano, una luz puntual o una cámara.</li>
+<li><strong>Buscar</strong>: filtra por nombre (muestra una lista plana, con las mismas columnas).</li>
+<li>Clic derecho sobre una entidad: <strong>Crear hijo</strong>, <strong>Renombrar</strong> (F2), <strong>Duplicar</strong>, <strong>Eliminar</strong>,
+<strong>Crear prefab</strong>, <strong>Sacar de su padre</strong>, <strong>Encuadrar</strong>.</li>
+<li>Clic derecho en la zona vacía: <strong>Crear entidad vacía</strong>. Clic en la zona vacía: deselecciona.</li>
+<li>Las entidades inactivas se ven en gris y las instancias de prefab en azul.</li>
+</ul>
+<h3 id="inspector">Inspector<a class="ancla" href="#inspector" aria-label="Enlace a esta sección">#</a></h3>
+<p>Muestra la entidad seleccionada o el asset seleccionado en <strong>Contenido</strong>.</p>
+<p>Sin nada elegido, un mensaje explica qué hacer. Para una entidad:</p>
+<ul>
+<li><p>Cabecera con el <strong>icono</strong> de su tipo, la casilla de <strong>activa</strong> y el <strong>nombre</strong>; debajo, su id.</p>
+</li>
+<li><p><strong>Buscar propiedades</strong>: deja solo los componentes y los campos cuyo nombre (en español o el de Lua) contiene lo
+escrito; si casa el nombre del componente, se ven todos sus campos. Los componentes que quedan se abren solos.</p>
+</li>
+<li><p>Los campos van en dos columnas alineadas (nombre | valor), con la columna del nombre redimensionable.</p>
+</li>
+<li><p>Si es una instancia de prefab, una barra con <strong>Seleccionar</strong>, <strong>Aplicar</strong> y <strong>Revertir</strong> (ver
+<a href="prefabs.html">prefabs.md</a>).</p>
+</li>
+<li><p>Un bloque por componente, generado por reflexión, con una cabecera clara (icono y nombre en seminegrita) y, a la
+derecha, el menú <strong>⋮</strong>: <strong>Restablecer valores</strong>, <strong>Copiar valores</strong>, <strong>Pegar valores</strong> y <strong>Quitar componente</strong>
+(salvo <code>Transform</code>). El mismo menú sale con clic derecho en la cabecera.</p>
+</li>
+<li><p>Los campos que <strong>no tienen efecto con los valores actuales</strong> salen desactivados y, con el ratón encima, dicen
+por qué: el radio de un colisionador de caja, la masa de un cuerpo estático, las distancias de un sonido 2D,
+el clip de un animador con controlador, los límites de una articulación sin <strong>Usar límites</strong>, los nueve
+cortes de una imagen que no es de ese tipo...</p>
+</li>
+<li><p><strong>Clic derecho en la cabecera de un componente</strong>: <strong>Restablecer valores</strong> (los de un componente nuevo),
+<strong>Copiar valores</strong> y <strong>Pegar valores</strong> (en otro componente del mismo tipo, de esta u otra entidad). Cada uno
+se deshace con Ctrl+Z y llega a los demás en la edición en equipo. En el componente <strong>Scripts</strong>, el mismo menú
+está en <strong>cada script</strong> (C++ o Lua): clic derecho en su nombre para restablecer sus valores (los que declara el
+script), copiarlos o pegarlos en el mismo script de otra entidad. Jugando también vale, sin deshacer: el script
+sigue funcionando con los valores nuevos.</p>
+</li>
+<li><p>Todo lo que se cambia en el Inspector se aplica <strong>al momento</strong>, también jugando: la forma o el tamaño de un
+colisionador rehacen su cuerpo de física, el tono o el bus de un sonido que suena cambian en su voz, otro clip
+del animador empieza a reproducirse... (ver <a href="fisicas.html">fisicas.md</a>, <a href="audio.html">audio.md</a> e
+<a href="interfaz-ui.html">interfaz-ui.md</a>).</p>
+</li>
+<li><p><strong>Añadir componente</strong>: menú con buscador, agrupado por categorías (General, Render, Luces, Animación,
+Física, Audio, Red y Scripts; los componentes del juego sin categoría aparecen en &quot;Juego&quot;).</p>
+</li>
+<li><p>En el componente <strong>Scripts</strong>, <strong>Añadir script</strong> abre una ventana con buscador (como <strong>Añadir componente</strong>) con
+los scripts del proyecto (los Lua de <code>scripts/</code> y, si los hay, las clases de C++) y los integrados del motor:</p>
+<ul>
+<li>el cursor ya está en el buscador: filtra mientras escribes, sin distinguir mayúsculas ni tildes, por nombre y
+por carpeta (<code>ia/Enemigo</code>, <code>ia ene</code>);</li>
+<li><strong>flechas</strong> y <strong>Enter</strong> para elegir, <strong>Esc</strong> para cerrar (o clic en uno);</li>
+<li>cada script muestra si es Lua o C++, su ruta (<code>scripts/ia/Enemigo.luau</code>) y, si la tiene, la primera línea de
+comentario del fichero (<code>-- Enemigo que patrulla</code>);</li>
+<li>al final, <strong>Nuevo script «Nombre.luau»</strong> crea un script Lua con lo escrito (<code>ia/enemigo jefe</code> crea
+<code>scripts/ia/EnemigoJefe.luau</code>) y se lo añade a la entidad; sin nada escrito, abre el diálogo <strong>Nuevo script...</strong>.</li>
+</ul>
+<p>Añadirlo se deshace con Ctrl+Z, y cada script del proyecto tiene un botón <strong>Abrir script</strong>
+que abre su fichero de <code>scripts/</code> en el editor de código (con un nombre largo, solo el icono <code>{}</code>; los scripts
+del motor, como <strong>Rotador</strong>, no lo tienen).</p>
+</li>
+<li><p>Soltar un script (<code>.luau</code>, o <code>.cpp</code> o <code>.h</code> de C++) arrastrado desde <strong>Contenido</strong> en cualquier parte del
+Inspector se lo añade a la entidad (ver <a href="#scripts-en-contenido">Scripts en Contenido</a>).</p>
+</li>
+<li><p>En el <strong>Animador</strong>, mientras hay modelo, se ven el estado actual, la fase y los parámetros del controlador,
+que se pueden cambiar en vivo (los disparadores son botones), los pesos de sus capas, <strong>Mostrar huesos</strong> (el
+esqueleto en el visor) y <strong>Editar controlador</strong> (abre el panel <strong>Animación</strong>, ver
+<a href="modelos-y-animaciones.html#el-editor-de-animación">modelos-y-animaciones.md</a>).</p>
+</li>
+<li><p>En el <strong>Enganche a hueso</strong>, la lista de huesos, nodos vacíos y sockets del modelo (el de debajo del ratón se
+resalta en el visor) y <strong>Poner en el hueso</strong>; en el <strong>IK</strong>, botones para añadir apuntar con la columna y las manos
+o los pies con sus huesos adivinados.</p>
+</li>
+<li><p>Los campos de render (Cámara, luces y sus sombras, Entorno, Malla, Malla con huesos y Material) se aplican al
+momento en <strong>Escena</strong> y <strong>Juego</strong>, sin reiniciar; qué hace cada uno está en
+<a href="render-y-materiales.html">render-y-materiales.md</a> y en <a href="escenas-y-componentes.html">escenas-y-componentes.md</a>.</p>
+</li>
+</ul>
+<p>Para un asset:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tipo</th>
+  <th>Qué muestra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Material</td>
+  <td>Vista previa y todos sus campos. Los cambios se guardan en el <code>.mat</code> al soltar el control</td>
+</tr>
+<tr>
+  <td>Modelo</td>
+  <td>Vista previa, <strong>Añadir a la escena</strong>, mallas, materiales, animaciones (con duración), esqueleto y tamaño</td>
+</tr>
+<tr>
+  <td>Textura</td>
+  <td>Vista previa, tamaño y número de mips</td>
+</tr>
+<tr>
+  <td>Controlador de animación</td>
+  <td>Estados, transiciones y parámetros, y un editor del JSON con <strong>Guardar</strong></td>
+</tr>
+<tr>
+  <td>Escena</td>
+  <td><strong>Abrir escena</strong></td>
+</tr>
+<tr>
+  <td>Árbol de comportamiento</td>
+  <td>Nodos, claves de la pizarra, avisos del árbol, cuántos agentes de la escena lo usan y <strong>Abrir en la ventana del árbol</strong></td>
+</tr>
+<tr>
+  <td>Prefab</td>
+  <td>Vista previa e <strong>Instanciar en la escena</strong></td>
+</tr>
+<tr>
+  <td>Sonido (WAV, FLAC, MP3)</td>
+  <td>Tamaño, duración y <strong>Escuchar</strong> / <strong>Parar</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="escena">Escena<a class="ancla" href="#escena" aria-label="Enlace a esta sección">#</a></h3>
+<p>Visor de edición con la cámara libre del editor, la rejilla, los iconos de luces y cámaras, la caja naranja de
+la selección, los gizmos y las ayudas de los scripts (<code>OnDrawGizmos</code>) y de los sistemas (<code>OnDebugDraw</code>).</p>
+<p>Las <strong>formas de física de la selección</strong> se dibujan siempre, encima de todo: el colisionador en verde (amarillo
+si es un sensor), la cápsula de un controlador de personaje y el anclaje y el eje de una articulación. Salen de
+los componentes, así que cambian en cuanto se toca el colisionador en el Inspector (una malla o una envolvente
+convexa se dibuja con las aristas de su modelo). La caja naranja es la de la malla que se dibuja, no la del
+colisionador. Para ver las formas de <strong>todos</strong> los objetos (y, jugando, las de Jolt con los contactos), activa
+el botón del rayo (<strong>Físicas</strong>) o <strong>Jugar &gt; Formas de física en el visor</strong>.</p>
+<ul>
+<li><strong>Barra flotante</strong> translúcida encima de la escena:<ul>
+<li>a la izquierda, <strong>Vista</strong> (Perspectiva, Arriba, Frente, Derecha: gira la cámara alrededor de lo que tiene delante),
+el <strong>modo de vista</strong> (<strong>Iluminado</strong>, como en el juego; <strong>Sencillo</strong>, sin sombras ni posproceso; <strong>Alambre</strong>, los
+objetos opacos en wireframe) y <strong>Mostrar</strong> (Rejilla, Físicas, Estadísticas y Huesos);</li>
+<li>a la derecha, la <strong>rejilla</strong>, el <strong>imán</strong> y los pasos del ajuste al mover, el ángulo al rotar y el paso al escalar
+(los mismos de la barra de herramientas), y la <strong>velocidad de la cámara</strong>.</li>
+</ul>
+</li>
+<li><strong>Estadísticas</strong>: resolución, tiempo de frame, objetos dibujados, triángulos, dibujados de sombras, luces, luces con
+sombra, caras de sombra redibujadas y reutilizadas en el frame, y nombre de la GPU.</li>
+<li>Abajo a la izquierda, los ejes X, Y y Z de la vista sobre un círculo translúcido.</li>
+<li><strong>Fin</strong> baja la selección hasta lo que tiene debajo, como la tecla End de Unreal (Mayús+Fin: por el pivote; Alt+Fin:
+alineada con la superficie). Ver <a href="#bajar-al-suelo">Bajar al suelo</a>.</li>
+</ul>
+<h3 id="juego">Juego<a class="ancla" href="#juego" aria-label="Enlace a esta sección">#</a></h3>
+<p>Muestra la escena desde la cámara principal (la primera cámara activa con <strong>Principal</strong> marcado o, si
+ninguna lo tiene, la primera cámara). Sin cámara muestra un aviso. En modo juego, la entrada (teclado, ratón,
+mando) solo llega a los scripts mientras este panel tiene el foco, y encima de la imagen se dibuja la interfaz
+del juego (los lienzos de pantalla, ver <a href="interfaz-ui.html">interfaz-ui.md</a>), la de los scripts (<code>OnGUI</code>), los
+mensajes de la red y, con <strong>F3</strong>, las estadísticas de red. Sin jugar también se ve la interfaz del juego. Si el
+juego bloquea el cursor, el ratón se queda dentro de este panel hasta que pulses <strong>Esc</strong> (ver
+<a href="#el-ratón-al-jugar">El ratón al jugar</a>).</p>
+<h3 id="interfaz">Interfaz<a class="ancla" href="#interfaz" aria-label="Enlace a esta sección">#</a></h3>
+<p>El creador visual de HUD y menús (pestaña junto a <strong>Escena</strong> y <strong>Juego</strong>; si la cierras, <strong>Ventana &gt;
+Interfaz</strong>). Dibuja el lienzo elegido a la resolución que quieras (16:9, 21:9, 4:3, móvil...) y permite
+crear widgets y plantillas desde su paleta, moverlos y redimensionarlos con guías e imán, girarlos, anclarlos
+con los preajustes, alinearlos, agruparlos y meterlos en otro contenedor (Alt al soltar). La pestaña <strong>Estilos</strong> de la
+paleta viste la interfaz con un clic con la <a href="interfaz-ui.html#biblioteca-de-estilos-desgastado-metal-papel-sci-fi">biblioteca de estilos</a>
+(militar desgastado, metal oxidado, papel viejo, sci-fi...). Todo se deshace con
+<strong>Ctrl+Z</strong> y se guarda con la escena. Sus
+atajos (con el panel enfocado): flechas para mover 1 px (Mayús: 10), <strong>Supr</strong>, <strong>F</strong> (encuadrar), <strong>Ctrl+0</strong>
+(ajustar el lienzo), <strong>Ctrl+1</strong> (100 %), <strong>Ctrl+G</strong> (agrupar) y <strong>Ctrl+Mayús+G</strong> (desagrupar). Todo el
+detalle está en <a href="interfaz-ui.html#el-panel-interfaz">interfaz-ui.md</a>. En una sesión de equipo se monta la
+interfaz entre varios: el panel marca con el color de cada persona lo que tiene elegido y lo que está cambiando
+(con su arrastre en vivo) y no deja tocar lo que edita otra (ver
+<a href="interfaz-ui.html#crear-la-interfaz-en-equipo">interfaz-ui.md</a>).</p>
+<h3 id="contenido">Contenido<a class="ancla" href="#contenido" aria-label="Enlace a esta sección">#</a></h3>
+<p>Navegador de la carpeta <code>assets/</code> del proyecto y de la carpeta <code>scripts/</code> con los scripts del juego (Lua y, si
+los usas, C++). Está fijo abajo y también como <a href="#cajón-de-contenido">cajón</a> que sube con <strong>Ctrl+Espacio</strong>.</p>
+<ul>
+<li><p>Barra: <strong>Añadir</strong> (carpeta, material, controlador, escena, script...), <strong>Importar...</strong> (FBX, OBJ, glTF), <strong>Guardar
+todo</strong> (la escena abierta; los demás assets se guardan solos al cambiarlos), refrescar, <strong>Buscar</strong> y el tamaño de las
+miniaturas.</p>
+</li>
+<li><p>Miniaturas grandes y redondeadas, con el icono del tipo en la esquina; lo elegido, con el color de acento.</p>
+</li>
+<li><p>Árbol de carpetas a la izquierda y rejilla con miniaturas a la derecha (los modelos, materiales y prefabs se
+renderizan; las texturas se muestran tal cual). Debajo de <code>assets</code>, el árbol tiene la carpeta <strong>scripts</strong>
+(ver <a href="#scripts-en-contenido">Scripts en Contenido</a>).</p>
+</li>
+<li><p>Migas de pan, botón de carpeta superior y <strong>Buscar</strong> (busca en todo el proyecto: assets y scripts).</p>
+</li>
+<li><p><strong>Crear</strong>: Carpeta, Material, Controlador de animación, Escena (con sol, entorno, cámara y suelo con
+colisionador) o <strong>Script...</strong> (un script Lua en <code>scripts/</code>). Con la carpeta <strong>scripts</strong> abierta: <strong>Nuevo
+script...</strong> (Lua) y <strong>Nuevo script C++ (avanzado)...</strong>.</p>
+</li>
+<li><p>Los ficheros <code>.ogg</code> no se muestran (el formato no se puede reproducir): una línea avisa de cuántos hay en la
+carpeta. Conviértelos a WAV, FLAC o MP3.</p>
+</li>
+<li><p><strong>Importar FBX...</strong>: copia un modelo FBX, OBJ o glTF con sus texturas a la carpeta abierta (también en
+<strong>Archivo &gt; Importar modelo (FBX, OBJ, glTF)...</strong>, o arrastrando el fichero al editor). Sus opciones (escala,
+unidades, eje arriba, animaciones, combinar mallas, colisionador y animaciones de otros ficheros) están en el
+Inspector: ver <a href="modelos-y-animaciones.html#opciones-de-importación-fbx-obj-y-gltf">Modelos y animaciones</a>.</p>
+</li>
+<li><p>Botón de refrescar: vuelve a escanear la carpeta (el motor también lo hace solo cada 2 segundos).</p>
+</li>
+<li><p>Deslizador de tamaño de las miniaturas.</p>
+</li>
+<li><p>Clic: muestra el asset en el Inspector. Doble clic: abre carpetas y escenas; los scripts (<code>.luau</code>, <code>.cpp</code>,
+<code>.h</code>) se abren en el editor de código (ver <a href="#preferencias-del-editor">Preferencias del editor</a>).</p>
+</li>
+<li><p>Clic derecho: <strong>Cortar</strong>, <strong>Copiar</strong>, <strong>Pegar</strong>, <strong>Renombrar</strong> (F2), <strong>Mostrar en el inspector</strong>, <strong>Mostrar en
+el Explorador</strong>, <strong>Copiar ruta</strong> y <strong>Eliminar (a la papelera)</strong>; en una carpeta, también <strong>Pegar dentro</strong> y
+<strong>Nueva carpeta</strong>. En el fondo de la rejilla y en las carpetas del árbol: <strong>Nueva carpeta</strong> y <strong>Pegar</strong>. Si la
+unidad no tiene papelera de reciclaje (una unidad de red, algunos pendrives), no se borra nada y la barra de
+estado lo avisa: nunca se borra para siempre sin preguntar.</p>
+</li>
+<li><p>Ver <a href="#organizar-mover-copiar-y-renombrar">Organizar: mover, copiar y renombrar</a>.</p>
+</li>
+</ul>
+<h4 id="cajón-de-contenido">Cajón de Contenido<a class="ancla" href="#cajón-de-contenido" aria-label="Enlace a esta sección">#</a></h4>
+<p><strong>Ctrl+Espacio</strong> (o el botón <strong>Contenido</strong> de la barra de estado, o <strong>Ventana &gt; Cajón de Contenido</strong>) sube Contenido
+desde abajo, por encima de todo, como un cajón: con el árbol de carpetas, el buscador, la barra y todo lo de siempre
+(arrastrar, selección múltiple, cortar, copiar, pegar, renombrar...).</p>
+<ul>
+<li>Se esconde con <strong>Ctrl+Espacio</strong> otra vez, <strong>Esc</strong>, la <strong>X</strong> o un <strong>clic fuera</strong> (los menús y diálogos abiertos desde el
+cajón no lo cierran).</li>
+<li><strong>Arrastra algo fuera del cajón</strong> (un modelo, un prefab, un material...): el cajón se vuelve transparente y deja pasar
+el ratón para soltarlo en la escena, en la Jerarquía o en el Inspector; al soltarlo, se esconde.</li>
+<li>Mientras está abierto, el panel fijo de Contenido dice que está en el cajón.</li>
+</ul>
+<h4 id="organizar-mover-copiar-y-renombrar">Organizar: mover, copiar y renombrar<a class="ancla" href="#organizar-mover-copiar-y-renombrar" aria-label="Enlace a esta sección">#</a></h4>
+<p>Los assets y los scripts se pueden ordenar en carpetas sin romper nada:</p>
+<ul>
+<li><strong>Seleccionar varios</strong>: <strong>Ctrl+clic</strong> añade o quita, <strong>Mayús+clic</strong> selecciona el tramo desde el último clic y
+arrastrando desde el fondo de la rejilla se dibuja un <strong>recuadro</strong> (con Ctrl se suma a lo seleccionado). <strong>Ctrl+A</strong>
+selecciona toda la carpeta y un clic en el fondo quita la selección.</li>
+<li><strong>Arrastrar a una carpeta</strong>: lo seleccionado (modelos, texturas, materiales, prefabs, escenas, audio, scripts y
+también carpetas) se suelta en una carpeta de la rejilla, en una del <strong>árbol de la izquierda</strong>, en el botón de la
+carpeta de arriba o en las <strong>migas de pan</strong> (<code>assets &gt; modelos &gt; ...</code>).<ul>
+<li>La carpeta de destino se resalta en azul y la etiqueta del arrastre dice <strong>Mover N elementos</strong> y a dónde.</li>
+<li>Donde no se puede soltar, el cursor es el de prohibido y la etiqueta dice por qué: meter una carpeta dentro de
+sí misma (o de una subcarpeta suya), mover entre <code>assets</code> y <code>scripts</code> (son secciones distintas) o soltar en la
+carpeta en la que ya está.</li>
+<li>Arrastrar <strong>un</strong> asset sigue valiendo para todo lo de antes (a la escena, a la Jerarquía, a un campo del
+Inspector) y <strong>un</strong> script a una entidad; la carpeta es un destino más.</li>
+</ul>
+</li>
+<li><strong>Cortar / Copiar / Pegar</strong> (Ctrl+X, Ctrl+C, Ctrl+V con el panel enfocado, o el menú). Lo cortado se ve
+atenuado hasta que se pega. <strong>Pegar</strong> una copia crea assets con <strong>Uuid nuevo</strong> (con los mismos ajustes de
+importación); en la misma carpeta se llama <code>Nombre 2</code>.</li>
+<li><strong>Renombrar</strong> (F2 o el menú) ficheros y carpetas de <code>assets/</code> y de <code>scripts/</code>; la extensión se conserva.</li>
+<li><strong>Nueva carpeta</strong> (menú o <strong>Crear &gt; Carpeta</strong>): se crea y se empieza a renombrar.</li>
+<li>Si en el destino ya hay algo con ese nombre, pregunta: <strong>Reemplazar</strong> (lo que había se aparta a
+<code>&lt;proyecto&gt;/.nova/contenido-reemplazados/</code> y Ctrl+Z lo devuelve), <strong>Conservar los dos</strong> (lo nuevo se llama
+<code>Nombre 2</code>) o <strong>Cancelar</strong>.</li>
+<li><strong>Ctrl+Z / Ctrl+Y</strong> (y los botones ↶ ↷ y el historial de la barra) deshacen y rehacen cada movimiento, copia o
+renombrado como un paso más.</li>
+</ul>
+<p>Lo que se conserva al mover o renombrar:</p>
+<ul>
+<li><strong>Assets</strong>: van con su <code>.meta</code> (su Uuid). Las escenas, los prefabs y los campos de los scripts guardan los assets
+por Uuid, así que todo sigue funcionando. Al mover una carpeta, todo lo de dentro conserva su Uuid. Si mueves la
+escena de arranque del proyecto o la escena abierta, sus rutas se actualizan.</li>
+<li><strong>Modelos</strong>: sus texturas externas (las que no van dentro del fichero), el <code>.mtl</code> de un OBJ, el <code>.bin</code> de un glTF
+y la carpeta <code>&lt;nombre&gt;.fbm</code> de Blender van con el modelo, en la misma posición relativa. Si otro modelo de la misma
+carpeta usa las mismas texturas, se <strong>copian</strong> en vez de moverse (el otro modelo no pierde nada). Si en el destino
+ya hay una textura con ese nombre, se deja la que hay y la barra de estado lo avisa.</li>
+<li><strong>Scripts Lua</strong>: las escenas los guardan por su ruta (<code>ia/Enemigo.luau</code>), así que al moverlos o renombrarlos el
+editor actualiza solo las escenas y los prefabs del proyecto que los usan, la escena abierta (con un paso del
+historial que también llega a la sesión de equipo), los <code>require(&quot;./...&quot;)</code> de los demás scripts y los del propio
+script movido, y las cadenas con su ruta exacta (<code>Global(&quot;ia/Rondas.luau&quot;)</code>). La Consola lista cada cambio. Si
+un script nombra por su ruta un asset movido (<code>Scene.Load(&quot;niveles/Nivel1.scene&quot;)</code>), no se cambia: la Consola lo
+avisa con su línea.</li>
+<li><strong>Scripts C++</strong>: se mueven tal cual; si un <code>.cpp</code> acaba en una subcarpeta, no se compila (los proyectos compilan
+<code>scripts/*.cpp</code>) y la barra de estado lo avisa. Cambiar el nombre del fichero no cambia el de la clase.</li>
+<li><strong>Edición en equipo</strong>: un movimiento llega a los demás como el resto de cambios de ficheros (se borra la ruta vieja
+y llega la nueva con su <code>.meta</code>), con el mismo Uuid, así que sus escenas abiertas no pierden nada.</li>
+</ul>
+<h4 id="scripts-en-contenido">Scripts en Contenido<a class="ancla" href="#scripts-en-contenido" aria-label="Enlace a esta sección">#</a></h4>
+<p>La carpeta <strong>scripts</strong> del árbol es <code>&lt;proyecto&gt;/scripts</code>, fuera de <code>assets/</code>, con sus subcarpetas: los scripts
+Lua del juego (<code>.luau</code>, también <code>.lua</code>) y, en los proyectos con C++, los <code>.cpp</code> y <code>.h</code> que compila <strong>Compilar
+scripts</strong>. Se ve si el proyecto tiene esa carpeta (las plantillas de Nova Hub la traen) o un módulo de scripts C++.</p>
+<ul>
+<li>Los scripts tienen su propio icono y color (los Lua en azul), con la extensión en la esquina, y su nombre
+completo. <strong>Buscar</strong> también los encuentra.</li>
+<li>Doble clic: un script Lua se abre en la ventana <strong>Scripts</strong>, el <a href="editor-scripts.html">editor de scripts integrado</a>
+(con autocompletado, avisos y depurador; la preferencia <strong>Abrir scripts con</strong> puede mandarlo a VS Code); uno de C++, en
+el editor de código (con VS Code, junto con la carpeta del proyecto). Al crear un script Lua o abrirlo con VS Code, el editor escribe en el proyecto <code>nova.d.luau</code> y <code>nova.docs.json</code> (los tipos y la
+ayuda de la API para el autocompletado de VS Code con la extensión de Nova y luau-lsp; ver
+<a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>).</li>
+<li>Clic derecho en la carpeta <strong>scripts</strong> o en el fondo de la rejilla: <strong>Nuevo script...</strong>, que pide el nombre
+(letras sin tildes, números y <code>_</code>: es también el nombre de la clase), crea <code>Nombre.luau</code> en la carpeta abierta
+(las subcarpetas valen) desde una plantilla y lo carga en el momento: no hay que compilar nada. Debajo, <strong>Nuevo
+script C++ (avanzado)...</strong> crea una clase de C++
+(<a href="scripts-cpp.html#crear-y-abrir-scripts-desde-el-editor">scripts-cpp.md</a>).</li>
+<li>Arrastra un script a una entidad de la <strong>Jerarquía</strong> o al <strong>Inspector</strong> para añadírselo. Un script Lua se
+añade al momento; uno de C++ necesita estar compilado (si no, el editor pide compilar primero).</li>
+<li>Guardar un script Lua lo recarga en todas las entidades que lo usan, también jugando (ver
+<a href="#recarga-de-scripts">Recarga de scripts</a>).</li>
+<li>Clic derecho en un script: <strong>Abrir en el editor de código</strong>, <strong>Mostrar en el Explorador</strong>, <strong>Copiar ruta</strong>
+(ruta completa), <strong>Renombrar...</strong> y <strong>Eliminar (a la papelera)...</strong>. Los dos últimos piden confirmación: las
+escenas guardan los scripts Lua por su ruta, así que las entidades que usaban uno renombrado o borrado lo
+muestran como «Script Lua con errores o borrado» (sus datos se conservan). Si la unidad no tiene papelera (red,
+pendrive), no se borra nada y otro diálogo pregunta si se borra para siempre.</li>
+<li>Con la carpeta <strong>scripts</strong> abierta, los ficheros de código (<code>.luau</code>, <code>.cpp</code>, <code>.h</code>...) soltados desde el
+Explorador se copian a esa carpeta (el resto se importa en <code>assets/</code> como siempre). Los que ya existen no se
+sustituyen, y la barra de estado dice cuáles.</li>
+</ul>
+<p>Los scripts C++ tienen algunas reglas más (las subcarpetas no se compilan, <code>NOVA_GAME_MODULE()</code>, IntelliSense):
+ver <a href="scripts-cpp.html#crear-y-abrir-scripts-desde-el-editor">scripts-cpp.md</a>.</p>
+<h3 id="consola">Consola<a class="ancla" href="#consola" aria-label="Enlace a esta sección">#</a></h3>
+<p>Mensajes del log del motor y de la compilación de scripts. Tiene <strong>Limpiar</strong>, filtros de mensajes, avisos y
+errores, <strong>Auto-desplazar</strong> y un campo <strong>Filtrar</strong> por texto. El log completo también se escribe en
+<code>%LOCALAPPDATA%\NovaEngine\editor.log</code>.</p>
+<p>Al jugar con red, cada mensaje de los scripts y de la red lleva delante su lado, con color: <strong>Server:</strong> (naranja),
+<strong>Client:</strong> (turquesa) y <strong>Host:</strong> (violeta, el código común del anfitrión). La regla está en
+<a href="multijugador.html#registros-server-y-client">multijugador.md</a>. Junto a los botones de mensajes, avisos y errores, el
+filtro <strong>Todo / Server / Client</strong> deja solo un lado:</p>
+<ul>
+<li><strong>Server</strong>: las líneas <code>Server:</code> y <code>Host:</code> (el anfitrión también es el servidor);</li>
+<li><strong>Client</strong>: las líneas <code>Client:</code> (<code>Client 2:</code>...) y <code>Host:</code>;</li>
+<li>los mensajes sin lado (sin red, el propio editor) solo salen con <strong>Todo</strong>.</li>
+</ul>
+<p><strong>Filtrar</strong> también busca en el prefijo: «client 2» deja las líneas de ese cliente. El prefijo se quita (de la Consola y
+de <code>editor.log</code>) en <strong>Preferencias del editor &gt; Consola &gt; Mostrar Server:/Client: en los mensajes</strong>; el filtro sigue
+funcionando.</p>
+<h2 id="pestañas-de-editor">Pestañas de editor<a class="ancla" href="#pestañas-de-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Como en Unreal Engine 5, los editores de assets se abren en <strong>pestañas de documento</strong> a pantalla completa. Bajo el menú y
+la barra de herramientas hay una barra de pestañas:</p>
+<ul>
+<li>La <strong>primera</strong> es el <strong>nivel</strong>: la escena abierta (con su nombre y un punto si tiene cambios sin guardar). Con ella
+elegida ves lo de siempre: Jerarquía, Inspector, Escena, Juego, Contenido, Consola y las herramientas del mundo. No se
+cierra ni se mueve.</li>
+<li><strong>Una por cada editor de asset abierto</strong>, con el icono de su tipo, su nombre, el punto de «sin guardar» y su <strong>X</strong>. Al
+elegirla, <strong>toda la ventana</strong> pasa a ser ese editor: su barra de herramientas arriba y sus paneles a los lados, cada uno
+en su propio dock. Los paneles del nivel no salen.</li>
+</ul>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Pestaña</th>
+  <th>Se abre con</th>
+  <th>Paneles (distribución por defecto)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Animación</strong></td>
+  <td>Doble clic en un <code>.controller</code>, <code>.mask</code>, <code>.anim</code> o un modelo con esqueleto; Ventana &gt; Animación</td>
+  <td>Subpestañas en su barra: Animador, Humanoide, Vista previa de clips, <strong>Animar huesos</strong>, Línea de tiempo y Sockets. En Animar huesos: <strong>Huesos</strong> a la izquierda, <strong>Visor</strong> en el centro, <strong>Detalles</strong>, <strong>Eventos</strong> y <strong>Curvas</strong> a la derecha y la <strong>Línea de claves</strong> abajo (como SK_Mannequin en UE5); en Sockets, su árbol, el visor y sus detalles; las demás ocupan el centro</td>
+</tr>
+<tr>
+  <td><strong>Interfaz</strong></td>
+  <td>Ventana &gt; Interfaz, crear un lienzo o una plantilla, elegir un elemento de un lienzo</td>
+  <td><strong>Paleta</strong> y <strong>Jerarquía</strong> del lienzo a la izquierda, el <strong>Diseñador</strong> en el centro, los <strong>Detalles</strong> del elemento elegido a la derecha y las <strong>Animaciones</strong> (la Línea de tiempo del elemento) abajo, como el Widget editor de UE5</td>
+</tr>
+<tr>
+  <td><strong>Scripts</strong></td>
+  <td>Doble clic en un <code>.luau</code>, «Abrir script» del Inspector, un error de la Consola</td>
+  <td>El <strong>Código</strong> en el centro (una subpestaña por fichero, como siempre), el <strong>Esquema</strong> (funciones y campos del script; clic para ir) a la izquierda, los <strong>Problemas</strong> del script y el <strong>Depurador</strong> a la derecha y <strong>Buscar en el proyecto</strong> abajo</td>
+</tr>
+<tr>
+  <td><strong>Material</strong></td>
+  <td>Doble clic en un material por nodos</td>
+  <td>El <strong>Grafo</strong> en el centro, la <strong>Vista previa</strong> y los <strong>Detalles</strong> del nodo a la izquierda, los <strong>Parámetros</strong> a la derecha y los <strong>Errores</strong> y el <strong>HLSL</strong> abajo</td>
+</tr>
+<tr>
+  <td><strong>Árbol de comportamiento</strong></td>
+  <td>Doble clic en un <code>.bt</code></td>
+  <td><strong>Paleta</strong> a la izquierda, <strong>Grafo</strong> en el centro, <strong>Detalles</strong> del nodo y <strong>Pizarra</strong> a la derecha, <strong>Avisos</strong> y <strong>Depurar</strong> abajo</td>
+</tr>
+<tr>
+  <td><strong>Tabla de datos</strong></td>
+  <td>Doble clic en una <code>.tabla</code></td>
+  <td>La barra de la tabla arriba y la <strong>Tabla</strong> ocupando todo</td>
+</tr>
+<tr>
+  <td><strong>Fracturar</strong></td>
+  <td>Doble clic en un <code>.destructible</code>, Ventana &gt; Fracturar</td>
+  <td>Los controles de la <strong>Fractura</strong> a la izquierda y el <strong>Visor</strong></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Varios a la vez</strong>: los materiales, los árboles y las tablas tienen una pestaña por asset (dos materiales abiertos son
+dos pestañas, cada una con su grafo, su vista previa y su selección). Animación, Interfaz, Scripts y Fracturar tienen una
+sola pestaña: abrir otro asset la cambia de asset (Scripts abre el fichero en otra subpestaña). Abrir algo que ya tiene
+pestaña la enfoca. No hay modo prefab: un prefab se edita en la escena.</li>
+<li><strong>Barra de la pestaña</strong>: el nombre, <strong>Guardar</strong> (cuando el editor tiene cambios que guardar, como los scripts),
+<strong>Mostrar en Contenido</strong>, <strong>Restablecer distribución</strong> y la barra del propio editor (Añadir nodo, Encuadrar, Probar,
+Nuevo clip...).</li>
+<li><strong>Reordenar</strong> arrastrando; <strong>cerrar</strong> con la X o con el <strong>clic central</strong>. Si la pestaña tiene cambios sin guardar
+(scripts), pregunta: <strong>Guardar</strong>, <strong>No guardar</strong> o <strong>Cancelar</strong>. Los materiales, árboles, tablas y lo de Animación se
+guardan solos con cada cambio.</li>
+<li><strong>Menú contextual</strong> (clic derecho): <strong>Cerrar</strong>, <strong>Cerrar las demás</strong>, <strong>Mostrar en Contenido</strong> y <strong>Restablecer
+distribución</strong>. La flechita de la izquierda lista todas las pestañas.</li>
+<li><strong>Ctrl+Tab</strong> y <strong>Ctrl+Mayús+Tab</strong>: la siguiente o la anterior. Con el código de un script enfocado, Ctrl+Tab cambia de
+script (como siempre).</li>
+<li><strong>Cada tipo de editor recuerda su distribución</strong>: si mueves o separas sus paneles, se queda así para ese tipo (también
+al volver a abrir el editor). <strong>Restablecer distribución</strong> los devuelve a su sitio. Las distribuciones del nivel
+(<a href="#distribuciones">Distribuciones</a>) son aparte.</li>
+<li>El <strong>cajón de Contenido</strong> (Ctrl+Espacio) sale en todas las pestañas; <strong>Mostrar en Contenido</strong> lo abre con el asset
+elegido.</li>
+<li><strong>Jugar</strong> desde cualquier pestaña enseña la del nivel con el visor del juego. Al parar vuelves a la pestaña donde
+estabas (si mientras jugabas elegiste otra, te quedas en ella).</li>
+<li><strong>Deshacer por pestaña</strong>: Ctrl+Z, Ctrl+Y y los botones de la barra deshacen y rehacen lo de la pestaña elegida (Ctrl+Z
+en un material deshace en el material aunque lo último fuera en la escena); el historial solo lista sus pasos. La
+Interfaz y Fracturar cambian entidades de la escena, así que comparten el historial del nivel. Si un paso de otra
+pestaña cambió las mismas entidades después, la barra de estado dice que primero se deshaga ese.</li>
+<li><strong>Ctrl+S</strong> en una pestaña de asset guarda lo suyo (los scripts), o avisa de que ese editor se guarda solo; en la del
+nivel, la Interfaz y Fracturar guarda la escena.</li>
+<li><strong>Recuperar la sesión</strong> guarda y vuelve a abrir las pestañas, su orden, la elegida y su asset
+(<a href="#recuperar-la-sesión">Recuperar la sesión</a>).</li>
+<li>La <strong>edición en equipo</strong> funciona igual: cada cambio viaja como antes, esté en la pestaña que esté.</li>
+<li>El <strong>visor a pantalla completa</strong> (Mayús+F11) es el de la escena: funciona con la pestaña del nivel elegida. Los
+preajustes de distribución <strong>Animación</strong> e <strong>Interfaz</strong> abren su pestaña (las distribuciones colocan los paneles del
+nivel).</li>
+<li>Para las pruebas: <code>NOVA_PESTANAS=1</code> hace que el editor sin ventana use las pestañas aunque no se pase <code>--pestanas</code>.</li>
+</ul>
+<p><strong>Volver al modo antiguo</strong>: <strong>Editar &gt; Preferencias del editor &gt; Pestañas de editor a pantalla completa</strong> (activada de
+serie). Desactivada, los editores vuelven a ser ventanas acopladas junto a la escena, como antes de la 0.9.31; lo que
+estaba abierto sigue abierto. Sin ventana (pruebas, <code>--hidden</code>) se usa el modo antiguo salvo con <code>--pestanas</code>.</p>
+<p>Para quien desarrolla el motor: cómo se añade un editor como pestaña está al principio de <code>editor/pestanas/DocTabs.h</code>
+(un tipo en <code>DocKind</code>, su entrada en <code>kKinds</code> con sus paneles y, en el módulo, <code>DrawDocToolbar</code> y <code>DrawDocument</code> con
+<code>doctabs::BeginPanel</code>; con varias instancias, <code>DetachInstance</code> / <code>AttachInstance</code> / <code>DestroyInstance</code> de su estado).</p>
+<h2 id="espacio-animación">Espacio Animación<a class="ancla" href="#espacio-animación" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo lo de animar está en <strong>una sola ventana con pestañas</strong>, <strong>Animación</strong> (Ventana &gt; Animación, con una entrada por
+pestaña). Con las <a href="#pestañas-de-editor">pestañas de editor</a> (de serie) es una pestaña de documento a pantalla completa y
+sus pestañas van en su barra:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Pestaña</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Animador</strong></td>
+  <td>Controladores (<code>.controller</code>) y máscaras (<code>.mask</code>): parámetros, capas, estados, transiciones y árboles de mezcla (ver <a href="modelos-y-animaciones.html#el-editor-de-animación">modelos-y-animaciones.md</a>)</td>
+</tr>
+<tr>
+  <td><strong>Humanoide</strong></td>
+  <td>El avatar humanoide de un modelo (qué hueso hace de cada hueso humano, pose de referencia e IK) para reorientar animaciones</td>
+</tr>
+<tr>
+  <td><strong>Vista previa de clips</strong></td>
+  <td>Los clips de un modelo, también los de otros modelos reorientados con su avatar</td>
+</tr>
+<tr>
+  <td><strong>Animar huesos</strong></td>
+  <td>Posar un personaje, crear sus animaciones con claves y curvas y poner eventos (ver <a href="animar-huesos.html">animar-huesos.md</a>)</td>
+</tr>
+<tr>
+  <td><strong>Línea de tiempo</strong></td>
+  <td>Animar objetos sin huesos con claves: puertas, ascensores, luces (ver <a href="animacion-objetos.html#2-el-panel-línea-de-tiempo">animacion-objetos.md</a>)</td>
+</tr>
+<tr>
+  <td><strong>Sockets</strong></td>
+  <td>Los sockets de un modelo, como en UE5: puntos con nombre en sus huesos («Arma» en la mano) para los Enganches a hueso, con el gizmo, objetos de vista previa y el personaje animado (ver <a href="modelos-y-animaciones.html#sockets">modelos-y-animaciones.md</a>). Se abre con <strong>Editar sockets</strong> del Inspector de un modelo, clic derecho &gt; <strong>Sockets...</strong> en Contenido o <strong>Editar sockets...</strong> del Enganche a hueso</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>El <strong>doble clic en Contenido</strong> lleva a la pestaña que toca: un <code>.controller</code> o un <code>.mask</code> al <strong>Animador</strong>; un <code>.anim</code>
+de huesos o un modelo con esqueleto a <strong>Animar huesos</strong>; un <code>.anim</code> de objetos a la <strong>Línea de tiempo</strong>. Los botones de
+siempre (<strong>Editar controlador</strong> y <strong>Animar huesos</strong> en el Animador del Inspector, <strong>Abrir en la línea de tiempo</strong>,
+<strong>Animar huesos</strong> en el menú de la Jerarquía) también abren su pestaña.</li>
+<li><strong>Humanoide</strong> y <strong>Vista previa de clips</strong> trabajan con el modelo elegido arriba o con el que eliges en Contenido (en el
+Inspector de un modelo siguen saliendo las dos secciones).</li>
+<li>La distribución <strong>Por defecto</strong> deja la ventana abajo, junto a Contenido y la Consola, para ver la escena mientras se
+anima con la Línea de tiempo; la distribución <strong>Animación</strong> la pone grande en el centro con la escena a su izquierda.</li>
+<li>Todo funciona como antes en cada pestaña: deshacer y rehacer, grabar, vista previa, atajos (Ctrl+C / Ctrl+V de las
+claves con la ventana enfocada) y la edición en equipo.</li>
+</ul>
+<p>Para quien desarrolla el motor: cómo se añade una pestaña (como «Sockets», la 0.9.24) está al principio de
+<code>editor/animation/AnimationWorkspace.h</code> (una línea en <code>kTabs</code> y, si un tipo de asset tiene que abrirse en ella, su caso en
+<code>style::AnimTabForAsset</code>).</p>
+<h2 id="distribuciones">Distribuciones<a class="ancla" href="#distribuciones" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una distribución es cómo están colocadas las ventanas. Se eligen en el selector de la barra de herramientas (a la
+derecha) o en <strong>Ventana &gt; Distribución</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preajuste</th>
+  <th>Qué deja</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Por defecto</strong></td>
+  <td>Jerarquía a la izquierda, Inspector a la derecha, Escena / Juego / Interfaz en el centro y Contenido, Consola y el espacio Animación abajo</td>
+</tr>
+<tr>
+  <td><strong>Animación</strong></td>
+  <td>El espacio Animación grande en el centro, con la escena a su izquierda</td>
+</tr>
+<tr>
+  <td><strong>Interfaz</strong></td>
+  <td>El creador de interfaz en el centro (con Escena y Juego en pestañas)</td>
+</tr>
+<tr>
+  <td><strong>Mundo / Terreno</strong></td>
+  <td>La escena grande y, a la derecha, el Inspector con las herramientas del mundo debajo (Terreno, Navegación, Iluminación)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Guardar distribución actual...</strong> pide un nombre y guarda cómo están ahora las ventanas; sale en la lista con las demás
+(con <strong>Usar</strong>, <strong>Sustituir por la actual</strong> y <strong>Borrar</strong>). Un nombre que ya existe se sustituye.</li>
+<li><strong>Restablecer distribución</strong> vuelve a colocarlo todo como en la elegida (preajuste o tuya).</li>
+<li>Son <strong>tuyas</strong>, no del proyecto: se guardan en tus preferencias del editor (<code>editor.json</code>), con la elegida. En una
+sesión de equipo cada uno tiene las suyas.</li>
+</ul>
+<h2 id="tema">Tema<a class="ancla" href="#tema" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Editar &gt; Preferencias del editor &gt; Apariencia &gt; Tema</strong>:</p>
+<ul>
+<li><strong>Nova (oscuro)</strong>, el de serie desde la 0.9.24: grafito azulado muy oscuro con el <strong>violeta de Nova</strong> (<code>#8B7BFF</code>) como
+acento. Se eligió el violeta porque es el color de una <em>nova</em> y de las nebulosas (el nombre del motor), no se confunde
+con el azul de otros editores, no choca con el verde de <strong>Jugar</strong> ni con los colores de los ejes (rojo, verde y azul:
+un acento azul se confundía con el eje Z) y ya era el color del anfitrión («Host:») en la Consola. Los contrastes
+cumplen WCAG AA: texto 14,6:1, texto atenuado 5,7:1 y acento 5,2:1 sobre el fondo de los paneles.</li>
+<li><strong>Clásico</strong>: el tema de antes, azul.</li>
+<li><strong>Claro</strong>: variante clara del de Nova, con el violeta más oscuro (<code>#5B4BDB</code>) para que se lea sobre blanco.</li>
+</ul>
+<p>Se aplica al momento, solo para ti, y <strong>Nova Hub</strong> usa el mismo. Los colores, radios y espaciados están en un solo sitio,
+<code>sdk/ui/NovaPalette.h</code> (lo usan el editor, Nova Hub y el instalador). La tipografía es Segoe UI (la de Windows), con
+<strong>Segoe UI Semibold</strong> para los títulos y las cabeceras de los componentes y Cascadia Mono (o Consolas) en la Consola; los
+iconos son los de Windows (Segoe Fluent Icons o Segoe MDL2 Assets), sin fuentes añadidas.</p>
+<h2 id="pantalla-de-carga">Pantalla de carga<a class="ancla" href="#pantalla-de-carga" aria-label="Enlace a esta sección">#</a></h2>
+<p>Al abrir el editor (desde Nova Hub, desde la línea de órdenes o con doble clic) sale al instante una <strong>pantalla de carga</strong>:
+una ventana sin bordes, centrada en el monitor y con las esquinas redondeadas, con la portada de Nova, <strong>«Nova Editor -
+&lt;proyecto&gt;»</strong>, la versión del motor, el <strong>porcentaje y el paso</strong> de la carga, una barra fina con el violeta de Nova y el
+logotipo. La ventana del editor aparece cuando ya tiene su primer frame dibujado y la pantalla de carga se cierra sola.</p>
+<p>Las capturas están en <code>capturas-pantalla-carga/</code> (en la carpeta del código): un paso de cada tipo (<code>carga-scripts.png</code>,
+<code>carga-assets.png</code>...), en inglés (<code>en-carga-assets.png</code>) y a 150 % (<code>escala-150.png</code>).</p>
+<p>El progreso es el <strong>real</strong>: avanza con lo que el editor está haciendo de verdad, paso a paso. Cada paso tiene un peso y,
+si sabe cuánto le falta, avanza dentro de su tramo:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Paso</th>
+  <th>Qué hace</th>
+  <th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Iniciando el motor</td>
+  <td>registros, tipos, Direct3D 11 y audio</td>
+  <td>8 %</td>
+</tr>
+<tr>
+  <td>Preparando shaders (n)</td>
+  <td>los shaders del renderizador (compilados o leídos de la caché); avanza con los que se prepararon la última vez</td>
+  <td>14 %</td>
+</tr>
+<tr>
+  <td>Preparando la interfaz</td>
+  <td>la ventana, ImGui y las fuentes</td>
+  <td>4 %</td>
+</tr>
+<tr>
+  <td>Abriendo el proyecto</td>
+  <td><code>project.nova</code>, la lista de assets y los idiomas</td>
+  <td>6 %</td>
+</tr>
+<tr>
+  <td>Compilando scripts (i/n)</td>
+  <td>los scripts Lua de <code>scripts/</code>, uno a uno</td>
+  <td>14 %</td>
+</tr>
+<tr>
+  <td>Cargando el módulo de C++</td>
+  <td>la DLL de scripts C++ (solo si el proyecto la tiene)</td>
+  <td>4 %</td>
+</tr>
+<tr>
+  <td>Cargando assets (i/n)</td>
+  <td>los modelos, materiales, prefabs y controladores que usa la escena de inicio, uno a uno</td>
+  <td>26 %</td>
+</tr>
+<tr>
+  <td>Abriendo la escena</td>
+  <td>la escena de inicio</td>
+  <td>8 %</td>
+</tr>
+<tr>
+  <td>Abriendo el editor</td>
+  <td>el primer frame (y los shaders de lo que se ve)</td>
+  <td>16 %</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los pasos que no tocan se saltan (un proyecto solo con Lua no tiene módulo de C++; sin proyecto, sale la bienvenida) y el
+porcentaje nunca retrocede. La pantalla va en <strong>su propio hilo</strong>: se dibuja y responde mientras el editor carga (Windows no
+la marca como «No responde»; se puede mover arrastrándola).</p>
+<ul>
+<li><strong>Cambiar de proyecto</strong> con el editor abierto (<strong>Archivo &gt; Abrir proyecto</strong>, recientes o la bienvenida) también la
+enseña, encima del editor y empezando en «Abriendo el proyecto».</li>
+<li>Si la carga falla (un proyecto que no se puede abrir, la carpeta de un juego publicado...), la pantalla se cierra y
+sale el error de siempre.</li>
+<li>Se desactiva en <strong>Editar &gt; Preferencias del editor &gt; Apariencia &gt; Pantalla de carga al abrir</strong> (o con
+<code>--sin-pantalla-carga</code> / <code>NOVA_SIN_PANTALLA_CARGA=1</code>). Nunca sale sin ventana (<code>--hidden</code>, <code>--capture</code>), al publicar desde
+la línea de órdenes (<code>--publish</code>, <code>--publish-steam</code>, <code>--comprobar-publicacion</code>) ni con <code>--generar-tipos-lua</code>.</li>
+<li>La portada (<code>editor/recursos/portada.png</code>, junto al editor en <code>bin\recursos</code>) es de Nova: una <em>nova</em> con su anillo de luz
+violeta y destellos de cuatro puntas (como el logotipo) sobre una nebulosa y unas montañas con niebla. La dibuja por código
+<code>tools/portadagen</code> (ruido, degradados, estrellas y resplandor en HDR, con bloom y tonemapping ACES), sin imágenes de
+nadie. También sale en <strong>Ayuda &gt; Acerca de Nova Engine</strong>.</li>
+<li>Las pruebas la dibujan sin ventana durante la carga real con <code>--capturar-carga &lt;carpeta&gt;</code>: una captura por paso
+(<code>carga-scripts.png</code>, <code>carga-assets.png</code>...) y el progreso en <code>carga-progreso.txt</code>.</li>
+</ul>
+<h2 id="recuperar-la-sesión">Recuperar la sesión<a class="ancla" href="#recuperar-la-sesión" aria-label="Enlace a esta sección">#</a></h2>
+<p>Al cerrar el editor y volver a abrirlo, el editor te ofrece <strong>abrir lo que tenías</strong>. Y si se cerró por un fallo, también
+<strong>recuperar los cambios sin guardar</strong>.</p>
+<h3 id="lo-que-se-guarda">Lo que se guarda<a class="ancla" href="#lo-que-se-guarda" aria-label="Enlace a esta sección">#</a></h3>
+<p>Por cada proyecto se guarda lo que tenías abierto:</p>
+<ul>
+<li>la <strong>escena</strong> abierta;</li>
+<li>las <strong>pestañas de scripts</strong> del editor integrado, en su orden y con la elegida, la posición del cursor, la línea de arriba
+que se veía (el scroll) y los <strong>bloques plegados</strong>. Los scripts que abres en VS Code no se guardan: no son del editor;</li>
+<li>la ventana <strong>Tabla de datos</strong>, con su tabla, su búsqueda y su orden;</li>
+<li>el espacio <strong>Animación</strong>: la pestaña y lo que mostraba (el <code>.controller</code> del Animador, el modelo de Humanoide y Vista
+previa, el modelo o el <code>.anim</code> de Animar huesos y Sockets, el <code>.anim</code> de la Línea de tiempo);</li>
+<li>el <strong>Árbol de comportamiento</strong> abierto y la ventana <strong>Fracturar</strong> (con su <code>.destructible</code>, si tenía uno);</li>
+<li><strong>Terreno</strong>, <strong>Interfaz</strong>, <strong>Perfilador</strong> y las estadísticas del visor, si estaban abiertas;</li>
+<li>las <a href="#pestañas-de-editor">pestañas de editor</a>: cuáles había (también varios materiales, árboles o tablas), su <strong>orden</strong>,
+la <strong>elegida</strong> y el asset de cada una;</li>
+<li>la <strong>selección</strong> de la Jerarquía, la <strong>cámara del visor</strong> (posición, orientación, velocidad y distancia de órbita), la
+carpeta abierta de <strong>Contenido</strong> y la <strong>distribución</strong> de las ventanas.</li>
+</ul>
+<p>Se guarda al <strong>cerrar el editor</strong>, al <strong>cambiar de proyecto</strong> y cada <strong>30 segundos</strong> en silencio (solo si algo ha
+cambiado). Va en tus datos del editor (<code>%LOCALAPPDATA%\NovaEngine\sesiones\&lt;proyecto&gt;-&lt;código&gt;\sesion.json</code>), <strong>nunca
+dentro del proyecto</strong>: no va a git ni a la edición en equipo, y cada persona tiene la suya.</p>
+<h3 id="al-abrir-el-proyecto">Al abrir el proyecto<a class="ancla" href="#al-abrir-el-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p>Cuando la ventana del editor ya se ve (después de la pantalla de carga), sale abajo a la derecha, con el estilo de los
+avisos, <strong>«¿Abrir lo que tenías la última vez?»</strong> con un resumen (<em>«3 scripts, 1 tabla, escena Principal»</em>):</p>
+<ul>
+<li><strong>Abrir</strong> lo vuelve a abrir todo. Lo que ya no existe (un script borrado, una tabla renombrada) se salta sin error y se
+avisa en la <strong>Consola</strong>.</li>
+<li><strong>No</strong> deja el proyecto como se abre siempre (con su escena de inicio).</li>
+<li><strong>Hacerlo siempre sin preguntar</strong>: con <strong>Abrir</strong>, la próxima vez se abre solo.</li>
+</ul>
+<p>Si no hay nada que recuperar (un proyecto nuevo, o la última vez no tenías nada abierto), no sale nada. Si abres el editor
+con <code>--scene &lt;escena&gt;</code>, esa escena manda sobre la de la sesión.</p>
+<h3 id="si-el-editor-se-cerró-por-un-fallo">Si el editor se cerró por un fallo<a class="ancla" href="#si-el-editor-se-cerró-por-un-fallo" aria-label="Enlace a esta sección">#</a></h3>
+<p>Mientras trabajas, el editor hace un <strong>autoguardado de seguridad</strong> cada 60 segundos (se cambia en las preferencias): copia
+la <strong>escena con cambios sin guardar</strong> y los <strong>scripts con cambios sin guardar</strong> del editor integrado a tu carpeta de
+recuperación (<code>%LOCALAPPDATA%\NovaEngine\recuperacion\&lt;proyecto&gt;-&lt;código&gt;\</code>). No toca tus ficheros: solo copia lo que
+cambió desde la última vez.</p>
+<p>Al abrir el proyecto, el editor sabe si la última vez <strong>no se cerró bien</strong> (se cerró por un fallo, se colgó y lo cerraste
+desde el Administrador de tareas o se fue la luz): entonces la misma ventana añade <strong>«Recuperar los cambios sin
+guardar»</strong>, con la lista de lo que hay y la <strong>hora</strong> de cada copia.</p>
+<ul>
+<li>Cada cosa tiene su casilla. Si el fichero en disco <strong>cambió después de la copia</strong> (lo editaste fuera, o lo trajo git),
+sale avisado y <strong>sin marcar</strong>: no se recupera salvo que lo marques, para no pisar algo más nuevo.</li>
+<li>Lo recuperado queda <strong>«con cambios»</strong>: la escena con el aviso de cambios sin guardar y los scripts como pestañas
+modificadas. <strong>No se escribe nada en disco</strong> hasta que guardes; con <strong>Ctrl+Z</strong> en un script vuelves a lo que hay en disco.</li>
+<li>Si no lo quieres, <strong>Descartar</strong> (o <strong>No</strong>). Las copias no se borran al momento: se apartan a la carpeta <code>anterior</code> de
+la recuperación por si acaso, y no se vuelven a ofrecer. Si cierras el editor sin contestar, se ofrecen otra vez.</li>
+<li>Si cierras el editor con normalidad, las copias se borran (lo que no guardaste ya lo contestaste al cerrar).</li>
+</ul>
+<p>El aviso del <strong>informe de errores</strong> (<a href="#si-el-editor-se-cierra-por-un-error">Si el editor se cierra por un error</a>) sale
+antes, al arrancar; la recuperación sale después, con el proyecto ya abierto.</p>
+<h3 id="en-una-sesión-de-edición-en-equipo">En una sesión de edición en equipo<a class="ancla" href="#en-una-sesión-de-edición-en-equipo" aria-label="Enlace a esta sección">#</a></h3>
+<p>En la edición en equipo la escena vive en el <strong>servidor del proyecto</strong> del equipo, que la guarda, y cada persona trabaja
+en su <strong>carpeta de trabajo</strong>. Las reglas son:</p>
+<ol>
+<li><strong>La escena de la sesión no se autoguarda ni se recupera</strong>, para nadie: si tu editor se cierra, al volver a entrar la
+sesión sigue en el servidor (y si el que se cierra es el anfitrión, el servidor sigue abierto y guarda). Tampoco se
+vuelve a abrir la escena de la sesión anterior: la escena es la que tenga la sesión.</li>
+<li><strong>Cada persona solo autoguarda y recupera sus propios scripts</strong>, en sus datos del editor y con la clave de la carpeta
+que tenía abierta (la del proyecto del anfitrión o tu carpeta de trabajo). Un miembro nunca ve ni recupera las copias
+del anfitrión, ni al revés, y nada se escribe en disco hasta que esa persona guarda; si el script cambió en la sesión
+después de la copia, sale como «más nuevo en disco» y sin marcar.</li>
+<li>Las pestañas, la selección y la cámara sí se recuperan (son solo tuyas).</li>
+<li><strong>Dos editores con el mismo proyecto</strong> en el mismo PC: el segundo no guarda la sesión ni hace copias de seguridad (lo
+dice en la Consola), para no pisar las del primero.</li>
+</ol>
+<h3 id="preferencias">Preferencias<a class="ancla" href="#preferencias" aria-label="Enlace a esta sección">#</a></h3>
+<p>En <strong>Editar &gt; Preferencias del editor &gt; Sesión</strong>:</p>
+<ul>
+<li><strong>Recuperar lo que tenías al abrir</strong>: <strong>Preguntar</strong> (de serie), <strong>Siempre</strong> (se abre solo) o <strong>Nunca</strong>. La recuperación
+tras un fallo se ofrece siempre, también con «Nunca».</li>
+<li><strong>Autoguardado de seguridad (s)</strong>: cada cuánto se hacen las copias (60 s de serie; de 10 s a una hora).</li>
+<li><strong>Vaciar la recuperación</strong>: borra las copias de seguridad de todos los proyectos (también las apartadas). No toca los
+ficheros de los proyectos.</li>
+</ul>
+<p>Limitaciones: el autoguardado copia la escena sin los cambios de los terrenos que aún no se han guardado en sus ficheros
+<code>.terrain</code>, y una escena muy grande puede tardar un momento en copiarse (en el hilo del editor, solo si cambió).</p>
+<h2 id="menús-al-estilo-ue5">Menús al estilo UE5<a class="ancla" href="#menús-al-estilo-ue5" aria-label="Enlace a esta sección">#</a></h2>
+<p>Desde la 0.9.31 la barra de menús tiene <strong>Seleccionar</strong>, <strong>Compilar</strong> y <strong>Herramientas</strong>, como Select, Build y Tools de
+Unreal Engine 5, y <strong>Ventana</strong> tiene los grupos <strong>Nivel</strong>, <strong>Visor</strong> y <strong>Registros</strong>. Todo está en <code>editor/menus</code>.</p>
+<h3 id="seleccionar">Seleccionar<a class="ancla" href="#seleccionar" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Seleccionar todo</strong>, <strong>Quitar selección</strong> e <strong>Invertir selección</strong> cambian la selección de la escena abierta, como un
+clic en la Jerarquía. Ctrl+A, Esc y Ctrl+I funcionan con el visor Escena o la Jerarquía delante (en Contenido, Ctrl+A
+sigue seleccionando sus ficheros).</li>
+<li><strong>Jerarquía (con sus hijos)</strong> añade todos los descendientes de lo seleccionado.</li>
+<li><strong>Todos del mismo tipo</strong> (Ctrl+Mayús+A) elige las entidades del mismo tipo que la columna <strong>Tipo</strong> de la Jerarquía:
+luz puntual, malla, cámara, personaje...</li>
+<li><strong>Por tipo</strong> (con cuántas hay de cada uno), <strong>Por clase de script</strong>, <strong>Por material</strong> (los <code>.mat</code> puestos en el
+Inspector; «El de la selección» elige todo lo que comparte alguno de sus materiales), <strong>Por etiqueta</strong> (componente
+Etiquetas) y <strong>Por capa</strong>.</li>
+</ul>
+<p>Las <strong>capas</strong> de Nova son las de la física: la del cuerpo rígido (o «Auto»: estático o dinámico), la de un colisionador
+sin cuerpo (estático, o sensor si es trigger) y la del personaje (jugador). La ventana <strong>Ventana &gt; Capas</strong> las enseña con
+cuántas entidades tienen, las selecciona y las oculta o muestra (desactiva o activa sus entidades, con deshacer).</p>
+<h3 id="compilar">Compilar<a class="ancla" href="#compilar" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Compilar todo</strong> hace, uno detrás de otro y sin bloquear el editor: hornear la iluminación (la escena tiene que estar
+guardada; ver <a href="iluminacion-horneada.html">iluminacion-horneada.md</a>), hornear la navegación de cada «Malla de navegación»
+activa, volver a capturar las sondas de reflejos y validar los datos (el panel <strong>Problemas</strong>). Lo que pasa queda en
+<strong>Ventana &gt; Registro de mensajes &gt; Compilar todo</strong>; si algo falla sale un aviso. Mientras compila, el menú ofrece
+<strong>Cancelar compilación</strong>; al pulsar Jugar se cancela.</p>
+<p>Cada paso también va suelto: <strong>Iluminación &gt; Solo iluminación</strong>, <strong>Navegación</strong> y <strong>Sondas de reflejos</strong>. <strong>Calidad de la
+iluminación</strong> (Borrador, Media, Alta) es la del proyecto, la misma del panel Iluminación. <strong>Estadísticas de iluminación</strong>
+cuenta las luces por modo (tiempo real, mixta, horneada), las mallas estáticas, los volúmenes de sondas y las sondas de
+reflejos, y del último horneado su fecha, calidad, texturas, memoria de vídeo, texeles, sondas y rayos.</p>
+<h3 id="herramientas">Herramientas<a class="ancla" href="#herramientas" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Buscar en scripts...</strong> (Ctrl+Mayús+F) busca un texto en todos los scripts del proyecto; los resultados salen en
+<strong>Buscar en el proyecto</strong> del editor de scripts (un clic abre el script en la línea).</li>
+<li><strong>Validar datos</strong> comprueba la escena, los prefabs y los scripts y abre <strong>Problemas</strong>.</li>
+<li><strong>Combinar mallas</strong> (como Merge Actors) junta las mallas estáticas de lo seleccionado (y de sus hijos) en un modelo
+nuevo, <code>Combinado.glb</code> junto a la escena, con una submalla por material. La entidad <strong>Combinado</strong> queda en el centro de
+las de origen, a ras del suelo, con los <code>.mat</code> que tenían en el Inspector; las de origen se desactivan. Todo es un solo
+paso de deshacer. Los materiales de dentro de un modelo pasan con su color pero sin sus texturas (sale un aviso): ponles
+un <code>.mat</code>. Las mallas con esqueleto no se combinan, y los colisionadores no se copian (ponle uno a la combinada).</li>
+<li><strong>Uso de recursos</strong>: memoria del editor, texturas y mallas cargadas en la GPU (con la lista de las texturas más grandes),
+la iluminación horneada, las entidades y los assets del proyecto.</li>
+<li><strong>Idiomas</strong> (panel de localización), <strong>Etiquetas de juego</strong> (gestor de etiquetas), <strong>Depurar</strong> (Perfilador, Visual
+Logger, Variables de consola, Estadísticas del visor) y <strong>Abrir carpeta del proyecto</strong>.</li>
+</ul>
+<h3 id="ventana-nivel-visor-y-registros">Ventana: Nivel, Visor y Registros<a class="ancla" href="#ventana-nivel-visor-y-registros" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Mezclador de luces</strong>: todas las luces de la escena en una tabla, con su tipo, encendida, color, intensidad, alcance,
+sombras y modo de horneado. Cada cambio es un paso de deshacer (un arrastre entero, uno solo) y llega a los demás en la
+edición en equipo. Clic en el nombre para seleccionarla.</li>
+<li><strong>Capas</strong>: ver <a href="#seleccionar">Seleccionar</a>.</li>
+<li><strong>Ajustes del mundo</strong>: la gravedad y el paso fijo del proyecto, el <strong>Entorno</strong> de la escena (seleccionarlo o crearlo),
+si la iluminación está horneada y cuántas superficies de navegación hay.</li>
+<li><strong>Mostrar barra del visor</strong> (Ctrl+Mayús+T) y <strong>Mostrar interfaz del visor</strong> (sin ella, el visor Escena solo enseña la
+escena: ni la barra, ni los ejes, ni las estadísticas). Se recuerdan mientras el editor está abierto.</li>
+<li><strong>Visor a pantalla completa</strong> (Mayús+F11): el visor Escena ocupa toda la ventana, sin paneles, para editar. Esc o
+Mayús+F11 vuelven con la distribución intacta. Jugando, la vista Juego tiene su propia pantalla completa (F11).</li>
+<li><strong>Registro de mensajes</strong> (como el Message Log): pestañas con <strong>Compilar todo</strong>, <strong>Validación</strong> (los problemas del panel
+Problemas; clic para ir a la entidad) y los avisos y errores del registro agrupados por de dónde vienen: Importación,
+Compilación y scripts, Iluminación y navegación, Assets, Red y Otros.</li>
+</ul>
+<p>Las distribuciones se cargan, guardan y borran en <strong>Ventana &gt; Distribución</strong> (ver <a href="#distribuciones">Distribuciones</a>).</p>
+<h3 id="crear-en-contenido">Crear en Contenido<a class="ancla" href="#crear-en-contenido" aria-label="Enlace a esta sección">#</a></h3>
+<p>El botón <strong>Añadir</strong> y el clic derecho en el fondo de la rejilla (<strong>Crear</strong>) tienen arriba <strong>Importar a esta carpeta...</strong>
+(modelos con sus texturas, texturas, sonidos y fuentes) y lo más usado (<strong>Escena</strong>, <strong>Material</strong>, <strong>Script Lua...</strong>), y
+después las categorías: <strong>Animación</strong> (Controlador de animación, Máscara de avatar, Clip de propiedades), <strong>IA</strong> (Árbol de
+comportamiento), <strong>Datos</strong> (Data Asset, Tabla de datos, Enum, Curva), <strong>Efectos</strong> (Material de decal), <strong>Materiales</strong>
+(Material, Material por nodos), <strong>Escenas</strong> y <strong>Scripts</strong> (Lua y C++).</p>
+<h2 id="atajos-de-teclado">Atajos de teclado<a class="ancla" href="#atajos-de-teclado" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Atajo</th>
+  <th>Acción</th>
+  <th>Dónde funciona</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ctrl+Espacio</td>
+  <td>Subir o esconder el cajón de Contenido</td>
+  <td>Todo el editor (no mientras escribes)</td>
+</tr>
+<tr>
+  <td>Ctrl+Tab / Ctrl+Mayús+Tab</td>
+  <td>La <a href="#pestañas-de-editor">pestaña de editor</a> siguiente o la anterior</td>
+  <td>Todo el editor (con el código de un script enfocado, cambia de script)</td>
+</tr>
+<tr>
+  <td>W</td>
+  <td>Gizmo de mover</td>
+  <td>Visor Escena (con el ratón encima o enfocado)</td>
+</tr>
+<tr>
+  <td>E</td>
+  <td>Gizmo de rotar</td>
+  <td>Visor Escena</td>
+</tr>
+<tr>
+  <td>R</td>
+  <td>Gizmo de escalar</td>
+  <td>Visor Escena</td>
+</tr>
+<tr>
+  <td>F</td>
+  <td>Encuadrar la selección</td>
+  <td>Visor Escena y Jerarquía</td>
+</tr>
+<tr>
+  <td>Supr</td>
+  <td>Eliminar la selección</td>
+  <td>Visor Escena y Jerarquía</td>
+</tr>
+<tr>
+  <td>Fin</td>
+  <td><a href="#bajar-al-suelo">Bajar al suelo</a>: cada entidad elegida baja hasta que la base de sus límites toca lo que tiene debajo</td>
+  <td>Visor Escena y Jerarquía (con la pestaña del nivel; en el editor de scripts, Fin sigue yendo al final de la línea)</td>
+</tr>
+<tr>
+  <td>Mayús+Fin</td>
+  <td>Bajar el <strong>pivote</strong> al suelo</td>
+  <td>Visor Escena y Jerarquía</td>
+</tr>
+<tr>
+  <td>Alt+Fin</td>
+  <td>Bajar y <strong>alinear</strong> con la superficie (su eje Y sigue la normal)</td>
+  <td>Visor Escena y Jerarquía</td>
+</tr>
+<tr>
+  <td>F2</td>
+  <td>Renombrar</td>
+  <td>Jerarquía y Contenido</td>
+</tr>
+<tr>
+  <td>Ctrl+C</td>
+  <td>Copiar la selección al portapapeles</td>
+  <td>Todo el editor (con Contenido enfocado, copia sus ficheros)</td>
+</tr>
+<tr>
+  <td>Ctrl+X</td>
+  <td>Cortar ficheros y carpetas</td>
+  <td>Contenido</td>
+</tr>
+<tr>
+  <td>Ctrl+V</td>
+  <td>Pegar entidades del portapapeles</td>
+  <td>Todo el editor (con Contenido enfocado, pega sus ficheros en la carpeta abierta)</td>
+</tr>
+<tr>
+  <td>Ctrl+A</td>
+  <td>Seleccionar toda la carpeta (en Contenido) o todas las entidades (Seleccionar todo)</td>
+  <td>Contenido; visor Escena y Jerarquía</td>
+</tr>
+<tr>
+  <td>Esc</td>
+  <td>Quitar la selección</td>
+  <td>Visor Escena y Jerarquía (sin un menú abierto)</td>
+</tr>
+<tr>
+  <td>Ctrl+I</td>
+  <td>Invertir la selección</td>
+  <td>Visor Escena y Jerarquía</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+A</td>
+  <td>Todos del mismo tipo que lo seleccionado</td>
+  <td>Todo el editor (menos Contenido)</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+F</td>
+  <td>Buscar en scripts</td>
+  <td>Todo el editor (en la ventana Scripts, su «Buscar en el proyecto»)</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+T</td>
+  <td>Mostrar u ocultar la barra del visor</td>
+  <td>Todo el editor</td>
+</tr>
+<tr>
+  <td>Mayús+F11</td>
+  <td>Visor a pantalla completa (Esc o Mayús+F11 vuelven)</td>
+  <td>Todo el editor, sin jugar</td>
+</tr>
+<tr>
+  <td>Ctrl+D</td>
+  <td>Duplicar la selección</td>
+  <td>Todo el editor</td>
+</tr>
+<tr>
+  <td>D (mantener)</td>
+  <td><strong>Editar pivote</strong>: el gizmo mueve el pivote de la entidad, no la entidad (<a href="#editar-el-pivote">Editar el pivote</a>)</td>
+  <td>Visor Escena</td>
+</tr>
+<tr>
+  <td>Ctrl+Z</td>
+  <td>Deshacer</td>
+  <td>Todo el editor: Escena, Inspector, Jerarquía, Terreno, Interfaz, Línea de tiempo, Animar huesos... (no en modo juego ni en mitad de un arrastre). En un campo de texto, deshace lo escrito</td>
+</tr>
+<tr>
+  <td>Ctrl+Y o Ctrl+Mayús+Z</td>
+  <td>Rehacer</td>
+  <td>Todo el editor, igual que Ctrl+Z. En un campo de texto, rehace lo escrito</td>
+</tr>
+<tr>
+  <td>Ctrl+S</td>
+  <td>Guardar la escena (en una <a href="#pestañas-de-editor">pestaña de asset</a>, lo suyo)</td>
+  <td>Todo el editor (no en modo juego)</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+S</td>
+  <td>Guardar la escena como...</td>
+  <td>Todo el editor</td>
+</tr>
+<tr>
+  <td>Ctrl+N</td>
+  <td>Nueva escena</td>
+  <td>Todo el editor</td>
+</tr>
+<tr>
+  <td>Ctrl+O</td>
+  <td>Abrir escena...</td>
+  <td>Todo el editor</td>
+</tr>
+<tr>
+  <td>Ctrl+Mayús+N</td>
+  <td>Entidad vacía</td>
+  <td>Todo el editor</td>
+</tr>
+<tr>
+  <td>Ctrl+P</td>
+  <td>Jugar / detener</td>
+  <td>Todo el editor (también con el ratón capturado por el juego)</td>
+</tr>
+<tr>
+  <td>Ctrl+B</td>
+  <td>Compilar scripts (solo los C++; en un proyecto solo con Lua avisa de que no hace falta)</td>
+  <td>Todo el editor</td>
+</tr>
+<tr>
+  <td>F3</td>
+  <td>Mostrar u ocultar las estadísticas de red</td>
+  <td>Panel Juego (en modo juego)</td>
+</tr>
+<tr>
+  <td>F11</td>
+  <td>Pantalla completa al jugar: entrar o volver al editor sin parar el juego (también Esc para volver)</td>
+  <td>En modo juego</td>
+</tr>
+<tr>
+  <td>º o F1</td>
+  <td>La consola del juego (<a href="herramientas-lua.html">herramientas-lua.md</a>)</td>
+  <td>Panel Juego (en modo juego)</td>
+</tr>
+<tr>
+  <td>Esc</td>
+  <td>En modo juego, con el ratón capturado: lo libera (el Esc también llega al juego). Con <strong>Mayús+Esc</strong> en las Preferencias, solo Mayús+Esc</td>
+  <td>Panel Juego</td>
+</tr>
+<tr>
+  <td>Alt+F4</td>
+  <td>Salir (pregunta si hay cambios sin guardar)</td>
+  <td>Todo el editor</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los atajos no actúan mientras escribes en un campo de texto. W, E y R no cambian el gizmo mientras mantienes
+pulsado el botón derecho, porque entonces W y E mueven la cámara. Con el ratón capturado por el juego, las teclas
+son del juego: solo funcionan Ctrl+P y la tecla que libera el ratón.</p>
+<p>Si la escena tiene cambios sin guardar, <strong>Nueva escena</strong> (Ctrl+N), <strong>Abrir escena</strong> (Ctrl+O, el menú, el
+Inspector o soltar una escena en el visor), abrir otro proyecto y salir preguntan antes si quieres guardarlos
+(<strong>Sí</strong> guarda, <strong>No</strong> los descarta y <strong>Cancelar</strong> no hace nada).</p>
+<h2 id="cámara-del-visor-escena">Cámara del visor Escena<a class="ancla" href="#cámara-del-visor-escena" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Control</th>
+  <th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Botón derecho mantenido + mover el ratón</td>
+  <td>Mirar alrededor</td>
+</tr>
+<tr>
+  <td>Botón derecho + W A S D</td>
+  <td>Volar hacia delante, atrás y a los lados</td>
+</tr>
+<tr>
+  <td>Botón derecho + Q / E</td>
+  <td>Bajar / subir</td>
+</tr>
+<tr>
+  <td>Mayús (con el botón derecho)</td>
+  <td>Volar 3 veces más rápido</td>
+</tr>
+<tr>
+  <td>Rueda (con el botón derecho)</td>
+  <td>Cambiar la velocidad de vuelo (de 0,2 a 200 m/s)</td>
+</tr>
+<tr>
+  <td>Botón central mantenido</td>
+  <td>Desplazar la vista</td>
+</tr>
+<tr>
+  <td>Alt + botón izquierdo</td>
+  <td>Orbitar alrededor del punto que tienes delante</td>
+</tr>
+<tr>
+  <td>Rueda (sin botón derecho)</td>
+  <td>Acercar o alejar</td>
+</tr>
+<tr>
+  <td>F</td>
+  <td>Encuadrar la selección</td>
+</tr>
+</tbody>
+</table></div>
+<p>Mientras vuelas, el visor muestra la velocidad actual.</p>
+<h2 id="gizmos">Gizmos<a class="ancla" href="#gizmos" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Mover</strong>: arrastra una flecha para moverte en un eje o uno de los cuadrados entre ejes para moverte en un
+plano.</li>
+<li><strong>Rotar</strong>: arrastra uno de los tres anillos.</li>
+<li><strong>Escalar</strong>: arrastra un eje para escalar en ese eje o el centro (horizontalmente) para escalar por igual.
+El gizmo de escala siempre usa los ejes locales.</li>
+<li><strong>Local / Global</strong>: con <strong>Local</strong> los ejes del gizmo siguen la rotación de la entidad en el mundo (la suya y la
+de sus padres): mover y rotar van por sus ejes. Con <strong>Global</strong> son los ejes del mundo, aunque la entidad o su
+padre estén girados.</li>
+<li><strong>Ajuste (imán)</strong>: con el imán activo, mover avanza en pasos de 0,5 m, rotar en pasos de 15° y escalar en
+pasos de 0,1 (valores por defecto, editables junto al imán). Los pasos cuentan desde donde empezó el arrastre, en
+el eje del gizmo (de la entidad en Local). Mantener <strong>Ctrl</strong> mientras arrastras invierte el ajuste: lo activa si
+está apagado y lo desactiva si está encendido.</li>
+<li>Con varias entidades seleccionadas, el gizmo está en la última seleccionada y el resto la sigue: al <strong>mover</strong> se
+desplazan lo mismo; al <strong>rotar</strong> giran todas alrededor del gizmo (en el mismo eje); al <strong>escalar</strong> cada una escala
+en sus propios ejes por el mismo factor. Si eliges una entidad y también a su padre, el hijo va con el padre (no
+se mueve dos veces).</li>
+<li>Con una <strong>spline</strong> seleccionada, el gizmo mueve, gira y escala sus <strong>puntos</strong> (elegidos con clic, varios con Ctrl o
+Mayús) con los mismos botones, atajos, Local / Global e imán; en Local los ejes son los del punto a lo largo de la
+curva. Ver <a href="splines-carreteras-rios.html#2-editar-los-puntos-en-el-visor">splines-carreteras-rios.md</a>.</li>
+</ul>
+<h2 id="editar-el-pivote">Editar el pivote<a class="ancla" href="#editar-el-pivote" aria-label="Enlace a esta sección">#</a></h2>
+<p>El <strong>pivote</strong> es el punto sobre el que una entidad gira y escala: su origen, donde sale el gizmo. Desde la 0.9.24 se puede
+mover <strong>sin mover el objeto</strong> y sin meterlo en una entidad vacía, como en Unity o UE5. El caso típico: una puerta (un Cubo
+escalado o un modelo) que debe girar por la bisagra y no por el centro.</p>
+<p><strong>En el visor Escena</strong>: pulsa el botón de <strong>Editar pivote</strong> de la barra flotante (junto al imán) o <strong>mantén D</strong> con el
+ratón en el visor. Con una entidad elegida, sale la caja de lo que se ve (naranja) con el pivote marcado y el gizmo de
+mover sobre él: arrástralo y el objeto se queda donde está. El imán ajusta los pasos como siempre (Ctrl lo invierte). Al
+soltar, es un paso del historial.</p>
+<p><strong>En la Jerarquía</strong>, clic derecho en la entidad &gt; <strong>Pivote</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Dónde queda el pivote</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Al centro</strong></td>
+  <td>En el centro de su caja</td>
+</tr>
+<tr>
+  <td><strong>A la base</strong></td>
+  <td>En el centro de la cara de abajo (para apoyarla en el suelo)</td>
+</tr>
+<tr>
+  <td><strong>Arriba</strong>, <strong>A la izquierda (-X)</strong>, <strong>A la derecha (+X)</strong>, <strong>Detrás (-Z)</strong>, <strong>Delante (+Z)</strong></td>
+  <td>En el centro de esa cara. Una puerta con el pivote a la izquierda o a la derecha gira por ese lado sobre el eje Y: es la bisagra</td>
+</tr>
+<tr>
+  <td><strong>A una esquina o un borde</strong></td>
+  <td>En un borde vertical (bisagra en el borde de atrás o de delante) o en una de las 8 esquinas</td>
+</tr>
+<tr>
+  <td><strong>Al origen del modelo</strong></td>
+  <td>Donde lo puso quien hizo el modelo (deshace todo lo anterior)</td>
+</tr>
+<tr>
+  <td><strong>Editar pivote en el visor</strong></td>
+  <td>Activa el modo del visor (lo mismo que el botón o la tecla D)</td>
+</tr>
+</tbody>
+</table></div>
+<p>La caja es la de su malla, sus colisionadores y sus hijos, en los ejes de la entidad (aunque esté girada o escalada).</p>
+<p><strong>Dónde se guarda y por qué.</strong> En la propia entidad: su Transform pasa a estar en el pivote nuevo y la malla se desplaza al
+revés con el campo <strong>Desplazamiento (pivote)</strong> del componente <strong>Malla</strong> (<code>meshOffset</code> en Lua; se puede escribir a mano). A
+la vez, el <strong>centro de sus colisionadores</strong> y la <strong>posición de sus hijos</strong> se compensan, así que nada de lo que se ve se
+mueve. Se eligió así, y no con un desplazamiento en la importación del modelo, porque:</p>
+<ul>
+<li>vale para las <strong>primitivas</strong> (un Cubo no tiene <code>.meta</code>) y cada copia puede tener su pivote;</li>
+<li>no mueve los objetos de <strong>otras escenas</strong> que usan el mismo modelo;</li>
+<li>las <strong>escenas de antes</strong> no cambian (el desplazamiento es 0);</li>
+<li>el render, la iluminación horneada, la <strong>navegación</strong> y el suelo de las splines dibujan y miden la malla con su
+desplazamiento, y las <strong>físicas</strong> siguen pegadas a la malla porque su colisionador se compensa;</li>
+<li>es un cambio normal de la entidad: <strong>deshacer y rehacer</strong>, prefabs, duplicar y la <strong>edición en equipo</strong> funcionan como con
+cualquier campo.</li>
+</ul>
+<p>Ten en cuenta:</p>
+<ul>
+<li>Lo que está <strong>en el origen</strong> de la entidad pasa al pivote nuevo: una luz, un sonido, el punto de un Enganche a hueso
+enganchado a ella o el centro de un <strong>Cuerpo rígido</strong> (el de masa se calcula de su forma, que no se mueve).</li>
+<li>Las <strong>mallas con huesos</strong> (y las entidades con Animador) no tienen pivote propio: su malla siempre se dibuja en el origen.
+Mételas en una entidad vacía y gira esa.</li>
+<li><strong>Fracturar</strong> respeta el pivote: los trozos quedan donde se veía la malla (el desplazamiento se guarda en el asset).</li>
+</ul>
+<h2 id="bajar-al-suelo">Bajar al suelo<a class="ancla" href="#bajar-al-suelo" aria-label="Enlace a esta sección">#</a></h2>
+<p>Como la tecla <strong>End</strong> de Unreal Engine: con el visor Escena o la Jerarquía enfocados, <strong>Fin</strong> baja en vertical cada
+entidad elegida hasta que se apoya en lo que tiene debajo, sin arrastrarla con el gizmo. También en <strong>Entidad &gt; Bajar al
+suelo</strong>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Atajo</th>
+  <th>Qué baja</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Fin</strong></td>
+  <td>La <strong>base de sus límites</strong>: lo más bajo de la caja en el mundo de sus mallas (con sus vértices de verdad) y sus colisionadores, incluidos los de los hijos, queda tocando la superficie más alta que haya debajo de su huella</td>
+</tr>
+<tr>
+  <td><strong>Mayús+Fin</strong></td>
+  <td>El <strong>pivote</strong> (el origen de la entidad, donde sale el gizmo) hasta el suelo que tiene justo debajo</td>
+</tr>
+<tr>
+  <td><strong>Alt+Fin</strong></td>
+  <td>Como Fin, pero además la <strong>gira</strong> para que su eje Y siga la normal de la superficie (conserva su giro alrededor de ese eje) y la deja de plano contra ella: un cubo en una rampa queda apoyado en su cara, no en una esquina</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Qué es suelo</strong>, de lo más alto a lo más bajo que haya debajo:</p>
+<ul>
+<li>los <strong>colisionadores</strong> de las demás entidades, con su forma (caja, esfera, cápsula, cilindro y malla; la envolvente
+convexa se mira como su malla). Los sensores no cuentan;</li>
+<li>las <strong>mallas</strong> de la escena que no tienen colisionador (rayos contra sus triángulos). Las de un cuerpo rígido dinámico
+o un personaje no cuentan sin colisionador;</li>
+<li>el <strong>terreno</strong>;</li>
+<li>y, si no hay nada y la entidad está por encima, el <strong>plano Y = 0</strong>.</li>
+</ul>
+<p>Se ignoran la propia entidad, sus hijos y las otras elegidas que aún no han bajado: se bajan <strong>de abajo arriba</strong>, así que
+varias cajas apiladas y elegidas a la vez quedan una encima de otra. Si debajo no hay nada (por debajo de Y = 0 y sin
+suelo), la entidad no se mueve y la barra de estado lo dice. Una entidad un poco hundida en el suelo (unos centímetros)
+sube hasta apoyarse en él.</p>
+<ul>
+<li><strong>Un solo paso de deshacer</strong> para toda la selección: «Bajar al suelo (3 entidades)». En una
+<a href="edicion-en-equipo.html">sesión de edición en equipo</a> viaja como cualquier cambio de Transform; lo que está editando
+otra persona no se mueve (la barra de estado dice por qué) y sirve de suelo para lo demás.</li>
+<li><strong>Con padre</strong>: se calcula en el mundo y se escribe el Transform local. Si eliges una entidad y su padre, baja el padre
+(el hijo va con él).</li>
+<li>Solo con la <strong>pestaña del nivel</strong>: en las <a href="#pestañas-de-editor">pestañas de editor</a> de un asset no hace nada. En el
+editor de scripts, con el código enfocado, Fin sigue yendo al final de la línea.</li>
+<li>Jugando, mueve la entidad como el gizmo (sin historial).</li>
+</ul>
+<p>Límites: la huella se mira con una rejilla de rayos verticales (de 3 x 3 a 9 x 9 según su tamaño), así que algo muy
+estrecho entre dos rayos (un poste fino bajo una mesa grande) puede no verse. Con Alt+Fin, el plano de apoyo es el de la
+superficie en el centro de la huella. El terreno elegido no se baja (es el suelo).</p>
+<h2 id="selección-con-clic-en-el-visor">Selección con clic en el visor<a class="ancla" href="#selección-con-clic-en-el-visor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un clic (sin arrastrar) sobre un objeto lo selecciona. Si el objeto pertenece a un modelo importado (una
+entidad con <strong>Animador</strong>) o a una instancia de prefab:</p>
+<ol>
+<li>El primer clic selecciona la <strong>raíz</strong> del modelo o del prefab.</li>
+<li>Un segundo clic sobre el mismo objeto selecciona la <strong>entidad hija</strong> que tiene la malla.</li>
+</ol>
+<p><strong>Ctrl+clic</strong> añade o quita de la selección. Un clic en el vacío deselecciona. La entidad seleccionada desde
+el visor se muestra y se despliega en la Jerarquía.</p>
+<h2 id="arrastrar-y-soltar">Arrastrar y soltar<a class="ancla" href="#arrastrar-y-soltar" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué arrastras</th>
+  <th>Dónde lo sueltas</th>
+  <th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Modelo (<code>.glb</code>, <code>.gltf</code>, <code>.fbx</code>, <code>.obj</code>) desde Contenido</td>
+  <td>Visor Escena</td>
+  <td>Se instancia apoyado (la base de su caja) en lo que hay bajo el ratón (mallas de la escena y terreno; si no hay nada, el plano y = 0): raíz con Animador (si tiene animaciones o huesos) e hijos con las mallas. Si el modelo es enorme, la barra de estado avisa de que quizá está en centímetros</td>
+</tr>
+<tr>
+  <td>Prefab desde Contenido</td>
+  <td>Visor Escena</td>
+  <td>Se instancia apoyado en lo que hay bajo el ratón (como un modelo). Una app de tu PC (Nova IA) puede hacer lo mismo sin arrastrar: <a href="enlace-ia.html">enlace-ia.md</a></td>
+</tr>
+<tr>
+  <td>Prefab desde Contenido</td>
+  <td>Una entidad de la Jerarquía</td>
+  <td>Se instancia como hija de esa entidad</td>
+</tr>
+<tr>
+  <td>Modelo desde Contenido</td>
+  <td>Una entidad de la Jerarquía</td>
+  <td>Se instancia como hijo de esa entidad</td>
+</tr>
+<tr>
+  <td>Material desde Contenido</td>
+  <td>Un objeto en el visor Escena</td>
+  <td>Sustituye los materiales de su Malla (o Malla con huesos) por ese material en <strong>todas</strong> sus submallas</td>
+</tr>
+<tr>
+  <td>Escena desde Contenido</td>
+  <td>Visor Escena</td>
+  <td>Abre la escena</td>
+</tr>
+<tr>
+  <td>Asset desde Contenido</td>
+  <td>Un campo de asset del Inspector</td>
+  <td>Asigna el asset si es del tipo que acepta el campo</td>
+</tr>
+<tr>
+  <td>Entidad desde la Jerarquía</td>
+  <td>Otra entidad de la Jerarquía</td>
+  <td>La convierte en hija (conserva su posición en el mundo)</td>
+</tr>
+<tr>
+  <td>Entidad desde la Jerarquía</td>
+  <td>Borde superior de otra entidad</td>
+  <td>La coloca delante, como hermana</td>
+</tr>
+<tr>
+  <td>Entidad desde la Jerarquía</td>
+  <td>Zona vacía de la Jerarquía</td>
+  <td>La saca a la raíz</td>
+</tr>
+<tr>
+  <td>Prefab o modelo desde Contenido</td>
+  <td>Zona vacía de la Jerarquía</td>
+  <td>Se instancia en la raíz de la escena</td>
+</tr>
+<tr>
+  <td>Entidad desde la Jerarquía</td>
+  <td>Un campo de entidad (<code>EntityRef</code>) del Inspector</td>
+  <td>Asigna la referencia</td>
+</tr>
+<tr>
+  <td>Script (<code>.luau</code> de la carpeta <strong>scripts</strong>, o <code>.cpp</code>/<code>.h</code> de C++) desde Contenido</td>
+  <td>Una entidad de la Jerarquía o el Inspector de la entidad seleccionada</td>
+  <td>Le añade ese script (y el componente <strong>Scripts</strong> si no lo tiene), con deshacer. Un script de C++ que aún no está compilado pide compilar primero (Ctrl+B)</td>
+</tr>
+<tr>
+  <td>Uno o varios ficheros o carpetas desde Contenido</td>
+  <td>Una carpeta de la rejilla o del árbol, el botón de la carpeta de arriba o las migas de pan</td>
+  <td>Se mueven ahí con su <code>.meta</code> (mismo Uuid), con deshacer. Ver <a href="#organizar-mover-copiar-y-renombrar">Organizar</a></td>
+</tr>
+<tr>
+  <td>Ficheros desde el Explorador de Windows</td>
+  <td>Cualquier parte de la ventana del editor</td>
+  <td>Se copian a la carpeta actual de Contenido (sin sobrescribir) y se registran con su <code>.meta</code>. Con la carpeta <strong>scripts</strong> abierta, los scripts (Lua o C++) se copian a esa carpeta. Soltados <strong>sobre una carpeta</strong> de Contenido (rejilla, árbol o migas de pan), se importan en esa carpeta. Una carpeta del Explorador se copia entera</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si arrastras una entidad que forma parte de la selección, se mueve toda la selección.</p>
+<h2 id="copiar-y-pegar">Copiar y pegar<a class="ancla" href="#copiar-y-pegar" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Ctrl+C</strong> (o <strong>Editar &gt; Copiar</strong>) copia al portapapeles las entidades seleccionadas con todos sus hijos, en
+JSON. Si seleccionas un padre y uno de sus hijos, el hijo no se copia dos veces.</li>
+<li><strong>Ctrl+V</strong> (o <strong>Editar &gt; Pegar</strong>) crea las entidades copiadas en la <strong>raíz</strong> de la escena actual, con UUID
+nuevos, y las selecciona. Las referencias (<code>EntityRef</code>) entre las entidades pegadas se reasignan a las copias.</li>
+<li>Como el texto queda en el portapapeles de Windows, puedes pegar en otra escena o en otra instancia del
+editor. El texto es un JSON con la clave <code>&quot;nova&quot;: &quot;entidades&quot;</code>; si el portapapeles contiene otra cosa,
+Ctrl+V no hace nada.</li>
+<li><strong>Ctrl+D</strong> (duplicar) es distinto: crea la copia junto al original, con el mismo padre.</li>
+</ul>
+<h2 id="modo-juego">Modo juego<a class="ancla" href="#modo-juego" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Ctrl+P</strong> o el botón de reproducir. El editor hace una <strong>copia</strong> de la escena (pasando por JSON), crea los
+scripts (<code>Awake</code> y <code>Start</code> en Lua; <code>OnCreate</code> y <code>OnStart</code> en C++) y empieza a actualizarla.</li>
+<li>Puedes inspeccionar y modificar la copia, pero <strong>al parar se descarta</strong>: la escena de edición queda como
+estaba. El Inspector lo recuerda con &quot;(cambios temporales: modo juego)&quot;.</li>
+<li><strong>Pausa</strong> congela la escena y <strong>Avanzar un frame</strong> ejecuta un solo frame. Jugando en red, la conexión sigue
+viva durante la pausa (se reciben y envían mensajes, sin simular): nadie se desconecta por tiempo agotado.</li>
+<li>Con la ventana del editor <strong>minimizada</strong>, una partida en red sigue jugándose (sin dibujar).</li>
+<li>El deshacer y el guardado de la escena están desactivados mientras juegas.</li>
+<li>La entrada solo llega al juego con el panel <strong>Juego</strong> enfocado. Si un script bloquea el cursor, el ratón se
+captura en ese panel y <strong>Esc</strong> lo libera (ver <a href="#el-ratón-al-jugar">El ratón al jugar</a>).</li>
+<li>Las físicas y el audio funcionan en el modo juego: los cuerpos se crean al pulsar Jugar y los sonidos suenan
+por la tarjeta de sonido. <strong>Jugar &gt; Formas de física en el visor</strong> dibuja los colisionadores en el visor
+Escena (también sin jugar).</li>
+<li>En <strong>Pausa</strong>, los cambios del Inspector a los componentes de física (y lo que muevas con el gizmo) se
+aplican ya a los cuerpos, y los sonidos se pausan con el juego.</li>
+</ul>
+<h3 id="pantalla-completa-al-jugar">Pantalla completa al jugar<a class="ancla" href="#pantalla-completa-al-jugar" aria-label="Enlace a esta sección">#</a></h3>
+<p>En el desplegable del modo de juego (junto a <strong>Jugar</strong>) y en el menú <strong>Jugar</strong>, <strong>Pantalla completa al jugar</strong>: al pulsar
+Jugar, la vista <strong>Juego</strong> ocupa todo el monitor donde está el editor (ventana sin bordes), sin paneles ni barras, como el
+juego publicado a pantalla completa: el ratón se captura igual, el juego ve la resolución del monitor (<code>Screen</code> y la
+interfaz escalada) y los FPS son los de ese tamaño.</p>
+<ul>
+<li><strong>F11</strong> lo alterna en cualquier momento mientras juegas (con el depurador de scripts parado, F11 es «entrar en la
+función» y se vuelve al editor solo).</li>
+<li><strong>Esc</strong> o <strong>F11</strong> vuelven al editor <strong>sin parar el juego</strong>; <strong>Ctrl+P</strong> para el juego.</li>
+<li>Al detener el juego se vuelve al editor tal como estaba: el dock y las ventanas no cambian (mientras tanto no se
+dibujan).</li>
+<li>La opción se guarda en tus preferencias del editor (<code>editor.json</code>, <code>&quot;pantallaCompletaAlJugar&quot;</code>).</li>
+</ul>
+<h3 id="el-ratón-al-jugar">El ratón al jugar<a class="ancla" href="#el-ratón-al-jugar" aria-label="Enlace a esta sección">#</a></h3>
+<p>Si el juego bloquea el cursor (<code>Input.SetCursorLocked(true)</code> en Lua, <code>GetInput().SetCursorLocked(true)</code> en C++), el
+editor <strong>captura el ratón</strong> en la vista <strong>Juego</strong>, como el modo juego de Unity:</p>
+<ul>
+<li>El cursor no se ve, se queda encerrado dentro de la imagen del juego (no puede salir a otros paneles ni a otras
+ventanas) y vuelve a su centro en cada frame. El juego recibe el movimiento sin límites (<em>raw input</em>), así que
+mirar alrededor funciona aunque el cursor no se mueva.</li>
+<li>Ningún clic llega a la interfaz del editor (ni a la barra, ni a la Jerarquía, ni al Inspector), y los atajos
+del editor no actúan (Ctrl+D, Ctrl+Mayús+S...): las teclas son del juego. <strong>Ctrl+P</strong> sí detiene la partida.</li>
+<li>Arriba de la vista sale un momento el aviso «Esc: liberar el ratón».</li>
+</ul>
+<p>Se captura en cuanto el juego lo bloquea si el panel <strong>Juego</strong> tiene el foco (al pulsar Jugar lo tiene) o, si
+no, con un clic en la vista.</p>
+<p><strong>Esc libera el ratón</strong>: vuelve a verse, puedes sacarlo de la vista y usar el editor, y el juego deja de recibir
+el ratón (sigue en marcha y recibe el teclado mientras el panel <strong>Juego</strong> tenga el foco). Ese Esc <strong>también le
+llega al juego</strong>, así que su menú de pausa funciona igual. Para volver, <strong>haz clic en el juego</strong>: ese clic no le
+llega (no dispara). El aviso «Haz clic en el juego para volver a capturar el ratón» lo recuerda unos segundos, y
+otra vez al pasar el ratón por encima de la vista; la barra de estado también lo dice.</p>
+<p>El ratón también se libera al cambiar de ventana (Alt+Tab o un diálogo de Windows), al pulsar <strong>Pausa</strong> o
+<strong>Avanzar un frame</strong>, al abrirse un diálogo modal del editor y al detener la partida. Después solo se vuelve a
+capturar con un clic en el juego, nunca solo (en pausa, ni con el clic). Si el juego suelta el cursor
+(<code>SetCursorLocked(false)</code>, por ejemplo al abrir su menú de pausa), el ratón vuelve a ser tuyo; cuando lo vuelva a
+bloquear (su botón <strong>Continuar</strong>), se captura otra vez sin clic. <code>IsCursorLocked()</code> devuelve siempre lo que pidió
+el juego, aunque el editor haya liberado el ratón.</p>
+<p>Si el juego solo <strong>oculta</strong> el cursor sin bloquearlo (<code>SetCursorVisible(false)</code>, juegos con puntero propio), el
+cursor se oculta y se queda dentro de la vista, pero no se centra (el juego usa su posición) y su interfaz sí
+recibe los clics. Esc y el clic funcionan igual.</p>
+<p>En <strong>Editar &gt; Preferencias del editor &gt; Jugar</strong>:</p>
+<ul>
+<li><strong>Tu nombre en las partidas</strong>: con el que entras al jugar desde el editor (lo ven los demás, el chat y los avisos
+«se ha unido»). Vacío: tu usuario de Windows. En una sesión de equipo se usa tu nombre de la sesión.</li>
+<li><strong>Capturar el ratón al jugar</strong> (activado por defecto). Desactivado, el cursor nunca se oculta ni se encierra y
+el juego recibe el ratón mientras el panel <strong>Juego</strong> tiene el foco.</li>
+<li><strong>Liberar el ratón con</strong>: <strong>Esc</strong> (por defecto) o <strong>Mayús+Esc</strong>, para los juegos que usan Esc. Con Mayús+Esc, el
+Esc solo es del juego y el Mayús+Esc que libera el ratón no le llega.</li>
+<li><strong>Mostrar el aviso en la vista Juego</strong>.</li>
+</ul>
+<p>Con <strong>Anfitrión + clientes</strong>, cada ventana de <code>NovaGame.exe</code> captura y libera su ratón por su cuenta con las
+mismas reglas y la misma tecla. El juego publicado no tiene tecla para liberar el ratón (Esc es del juego): el
+cursor bloqueado se queda en su ventana mientras tiene el foco, se suelta con Alt+Tab y vuelve al volver a ella.</p>
+<h3 id="modos-de-juego-en-red">Modos de juego en red<a class="ancla" href="#modos-de-juego-en-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>El desplegable junto al botón de reproducir (o el menú <strong>Jugar</strong>) elige cómo se juega:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Modo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Jugar (solo)</strong> (Ctrl+P)</td>
+  <td>Un jugador, sin sockets (sesión <code>Offline</code>). Si la escena no tiene componentes de red, es el modo juego de siempre</td>
+</tr>
+<tr>
+  <td><strong>Jugar como anfitrión</strong></td>
+  <td>El editor es servidor y jugador: otros pueden unirse a tu IP</td>
+</tr>
+<tr>
+  <td><strong>Anfitrión + clientes</strong></td>
+  <td>Además abre de 1 a 4 ventanas de <code>NovaGame.exe</code> conectadas al editor, con tu nombre y un número («Marta 2», «Marta 3»...); se cierran al parar</td>
+</tr>
+<tr>
+  <td><strong>Conectar a...</strong></td>
+  <td>Pide la IP y el puerto (por ejemplo <code>192.168.1.20:7777</code>), o el código de una partida por Internet (<code>NOVA-7K2F-Q9XM</code>), y se une a otra partida o a un servidor dedicado</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Jugar &gt; Por Internet (código)</strong> (o la casilla <strong>Por código</strong> junto al desplegable, con los dos modos de
+anfitrión): el anfitrión crea también una sala en el relé de Nova Enlace y los demás entran desde cualquier sitio
+con el código, sin abrir puertos ni VPN. El código sale en la barra de herramientas con <strong>Copiar código</strong>, en la
+barra de estado y con <strong>F3</strong>; los de tu red local y las ventanas de <strong>Anfitrión + clientes</strong> siguen entrando por
+IP. Ver <a href="enlace.html">enlace.md</a>.</li>
+<li>El puerto, las plazas, el nombre del servidor, la versión del protocolo y la relevancia son los de <strong>Ajustes
+del proyecto &gt; Red</strong>. En la partida juegas con tu nombre: el de tu sesión de equipo o, sin sesión, <strong>Tu nombre en
+las partidas</strong> (Preferencias del editor &gt; Jugar); los nombres son únicos (otra «Ana» entra como «Ana 2»).</li>
+<li>Las ventanas de <strong>Anfitrión + clientes</strong> cargan la misma escena que el editor (<code>--scene</code>): la guardada o, si
+tiene cambios sin guardar o no se ha guardado nunca, una copia temporal en
+<code>%LOCALAPPDATA%\NovaEngine\partida_clientes.scene</code> (tu fichero no se toca).</li>
+<li><strong>Jugar &gt; Simular red mala</strong>: latencia (ms que se suman al ping) y pérdida (% en cada sentido) para este
+modo juego. Como anfitrión afecta a todos los clientes; no se aplica en <strong>Jugar (solo)</strong>.</li>
+<li><strong>Jugar &gt; Argumentos del juego</strong>: lo que reciben los scripts con <code>Application.GetArgs()</code> y
+<code>Application.GetArg(&quot;modo&quot;)</code> al jugar (y las ventanas de <strong>Anfitrión + clientes</strong>), como si fueran los argumentos
+después de <code>--</code> de <code>NovaGame.exe</code>. También se pueden dar al abrir el editor: <code>NovaEditor.exe -- --modo prueba</code>.</li>
+<li>Si un script pide otra sesión (el menú del juego: crear partida, desconectar...), el editor para el modo juego y
+lo vuelve a arrancar con ella; <strong>Desconectar</strong> lo para.</li>
+</ul>
+<p>Todos los detalles en <a href="multijugador.html#13-modos-de-juego-del-editor">multijugador.md</a>.</p>
+<h2 id="deshacer-y-rehacer">Deshacer y rehacer<a class="ancla" href="#deshacer-y-rehacer" aria-label="Enlace a esta sección">#</a></h2>
+<p>Casi todo lo que cambias en el editor se puede deshacer y volver a hacer:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Cómo</th>
+  <th>Deshacer</th>
+  <th>Rehacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Teclado (con cualquier ventana enfocada)</td>
+  <td><strong>Ctrl+Z</strong></td>
+  <td><strong>Ctrl+Y</strong> o <strong>Ctrl+Mayús+Z</strong></td>
+</tr>
+<tr>
+  <td>Barra de herramientas (arriba a la izquierda) y barra de la ventana <a href="animar-huesos.html">Animar huesos</a></td>
+  <td>Flecha <strong>↶</strong></td>
+  <td>Flecha <strong>↷</strong></td>
+</tr>
+<tr>
+  <td>Menú <strong>Editar</strong></td>
+  <td><strong>Deshacer: ...</strong></td>
+  <td><strong>Rehacer: ...</strong></td>
+</tr>
+<tr>
+  <td>Lista del <strong>historial</strong> (la flechita junto a los botones)</td>
+  <td>Clic en un paso anterior</td>
+  <td>Clic en un paso en gris</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Los botones están <strong>desactivados</strong> cuando no hay nada que deshacer o rehacer, y también en modo juego.</li>
+<li>Con las <a href="#pestañas-de-editor">pestañas de editor</a>, cada pestaña deshace lo suyo: los botones, el menú, el historial y
+Ctrl+Z ven solo los pasos de la pestaña elegida.</li>
+<li>El <strong>tooltip</strong> y el menú dicen qué se va a deshacer o rehacer y con qué tecla: «Deshacer: girar Brazo.L
+(Ctrl+Z)», «Rehacer: crear entidad (Ctrl+Y o Ctrl+Mayús+Z)».</li>
+<li>El <strong>historial</strong> lista los pasos de más antiguo a más reciente, con el actual resaltado y en gris los que se pueden
+rehacer. Un clic en un paso deshace o rehace todos los que hagan falta para volver a él; <strong>(inicio)</strong> lo deshace todo.</li>
+<li>Mientras escribes en un campo de texto, Ctrl+Z y Ctrl+Y deshacen y rehacen <strong>lo escrito</strong>, como en cualquier
+programa. Al salir del campo, el cambio entero es un paso del historial.</li>
+</ul>
+<p>Todas las modificaciones de la escena de edición pasan por <strong>comandos</strong> (<code>editor/Commands.h</code>): crear,
+eliminar, duplicar, pegar, instanciar prefabs y modelos, mover con el gizmo, editar un campo, cambiar de padre,
+renombrar, activar o desactivar, añadir o quitar componentes y scripts, crear prefabs, revertir prefabs y
+asignar materiales. Funciona con cualquier componente reflejado, también los del juego. Se guardan las últimas
+200 operaciones.</p>
+<ul>
+<li>Arrastrar un gizmo o un campo del Inspector cuenta como <strong>una sola</strong> operación: la escena cambia mientras
+arrastras y al soltar se registra un único comando con el cambio completo.</li>
+<li>Los cambios hechos en modo juego no se registran (se descartan al parar).</li>
+<li>También se deshacen los cambios de los <strong>controladores</strong> y <strong>máscaras</strong> de animación, los <strong>clips</strong> de la Línea de
+tiempo y todo lo de la ventana <strong>Animar huesos</strong>: claves, curvas, eventos (también los de un clip importado, en su
+<code>.meta</code>), la pose sin clave, Nuevo clip, Editar una copia y Añadir al modelo (ver
+<a href="animar-huesos.html#deshacer-y-rehacer">animar-huesos.md</a>).</li>
+<li>No se deshacen los cambios de otros ficheros de assets desde el Inspector (materiales, ajustes de importación), ni
+el tiempo de reproducción ni la cámara de los visores.</li>
+</ul>
+<h3 id="comandos-serializables-base-de-la-edición-colaborativa">Comandos serializables (base de la edición colaborativa)<a class="ancla" href="#comandos-serializables-base-de-la-edición-colaborativa" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los comandos son lo que viaja por la red en la <a href="edicion-en-equipo.html">edición en equipo</a>: cada cambio de una
+persona se envía como su comando y se aplica en el mismo orden en todos los editores.</p>
+<ul>
+<li>Cada comando tiene un tipo con identificador numérico estable: <code>edit</code> (1), <code>create</code> (2), <code>delete</code> (3),
+<code>reparent</code> (4) y <code>batch</code> (5, varios comandos como una sola operación).</li>
+<li>Se refieren a las entidades por su <strong>UUID</strong> (nunca por punteros ni índices) y a los datos por el <strong>nombre
+reflejado</strong> del componente y del campo. Un cambio de campo guarda solo ese campo (<code>setField</code>), con su valor
+anterior y el nuevo; también hay <code>setComponent</code>, <code>addComponent</code>, <code>removeComponent</code>, <code>setName</code> y <code>setActive</code>.</li>
+<li><code>Command::ToJson()</code> lo convierte a JSON y <code>CommandFromJson()</code> lo reconstruye. Aplicado sobre una escena
+idéntica en otra instancia del editor, el resultado es idéntico (lo comprueban las pruebas <code>comandos</code>).</li>
+<li><code>UndoStack::onCommand</code> avisa de cada comando hecho, deshecho o rehecho; <code>HistoryMessage(cmd, evento)</code> crea el
+mensaje <code>{&quot;event&quot;: &quot;do|undo|redo&quot;, &quot;command&quot;: {...}}</code> y <code>ApplyRemoteCommand(escena, mensaje)</code> lo aplica en
+otra escena.</li>
+<li>La <strong>selección</strong> no forma parte de la escena ni de los comandos (<code>EditorApp::selection</code>, lista de UUID): cada
+persona tiene la suya.</li>
+<li><strong>Comandos locales</strong> (<code>LocalCommand</code>, tipo <code>local</code>, 0.9.19): pasos del historial que solo existen en tu editor, como
+la pose sin clave de Animar huesos o los eventos de un clip importado (que se guardan en su <code>.meta</code>). No se envían a
+la sesión de equipo: lo que escriben en disco llega a los demás con la sincronización de ficheros. Un comando normal
+puede llevar además estado de una ventana en <code>Command::afterUndoRedo</code> (no se serializa).</li>
+<li>Un comando nuevo (por ejemplo de una herramienta del editor) tiene que cumplir el contrato de la edición en
+equipo: <code>Redo</code> determinista y por UUID, <code>Undo</code> justo después deja la escena igual y una entidad que no existe
+se ignora (ver <a href="edicion-en-equipo.html">edicion-en-equipo.md</a>).</li>
+</ul>
+<p>Ejemplo de mensaje al cambiar la intensidad de una luz:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{<span class="hl-k">"event"</span>: <span class="hl-s">"do"</span>, <span class="hl-k">"command"</span>: {<span class="hl-k">"type"</span>: <span class="hl-s">"edit"</span>, <span class="hl-k">"typeId"</span>: <span class="hl-n">1</span>, <span class="hl-k">"name"</span>: <span class="hl-s">"Editar Intensidad"</span>,
+  <span class="hl-k">"edits"</span>: [{<span class="hl-k">"entity"</span>: <span class="hl-s">"5f2c9a1e0b7d4c33"</span>, <span class="hl-k">"changes"</span>: [
+    {<span class="hl-k">"kind"</span>: <span class="hl-s">"setField"</span>, <span class="hl-k">"component"</span>: <span class="hl-s">"PointLight"</span>, <span class="hl-k">"field"</span>: <span class="hl-s">"intensity"</span>, <span class="hl-k">"before"</span>: <span class="hl-n">5</span>, <span class="hl-k">"after"</span>: <span class="hl-n">12.5</span>}]}]}}</code></pre></div>
+<h2 id="recarga-de-scripts">Recarga de scripts<a class="ancla" href="#recarga-de-scripts" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Scripts Lua.</strong> No se compilan. El editor se entera al momento de lo que guardas en <code>scripts/</code> (un vigilante de la
+carpeta y, de red de seguridad, una comprobación cada 2 segundos) y lo recarga:</p>
+<ul>
+<li>abajo a la derecha sale «Recargado Jugador.luau» (si es un módulo, también se recargan los scripts que lo usan);</li>
+<li>si tiene un error, el aviso sale en rojo con fichero y línea (pulsarlo abre el script en esa línea), queda en la
+Consola y se sigue con la versión anterior (el juego no se para);</li>
+<li>si cambian los campos, el Inspector se actualiza y los valores de las entidades se conservan por nombre;</li>
+<li>las instancias que ya existen pasan a usar las funciones nuevas <strong>conservando su estado</strong>, también jugando (no
+se vuelven a llamar <code>Awake</code> ni <code>Start</code>).</li>
+</ul>
+<p><strong>Scripts &gt; Recargar scripts</strong> (Ctrl+R) vuelve a leer y compilar todos los scripts Lua del disco sin reiniciar el
+editor ni parar el juego (y la DLL de los scripts C++, si el proyecto la tiene): por si algún cambio no ha entrado.</p>
+<p>Más en <a href="scripts-lua.html#8-errores-y-recarga-en-caliente">scripts-lua.md</a>.</p>
+<p><strong>Scripts C++ (avanzado).</strong> Solo en los proyectos con un módulo de scripts C++:</p>
+<ul>
+<li><strong>Compilar scripts</strong> (Ctrl+B, el botón de la barra o <strong>Scripts &gt; Compilar scripts</strong>) compila la DLL en segundo
+plano (con el motor instalado, <code>NovaBuild.exe</code>; desde el código fuente, <code>tools\build.cmd &lt;preset&gt; &lt;target&gt;</code>).
+La salida aparece en la Consola (los errores en rojo).</li>
+<li>Cuando la DLL cambia en disco, el editor la recarga solo: guarda las escenas en JSON, descarga la DLL anterior,
+carga la nueva y restaura las escenas. Los campos reflejados de los scripts se conservan; el estado no
+reflejado se pierde. Si estabas jugando, el juego vuelve a arrancar desde el estado guardado, sin las
+entidades de red creadas en la partida (personajes, objetos de <code>Spawn</code>): el servidor las vuelve a crear, así
+que no se duplican. Las pantallas de la interfaz se quedan como estaban (un menú que ya cerraste no vuelve a
+salir).</li>
+<li><strong>Scripts &gt; Recargar scripts</strong> fuerza la recarga sin compilar.</li>
+</ul>
+<p>Detalles en <a href="scripts-cpp.html#recarga-en-caliente-en-el-editor">scripts-cpp.md</a>.</p>
+<h2 id="ajustes-del-proyecto">Ajustes del proyecto<a class="ancla" href="#ajustes-del-proyecto" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Editar &gt; Ajustes del proyecto...</strong> abre una ventana con seis pestañas. Los cambios se guardan al instante en
+<code>project.nova</code>.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Pestaña</th>
+  <th>Ajustes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>General</td>
+  <td>Nombre del juego, Compañía, Versión, Escena inicial, Paso fijo en Hz (también en la partida en marcha), <strong>Código nativo de Lua</strong> (los scripts con <code>--!native</code>, todos o ninguno; ver <a href="rendimiento.html#7-lua-más-rápido-código-nativo---native">rendimiento.md</a>) y, solo para scripts C++, Módulo de scripts (nombre de la DLL sin extensión; vacío en los proyectos con Lua) y Target de CMake (vacío = igual que el módulo)</td>
+</tr>
+<tr>
+  <td>Física</td>
+  <td>Gravedad (m/s², por defecto (0, -9,81, 0); sección <code>fisicas</code> de <code>project.nova</code>). Se aplica al jugar en el editor, en <code>NovaGame.exe</code> y en <code>NovaServer.exe</code>, y al momento si ya se está jugando</td>
+</tr>
+<tr>
+  <td>Ventana</td>
+  <td>Resolución, Pantalla completa, Sincronización vertical (se aplican al arrancar el juego)</td>
+</tr>
+<tr>
+  <td>Render</td>
+  <td><strong>Preajuste de calidad</strong> (Bajo, Medio, Alto, Ultra), <strong>Calidad de la niebla volumétrica</strong> (ver <a href="niebla-volumetrica.html#9-calidad-y-rendimiento">niebla-volumetrica.md</a>), luces con sombra a la vez, tamaño del atlas de sombras, <strong>Reutilizar sombras estáticas</strong>, <strong>Calidad del agua</strong>, <strong>Calidad de las nubes</strong> (Baja, Media, Alta o Ultra; ver <a href="nubes.html#6-calidad-y-rendimiento">nubes.md</a>) y <strong>Calidad de la vegetación</strong> (ver <a href="vegetacion.html#10-calidad-y-rendimiento">vegetacion.md</a>) (sección <code>render</code> de <code>project.nova</code>; se aplican al momento en los visores, en <code>NovaGame.exe</code> y en el juego publicado). Ver <a href="render-y-materiales.html#ajustes-de-render-del-proyecto">render-y-materiales.md</a>. Sección <strong>Rendimiento</strong>: niveles de detalle (LOD), oclusión, copias, distancias de las luces y de sus sombras, topes de las sombras del sol, SSAO y bloom; y <strong>LOD al importar modelos</strong> (ver <a href="rendimiento.html">rendimiento.md</a>)</td>
+</tr>
+<tr>
+  <td>Controles</td>
+  <td>Acciones (botones) y ejes, cada uno con su lista de controles (valen al momento, también jugando)</td>
+</tr>
+<tr>
+  <td>Red</td>
+  <td>Puerto UDP, jugadores como máximo, nombre del servidor, versión del protocolo (súbela al publicar una versión incompatible) y relevancia en metros (0 = todo a todos), y <strong>Al arrancar el juego</strong> (sin red, un jugador o anfitrión: cómo empieza <code>NovaGame.exe</code> sin opciones de red) (sección <code>red</code> de <code>project.nova</code>, que leen el editor, <code>NovaGame.exe</code> y <code>NovaServer.exe</code>; en el editor valen desde la siguiente vez que pulses Jugar)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="controles-acciones-y-ejes">Controles: acciones y ejes<a class="ancla" href="#controles-acciones-y-ejes" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las <strong>acciones</strong> son botones (saltar, disparar) y los <strong>ejes</strong> son valores continuos (moverse, mirar). Se
+configuran por proyecto en la pestaña <strong>Controles</strong>, así que el jugador o el diseñador pueden cambiar los
+controles sin tocar el código, y el teclado y el mando funcionan a la vez. Cada control tiene un origen (Tecla,
+Botón del ratón, Botón del mando, Eje del mando, Ratón X, Ratón Y o Rueda), el control concreto y una escala (por
+ejemplo -1 para la tecla A en el eje <code>MoverX</code>).</p>
+<p>Los scripts los consultan por nombre: <code>Input.GetAxis(&quot;MoverX&quot;)</code>, <code>Input.IsActionDown(&quot;Correr&quot;)</code>,
+<code>Input.WasActionPressed(&quot;Saltar&quot;)</code>... (ver <a href="scripts-lua.html#entrada">scripts-lua.md</a>).</p>
+<ul>
+<li><code>GetAxis</code> suma todos los controles del eje y limita el resultado a [-1, 1], salvo si el eje incluye el
+movimiento del ratón o la rueda (entonces no se limita).</li>
+<li>Un eje del mando (stick o gatillo) asociado a una acción cuenta como pulsado a partir de la mitad de su
+recorrido.</li>
+<li>Las acciones y los ejes de mando leen cualquier mando conectado (hasta 4). Los sticks tienen una zona muerta
+de 0,24 y los gatillos de 0,12.</li>
+</ul>
+<p>Mapa por defecto, el de los proyectos nuevos y los ejemplos:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Nombre</th>
+  <th>Tipo</th>
+  <th>Controles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>MoverX</code></td>
+  <td>Eje</td>
+  <td>D (+1), A (-1), Derecha (+1), Izquierda (-1), stick izquierdo X</td>
+</tr>
+<tr>
+  <td><code>MoverY</code></td>
+  <td>Eje</td>
+  <td>W (+1), S (-1), Arriba (+1), Abajo (-1), stick izquierdo Y</td>
+</tr>
+<tr>
+  <td><code>MirarX</code></td>
+  <td>Eje</td>
+  <td>Ratón X (x0,1), stick derecho X (x2,5)</td>
+</tr>
+<tr>
+  <td><code>MirarY</code></td>
+  <td>Eje</td>
+  <td>Ratón Y (x-0,1), stick derecho Y (x2,5)</td>
+</tr>
+<tr>
+  <td><code>Zoom</code></td>
+  <td>Eje</td>
+  <td>Rueda del ratón</td>
+</tr>
+<tr>
+  <td><code>Saltar</code></td>
+  <td>Acción</td>
+  <td>Espacio, botón A</td>
+</tr>
+<tr>
+  <td><code>Correr</code></td>
+  <td>Acción</td>
+  <td>Mayús izquierda, LB, L3</td>
+</tr>
+<tr>
+  <td><code>Agacharse</code></td>
+  <td>Acción</td>
+  <td>C, Ctrl izquierda, botón B (0.9.16: la usan los <a href="paquetes.html">paquetes del motor</a>)</td>
+</tr>
+<tr>
+  <td><code>Accion</code></td>
+  <td>Acción</td>
+  <td>E, botón X</td>
+</tr>
+<tr>
+  <td><code>Disparar</code></td>
+  <td>Acción</td>
+  <td>Clic izquierdo, gatillo RT</td>
+</tr>
+<tr>
+  <td><code>Pausa</code></td>
+  <td>Acción</td>
+  <td>Esc, Start</td>
+</tr>
+</tbody>
+</table></div>
+<p>En <code>project.nova</code> el mapa se guarda así:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"input"</span>: {
+  <span class="hl-k">"acciones"</span>: {
+    <span class="hl-k">"Saltar"</span>: [
+      { <span class="hl-k">"tipo"</span>: <span class="hl-s">"tecla"</span>, <span class="hl-k">"control"</span>: <span class="hl-s">"Espacio"</span> },
+      { <span class="hl-k">"tipo"</span>: <span class="hl-s">"boton"</span>, <span class="hl-k">"control"</span>: <span class="hl-s">"A"</span> }
+    ]
+  },
+  <span class="hl-k">"ejes"</span>: {
+    <span class="hl-k">"MoverX"</span>: [
+      { <span class="hl-k">"tipo"</span>: <span class="hl-s">"tecla"</span>, <span class="hl-k">"control"</span>: <span class="hl-s">"D"</span> },
+      { <span class="hl-k">"tipo"</span>: <span class="hl-s">"tecla"</span>, <span class="hl-k">"control"</span>: <span class="hl-s">"A"</span>, <span class="hl-k">"escala"</span>: <span class="hl-n">-1</span> },
+      { <span class="hl-k">"tipo"</span>: <span class="hl-s">"eje"</span>, <span class="hl-k">"control"</span>: <span class="hl-s">"StickIzqX"</span> }
+    ],
+    <span class="hl-k">"MirarX"</span>: [
+      { <span class="hl-k">"tipo"</span>: <span class="hl-s">"ratonX"</span>, <span class="hl-k">"escala"</span>: <span class="hl-n">0.1</span> }
+    ]
+  }
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>tipo</code></th>
+  <th><code>control</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>tecla</code></td>
+  <td><code>A</code>-<code>Z</code>, <code>0</code>-<code>9</code>, <code>F1</code>-<code>F12</code>, <code>Num0</code>-<code>Num9</code>, <code>Espacio</code>, <code>Intro</code>, <code>Esc</code>, <code>Tab</code>, <code>Retroceso</code>, <code>Supr</code>, <code>Insert</code>, <code>Inicio</code>, <code>Fin</code>, <code>RePag</code>, <code>AvPag</code>, <code>Izquierda</code>, <code>Derecha</code>, <code>Arriba</code>, <code>Abajo</code>, <code>ShiftIzq</code>, <code>ShiftDer</code>, <code>CtrlIzq</code>, <code>CtrlDer</code>, <code>AltIzq</code>, <code>AltDer</code>, <code>BloqMayus</code>, <code>Pausa</code>, <code>ImprPant</code>, <code>Num*</code>, <code>Num+</code>, <code>Num-</code>, <code>Num.</code>, <code>Num/</code> y signos de puntuación</td>
+</tr>
+<tr>
+  <td><code>raton</code></td>
+  <td><code>RatonIzq</code>, <code>RatonDer</code>, <code>RatonCentro</code>, <code>RatonX1</code>, <code>RatonX2</code></td>
+</tr>
+<tr>
+  <td><code>boton</code></td>
+  <td><code>A</code>, <code>B</code>, <code>X</code>, <code>Y</code>, <code>LB</code>, <code>RB</code>, <code>Back</code>, <code>Start</code>, <code>L3</code>, <code>R3</code>, <code>DPadArriba</code>, <code>DPadAbajo</code>, <code>DPadIzq</code>, <code>DPadDer</code></td>
+</tr>
+<tr>
+  <td><code>eje</code></td>
+  <td><code>StickIzqX</code>, <code>StickIzqY</code>, <code>StickDerX</code>, <code>StickDerY</code>, <code>LT</code>, <code>RT</code></td>
+</tr>
+<tr>
+  <td><code>ratonX</code>, <code>ratonY</code>, <code>rueda</code></td>
+  <td>Sin <code>control</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>escala</code> es opcional (1 por defecto): -1 invierte el sentido y otros valores ajustan la sensibilidad. En el
+editor, la entrada solo llega al juego mientras el panel <strong>Juego</strong> tiene el foco.</p>
+<h2 id="preferencias-del-editor">Preferencias del editor<a class="ancla" href="#preferencias-del-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Editar &gt; Preferencias del editor...</strong> tiene los ajustes del propio editor (no del proyecto). Se guardan en
+<code>%LOCALAPPDATA%\NovaEngine\editor.json</code>.</p>
+<ul>
+<li><p><strong>Apariencia &gt; Tema</strong>: <strong>Nova (oscuro)</strong>, <strong>Clásico</strong> o <strong>Claro</strong> (ver <a href="#tema">Tema</a>).</p>
+</li>
+<li><p><strong>Apariencia &gt; Pestañas de editor a pantalla completa</strong>: los editores de assets en pestañas que ocupan toda la ventana,
+como en UE5 (activada de serie; ver <a href="#pestañas-de-editor">Pestañas de editor</a>). Desactivada, paneles acoplados como antes.</p>
+</li>
+<li><p><strong>Apariencia &gt; Pantalla de carga al abrir</strong>: la portada con el progreso de la carga al abrir el editor o cambiar de
+proyecto (activada de serie; ver <a href="#pantalla-de-carga">Pantalla de carga</a>).</p>
+</li>
+<li><p><strong>Idioma del editor</strong>: <strong>Español</strong> o <strong>English</strong> (ver <a href="#idioma-del-editor">Idioma del editor</a>).</p>
+</li>
+<li><p><strong>Sesión</strong>: recuperar lo que tenías al abrir (preguntar, siempre o nunca), el intervalo del autoguardado de seguridad y
+<strong>Vaciar la recuperación</strong> (ver <a href="#recuperar-la-sesión">Recuperar la sesión</a>).</p>
+</li>
+<li><p><strong>Enlace con Nova IA (apps locales)</strong>: las apps de tu PC (Nova IA) pueden colocar, mover y quitar prefabs en la escena
+abierta como si los soltaras en el visor, con Ctrl+Z y, en equipo, para todos. Solo en <code>127.0.0.1</code>, con una clave nueva en
+cada arranque en <code>.nova\enlace-ia.json</code> del proyecto (activado de serie; ver <a href="enlace-ia.html">enlace-ia.md</a>).</p>
+</li>
+<li><p><strong>Editor de scripts (Lua)</strong>: <strong>Abrir scripts con</strong> (<strong>Editor de Nova</strong>, por defecto, <strong>Visual Studio Code</strong> o el
+editor de código de abajo), tamaño de la fuente, tabulador, ajuste de línea, parejas, <code>end</code> automático, guías de
+sangría y formato al guardar. Ver <a href="editor-scripts.html#preferencias">editor-scripts.md</a>.</p>
+</li>
+<li><p><strong>Editor de código</strong>: con qué se abren los scripts C++ (y los Lua si «Abrir scripts con» lo dice) (doble clic en
+<strong>Contenido</strong>, <strong>Abrir script</strong> en el Inspector, <strong>Nuevo script...</strong>): <strong>Automático</strong> (Visual Studio Code; si no está, Visual Studio 2022; si
+tampoco, el programa predeterminado de Windows), <strong>Visual Studio Code</strong>, <strong>Visual Studio 2022</strong> o
+<strong>Predeterminado de Windows</strong>. Para los scripts Lua lo mejor es VS Code con la <strong>extensión de Nova Engine</strong>
+(abajo), que instala también luau-lsp (<a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>).
+Debajo se ve con cuál se abren ahora y dónde ha encontrado cada uno (<strong>Volver a buscar</strong> si acabas de
+instalarlo).</p>
+</li>
+<li><p>Con VS Code se abre la carpeta del proyecto con el fichero en su línea (en la ventana que ya tenga esa carpeta
+o en una nueva; las de otros proyectos no se tocan). Con un script Lua, el editor escribe <code>nova.d.luau</code> (y, si
+no existen, <code>.luaurc</code> y <code>.vscode/settings.json</code>); después, si el proyecto tiene <code>nova.d.luau</code>, lo rehace con los
+tipos de los scripts al abrir el proyecto y cada vez que guardas, creas, renombras o borras un script (solo si
+algo ha cambiado; ver <a href="scripts-lua.html#tus-scripts-getscript-global-y-los-nombres-entre-comillas">scripts-lua.md</a>); con uno de C++, si el proyecto no tiene configuración de
+IntelliSense, se crea <code>.vscode/c_cpp_properties.json</code> con las cabeceras del motor. Nunca se cambia la
+configuración del usuario; la que creó el editor se rehace si sus rutas ya no existen. Con Visual Studio 2022 se
+intenta ir a la línea (si ya estaba abierto, puede quedarse al principio del fichero). Con <strong>Predeterminado de
+Windows</strong>, los ficheros que no son código ni texto nunca se ejecutan. Ver
+<a href="scripts-cpp.html#editor-de-código">scripts-cpp.md</a>.</p>
+</li>
+<li><p><strong>Extensión de Nova para VS Code (scripts Lua)</strong>: dice si está instalada en VS Code (mirando su carpeta de
+extensiones, sin abrir VS Code) y el botón <strong>Instalar la extensión de Nova en VS Code</strong> ejecuta
+<code>code --install-extension</code> con el <code>.vsix</code> que viene con el motor (<code>&lt;motor&gt;\tools\nova-engine-&lt;versión&gt;.vsix</code>) y
+enseña el resultado. VS Code instala con ella <strong>luau-lsp</strong>. Da autocompletado y ayuda en español de la API y de
+tus scripts (<code>jugador:GetScript(&quot;Inventario&quot;):</code> completa las funciones de <code>Inventario.luau</code>; entre las comillas de
+<code>GetComponent(&quot;</code> y <code>GetScript(&quot;</code> salen los componentes y los scripts del proyecto), avisa de <code>GetComponent</code> con un
+script (es <code>GetScript</code>) y de las funciones que no existen, comprueba los atributos (<code>--[Server]</code>...) mientras escribes, tiene fragmentos y órdenes («Nova: Nuevo script
+Lua», «Nova: Regenerar tipos») y enseña en <strong>Problemas</strong> los errores de los scripts que encuentra el editor (los
+escribe en <code>&lt;proyecto&gt;\.nova\diagnosticos-lua.json</code>, que no va a git ni a la edición en equipo). La primera vez que
+abres un script Lua en VS Code sin ella, el editor te ofrece instalarla (una sola vez). Si VS Code marca errores
+que no lo son (con las extensiones <strong>Lua</strong> de sumneko o <strong>FiveLab Lua</strong>), ver
+<a href="scripts-lua.html#si-vs-code-marca-errores-que-no-lo-son">scripts-lua.md</a>.</p>
+</li>
+<li><p><strong>Jugar</strong>: <strong>Tu nombre en las partidas</strong> (con el que entras al jugar desde el editor; vacío = tu usuario de
+Windows; en una sesión de equipo manda tu nombre de la sesión; las ventanas de <strong>Anfitrión + clientes</strong> son «Tu
+nombre 2», «Tu nombre 3»...), <strong>Capturar el ratón al jugar</strong>, la tecla que lo libera (<strong>Esc</strong> o <strong>Mayús+Esc</strong>) y
+<strong>Mostrar el aviso en la vista Juego</strong> (ver <a href="#el-ratón-al-jugar">El ratón al jugar</a>).</p>
+</li>
+</ul>
+<h2 id="idioma-del-editor">Idioma del editor<a class="ancla" href="#idioma-del-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p>El editor y Nova Hub se pueden usar en <strong>español</strong> o en <strong>inglés</strong> (<em>English</em>). Es el idioma del motor, no el de tus
+juegos: los juegos tienen su propio sistema de idiomas (<a href="idiomas.html">idiomas.md</a>), que no cambia.</p>
+<ul>
+<li><strong>Cambiarlo</strong>: <strong>Editar &gt; Preferencias del editor &gt; Idioma del editor</strong>, o en <strong>Nova Hub &gt; Ajustes &gt; Idioma</strong>. Se
+aplica al momento, sin reiniciar: menús, paneles, Inspector, diálogos, avisos, tooltips, atajos y la Consola. Los
+paneles se quedan donde estaban (el diseño y lo que tenías abierto no cambian).</li>
+<li><strong>Es de cada persona</strong>: se guarda en <code>%LOCALAPPDATA%\NovaEngine\idioma.json</code> (lo comparten el editor y el Hub), nunca
+en el proyecto. En una sesión de equipo cada uno ve el editor en el suyo.</li>
+<li><strong>Por defecto</strong>: si ya usabas Nova Engine, español hasta que lo cambies. En un PC nuevo, el idioma de Windows si es
+español o inglés; con cualquier otro, inglés.</li>
+<li><strong>Los componentes en inglés se llaman como en Lua</strong>: en el Inspector, <strong>Añadir componente</strong>, los menús y los avisos
+salen <code>RigidBody</code>, <code>CharacterController</code>, <code>NetworkAnimator</code>, <code>Vehicle</code>... y los campos con su nombre de la API en
+formato legible (<strong>Field Of View</strong> para <code>fieldOfView</code>, <strong>Owner Authority</strong> para <code>ownerAuthority</code>). El tooltip de
+cada componente y de cada campo dice su nombre en Lua en los dos idiomas: en español, <strong>Cuerpo rígido</strong> enseña
+«En Lua: GetComponent(&quot;RigidBody&quot;)» y <strong>Campo de visión</strong>, «En Lua: fieldOfView».</li>
+<li><strong>Las opciones de los campos</strong> (por ejemplo la proyección de la cámara) se ven traducidas, pero en Lua se siguen
+escribiendo como siempre: el tooltip de cada opción dice su valor en Lua (<code>&quot;Perspectiva&quot;</code>).</li>
+<li><strong>El buscador de Añadir componente</strong> encuentra por los dos nombres en cualquier idioma, sin importar tildes ni
+mayúsculas: «cuerpo», «rigido», «RigidBody» o «Rigid Body».</li>
+<li><strong>La documentación está en español</strong>, también con el editor en inglés.</li>
+<li>El registro del editor (<code>editor.log</code>) sigue en español; la Consola enseña sus mensajes traducidos.</li>
+</ul>
+<p>Los textos en inglés están en <code>bin\idiomas\en\*.json</code> (en el código fuente, <code>editor\idiomas\en\*.json</code>): pares «texto
+español» → «texto en inglés». Si falta alguno, ese texto sale en español sin romper nada. Para verlos, abre el editor
+con <code>--idioma en --idioma-faltan faltan.txt</code>: los que faltan salen con <code>[ES]</code> delante y, al cerrar, se escriben en
+<code>faltan.txt</code>.</p>
+<h2 id="publicar">Publicar<a class="ancla" href="#publicar" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Archivo &gt; Publicar juego...</strong> crea una carpeta con el juego (y el servidor dedicado <code>NovaServer.exe</code>, con una
+plantilla de <code>servidor.json</code> si no hay ninguno) listo para distribuir. Ver <a href="publicar-juego.html">publicar-juego.md</a>.</p>
+<h2 id="ficheros-del-editor">Ficheros del editor<a class="ancla" href="#ficheros-del-editor" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fichero</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\editor.log</code></td>
+  <td>Log de la última sesión</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\editor.json</code></td>
+  <td>Proyectos recientes (los 10 últimos), el editor de código elegido en las preferencias (<code>editorCodigo</code>), si ya se ofreció la extensión de VS Code (<code>pistaExtensionVSCode</code>), el tema (<code>tema</code>: <code>nova</code>, <code>clasico</code> o <code>claro</code>), tus distribuciones guardadas (<code>distribuciones</code>) y la elegida (<code>distribucion</code>); con <code>&quot;desarrollador&quot;: true</code>, las opciones de desarrollador (como <code>--dev</code>)</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\editor_layout.ini</code></td>
+  <td>Disposición de los paneles (la de ahora; las guardadas con nombre van en <code>editor.json</code>)</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\idioma.json</code></td>
+  <td>Idioma del editor y de Nova Hub (<code>{&quot;idioma&quot;: &quot;en&quot;}</code>)</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\editor-pruebas.log</code></td>
+  <td>Log de la última sesión sin ventana (<code>--hidden</code>, pruebas)</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\crashes\</code></td>
+  <td>Informes de cierres inesperados (ver abajo)</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\sesiones\&lt;proyecto&gt;-&lt;código&gt;\sesion.json</code></td>
+  <td>Lo que tenías abierto en cada proyecto (<a href="#recuperar-la-sesión">Recuperar la sesión</a>)</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\recuperacion\&lt;proyecto&gt;-&lt;código&gt;\</code></td>
+  <td>Autoguardado de seguridad: copias de la escena y los scripts sin guardar, <code>recuperacion.json</code> con la lista, <code>abierto.json</code> mientras el proyecto está abierto y <code>anterior\</code> con lo que no se recuperó</td>
+</tr>
+<tr>
+  <td><code>%LOCALAPPDATA%\NovaEngine\equipo\</code></td>
+  <td>Edición en equipo: identidad, sesiones recientes y carpetas de trabajo (<code>espejos\</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="si-el-editor-se-cierra-por-un-error">Si el editor se cierra por un error<a class="ancla" href="#si-el-editor-se-cierra-por-un-error" aria-label="Enlace a esta sección">#</a></h3>
+<p>El editor guarda un informe en <code>%LOCALAPPDATA%\NovaEngine\crashes\</code> y avisa de dónde está:
+<code>NovaEditor-&lt;fecha&gt;.txt</code> (la excepción y la pila de llamadas, con nombres de función y líneas si están los
+<code>.pdb</code> junto al ejecutable) y <code>NovaEditor-&lt;fecha&gt;.dmp</code> (un minivolcado para Visual Studio o WinDbg). Envía los
+dos ficheros y el log con lo que estabas haciendo. Al abrir el proyecto otra vez, el editor te ofrece recuperar los cambios
+sin guardar del autoguardado de seguridad (<a href="#si-el-editor-se-cerró-por-un-fallo">Recuperar la sesión</a>). <code>NovaGame.exe</code> y <code>NovaServer.exe</code> hacen lo mismo en
+<code>%LOCALAPPDATA%\&lt;nombre del juego&gt;\crashes\</code>, junto a su log (el servidor escribe la ruta en la consola).</p>
+<h2 id="opciones-de-línea-de-comandos">Opciones de línea de comandos<a class="ancla" href="#opciones-de-línea-de-comandos" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaEditor.exe [--project &lt;carpeta&gt;] [--scene &lt;ruta en assets&gt;]</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>--project &lt;carpeta&gt;</code></td>
+  <td>Abre ese proyecto (carpeta con <code>project.nova</code>). Sin ella se abre el último usado</td>
+</tr>
+<tr>
+  <td><code>--scene &lt;ruta&gt;</code></td>
+  <td>Abre esa escena del proyecto, relativa a <code>assets/</code> (por ejemplo <code>scenes/Principal.scene</code>)</td>
+</tr>
+<tr>
+  <td><code>--enlace-ia</code></td>
+  <td>Abre el <a href="enlace-ia.html">enlace con Nova IA</a> también sin ventana (pruebas); <code>--enlace-ia-pruebas</code>, con <code>--hidden</code>, añade sus órdenes de prueba</td>
+</tr>
+<tr>
+  <td><code>--publish &lt;carpeta&gt;</code></td>
+  <td>Publica el juego en esa carpeta y sale, sin abrir ninguna ventana (ver <a href="publicar-juego.html">publicar-juego.md</a>)</td>
+</tr>
+<tr>
+  <td><code>--generar-tipos-lua</code></td>
+  <td>Con <code>--project &lt;carpeta&gt;</code>: escribe los ficheros de VS Code del proyecto (<code>nova.d.luau</code> con los tipos de la API, de los componentes y de los scripts de <code>scripts/</code>, <code>nova.docs.json</code> y, si faltan, <code>.luaurc</code> y lo de luau-lsp en <code>.vscode\settings.json</code>) y sale con 0, sin ventana ni GPU y sin tocar los assets ni las preferencias. Lo usa la orden «Nova: Regenerar tipos» de la extensión de VS Code, y la extensión sola cuando a <code>nova.d.luau</code> le falta algo de los scripts y el editor no está abierto</td>
+</tr>
+<tr>
+  <td><code>--tema nova|clasico|claro</code></td>
+  <td>Tema de esta ejecución (manda sobre la preferencia; sin ventana, el de Nova si no se dice)</td>
+</tr>
+<tr>
+  <td><code>--distribucion por-defecto|animacion|interfaz|mundo</code></td>
+  <td>Distribución de las ventanas al arrancar</td>
+</tr>
+<tr>
+  <td><code>--dev</code></td>
+  <td>Opciones de desarrollador: <strong>Ventana &gt; Depuración &gt; Demo de ImGui</strong></td>
+</tr>
+<tr>
+  <td><code>--pestanas</code> / <code>--sin-pestanas</code></td>
+  <td><a href="#pestañas-de-editor">Pestañas de editor</a> a pantalla completa o el modo antiguo en esta ejecución (mandan sobre la preferencia; sin ventana y sin ellas, el modo antiguo)</td>
+</tr>
+<tr>
+  <td><code>--sin-pantalla-carga</code></td>
+  <td>No enseña la <a href="#pantalla-de-carga">pantalla de carga</a> (también con la variable <code>NOVA_SIN_PANTALLA_CARGA=1</code>)</td>
+</tr>
+<tr>
+  <td><code>--warp</code></td>
+  <td>Render por software (WARP)</td>
+</tr>
+<tr>
+  <td><code>--d3d-debug</code></td>
+  <td>Activa la capa de depuración de Direct3D 11 (si está instalada); sus avisos y errores aparecen en la Consola</td>
+</tr>
+</tbody>
+</table></div>
+<p>Opciones pensadas para pruebas automáticas y capturas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>--hidden</code></td>
+  <td>No muestra la ventana (ni la pantalla de carga)</td>
+</tr>
+<tr>
+  <td><code>--capturar-carga &lt;carpeta&gt;</code></td>
+  <td>Dibuja la <a href="#pantalla-de-carga">pantalla de carga</a> sin ventana durante la carga real: una captura por paso (<code>carga-&lt;paso&gt;.png</code>) y el progreso en <code>carga-progreso.txt</code></td>
+</tr>
+<tr>
+  <td><code>--capture &lt;png&gt;</code></td>
+  <td>Guarda una captura de la interfaz y sale (implica <code>--hidden</code>)</td>
+</tr>
+<tr>
+  <td><code>--frames N</code></td>
+  <td>Con <code>--capture</code>, frames que espera antes de capturar (10 por defecto). Sin <code>--capture</code> y con <code>--hidden</code>: sale tras N frames de 1/60 s</td>
+</tr>
+<tr>
+  <td><code>--seconds N</code></td>
+  <td>Con <code>--capture</code>, segundos reales que espera antes de capturar (en lugar de <code>--frames</code>)</td>
+</tr>
+<tr>
+  <td><code>--size &lt;ancho&gt;x&lt;alto&gt;</code></td>
+  <td>Tamaño de la ventana (1600x900 por defecto)</td>
+</tr>
+<tr>
+  <td><code>--select &lt;nombre&gt;</code></td>
+  <td>Selecciona y encuadra la entidad con ese nombre</td>
+</tr>
+<tr>
+  <td><code>--asset &lt;ruta&gt;</code></td>
+  <td>Muestra ese asset en el Inspector. Con <code>scripts/&lt;fichero&gt;</code> abre la carpeta <strong>scripts</strong> en Contenido con ese fichero seleccionado</td>
+</tr>
+<tr>
+  <td><code>--focus &lt;ventana&gt;</code></td>
+  <td>Da el foco a un panel (&quot;Juego&quot;, &quot;Consola&quot;...). &quot;Preferencias del editor&quot;, &quot;Nuevo script Lua&quot; y &quot;Nuevo script C++&quot; abren esas ventanas</td>
+</tr>
+<tr>
+  <td><code>--gizmo mover|rotar|escalar</code></td>
+  <td>Modo inicial del gizmo</td>
+</tr>
+<tr>
+  <td><code>--play</code></td>
+  <td>Entra en modo juego al arrancar</td>
+</tr>
+<tr>
+  <td><code>--perfilador</code></td>
+  <td>Abre <strong>Ventana &gt; Perfilador</strong> al arrancar (midiendo)</td>
+</tr>
+<tr>
+  <td><code>--ajustes-proyecto &lt;pestaña&gt;</code></td>
+  <td>Abre <strong>Ajustes del proyecto</strong> en esa pestaña (<code>General</code>, <code>Render</code>...)</td>
+</tr>
+<tr>
+  <td><code>--compilar-scripts</code></td>
+  <td>Pulsa <strong>Compilar scripts</strong> al abrir (con <code>--capture</code>, captura cuando la DLL de scripts C++ se ha recargado; en un proyecto solo con Lua solo avisa de que no hace falta)</td>
+</tr>
+<tr>
+  <td><code>--pausar N</code></td>
+  <td>Pulsa <strong>Pausa</strong> en el frame N (con <code>--play</code> el juego empieza en el frame 2)</td>
+</tr>
+<tr>
+  <td><code>--paso</code></td>
+  <td>Con <code>--pausar N</code>, pulsa <strong>Avanzar un frame</strong> en los frames N+5, N+10 y N+15</td>
+</tr>
+<tr>
+  <td><code>--detener N</code></td>
+  <td>Pulsa <strong>Detener</strong> en el frame N</td>
+</tr>
+<tr>
+  <td><code>--acciones &quot;&lt;frame&gt;:&lt;acción&gt;,...&quot;</code></td>
+  <td>Botones de la barra por frame: <code>jugar</code>, <code>pausa</code>, <code>paso</code>, <code>detener</code> o <code>ctrl+p</code> (con 5 frames o más entre una y otra). Para deshacer y rehacer: <code>entidad</code> (Ctrl+Mayús+N), <code>ctrl+z</code>, <code>ctrl+y</code>, <code>ctrl+mayus+z</code>, <code>boton-deshacer</code>, <code>boton-rehacer</code> e <code>historial</code>; <code>sin-deshacer</code>, <code>sin-rehacer</code>, <code>con-deshacer</code> y <code>con-rehacer</code> comprueban cómo se dibujaron los botones, y <code>raton-deshacer</code> deja el ratón encima del de deshacer (para capturar su tooltip). Para la iluminación horneada: <code>hornear-iluminacion</code> (el botón <strong>Hornear</strong>; el editor no sale hasta que acaba), <code>limpiar-iluminacion</code> e <code>iluminacion-vista:normal|lightmap|densidad|sondas</code> (abre el panel con esa vista). Son clics y teclas simulados, como los del usuario; si alguno no tiene efecto el editor sale con el código 3</td>
+</tr>
+<tr>
+  <td><code>--acciones</code> (Contenido y «Añadir script»)</td>
+  <td><code>contenido-mover:&lt;origen&gt;[|&lt;origen&gt;...]&gt;&lt;carpeta&gt;</code> mueve como al soltar (rutas con <code>assets/</code> o <code>scripts/</code> delante: <code>assets/lingotes/Oro.fbx&gt;assets/modelos</code>) y comprueba que entra en el historial; <code>contenido-dentro:&lt;carpeta&gt;</code> intenta meter una carpeta en sí misma (no debe hacer nada); <code>contenido-existe:&lt;ruta&gt;</code> y <code>contenido-no-existe:&lt;ruta&gt;</code>; <code>contenido-refs</code> comprueba que la escena abierta tiene todos sus modelos, materiales, prefabs y scripts Lua; <code>contenido-buscar-script:&lt;texto&gt;</code> abre <strong>Añadir script</strong> con ese texto (<code>*</code> = vacío; con <code>--select</code> de una entidad con Scripts), <code>contenido-tecla:abajo|arriba|enter|esc</code> pulsa esa tecla y <code>contenido-script-en:&lt;entidad&gt;=&lt;tipo&gt;</code> comprueba que la entidad tiene ese script</td>
+</tr>
+<tr>
+  <td><code>--acciones</code> (árbol de comportamiento)</td>
+  <td><code>arbol:&lt;ruta&gt;</code> abre un <code>.bt</code>; <code>arbol-elegir:&lt;id&gt;</code> (o <code>ultimo</code>), <code>arbol-nodo:&lt;Tipo&gt;</code>, <code>arbol-servicio:&lt;Tipo&gt;</code>, <code>arbol-copiar</code>, <code>arbol-pegar</code>, <code>arbol-borrar</code> y <code>arbol-ordenar</code> editan como la ventana (cada una es un paso del historial); <code>arbol-nodos:&lt;N&gt;</code> comprueba cuántos nodos tiene; <code>arbol-depurar</code> (o <code>arbol-depurar:ocupado</code>, el agente que hace algo más interesante) comprueba que el agente que se depura tiene un nodo corriendo; <code>arbol-ruido</code> hace un ruido fuerte en el centro de la escena; <code>arbol-ventana:grande</code>, <code>arbol-sin-panel</code>, <code>arbol-ver:&lt;id&gt;[:&lt;zoom&gt;]</code> y <code>arbol-ver:activo[:&lt;zoom&gt;]</code> colocan la ventana para las capturas. Ver <a href="ia-arboles.html">ia-arboles.md</a></td>
+</tr>
+<tr>
+  <td><code>--acciones</code> (estilo, 0.9.24)</td>
+  <td><code>distribucion:&lt;preajuste&gt;</code>, <code>distribucion-guardar:&lt;nombre&gt;</code>, <code>distribucion-usar:&lt;nombre&gt;</code> y <code>distribucion-restablecer</code>; <code>aviso:&lt;texto&gt;</code> y <code>aviso-error:&lt;texto&gt;</code> (con botones), <code>con-avisos</code> y <code>sin-avisos</code>; <code>cajon</code> (Ctrl+Espacio), <code>cajon-cerrar</code> y <code>clic-fuera</code>; <code>tema:&lt;id&gt;</code>; <code>menu-ventana-tiene:&lt;texto&gt;</code> y <code>menu-ventana-no-tiene:&lt;texto&gt;</code> (con <code>--abrir menu-ventana</code>); <code>animacion-pestana:animador|humanoide|clips|huesos|linea|sockets</code> y <code>animacion-abrir:&lt;ruta&gt;&gt;&lt;pestaña&gt;</code> (como el doble clic en Contenido; <code>ninguna</code> si no se abre en el espacio Animación). Sin espacios dentro de una acción</td>
+</tr>
+<tr>
+  <td><code>--acciones</code> (menús, 0.9.31)</td>
+  <td><code>menus-todo</code>, <code>menus-quitar</code>, <code>menus-invertir</code>, <code>menus-jerarquia</code>, <code>menus-mismo-tipo</code>, <code>menus-tipo:&lt;luces|mallas|esqueleto|camaras|particulas|sonidos|decals&gt;</code>, <code>menus-script:&lt;clase&gt;</code>, <code>menus-material:&lt;ruta&gt;</code>, <code>menus-etiqueta:&lt;texto&gt;</code>, <code>menus-capa:&lt;estatico|dinamico|jugador|sensor|escombros|ninguna&gt;</code>, <code>menus-elegir:&lt;entidad&gt;</code> y <code>menus-seleccion:&lt;n&gt;</code> (comprueba cuántas hay); <code>menus-atajo:&lt;ctrl+a|ctrl+i|ctrl+mayus+a|esc|mayus+f11|ctrl+mayus+t&gt;</code>; <code>menus-calidad:&lt;borrador|media|alta&gt;</code>, <code>menus-compilar-todo</code>, <code>menus-compilar-navegacion</code>, <code>menus-sondas</code>; <code>menus-mezclador</code>, <code>menus-mezclador-intensidad:&lt;luz&gt;:&lt;valor&gt;</code>, <code>menus-capas</code>, <code>menus-capa-ocultar:&lt;capa&gt;</code>, <code>menus-mundo</code>, <code>menus-registro</code>, <code>menus-recursos</code>, <code>menus-estadisticas-luz</code>; <code>menus-combinar</code>; <code>menus-barra-visor</code>, <code>menus-ui-visor</code>, <code>menus-pantalla-completa</code>; <code>menus-crear:&lt;material|controlador|clip|escena&gt;</code>, <code>menus-buscar-scripts:&lt;texto&gt;</code>, <code>menus-validar</code> y <code>menus-abrir:&lt;seleccionar|compilar|herramientas&gt;</code>. Dentro de una acción, <code>~</code> es un espacio. El editor sin ventana no sale mientras «Compilar todo» sigue</td>
+</tr>
+<tr>
+  <td><code>--sesion</code></td>
+  <td>Sin ventana, guarda y recupera la <a href="#recuperar-la-sesión">sesión</a> como con ella (sin ventana no se lee ni se guarda nada). Solo con la variable <code>NOVA_DATOS_USUARIO</code> (la carpeta de datos de las pruebas): nunca toca la de la persona</td>
+</tr>
+<tr>
+  <td><code>--sesion-modo preguntar|siempre|nunca</code></td>
+  <td>Con <code>--sesion</code>: la preferencia <strong>Recuperar lo que tenías al abrir</strong> de esta ejecución</td>
+</tr>
+<tr>
+  <td><code>--recuperacion-intervalo &lt;s&gt;</code></td>
+  <td>Con <code>--sesion</code>: el intervalo del autoguardado de seguridad (desde 0,2 s en las pruebas)</td>
+</tr>
+<tr>
+  <td><code>--acciones</code> (sesión, 0.9.28)</td>
+  <td><code>sesion-aviso</code> y <code>sesion-sin-aviso</code> comprueban si sale la ventana; <code>sesion-abrir</code> y <code>sesion-no</code> son sus botones, <code>sesion-siempre</code> marca la casilla y <code>sesion-marcar:&lt;n&gt;</code> la casilla de una cosa de la recuperación; <code>sesion-guardar</code> guarda la sesión ya y <code>sesion-autoguardar</code> hace el autoguardado de seguridad; <code>sesion-plegar:&lt;línea&gt;</code> pliega un bloque del script elegido, <code>sesion-tabla-orden:&lt;columna&gt;_&lt;1 si descendente&gt;</code> ordena la Tabla de datos y <code>sesion-camara:&lt;x&gt;_&lt;y&gt;_&lt;z&gt;_&lt;yaw&gt;_&lt;pitch&gt;</code> mueve la cámara; <code>sesion-volcar:&lt;fichero&gt;</code> escribe en JSON la sesión de ahora, la escena y los scripts con cambios y lo que ofrece la ventana</td>
+</tr>
+<tr>
+  <td><code>--modo solo|anfitrion|cliente</code></td>
+  <td>Modo del botón <strong>Jugar</strong> (<code>cliente</code> se conecta a 127.0.0.1)</td>
+</tr>
+<tr>
+  <td><code>--puerto N</code></td>
+  <td>Puerto del anfitrión, o al que se conecta el cliente. Con <code>--hidden</code> la red solo escucha en 127.0.0.1</td>
+</tr>
+<tr>
+  <td><code>--idioma es|en</code></td>
+  <td>Idioma del editor en esta ejecución (como <strong>Idioma del editor</strong> de las preferencias, que sin ventana no se leen: sin ventana, español si no se dice)</td>
+</tr>
+<tr>
+  <td><code>--idioma-faltan &lt;fichero&gt;</code></td>
+  <td>Los textos sin traducir salen con <code>[ES]</code> delante y, al salir, se escriben en ese fichero (uno por línea)</td>
+</tr>
+<tr>
+  <td><code>--abrir &lt;qué&gt;</code></td>
+  <td>Deja abierto un menú para las capturas: <code>anadir-componente</code> (con <code>:texto</code>, ese texto en el buscador) o <code>menu-archivo</code>, <code>menu-editar</code>, <code>menu-entidad</code>, <code>menu-jugar</code>, <code>menu-ventana</code>, <code>menu-seleccionar</code>, <code>menu-compilar</code>, <code>menu-herramientas</code></td>
+</tr>
+<tr>
+  <td><code>--nombre-jugador &lt;nombre&gt;</code></td>
+  <td>Tu nombre en las partidas de esta ejecución (como <strong>Tu nombre en las partidas</strong> de las preferencias, que sin ventana no se leen)</td>
+</tr>
+<tr>
+  <td><code>--prueba-raton</code></td>
+  <td>Con <code>--play</code> y <code>--hidden</code>: recorre la captura del ratón en la vista <strong>Juego</strong> (el juego bloquea el cursor, Esc, Mayús+Esc, clics en la barra y en la vista, Alt+Tab, pausa, un diálogo modal y Detener) con un cursor falso: nunca toca el del sistema. Si algo no se cumple sale con el código 3. Para las pruebas</td>
+</tr>
+<tr>
+  <td><code>--vegetacion-prueba arboles|hierba</code></td>
+  <td>Con <code>--capture</code>: crea un terreno con colinas, siete prototipos integrados, un bosque y un prado repartidos por reglas y un trazo de cada pincel, y deja el panel <strong>Terreno</strong> en la pestaña <strong>Árboles</strong> o <strong>Hierba y detalles</strong> con el pincel en el visor; escribe en el registro los árboles, la hierba y los pasos del historial. Para las pruebas</td>
+</tr>
+<tr>
+  <td><code>--linea-tiempo-prueba</code></td>
+  <td>Con la pestaña <strong>Línea de tiempo</strong> del espacio Animación: crea una puerta, un clip, graba una clave como con el gizmo, deshace y rehace y deja la vista previa a mitad; escribe un resumen en el registro. Para las pruebas</td>
+</tr>
+<tr>
+  <td><code>--acciones</code> (pivote, 0.9.24)</td>
+  <td><code>pivote-puerta</code> crea una puerta de Cubo con el pivote en la bisagra, la gira 60° y la deja elegida con <strong>Editar pivote</strong> (capturas); <code>pivote:&lt;entidad&gt;:&lt;x&gt;,&lt;y&gt;,&lt;z&gt;</code> pone el pivote de una entidad en ese punto de su caja (de -1 a 1 en cada eje)</td>
+</tr>
+<tr>
+  <td><code>--acciones</code> (bajar al suelo)</td>
+  <td><code>suelo-elegir:&lt;A&gt;|&lt;B&gt;</code> elige por nombre; <code>bajar-suelo</code>, <code>bajar-suelo:pivote</code> y <code>bajar-suelo:alinear</code> (como el menú Entidad); <code>suelo-tecla</code>, <code>suelo-tecla:mayus</code> y <code>suelo-tecla:alt</code> (enfoca la Escena y pulsa Fin); comprobaciones <code>suelo-y:&lt;entidad&gt;:&lt;y&gt;</code> (posición en el mundo, ±1 cm), <code>suelo-base:&lt;entidad&gt;:&lt;y&gt;</code> (la base de su caja), <code>suelo-inclinacion:&lt;entidad&gt;:&lt;grados&gt;</code>, <code>suelo-deshacer:&lt;nombre del paso&gt;</code> y <code>suelo-movidas:&lt;n&gt;</code>. Bajar comprueba que entra un solo paso en el historial si algo se movió (ninguno si no)</td>
+</tr>
+<tr>
+  <td><code>--animar-huesos-prueba clip|ik|linea|deshacer|sockets</code></td>
+  <td>Con la pestaña <strong>Animar huesos</strong> del espacio Animación (proyecto con <code>assets/personajes/CesiumMan.glb</code>): clip nuevo, claves del brazo, deshacer y rehacer, IK, espejo y eventos (también en el <code>.meta</code>); la captura espera a que termine y enseña el clip (<code>clip</code>), la pose con IK (<code>ik</code>) o la línea de tiempo grande (<code>linea</code>). Con <code>deshacer</code>, cada acción de la ventana se hace, se deshace y se rehace comprobando que el estado vuelve exacto, y se prueban Ctrl+Z, Ctrl+Y y Ctrl+Mayús+Z como teclas. Con <code>sockets</code>, la pestaña <strong>Sockets</strong> (también con <code>assets/personajes/Maniqui.glb</code>): añade, mueve, renombra, duplica y borra sockets (cada paso se deshace y se rehace), pone objetos de vista previa con el clip importado y copia los sockets al Maniquí. Para las pruebas</td>
+</tr>
+<tr>
+  <td><code>--navegacion-prueba</code></td>
+  <td>Con el panel <strong>Navegación</strong>: crea la superficie si falta, hornea en el hilo (como el botón), muestra la malla y prueba un camino de un lado a otro; escribe un resumen en el registro. Para las pruebas</td>
+</tr>
+<tr>
+  <td><code>--interfaz-prueba crear|editar</code></td>
+  <td>Ediciones guionizadas en el panel <strong>Interfaz</strong> por el camino del ratón (en una sesión de equipo, cuando ya se puede editar): <code>crear</code> añade el HUD, arrastra <strong>Vida</strong> y escribe en <strong>Valor</strong>; <code>editar</code> espera a ese cambio, arrastra <strong>Minimapa</strong>, escribe en <strong>Cantidad</strong> y deshace y rehace. Con <code>plantilla:hud</code> (<code>menu</code>, <code>pausa</code>, <code>inventario</code>, <code>ajustes</code>, <code>estilos</code>), <code>probar</code> o <code>comparar</code>, crea esa plantilla (y la prueba o compara); con <code>estilos</code>, crea la muestra de la biblioteca de estilos, abre la pestaña <strong>Estilos</strong> y aplica <strong>Metal oxidado</strong> a toda la pantalla. Para las pruebas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ejemplos:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">build\debug\bin\NovaEditor.exe --project game\sample --capture captura.png --select Zorro --size 1920x1080
+<span class="hl-c">rem Jugar, pausar, avanzar tres frames y detener con la barra (0 = bien)</span>
+build\debug\bin\NovaEditor.exe --project game\sample --hidden --play --pausar 30 --paso --detener 60 --frames 90</code></pre></div>
+<p>Edición en equipo: <code>--servidor-equipo</code> arranca solo el servidor del proyecto (sin ventana),
+<code>--detener-servidor-equipo &lt;puerto&gt; [--project &lt;carpeta&gt;]</code> lo cierra guardando (el puerto es obligatorio y la clave
+del cierre se lee del <code>.nova-equipo\servidor.json</code> del proyecto), y <code>--equipo-unirse &lt;host:puerto&gt;</code>, <code>--equipo-nombre</code>,
+<code>--equipo-contrasena</code>, <code>--equipo-carpeta</code> y <code>--equipo-crear &lt;puerto&gt;</code> entran en una sesión al abrir (ver
+<a href="edicion-en-equipo.html#10-servidor-del-proyecto-sin-ventana">edicion-en-equipo.md</a>).</p>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="empezar.html">Empezar</a></li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="escenas-y-componentes.html">Escenas y componentes</a></li>
+<li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li>
+<li><a href="prefabs.html">Prefabs</a></li>
+<li><a href="multijugador.html">Multijugador</a></li>
+<li><a href="edicion-en-equipo.html">Edición en equipo</a></li>
+<li><a href="enlace-ia.html">Enlace con Nova IA</a></li>
+<li><a href="publicar-juego.html">Publicar el juego</a></li>
+<li><a href="scripts-cpp.html">Scripts en C++ (avanzado)</a></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="empezar.html"><small>Anterior</small>Empezar con Nova Engine</a><a class="sig" href="editor-scripts.html"><small>Siguiente</small>Editor de scripts integrado</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#paneles">Paneles</a></li><li class="n3"><a href="#barra-de-menús">Barra de menús</a></li><li class="n3"><a href="#barra-de-herramientas">Barra de herramientas</a></li><li class="n3"><a href="#barra-de-estado">Barra de estado</a></li><li class="n3"><a href="#avisos-emergentes">Avisos emergentes</a></li><li class="n3"><a href="#jerarquía">Jerarquía</a></li><li class="n3"><a href="#inspector">Inspector</a></li><li class="n3"><a href="#escena">Escena</a></li><li class="n3"><a href="#juego">Juego</a></li><li class="n3"><a href="#interfaz">Interfaz</a></li><li class="n3"><a href="#contenido">Contenido</a></li><li class="n3"><a href="#consola">Consola</a></li><li class="n2"><a href="#pestañas-de-editor">Pestañas de editor</a></li><li class="n2"><a href="#espacio-animación">Espacio Animación</a></li><li class="n2"><a href="#distribuciones">Distribuciones</a></li><li class="n2"><a href="#tema">Tema</a></li><li class="n2"><a href="#pantalla-de-carga">Pantalla de carga</a></li><li class="n2"><a href="#recuperar-la-sesión">Recuperar la sesión</a></li><li class="n3"><a href="#lo-que-se-guarda">Lo que se guarda</a></li><li class="n3"><a href="#al-abrir-el-proyecto">Al abrir el proyecto</a></li><li class="n3"><a href="#si-el-editor-se-cerró-por-un-fallo">Si el editor se cerró por un fallo</a></li><li class="n3"><a href="#en-una-sesión-de-edición-en-equipo">En una sesión de edición en equipo</a></li><li class="n3"><a href="#preferencias">Preferencias</a></li><li class="n2"><a href="#menús-al-estilo-ue5">Menús al estilo UE5</a></li><li class="n3"><a href="#seleccionar">Seleccionar</a></li><li class="n3"><a href="#compilar">Compilar</a></li><li class="n3"><a href="#herramientas">Herramientas</a></li><li class="n3"><a href="#ventana-nivel-visor-y-registros">Ventana: Nivel, Visor y Registros</a></li><li class="n3"><a href="#crear-en-contenido">Crear en Contenido</a></li><li class="n2"><a href="#atajos-de-teclado">Atajos de teclado</a></li><li class="n2"><a href="#cámara-del-visor-escena">Cámara del visor Escena</a></li><li class="n2"><a href="#gizmos">Gizmos</a></li><li class="n2"><a href="#editar-el-pivote">Editar el pivote</a></li><li class="n2"><a href="#bajar-al-suelo">Bajar al suelo</a></li><li class="n2"><a href="#selección-con-clic-en-el-visor">Selección con clic en el visor</a></li><li class="n2"><a href="#arrastrar-y-soltar">Arrastrar y soltar</a></li><li class="n2"><a href="#copiar-y-pegar">Copiar y pegar</a></li><li class="n2"><a href="#modo-juego">Modo juego</a></li><li class="n3"><a href="#pantalla-completa-al-jugar">Pantalla completa al jugar</a></li><li class="n3"><a href="#el-ratón-al-jugar">El ratón al jugar</a></li><li class="n3"><a href="#modos-de-juego-en-red">Modos de juego en red</a></li><li class="n2"><a href="#deshacer-y-rehacer">Deshacer y rehacer</a></li><li class="n3"><a href="#comandos-serializables-base-de-la-edición-colaborativa">Comandos serializables (base de la edición colaborativa)</a></li><li class="n2"><a href="#recarga-de-scripts">Recarga de scripts</a></li><li class="n2"><a href="#ajustes-del-proyecto">Ajustes del proyecto</a></li><li class="n3"><a href="#controles-acciones-y-ejes">Controles: acciones y ejes</a></li><li class="n2"><a href="#preferencias-del-editor">Preferencias del editor</a></li><li class="n2"><a href="#idioma-del-editor">Idioma del editor</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#ficheros-del-editor">Ficheros del editor</a></li><li class="n3"><a href="#si-el-editor-se-cierra-por-un-error">Si el editor se cierra por un error</a></li><li class="n2"><a href="#opciones-de-línea-de-comandos">Opciones de línea de comandos</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

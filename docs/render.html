@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas · Nova Engine</title>
+<meta name="description" content="Esta guía explica las opciones de realismo del render que llegan con la 0.9.8. Sirven para escenas nocturnas y
+mapas hechos con texturas escaneadas (de Poly Haven, ambientCG...):">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas · Nova Engine">
+<meta property="og:description" content="Esta guía explica las opciones de realismo del render que llegan con la 0.9.8. Sirven para escenas nocturnas y
+mapas hechos con texturas escaneadas (de Poly Haven, ambientCG...):">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/render.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/render.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html" aria-current="page">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="render-realista-reflejos-antialiasing-temporal-cielos-hdri-y-de-noche-texturas-comprimidas">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-dónde-están-las-opciones">1. Dónde están las opciones</a></li><li class="n2"><a href="#2-reflejos-en-pantalla-ssr">2. Reflejos en pantalla (SSR)</a></li><li class="n2"><a href="#3-antialiasing-temporal-taa">3. Antialiasing temporal (TAA)</a></li><li class="n2"><a href="#4-cielo-procedural-hdri-o-noche">4. Cielo: procedural, HDRI o noche</a></li><li class="n3"><a href="#procedural-día">Procedural (día)</a></li><li class="n3"><a href="#hdri">HDRI</a></li><li class="n3"><a href="#noche">Noche</a></li><li class="n2"><a href="#5-texturas-comprimidas-bc7-bc5-bc4">5. Texturas comprimidas (BC7, BC5, BC4)</a></li><li class="n2"><a href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal">6. Sombras de contacto, sondas de reflejos y cristal</a></li><li class="n3"><a href="#sombras-de-contacto">Sombras de contacto</a></li><li class="n3"><a href="#sondas-de-reflejos-interiores">Sondas de reflejos (interiores)</a></li><li class="n3"><a href="#cristal-y-lentes">Cristal y lentes</a></li><li class="n2"><a href="#7-preajustes-de-calidad">7. Preajustes de calidad</a></li><li class="n2"><a href="#8-cuánto-cuesta-cada-efecto">8. Cuánto cuesta cada efecto</a></li><li class="n2"><a href="#9-receta-una-calle-mojada-de-noche">9. Receta: una calle mojada de noche</a></li><li class="n2"><a href="#10-desde-lua">10. Desde Lua</a></li><li class="n2"><a href="#11-claves-de-projectnova-y-del-entorno">11. Claves de project.nova y del Entorno</a></li><li class="n2"><a href="#12-capa-de-vista-el-arma-en-primera-persona">12. Capa de vista: el arma en primera persona</a></li><li class="n3"><a href="#cómo-se-usa">Cómo se usa</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n3"><a href="#antes-y-después">Antes y después</a></li><li class="n2"><a href="#13-distancia-máxima-de-dibujo">13. Distancia máxima de dibujo</a></li><li class="n2"><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">14. Calidad de las texturas y memoria de vídeo</a></li><li class="n3"><a href="#medida-el-mapa-realista-del-modo-zombis">Medida: el mapa realista del modo Zombis</a></li><li class="n2"><a href="#15-desenfoque-de-movimiento">15. Desenfoque de movimiento</a></li><li class="n2"><a href="#16-estadísticas-de-render-desde-lua">16. Estadísticas de render desde Lua</a></li><li class="n2"><a href="#17-límites">17. Límites</a></li></ul></details><p>Esta guía explica las opciones de <strong>realismo</strong> del render que llegan con la 0.9.8. Sirven para escenas nocturnas y
+mapas hechos con texturas escaneadas (de Poly Haven, ambientCG...):</p>
+<ul>
+<li><strong>reflejos en pantalla</strong> (charcos, asfalto mojado, suelos pulidos, metal);</li>
+<li><strong>antialiasing temporal</strong> (TAA), que quita los dientes de sierra y el parpadeo;</li>
+<li>cielo con una imagen <strong>HDRI</strong>, y un <strong>cielo de noche</strong> con estrellas y luna;</li>
+<li><strong>texturas comprimidas</strong> en la GPU, para poder usar texturas de 2K y 4K en todo;</li>
+<li><strong>sombras de contacto</strong>, <strong>sondas de reflejos</strong> para los interiores y materiales de <strong>cristal</strong> con refracción.</li>
+</ul>
+<p>La 0.9.9 añade la <strong>capa de vista</strong> para el arma en primera persona, la <strong>distancia máxima</strong> de dibujo por malla y por luz,
+la <strong>calidad de las texturas</strong> (con la memoria de vídeo medida en un mapa real), el <strong>desenfoque de movimiento</strong> y las
+<strong>estadísticas de render</strong> desde Lua.</p>
+<p>Todo se maneja desde el editor y desde Lua; no hace falta tocar código C++. La parte del render de siempre (luces,
+materiales, niebla, postproceso) está en <a href="render-y-materiales.html">render-y-materiales.md</a>. El rendimiento y los
+preajustes de calidad están en <a href="rendimiento.html">rendimiento.md</a>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-dónde-están-las-opciones">Dónde están las opciones</a></li>
+<li><a href="#2-reflejos-en-pantalla-ssr">Reflejos en pantalla (SSR)</a></li>
+<li><a href="#3-antialiasing-temporal-taa">Antialiasing temporal (TAA)</a></li>
+<li><a href="#4-cielo-procedural-hdri-o-noche">Cielo: procedural, HDRI o noche</a></li>
+<li><a href="#5-texturas-comprimidas-bc7-bc5-bc4">Texturas comprimidas (BC7, BC5, BC4)</a></li>
+<li><a href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal">Sombras de contacto, sondas de reflejos y cristal</a></li>
+<li><a href="#7-preajustes-de-calidad">Preajustes de calidad</a></li>
+<li><a href="#8-cuánto-cuesta-cada-efecto">Cuánto cuesta cada efecto</a></li>
+<li><a href="#9-receta-una-calle-mojada-de-noche">Receta: una calle mojada de noche</a></li>
+<li><a href="#10-desde-lua">Desde Lua</a></li>
+<li><a href="#11-claves-de-projectnova-y-del-entorno">Claves de <code>project.nova</code> y del Entorno</a></li>
+<li><a href="#12-capa-de-vista-el-arma-en-primera-persona">Capa de vista: el arma en primera persona</a></li>
+<li><a href="#13-distancia-máxima-de-dibujo">Distancia máxima de dibujo</a></li>
+<li><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">Calidad de las texturas y memoria de vídeo</a></li>
+<li><a href="#15-desenfoque-de-movimiento">Desenfoque de movimiento</a></li>
+<li><a href="#16-estadísticas-de-render-desde-lua">Estadísticas de render desde Lua</a></li>
+<li><a href="#17-límites">Límites</a></li>
+</ol>
+<h2 id="1-dónde-están-las-opciones">1. Dónde están las opciones<a class="ancla" href="#1-dónde-están-las-opciones" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Ajustes del proyecto &gt; Render &gt; Realismo</strong>: reflejos en pantalla con su calidad, antialiasing temporal con su
+nitidez, sombras de contacto, texturas comprimidas y tamaño máximo de las texturas. Se aplican al momento, en el
+editor, en <code>NovaGame.exe</code> y en el juego publicado.</li>
+<li><strong>Ajustes del proyecto &gt; Render &gt; Preajuste de calidad</strong>: Bajo, Medio, Alto y Ultra también rellenan estas
+opciones (ver <a href="#7-preajustes-de-calidad">7</a>).</li>
+<li><strong>Inspector &gt; Entorno &gt; Tipo de cielo</strong>: procedural, HDRI o noche, con sus ajustes.</li>
+</ul>
+<p>Los jugadores pueden cambiar la calidad desde el juego con <code>Application.SetQuality(&quot;Bajo&quot;)</code> (ver
+<a href="rendimiento.html">rendimiento.md</a>).</p>
+<h2 id="2-reflejos-en-pantalla-ssr">2. Reflejos en pantalla (SSR)<a class="ancla" href="#2-reflejos-en-pantalla-ssr" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las superficies brillantes reflejan <strong>lo que se ve en la imagen</strong>: las farolas en un charco, las fachadas en el asfalto
+mojado, un personaje en un suelo pulido, la calle en la chapa de un coche. Antes solo reflejaban el cielo.</p>
+<p>Para cada píxel brillante, el motor busca en la propia imagen lo que se vería en el reflejo.</p>
+<ul>
+<li>Si lo encuentra, cambia el reflejo del cielo por ese color.</li>
+<li>Si en esa dirección se ve el cielo en la imagen, refleja ese trozo de cielo. Así salen las nubes y el halo de la
+niebla alrededor de las farolas.</li>
+<li>Si no hay nada en pantalla, sigue reflejando el cielo (o el HDRI) como siempre.</li>
+</ul>
+<p><strong>Qué refleja más.</strong> El reflejo pesa lo mismo que el del cielo, así que manda el material:</p>
+<ul>
+<li><strong>Rugosidad</strong>: muy baja (0,02–0,1) es un espejo, como un charco. Media (0,2–0,4) da un reflejo borroso, como el asfalto
+mojado o la madera barnizada. A partir de 0,6 (Alta) ya no hay reflejo en pantalla: solo el del cielo, borroso.</li>
+<li><strong>Metal</strong>: refleja casi todo y con su color.</li>
+<li><strong>Ángulo</strong>: un charco refleja poco si lo miras desde arriba y mucho si lo miras rasante (como en la realidad).</li>
+<li><strong>Entorno &gt; Reflejos</strong>: multiplica todos los reflejos, también los de pantalla.</li>
+<li>Los <strong>decals</strong> que cambian la rugosidad (los charcos de <a href="decals.html">decals.md</a>) también reflejan.</li>
+</ul>
+<p><strong>Calidad</strong> (Ajustes del proyecto &gt; Render &gt; Realismo &gt; Calidad de los reflejos):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Calidad</th>
+  <th>Resolución de la búsqueda</th>
+  <th>Pasos por rayo</th>
+  <th>Rugosidad máxima</th>
+  <th>Distancia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Baja</td>
+  <td>media</td>
+  <td>16</td>
+  <td>0,45</td>
+  <td>40 m</td>
+</tr>
+<tr>
+  <td>Media</td>
+  <td>media</td>
+  <td>32</td>
+  <td>0,55</td>
+  <td>60 m</td>
+</tr>
+<tr>
+  <td>Alta</td>
+  <td>media</td>
+  <td>48</td>
+  <td>0,6</td>
+  <td>80 m</td>
+</tr>
+<tr>
+  <td>Ultra</td>
+  <td>completa</td>
+  <td>64</td>
+  <td>0,7</td>
+  <td>120 m</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con el TAA activado, los reflejos de las superficies rugosas cambian un poco de dirección en cada frame y el TAA los
+mezcla: quedan suaves y sin ruido. Sin TAA se usan rayos fijos y un desenfoque.</p>
+<p><strong>Para ver qué refleja</strong>: abre el juego con la variable de entorno <code>NOVA_DEPURAR_SSR=1</code>. Se pinta en rojo el peso del
+reflejo de cada píxel y en verde lo que el motor ha encontrado en la imagen.</p>
+<h2 id="3-antialiasing-temporal-taa">3. Antialiasing temporal (TAA)<a class="ancla" href="#3-antialiasing-temporal-taa" aria-label="Enlace a esta sección">#</a></h2>
+<p>El TAA quita los dientes de sierra y, sobre todo, el <strong>parpadeo</strong> de los detalles finos: vallas, cables, hojas,
+barandillas, las aristas del arma en primera persona. Cada frame se dibuja con la cámara desplazada una fracción de
+píxel, y se mezcla con los anteriores.</p>
+<ul>
+<li><p>Si la cámara se mueve, la imagen anterior se reproyecta con la profundidad.</p>
+</li>
+<li><p>Si se mueve un objeto (un zombi, una puerta, el arma), se usa su propio movimiento.</p>
+</li>
+<li><p>Lo que aparece de repente se recorta a los colores de su alrededor: no deja estelas.</p>
+</li>
+<li><p><strong>Nitidez del TAA</strong> (0 a 1, por defecto 0,35): recupera el detalle que el TAA suaviza. Con más de 0,6 se nota el
+ruido de las texturas.</p>
+</li>
+<li><p><strong>Si el TAA está apagado</strong> se usa el <strong>FXAA</strong> del Entorno (Entorno &gt; FXAA): es más barato pero menos estable.</p>
+</li>
+<li><p><strong>Una imagen suelta</strong> (las miniaturas del editor, una captura con <code>--screenshot</code> en el primer frame, las imágenes de
+las pruebas) sale igual que sin TAA y con el FXAA del Entorno. El TAA necesita unos frames de historia.</p>
+</li>
+</ul>
+<p>En una prueba con una valla de barrotes de 2 cm y la cámara deslizándose despacio, el parpadeo medio entre frames baja
+de 3,2 niveles (sin antialiasing) y 2,2 (FXAA) a 0,9 con TAA: un 72 % menos que sin nada.</p>
+<h2 id="4-cielo-procedural-hdri-o-noche">4. Cielo: procedural, HDRI o noche<a class="ancla" href="#4-cielo-procedural-hdri-o-noche" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Inspector &gt; Entorno &gt; Tipo de cielo</strong> tiene tres opciones. Las <strong>nubes</strong> y la <strong>niebla</strong> (también la volumétrica) van
+encima de cualquiera de las tres. El cielo ilumina la escena: la luz ambiente, los reflejos (con mips prefiltrados según
+la rugosidad) y el color de la niebla salen de él.</p>
+<h3 id="procedural-día">Procedural (día)<a class="ancla" href="#procedural-día" aria-label="Enlace a esta sección">#</a></h3>
+<p>El de siempre: dispersión atmosférica, con el sol en la dirección de la luz direccional.</p>
+<h3 id="hdri">HDRI<a class="ancla" href="#hdri" aria-label="Enlace a esta sección">#</a></h3>
+<p>Una imagen <strong>equirectangular</strong> (proporción 2:1) en <code>.hdr</code> o <code>.exr</code>. Se ve de fondo a su resolución completa e ilumina
+la escena con sus colores: un HDRI de luna fría da una luz ambiente azulada, y uno de atardecer, anaranjada.</p>
+<ol>
+<li>Copia la imagen a <code>assets/</code> (por ejemplo <code>assets/cielos/noche_luna.exr</code>). Aparece en Contenido como textura.</li>
+<li>En el Entorno elige <strong>Cielo: HDRI</strong> y arrastra la imagen a <strong>Imagen HDRI</strong>.</li>
+<li><strong>Intensidad del HDRI</strong>: multiplica su luz. <strong>Giro del HDRI</strong>: gira la imagen alrededor del eje vertical.</li>
+<li>La imagen no da sombras. Pon la <strong>luz direccional</strong> en la dirección del sol (o de la luna) de la imagen, y gira el
+HDRI hasta que coincidan.</li>
+</ol>
+<p>Formatos que se leen:</p>
+<ul>
+<li><code>.hdr</code> (Radiance).</li>
+<li><code>.exr</code> en líneas (scanline), sin comprimir o con RLE, ZIP, ZIPS o <strong>PIZ</strong> (la de muchos HDRI de Poly Haven), con
+canales de 16 o 32 bits.</li>
+<li>No se leen los <code>.exr</code> en mosaicos (tiled), los de varias partes, ni los comprimidos con DWAA, DWAB, B44 o PXR24: el
+registro dice cuál es el problema. Guárdalos con ZIP o PIZ desde tu programa de imagen.</li>
+</ul>
+<p>El motor trae un cielo de ejemplo pequeño hecho con código: <code>assets/cielos/noche_procedural.hdr</code> (512 × 256).</p>
+<h3 id="noche">Noche<a class="ancla" href="#noche" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un cielo de noche hecho con código, sin imágenes:</p>
+<ul>
+<li>degradado oscuro (<strong>Color de la noche arriba</strong> y <strong>en el horizonte</strong>);</li>
+<li><strong>estrellas</strong>, con titileo y colores, más densas en la <strong>vía láctea</strong>;</li>
+<li>la <strong>luna</strong> en la dirección de la luz direccional, con su halo.</li>
+</ul>
+<p>Usa la luz direccional como luna: color frío y poca intensidad (por ejemplo, 0,3 a 0,6).</p>
+<ul>
+<li><strong>Fase de la luna</strong>: 0 nueva, 0,25 cuarto creciente, 0,5 llena, 0,75 cuarto menguante.</li>
+<li><strong>Tamaño de la luna</strong>: 1 es el real (medio grado). En los juegos se suele usar alrededor de 3.</li>
+<li><strong>Brillo de la luna</strong>: el del disco y su halo. La luz que da la luna es la de la luz direccional.</li>
+<li>Las estrellas se apagan cerca del horizonte, las tapan las nubes y la niebla las difumina.</li>
+</ul>
+<h2 id="5-texturas-comprimidas-bc7-bc5-bc4">5. Texturas comprimidas (BC7, BC5, BC4)<a class="ancla" href="#5-texturas-comprimidas-bc7-bc5-bc4" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con <strong>Texturas comprimidas</strong> activado (por defecto en todos los preajustes), las texturas de los materiales se comprimen
+en la GPU:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Hueco del material</th>
+  <th>Formato</th>
+  <th>Memoria frente a sin comprimir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Color base, emisión</td>
+  <td>BC7 (sRGB)</td>
+  <td>4 veces menos</td>
+</tr>
+<tr>
+  <td>Metal y rugosidad</td>
+  <td>BC7</td>
+  <td>4 veces menos</td>
+</tr>
+<tr>
+  <td>Normales</td>
+  <td>BC5 (X e Y; el shader reconstruye Z)</td>
+  <td>4 veces menos</td>
+</tr>
+<tr>
+  <td>Oclusión</td>
+  <td>BC4 (un canal)</td>
+  <td>8 veces menos</td>
+</tr>
+</tbody>
+</table></div>
+<p>Una textura de 2K con sus mips pasa de 21 MB a 5,3 MB (BC7/BC5) o a 2,7 MB (BC4). Así caben texturas de 2K y 4K en todo
+el mapa.</p>
+<ul>
+<li><strong>Los mips se hacen con cuidado</strong>:<ul>
+<li>con un filtro mejor que el de la GPU;</li>
+<li>el color en espacio lineal;</li>
+<li>las normales vuelven a tener largo 1;</li>
+<li>las texturas con alfa recortado (vallas, hojas, rejas) conservan su cobertura: de lejos no desaparecen.</li>
+</ul>
+</li>
+<li><strong>Primera vez</strong>: la textura se ve sin comprimir y se comprime en un hilo en segundo plano (usa una cuarta parte de los
+núcleos). Al terminar se cambia sola por la comprimida. En <strong>Ajustes del proyecto &gt; Render &gt; Realismo</strong> se ve cuántas
+quedan y el botón <strong>Terminar ahora</strong> espera a que acaben.</li>
+<li><strong>Caché</strong>: las comprimidas se guardan en los datos del usuario (<code>%LOCALAPPDATA%\NovaEngine\cache\texturas</code>, o la
+carpeta de <code>NOVA_DATOS_USUARIO</code>). Van por el contenido de la imagen: solo se vuelven a comprimir si cambia la imagen.
+La misma textura en otro proyecto sale ya comprimida. En el juego publicado, la caché se crea en el PC del jugador la
+primera vez que juega.</li>
+<li><strong>Tamaño máximo de las texturas</strong> (Sin límite, 512, 1024, 2048, 4096): las texturas más grandes se cargan desde un mip
+más pequeño. El preajuste Bajo usa 1024 para las gráficas con poca memoria.</li>
+<li>Las texturas cuyo ancho o alto <strong>no es múltiplo de 4</strong> se quedan sin comprimir (la GPU no las aceptaría); el registro lo
+avisa.</li>
+<li>Los modelos <strong>glTF</strong> con las texturas dentro también se comprimen.</li>
+</ul>
+<p><strong>Calidad medida</strong> (compresor propio, PSNR frente al original; más es mejor, 40 dB ya no se distingue a simple vista):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Textura (2K, CC0)</th>
+  <th>Formato</th>
+  <th>Calidad</th>
+  <th>Tiempo (8 hilos)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Asfalto gastado, color</td>
+  <td>BC7</td>
+  <td>46,3 dB</td>
+  <td>1,1 s</td>
+</tr>
+<tr>
+  <td>Asfalto gastado, normales</td>
+  <td>BC5</td>
+  <td>2,0° de error medio</td>
+  <td>0,3 s</td>
+</tr>
+<tr>
+  <td>Asfalto gastado, AO/rugosidad/metal</td>
+  <td>BC7</td>
+  <td>40,8 dB</td>
+  <td>1,2 s</td>
+</tr>
+<tr>
+  <td>Asfalto gastado, rugosidad</td>
+  <td>BC4</td>
+  <td>56,8 dB</td>
+  <td>0,6 s</td>
+</tr>
+<tr>
+  <td>Metal rayado, color</td>
+  <td>BC7</td>
+  <td>56,0 dB</td>
+  <td>0,5 s</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los tiempos son de la cadena entera de mips. La GPU lee los bloques igual que el decodificador de las pruebas.</p>
+<h2 id="6-sombras-de-contacto-sondas-de-reflejos-y-cristal">6. Sombras de contacto, sondas de reflejos y cristal<a class="ancla" href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="sombras-de-contacto">Sombras de contacto<a class="ancla" href="#sombras-de-contacto" aria-label="Enlace a esta sección">#</a></h3>
+<p>Son sombras finas del sol (o de la luna) que los mapas de sombras no llegan a ver: debajo de lo que está apoyado en el
+suelo (cajas, bidones, los pies de los personajes), en las rendijas y entre los ladrillos. Por cada píxel se recorre un
+rayo corto hacia el sol por la profundidad de la imagen. Funcionan junto con las sombras de siempre y se apagan a partir
+de unos 60 m. Las luces puntuales y los focos no tienen sombras de contacto.</p>
+<h3 id="sondas-de-reflejos-interiores">Sondas de reflejos (interiores)<a class="ancla" href="#sondas-de-reflejos-interiores" aria-label="Enlace a esta sección">#</a></h3>
+<p>Sin sondas, todo refleja el cielo y recibe su luz ambiente, también dentro de una casa cerrada: un suelo encerado o una
+tetera de metal reflejan un cielo azul que no se ve. Con el componente <strong>Sonda de reflejos</strong> (Añadir componente &gt;
+Render):</p>
+<ol>
+<li>Pon una entidad en el centro de la habitación y añádele <strong>Sonda de reflejos</strong>.</li>
+<li>Ajusta su <strong>Tamaño</strong> a las paredes. La escala de la entidad también cuenta.</li>
+<li>Dentro de esa caja, los reflejos y la luz ambiente salen de lo que ve la sonda desde su centro: las paredes, los
+muebles, la luz de la lámpara.</li>
+</ol>
+<ul>
+<li><strong>Proyección en caja</strong> (activada): corrige los reflejos con la forma de la caja, para que una ventana reflejada en el
+suelo salga donde está la ventana.</li>
+<li><strong>Luz ambiente</strong>: además de los reflejos, la luz ambiente de dentro sale de la sonda. Un interior oscuro deja de
+iluminarse con el cielo.</li>
+<li><strong>Fundido</strong>: metros de mezcla con el cielo en el borde de la caja (para cruzar una puerta sin saltos).</li>
+<li><strong>Intensidad</strong>: multiplica lo que aporta.</li>
+</ul>
+<p>La captura es estática:</p>
+<ul>
+<li>Se hace al crear la sonda, al moverla o cambiarla de tamaño y al cambiar el cielo o el sol.</li>
+<li>Lo que se mueve después (personajes, una puerta) no sale en ella.</li>
+<li>Tras cambiar un interior (encender una luz, por ejemplo), <code>Environment.UpdateReflectionProbes()</code> la vuelve a capturar.</li>
+<li>Cada captura dibuja la escena 6 veces a 128 × 128 (alrededor de un milisegundo), y como mucho se captura una sonda por
+frame.</li>
+<li>Caben 8 sondas por escena. Si se solapan, manda la primera.</li>
+</ul>
+<h3 id="cristal-y-lentes">Cristal y lentes<a class="ancla" href="#cristal-y-lentes" aria-label="Enlace a esta sección">#</a></h3>
+<p>En un material con <strong>Transparencia: Mezcla</strong>, <strong>Refracción (cristal)</strong> (0 a 1) convierte la transparencia de siempre en
+un cristal:</p>
+<ul>
+<li>lo que hay detrás se ve desviado por el relieve (el mapa de normales y la curvatura de la malla);</li>
+<li>se tiñe con el color base;</li>
+<li>el cristal refleja el entorno (el cielo, la sonda de reflejos de la habitación).</li>
+</ul>
+<p>La opacidad (el alfa del color) mezcla con la superficie iluminada: la suciedad, el marco o los grabados de una mira.
+Sirve para ventanas, botellas, vasos y las lentes de las miras y de los prismáticos. Lo transparente que está detrás de
+otro cristal no se ve a través de él.</p>
+<h2 id="7-preajustes-de-calidad">7. Preajustes de calidad<a class="ancla" href="#7-preajustes-de-calidad" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Bajo</th>
+  <th>Medio</th>
+  <th>Alto</th>
+  <th>Ultra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Reflejos en pantalla</td>
+  <td>no</td>
+  <td>Baja</td>
+  <td>Alta</td>
+  <td>Ultra</td>
+</tr>
+<tr>
+  <td>Antialiasing temporal</td>
+  <td>no (FXAA del Entorno)</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí (nitidez 0,25)</td>
+</tr>
+<tr>
+  <td>Sombras de contacto</td>
+  <td>no</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td>Texturas comprimidas</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+  <td>sí</td>
+</tr>
+<tr>
+  <td>Tamaño máximo de las texturas</td>
+  <td>1024</td>
+  <td>2048</td>
+  <td>sin límite</td>
+  <td>sin límite</td>
+</tr>
+<tr>
+  <td>Calidad de las texturas</td>
+  <td>Media</td>
+  <td>Alta</td>
+  <td>Alta</td>
+  <td>Alta</td>
+</tr>
+<tr>
+  <td>Desenfoque de movimiento</td>
+  <td>no</td>
+  <td>no</td>
+  <td>no</td>
+  <td>no</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las sondas de reflejos y el cristal no dependen del preajuste: funcionan siempre.</p>
+<p>El preajuste Bajo sigue pensado para una gráfica antigua (GTX 460 o 1050 Ti) a 1080p: no gasta nada en reflejos ni en el
+TAA, y las texturas comprimidas y limitadas a 1024 caben en 1 GB de memoria de vídeo.</p>
+<h2 id="8-cuánto-cuesta-cada-efecto">8. Cuánto cuesta cada efecto<a class="ancla" href="#8-cuánto-cuesta-cada-efecto" aria-label="Enlace a esta sección">#</a></h2>
+<p>Medido a 1920 × 1080 en una RTX 5060 Ti, con el PC haciendo otras cosas a la vez (tómalo como orientativo). La primera
+columna es una calle de prueba sencilla con cajas. La segunda es una calle del mapa nocturno de zombis hecho con texturas
+escaneadas, con el asfalto mojado y charcos, niebla volumétrica y nubes.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Efecto</th>
+  <th>Calle de prueba</th>
+  <th>Calle del mapa realista</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Reflejos en pantalla, calidad Baja</td>
+  <td>0,16 ms</td>
+  <td>0,19–0,27 ms</td>
+</tr>
+<tr>
+  <td>Reflejos en pantalla, calidad Media</td>
+  <td>0,19 ms</td>
+  <td>0,28–0,36 ms</td>
+</tr>
+<tr>
+  <td>Reflejos en pantalla, calidad Alta</td>
+  <td>0,20 ms</td>
+  <td>0,31–0,41 ms</td>
+</tr>
+<tr>
+  <td>Reflejos en pantalla, calidad Ultra</td>
+  <td>0,48 ms</td>
+  <td>1,2–1,4 ms</td>
+</tr>
+<tr>
+  <td>Antialiasing temporal</td>
+  <td>0,12 ms</td>
+  <td>0,12 ms</td>
+</tr>
+<tr>
+  <td>Sombras de contacto</td>
+  <td>—</td>
+  <td>0,05–0,15 ms</td>
+</tr>
+<tr>
+  <td>Captura de una sonda de reflejos (solo cuando cambia)</td>
+  <td>—</td>
+  <td>alrededor de 1 ms</td>
+</tr>
+</tbody>
+</table></div>
+<p>En la calle del mapa, todo el frame pasa de unos 1,7–2,0 ms de GPU sin estos efectos a unos 2,2 ms con los de Alto.</p>
+<ul>
+<li>Los reflejos cuestan más cuantas más superficies brillantes haya en la imagen.</li>
+<li>En una gráfica de gama media de hace unos años, cuenta con 3 a 5 veces más.</li>
+<li>El perfilador del editor (ver <a href="rendimiento.html">rendimiento.md</a>) muestra los tramos «Reflejos en pantalla» y «TAA» de tu
+escena.</li>
+<li>Para medirlo en el juego, sin el perfilador: abre <code>NovaGame.exe</code> con la variable de entorno <code>NOVA_REGISTRAR_GPU=1</code>. Cada
+120 frames, el registro apunta la media de cada tramo.</li>
+</ul>
+<h2 id="9-receta-una-calle-mojada-de-noche">9. Receta: una calle mojada de noche<a class="ancla" href="#9-receta-una-calle-mojada-de-noche" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><strong>Entorno</strong>:<ul>
+<li>Cielo: <strong>Noche</strong>, o un HDRI de luna (Intensidad del HDRI alrededor de 0,5).</li>
+<li><strong>Reflejos 1</strong> (con menos, los charcos reflejan poco).</li>
+<li>Niebla con luz volumétrica, para los halos de las farolas.</li>
+</ul>
+</li>
+<li><strong>Luz direccional</strong> como luna: azulada, intensidad de 0,3 a 0,6, baja para que las sombras sean largas.</li>
+<li><strong>Asfalto mojado</strong>:<ul>
+<li>en el material del asfalto, baja la <strong>Rugosidad</strong> (multiplica la de la textura) a 0,3–0,5 para un mojado general;</li>
+<li>o deja el asfalto seco y pon <strong>decals de charco</strong> (rugosidad casi 0) donde la cámara los vea rasantes. Los mejores
+sitios son entre el jugador y las farolas: ahí se refleja la luz.</li>
+</ul>
+</li>
+<li>Ajustes del proyecto &gt; Render: <strong>Alto</strong> o <strong>Ultra</strong>, o Personalizado con reflejos en Alta y el TAA activado.</li>
+</ol>
+<h2 id="10-desde-lua">10. Desde Lua<a class="ancla" href="#10-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las funciones están en la tabla <code>Environment</code>, la misma que usan las nubes y la niebla:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Cielo HDRI: ruta dentro de assets/, intensidad y giro en grados (opcionales)</span>
+<span class="hl-t">Environment</span>.<span class="hl-f">SetSkyHDRI</span>(<span class="hl-s">"cielos/noche_luna.exr"</span>, <span class="hl-n">0.8</span>, <span class="hl-n">90</span>)
+
+<span class="hl-c">-- Noche con estrellas y luna en cuarto creciente</span>
+<span class="hl-t">Environment</span>.<span class="hl-f">SetSkyMode</span>(<span class="hl-s">"Noche"</span>)
+<span class="hl-t">Environment</span>.<span class="hl-f">SetSky</span>({ stars = <span class="hl-n">1.5</span>, moonPhase = <span class="hl-n">0.25</span>, moonSize = <span class="hl-n">3</span> })
+
+<span class="hl-c">-- Leer el cielo actual</span>
+<span class="hl-k">local</span> cielo = <span class="hl-t">Environment</span>.<span class="hl-f">GetSky</span>()
+<span class="hl-f">print</span>(cielo.mode, cielo.hdri, cielo.stars)
+
+<span class="hl-c">-- Volver al cielo de día</span>
+<span class="hl-t">Environment</span>.<span class="hl-f">SetSkyHDRI</span>(<span class="hl-b">nil</span>)   <span class="hl-c">-- si estaba en HDRI</span>
+<span class="hl-t">Environment</span>.<span class="hl-f">SetSkyMode</span>(<span class="hl-s">"Procedural"</span>)</code></pre></div>
+<ul>
+<li><code>SetSky</code> cambia solo las claves que le pasas: <code>mode</code>, <code>hdri</code>, <code>hdriIntensity</code>, <code>hdriRotation</code>, <code>stars</code>,
+<code>starDensity</code>, <code>milkyWay</code>, <code>moonSize</code>, <code>moonPhase</code>, <code>moonIntensity</code>, <code>nightZenith</code> y <code>nightHorizon</code>. Una clave que no
+existe da un error con la lista de las válidas.</li>
+<li>En una partida en red, si el Entorno tiene <strong>Identidad de red</strong>, el cielo lo cambia el servidor (como las nubes).</li>
+</ul>
+<p>La calidad (reflejos, TAA, texturas) la cambia el jugador con <code>Application.SetQuality(&quot;Bajo&quot; | &quot;Medio&quot; | &quot;Alto&quot; | &quot;Ultra&quot;)</code>.
+Después, <code>Render.SetTextureQuality(&quot;Media&quot;)</code> y <code>Render.SetMotionBlur(true)</code> cambian solo eso (ver <a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">14</a>
+y <a href="#15-desenfoque-de-movimiento">15</a>); <code>Render.GetStats()</code> da los números del frame (<a href="#16-estadísticas-de-render-desde-lua">16</a>).</p>
+<h2 id="11-claves-de-projectnova-y-del-entorno">11. Claves de <code>project.nova</code> y del Entorno<a class="ancla" href="#11-claves-de-projectnova-y-del-entorno" aria-label="Enlace a esta sección">#</a></h2>
+<p>Sección <code>&quot;render&quot;</code> de <code>project.nova</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Valores</th>
+  <th>Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>reflejosPantalla</code></td>
+  <td><code>true</code> / <code>false</code></td>
+  <td><code>true</code></td>
+</tr>
+<tr>
+  <td><code>calidadReflejos</code></td>
+  <td>0 (Baja) a 3 (Ultra)</td>
+  <td>2</td>
+</tr>
+<tr>
+  <td><code>taa</code></td>
+  <td><code>true</code> / <code>false</code></td>
+  <td><code>true</code></td>
+</tr>
+<tr>
+  <td><code>nitidezTaa</code></td>
+  <td>0 a 1</td>
+  <td>0,35</td>
+</tr>
+<tr>
+  <td><code>sombrasContacto</code></td>
+  <td><code>true</code> / <code>false</code></td>
+  <td><code>true</code></td>
+</tr>
+<tr>
+  <td><code>texturasComprimidas</code></td>
+  <td><code>true</code> / <code>false</code></td>
+  <td><code>true</code></td>
+</tr>
+<tr>
+  <td><code>texturasTamanoMax</code></td>
+  <td>0 (sin límite), 512, 1024, 2048, 4096</td>
+  <td>0</td>
+</tr>
+<tr>
+  <td><code>calidadTexturas</code></td>
+  <td><code>&quot;Alta&quot;</code>, <code>&quot;Media&quot;</code>, <code>&quot;Baja&quot;</code></td>
+  <td><code>&quot;Alta&quot;</code></td>
+</tr>
+<tr>
+  <td><code>desenfoqueMovimiento</code></td>
+  <td><code>true</code> / <code>false</code></td>
+  <td><code>false</code></td>
+</tr>
+<tr>
+  <td><code>intensidadDesenfoque</code></td>
+  <td>0 a 1</td>
+  <td>0,5</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y en la sección <code>&quot;window&quot;</code>: <code>fpsMax</code> (límite de frames por segundo del juego; 0 = sin límite).</p>
+<p>Campos del Entorno en la escena:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>skyMode</code></td>
+  <td>tipo de cielo: <code>&quot;Procedural (día)&quot;</code>, <code>&quot;HDRI&quot;</code> o <code>&quot;Noche (estrellas y luna)&quot;</code></td>
+</tr>
+<tr>
+  <td><code>skyHdri</code></td>
+  <td>la imagen del HDRI (<code>{ &quot;id&quot;: ..., &quot;path&quot;: ... }</code>)</td>
+</tr>
+<tr>
+  <td><code>skyHdriIntensity</code></td>
+  <td>intensidad del HDRI</td>
+</tr>
+<tr>
+  <td><code>skyHdriRotation</code></td>
+  <td>giro del HDRI, en grados</td>
+</tr>
+<tr>
+  <td><code>skyStars</code></td>
+  <td>brillo de las estrellas</td>
+</tr>
+<tr>
+  <td><code>skyStarDensity</code></td>
+  <td>cantidad de estrellas</td>
+</tr>
+<tr>
+  <td><code>skyMilkyWay</code></td>
+  <td>brillo de la vía láctea</td>
+</tr>
+<tr>
+  <td><code>skyMoonSize</code></td>
+  <td>tamaño de la luna</td>
+</tr>
+<tr>
+  <td><code>skyMoonPhase</code></td>
+  <td>fase de la luna</td>
+</tr>
+<tr>
+  <td><code>skyMoonIntensity</code></td>
+  <td>brillo de la luna</td>
+</tr>
+<tr>
+  <td><code>skyNightZenith</code></td>
+  <td>color de la noche arriba</td>
+</tr>
+<tr>
+  <td><code>skyNightHorizon</code></td>
+  <td>color de la noche en el horizonte</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="12-capa-de-vista-el-arma-en-primera-persona">12. Capa de vista: el arma en primera persona<a class="ancla" href="#12-capa-de-vista-el-arma-en-primera-persona" aria-label="Enlace a esta sección">#</a></h2>
+<p>En un juego en primera persona el arma y los brazos cuelgan de la cámara. Sin nada más, se dibujan como el resto del
+mundo:</p>
+<ul>
+<li>al pegarte a una pared, a una barricada o a un zombi, el cañón <strong>se mete dentro</strong>;</li>
+<li>si el jugador sube el campo de visión de la cámara (90 grados, por ejemplo), el arma <strong>se estira y se deforma</strong> (los
+modelos se hacen para un campo de visión concreto, normalmente entre 60 y 70 grados).</li>
+</ul>
+<p>La <strong>capa de vista</strong> lo resuelve. Las mallas de la capa se dibujan:</p>
+<ul>
+<li><strong>por delante de todo</strong> lo del mundo: nunca atraviesan una pared;</li>
+<li>con <strong>su propio campo de visión</strong>, que no cambia aunque cambie el de la cámara;</li>
+<li>con <strong>su propio plano cercano</strong> (1 cm): el cañón no se corta aunque esté pegado a la cámara;</li>
+<li>con <strong>la luz y las sombras de su sitio real</strong>: el sol, la sombra de un tejado, la linterna o la farola que tienes al lado,
+la niebla y las sondas de reflejos la iluminan como al resto;</li>
+<li>sin estela con el <strong>antialiasing temporal</strong> ni con el <strong>desenfoque de movimiento</strong>, y sin que la oclusión ambiental (SSAO)
+ni los reflejos en pantalla la ensucien.</li>
+</ul>
+<h3 id="cómo-se-usa">Cómo se usa<a class="ancla" href="#cómo-se-usa" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Pon el arma (y los brazos) como hijos de la cámara del jugador, como siempre.</li>
+<li>En la entidad raíz del arma, <strong>Añadir componente &gt; Render &gt; Capa de vista</strong>. Todas las mallas de esa entidad y de sus
+hijos pasan a la capa.<ul>
+<li><strong>Campo de visión</strong>: el del modelo del arma, en grados (68 por defecto). 0 = el de la cámara.</li>
+<li><strong>Plano cercano</strong>: 1 cm por defecto.</li>
+<li><strong>Proyecta sombras</strong>: si las mallas de la capa hacen sombra en el mundo (desde su sitio real). Normalmente no: la sombra
+la hace el cuerpo del jugador.</li>
+</ul>
+</li>
+<li>Para una malla suelta también vale la opción <strong>Vista en primera persona</strong> de la Malla (o de la Malla con huesos), en la
+sección «Primera persona»: usa la Capa de vista de un ancestro o, si no hay, 68 grados y 1 cm.</li>
+</ol>
+<p>Dónde se ve como capa:</p>
+<ul>
+<li>En la vista de la <strong>cámara de la que cuelga</strong> el arma (el panel Juego, <code>NovaGame.exe</code>, el juego publicado).</li>
+<li>Si el arma no cuelga de ninguna cámara, en la de cualquier cámara del juego: en una partida en red, ponle a sus mallas
+<strong>Visibilidad en red: Solo el propietario</strong> para que los demás no la vean pegada a su cara.</li>
+<li>En el <strong>visor Escena</strong> del editor se ve en su sitio real, como lo demás (para colocarla).</li>
+</ul>
+<h3 id="desde-lua">Desde Lua<a class="ancla" href="#desde-lua" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los campos son los mismos que en el Inspector:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Arma</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Range(40, 100)]</span>
+<span class="hl-t">Arma</span>.campoDeVision = <span class="hl-n">68</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Arma</span>:<span class="hl-f">Start</span>()
+    <span class="hl-c">-- Toda el arma (esta entidad y sus hijos) en la capa de vista</span>
+    <span class="hl-k">local</span> capa = <span class="hl-b">self</span>.entity:<span class="hl-f">AddComponent</span>(<span class="hl-s">"ViewLayer"</span>)
+    capa.fieldOfView = <span class="hl-b">self</span>.campoDeVision
+    capa.nearClip = <span class="hl-n">0.01</span>
+    capa.castShadows = <span class="hl-b">false</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Al apuntar: un poco de zoom en el arma también (la cámara cambia el suyo por su lado)</span>
+<span class="hl-k">function</span> <span class="hl-t">Arma</span>:<span class="hl-f">Apuntar</span>(si: boolean)
+    <span class="hl-b">self</span>.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"ViewLayer"</span>).fieldOfView = <span class="hl-k">if</span> si <span class="hl-k">then</span> <span class="hl-b">self</span>.campoDeVision - <span class="hl-n">12</span> <span class="hl-k">else</span> <span class="hl-b">self</span>.campoDeVision
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Arma</span></code></pre></div>
+<p>Para una sola malla: <code>malla.viewLayer = true</code> (con <code>local malla = entidad:GetComponent(&quot;MeshRenderer&quot;)</code>).</p>
+<h3 id="antes-y-después">Antes y después<a class="ancla" href="#antes-y-después" aria-label="Enlace a esta sección">#</a></h3>
+<p>En el mapa realista del modo Zombis, con el fusil pegado a una barricada (capturas en <code>build\capturas-vista</code>):</p>
+<ul>
+<li>sin la capa, el cañón y la mano se meten dentro de las tablas;</li>
+<li>con la capa, el fusil y las manos se ven enteros por delante;</li>
+<li>con la cámara a 95 grados, sin la capa el brazo se alarga; con la capa (68 grados) el arma se ve igual que a 68.</li>
+</ul>
+<p>Las comprobaciones de las pruebas: la punta del cañón detrás de una pared se ve con la capa y no sin ella; con la capa, el
+arma ocupa los mismos píxeles con la cámara a 60 que a 100 grados; al girar la cámara 30 frames con TAA, el 99,99 % del
+arma sigue nítida y no queda ningún píxel de estela fuera de ella.</p>
+<h2 id="13-distancia-máxima-de-dibujo">13. Distancia máxima de dibujo<a class="ancla" href="#13-distancia-máxima-de-dibujo" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para lo que no se ve de lejos (lo tapa la niebla, es pequeño o está dentro de un edificio):</p>
+<ul>
+<li><strong>Malla &gt; Distancia máxima</strong> (también en la Malla con huesos): más lejos de la cámara la malla <strong>no se dibuja ni hace
+sombra</strong>. Se mide hasta el punto más cercano de la malla: una pared larga no desaparece mientras estás junto a un extremo.</li>
+<li><strong>Desvanecido</strong>: en los últimos metros antes del límite se va borrando poco a poco con un tramado (el TAA lo suaviza). 0 =
+desaparece de golpe.</li>
+<li><strong>Luces puntuales y focos &gt; Distancia máxima</strong> y <strong>Desvanecido</strong>: más lejos de la cámara la luz se apaga (con su sombra);
+en el tramo de desvanecido se atenúa.</li>
+</ul>
+<p>0 es sin límite (el valor por defecto). Se resuelve en el motor junto con la oclusión: no hace falta un script que apague
+<code>visible</code> por zonas. La «Distancia de las luces» del proyecto (Ajustes del proyecto &gt; Render, ver
+<a href="rendimiento.html">rendimiento.md</a>) sigue valiendo para todas las luces a la vez.</p>
+<p>Desde Lua son campos: <code>malla.maxDistance = 45</code>, <code>malla.fadeDistance = 5</code>, <code>luz.maxDistance = 60</code>.</p>
+<h2 id="14-calidad-de-las-texturas-y-memoria-de-vídeo">14. Calidad de las texturas y memoria de vídeo<a class="ancla" href="#14-calidad-de-las-texturas-y-memoria-de-vídeo" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ajustes del proyecto &gt; Render &gt; Realismo &gt; Calidad de las texturas</strong> se salta los primeros mips de las texturas al
+cargarlas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Calidad</th>
+  <th>Lado de las texturas</th>
+  <th>Memoria de vídeo de las texturas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Alta</td>
+  <td>completo</td>
+  <td>100 %</td>
+</tr>
+<tr>
+  <td>Media</td>
+  <td>la mitad</td>
+  <td>un 25 %</td>
+</tr>
+<tr>
+  <td>Baja</td>
+  <td>un cuarto</td>
+  <td>un 6 %</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Vale para las texturas de los materiales del proyecto y para las de <strong>dentro de los modelos</strong> (<code>.glb</code>, <code>.gltf</code>, FBX).</li>
+<li>Las texturas de 256 o menos no bajan (iconos, máscaras, detalles).</li>
+<li>Se suma al <strong>Tamaño máximo de las texturas</strong>: Alta con un máximo de 1024 deja las de 4K en 1024.</li>
+<li>Se puede cambiar <strong>en plena partida</strong> (menú de opciones): las texturas comprimidas se vuelven a subir al momento desde la
+caché, sin recargar la escena.</li>
+<li>El preajuste Bajo usa la calidad Media.</li>
+<li><code>NovaGame.exe --calidad-texturas Media</code> la elige al arrancar (para probar en un PC con poca memoria de vídeo).</li>
+</ul>
+<p>Además, desde la 0.9.9, <strong>una misma imagen en varios modelos se sube una sola vez</strong> a la GPU (los brazos que van dentro del
+<code>.glb</code> de cada arma, por ejemplo).</p>
+<h3 id="medida-el-mapa-realista-del-modo-zombis">Medida: el mapa realista del modo Zombis<a class="ancla" href="#medida-el-mapa-realista-del-modo-zombis" aria-label="Enlace a esta sección">#</a></h3>
+<p>El mapa de noche entero (10 zonas) con las 9 armas, 297 texturas (casi todas de 2K), dibujado desde la calle a 1920 × 1080 en
+una RTX 5060 Ti. «Vídeo del proceso» es lo que el controlador dice que usa el juego (con los objetivos de render, las sombras
+y las mallas); «Texturas» es la suma de las texturas cargadas.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Configuración</th>
+  <th>Texturas</th>
+  <th>Vídeo del proceso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Sin comprimir (como hasta la 0.9.7)</td>
+  <td>2700 MB</td>
+  <td>3393 MB</td>
+</tr>
+<tr>
+  <td>Comprimidas (BC7/BC5/BC4), calidad Alta</td>
+  <td>677 MB</td>
+  <td>1351 MB</td>
+</tr>
+<tr>
+  <td>Comprimidas, calidad Media</td>
+  <td>363 MB</td>
+  <td>1035 MB</td>
+</tr>
+<tr>
+  <td>Comprimidas, calidad Baja</td>
+  <td>288 MB</td>
+  <td>958 MB</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>La compresión se aplica a todas las texturas del mapa (las 269 de los <code>.glb</code> y las del proyecto: 236 de la caché y 33
+compartidas entre modelos) y reduce de verdad la memoria de vídeo del juego: <strong>un 60 % menos</strong> con la calidad Alta.</li>
+<li>Con dos copias del juego en una tarjeta de 8 GB ya caben de sobra (antes, unos 6,8 GB solo entre las dos).</li>
+</ul>
+<p>Para medir tu mapa: <code>NovaGame.exe --hidden --frames 300</code> apunta al final en el registro una línea <code>[Memoria]</code> con la memoria
+de vídeo del proceso, la de las texturas y la de las mallas (con la variable de entorno <code>NOVA_REGISTRAR_MEMORIA=1</code>, también
+las 40 texturas que más ocupan). Desde Lua, <code>Render.GetStats()</code> (ver <a href="#16-estadísticas-de-render-desde-lua">16</a>).</p>
+<h2 id="15-desenfoque-de-movimiento">15. Desenfoque de movimiento<a class="ancla" href="#15-desenfoque-de-movimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ajustes del proyecto &gt; Render &gt; Realismo &gt; Desenfoque de movimiento</strong> (apagado por defecto) desenfoca lo que se mueve en
+la imagen: el mundo al girar la cámara y los objetos rápidos, con el movimiento de cada píxel (el mismo que usa el TAA).</p>
+<ul>
+<li><strong>Intensidad del desenfoque</strong> (0 a 1): la fracción del frame que dura el «obturador». 0,5 es como una cámara a 1/120 s a
+60 fps.</li>
+<li>La capa de vista <strong>no se mezcla con el mundo</strong>: el arma no deja estela sobre el fondo y el fondo no ensucia el arma.</li>
+<li>Una imagen suelta (sin frame anterior) sale sin desenfoque.</li>
+</ul>
+<p>Desde Lua, para el menú de opciones: <code>Render.SetMotionBlur(true, 0.5)</code> y <code>local activo, intensidad = Render.GetMotionBlur()</code>.</p>
+<h2 id="16-estadísticas-de-render-desde-lua">16. Estadísticas de render desde Lua<a class="ancla" href="#16-estadísticas-de-render-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Render.GetStats()</code> devuelve los números del último frame dibujado. Sirve para las pruebas automáticas con el juego oculto
+(<code>NovaGame.exe --hidden</code>) y para un contador propio en pantalla:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Medidor</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">Medidor</span>._tiempo = <span class="hl-n">0</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Medidor</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-b">self</span>._tiempo += dt
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._tiempo &lt; <span class="hl-n">5</span> <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._tiempo = <span class="hl-n">0</span>
+    <span class="hl-k">local</span> s = <span class="hl-t">Render</span>.<span class="hl-f">GetStats</span>()
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%d dibujos, %d triángulos, texturas %.0f MB, mallas %.0f MB, vídeo %.0f MB, CPU %.2f ms, GPU %.2f ms"</span>,
+        s.drawCalls, s.triangles, s.textureMemoryMB, s.meshMemoryMB, s.videoMemoryMB, s.cpuMs, s.gpuMs))
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Medidor</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>drawCalls</code>, <code>triangles</code></td>
+  <td>dibujos y triángulos del frame (con las sombras)</td>
+</tr>
+<tr>
+  <td><code>objects</code>, <code>instances</code>, <code>instancedDraws</code></td>
+  <td>objetos dibujados en la vista y copias juntadas en un dibujo</td>
+</tr>
+<tr>
+  <td><code>lights</code>, <code>shadowedLights</code>, <code>lightsCulled</code></td>
+  <td>luces que iluminan, con sombra y quitadas (por distancia u oclusión)</td>
+</tr>
+<tr>
+  <td><code>occluded</code>, <code>lodReduced</code>, <code>distanceCulled</code></td>
+  <td>objetos tapados, con un LOD simplificado y quitados por su distancia máxima</td>
+</tr>
+<tr>
+  <td><code>viewLayerObjects</code>, <code>particles</code></td>
+  <td>objetos de la capa de vista y partículas</td>
+</tr>
+<tr>
+  <td><code>cpuMs</code>, <code>frameCpuMs</code>, <code>gpuMs</code>, <code>frameMs</code>, <code>fps</code></td>
+  <td>CPU del dibujo, CPU del frame sin esperas (en el juego), GPU del frame, duración del frame y fps</td>
+</tr>
+<tr>
+  <td><code>textureMemoryMB</code>, <code>meshMemoryMB</code>, <code>textures</code>, <code>meshes</code></td>
+  <td>memoria de vídeo de las texturas y las mallas cargadas</td>
+</tr>
+<tr>
+  <td><code>videoMemoryMB</code>, <code>sharedMemoryMB</code>, <code>videoBudgetMB</code></td>
+  <td>memoria de vídeo del juego según el controlador, la compartida y la que deja el sistema</td>
+</tr>
+<tr>
+  <td><code>texturesPending</code>, <code>textureCompression</code>, <code>textureQuality</code></td>
+  <td>texturas aún comprimiéndose, compresión y calidad</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>El tiempo de GPU se empieza a medir la primera vez que se llama a <code>Render.GetStats()</code> (o a <code>Debug.GetFrameStats()</code>): vale
+-1 los primeros frames.</li>
+<li><code>Render.GetVideoMemory()</code> devuelve solo la memoria de vídeo del juego y la que le deja el sistema, en MB.</li>
+<li>Para limitar los fps de las copias de una prueba en el mismo PC: <code>NovaGame.exe --fps-max 30</code> (o <code>window.fpsMax</code> en
+<code>project.nova</code>, «Límite de fps» en Ajustes del proyecto &gt; Ventana; <code>Application.SetTargetFrameRate</code> lo cambia en
+partida). Con <code>--fps-max</code>, el límite vale también en las ejecuciones con <code>--frames</code>.</li>
+</ul>
+<h2 id="17-límites">17. Límites<a class="ancla" href="#17-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Reflejos en pantalla</strong>:<ul>
+<li>Solo reflejan lo que está en la imagen. Lo que queda detrás de la cámara o tapado por otra cosa refleja el cielo.</li>
+<li>No reflejan las partículas, los objetos transparentes ni el agua.</li>
+<li>El terreno, el agua y la vegetación pintada no reciben reflejos en pantalla (usan su propio dibujo).</li>
+</ul>
+</li>
+<li><strong>TAA</strong>:<ul>
+<li>Los personajes animados usan el movimiento de su objeto, no el de cada hueso: en animaciones muy rápidas, el recorte
+de colores evita las estelas, pero esas partes salen algo menos nítidas.</li>
+<li>Las partículas y lo transparente usan el movimiento de lo que tienen detrás.</li>
+</ul>
+</li>
+<li><strong>HDRI</strong>:<ul>
+<li>No da sombras: la luz direccional sigue siendo la que las hace.</li>
+<li>El fondo se ve con la resolución de la imagen; en 1080p hace falta un HDRI de 4K o más para que se vea nítido.</li>
+</ul>
+</li>
+<li><strong>Texturas comprimidas</strong>:<ul>
+<li>Las texturas de los decals, del terreno y de la interfaz siguen sin comprimir.</li>
+<li>La caché no se borra sola (se puede borrar a mano la carpeta <code>cache\texturas</code>).</li>
+</ul>
+</li>
+<li><strong>Sombras de contacto</strong>: solo las del sol o la luna.</li>
+<li><strong>Sondas de reflejos</strong>: la captura es estática y caben 8 por escena. La caja va alineada con los ejes del mundo (no se
+gira).</li>
+<li><strong>Cristal</strong>: no se ve lo transparente que hay detrás de otro cristal (las partículas sí).</li>
+<li><strong>Capa de vista</strong>:<ul>
+<li>Un solo campo de visión por malla (el de su Capa de vista); varias armas con campos distintos a la vez sí funcionan.</li>
+<li>Las mallas de la capa no reciben decals ni reflejos en pantalla (reflejan el cielo y las sondas, como antes).</li>
+<li>Los efectos que leen la profundidad de la imagen (niebla bajo el agua, partículas suaves) ven el arma pegada a la
+cámara: bajo el agua, el arma casi no tiene niebla.</li>
+<li>Lo del mundo que está a menos de 1,25 veces el plano cercano de la cámara se trata como capa (con la cápsula del
+jugador no llega a pasar).</li>
+</ul>
+</li>
+<li><strong>Calidad de las texturas</strong>: al cambiarla en partida, las texturas que se quedaron sin comprimir (medidas que no son
+múltiplo de 4, compresión apagada) no cambian hasta que se recargan.</li>
+<li><strong>Límite de fps</strong> (<code>window.fpsMax</code>, <code>--fps-max</code>, <code>Application.SetTargetFrameRate</code>): lo aplica <code>NovaGame.exe</code> (también las
+ventanas de «Anfitrión + clientes» y el juego publicado); la vista Juego del propio editor no lo respeta.</li>
+<li><strong>Desenfoque de movimiento</strong>: no tiene en cuenta el movimiento de cada hueso de los personajes (usa el de su objeto) ni el
+de las partículas.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="materiales-nodos.html"><small>Anterior</small>Materiales por nodos</a><a class="sig" href="iluminacion-horneada.html"><small>Siguiente</small>Iluminación horneada: lightmaps y sondas de luz</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-dónde-están-las-opciones">1. Dónde están las opciones</a></li><li class="n2"><a href="#2-reflejos-en-pantalla-ssr">2. Reflejos en pantalla (SSR)</a></li><li class="n2"><a href="#3-antialiasing-temporal-taa">3. Antialiasing temporal (TAA)</a></li><li class="n2"><a href="#4-cielo-procedural-hdri-o-noche">4. Cielo: procedural, HDRI o noche</a></li><li class="n3"><a href="#procedural-día">Procedural (día)</a></li><li class="n3"><a href="#hdri">HDRI</a></li><li class="n3"><a href="#noche">Noche</a></li><li class="n2"><a href="#5-texturas-comprimidas-bc7-bc5-bc4">5. Texturas comprimidas (BC7, BC5, BC4)</a></li><li class="n2"><a href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal">6. Sombras de contacto, sondas de reflejos y cristal</a></li><li class="n3"><a href="#sombras-de-contacto">Sombras de contacto</a></li><li class="n3"><a href="#sondas-de-reflejos-interiores">Sondas de reflejos (interiores)</a></li><li class="n3"><a href="#cristal-y-lentes">Cristal y lentes</a></li><li class="n2"><a href="#7-preajustes-de-calidad">7. Preajustes de calidad</a></li><li class="n2"><a href="#8-cuánto-cuesta-cada-efecto">8. Cuánto cuesta cada efecto</a></li><li class="n2"><a href="#9-receta-una-calle-mojada-de-noche">9. Receta: una calle mojada de noche</a></li><li class="n2"><a href="#10-desde-lua">10. Desde Lua</a></li><li class="n2"><a href="#11-claves-de-projectnova-y-del-entorno">11. Claves de project.nova y del Entorno</a></li><li class="n2"><a href="#12-capa-de-vista-el-arma-en-primera-persona">12. Capa de vista: el arma en primera persona</a></li><li class="n3"><a href="#cómo-se-usa">Cómo se usa</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n3"><a href="#antes-y-después">Antes y después</a></li><li class="n2"><a href="#13-distancia-máxima-de-dibujo">13. Distancia máxima de dibujo</a></li><li class="n2"><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">14. Calidad de las texturas y memoria de vídeo</a></li><li class="n3"><a href="#medida-el-mapa-realista-del-modo-zombis">Medida: el mapa realista del modo Zombis</a></li><li class="n2"><a href="#15-desenfoque-de-movimiento">15. Desenfoque de movimiento</a></li><li class="n2"><a href="#16-estadísticas-de-render-desde-lua">16. Estadísticas de render desde Lua</a></li><li class="n2"><a href="#17-límites">17. Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

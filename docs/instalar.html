@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instalar Nova Engine · Nova Engine</title>
+<meta name="description" content="Esta guía es para quien usa el motor instalado con NovaEngine-Setup.exe (no para quien lo compila desde el
+código fuente: eso está en empezar.md). Explica qué hace el instalador, cómo se usa Nova Hub para
+crear y abrir p">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Instalar Nova Engine · Nova Engine">
+<meta property="og:description" content="Esta guía es para quien usa el motor instalado con NovaEngine-Setup.exe (no para quien lo compila desde el
+código fuente: eso está en empezar.md). Explica qué hace el instalador, cómo se usa Nova Hub para
+crear y abrir p">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/instalar.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/instalar.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html" aria-current="page">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="instalar-nova-engine">Instalar Nova Engine</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#requisitos">Requisitos</a></li><li class="n2"><a href="#instalar">Instalar</a></li><li class="n3"><a href="#qué-se-instala">Qué se instala</a></li><li class="n3"><a href="#windows-protegió-su-pc-smartscreen">Windows protegió su PC (SmartScreen)</a></li><li class="n3"><a href="#instalación-desde-la-línea-de-comandos">Instalación desde la línea de comandos</a></li><li class="n3"><a href="#modo-portable">Modo portable</a></li><li class="n3"><a href="#problemas-al-instalar">Problemas al instalar</a></li><li class="n2"><a href="#nova-hub">Nova Hub</a></li><li class="n3"><a href="#proyectos">Proyectos</a></li><li class="n3"><a href="#equipos">Equipos</a></li><li class="n3"><a href="#nuevo-proyecto">Nuevo proyecto</a></li><li class="n3"><a href="#aprender">Aprender</a></li><li class="n3"><a href="#ajustes">Ajustes</a></li><li class="n2"><a href="#vs-code-y-lua">VS Code y Lua</a></li><li class="n2"><a href="#compilar-los-scripts-visual-studio-o-build-tools">Compilar los scripts (Visual Studio o Build Tools)</a></li><li class="n3"><a href="#la-dll-de-scripts-y-la-versión-del-motor">La DLL de scripts y la versión del motor</a></li><li class="n3"><a href="#rutas-largas">Rutas largas</a></li><li class="n2"><a href="#actualizaciones">Actualizaciones</a></li><li class="n2"><a href="#desinstalar">Desinstalar</a></li><li class="n2"><a href="#solución-de-problemas">Solución de problemas</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Esta guía es para quien usa el motor instalado con <code>NovaEngine-Setup.exe</code> (no para quien lo compila desde el
+código fuente: eso está en <a href="empezar.html">empezar.md</a>). Explica qué hace el instalador, cómo se usa Nova Hub para
+crear y abrir proyectos, cómo llegan las actualizaciones, cómo desinstalar el motor y, para quien use scripts en
+C++ (opcional), qué compilador hace falta. Para hacer juegos en Lua no hace falta instalar nada más.</p>
+<h2 id="requisitos">Requisitos<a class="ancla" href="#requisitos" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Sistema</td>
+  <td>Windows 10 (versión 1903 o posterior) u 11, de 64 bits</td>
+</tr>
+<tr>
+  <td>GPU</td>
+  <td>Cualquier tarjeta con Direct3D 11. Sin GPU compatible se usa WARP (render por software de Windows), más lento</td>
+</tr>
+<tr>
+  <td>Espacio</td>
+  <td>Unos 100 MB para el motor, más lo que ocupen tus proyectos (cada proyecto guarda su compilación en <code>build\</code>)</td>
+</tr>
+<tr>
+  <td>Permisos</td>
+  <td>Ninguno especial: se instala solo para tu usuario, sin permisos de administrador</td>
+</tr>
+<tr>
+  <td>Scripts en Lua</td>
+  <td>Nada: no se compilan. Para escribirlos, mejor VS Code con la extensión de Nova (viene con el motor; ver <a href="#vs-code-y-lua">VS Code y Lua</a>)</td>
+</tr>
+<tr>
+  <td>Scripts en C++ (opcional, avanzado)</td>
+  <td>Visual Studio 2022 o sus Build Tools (gratis) con la carga de trabajo «Desarrollo para el escritorio con C++». Ver <a href="#compilar-los-scripts-visual-studio-o-build-tools">Compilar los scripts</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>El runtime de Visual C++ va incluido con el motor (en <code>bin\</code>): no hace falta instalar el «Visual C++
+Redistributable». Sin Visual Studio se hace todo con Lua: crear proyectos, editar escenas, programar y jugar. Los
+proyectos con scripts C++ se abren y se juegan con la DLL que ya tengan compilada (las plantillas de C++ traen la
+suya), pero sin Visual Studio no se puede compilar código C++ nuevo.</p>
+<h2 id="instalar">Instalar<a class="ancla" href="#instalar" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><p>Descarga <code>NovaEngine-Setup-&lt;versión&gt;.exe</code> de la página de versiones del motor (GitHub Releases).
+Opcionalmente, compara su suma SHA-256 con la del fichero <code>.sha256</code> publicado a su lado:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">certutil -hashfile NovaEngine-Setup-0.2.0.exe SHA256</code></pre></div>
+</li>
+<li><p>Ejecútalo. Si aparece <strong>«Windows protegió su PC»</strong>, lee <a href="#windows-protegió-su-pc-smartscreen">SmartScreen</a>.</p>
+</li>
+<li><p>Sigue el asistente:</p>
+</li>
+</ol>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Página</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Bienvenida</td>
+  <td>Qué se va a instalar. Si ya tienes Nova Engine en la carpeta, dice que se actualizará</td>
+</tr>
+<tr>
+  <td>Licencia</td>
+  <td>La licencia del motor y los avisos de las librerías de terceros (<code>TERCEROS.md</code>)</td>
+</tr>
+<tr>
+  <td>Carpeta</td>
+  <td>Por defecto <code>%LOCALAPPDATA%\Programs\NovaEngine</code> (solo tu usuario, sin administrador). Muestra el espacio necesario y el disponible y, al pulsar <strong>Siguiente</strong>, comprueba que se puede instalar ahí (ver <a href="#problemas-al-instalar">Problemas al instalar</a>)</td>
+</tr>
+<tr>
+  <td>Componentes</td>
+  <td>Editor, Nova Hub y SDK (obligatorio, con las plantillas vacías «Vacío (Lua)» y «Vacío (C++, avanzado)»); plantillas y ejemplos; documentación; acceso directo en el escritorio; abrir los <code>project.nova</code> con Nova Hub</td>
+</tr>
+<tr>
+  <td>Instalación</td>
+  <td>Comprueba el paquete (SHA-256) y copia los ficheros</td>
+</tr>
+<tr>
+  <td>Finalizar</td>
+  <td>«Abrir Nova Hub»</td>
+</tr>
+</tbody>
+</table></div>
+<p>El instalador comprueba la suma SHA-256 de todo el paquete antes de copiar nada y la de cada fichero al
+extraerlo: un instalador descargado a medias o modificado se rechaza sin tocar tu PC.</p>
+<h3 id="qué-se-instala">Qué se instala<a class="ancla" href="#qué-se-instala" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">%LOCALAPPDATA%\Programs\NovaEngine\
+  bin\                 NovaHub.exe, NovaEditor.exe, NovaGame.exe, NovaServer.exe, NovaBuild.exe,
+                       runtime de Visual C++ y shaders\
+  include\  lib\       el SDK para compilar los scripts de tus proyectos
+  cmake\               NovaEngineConfig.cmake (find_package(NovaEngine))
+  templates\           plantillas de proyecto: vacio_lua y vacio (siempre) y, con «Plantillas y ejemplos»,
+                       ejemplo3d_lua, inventario_lua, ejemplo3d y multijugador
+  docs\                esta documentación en HTML (index.html)
+  tools\               nova-engine-&lt;versión&gt;.vsix: la extensión de Nova para VS Code (se instala desde el editor)
+  nova-sdk.json        versión y datos del SDK
+  nova-instalacion.txt lista de lo instalado (la usan el desinstalador y las actualizaciones)
+  Desinstalar.exe
+  LICENCIA.txt, TERCEROS.md</code></pre></div>
+<p>Fuera de esa carpeta (salvo en modo portable) el instalador crea:</p>
+<ul>
+<li>la carpeta <strong>Nova Engine</strong> del menú Inicio, con <strong>Nova Hub</strong> y <strong>Desinstalar Nova Engine</strong>;</li>
+<li>el acceso directo del escritorio, si lo marcaste;</li>
+<li>la entrada de <strong>Configuración &gt; Aplicaciones &gt; Aplicaciones instaladas</strong> (en <code>HKEY_CURRENT_USER</code>);</li>
+<li>la asociación de los ficheros <code>.nova</code> (doble clic en un <code>project.nova</code> abre el proyecto en el editor).</li>
+</ul>
+<h3 id="windows-protegió-su-pc-smartscreen">Windows protegió su PC (SmartScreen)<a class="ancla" href="#windows-protegió-su-pc-smartscreen" aria-label="Enlace a esta sección">#</a></h3>
+<p>Al abrir un programa descargado de Internet que no está <strong>firmado digitalmente</strong>, Windows muestra «Windows
+protegió su PC» y, en Editor, «Desconocido». Para seguir: <strong>Más información &gt; Ejecutar de todas formas</strong>.</p>
+<p>El aviso no significa que el programa tenga un virus: significa que Windows no sabe quién lo ha publicado. Para
+eso existen los <strong>certificados de firma de código</strong> (<em>code signing</em>): una entidad certificadora comprueba la
+identidad de quien publica y le da un certificado con el que firma sus <code>.exe</code>. Windows muestra entonces el nombre
+del editor y, con el tiempo (o desde el principio con un certificado EV), deja de avisar. Nova Engine todavía no
+está firmado; firmarlo es un paso posterior para quien publica el motor (ver
+<span class="enlace-interno-quitado">publicar-motor.md</span>).</p>
+<h3 id="instalación-desde-la-línea-de-comandos">Instalación desde la línea de comandos<a class="ancla" href="#instalación-desde-la-línea-de-comandos" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>/S</code></td>
+  <td>Instalación silenciosa (sin ventanas). El resultado queda en <code>%TEMP%\NovaEngine-Setup.log</code></td>
+</tr>
+<tr>
+  <td><code>/D=&lt;carpeta&gt;</code></td>
+  <td>Carpeta de instalación. Va al final y puede tener espacios sin comillas</td>
+</tr>
+<tr>
+  <td><code>/componentes=plantillas,docs,escritorio,asociacion</code></td>
+  <td>Componentes opcionales (sin la opción, en silencioso: plantillas, docs y asociación)</td>
+</tr>
+<tr>
+  <td><code>/portable</code></td>
+  <td>Modo portable: ver abajo</td>
+</tr>
+<tr>
+  <td><code>/norun</code></td>
+  <td>No abre Nova Hub al terminar una actualización</td>
+</tr>
+<tr>
+  <td><code>/log=&lt;fichero&gt;</code></td>
+  <td>Otro fichero de registro</td>
+</tr>
+<tr>
+  <td><code>/update</code></td>
+  <td>Actualiza una instalación existente (lo usa Nova Hub, ver <a href="#actualizaciones">Actualizaciones</a>)</td>
+</tr>
+<tr>
+  <td><code>/uninstall</code></td>
+  <td>Desinstala (igual que <code>Desinstalar.exe</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Códigos de salida: 0 bien, 1 error, 2 cancelado, 3 Nova Hub o el editor siguen abiertos, 4 instalador dañado,
+5 no hay ninguna instalación en esa carpeta (al actualizar o desinstalar).</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaEngine-Setup-0.2.0.exe /S /D=D:\Herramientas\Nova Engine</code></pre></div>
+<h3 id="modo-portable">Modo portable<a class="ancla" href="#modo-portable" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con <code>/portable</code> el instalador <strong>no escribe nada fuera de la carpeta</strong>: ni el registro, ni el menú Inicio, ni el
+escritorio, ni la asociación de <code>.nova</code>. Sirve para llevar el motor en un disco USB o para probar una versión
+sin tocar la instalación normal:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaEngine-Setup-0.2.0.exe /S /portable /D=E:\NovaEngine</code></pre></div>
+<p>La instalación portable recuerda que lo es (en <code>nova-instalacion.txt</code>): sus actualizaciones y su desinstalación
+tampoco tocan el registro. Abre Nova Hub con <code>bin\NovaHub.exe</code>.</p>
+<h3 id="problemas-al-instalar">Problemas al instalar<a class="ancla" href="#problemas-al-instalar" aria-label="Enlace a esta sección">#</a></h3>
+<p>Antes de copiar nada, el instalador comprueba la carpeta (también en silencio y al actualizar): crea y borra una
+carpeta y un fichero de prueba con los mismos nombres que usa al instalar, mira el espacio libre y qué unidad es.
+Si algo falla lo dice en la página <strong>Carpeta</strong> con la ruta exacta y el motivo de Windows, por ejemplo
+<code>No se puede escribir en G:\NovaEngine\_actualizacion_nova: Acceso denegado. (5)</code>, y el botón <strong>Usar la carpeta
+recomendada</strong> vuelve a <code>%LOCALAPPDATA%\Programs\NovaEngine</code>. Si una instalación falla, no deja nada a medias:
+quita las carpetas que había creado y, en una actualización, vuelven los ficheros anteriores.</p>
+<ul>
+<li><strong>Dónde instalar.</strong> Lo mejor es la carpeta recomendada o una tuya en un disco de este PC
+(<code>D:\Herramientas\NovaEngine</code>). Evita las carpetas creadas por otro usuario o como administrador y los discos
+que vienen de otro PC: puede que tu usuario no tenga permiso para escribir en ellos («Acceso denegado»).</li>
+<li><strong>Nube y red.</strong> No instales el motor en una carpeta que se sincroniza con la nube (OneDrive, Google Drive —su
+unidad <code>G:</code> o «Mi unidad»—, Dropbox, iCloud) ni en una unidad de red: la sincronización bloquea los ficheros
+mientras los sube y puede dejar la instalación o una actualización a medias, y por la red el editor va más
+lento y falla si se corta la conexión. El instalador avisa; si aun así quieres, pulsa <strong>Siguiente</strong> otra vez.
+Tus <em>proyectos</em> sí pueden estar en la nube o en git. En un CD o DVD no se puede instalar.</li>
+<li><strong>Antivirus y «Acceso controlado a carpetas».</strong> Como el instalador todavía no está firmado, algunos antivirus y
+la protección contra ransomware de Windows (<strong>Seguridad de Windows &gt; Protección antivirus y contra amenazas &gt;
+Administrar la protección contra ransomware &gt; Acceso controlado a carpetas</strong>) pueden no dejarle escribir aunque
+la carpeta sea tuya: el error dice «Acceso denegado» y Windows avisa de que ha bloqueado un cambio no
+autorizado. Usa la carpeta recomendada, o permite <code>NovaEngine-Setup-&lt;versión&gt;.exe</code> en <strong>Permitir una aplicación
+a través del Acceso controlado a carpetas</strong> (o en tu antivirus) y vuelve a instalar.</li>
+<li><strong>El registro.</strong> Todo queda en <code>%TEMP%\NovaEngine-Setup.log</code> (o en el fichero de <code>/log=</code>): el instalador que se
+ejecutó, la carpeta y si ya existía, el tipo de unidad, su sistema de archivos y su etiqueta, el espacio libre,
+la prueba de escritura y cada error con su ruta y su código de Windows. Si pides ayuda, adjúntalo.</li>
+</ul>
+<h2 id="nova-hub">Nova Hub<a class="ancla" href="#nova-hub" aria-label="Enlace a esta sección">#</a></h2>
+<p>Nova Hub es la puerta de entrada del motor: desde él se crean y se abren los proyectos, se entra en las sesiones de
+tus equipos, se lee la documentación y se actualiza el motor. Tiene cuatro páginas a la izquierda.</p>
+<h3 id="proyectos">Proyectos<a class="ancla" href="#proyectos" aria-label="Enlace a esta sección">#</a></h3>
+<p>La lista de proyectos recientes muestra el nombre, la carpeta, la versión del motor con la que se guardó cada uno
+(<code>motorVersion</code> de <code>project.nova</code>), cuándo se abrió por última vez y su miniatura (<code>miniatura.png</code> del proyecto,
+si existe). Un proyecto que ya no está en su carpeta aparece en rojo.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Acción</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Abrir en el editor</td>
+  <td>Doble clic, el botón <strong>Abrir</strong> o el menú del botón derecho</td>
+</tr>
+<tr>
+  <td>Mostrar en el Explorador</td>
+  <td>Botón derecho</td>
+</tr>
+<tr>
+  <td>Quitar de la lista</td>
+  <td>Botón derecho. <strong>No borra nada</strong>: solo lo quita de la lista</td>
+</tr>
+<tr>
+  <td>Abrir proyecto</td>
+  <td>Elige la carpeta que contiene <code>project.nova</code></td>
+</tr>
+<tr>
+  <td>Buscar</td>
+  <td>El cuadro de búsqueda filtra por nombre y carpeta</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si un proyecto se guardó con una versión del motor <strong>más nueva</strong> que la instalada, Nova Hub avisa antes de
+abrirlo (puede que no se abra bien): lo mejor es actualizar el motor.</p>
+<p>La primera vez, Nova Hub importa los proyectos recientes del editor. Sus ajustes y la lista se guardan en
+<code>%APPDATA%\NovaEngine\hub.json</code>.</p>
+<h3 id="equipos">Equipos<a class="ancla" href="#equipos" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los <strong>equipos fijos</strong> de la edición en equipo: una tarjeta por equipo con su estado, en verde <strong>En marcha · Marta ·
+2 personas</strong> cuando su dueña tiene la sesión abierta, o <strong>Cerrado</strong>. <strong>Unirse</strong> o doble clic abre Nova Editor ya
+unido (sin escribir el código, con tu nombre y tu carpeta de trabajo de siempre). <strong>Unirse a un equipo...</strong> guarda
+un equipo con su invitación (<code>NOVA-EQUIPO-...</code>, se pega una sola vez). Botón derecho: <strong>Abrir sesión</strong>, <strong>Copiar
+invitación del equipo</strong> y <strong>Renovar invitación...</strong> (en los tuyos) y <strong>Quitar...</strong>. Si tienes equipos, también salen
+arriba en <strong>Proyectos</strong>, y cuando uno abre la sesión con Nova Hub abierto aparece un aviso con <strong>Unirse</strong>. Cómo se
+crean y cómo funciona: <a href="edicion-en-equipo.html#equipos-fijos-entrar-desde-nova-hub-con-doble-clic">edicion-en-equipo.md</a>.</p>
+<h3 id="nuevo-proyecto">Nuevo proyecto<a class="ancla" href="#nuevo-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Nuevo proyecto</strong> pide una plantilla, un nombre y una carpeta (por defecto <code>Documentos\Nova Projects</code>). La
+plantilla elegida al abrirlo es <strong>Vacío (Lua)</strong>. Las de Lua van primero; las de C++ están debajo, en <strong>Avanzado:
+scripts en C++</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Plantilla</th>
+  <th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Vacío (Lua)</td>
+  <td>Sol, cielo, cámara, suelo con colisionador y un cubo con el script de ejemplo <code>GirarYFlotar.luau</code>. Sin compilar ni Visual Studio (<a href="scripts-lua.html">scripts-lua.md</a>)</td>
+</tr>
+<tr>
+  <td>Ejemplo 3D (Lua)</td>
+  <td>El proyecto de ejemplo de un jugador con sus scripts en Lua: personaje con cámara orbital, zorro animado que pasea, rotador, materiales y luces</td>
+</tr>
+<tr>
+  <td>Inventario tipo Rust (Lua)</td>
+  <td>Inventario multijugador como el de Rust (cinturón, mochila, ropa, caja de botín, arrastrar y soltar, tirar y coger) con el servidor al mando (<a href="ejemplo-inventario.html">ejemplo-inventario.md</a>)</td>
+</tr>
+<tr>
+  <td>Mundo abierto (Lua)</td>
+  <td>Una isla generada con el generador de terrenos (montañas, playas y mar) bajo un cielo con pocas nubes, un bosque que se reparte solo con la API <code>Terrain</code>, cámara libre y un clic para excavar (<a href="terreno.html">terreno.md</a>)</td>
+</tr>
+<tr>
+  <td>Vacío (C++, avanzado)</td>
+  <td>Como «Vacío (Lua)», con el script de ejemplo en C++: para compilarlo hace falta Visual Studio (<a href="scripts-cpp.html">scripts-cpp.md</a>)</td>
+</tr>
+<tr>
+  <td>Ejemplo 3D (C++, avanzado)</td>
+  <td>El ejemplo 3D con sus scripts en C++ (viene compilado)</td>
+</tr>
+<tr>
+  <td>Multijugador (C++, avanzado)</td>
+  <td>La arena en red con sus scripts en C++: menú, anfitrión, clientes, servidor dedicado, predicción, físicas en red y RPCs (viene compilado)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Un proyecto de Lua queda así (con «Mi Juego» como nombre):</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">Documentos\Nova Projects\Mi Juego\
+  project.nova          ajustes del proyecto (nombre, motorVersion, escena inicial, controles, red...)
+  assets\               escenas, modelos, materiales...
+  scripts\*.luau        los scripts del juego (no se compilan: se recargan al guardarlos)</code></pre></div>
+<p>No tiene DLL, <code>CMakeLists.txt</code> ni módulo de scripts: sus <code>scripts\*.luau</code> los carga el motor. Al crear un script
+en el editor, o al abrirlo con VS Code, se crean además <code>nova.d.luau</code>, <code>nova.docs.json</code>, <code>.luaurc</code> y
+<code>.vscode\settings.json</code>, para el autocompletado en VS Code (<a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>).</p>
+<p>Un proyecto de C++ (avanzado) tiene además:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">  scripts\*.cpp         el código C++ del juego
+  CMakeLists.txt        compila scripts\ con el SDK del motor (no hace falta tocarlo)
+  bin\mi_juego.dll      la DLL de scripts (ya compilada en las plantillas)
+  build\                carpeta de compilación de CMake (se crea al compilar)
+  .gitignore            build\ y bin\ (por si usas git)</code></pre></div>
+<p>Su módulo de scripts (el nombre de la DLL, en <code>project.nova</code>) sale del nombre del proyecto: minúsculas, sin
+tildes y con <code>_</code>. Las plantillas de C++ traen la DLL compilada con el motor instalado, así que el proyecto se abre
+y se juega sin compilar; para cambiar sus scripts hace falta el compilador. Si no lo tienes, Nova Hub lo avisa al
+elegir una plantilla de C++.</p>
+<h3 id="aprender">Aprender<a class="ancla" href="#aprender" aria-label="Enlace a esta sección">#</a></h3>
+<p>Abre esta documentación en tu navegador (está instalada en <code>docs\</code>, no necesita Internet): la guía de <strong>Scripts en
+Lua</strong> va la primera, y <strong>VS Code y Lua</strong> lleva a cómo instalar la extensión de Nova para VS Code. <strong>Crear un proyecto de ejemplo</strong> crea uno con la plantilla <strong>Ejemplo 3D (Lua)</strong>, y <strong>Ejemplo
+en C++ (avanzado)</strong>, con la de C++. Si no marcaste el componente «Documentación», vuelve a ejecutar el instalador
+para añadirla.</p>
+<h3 id="ajustes">Ajustes<a class="ancla" href="#ajustes" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Motor</strong>: versión, carpeta de instalación y editor; carpeta de proyectos por defecto.</li>
+<li><strong>Actualizaciones</strong>: canal (estable o beta), buscar al abrir Nova Hub y <strong>Buscar actualizaciones ahora</strong>.</li>
+<li><strong>Compilador de C++ (opcional, solo para scripts C++)</strong>: si se encuentran Visual Studio 2022 o sus Build Tools
+(con CMake y Ninja) y, si no, qué instalar y el enlace de descarga. Los scripts en Lua no lo necesitan.</li>
+<li><strong>Equipos</strong> (los dos desactivados por defecto): <strong>Avisarme con una notificación de Windows cuando un equipo abra
+su sesión</strong> y <strong>Abrir Nova Hub al iniciar Windows, minimizado en la bandeja</strong> (junto al reloj: doble clic en su
+icono lo abre; cerrar la ventana lo devuelve a la bandeja y <strong>Salir</strong>, en el menú del icono, lo cierra). Se
+guarda en <code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run</code> (valor <code>NovaHub</code>); desinstalar Nova Engine lo quita.</li>
+<li><strong>Steamworks</strong>: si el motor se compiló con el SDK de Steamworks (ver <a href="steam.html">steam.md</a>). El motor que se
+distribuye se compila sin él: los juegos funcionan por la red local o por IP, pero sin Steam.</li>
+</ul>
+<h2 id="vs-code-y-lua">VS Code y Lua<a class="ancla" href="#vs-code-y-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>El motor trae una extensión para VS Code (<code>tools\nova-engine-&lt;versión&gt;.vsix</code>, con la misma versión que el motor): la
+API en español al escribir y al pasar el ratón, los atributos (<code>--[Server]</code>...) resaltados y comprobados, fragmentos,
+órdenes y los errores de los scripts en el panel <strong>Problemas</strong>. Se instala desde el editor: <strong>Editar &gt; Preferencias
+del editor &gt; Extensión de Nova para VS Code &gt; Instalar la extensión de Nova en VS Code</strong> (VS Code descarga con ella
+<strong>luau-lsp</strong>, que entiende el Luau de los scripts; la primera vez hace falta Internet). Al actualizar el motor, el
+<code>.vsix</code> nuevo se instala con el mismo botón. Todo lo demás, y qué hacer si VS Code marca errores que no lo son
+porque tienes las extensiones <strong>Lua</strong> (sumneko) o <strong>FiveLab Lua</strong>, en
+<a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>.</p>
+<h2 id="compilar-los-scripts-visual-studio-o-build-tools">Compilar los scripts (Visual Studio o Build Tools)<a class="ancla" href="#compilar-los-scripts-visual-studio-o-build-tools" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Solo para los scripts en C++</strong> (opcionales: <a href="scripts-cpp.html">scripts-cpp.md</a>). Los scripts en Lua no se
+compilan y no necesitan nada de esto. Los de C++ se compilan en una DLL, y el motor no incluye el compilador: hace
+falta el de Microsoft, que es gratis.</p>
+<ol>
+<li>Descarga <strong>Build Tools para Visual Studio 2022</strong> de la página oficial:
+<a href="https://visualstudio.microsoft.com/visual-cpp-build-tools/" rel="noopener">https://visualstudio.microsoft.com/visual-cpp-build-tools/</a>
+(también vale Visual Studio Community 2022).</li>
+<li>En el instalador de Visual Studio marca la carga de trabajo <strong>«Desarrollo para el escritorio con C++»</strong>. Trae
+el compilador MSVC, el SDK de Windows y las herramientas de CMake (CMake y Ninja).</li>
+<li>Pulsa <strong>Instalar</strong>. No hace falta reiniciar el editor.</li>
+</ol>
+<p>Nova Engine necesita <strong>MSVC 14.44 o posterior</strong> (Visual Studio 2022 versión 17.14): las librerías del SDK se
+compilan con él y un compilador más antiguo no puede enlazarlas. Si tienes una versión anterior, actualízala
+desde el Visual Studio Installer.</p>
+<p>En el editor, <strong>Compilar scripts</strong> (Ctrl+B; solo aparece en los proyectos con scripts C++) ejecuta
+<code>bin\NovaBuild.exe</code>, que:</p>
+<ol>
+<li>busca Visual Studio con <code>vswhere</code> y prepara su entorno (<code>vcvars64.bat</code>);</li>
+<li>configura el proyecto con el CMake y el Ninja de Visual Studio en <code>&lt;proyecto&gt;\build</code>
+(<code>find_package(NovaEngine)</code> con el SDK instalado);</li>
+<li>compila <code>scripts\*.cpp</code> en <code>&lt;proyecto&gt;\bin\&lt;módulo&gt;.dll</code>.</li>
+</ol>
+<p>La salida aparece en la <strong>Consola</strong> del editor y, al terminar, el editor recarga los scripts sin cerrarse (la
+recarga en caliente de <a href="scripts-cpp.html#recarga-en-caliente-en-el-editor">scripts-cpp.md</a>). Si falta el
+compilador, el editor muestra qué instalar.</p>
+<p>También se puede compilar desde una terminal:</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat"><span class="hl-s">"%LOCALAPPDATA%\Programs\NovaEngine\bin\NovaBuild.exe"</span> --project <span class="hl-s">"C:\Users\Ana\Documents\Nova Projects\Mi Juego"</span>
+<span class="hl-s">"%LOCALAPPDATA%\Programs\NovaEngine\bin\NovaBuild.exe"</span> --comprobar</code></pre></div>
+<p><code>--comprobar</code> solo dice si encuentra Visual Studio, CMake y Ninja.</p>
+<h3 id="la-dll-de-scripts-y-la-versión-del-motor">La DLL de scripts y la versión del motor<a class="ancla" href="#la-dll-de-scripts-y-la-versión-del-motor" aria-label="Enlace a esta sección">#</a></h3>
+<p>La DLL de scripts y los programas del motor intercambian objetos de C++ (<code>std::string</code>, componentes...), así
+que tienen que compilarse igual:</p>
+<ul>
+<li>con el <strong>mismo motor</strong> (la misma versión);</li>
+<li>con MSVC (conjunto de herramientas v14x, 14.44 o posterior), en 64 bits;</li>
+<li>con el runtime de C++ en DLL de la versión optimizada (<code>/MD</code>) y sin el STL de depuración.</li>
+</ul>
+<p><code>nova_add_game</code> (en <code>cmake\NovaEngineConfig.cmake</code>) lo fija aunque el proyecto se configure en Debug. Al cargar
+la DLL, el editor y <code>NovaGame.exe</code> comprueban su firma (versión del motor, compilador y runtime): si no coincide,
+la rechazan con el mensaje «se compiló para otro motor... vuelve a compilar los scripts». Por eso, <strong>después de
+actualizar el motor hay que compilar los scripts de cada proyecto con C++</strong> (Ctrl+B); los datos de los scripts no
+se pierden. Los proyectos solo con Lua no tienen que hacer nada.</p>
+<p>Para depurar los scripts con Visual Studio, compila el proyecto en Debug en otra carpeta (<code>cmake -S . -B build-debug -G Ninja -DCMAKE_BUILD_TYPE=Debug -DNovaEngine_DIR=&lt;motor&gt;\cmake</code>) y adjunta el depurador a
+<code>NovaEditor.exe</code> (<strong>Depurar &gt; Asociar al proceso</strong>).</p>
+<h3 id="rutas-largas">Rutas largas<a class="ancla" href="#rutas-largas" aria-label="Enlace a esta sección">#</a></h3>
+<p>CMake y el compilador de Microsoft no admiten rutas de más de 260 caracteres, y al configurar un proyecto CMake
+crea carpetas de unos 110 caracteres dentro de <code>build\</code>. Si <strong>Compilar scripts</strong> falla con «No se puede abrir el
+archivo generado por el compilador», mueve el proyecto a una carpeta con una ruta más corta (por ejemplo
+<code>C:\Juegos\MiJuego</code>). Las tildes y los espacios en la ruta no son un problema.</p>
+<h2 id="actualizaciones">Actualizaciones<a class="ancla" href="#actualizaciones" aria-label="Enlace a esta sección">#</a></h2>
+<p>Nova Hub busca actualizaciones en segundo plano al abrirse (en las versiones publicadas del motor en GitHub
+Releases). Si hay una versión más nueva, muestra un aviso arriba con su número y sus novedades:</p>
+<ul>
+<li><strong>Actualizar</strong> primero mira si hay programas del motor abiertos (Nova Editor, un juego o un servidor lanzados
+desde la carpeta del motor, otra ventana de Nova Hub): el instalador no podría cambiar sus ficheros. Si los hay,
+no se descarga nada y Nova Hub lo dice, por ejemplo «Cierra Nova Editor (guarda tus cambios) para actualizar.»:
+<strong>nunca los cierra por ti</strong>. Ciérralos tú y pulsa <strong>Reintentar</strong>.</li>
+<li>Después descarga el instalador nuevo a <code>%TEMP%\NovaEngine\actualizacion</code> y comprueba su suma SHA-256 con la
+publicada (si no coincide, no se instala). Si ese instalador ya estaba descargado y su suma es buena, se usa sin
+volver a descargarlo; si está en uso (un instalador que sigue abierto), el nuevo se descarga con otro nombre
+(<code>NovaEngine-Setup-&lt;versión&gt;-2.exe</code>). Al terminar bien, se borran los instaladores viejos de esa carpeta.</li>
+<li>Nova Hub ejecuta el instalador con <code>/update /S /resultado=&lt;fichero&gt;</code> y se cierra. El instalador:<ol>
+<li>espera a que se cierren Nova Hub y los programas del motor (hasta un minuto);</li>
+<li>comprueba la carpeta, extrae la versión nueva en <code>&lt;motor&gt;\_actualizacion_nova</code> y cambia los ficheros uno a
+uno, guardando los anteriores;</li>
+<li>si algo falla, <strong>deshace todo</strong> y la versión anterior queda como estaba;</li>
+<li>vuelve a abrir Nova Hub, que muestra «Nova Engine se ha actualizado a la versión...». Si no ha podido
+actualizar (por ejemplo, porque Nova Editor seguía abierto), deja el motivo en ese fichero y Nova Hub, al
+abrirse otra vez, lo muestra arriba («No se pudo actualizar a Nova Engine...», con el motivo y los programas
+que seguían abiertos) junto a <strong>Reintentar</strong>.</li>
+</ol>
+</li>
+<li><strong>Ver novedades</strong> muestra las notas de la versión.</li>
+<li><strong>Omitir esta versión</strong> no vuelve a avisar de esa versión (sí de las siguientes).</li>
+<li><strong>Más tarde</strong> oculta el aviso hasta la próxima vez.</li>
+</ul>
+<p>Desde el editor, <strong>Ayuda &gt; Buscar actualizaciones…</strong> abre Nova Hub en sus ajustes y busca en ese momento.</p>
+<p>En <strong>Ajustes &gt; Actualizaciones</strong> se elige el canal:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Canal</th>
+  <th>Qué recibe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Estable</td>
+  <td>Solo las versiones normales</td>
+</tr>
+<tr>
+  <td>Beta</td>
+  <td>También las versiones de prueba (por ejemplo <code>0.3.0-beta.1</code>), antes que nadie y con más riesgo</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sin conexión, o si el repositorio de versiones todavía no existe, Nova Hub lo dice en sus ajustes y sigue
+funcionando con normalidad. También puedes actualizar a mano: ejecuta el instalador nuevo y elige la misma
+carpeta. Tus proyectos nunca se tocan al actualizar; lo único que hay que hacer después es compilar los scripts de
+los proyectos con C++ (los de Lua no necesitan nada).</p>
+<h2 id="desinstalar">Desinstalar<a class="ancla" href="#desinstalar" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cualquiera de estas formas:</p>
+<ul>
+<li><strong>Configuración &gt; Aplicaciones &gt; Aplicaciones instaladas &gt; Nova Engine &gt; Desinstalar</strong>;</li>
+<li><strong>Inicio &gt; Nova Engine &gt; Desinstalar Nova Engine</strong>;</li>
+<li><code>Desinstalar.exe</code> en la carpeta del motor (<code>/S</code> para hacerlo sin ventanas).</li>
+</ul>
+<p>El desinstalador borra <strong>solo lo que instaló el instalador</strong> (la lista de <code>nova-instalacion.txt</code>), los accesos
+directos, la entrada de Aplicaciones instaladas y la asociación de <code>.nova</code>. <strong>Nunca toca tus proyectos</strong>, estén
+donde estén, ni nada que tú hayas guardado dentro de la carpeta del motor (en ese caso la carpeta se queda con lo
+tuyo). Como no se puede borrar a sí mismo mientras se ejecuta, se copia a <code>%TEMP%</code>, sigue desde allí y esa copia
+se borra sola al terminar.</p>
+<p>Se quedan, por si vuelves a instalar el motor: los ajustes de Nova Hub (<code>%APPDATA%\NovaEngine\hub.json</code>) y los
+del editor y sus registros (<code>%LOCALAPPDATA%\NovaEngine</code>). Puedes borrar esas carpetas a mano.</p>
+<h2 id="solución-de-problemas">Solución de problemas<a class="ancla" href="#solución-de-problemas" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Problema</th>
+  <th>Causa y solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>«Windows protegió su PC»</td>
+  <td>El instalador no está firmado: <strong>Más información &gt; Ejecutar de todas formas</strong> (ver <a href="#windows-protegió-su-pc-smartscreen">SmartScreen</a>)</td>
+</tr>
+<tr>
+  <td>«Este instalador está incompleto o dañado»</td>
+  <td>Descarga cortada o modificada: vuelve a descargarlo y compara su SHA-256</td>
+</tr>
+<tr>
+  <td>«No se puede escribir en...», «No se puede crear la carpeta...» o «No hay espacio suficiente...» al instalar</td>
+  <td>La carpeta elegida no vale: el mensaje dice la ruta y el motivo. Usa la carpeta recomendada; ver <a href="#problemas-al-instalar">Problemas al instalar</a></td>
+</tr>
+<tr>
+  <td>«Cierra estos programas antes de continuar»</td>
+  <td>El editor, Nova Hub o un juego se están ejecutando desde la carpeta del motor: ciérralos</td>
+</tr>
+<tr>
+  <td>«Falta el compilador de C++» al compilar</td>
+  <td>Solo afecta a los scripts C++: instala las Build Tools de Visual Studio 2022 (<a href="#compilar-los-scripts-visual-studio-o-build-tools">Compilar los scripts</a>) o usa Lua, que no se compila</td>
+</tr>
+<tr>
+  <td>«MSVC 14.44 o posterior»</td>
+  <td>Actualiza Visual Studio 2022 a la 17.14 o posterior desde el Visual Studio Installer</td>
+</tr>
+<tr>
+  <td>«se compiló para otro motor» en la consola</td>
+  <td>La DLL de scripts es de otra versión del motor: <strong>Compilar scripts</strong> (Ctrl+B)</td>
+</tr>
+<tr>
+  <td>«No se puede abrir el archivo generado por el compilador»</td>
+  <td>Ruta demasiado larga: ver <a href="#rutas-largas">Rutas largas</a></td>
+</tr>
+<tr>
+  <td>«Cierra Nova Editor (guarda tus cambios) para actualizar»</td>
+  <td>Hay programas del motor abiertos: guarda, ciérralos y pulsa <strong>Reintentar</strong></td>
+</tr>
+<tr>
+  <td>«No se pudo actualizar a Nova Engine...» al abrir Nova Hub</td>
+  <td>El instalador no pudo actualizar y dice por qué (por ejemplo, un programa del motor seguía abierto). No se ha cambiado nada: cierra lo que diga y pulsa <strong>Reintentar</strong> (no se vuelve a descargar)</td>
+</tr>
+<tr>
+  <td>La actualización falla</td>
+  <td>No se ha cambiado nada (se deshace sola). Mira <code>%TEMP%\NovaEngine-Setup.log</code>, cierra el editor y vuelve a intentarlo</td>
+</tr>
+<tr>
+  <td>Nova Hub no encuentra actualizaciones</td>
+  <td>Mira el mensaje de <strong>Ajustes &gt; Actualizaciones</strong> (sin conexión, límite de consultas de GitHub o repositorio sin versiones)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="empezar.html">Empezar</a> (tu primer proyecto; compilar el motor desde el código fuente)</li>
+<li><a href="scripts-lua.html">Scripts en Lua</a></li>
+<li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li>
+<li><a href="publicar-juego.html">Publicar el juego</a></li>
+<li><span class="enlace-interno-quitado">Publicar una versión del motor</span> (para quien mantiene el motor)</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="indice.html"><small>Anterior</small>Índice de la documentación</a><a class="sig" href="empezar.html"><small>Siguiente</small>Empezar con Nova Engine</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#requisitos">Requisitos</a></li><li class="n2"><a href="#instalar">Instalar</a></li><li class="n3"><a href="#qué-se-instala">Qué se instala</a></li><li class="n3"><a href="#windows-protegió-su-pc-smartscreen">Windows protegió su PC (SmartScreen)</a></li><li class="n3"><a href="#instalación-desde-la-línea-de-comandos">Instalación desde la línea de comandos</a></li><li class="n3"><a href="#modo-portable">Modo portable</a></li><li class="n3"><a href="#problemas-al-instalar">Problemas al instalar</a></li><li class="n2"><a href="#nova-hub">Nova Hub</a></li><li class="n3"><a href="#proyectos">Proyectos</a></li><li class="n3"><a href="#equipos">Equipos</a></li><li class="n3"><a href="#nuevo-proyecto">Nuevo proyecto</a></li><li class="n3"><a href="#aprender">Aprender</a></li><li class="n3"><a href="#ajustes">Ajustes</a></li><li class="n2"><a href="#vs-code-y-lua">VS Code y Lua</a></li><li class="n2"><a href="#compilar-los-scripts-visual-studio-o-build-tools">Compilar los scripts (Visual Studio o Build Tools)</a></li><li class="n3"><a href="#la-dll-de-scripts-y-la-versión-del-motor">La DLL de scripts y la versión del motor</a></li><li class="n3"><a href="#rutas-largas">Rutas largas</a></li><li class="n2"><a href="#actualizaciones">Actualizaciones</a></li><li class="n2"><a href="#desinstalar">Desinstalar</a></li><li class="n2"><a href="#solución-de-problemas">Solución de problemas</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

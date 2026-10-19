@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animación de objetos: puertas, ascensores y luces con claves · Nova Engine</title>
+<meta name="description" content="Desde la 0.9.8 puedes animar cualquier objeto sin huesos desde el editor, con una línea de tiempo y claves, como
+en Unity o en Unreal: una puerta que se abre, una palanca, un ascensor, una plataforma que va y viene, una ">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Animación de objetos: puertas, ascensores y luces con claves · Nova Engine">
+<meta property="og:description" content="Desde la 0.9.8 puedes animar cualquier objeto sin huesos desde el editor, con una línea de tiempo y claves, como
+en Unity o en Unreal: una puerta que se abre, una palanca, un ascensor, una plataforma que va y viene, una ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/animacion-objetos.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/animacion-objetos.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo" open><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html" aria-current="page">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="animación-de-objetos-puertas-ascensores-y-luces-con-claves">Animación de objetos: puertas, ascensores y luces con claves</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-animar-una-puerta-en-cinco-minutos">1. Animar una puerta en cinco minutos</a></li><li class="n2"><a href="#2-el-panel-línea-de-tiempo">2. El panel Línea de tiempo</a></li><li class="n2"><a href="#3-qué-se-puede-animar">3. Qué se puede animar</a></li><li class="n2"><a href="#4-curvas-e-interpolación">4. Curvas e interpolación</a></li><li class="n2"><a href="#5-repetición-y-eventos">5. Repetición y eventos</a></li><li class="n2"><a href="#6-el-componente-animación">6. El componente Animación</a></li><li class="n2"><a href="#7-desde-lua">7. Desde Lua</a></li><li class="n2"><a href="#8-multijugador">8. Multijugador</a></li><li class="n2"><a href="#9-plataformas-y-ascensores-con-física">9. Plataformas y ascensores con física</a></li><li class="n2"><a href="#10-piezas-animadas-de-los-modelos-gltf-y-fbx">10. Piezas animadas de los modelos (glTF y FBX)</a></li><li class="n2"><a href="#11-varias-entidades-a-la-vez-cinemáticas-sencillas">11. Varias entidades a la vez: cinemáticas sencillas</a></li><li class="n2"><a href="#12-el-fichero-anim">12. El fichero .anim</a></li><li class="n2"><a href="#13-límites">13. Límites</a></li></ul></details><p>Desde la 0.9.8 puedes <strong>animar cualquier objeto sin huesos</strong> desde el editor, con una línea de tiempo y claves, como
+en Unity o en Unreal: una puerta que se abre, una palanca, un ascensor, una plataforma que va y viene, una luz que
+parpadea, un cofre que se abre con un destello, la hélice de un avión... Sin escribir el movimiento en un <code>Update</code> ni
+con <code>Tween</code>: lo dibujas en el panel <strong>Línea de tiempo</strong> y desde Lua solo dices cuándo: <code>anim:Play(&quot;AbrirPuerta&quot;)</code>.</p>
+<p>Funciona en tres partes:</p>
+<ul>
+<li><strong>El clip</strong> (<code>.anim</code>): las claves de cada propiedad (posición, rotación, escala, activo, el color de una luz, el
+volumen de un sonido, un campo de tu script...) con sus curvas, la repetición y los eventos. Es un asset más de
+<code>assets/</code>.</li>
+<li><strong>El componente Animación</strong>: lo pones en la entidad (la puerta) y reproduce sus clips en ella y en sus hijos.</li>
+<li><strong>El panel Línea de tiempo</strong> del editor: crea y edita los clips, con vista previa en la escena sin pulsar Play y un
+modo <strong>Grabar</strong> que convierte en claves lo que mueves en el visor.</li>
+</ul>
+<p>También: las <strong>piezas rígidas animadas de los modelos</strong> (las puertas de un coche, la hélice de un barco) que traen los
+glTF y FBX ya se reproducen, y un clip puede animar <strong>varias entidades de la escena</strong> a la vez (cinemáticas sencillas).</p>
+<p>Para <strong>personajes con huesos</strong> (saludar, recargar, corregir una animación importada) está la ventana
+<a href="animar-huesos.html">Animar huesos</a> (0.9.17): usa el mismo <code>.anim</code>, con pistas de hueso, y los mismos eventos.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-animar-una-puerta-en-cinco-minutos">Animar una puerta en cinco minutos</a></li>
+<li><a href="#2-el-panel-línea-de-tiempo">El panel Línea de tiempo</a></li>
+<li><a href="#3-qué-se-puede-animar">Qué se puede animar</a></li>
+<li><a href="#4-curvas-e-interpolación">Curvas e interpolación</a></li>
+<li><a href="#5-repetición-y-eventos">Repetición y eventos</a></li>
+<li><a href="#6-el-componente-animación">El componente Animación</a></li>
+<li><a href="#7-desde-lua">Desde Lua</a></li>
+<li><a href="#8-multijugador">Multijugador</a></li>
+<li><a href="#9-plataformas-y-ascensores-con-física">Plataformas y ascensores con física</a></li>
+<li><a href="#10-piezas-animadas-de-los-modelos-gltf-y-fbx">Piezas animadas de los modelos (glTF y FBX)</a></li>
+<li><a href="#11-varias-entidades-a-la-vez-cinemáticas-sencillas">Varias entidades a la vez: cinemáticas sencillas</a></li>
+<li><a href="#12-el-fichero-anim">El fichero .anim</a></li>
+<li><a href="#13-límites">Límites</a></li>
+</ol>
+<h2 id="1-animar-una-puerta-en-cinco-minutos">1. Animar una puerta en cinco minutos<a class="ancla" href="#1-animar-una-puerta-en-cinco-minutos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una puerta es un <strong>marco</strong> (la entidad raíz, que no se mueve) con una <strong>hoja</strong> hija que gira sobre la bisagra. Pon el
+origen de la hoja en la bisagra (o mete la malla en un hijo desplazado) para que gire por el borde.</p>
+<ol>
+<li>Crea la puerta: una entidad vacía «Puerta» y, dentro, un cubo «Hoja» escalado como una puerta (1 × 2 × 0,1).</li>
+<li>Elige «Puerta» en la Jerarquía y abre <strong>Ventana &gt; Animación &gt; Línea de tiempo</strong> (una pestaña del <a href="editor.html#espacio-animación">espacio Animación</a>) (o el botón <strong>Abrir en la línea de tiempo</strong> del
+componente Animación).</li>
+<li>Pulsa <strong>Nuevo clip</strong> y llámalo <code>AbrirPuerta</code>. Se crea <code>assets/animaciones/Puerta_AbrirPuerta.anim</code> y la puerta
+recibe el componente <strong>Animación</strong> con ese clip.</li>
+<li>Con el tiempo en 0, pulsa <strong>Añadir propiedad &gt; Hoja &gt; Rotación</strong>: aparece la pista «Hoja · Rotación» con una clave
+(la puerta cerrada). Pulsa <strong>Grabar</strong> (se pone en rojo).</li>
+<li>Mueve el tiempo a <strong>1 s</strong> (arrastra en la regla o escribe <code>1</code> en el campo de segundos) y gira la Hoja 90 grados con
+el gizmo de rotar. Al soltar, la clave del segundo 1 se crea sola.</li>
+<li>Pulsa <strong>Reproducir</strong> en el panel: la puerta se abre en la escena sin entrar en Play. Ajusta la curva (abajo) si
+quieres que frene al final.</li>
+<li>Pulsa <strong>Grabar</strong> otra vez para dejar de grabar. Al quitar la vista previa (o al pulsar Play o guardar), la puerta
+vuelve a como estaba: lo que manda al jugar es el componente Animación.</li>
+</ol>
+<p>Para que se abra al acercarse el jugador, quita <strong>Reproducir al empezar</strong> del componente, pon un sensor (un Collider
+con <code>isTrigger</code>) en la puerta y el script <a href="#7-desde-lua">PuertaAnimada</a>.</p>
+<h2 id="2-el-panel-línea-de-tiempo">2. El panel Línea de tiempo<a class="ancla" href="#2-el-panel-línea-de-tiempo" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Ventana &gt; Animación &gt; Línea de tiempo</strong> (la pestaña del <a href="editor.html#espacio-animación">espacio Animación</a>), doble clic en un <code>.anim</code> del Contenido o <strong>Abrir en la línea de tiempo</strong> en el
+Inspector del componente Animación.</p>
+<p><strong>Arriba</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Control</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Entidad y candado</td>
+  <td>El panel sigue a la entidad elegida (o a su antepasado con el componente Animación: si eliges la Hoja, sigue en la Puerta). Con el candado se queda fija</td>
+</tr>
+<tr>
+  <td>Clip</td>
+  <td>Los clips del componente Animación de la entidad. <strong>Nuevo clip</strong> crea uno (y el componente si no lo tiene)</td>
+</tr>
+<tr>
+  <td>Repetición, Duración, FPS</td>
+  <td>Qué pasa al llegar al final (una vez, bucle, ida y vuelta), los segundos del clip y los fotogramas por segundo a los que se ajustan las claves</td>
+</tr>
+<tr>
+  <td>⏮ ‹ ▶ › ⏭</td>
+  <td>Al principio, fotograma anterior, reproducir/pausar (Espacio), fotograma siguiente, al final</td>
+</tr>
+<tr>
+  <td>Segundos y fotograma</td>
+  <td>Ir a un tiempo o a un fotograma concreto</td>
+</tr>
+<tr>
+  <td><strong>Grabar</strong></td>
+  <td>Lo que muevas en el visor o cambies en el Inspector en una entidad del clip se convierte en una clave en el tiempo actual (una sola entrada en el historial por gesto)</td>
+</tr>
+<tr>
+  <td><strong>Vista previa</strong></td>
+  <td>Ver el clip en la escena sin pulsar Play. Al quitarla, al jugar o al guardar la escena, todo vuelve a como estaba</td>
+</tr>
+<tr>
+  <td>Curvas, zoom</td>
+  <td>Enseñar el editor de curvas; acercar o alejar el tiempo (también Ctrl + rueda; Mayús + rueda para desplazarte)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Pistas y claves</strong>: una fila por propiedad, agrupadas por entidad (la raíz y sus hijos).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Acción</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Añadir una propiedad</td>
+  <td><strong>Añadir propiedad</strong> &gt; la entidad (la raíz, un hijo o cualquier otra de la escena) &gt; la propiedad. Pone una clave con su valor actual</td>
+</tr>
+<tr>
+  <td>Elegir claves</td>
+  <td>Clic en un rombo; Ctrl + clic para elegir varias (de varias pistas a la vez)</td>
+</tr>
+<tr>
+  <td>Mover claves</td>
+  <td>Arrastrarlas (se ajustan a los fotogramas). Si caen encima de otra, la sustituyen</td>
+</tr>
+<tr>
+  <td>Añadir una clave</td>
+  <td>Doble clic en un hueco de la fila (con el valor de la curva en ese instante), o clic derecho &gt; Añadir clave</td>
+</tr>
+<tr>
+  <td>Borrar</td>
+  <td>Supr, o clic derecho &gt; Borrar</td>
+</tr>
+<tr>
+  <td>Copiar y pegar</td>
+  <td>Ctrl+C y Ctrl+V (se pegan en el tiempo actual, en las mismas propiedades)</td>
+</tr>
+<tr>
+  <td>Interpolación y tangentes</td>
+  <td>Clic derecho en una clave</td>
+</tr>
+<tr>
+  <td>Silenciar o quitar una pista</td>
+  <td>La casilla de su izquierda (silenciada no se aplica) y el botón de la papelera</td>
+</tr>
+<tr>
+  <td>Mover el tiempo</td>
+  <td>Arrastrar en la regla (con Mayús, sin ajustarse a los fotogramas)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Eventos</strong>: la fila amarilla de arriba. Clic derecho para añadir uno, arrastrar para moverlo y, al elegirlo, abajo
+se editan su nombre, la función que llama, su parámetro y si es <strong>global</strong> (ver <a href="#5-repetición-y-eventos">eventos</a>).</p>
+<p><strong>Curvas</strong>: abajo, las curvas de la pista elegida (rojo X, verde Y, azul Z; en los colores R, G, B, A). Arrastra un
+cuadrado para cambiar el valor de la clave; en las claves bézier elegidas, arrastra los puntos blancos para cambiar sus
+tangentes. A la izquierda, los valores exactos de la clave elegida y su interpolación.</p>
+<p>Todo cambio de un clip se puede deshacer con <strong>Ctrl+Z</strong> y, en la <a href="edicion-en-equipo.html">edición en equipo</a>, llega a los
+demás como cualquier asset.</p>
+<h2 id="3-qué-se-puede-animar">3. Qué se puede animar<a class="ancla" href="#3-qué-se-puede-animar" aria-label="Enlace a esta sección">#</a></h2>
+<p>En la entidad del componente Animación y en cualquiera de sus hijos (y, con <a href="#11-varias-entidades-a-la-vez-cinemáticas-sencillas">ruta absoluta</a>,
+en cualquier entidad de la escena):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Propiedad</th>
+  <th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Posición, rotación (grados), escala</td>
+  <td>Puertas, palancas, ascensores, plataformas, una tapa que se abre, algo que late</td>
+</tr>
+<tr>
+  <td>Activo</td>
+  <td>Encender o apagar una parte (un holograma, un efecto de partículas, una luz entera)</td>
+</tr>
+<tr>
+  <td>Campos de los componentes</td>
+  <td>El color y la intensidad de una luz (puntual, foco, direccional), la visibilidad de una malla, el volumen y el tono de un sonido, la velocidad de un Animador... cualquier número, casilla, vector o color del Inspector</td>
+</tr>
+<tr>
+  <td>Material</td>
+  <td>Color (<code>baseColor</code>), emisión y su intensidad, metal y rugosidad. Se anima una copia del material solo para esa entidad: el <code>.mat</code> del proyecto y las demás entidades no cambian</td>
+</tr>
+<tr>
+  <td>Campos de tus scripts</td>
+  <td>Los números, casillas, <code>Vec3</code> y colores de un script Lua (por ejemplo <code>brillo</code> o <code>abierta</code>): el script los lee como siempre con <code>self.brillo</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Los valores de casilla (activo, visible, campos <code>boolean</code>) cambian de golpe en su clave; los enteros se redondean.</p>
+<h2 id="4-curvas-e-interpolación">4. Curvas e interpolación<a class="ancla" href="#4-curvas-e-interpolación" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada clave dice cómo se va hasta la siguiente:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Interpolación</th>
+  <th>Cómo va</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Constante</td>
+  <td>Se queda en el valor de la clave hasta la siguiente (parpadeos, cambios de golpe)</td>
+</tr>
+<tr>
+  <td>Lineal</td>
+  <td>Velocidad constante</td>
+</tr>
+<tr>
+  <td>Bézier</td>
+  <td>Curva con las tangentes de las dos claves. Con tangentes <strong>automáticas</strong> es suave y no se pasa de las claves; <strong>planas</strong> frena en la clave; <strong>libres</strong> las mueves tú en el editor de curvas</td>
+</tr>
+<tr>
+  <td>Entrada suave</td>
+  <td>Empieza despacio y acelera</td>
+</tr>
+<tr>
+  <td>Salida suave</td>
+  <td>Sale rápido y frena al llegar (una puerta que se cierra con suavidad)</td>
+</tr>
+<tr>
+  <td>Suave</td>
+  <td>Empieza y termina despacio</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las claves nuevas son bézier automáticas.</p>
+<h2 id="5-repetición-y-eventos">5. Repetición y eventos<a class="ancla" href="#5-repetición-y-eventos" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Repetición</strong> (del clip, o la del componente si la cambias allí):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Repetición</th>
+  <th>Qué pasa al final</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Una vez</td>
+  <td>Se para en la última clave y avisa a los scripts con <code>OnAnimationFinished(clip)</code> (también hacia atrás, al llegar al principio)</td>
+</tr>
+<tr>
+  <td>Bucle</td>
+  <td>Vuelve a empezar (una hélice, una luz de alarma)</td>
+</tr>
+<tr>
+  <td>Ida y vuelta</td>
+  <td>Va hasta el final y vuelve (una plataforma que va y viene)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Eventos</strong>: en su instante, llegan a los scripts de la entidad del componente Animación:</p>
+<ul>
+<li><code>OnAnimationEvent(nombre)</code> en todos sus scripts.</li>
+<li>Si tiene <strong>Función</strong>, se llama a esa función de sus scripts con el <strong>Parámetro</strong> (o con el nombre si no tiene):
+<code>function PuertaAnimada:Chirrido(fuerza: string)</code>.</li>
+<li>Si es <strong>Global</strong>, además se lanza el evento de Lua con su nombre en la máquina: cualquier script lo recibe con
+<code>AddEventHandler(nombre, function(entidad, parametro) ... end)</code> (ver <a href="#7-desde-lua">LucesDeAlarma</a>).</li>
+</ul>
+<p>Los eventos salen también al reproducir hacia atrás, en cada vuelta de un bucle y a la vuelta de la ida y vuelta.</p>
+<h2 id="6-el-componente-animación">6. El componente Animación<a class="ancla" href="#6-el-componente-animación" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Clips</td>
+  <td>Los <code>.anim</code> que puede reproducir (por su nombre)</td>
+</tr>
+<tr>
+  <td>Clip por defecto</td>
+  <td>El que se reproduce al empezar o con <code>anim:Play()</code> sin nombre (vacío = el primero)</td>
+</tr>
+<tr>
+  <td>Reproducir al empezar</td>
+  <td>Empieza solo al jugar. Quítalo si lo vas a lanzar desde un script (una puerta)</td>
+</tr>
+<tr>
+  <td>Velocidad</td>
+  <td>1 = normal, 2 = el doble, negativa = hacia atrás</td>
+</tr>
+<tr>
+  <td>Repetición</td>
+  <td>Del clip, o una vez, bucle o ida y vuelta para todos sus clips</td>
+</tr>
+<tr>
+  <td>Sincronizar en red</td>
+  <td>Con Identidad de red, lo que reproduce el servidor lo ven los clientes igual (ver <a href="#8-multijugador">Multijugador</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Jugando, el Inspector enseña el clip que suena y su tiempo.</p>
+<h2 id="7-desde-lua">7. Desde Lua<a class="ancla" href="#7-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> anim = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"AnimationPlayer"</span>)
+anim:<span class="hl-f">Play</span>(<span class="hl-s">"AbrirPuerta"</span>)        <span class="hl-c">-- desde el principio (o anim:Play("AbrirPuerta", 0.5) desde el medio segundo)</span>
+anim:<span class="hl-f">PlayBackwards</span>(<span class="hl-s">"AbrirPuerta"</span>) <span class="hl-c">-- desde el final hacia atrás: cerrarla con el mismo clip</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Play(clip?, desde?)</code></td>
+  <td>Reproduce un clip (sin nombre, el de por defecto) desde el principio o desde <code>desde</code> segundos. Error si el componente no tiene ese clip</td>
+</tr>
+<tr>
+  <td><code>PlayBackwards(clip?)</code></td>
+  <td>Hacia atrás desde el final</td>
+</tr>
+<tr>
+  <td><code>Stop()</code>, <code>Pause()</code></td>
+  <td>Se para donde está</td>
+</tr>
+<tr>
+  <td><code>Resume()</code></td>
+  <td>Sigue desde donde se paró (en «una vez», si había terminado, vuelve a empezar)</td>
+</tr>
+<tr>
+  <td><code>SetSpeed(v)</code>, <code>GetSpeed()</code></td>
+  <td>Velocidad (negativa = hacia atrás)</td>
+</tr>
+<tr>
+  <td><code>SetTime(s)</code>, <code>GetTime()</code></td>
+  <td>Saltar a un segundo del clip (se aplica aunque esté parado) y el segundo actual</td>
+</tr>
+<tr>
+  <td><code>IsPlaying(clip?)</code></td>
+  <td>Si está reproduciendo (ese clip)</td>
+</tr>
+<tr>
+  <td><code>GetClip()</code>, <code>GetClips()</code>, <code>GetDuration(clip?)</code></td>
+  <td>El clip actual, todos los nombres y la duración</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y en tus scripts de la misma entidad:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>OnAnimationFinished(clip)</code></td>
+  <td>Un clip «una vez» llega al final (o al principio, hacia atrás)</td>
+</tr>
+<tr>
+  <td><code>OnAnimationEvent(nombre)</code></td>
+  <td>Un evento del clip</td>
+</tr>
+</tbody>
+</table></div>
+<p>Una puerta que se abre cuando alguien entra en su sensor y se cierra cuando sale (desde donde esté si aún se estaba
+abriendo):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En la Puerta (con el componente Animación, «Reproducir al empezar» quitado, y un Collider con isTrigger)</span>
+<span class="hl-k">local</span> <span class="hl-t">PuertaAnimada</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Clip que la abre (se cierra con el mismo hacia atrás)")]</span>
+<span class="hl-t">PuertaAnimada</span>.clip = <span class="hl-s">"AbrirPuerta"</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaAnimada</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._anim = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"AnimationPlayer"</span>)
+    <span class="hl-b">self</span>._dentro = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaAnimada</span>:<span class="hl-f">OnTriggerEnter</span>(otra: <span class="hl-t">Entity</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- en red la abre el servidor y los clientes la ven igual</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._dentro += <span class="hl-n">1</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._dentro == <span class="hl-n">1</span> <span class="hl-k">then</span>
+        <span class="hl-k">local</span> desde = <span class="hl-k">if</span> <span class="hl-b">self</span>._anim:<span class="hl-f">IsPlaying</span>() <span class="hl-k">then</span> <span class="hl-b">self</span>._anim:<span class="hl-f">GetTime</span>() <span class="hl-k">else</span> <span class="hl-n">0</span>
+        <span class="hl-b">self</span>._anim:<span class="hl-f">Play</span>(<span class="hl-b">self</span>.clip, desde)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaAnimada</span>:<span class="hl-f">OnTriggerExit</span>(otra: <span class="hl-t">Entity</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._dentro = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-b">self</span>._dentro - <span class="hl-n">1</span>, <span class="hl-n">0</span>)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._dentro == <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-k">local</span> t = <span class="hl-b">self</span>._anim:<span class="hl-f">GetTime</span>()
+        <span class="hl-b">self</span>._anim:<span class="hl-f">PlayBackwards</span>(<span class="hl-b">self</span>.clip)
+        <span class="hl-b">self</span>._anim:<span class="hl-f">SetTime</span>(t)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuertaAnimada</span>:<span class="hl-f">OnAnimationFinished</span>(clip: <span class="hl-t">string</span>)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Puerta: "</span> .. clip .. <span class="hl-s">" terminado"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PuertaAnimada</span></code></pre></div>
+<p>Un ascensor que sube o baja al pulsar <strong>E</strong> (en red, la tecla la pulsa un jugador y el servidor decide):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el ascensor (componente Animación con el clip «Subir», «Reproducir al empezar» quitado)</span>
+<span class="hl-k">local</span> <span class="hl-t">AscensorAnimado</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">AscensorAnimado</span>.arriba = <span class="hl-b">false</span>
+
+<span class="hl-k">function</span> <span class="hl-t">AscensorAnimado</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"E"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>:<span class="hl-f">Llamar</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-a">--[Server]</span>
+<span class="hl-k">function</span> <span class="hl-t">AscensorAnimado</span>:<span class="hl-f">Llamar</span>()
+    <span class="hl-k">local</span> anim = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"AnimationPlayer"</span>)
+    <span class="hl-k">if</span> anim:<span class="hl-f">IsPlaying</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span> <span class="hl-c">-- ya se está moviendo</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.arriba <span class="hl-k">then</span>
+        anim:<span class="hl-f">PlayBackwards</span>(<span class="hl-s">"Subir"</span>)
+    <span class="hl-k">else</span>
+        anim:<span class="hl-f">Play</span>(<span class="hl-s">"Subir"</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.arriba = <span class="hl-k">not</span> <span class="hl-b">self</span>.arriba
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">AscensorAnimado</span></code></pre></div>
+<p>Luces de alarma que se encienden cuando el clip de cualquier puerta lanza su evento <strong>global</strong> <code>puerta:abierta</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En las luces (componente Animación con el clip «Parpadeo» en bucle, «Reproducir al empezar» quitado)</span>
+<span class="hl-k">local</span> <span class="hl-t">LucesDeAlarma</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">LucesDeAlarma</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"puerta:abierta"</span>, <span class="hl-k">function</span>(puerta: <span class="hl-t">Entity</span>, parametro: <span class="hl-t">string</span>)
+        <span class="hl-k">local</span> anim = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"AnimationPlayer"</span>)
+        <span class="hl-k">if</span> <span class="hl-k">not</span> anim:<span class="hl-f">IsPlaying</span>() <span class="hl-k">then</span>
+            anim:<span class="hl-f">Play</span>(<span class="hl-s">"Parpadeo"</span>)
+        <span class="hl-k">end</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Alarma: se ha abierto una puerta "</span> .. parametro)
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">LucesDeAlarma</span></code></pre></div>
+<h2 id="8-multijugador">8. Multijugador<a class="ancla" href="#8-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<p>Pon <strong>Identidad de red</strong> en la entidad del componente Animación (y deja <strong>Sincronizar en red</strong>):</p>
+<ul>
+<li>Lo que reproduce el <strong>servidor</strong> (<code>Play</code>, <code>PlayBackwards</code>, <code>Stop</code>, <code>SetTime</code>, <code>SetSpeed</code>, «Reproducir al empezar»)
+llega a los clientes con la <strong>hora de la red</strong>: todos ven la puerta igual de abierta en el mismo instante, aunque
+tengan ping distinto, y quien entra tarde la ve abierta (sin repetir los eventos viejos).</li>
+<li>Los clientes no la mueven por su cuenta: lanza los clips desde el servidor (<code>if IsServer() then ... end</code> o una
+función <code>--[Server]</code>, como en los ejemplos).</li>
+<li>Los eventos y <code>OnAnimationFinished</code> llegan en todas las máquinas (para sonidos y efectos de cada una).</li>
+</ul>
+<p>Sin Identidad de red, cada máquina reproduce lo suyo (sirve para lo que es solo decorado: un ventilador, una luz).</p>
+<h2 id="9-plataformas-y-ascensores-con-física">9. Plataformas y ascensores con física<a class="ancla" href="#9-plataformas-y-ascensores-con-física" aria-label="Enlace a esta sección">#</a></h2>
+<p>Si la entidad animada (o un hijo) tiene un <strong>Collider</strong>, el clip avanza en el <strong>paso fijo</strong>, justo antes de las
+físicas. Ponle además un <strong>RigidBody</strong> de tipo <strong>Cinemático</strong> y:</p>
+<ul>
+<li>se mueve con velocidad: empuja a los objetos dinámicos en vez de atravesarlos;</li>
+<li><strong>lleva al personaje</strong> que tiene encima (CharacterController): sube con el ascensor y se mueve con la plataforma,
+también cuando gira.</li>
+</ul>
+<p>Para una plataforma que va y viene: un clip de posición con <strong>Ida y vuelta</strong>, <strong>Reproducir al empezar</strong> y el
+RigidBody cinemático. Es lo mismo que el <a href="fisicas.html#plataforma-móvil">script de la plataforma móvil</a>, sin código.</p>
+<h2 id="10-piezas-animadas-de-los-modelos-gltf-y-fbx">10. Piezas animadas de los modelos (glTF y FBX)<a class="ancla" href="#10-piezas-animadas-de-los-modelos-gltf-y-fbx" aria-label="Enlace a esta sección">#</a></h2>
+<p>Muchos modelos traen animaciones de <strong>piezas rígidas</strong> (sin piel): las puertas de un coche, la hélice de un avión, el
+cajón de un mueble. Hasta la 0.9.7 el Animador las calculaba pero las mallas no se movían; ahora:</p>
+<ul>
+<li>Al poner el modelo en la escena, la raíz recibe el <strong>Animador</strong> y cada malla de una pieza que se mueve recibe el
+componente <strong>Nodo animado</strong> (con el nombre de su nodo): sigue la pose del Animador.</li>
+<li>En escenas de antes, las mallas hijas que se llaman como un nodo animado también lo siguen.</li>
+<li>Se controlan como cualquier Animador (clips, controlador, <code>Play</code> del Animador, red con el Animador de red). Ver
+<a href="modelos-y-animaciones.html">modelos-y-animaciones.md</a>.</li>
+</ul>
+<h2 id="11-varias-entidades-a-la-vez-cinemáticas-sencillas">11. Varias entidades a la vez: cinemáticas sencillas<a class="ancla" href="#11-varias-entidades-a-la-vez-cinemáticas-sencillas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un clip puede animar entidades que no son hijas suyas: en <strong>Añadir propiedad &gt; Otra entidad de la escena (ruta
+absoluta)</strong>. Su pista guarda la ruta desde la raíz de la escena (<code>/Cámara</code>, <code>/Casa/Puerta</code>).</p>
+<p>Así se hacen <strong>cinemáticas sencillas</strong>: una entidad vacía «Director» con el componente Animación y un clip «Intro» que
+mueve la cámara, abre la puerta de la casa y enciende las luces, todo en la misma línea de tiempo. Lánzala con
+<code>self:GetComponent(&quot;AnimationPlayer&quot;):Play(&quot;Intro&quot;)</code> y espera su <code>OnAnimationFinished</code> para devolver el control al
+jugador.</p>
+<p>Es la base del futuro <strong>editor de cinemáticas</strong> (cortes de cámara, subtítulos, sonidos y animaciones de personajes en
+pistas): ese editor usará el mismo clip y el mismo componente.</p>
+<h2 id="12-el-fichero-anim">12. El fichero .anim<a class="ancla" href="#12-el-fichero-anim" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <code>.anim</code> es JSON (se puede revisar en git y fusionar a mano). Ejemplo:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{
+  <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"nombre"</span>: <span class="hl-s">"AbrirPuerta"</span>,
+  <span class="hl-k">"duracion"</span>: <span class="hl-n">1</span>,
+  <span class="hl-k">"fps"</span>: <span class="hl-n">30</span>,
+  <span class="hl-k">"repeticion"</span>: <span class="hl-s">"una vez"</span>,
+  <span class="hl-k">"pistas"</span>: [
+    {
+      <span class="hl-k">"ruta"</span>: <span class="hl-s">"Hoja"</span>,
+      <span class="hl-k">"componente"</span>: <span class="hl-s">"Transform"</span>,
+      <span class="hl-k">"propiedad"</span>: <span class="hl-s">"rotation"</span>,
+      <span class="hl-k">"tipo"</span>: <span class="hl-s">"rotacion"</span>,
+      <span class="hl-k">"claves"</span>: [
+        { <span class="hl-k">"t"</span>: <span class="hl-n">0</span>, <span class="hl-k">"v"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>], <span class="hl-k">"interp"</span>: <span class="hl-s">"bezier"</span> },
+        { <span class="hl-k">"t"</span>: <span class="hl-n">1</span>, <span class="hl-k">"v"</span>: [<span class="hl-n">0</span>, <span class="hl-n">90</span>, <span class="hl-n">0</span>], <span class="hl-k">"interp"</span>: <span class="hl-s">"bezier"</span>, <span class="hl-k">"tangentes"</span>: <span class="hl-s">"plana"</span> }
+      ]
+    }
+  ],
+  <span class="hl-k">"eventos"</span>: [ { <span class="hl-k">"tiempo"</span>: <span class="hl-n">1</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"puerta:abierta"</span>, <span class="hl-k">"global"</span>: <span class="hl-b">true</span> } ]
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>repeticion</code></td>
+  <td><code>&quot;una vez&quot;</code>, <code>&quot;bucle&quot;</code>, <code>&quot;ida y vuelta&quot;</code></td>
+</tr>
+<tr>
+  <td><code>ruta</code></td>
+  <td><code>&quot;&quot;</code> (la entidad del componente), <code>&quot;Hoja&quot;</code>, <code>&quot;Marco/Hoja&quot;</code> o absoluta desde la escena (<code>&quot;/Casa/Puerta&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>componente</code></td>
+  <td><code>&quot;Transform&quot;</code>, <code>&quot;Entidad&quot;</code> (<code>activo</code>), <code>&quot;Material&quot;</code>, el nombre de un componente (<code>&quot;PointLight&quot;</code>) o de un script (<code>&quot;Puerta.luau&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>tipo</code></td>
+  <td><code>&quot;float&quot;</code>, <code>&quot;bool&quot;</code>, <code>&quot;int&quot;</code>, <code>&quot;vec2&quot;</code>, <code>&quot;vec3&quot;</code>, <code>&quot;vec4&quot;</code>, <code>&quot;color&quot;</code>, <code>&quot;rotacion&quot;</code> (grados de Euler)</td>
+</tr>
+<tr>
+  <td><code>interp</code></td>
+  <td><code>&quot;constante&quot;</code>, <code>&quot;lineal&quot;</code>, <code>&quot;bezier&quot;</code>, <code>&quot;entrada&quot;</code>, <code>&quot;salida&quot;</code>, <code>&quot;suave&quot;</code></td>
+</tr>
+<tr>
+  <td><code>tangentes</code></td>
+  <td><code>&quot;auto&quot;</code> (por defecto), <code>&quot;plana&quot;</code>, <code>&quot;libre&quot;</code> (con <code>&quot;entrada&quot;</code> y <code>&quot;salida&quot;</code>: pendiente por segundo)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="13-límites">13. Límites<a class="ancla" href="#13-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Las rotaciones se animan en grados de Euler (como en el Inspector): para girar más de 180 grados pon claves
+intermedias o escribe el valor (360, 720) en la clave.</li>
+<li>Si renombras una entidad hija, la pista que la usa deja de encontrarla (sale en el panel sin aplicarse): vuelve a
+ponerle el nombre o crea la pista otra vez. Si dos hermanos se llaman igual, se usa el primero.</li>
+<li>Con la vista previa activa, las propiedades animadas las manda el clip: lo que cambies a mano en ellas (sin
+<strong>Grabar</strong>) se pierde al salir de la vista previa, como en Unity.</li>
+<li>Grabar en una sesión de edición en equipo deja también el cambio de la escena en el historial (los demás ya lo
+han recibido).</li>
+<li>Las plataformas con física avanzan a 60 Hz (el paso fijo): en monitores de más hercios se mueven a saltos muy
+pequeños.</li>
+<li>No anima listas ni assets (cambiar de malla o de sonido): para eso, un evento que llame a una función de tu script.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="animar-huesos.html"><small>Anterior</small>Animar huesos: posar personajes, crear animaciones y poner eventos</a><a class="sig" href="prefabs.html"><small>Siguiente</small>Prefabs</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-animar-una-puerta-en-cinco-minutos">1. Animar una puerta en cinco minutos</a></li><li class="n2"><a href="#2-el-panel-línea-de-tiempo">2. El panel Línea de tiempo</a></li><li class="n2"><a href="#3-qué-se-puede-animar">3. Qué se puede animar</a></li><li class="n2"><a href="#4-curvas-e-interpolación">4. Curvas e interpolación</a></li><li class="n2"><a href="#5-repetición-y-eventos">5. Repetición y eventos</a></li><li class="n2"><a href="#6-el-componente-animación">6. El componente Animación</a></li><li class="n2"><a href="#7-desde-lua">7. Desde Lua</a></li><li class="n2"><a href="#8-multijugador">8. Multijugador</a></li><li class="n2"><a href="#9-plataformas-y-ascensores-con-física">9. Plataformas y ascensores con física</a></li><li class="n2"><a href="#10-piezas-animadas-de-los-modelos-gltf-y-fbx">10. Piezas animadas de los modelos (glTF y FBX)</a></li><li class="n2"><a href="#11-varias-entidades-a-la-vez-cinemáticas-sencillas">11. Varias entidades a la vez: cinemáticas sencillas</a></li><li class="n2"><a href="#12-el-fichero-anim">12. El fichero .anim</a></li><li class="n2"><a href="#13-límites">13. Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

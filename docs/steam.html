@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam en Nova Engine · Nova Engine</title>
+<meta name="description" content="Esta guía explica cómo llevar tu juego a Steam con Nova Engine: el App ID, el SDK de Steamworks, el nombre y el avatar
+del jugador, los lobbies con invitaciones, las partidas por Steam (sin abrir puertos), el estado que ">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Steam en Nova Engine · Nova Engine">
+<meta property="og:description" content="Esta guía explica cómo llevar tu juego a Steam con Nova Engine: el App ID, el SDK de Steamworks, el nombre y el avatar
+del jugador, los lobbies con invitaciones, las partidas por Steam (sin abrir puertos), el estado que ">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/steam.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/steam.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html" aria-current="page">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="steam-en-nova-engine">Steam en Nova Engine</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#1-lo-que-necesitas">1. Lo que necesitas</a></li><li class="n2"><a href="#2-el-sdk-de-steamworks">2. El SDK de Steamworks</a></li><li class="n2"><a href="#3-activar-steam-en-tu-proyecto">3. Activar Steam en tu proyecto</a></li><li class="n2"><a href="#4-probar-sin-steam-el-steam-simulado">4. Probar sin Steam: el Steam simulado</a></li><li class="n2"><a href="#5-probar-con-tu-steam---steam-prueba">5. Probar con tu Steam (--steam-prueba)</a></li><li class="n2"><a href="#6-el-jugador-nombre-avatar-idioma-y-dlc">6. El jugador: nombre, avatar, idioma y DLC</a></li><li class="n2"><a href="#7-lobbies-e-invitaciones">7. Lobbies e invitaciones</a></li><li class="n3"><a href="#cómo-funciona">Cómo funciona</a></li><li class="n3"><a href="#un-menú-de-ejemplo">Un menú de ejemplo</a></li><li class="n3"><a href="#datos-del-lobby">Datos del lobby</a></li><li class="n2"><a href="#8-partidas-por-steam-sin-abrir-puertos">8. Partidas por Steam (sin abrir puertos)</a></li><li class="n3"><a href="#la-edición-en-equipo-también-va-por-steam">La edición en equipo también va por Steam</a></li><li class="n2"><a href="#9-estado-para-los-amigos-rich-presence">9. Estado para los amigos (rich presence)</a></li><li class="n2"><a href="#10-overlay">10. Overlay</a></li><li class="n2"><a href="#11-logros-estadísticas-y-tablas">11. Logros, estadísticas y tablas</a></li><li class="n3"><a href="#en-steamworks">En Steamworks</a></li><li class="n3"><a href="#en-los-scripts">En los scripts</a></li><li class="n2"><a href="#12-eventos-de-steam">12. Eventos de Steam</a></li><li class="n2"><a href="#13-referencia-de-la-tabla-steam">13. Referencia de la tabla Steam</a></li><li class="n2"><a href="#14-probar-con-dos-cuentas-de-steam">14. Probar con dos cuentas de Steam</a></li><li class="n2"><a href="#15-publicar-en-steam">15. Publicar en Steam</a></li><li class="n3"><a href="#la-carpeta-del-juego">La carpeta del juego</a></li><li class="n3"><a href="#depots-opciones-de-lanzamiento-y-subida">Depots, opciones de lanzamiento y subida</a></li><li class="n3"><a href="#antes-del-lanzamiento">Antes del lanzamiento</a></li><li class="n2"><a href="#16-servidor-dedicado">16. Servidor dedicado</a></li><li class="n2"><a href="#17-qué-está-probado-y-qué-no">17. Qué está probado y qué no</a></li><li class="n2"><a href="#18-problemas-comunes">18. Problemas comunes</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Esta guía explica cómo llevar tu juego a Steam con Nova Engine: el App ID, el SDK de Steamworks, el nombre y el avatar
+del jugador, los <strong>lobbies con invitaciones</strong>, las <strong>partidas por Steam</strong> (sin abrir puertos), el estado que ven tus
+amigos, los <strong>logros y estadísticas</strong>, el overlay y cómo subir el juego. Todo se hace desde el editor y con
+<strong>scripts Lua</strong> (la tabla <code>Steam</code>); no hace falta C++.</p>
+<p>Los ejemplos usan <strong>Mi Juego</strong> (App ID <code>1234560</code>, de 3 a 8 jugadores con voz), pero valen para cualquier juego.</p>
+<blockquote>
+<p><strong>Qué está probado.</strong> Todo el comportamiento de Steam del motor (lobbies, invitaciones, «Unirse a la partida»,
+partidas por Steam de 3 a 8 jugadores, voz, estado, logros, tablas, overlay) se prueba automáticamente con el
+<strong>Steam simulado</strong> (sección 4). El código que habla con el Steam de verdad <strong>compila y enlaza con el SDK 1.65</strong> y
+sus conversiones se prueban sin Steam, pero las pruebas automáticas nunca abren tu Steam: lo pruebas tú con
+<code>NovaGame.exe --steam-prueba</code> (sección 5). La sección 17 lo detalla.</p>
+</blockquote>
+<hr />
+<h2 id="1-lo-que-necesitas">1. Lo que necesitas<a class="ancla" href="#1-lo-que-necesitas" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Una cuenta de <strong>Steamworks</strong> (<a href="https://partner.steamgames.com" rel="noopener">https://partner.steamgames.com</a>, con tus datos fiscales y bancarios) y la tarifa de
+Steam Direct pagada: así tienes el <strong>App ID</strong> de tu juego (Mi Juego: <code>1234560</code>).</li>
+<li>El <strong>SDK de Steamworks</strong> (sección 2). Sin él el motor funciona igual, pero solo con el Steam simulado.</li>
+<li>Steam abierto con una cuenta que tenga el juego para probar con el Steam de verdad. Mientras no tengas tu App ID,
+prueba con el <strong>480</strong> («Spacewar», la app de pruebas de Valve que tiene cualquier cuenta).</li>
+</ol>
+<h2 id="2-el-sdk-de-steamworks">2. El SDK de Steamworks<a class="ancla" href="#2-el-sdk-de-steamworks" aria-label="Enlace a esta sección">#</a></h2>
+<p>El SDK solo se descarga con tu cuenta de socio y <strong>no se puede redistribuir</strong>: no está en el repositorio del motor.</p>
+<ol>
+<li>En <a href="https://partner.steamgames.com/downloads/list" rel="noopener">https://partner.steamgames.com/downloads/list</a> descarga el <strong>Steamworks SDK</strong> (un zip; probado con la 1.65).</li>
+<li>Descomprímelo de forma que exista <code>C:\\SteamworksSDK\sdk\public\steam\steam_api.h</code>. Es la carpeta que el motor
+busca primero. También vale otra carpeta si la pones en la variable de entorno <strong><code>NOVA_STEAMWORKS_SDK</code></strong> (la que
+contiene <code>public</code> y <code>redistributable_bin</code>), o dentro del motor en <code>third_party\steamworks</code>.</li>
+<li>Vuelve a compilar el motor (<code>tools\build.cmd release</code>). Al configurar debe salir
+<code>Steam: SDK de Steamworks encontrado en C:/SteamworksSDK/sdk (NOVA_WITH_STEAM = 1)</code> y
+<code>steam_api64.dll</code> se copia junto a los ejecutables.</li>
+</ol>
+<p>En <strong>Ajustes del proyecto &gt; Steam</strong> el editor dice si el motor tiene el SDK («SDK de Steamworks encontrado»).
+<code>steam_api64.dll</code> se carga solo si hace falta: si falta junto al exe, el juego arranca igual (sin Steam, por UDP).</p>
+<h2 id="3-activar-steam-en-tu-proyecto">3. Activar Steam en tu proyecto<a class="ancla" href="#3-activar-steam-en-tu-proyecto" aria-label="Enlace a esta sección">#</a></h2>
+<p>Abre <strong>Editar &gt; Ajustes del proyecto &gt; Steam</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Ajuste</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Usar Steam</strong></td>
+  <td>El juego inicia Steam al arrancar</td>
+</tr>
+<tr>
+  <td><strong>App ID</strong></td>
+  <td>El número de tu juego en Steamworks (<code>1234560</code>; para probar, <code>480</code>)</td>
+</tr>
+<tr>
+  <td><strong>Relanzar desde Steam</strong></td>
+  <td>En el juego publicado: si alguien abre el .exe fuera de Steam, Steam lo vuelve a abrir. Al probar desde el editor o NovaGame.exe nunca se hace</td>
+</tr>
+<tr>
+  <td><strong>Al jugar en el editor</strong></td>
+  <td><strong>Steam simulado</strong> (recomendado), <strong>Steam de verdad</strong> (tu cuenta) o <strong>Sin Steam</strong></td>
+</tr>
+<tr>
+  <td><strong>Token del estado</strong></td>
+  <td>Token del estado para los amigos (sección 9); vacío = <code>#Estado</code></td>
+</tr>
+<tr>
+  <td><strong>Logros</strong></td>
+  <td>Id (nombre de API en Steamworks), nombre visible, descripción y si es oculto</td>
+</tr>
+<tr>
+  <td><strong>Estadísticas</strong></td>
+  <td>Id, nombre y tipo (entero o decimal)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y en <strong>Ajustes del proyecto &gt; Red &gt; Transporte</strong> elige <strong>Steam</strong> para que las partidas que crean los jugadores vayan
+por Steam (sección 8).</p>
+<p>Se guarda en <code>project.nova</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"steam"</span>: {
+  <span class="hl-k">"activar"</span>: <span class="hl-b">true</span>,
+  <span class="hl-k">"appId"</span>: <span class="hl-n">1234560</span>,
+  <span class="hl-k">"relanzarDesdeSteam"</span>: <span class="hl-b">true</span>,
+  <span class="hl-k">"editor"</span>: <span class="hl-s">"simulado"</span>,
+  <span class="hl-k">"logros"</span>: [ { <span class="hl-k">"id"</span>: <span class="hl-s">"PISO_10"</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"Diez pisos"</span>, <span class="hl-k">"descripcion"</span>: <span class="hl-s">"Llega al piso 10"</span> } ],
+  <span class="hl-k">"estadisticas"</span>: [ { <span class="hl-k">"id"</span>: <span class="hl-s">"pisos"</span>, <span class="hl-k">"nombre"</span>: <span class="hl-s">"Pisos subidos"</span>, <span class="hl-k">"tipo"</span>: <span class="hl-s">"int"</span> } ]
+},
+<span class="hl-k">"red"</span>: { <span class="hl-k">"transporte"</span>: <span class="hl-s">"Steam"</span> }</code></pre></div>
+<p><strong><code>steam_appid.txt</code></strong>: al probar (editor o NovaGame.exe de desarrollo) el motor escribe solo <code>steam_appid.txt</code> junto
+al ejecutable y pone el App ID en el entorno, para que Steam reconozca el juego aunque no lo haya abierto Steam. El
+juego publicado <strong>nunca</strong> lleva ese fichero (sección 15).</p>
+<h2 id="4-probar-sin-steam-el-steam-simulado">4. Probar sin Steam: el Steam simulado<a class="ancla" href="#4-probar-sin-steam-el-steam-simulado" aria-label="Enlace a esta sección">#</a></h2>
+<p>El <strong>Steam simulado</strong> hace de Steam en tu PC: cada ventana del juego es un jugador de Steam falso con su nombre,
+su SteamID y su avatar, y todos se ven entre sí. Funciona sin Steam abierto y sin el SDK.</p>
+<ul>
+<li><strong>En el editor</strong>: con «Al jugar en el editor: Steam simulado», al pulsar <strong>Jugar</strong> el editor es un jugador con tu
+nombre de las partidas (el de tu sesión de equipo o <strong>Tu nombre en las partidas</strong> de las Preferencias del editor).
+Con <strong>Jugar &gt; Anfitrión + clientes</strong>, cada copia de NovaGame.exe es otro jugador («Marta 2», «Marta 3»...) y, si el
+transporte es Steam, entra en tu partida por Steam.</li>
+<li><strong>Con NovaGame.exe</strong>: <code>NovaGame.exe --project &lt;tu juego&gt; --steam-simulado Ana</code> en una ventana y
+<code>--steam-simulado Luis</code> en otra. La primera abre el «bus» del Steam simulado (UDP en <code>127.0.0.1:47821</code>; otro con
+<code>NOVA_STEAM_SIMULADO_PUERTO</code>) y las demás se unen a él. <code>--steam-jugador 3</code> fija el número del jugador (y así su
+SteamID y sus logros entre partidas mientras el bus siga abierto).</li>
+</ul>
+<p>Qué hace igual que Steam: lobbies públicos, de amigos y privados, búsquedas con filtros, lobby lleno, dueño que se va,
+datos del lobby y de cada miembro, chat del lobby, invitaciones y «Unirse a la partida», <code>+connect_lobby</code>, estado para
+los amigos, logros, estadísticas, tablas, avatares y conexiones P2P (la partida y la voz).</p>
+<p>En qué se diferencia: todos los jugadores simulados son amigos; el overlay no se ve (el juego recibe que se abre y,
+medio segundo después, que se cierra); el diálogo de invitar invita a todos los amigos conectados que no están en el
+lobby, y cada jugador simulado acepta las invitaciones solo (como si pulsara «Aceptar» en Steam); los logros aceptan
+cualquier id; no hay relés ni NAT. Si se cierra la ventana que abrió el bus, las demás se quedan sin Steam.</p>
+<p>Con el PC cargado (varios editores compilando, un juego cargando una escena grande) un proceso puede quedarse parado muchos
+segundos. Desde la 0.9.9:</p>
+<ul>
+<li>Los <strong>latidos</strong> del bus salen de un hilo propio en cada proceso: aunque un juego se quede parado cargando, ni el bus lo da
+por perdido ni él pierde el bus.</li>
+<li>La espera antes de dar por caído a otro proceso es de <strong>20 s</strong> (antes 6). La variable de entorno <code>NOVA_STEAM_SIM_ESPERA</code>
+(segundos, de 2 a 600) la cambia.</li>
+<li>Si aun así se pierde el bus (se cerró la ventana que lo alojaba y otra lo vuelve a abrir en el mismo puerto), el jugador
+<strong>vuelve a entrar solo</strong> con su mismo número (el mismo SteamID); el registro dice «conexión con el bus recuperada».</li>
+</ul>
+<h2 id="5-probar-con-tu-steam---steam-prueba">5. Probar con tu Steam (<code>--steam-prueba</code>)<a class="ancla" href="#5-probar-con-tu-steam---steam-prueba" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una prueba rápida con tu cuenta de verdad, antes de tocar el juego. Con Steam abierto y tu sesión iniciada:</p>
+<ol>
+<li><p>Abre una consola en la carpeta de los ejecutables del motor (por ejemplo <code>build\release\bin</code>).</p>
+</li>
+<li><p>Para empezar con la app de pruebas de Valve (cualquier cuenta la tiene):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaGame.exe --steam-prueba --appid 480</code></pre></div>
+<p>Con tu juego (tu cuenta tiene que tener Mi Juego en la biblioteca):</p>
+<div class="codigo"><div class="codigo-cab"><span>Símbolo del sistema</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-bat">NovaGame.exe --steam-prueba --project <span class="hl-s">"C:\ruta\a\Mi Juego"</span></code></pre></div>
+<p>El App ID sale de Ajustes del proyecto &gt; Steam (o de <code>--appid</code>). El motor escribe <code>steam_appid.txt</code> junto a
+<code>NovaGame.exe</code> (solo en desarrollo).</p>
+</li>
+<li><p>Se abre una ventana con el panel <strong>Prueba de Steam</strong>. Arriba tienen que salir <strong>tu nombre de Steam, tu avatar,
+tu SteamID y el App ID</strong>. Si dice «Steam no está iniciado», el motivo está debajo (Steam cerrado, la cuenta no
+tiene el juego, App ID mal...) y en el log (<code>%LOCALAPPDATA%\&lt;juego&gt;\log.txt</code>).</p>
+</li>
+<li><p><strong>1. Crear lobby (amigos, 8 plazas)</strong>: en la lista debe salir «Lobby creado» y el contador «1/8».</p>
+</li>
+<li><p><strong>2. Invitar amigos (overlay)</strong>: se abre el overlay de Steam con el diálogo de invitar. Invita a un amigo: a él le
+llega la invitación en Steam.</p>
+</li>
+<li><p><strong>3. Poner estado</strong>: tus amigos te ven en su lista con ese texto (si ya subiste el fichero de rich presence,
+sección 9; si no, en «Ver información del juego»).</p>
+</li>
+<li><p><strong>4. Desbloquear logro</strong>: debe salir la notificación de Steam («Logro desbloqueado») y la línea en la lista. Con el
+480 el logro es <code>ACH_WIN_ONE_GAME</code>; con tu juego, el primero de Ajustes del proyecto &gt; Steam (o el de
+<code>--logro PISO_10</code>). Tiene que existir y estar <strong>publicado</strong> en Steamworks.</p>
+</li>
+<li><p><strong>5. Reiniciar logro</strong>: lo vuelve a bloquear para repetir la prueba.</p>
+</li>
+<li><p><strong>Abrir el overlay</strong> (o Mayús+Tab): comprueba que el overlay funciona en el juego.</p>
+</li>
+</ol>
+<p>Cierra la ventana al terminar: el motor sale del lobby, borra tu estado y cierra Steam.</p>
+<h2 id="6-el-jugador-nombre-avatar-idioma-y-dlc">6. El jugador: nombre, avatar, idioma y DLC<a class="ancla" href="#6-el-jugador-nombre-avatar-idioma-y-dlc" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">if</span> <span class="hl-t">Steam</span>.<span class="hl-f">IsAvailable</span>() <span class="hl-k">then</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Hola, "</span> .. <span class="hl-t">Steam</span>.<span class="hl-f">GetPersonaName</span>())
+    <span class="hl-k">local</span> yo = <span class="hl-t">Steam</span>.<span class="hl-f">GetSteamID</span>() <span class="hl-c">-- texto: "76561198..."</span>
+<span class="hl-k">end</span></code></pre></div>
+<p>Los <strong>SteamID y los ids de lobby son textos</strong> en Lua (son números de 64 bits y un número de Lua perdería cifras).</p>
+<p><strong>Avatar</strong> para la interfaz: <code>Steam.GetAvatar(id)</code> (sin id, el tuyo) devuelve una textura para <code>SetSprite</code>, o <code>nil</code>
+mientras Steam la descarga; cuando llega, avisa con <code>steam:avatarLoaded</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">AvatarJugador</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">AvatarJugador</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>:<span class="hl-f">Pintar</span>()
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"steam:avatarLoaded"</span>, <span class="hl-k">function</span>(id)
+        <span class="hl-k">if</span> id == <span class="hl-t">Steam</span>.<span class="hl-f">GetSteamID</span>() <span class="hl-k">then</span> <span class="hl-b">self</span>:<span class="hl-f">Pintar</span>() <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">AvatarJugador</span>:<span class="hl-f">Pintar</span>()
+    <span class="hl-k">local</span> avatar = <span class="hl-t">Steam</span>.<span class="hl-f">GetAvatar</span>(<span class="hl-b">nil</span>, <span class="hl-s">"medium"</span>)
+    <span class="hl-k">if</span> avatar <span class="hl-k">then</span>
+        <span class="hl-f">UI</span>(<span class="hl-s">"Lobby/Avatar"</span>):<span class="hl-f">SetSprite</span>(avatar)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">AvatarJugador</span></code></pre></div>
+<p>Tamaños: <code>&quot;small&quot;</code> (32), <code>&quot;medium&quot;</code> (64) y <code>&quot;large&quot;</code> (184).</p>
+<p><strong>Idioma</strong>: <code>Application.GetLanguage()</code> es el idioma por defecto del juego: el elegido en Steam si el juego va por
+Steam (<code>&quot;es&quot;</code>, <code>&quot;en&quot;</code>, <code>&quot;es-419&quot;</code>...) y si no el de Windows. <code>Steam.GetLanguage()</code> da el nombre de Steam
+(<code>&quot;spanish&quot;</code>, <code>&quot;latam&quot;</code>...). Los textos traducidos del juego (<code>Loc(&quot;clave&quot;)</code>) ya arrancan solos en el idioma que
+eligió el jugador o, si no eligió ninguno, en el de Steam o el de Windows: el idioma que se está usando es
+<code>Localization.GetLanguage()</code> (ver <a href="idiomas.html">idiomas.md</a>).</p>
+<p><strong>Propiedad y DLC</strong>: <code>Steam.IsSubscribed()</code> (tiene el juego), <code>Steam.IsSubscribed(appIdDelDlc)</code> y
+<code>Steam.IsDlcInstalled(appIdDelDlc)</code>.</p>
+<h2 id="7-lobbies-e-invitaciones">7. Lobbies e invitaciones<a class="ancla" href="#7-lobbies-e-invitaciones" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <strong>lobby</strong> de Steam es la sala donde se juntan los jugadores antes de jugar; Steam lo usa para las invitaciones,
+las búsquedas y «Unirse a la partida». La partida en sí va por la red del motor por Steam (sección 8).</p>
+<h3 id="cómo-funciona">Cómo funciona<a class="ancla" href="#cómo-funciona" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li>Un jugador crea el lobby: <code>Steam.CreateLobby({ type = &quot;friends&quot;, maxPlayers = 8, invite = true })</code>.<ul>
+<li><code>type</code>: <code>&quot;friends&quot;</code> (los amigos lo ven y pueden unirse desde su lista), <code>&quot;public&quot;</code> (sale en las búsquedas),
+<code>&quot;private&quot;</code> (solo con invitación) o <code>&quot;invisible&quot;</code>.</li>
+<li><code>invite = true</code> abre a la vez el diálogo de invitar del overlay.</li>
+<li>Su partida arranca sola como <strong>anfitrión por Steam</strong> y el motor lo anuncia en el lobby. Con
+<code>startHost = false</code> la arrancas tú cuando quieras (<code>Network.Host({ transport = &quot;steam&quot; })</code>) y el lobby la
+anuncia en cuanto escucha.</li>
+</ul>
+</li>
+<li>Los demás entran en el lobby:<ul>
+<li><strong>Invitación</strong>: aceptan la invitación en Steam (con el juego abierto o cerrado: Steam abre el juego con
+<code>+connect_lobby</code> y el motor entra solo).</li>
+<li><strong>«Unirse a la partida»</strong> en la lista de amigos de Steam (lobbies que no son privados).</li>
+<li><strong>Búsqueda</strong>: <code>Steam.FindLobbies(filtro, function(lista) ... end)</code> y <code>Steam.JoinLobby(lobby.id)</code>.</li>
+<li>Un juego también puede invitar sin el overlay: <code>Steam.InviteFriend(id)</code> (con <code>Steam.GetFriends()</code> para la lista).</li>
+</ul>
+</li>
+<li>En cuanto el anfitrión tiene la partida abierta, cada uno <strong>se conecta solo</strong> a ella por Steam.</li>
+<li>Al terminar la partida (desconexión o vuelta al menú) el motor sale del lobby.</li>
+</ol>
+<h3 id="un-menú-de-ejemplo">Un menú de ejemplo<a class="ancla" href="#un-menú-de-ejemplo" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">MenuSteam</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">local</span> encontrados = {}
+
+<span class="hl-k">function</span> <span class="hl-t">MenuSteam</span>:<span class="hl-f">Start</span>()
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"steam:lobbyEntered"</span>, <span class="hl-k">function</span>(lobby)
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Dentro del lobby "</span> .. lobby)
+    <span class="hl-k">end</span>)
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"steam:lobbyFailed"</span>, <span class="hl-k">function</span>(motivo)
+        <span class="hl-t">Log</span>.<span class="hl-f">Warn</span>(<span class="hl-s">"Steam: "</span> .. motivo)
+    <span class="hl-k">end</span>)
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"steam:lobbyMemberJoined"</span>, <span class="hl-k">function</span>(id, nombre)
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(nombre .. <span class="hl-s">" ha entrado"</span>)
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuSteam</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Steam</span>.<span class="hl-f">IsAvailable</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Mi Juego"</span>, <span class="hl-n">40</span>, <span class="hl-n">40</span>)
+    <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-s">"Hola, "</span> .. <span class="hl-t">Steam</span>.<span class="hl-f">GetPersonaName</span>())
+    <span class="hl-k">local</span> lobby = <span class="hl-t">Steam</span>.<span class="hl-f">GetLobby</span>()
+    <span class="hl-k">if</span> lobby == <span class="hl-b">nil</span> <span class="hl-k">then</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Crear partida con amigos"</span>) <span class="hl-k">then</span>
+            <span class="hl-t">Steam</span>.<span class="hl-f">CreateLobby</span>({ <span class="hl-k">type</span> = <span class="hl-s">"friends"</span>, maxPlayers = <span class="hl-n">8</span>, invite = <span class="hl-b">true</span> })
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Buscar partidas"</span>) <span class="hl-k">then</span>
+            <span class="hl-t">Steam</span>.<span class="hl-f">FindLobbies</span>({ freeSlots = <span class="hl-b">true</span> }, <span class="hl-k">function</span>(lista) encontrados = lista <span class="hl-k">end</span>)
+        <span class="hl-k">end</span>
+        <span class="hl-k">for</span> _, l <span class="hl-k">in</span> encontrados <span class="hl-k">do</span>
+            <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%s (%d/%d)"</span>, l.name, l.members, l.maxMembers)) <span class="hl-k">then</span>
+                <span class="hl-t">Steam</span>.<span class="hl-f">JoinLobby</span>(l.id)
+            <span class="hl-k">end</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">else</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"Lobby: %d/%d"</span>, lobby.members, lobby.maxMembers))
+        <span class="hl-k">for</span> _, m <span class="hl-k">in</span> <span class="hl-t">Steam</span>.<span class="hl-f">GetLobbyMembers</span>() <span class="hl-k">do</span>
+            <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>((m.isOwner <span class="hl-k">and</span> <span class="hl-s">"* "</span> <span class="hl-k">or</span> <span class="hl-s">"  "</span>) .. m.name)
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Invitar amigos"</span>) <span class="hl-k">then</span> <span class="hl-t">Steam</span>.<span class="hl-f">InviteFriends</span>() <span class="hl-k">end</span>
+        <span class="hl-k">if</span> <span class="hl-t">GUI</span>.<span class="hl-f">Button</span>(<span class="hl-s">"Salir"</span>) <span class="hl-k">then</span>
+            <span class="hl-t">Steam</span>.<span class="hl-f">LeaveLobby</span>()
+            <span class="hl-t">Network</span>.<span class="hl-f">Disconnect</span>()
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MenuSteam</span></code></pre></div>
+<h3 id="datos-del-lobby">Datos del lobby<a class="ancla" href="#datos-del-lobby" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>El dueño guarda datos que ven todos y las búsquedas: <code>Steam.SetLobbyData(&quot;piso&quot;, &quot;7&quot;)</code>; los demás los leen con
+<code>Steam.GetLobbyData(&quot;piso&quot;)</code> (y llega <code>steam:lobbyDataChanged</code>).</li>
+<li>Cada miembro guarda los suyos: <code>Steam.SetLobbyMemberData(&quot;listo&quot;, &quot;si&quot;)</code> y
+<code>Steam.GetLobbyMemberData(id, &quot;listo&quot;)</code>.</li>
+<li><code>Steam.SetLobbyJoinable(false)</code> cierra el lobby al empezar y <code>Steam.SetLobbyType(&quot;private&quot;)</code> lo esconde.</li>
+<li>Chat del lobby: <code>Steam.SendLobbyChat(&quot;hola&quot;)</code> y el evento <code>steam:lobbyChat(id, nombre, texto)</code>.</li>
+<li>El motor pone <code>game</code> (nombre del juego; las búsquedas solo ven las de tu juego), <code>version</code> (por defecto solo se ven
+las de la misma versión), <code>name</code> («Partida de Ana»), <code>map</code>, <code>mode</code> y <code>host</code> (el anfitrión de la partida).</li>
+</ul>
+<p>Si el dueño del lobby se va, Steam se lo pasa a otro miembro (llega <code>steam:lobbyMemberLeft</code>); si el que se fue era el
+anfitrión de la partida, la partida termina para todos (no hay migración de anfitrión).</p>
+<h2 id="8-partidas-por-steam-sin-abrir-puertos">8. Partidas por Steam (sin abrir puertos)<a class="ancla" href="#8-partidas-por-steam-sin-abrir-puertos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con el transporte <strong>Steam</strong> las partidas van por <strong>conexiones P2P de Steam a través de los relés de Valve</strong>: nadie
+tiene que abrir puertos en el router ni pelearse con el NAT, la IP del anfitrión no queda a la vista y todo va
+cifrado. Es un transporte más del motor, como UDP y Nova Enlace:</p>
+<ul>
+<li><strong>Ajustes del proyecto &gt; Red &gt; Transporte = Steam</strong>: <code>Network.Host()</code> crea la partida por Steam.</li>
+<li>Desde Lua al crear o unirse: <code>Network.Host({ transport = &quot;steam&quot; })</code> (o <code>&quot;udp&quot;</code>, <code>&quot;relay&quot;</code>) y
+<code>Network.Connect(&quot;steam:76561198...&quot;)</code>. Con los lobbies (sección 7) no hace falta: el motor lo hace solo.</li>
+<li><strong>La voz también va por Steam</strong>: viaja por la misma conexión que la partida, sin fiabilidad (un paquete perdido
+no retrasa los siguientes).</li>
+<li>Quién puede conectarse: tus <strong>amigos</strong> y los <strong>miembros del lobby</strong>. Luego la red del motor comprueba la versión y
+la contraseña como siempre. Un SteamID que llega por Steam es auténtico (sirve para listas de baneos).</li>
+<li><code>Network.Players()</code> da la dirección de cada jugador como <code>&quot;steam:&lt;id&gt;&quot;</code>.</li>
+</ul>
+<p>Una partida por Steam sin lobby también aparece en la lista de amigos con <strong>«Unirse a la partida»</strong>.</p>
+<h3 id="la-edición-en-equipo-también-va-por-steam">La edición en equipo también va por Steam<a class="ancla" href="#la-edición-en-equipo-también-va-por-steam" aria-label="Enlace a esta sección">#</a></h3>
+<p>Desde la 0.9.33, la <a href="edicion-en-equipo.html#por-steam-amigos">edición en equipo</a> puede ir por Steam: <strong>Crear sesión de equipo &gt;
+Conexión: Por Steam (amigos)</strong>. Tus amigos la ven en su editor y en Nova Hub («Amigos de Steam con una sesión de Nova abierta») y
+entran con doble clic, sin códigos ni puertos y sin pasar por Cloudflare. Lo que conviene saber desde el lado de Steam:</p>
+<ul>
+<li><strong>App ID</strong>: la <strong>480</strong> (Spacewar) de serie, para que cualquier cuenta entre sin comprar nada; o el de tu juego (los compañeros
+tienen que tenerlo). Mientras dura, <strong>Steam dice «Jugando a Spacewar»</strong> (con el 480) y el rich presence «Editando &lt;proyecto&gt; en
+Nova» sale en «Ver información del juego».</li>
+<li><strong>Lobby de amigos propio</strong>: con datos que solo tiene una sesión de Nova (<code>nova_equipo = nova-edicion-equipo</code>, la versión del
+protocolo de la edición en equipo, el proyecto, quién, cuántos, la versión del motor y el equipo fijo), así no se mezcla con los
+miles de juegos que usan el 480. La lista sale del rich presence de tus amigos (<code>nova_equipo_lobby</code>).</li>
+<li><strong>Un App ID por programa</strong>: mientras la sesión va por Steam, <strong>Jugar</strong> usa ese mismo Steam. La partida por Steam (puerto virtual
+0) y la edición en equipo (puerto virtual 7) van a la vez por el mismo Steam; los lobbies, logros y estadísticas de tu juego con
+otro App ID no funcionan hasta que salgas de la sesión por Steam (el registro lo avisa).</li>
+<li><strong>El editor hace de puente</strong>: el servidor del proyecto no inicia Steam; el editor de la anfitriona recibe a los amigos por Steam y
+los pasa al servidor de su PC.</li>
+<li><strong>Invitaciones</strong>: las de una sesión de Nova las recoge el editor (con <strong>Equipo &gt; Steam &gt; Recibir invitaciones...</strong>) o Nova Hub
+(con <strong>Ajustes &gt; Equipos &gt; Recibir invitaciones de Steam...</strong>); las de otros lobbies siguen siendo de tu juego.</li>
+</ul>
+<h2 id="9-estado-para-los-amigos-rich-presence">9. Estado para los amigos (rich presence)<a class="ancla" href="#9-estado-para-los-amigos-rich-presence" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lo que ven tus amigos en su lista de Steam («Ana — Piso 7»):</p>
+<ul>
+<li>En un lobby el motor pone solo <strong>«En el lobby 3/8»</strong> (y lo actualiza al entrar y salir gente).</li>
+<li>Tu juego pone el suyo con <code>Steam.SetStatus(&quot;Piso 7&quot;)</code>; <code>Steam.SetStatus(nil)</code> vuelve al automático.</li>
+</ul>
+<p>Steam solo enseña ese texto en la lista de amigos con un <strong>fichero de localización de rich presence</strong> subido a
+Steamworks. En <strong>Ajustes del proyecto &gt; Steam</strong> pulsa <strong>Crear fichero de rich presence</strong>: crea
+<code>steam_richpresence.vdf</code> en la carpeta del proyecto. Súbelo en Steamworks (<strong>Edit Steamworks Settings &gt; Community &gt;
+Rich Presence</strong>) y publica. Su contenido es:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">"lang"
+{
+	"spanish"
+	{
+		"tokens"
+		{
+			"#Estado"	"%estado%"
+		}
+	}
+}</code></pre></div>
+<p>(el botón lo escribe para español, latino e inglés). Sin el fichero, el texto sale igual en «Ver información del
+juego».</p>
+<h2 id="10-overlay">10. Overlay<a class="ancla" href="#10-overlay" aria-label="Enlace a esta sección">#</a></h2>
+<p>Mayús+Tab abre el overlay de Steam encima del juego. El evento <code>steam:overlay(abierto)</code> sirve para pausar:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">PausaOverlay</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">PausaOverlay</span>:<span class="hl-f">Awake</span>()
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"steam:overlay"</span>, <span class="hl-k">function</span>(abierto)
+        <span class="hl-c">-- Solo en una partida de un jugador: en red el tiempo no se para por uno</span>
+        <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Network</span>.<span class="hl-f">IsRunning</span>() <span class="hl-k">then</span>
+            <span class="hl-t">Time</span>.timeScale = abierto <span class="hl-k">and</span> <span class="hl-n">0</span> <span class="hl-k">or</span> <span class="hl-n">1</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PausaOverlay</span></code></pre></div>
+<ul>
+<li><code>Steam.IsOverlayEnabled()</code>: el overlay funciona (el jugador puede desactivarlo en Steam &gt; Parámetros &gt; En la
+partida). <code>Steam.IsOverlayOpen()</code>: está abierto ahora.</li>
+<li>Abrir partes del overlay: <code>Steam.InviteFriends()</code>, <code>Steam.OpenStore()</code> (la tienda del juego o de un DLC),
+<code>Steam.OpenUrl(url)</code>, <code>Steam.OpenProfile(id)</code> y <code>Steam.OpenOverlay(&quot;achievements&quot;)</code>.</li>
+</ul>
+<h2 id="11-logros-estadísticas-y-tablas">11. Logros, estadísticas y tablas<a class="ancla" href="#11-logros-estadísticas-y-tablas" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="en-steamworks">En Steamworks<a class="ancla" href="#en-steamworks" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li><strong>Edit Steamworks Settings &gt; Stats &amp; Achievements &gt; Achievements</strong>: crea cada logro con su <strong>nombre de API</strong>
+(<code>PISO_10</code>), nombre y descripción en cada idioma e iconos.</li>
+<li><strong>Stats</strong>: nombre de API (<code>pisos</code>), tipo <code>INT</code> o <code>FLOAT</code>, «Set By: Client».</li>
+<li><strong>Publica</strong> los cambios (<strong>Publish &gt; Prepare for Publishing</strong>): hasta entonces el juego no los ve.</li>
+<li>Pon los mismos ids en <strong>Ajustes del proyecto &gt; Steam &gt; Logros / Estadísticas</strong> (el motor avisa en el log si un
+script usa un logro que no está ahí y da los nombres a <code>Steam.GetAchievements()</code>).</li>
+</ol>
+<h3 id="en-los-scripts">En los scripts<a class="ancla" href="#en-los-scripts" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">LogrosPisos</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">LogrosPisos</span>:<span class="hl-f">SubirPiso</span>(piso: number)
+    <span class="hl-t">Steam</span>.<span class="hl-f">AddStat</span>(<span class="hl-s">"pisos"</span>, <span class="hl-n">1</span>)
+    <span class="hl-k">if</span> piso == <span class="hl-n">10</span> <span class="hl-k">then</span>
+        <span class="hl-t">Steam</span>.<span class="hl-f">UnlockAchievement</span>(<span class="hl-s">"PISO_10"</span>) <span class="hl-c">-- sale la notificación de Steam</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">LogrosPisos</span>:<span class="hl-f">FinDeRonda</span>(pisos: number)
+    <span class="hl-t">Steam</span>.<span class="hl-f">StoreStats</span>() <span class="hl-c">-- guarda en Steam las estadísticas cambiadas</span>
+    <span class="hl-t">Steam</span>.<span class="hl-f">UploadScore</span>(<span class="hl-s">"Pisos"</span>, pisos, <span class="hl-b">nil</span>, <span class="hl-k">function</span>(r)
+        <span class="hl-k">if</span> r.ok <span class="hl-k">then</span> <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Puesto "</span> .. r.rank .. <span class="hl-s">" en la tabla"</span>) <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">LogrosPisos</span></code></pre></div>
+<ul>
+<li><code>Steam.UnlockAchievement(id)</code> desbloquea <strong>y guarda</strong> (sale la notificación). <code>Steam.IsAchievementUnlocked(id)</code>,
+<code>Steam.GetAchievements()</code> (con nombre, descripción y si está desbloqueado) y
+<code>Steam.IndicateAchievementProgress(id, 3, 10)</code> (notificación «3/10»).</li>
+<li>Estadísticas: <code>Steam.SetStat</code>, <code>Steam.AddStat</code> y <code>Steam.GetStat</code>; se guardan con <code>Steam.StoreStats()</code> (al acabar
+una ronda, no en cada frame).</li>
+<li>Para probar: <code>Steam.ClearAchievement(id)</code> y <code>Steam.ResetStats(true)</code> (estadísticas y logros a cero).</li>
+<li>Los logros se desbloquean en la máquina de cada jugador (no en el servidor): si los decide el servidor, avísale
+con un <code>--[Client]</code> o un evento.</li>
+<li><strong>Tablas de clasificación</strong> (opcionales): <code>Steam.UploadScore(tabla, puntos, opciones, función)</code> (la tabla se crea
+si no existe; <code>keepBest</code> guarda solo la mejor, <code>ascending = true</code> si menos es mejor) y
+<code>Steam.GetScores(tabla, { range = &quot;friends&quot; }, function(r) ... end)</code> con <code>r.entries = { { id, name, rank, score } }</code>.</li>
+</ul>
+<h2 id="12-eventos-de-steam">12. Eventos de Steam<a class="ancla" href="#12-eventos-de-steam" aria-label="Enlace a esta sección">#</a></h2>
+<p>Se escuchan con <code>AddEventHandler(&quot;steam:&lt;nombre&gt;&quot;, function(...) ... end)</code> en la máquina de cada jugador:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Evento</th>
+  <th>Argumentos</th>
+  <th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>steam:overlay</code></td>
+  <td>abierto</td>
+  <td>Se abre o se cierra el overlay</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyCreated</code></td>
+  <td>lobby</td>
+  <td>Tu lobby se ha creado</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyEntered</code></td>
+  <td>lobby</td>
+  <td>Has entrado en un lobby</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyFailed</code></td>
+  <td>motivo</td>
+  <td>No se pudo crear o entrar (lleno, privado, ya no existe...)</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyLeft</code></td>
+  <td>lobby</td>
+  <td>Has salido del lobby</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyMemberJoined</code></td>
+  <td>id, nombre</td>
+  <td>Alguien entra en tu lobby</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyMemberLeft</code></td>
+  <td>id, nombre</td>
+  <td>Alguien sale de tu lobby</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyDataChanged</code></td>
+  <td></td>
+  <td>Cambian los datos del lobby</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyMemberDataChanged</code></td>
+  <td>id</td>
+  <td>Cambian los datos de un miembro</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyChat</code></td>
+  <td>id, nombre, texto</td>
+  <td>Mensaje en el chat del lobby</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyList</code></td>
+  <td>cantidad</td>
+  <td>Ha terminado una búsqueda (<code>FindLobbies</code> llama además a tu función)</td>
+</tr>
+<tr>
+  <td><code>steam:inviteReceived</code></td>
+  <td>id, nombre, lobby</td>
+  <td>Te invitan (el juego puede enseñarlo; aceptar en Steam te lleva solo)</td>
+</tr>
+<tr>
+  <td><code>steam:joinRequested</code></td>
+  <td>lobby, id</td>
+  <td>Has aceptado una invitación o pulsado «Unirse a la partida»</td>
+</tr>
+<tr>
+  <td><code>steam:avatarLoaded</code></td>
+  <td>id</td>
+  <td>Ya está el avatar de esa persona (vuelve a pedir <code>GetAvatar</code>)</td>
+</tr>
+<tr>
+  <td><code>steam:friendChanged</code></td>
+  <td>id</td>
+  <td>Un amigo cambia de estado o de nombre</td>
+</tr>
+<tr>
+  <td><code>steam:achievementUnlocked</code></td>
+  <td>id, nombre</td>
+  <td>Logro desbloqueado y guardado</td>
+</tr>
+<tr>
+  <td><code>steam:achievementProgress</code></td>
+  <td>id, actual, máximo</td>
+  <td>Progreso de un logro</td>
+</tr>
+<tr>
+  <td><code>steam:statsStored</code></td>
+  <td>ok</td>
+  <td>Steam ha guardado las estadísticas</td>
+</tr>
+<tr>
+  <td><code>steam:leaderboard</code></td>
+  <td>ok</td>
+  <td>Ha terminado una petición de tabla (<code>UploadScore</code>/<code>GetScores</code> llaman a tu función)</td>
+</tr>
+<tr>
+  <td><code>steam:steamShutdown</code></td>
+  <td></td>
+  <td>Steam se cierra</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="13-referencia-de-la-tabla-steam">13. Referencia de la tabla <code>Steam</code><a class="ancla" href="#13-referencia-de-la-tabla-steam" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Steam.</code></th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>IsAvailable()</code>, <code>IsSimulated()</code>, <code>StatusText()</code>, <code>LastError()</code>, <code>GetAppId()</code></td>
+  <td>Estado de Steam</td>
+</tr>
+<tr>
+  <td><code>GetSteamID()</code>, <code>GetPersonaName()</code>, <code>GetFriendName(id)</code>, <code>GetFriends()</code>, <code>GetAvatar(id, tamaño)</code></td>
+  <td>El jugador y sus amigos</td>
+</tr>
+<tr>
+  <td><code>GetLanguage()</code>, <code>GetLanguageCode()</code>, <code>IsSubscribed(appId)</code>, <code>IsDlcInstalled(appId)</code></td>
+  <td>Idioma, juego y DLC</td>
+</tr>
+<tr>
+  <td><code>IsOverlayEnabled()</code>, <code>IsOverlayOpen()</code>, <code>OpenOverlay(página)</code>, <code>OpenStore(appId)</code>, <code>OpenUrl(url)</code>, <code>OpenProfile(id)</code></td>
+  <td>Overlay</td>
+</tr>
+<tr>
+  <td><code>CreateLobby(opciones)</code>, <code>JoinLobby(id)</code>, <code>LeaveLobby()</code>, <code>GetLobby()</code>, <code>GetLobbyMembers()</code>, <code>IsLobbyOwner()</code></td>
+  <td>Lobbies</td>
+</tr>
+<tr>
+  <td><code>SetLobbyData(clave, valor)</code>, <code>GetLobbyData(clave, lobby)</code>, <code>SetLobbyMemberData(clave, valor)</code>, <code>GetLobbyMemberData(id, clave)</code></td>
+  <td>Datos del lobby</td>
+</tr>
+<tr>
+  <td><code>SetLobbyJoinable(sí)</code>, <code>SetLobbyType(tipo)</code>, <code>SendLobbyChat(texto)</code>, <code>FindLobbies(filtro, función)</code></td>
+  <td>Más del lobby</td>
+</tr>
+<tr>
+  <td><code>InviteFriends()</code>, <code>InviteFriend(id)</code></td>
+  <td>Invitar</td>
+</tr>
+<tr>
+  <td><code>SetStatus(texto)</code>, <code>SetRichPresence(clave, valor)</code>, <code>ClearRichPresence()</code></td>
+  <td>Estado para los amigos</td>
+</tr>
+<tr>
+  <td><code>UnlockAchievement(id)</code>, <code>ClearAchievement(id)</code>, <code>IsAchievementUnlocked(id)</code>, <code>IndicateAchievementProgress(id, actual, máximo)</code>, <code>GetAchievements()</code></td>
+  <td>Logros</td>
+</tr>
+<tr>
+  <td><code>SetStat(id, valor)</code>, <code>GetStat(id)</code>, <code>AddStat(id, cantidad)</code>, <code>StoreStats()</code>, <code>ResetStats(logros)</code></td>
+  <td>Estadísticas</td>
+</tr>
+<tr>
+  <td><code>UploadScore(tabla, puntos, opciones, función)</code>, <code>GetScores(tabla, opciones, función)</code></td>
+  <td>Tablas de clasificación</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sin Steam (o en el editor con «Sin Steam») todas responden <code>false</code>, <code>&quot;&quot;</code>, <code>0</code> o <code>nil</code> sin errores: el mismo script
+funciona con y sin Steam. Pasar un SteamID como número es un error que lo explica (usa el texto que da Steam).</p>
+<h2 id="14-probar-con-dos-cuentas-de-steam">14. Probar con dos cuentas de Steam<a class="ancla" href="#14-probar-con-dos-cuentas-de-steam" aria-label="Enlace a esta sección">#</a></h2>
+<p>Steam solo deja una cuenta por PC, así que para jugar de verdad entre dos hacen falta <strong>dos PC</strong> (o un PC y una
+máquina virtual) con cuentas distintas que tengan el juego (con tu App ID: claves de desarrollo de <strong>Request Steam
+Product Keys</strong>, o la otra cuenta en tu equipo de Steamworks; con el 480 cualquier cuenta vale) y sean amigas.</p>
+<ol>
+<li>Publica el juego (sección 15) o copia la carpeta de ejecutables y el proyecto al otro PC.</li>
+<li>Abre el juego en los dos con Steam iniciado: el log dice <code>Steam iniciado: &lt;nombre&gt;</code>.</li>
+<li>PC 1: crea un lobby de amigos e invita al PC 2. PC 2: acepta la invitación en Steam (con el juego abierto y, ya
+con tu build subida, también con el juego cerrado: Steam lo abre con <code>+connect_lobby</code>).</li>
+<li>Comprueba con <strong>F3</strong> el ping a través de los relés de Valve, la voz, «Unirse a la partida» desde la lista de
+amigos y tu estado.</li>
+</ol>
+<h2 id="15-publicar-en-steam">15. Publicar en Steam<a class="ancla" href="#15-publicar-en-steam" aria-label="Enlace a esta sección">#</a></h2>
+<blockquote>
+<p><strong>La forma rápida:</strong> la pestaña <strong>Steam</strong> de <strong>Archivo &gt; Publicar juego...</strong> hace todo lo de esta sección por ti
+(la carpeta sin <code>steam_appid.txt</code> ni <code>.pdb</code>, los scripts <code>app_build</code>/<code>depot_build</code>, el servidor dedicado como depot
+aparte, <code>subir-a-steam.cmd</code> y una guía <code>LEEME.txt</code> con tus números). Nova no sube nada: tú ejecutas el <code>.cmd</code> y
+steamcmd te pide tu contraseña. Ver <a href="publicar.html">publicar.md</a>. Lo de abajo explica lo mismo a mano.</p>
+</blockquote>
+<h3 id="la-carpeta-del-juego">La carpeta del juego<a class="ancla" href="#la-carpeta-del-juego" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li><code>tools\build.cmd shipping</code> (optimizado; con el SDK también copia <code>steam_api64.dll</code>).</li>
+<li><strong>Archivo &gt; Publicar juego...</strong> Con «Usar Steam», copia <strong><code>steam_api64.dll</code></strong> junto al exe (el único fichero del
+SDK que se puede distribuir, ver <a href="terceros.html">TERCEROS.md</a>) y <strong>nunca deja <code>steam_appid.txt</code></strong> (si quedó de
+antes, lo borra): con él, Steam dejaría abrir el juego fuera de Steam. El juego sabe su App ID por sus
+ajustes, dentro de <code>data\juego.novapak</code>.</li>
+<li>Prueba la carpeta lanzándola desde Steam cuando esté subida (fuera de Steam, con «Relanzar desde Steam», Steam la
+vuelve a abrir).</li>
+</ol>
+<h3 id="depots-opciones-de-lanzamiento-y-subida">Depots, opciones de lanzamiento y subida<a class="ancla" href="#depots-opciones-de-lanzamiento-y-subida" aria-label="Enlace a esta sección">#</a></h3>
+<ol>
+<li><p><strong>Edit Steamworks Settings &gt; SteamPipe &gt; Depots</strong>: un depot de Windows (normalmente App ID + 1, <code>1234561</code>).</p>
+</li>
+<li><p><strong>Installation &gt; General Installation &gt; Launch Options</strong>: el ejecutable <code>&lt;Nombre del juego&gt;.exe</code>, Windows, 64 bits.</p>
+</li>
+<li><p><strong>Installation &gt; Redistributables</strong>: Visual C++ 2015-2022 (x64) si quieres que Steam lo instale.</p>
+</li>
+<li><p>Sube la carpeta con <code>steamcmd</code> del SDK (<code>C:\\SteamworksSDK\sdk\tools\ContentBuilder</code>): copia la carpeta
+publicada en <code>content\windows\</code> y crea <code>scripts\app_build_4204240.vdf</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">"AppBuild"
+{
+ "AppID" "1234560"
+ "Desc" "Mi Juego 1.0.0"
+ "ContentRoot" "..\content\"
+ "BuildOutput" "..\output\"
+ "SetLive" ""
+ "Depots"
+ {
+     "1234561"
+     {
+         "FileMapping"
+         {
+             "LocalPath" "windows\*"
+             "DepotPath" "."
+             "Recursive" "1"
+         }
+         "FileExclusion" "*.pdb"
+         "FileExclusion" "steam_appid.txt"
+     }
+ }
+}</code></pre></div>
+<p>y ejecuta <code>builder\steamcmd.exe +login &lt;cuenta_de_builds&gt; +run_app_build ..\scripts\app_build_4204240.vdf +quit</code>.
+Activa la build en <strong>SteamPipe &gt; Builds</strong> (rama <code>default</code>, o una <code>beta</code> con contraseña para probar antes).</p>
+</li>
+</ol>
+<h3 id="antes-del-lanzamiento">Antes del lanzamiento<a class="ancla" href="#antes-del-lanzamiento" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li>[ ] Ajustes del proyecto &gt; Steam: <strong>tu</strong> App ID (no 480) y «Relanzar desde Steam».</li>
+<li>[ ] Logros y estadísticas creados <strong>y publicados</strong> en Steamworks, con los mismos ids que en el proyecto.</li>
+<li>[ ] Fichero de rich presence subido (sección 9).</li>
+<li>[ ] Build <code>shipping</code> publicada, sin <code>steam_appid.txt</code> ni <code>.pdb</code>.</li>
+<li>[ ] Probado desde Steam en un PC limpio: overlay, invitaciones con el juego cerrado, partida por Steam con otra
+cuenta, voz, logros.</li>
+<li>[ ] Página de la tienda, requisitos y cuestionario de contenido revisados por Valve con tiempo.</li>
+</ul>
+<h2 id="16-servidor-dedicado">16. Servidor dedicado<a class="ancla" href="#16-servidor-dedicado" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>NovaServer.exe --steam</code> (o <code>&quot;steam&quot;: true</code> en <code>servidor.json</code>) lista el servidor en el <strong>navegador de servidores</strong>
+de Steam (login anónimo; el juego sigue por UDP en su puerto y Steam responde las consultas en
+<code>puertoConsultas</code>, 27016 por defecto). Con <code>steamAppId</code> en <code>servidor.json</code> (o el de <code>project.nova</code>). El transporte
+Steam de Ajustes &gt; Red es para las partidas que crean los jugadores: el servidor dedicado va siempre por UDP (y por
+Nova Enlace con <code>--relay</code>). Pendiente: autenticar a los jugadores con tickets de Steam (sin ella el navegador
+muestra 0 jugadores y VAC no actúa).</p>
+<p><strong>Cuentas de Nova Datos.</strong> Para guardar el progreso de cada jugador con su cuenta de Steam, el motor pide a Steam un
+ticket para la Web API (<code>GetAuthTicketForWebApi(&quot;nova-datos&quot;)</code>) y tu servicio de Nova Datos lo comprueba con
+<code>ISteamUserAuth/AuthenticateUserTicket</code> y tu clave de editor. Con el Steam simulado funciona contra el servicio local
+(<code>--steam-simulado</code>). Ver <a href="datos-persistentes.html#4-cuentas">datos-persistentes.md</a>.</p>
+<h2 id="17-qué-está-probado-y-qué-no">17. Qué está probado y qué no<a class="ancla" href="#17-qué-está-probado-y-qué-no" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Probado automáticamente</strong> (<code>tools\test.cmd</code>, con el Steam simulado y sin abrir tu Steam):</p>
+<ul>
+<li>Lobbies: crear (público, amigos, privado), datos, búsqueda con filtros (otro juego u otra versión no salen),
+unirse, lleno, privado sin invitación, dueño que se va, chat y datos de miembro.</li>
+<li>Invitaciones con el overlay, aceptar la invitación, «Unirse a la partida» desde la lista de amigos y
+<code>+connect_lobby</code> al abrir el juego.</li>
+<li>Partidas del motor por el transporte de Steam con 3 y 8 jugadores (también con pérdida de paquetes), datagramas
+del tamaño de la voz, política de conexiones y el flujo completo lobby → anfitrión → invitaciones → partida →
+fin de la partida.</li>
+<li>Estado para los amigos, logros, estadísticas (también al volver a entrar), tablas, avatares y la tabla <code>Steam</code> de
+Lua con sus eventos; el bus entre procesos del Steam simulado.</li>
+<li>La edición en equipo por Steam (0.9.33): la pasarela, la lista de amigos, la invitación, <code>+connect_lobby</code>, la contraseña, la
+reconexión, la prueba en equipo por Steam y el equipo fijo visto por el lobby con el relé caído, con editores sin ventana y el
+Steam simulado (<code>nova_tests.exe equipo-steam</code>); y la partida y la edición en equipo a la vez por el mismo Steam.</li>
+<li>Con el SDK 1.65: el backend real <strong>compila y enlaza</strong>; se comprueba que <code>steam_api64.dll</code> se carga y tiene las
+funciones que usa el motor, que cada número copiado del SDK coincide (al compilar) y que los avisos del SDK se
+traducen bien. Ninguna prueba llama a <code>SteamAPI_Init</code>.</li>
+</ul>
+<p><strong>Sin probar</strong> (necesitan tu Steam abierto: hazlo con <code>--steam-prueba</code>, sección 5, y con dos PC, sección 14):
+iniciar Steam de verdad, el overlay real, lobbies e invitaciones entre dos cuentas, la conexión P2P por los relés de
+Valve, logros reales y el servidor dedicado en el navegador de Steam. La edición en equipo por Steam con dos cuentas reales se prueba
+con los pasos de <a href="edicion-en-equipo.html#probarlo-con-el-steam-de-verdad-dos-cuentas-amigas-y-el-480">edicion-en-equipo.md</a>.</p>
+<h2 id="18-problemas-comunes">18. Problemas comunes<a class="ancla" href="#18-problemas-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Síntoma</th>
+  <th>Causa y solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ajustes &gt; Steam dice «compilado sin el SDK»</td>
+  <td>El SDK no está en <code>C:\\SteamworksSDK\sdk</code> (o en <code>NOVA_STEAMWORKS_SDK</code>) con <code>public\steam\steam_api.h</code>; vuelve a compilar</td>
+</tr>
+<tr>
+  <td>«Steam desactivado: el proyecto no tiene App ID»</td>
+  <td>Pon el App ID en Ajustes del proyecto &gt; Steam</td>
+</tr>
+<tr>
+  <td>«Steam no está abierto»</td>
+  <td>Abre Steam e inicia sesión antes del juego</td>
+</tr>
+<tr>
+  <td>«SteamAPI_InitEx ha fallado» con Steam abierto</td>
+  <td>La cuenta no tiene el juego, el App ID está mal, o Steam y el juego se ejecutan con permisos distintos (uno como administrador)</td>
+</tr>
+<tr>
+  <td>«tu cliente de Steam es más antiguo que el SDK»</td>
+  <td>Actualiza Steam</td>
+</tr>
+<tr>
+  <td>«falta steam_api64.dll»</td>
+  <td>El motor se compiló sin el SDK; con él, la compilación la copia a <code>bin\</code> y Publicar juego al juego</td>
+</tr>
+<tr>
+  <td>El juego publicado se cierra nada más abrirlo</td>
+  <td>Normal fuera de Steam con «Relanzar desde Steam»: Steam lo vuelve a abrir</td>
+</tr>
+<tr>
+  <td>No se abre el overlay</td>
+  <td>Overlay desactivado en Steam (Parámetros &gt; En la partida) o algo más se engancha a Direct3D</td>
+</tr>
+<tr>
+  <td><code>steam:lobbyFailed</code> «no tienes permiso»</td>
+  <td>Lobby privado sin invitación o cerrado con <code>SetLobbyJoinable(false)</code></td>
+</tr>
+<tr>
+  <td>No sale nadie en <code>FindLobbies</code></td>
+  <td>Solo salen lobbies públicos del mismo juego y versión, con plazas, de tu región (<code>distance = &quot;worldwide&quot;</code> para todas)</td>
+</tr>
+<tr>
+  <td>Se queda conectando a <code>steam:...</code></td>
+  <td>No sois amigos ni estáis en el mismo lobby (política de conexiones), o los relés aún se preparan; mira el log de los dos</td>
+</tr>
+<tr>
+  <td>El logro no se desbloquea</td>
+  <td>No existe con ese id o no está <strong>publicado</strong> en Steamworks; mira el aviso en el log</td>
+</tr>
+<tr>
+  <td>Los amigos no ven mi estado</td>
+  <td>Falta el fichero de rich presence en Steamworks (sección 9)</td>
+</tr>
+<tr>
+  <td>Las ventanas con <code>--steam-simulado</code> no se ven</td>
+  <td>Otro programa usa el puerto 47821: elige otro con <code>NOVA_STEAM_SIMULADO_PUERTO</code> (el mismo en todas)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><a href="multijugador.html">Multijugador</a></li>
+<li><a href="publicar-juego.html">Publicar el juego</a></li>
+<li><a href="publicar.html">Subir el juego a Steam con SteamPipe</a></li>
+<li><a href="scripts-lua.html">Scripts Lua</a></li>
+<li><a href="enlace.html">Nova Enlace</a>: por Internet con un código, sin Steam</li>
+<li>Documentación oficial de Steamworks: <a href="https://partner.steamgames.com/doc/home" rel="noopener">https://partner.steamgames.com/doc/home</a></li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="emparejamiento.html"><small>Anterior</small>Emparejamiento y servidores bajo demanda</a><a class="sig" href="edicion-en-equipo.html"><small>Siguiente</small>Edición en equipo</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#1-lo-que-necesitas">1. Lo que necesitas</a></li><li class="n2"><a href="#2-el-sdk-de-steamworks">2. El SDK de Steamworks</a></li><li class="n2"><a href="#3-activar-steam-en-tu-proyecto">3. Activar Steam en tu proyecto</a></li><li class="n2"><a href="#4-probar-sin-steam-el-steam-simulado">4. Probar sin Steam: el Steam simulado</a></li><li class="n2"><a href="#5-probar-con-tu-steam---steam-prueba">5. Probar con tu Steam (--steam-prueba)</a></li><li class="n2"><a href="#6-el-jugador-nombre-avatar-idioma-y-dlc">6. El jugador: nombre, avatar, idioma y DLC</a></li><li class="n2"><a href="#7-lobbies-e-invitaciones">7. Lobbies e invitaciones</a></li><li class="n3"><a href="#cómo-funciona">Cómo funciona</a></li><li class="n3"><a href="#un-menú-de-ejemplo">Un menú de ejemplo</a></li><li class="n3"><a href="#datos-del-lobby">Datos del lobby</a></li><li class="n2"><a href="#8-partidas-por-steam-sin-abrir-puertos">8. Partidas por Steam (sin abrir puertos)</a></li><li class="n3"><a href="#la-edición-en-equipo-también-va-por-steam">La edición en equipo también va por Steam</a></li><li class="n2"><a href="#9-estado-para-los-amigos-rich-presence">9. Estado para los amigos (rich presence)</a></li><li class="n2"><a href="#10-overlay">10. Overlay</a></li><li class="n2"><a href="#11-logros-estadísticas-y-tablas">11. Logros, estadísticas y tablas</a></li><li class="n3"><a href="#en-steamworks">En Steamworks</a></li><li class="n3"><a href="#en-los-scripts">En los scripts</a></li><li class="n2"><a href="#12-eventos-de-steam">12. Eventos de Steam</a></li><li class="n2"><a href="#13-referencia-de-la-tabla-steam">13. Referencia de la tabla Steam</a></li><li class="n2"><a href="#14-probar-con-dos-cuentas-de-steam">14. Probar con dos cuentas de Steam</a></li><li class="n2"><a href="#15-publicar-en-steam">15. Publicar en Steam</a></li><li class="n3"><a href="#la-carpeta-del-juego">La carpeta del juego</a></li><li class="n3"><a href="#depots-opciones-de-lanzamiento-y-subida">Depots, opciones de lanzamiento y subida</a></li><li class="n3"><a href="#antes-del-lanzamiento">Antes del lanzamiento</a></li><li class="n2"><a href="#16-servidor-dedicado">16. Servidor dedicado</a></li><li class="n2"><a href="#17-qué-está-probado-y-qué-no">17. Qué está probado y qué no</a></li><li class="n2"><a href="#18-problemas-comunes">18. Problemas comunes</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>
