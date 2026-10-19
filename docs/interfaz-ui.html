@@ -111,7 +111,7 @@ los carteles se pintan de lejos a cerca: el más cercano a la cámara queda dela
 <p>Si un HUD no tiene botones, desactiva <strong>Recibe entrada</strong> en su lienzo: así nunca se queda con un clic del
 juego (el HUD de la plantilla ya viene así).</p>
 <h3 id="rectángulo-anclajes-y-pivote">Rectángulo: anclajes y pivote<a class="ancla" href="#rectángulo-anclajes-y-pivote" aria-label="Enlace a esta sección">#</a></h3>
-<p>Cada elemento tiene un <strong>Rectángulo (UI)</strong> (<code>UiRect</code>), el equivalente al <code>RectTransform</code> de Unity. La
+<p>Cada elemento tiene un <strong>Rectángulo (UI)</strong> (<code>UiRect</code>). La
 posición se mide desde los <strong>anclajes</strong>, que son puntos del padre: <code>0,0</code> es arriba a la izquierda y <code>1,1</code>
 abajo a la derecha (el eje Y va hacia abajo, como en la pantalla).</p>
 <div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">  anclajes juntos (0,1): esquina de abajo a la izquierda      anclajes separados (0,0)-(1,0): barra de arriba
@@ -157,8 +157,7 @@ o lo saca del grupo.</li>
 <p><strong>¿Por qué mis hijos no son iguales (o se salen del grupo)?</strong> Un grupo da a cada hijo su tamaño <strong>preferido</strong>
 (el de su Rectángulo, o el que pide su texto), así que dos paneles de 400 y de 200 no salen iguales. Con
 <strong>Mismo tamaño</strong> todos miden lo mismo y llenan el grupo: (largo del grupo − relleno − espaciados) ÷ número de
-hijos. Si no caben y el grupo controla su tamaño (<strong>Controlar el ancho</strong> o <strong>el alto</strong>), encogen todos a la vez,
-como en Unity, sin bajar de su <strong>Tamaño mínimo</strong> (Elemento de layout); solo se salen si ni los mínimos caben, y
+hijos. Si no caben y el grupo controla su tamaño (<strong>Controlar el ancho</strong> o <strong>el alto</strong>), encogen todos a la vez, sin bajar de su <strong>Tamaño mínimo</strong> (Elemento de layout); solo se salen si ni los mínimos caben, y
 entonces el inspector del grupo avisa. Los grupos que se crean desde la paleta ya traen <strong>Mismo tamaño</strong> y
 estiran a sus hijos en el otro eje; los de antes se quedan como estaban.</p>
 <ul>
@@ -1170,7 +1169,7 @@ anotación del parámetro: <code>function Menu:Volumen(valor: number)</code> rec
 Dentro, <code>UI():CurrentEvent()</code> da el evento entero.</li>
 <li><strong>{ } Código</strong> enseña las líneas de ejemplo en Lua (o en C++, en un proyecto con scripts C++).</li>
 <li>VS Code completa <code>UI(...)</code> y los elementos, con su ayuda en español, gracias a <code>nova.d.luau</code> y <code>nova.docs.json</code> (la
-extensión de Nova para VS Code con luau-lsp; ver <a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>).</li>
+extensión de Nova para VS Code con luau-lsp; ver <a href="scripts-lua.html#13-vs-code-y-autocompletado">scripts-lua.md</a>).</li>
 </ul>
 <h2 id="fuentes-sprites-y-nueve-cortes">Fuentes, sprites y nueve cortes<a class="ancla" href="#fuentes-sprites-y-nueve-cortes" aria-label="Enlace a esta sección">#</a></h2>
 <ul>

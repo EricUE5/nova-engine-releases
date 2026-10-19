@@ -39,7 +39,7 @@ No viajan por la red: para pedirle algo al servidor sigue estando <code>[Server]
 <li><strong><code>EditorOnly</code> al publicar</strong>: el cuerpo de la función ni se compila en el juego publicado y los campos <code>EditorOnly</code>
 no van (las líneas de los errores no cambian).</li>
 <li><strong><code>--[Cooldown(segundos)]</code></strong>: la función no se repite antes de ese tiempo; en una <code>[Server]</code>, por jugador.</li>
-<li><strong><code>--[Server(validate = &quot;PuedeHacerlo&quot;, kickAfter = 5)]</code></strong>, como el <code>WithValidation</code> de Unreal: el servidor valida
+<li><strong><code>--[Server(validate = &quot;PuedeHacerlo&quot;, kickAfter = 5)]</code></strong>: el servidor valida
 cada llamada de un cliente con esa función antes de ejecutarla; el rechazo queda en el registro de seguridad
 («validación fallida: Inventory:Drop de jugador 2 (Luis)», con su contador) y al quinto se expulsa al jugador.</li>
 <li><strong>Sin coste</strong>: donde se ejecuta, una función <code>ServerOnly</code>, <code>ClientOnly</code> o <code>EditorOnly</code> cuesta lo mismo que una normal.</li>
@@ -48,8 +48,7 @@ cada llamada de un cliente con esa función antes de ejecutarla; el rechazo qued
 una <code>ServerOnly</code> desde una <code>ClientOnly</code>, <code>validate</code> de una función que no existe, <code>Cooldown</code> sin segundos...), la
 ayuda de cada función dice dónde se ejecuta y la bombilla cambia <code>if not IsServer() then return end</code> por
 <code>--[ServerOnly]</code>.</li>
-<li>Guía: <a href="docs/scripts-lua.html#914-dónde-se-ejecuta-una-función">Dónde se ejecuta una función</a>, con la tabla de
-equivalencias con Unreal, Mirror y Netcode for GameObjects; <code>validate</code>, en
+<li>Guía: <a href="docs/scripts-lua.html#914-dónde-se-ejecuta-una-función">Dónde se ejecuta una función</a>; <code>validate</code>, en
 <a href="docs/seguridad-red.html#validate-y-kickafter">Seguridad de la red</a>.</li>
 </ul>
 <p><strong>Compatibilidad</strong>: <code>--[OwnerOnly]</code> sin <code>[Server]</code> antes solo daba un aviso («solo sirve junto a [Server]») y ahora
@@ -145,12 +144,10 @@ servidor del proyecto no inicia Steam (diseño: <code>docs/diseno-equipo.md</cod
 <p>Los editores y el servidor de una sesión de equipo deben ser todos de la 0.9.34. Para la sesión por Steam hace falta
 Steam abierto en los dos PC y ser amigos; con el App ID 480 (Spacewar) no hace falta tener ningún juego.</p>
 </section><section class="version"><h2 id="v0-9-33">Nova Engine 0.9.33<a class="ancla" href="#v0-9-33" aria-label="Enlace a esta sección">#</a></h2>
-<p>Los modelos exportados desde Blender salen de pie y a su tamaño, la tecla Fin baja los objetos al suelo como en Unreal
-Engine 5, el aviso de contenido de las partidas dice qué fichero es distinto y hay un botón para sincronizar los ficheros
+<p>Los modelos exportados desde Blender salen de pie y a su tamaño, la tecla Fin baja los objetos al suelo, el aviso de contenido de las partidas dice qué fichero es distinto y hay un botón para sincronizar los ficheros
 de la sesión de equipo, y las casas y objetos huecos destructibles ya no atascan al jugador.</p>
 <h3 id="v0-9-33-modelos-de-blender-de-pie-y-a-su-tamaño">Modelos de Blender de pie y a su tamaño<a class="ancla" href="#v0-9-33-modelos-de-blender-de-pie-y-a-su-tamaño" aria-label="Enlace a esta sección">#</a></h3>
-<p>Los modelos exportados de Blender salen en Nova <strong>de pie, mirando hacia donde miraban y a su tamaño</strong>, como en Blender y
-en Unity, con las opciones por defecto del exportador FBX y del GLB
+<p>Los modelos exportados de Blender salen en Nova <strong>de pie, mirando hacia donde miraban y a su tamaño</strong>, como en Blender, con las opciones por defecto del exportador FBX y del GLB
 (<a href="docs/modelos-y-animaciones.html#exportar-desde-blender">docs/modelos-y-animaciones.md</a>).</p>
 <h4 id="v0-9-33-arreglado">Arreglado<a class="ancla" href="#v0-9-33-arreglado" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
@@ -181,7 +178,7 @@ proyecto.</li>
 <li>En una sesión de edición en equipo, los <code>.meta</code> del servidor no se tocan al entrar.</li>
 </ul>
 <h3 id="v0-9-33-bajar-al-suelo-tecla-fin">Bajar al suelo (tecla Fin)<a class="ancla" href="#v0-9-33-bajar-al-suelo-tecla-fin" aria-label="Enlace a esta sección">#</a></h3>
-<p>Como la tecla <strong>End</strong> de Unreal Engine: con el visor Escena o la Jerarquía enfocados, <strong>Fin</strong> baja cada entidad elegida
+<p>Con el visor Escena o la Jerarquía enfocados, <strong>Fin</strong> baja cada entidad elegida
 hasta que se apoya en lo que tiene debajo, sin tener que arrastrarla hasta abajo con el gizmo
 (<a href="docs/editor.html#bajar-al-suelo">docs/editor.md</a>).</p>
 <h4 id="v0-9-33-novedades-1">Novedades<a class="ancla" href="#v0-9-33-novedades-1" aria-label="Enlace a esta sección">#</a></h4>
@@ -329,12 +326,11 @@ atascarse ni quedar dentro de ninguna colisión. Con Convexa (la de antes) no pu
 orientación (el Inspector ofrece «Corregir orientación (Blender)»). Los <code>.destructible</code> antiguos se cargan y recalculan su
 colisión. Los editores y servidores de una sesión de equipo deben ser de la misma versión.</p>
 </section><section class="version"><h2 id="v0-9-32">Nova Engine 0.9.32<a class="ancla" href="#v0-9-32" aria-label="Enlace a esta sección">#</a></h2>
-<p>Edición conjunta del mismo script en tiempo real, como en Roblox Studio: varias personas de una sesión de equipo
+<p>Edición conjunta del mismo script en tiempo real: varias personas de una sesión de equipo
 escriben a la vez en el mismo script del editor integrado, ven los cursores de los demás y el script se guarda y se
 recarga una sola vez.</p>
 <h3 id="v0-9-32-edición-conjunta-de-scripts">Edición conjunta de scripts<a class="ancla" href="#v0-9-32-edición-conjunta-de-scripts" aria-label="Enlace a esta sección">#</a></h3>
-<p>Varias personas de una sesión de equipo escriben <strong>a la vez en el mismo script</strong>, como en el «Collaborative Editing» de
-Roblox Studio (<a href="docs/edicion-en-equipo.html#editar-el-mismo-script-a-la-vez-edición-conjunta">docs/edicion-en-equipo.md</a>
+<p>Varias personas de una sesión de equipo escriben <strong>a la vez en el mismo script</strong> (<a href="docs/edicion-en-equipo.html#editar-el-mismo-script-a-la-vez-edición-conjunta">docs/edicion-en-equipo.md</a>
 y <a href="docs/editor-scripts.html#edición-en-equipo">docs/editor-scripts.md</a>).</p>
 <h4 id="v0-9-32-novedades">Novedades<a class="ancla" href="#v0-9-32-novedades" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
@@ -390,19 +386,19 @@ tienen que ser de la 0.9.32 (si no, sale el aviso de versión incompatible). Cie
 tengas abierto de antes; el editor lo vuelve a arrancar solo. Proyectos, escenas y scripts no cambian.</p>
 </section><section class="version"><h2 id="v0-9-31">Nova Engine 0.9.31<a class="ancla" href="#v0-9-31" aria-label="Enlace a esta sección">#</a></h2>
 <p>El equipo fijo funciona por Internet sin tocar nada (Nova Enlace por defecto, activarlo en un equipo ya creado y el
-motivo real en Nova Hub en vez de «Cerrado») y pestañas de editor a pantalla completa y menús al estilo de Unreal Engine 5: Seleccionar, Compilar todo, Mezclador
+motivo real en Nova Hub en vez de «Cerrado») y pestañas de editor a pantalla completa y menús nuevos: Seleccionar, Compilar todo, Mezclador
 de luces, Combinar mallas, Registro de mensajes, visor a pantalla completa y Crear por categorías.</p>
-<h3 id="v0-9-31-pestañas-de-editor-a-pantalla-completa-como-en-unreal-engine-5">Pestañas de editor a pantalla completa, como en Unreal Engine 5<a class="ancla" href="#v0-9-31-pestañas-de-editor-a-pantalla-completa-como-en-unreal-engine-5" aria-label="Enlace a esta sección">#</a></h3>
-<p>Los editores de assets se abren como en Unreal Engine 5: arriba, bajo el menú y la barra principal, hay una <strong>barra de
+<h3 id="v0-9-31-pestañas-de-editor-a-pantalla-completa">Pestañas de editor a pantalla completa<a class="ancla" href="#v0-9-31-pestañas-de-editor-a-pantalla-completa" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los editores de assets se abren así: arriba, bajo el menú y la barra principal, hay una <strong>barra de
 pestañas de documento</strong>. La primera es el nivel (la escena abierta); cada editor de asset abierto tiene la suya y, al
 elegirla, <strong>toda la ventana</strong> pasa a ser ese editor, con su barra de herramientas y sus paneles a los lados. Ya no hay
 que trabajar en una ventana pequeña acoplada junto a la escena. El editor de Interfaz se abre así «como una ventana
-completa aparte», como el Widget editor de UE5.</p>
+completa aparte».</p>
 <h4 id="v0-9-31-novedades">Novedades<a class="ancla" href="#v0-9-31-novedades" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
 <li><strong>Una pestaña por editor</strong>, con su propia distribución:<ul>
 <li><strong>Animación</strong>: árbol de huesos a la izquierda, visor en el centro, detalles, eventos y curvas a la derecha y la línea
-de claves abajo (como SK_Mannequin). Las subpestañas (Animador, Humanoide, Vista previa de clips, Animar huesos,
+de claves abajo. Las subpestañas (Animador, Humanoide, Vista previa de clips, Animar huesos,
 Línea de tiempo y Sockets) van en su barra.</li>
 <li><strong>Interfaz</strong>: paleta y jerarquía del lienzo a la izquierda, el diseñador en el centro, los detalles del elemento a la
 derecha y las animaciones (la Línea de tiempo del elemento elegido) abajo.</li>
@@ -455,8 +451,8 @@ Pídele que active Nova Enlace en Equipo &gt; Equipo fijo»;</li>
 </li>
 </ul>
 <p>Más en <a href="docs/edicion-en-equipo.html#resolución-de-problemas-equipo-fijo-nova-hub-y-prueba-en-equipo">edicion-en-equipo.md</a>.</p>
-<h3 id="v0-9-31-menús-al-estilo-de-unreal-engine-5">Menús al estilo de Unreal Engine 5<a class="ancla" href="#v0-9-31-menús-al-estilo-de-unreal-engine-5" aria-label="Enlace a esta sección">#</a></h3>
-<p>Los menús del editor, comparados con los de Unreal Engine 5: tres menús nuevos (<strong>Seleccionar</strong>, <strong>Compilar</strong> y
+<h3 id="v0-9-31-menús-del-editor">Menús del editor<a class="ancla" href="#v0-9-31-menús-del-editor" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los menús del editor: tres menús nuevos (<strong>Seleccionar</strong>, <strong>Compilar</strong> y
 <strong>Herramientas</strong>), más ventanas en <strong>Ventana</strong> y el <strong>Añadir</strong> de Contenido por categorías.</p>
 <ul>
 <li><strong>Menú Seleccionar</strong>: Seleccionar todo (Ctrl+A), Quitar selección (Esc), Invertir selección (Ctrl+I), Jerarquía (con
@@ -499,7 +495,7 @@ inesperado), autocompletado de todos los textos entre comillas con avisos de fir
 equipo por código, el anuncio en Nova Hub y la sesión que se abre sola), sin tirones al entrar al proyecto y pruebas que no
 tocan tus puertos.</p>
 <h3 id="v0-9-29-materiales-por-nodos">Materiales por nodos<a class="ancla" href="#v0-9-29-materiales-por-nodos" aria-label="Enlace a esta sección">#</a></h3>
-<p>Materiales hechos con nodos, como el Material Editor de Unreal Engine 5 o el Shader Graph de Unity
+<p>Materiales hechos con nodos
 (<a href="docs/materiales-nodos.html">docs/materiales-nodos.md</a>).</p>
 <h4 id="v0-9-29-novedades">Novedades<a class="ancla" href="#v0-9-29-novedades" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
@@ -716,12 +712,12 @@ puedes volver a activarla.</li>
 <h3 id="v0-9-28-compatibilidad">Compatibilidad<a class="ancla" href="#v0-9-28-compatibilidad" aria-label="Enlace a esta sección">#</a></h3>
 <p>Sin cambios en proyectos, escenas, scripts, el protocolo de red ni la API de módulos: se actualiza encima de la 0.9.27.</p>
 </section><section class="version"><h2 id="v0-9-27">Nova Engine 0.9.27<a class="ancla" href="#v0-9-27" aria-label="Enlace a esta sección">#</a></h2>
-<p>Herramientas de prueba y de editor al estilo de UE5 (consola y comandos, CVars, OnValidate, botones del Inspector, panel
+<p>Herramientas de prueba y de editor (consola y comandos, CVars, OnValidate, botones del Inspector, panel
 Problemas y Visual Logger), utilidades de código para Lua (Gameplay Tags, interfaces, eventos en el Inspector,
 temporizadores y pools), los materiales del modelo en la destrucción, una pantalla de carga propia del editor, la pantalla
 completa al jugar y la plantilla «Destrucción (Lua)».</p>
 <h3 id="v0-9-27-herramientas-de-prueba-y-de-editor">Herramientas de prueba y de editor<a class="ancla" href="#v0-9-27-herramientas-de-prueba-y-de-editor" aria-label="Enlace a esta sección">#</a></h3>
-<p>Herramientas al estilo de Unreal Engine 5 para probar el juego y ayudarte a construirlo, todas desde Lua. Guía:
+<p>Herramientas para probar el juego y ayudarte a construirlo, todas desde Lua. Guía:
 <a href="docs/herramientas-lua.html">herramientas-lua.md</a>.</p>
 <h4 id="v0-9-27-consola-y-comandos">Consola y comandos<a class="ancla" href="#v0-9-27-consola-y-comandos" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
@@ -776,7 +772,7 @@ rompen, con el jugador en primera persona). El SDK trae ahora <strong>doce plant
 junto a <code>List</code> y <code>Dict</code>.</li>
 </ul>
 <h3 id="v0-9-27-utilidades-de-código">Utilidades de código<a class="ancla" href="#v0-9-27-utilidades-de-código" aria-label="Enlace a esta sección">#</a></h3>
-<p>Herramientas al estilo de UE5 y Unity para programar en Lua sin repetir código. Guía con ejemplos (botín que se recoge por
+<p>Herramientas para programar en Lua sin repetir código. Guía con ejemplos (botín que se recoge por
 interfaz, puerta con evento en el Inspector, balas con pool y estados con etiquetas): <a href="docs/utilidades-lua.html">utilidades-lua.md</a>.</p>
 <h4 id="v0-9-27-gameplay-tags-etiquetas-jerárquicas">Gameplay Tags (etiquetas jerárquicas)<a class="ancla" href="#v0-9-27-gameplay-tags-etiquetas-jerárquicas" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
@@ -890,9 +886,9 @@ siguen siendo exactas.</li>
 <li><strong>Escenas, proyectos y <code>.destructible</code> de antes</strong>: se abren igual.</li>
 </ul>
 </section><section class="version"><h2 id="v0-9-26">Nova Engine 0.9.26<a class="ancla" href="#v0-9-26" aria-label="Enlace a esta sección">#</a></h2>
-<p>Sockets como en UE5 y editar el pivote, y datos de juego: structs, listas, Data Assets, Data Tables con CSV, enums compartidos y curvas.</p>
+<p>Sockets y editar el pivote, y datos de juego: structs, listas, Data Assets, Data Tables con CSV, enums compartidos y curvas.</p>
 <h3 id="v0-9-26-sockets-y-pivote">Sockets y pivote<a class="ancla" href="#v0-9-26-sockets-y-pivote" aria-label="Enlace a esta sección">#</a></h3>
-<p>Los personajes tienen <strong>sockets</strong>, como en Unreal: puntos con nombre en sus huesos («Arma» en la mano, «Sombrero» en la
+<p>Los personajes tienen <strong>sockets</strong>: puntos con nombre en sus huesos («Arma» en la mano, «Sombrero» en la
 cabeza) que colocas una vez y que usan todos los enganches. Y cualquier objeto puede tener su <strong>pivote</strong> donde quieras
 (la bisagra de una puerta), sin meterlo en una entidad vacía. Guías: <a href="docs/modelos-y-animaciones.html#sockets">modelos-y-animaciones.md</a>
 y <a href="docs/editor.html#editar-el-pivote">editor.md</a>.</p>
@@ -946,8 +942,7 @@ añadir métodos de <code>Entity</code> desde fuera de <code>nova/lua</code>.</l
 <code>--animar-huesos-prueba sockets</code> y <code>--acciones pivote-puerta</code>).</li>
 </ul>
 <h3 id="v0-9-26-datos-de-juego">Datos de juego<a class="ancla" href="#v0-9-26-datos-de-juego" aria-label="Enlace a esta sección">#</a></h3>
-<p>Los datos del juego (objetos con su precio y su peso, armas, botín, recompensas) fuera del código, como en Unity y
-Unreal Engine 5, declarados en Lua y editables en el editor. Guía con el paso a paso del botín de un juego de robos:
+<p>Los datos del juego (objetos con su precio y su peso, armas, botín, recompensas) fuera del código, declarados en Lua y editables en el editor. Guía con el paso a paso del botín de un juego de robos:
 <a href="docs/datos.html">datos.md</a>. Ejemplo: <code>game/botin_lua</code>.</p>
 <h4 id="v0-9-26-structs-y-listas-en-los-scripts">Structs y listas en los scripts<a class="ancla" href="#v0-9-26-structs-y-listas-en-los-scripts" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
@@ -966,7 +961,7 @@ replicada</strong> para enviarlo a los clientes (con sus límites); como campo n
 <h4 id="v0-9-26-data-assets-data-tables-y-enums">Data Assets, Data Tables y enums<a class="ancla" href="#v0-9-26-data-assets-data-tables-y-enums" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
 <li><strong>Contenido &gt; Crear &gt; Datos (Data Asset)</strong> (eligiendo el struct): un <code>.datos</code> con los valores de un struct que se edita
-en el Inspector (como un ScriptableObject). Se usa en un campo <code>Asset(&quot;Objeto&quot;)</code> (solo ofrece Data Assets de ese tipo) o
+en el Inspector. Se usa en un campo <code>Asset(&quot;Objeto&quot;)</code> (solo ofrece Data Assets de ese tipo) o
 <code>Asset(&quot;Datos&quot;)</code>, y en Lua se lee como una tabla: <code>self.botin.precio</code>, <code>DataAsset(&quot;Lingote&quot;).nombre</code>.</li>
 <li><strong>Contenido &gt; Crear &gt; Tabla de datos</strong>: filas de un struct en la ventana <strong>Tabla de datos</strong>, como una hoja de cálculo:
 añadir, duplicar y borrar filas, cambiar claves, buscar, ordenar por columna, celdas de structs y listas, <strong>importar y
@@ -997,7 +992,7 @@ dependen del proyecto.</li>
 <li>Nuevos tipos de asset al final del enum: <code>DataAsset</code>, <code>DataTable</code>, <code>Enum</code> y <code>Curve</code> (<code>AssetManager::GetJsonDocument</code>).</li>
 </ul>
 </section><section class="version"><h2 id="v0-9-25">Nova Engine 0.9.25<a class="ancla" href="#v0-9-25" aria-label="Enlace a esta sección">#</a></h2>
-<p>Los scripts Lua se escriben <strong>dentro del editor</strong>, como en Roblox Studio: sin abrir VS Code ni nada más, con todo el
+<p>Los scripts Lua se escriben <strong>dentro del editor</strong>: sin abrir VS Code ni nada más, con todo el
 autocompletado y un depurador. Guía: <a href="docs/editor-scripts.html">editor-scripts.md</a>.</p>
 <h3 id="v0-9-25-la-ventana-scripts">La ventana Scripts<a class="ancla" href="#v0-9-25-la-ventana-scripts" aria-label="Enlace a esta sección">#</a></h3>
 <ul>
@@ -1038,7 +1033,7 @@ expresiones. <strong>F5</strong> continuar, <strong>F10</strong> paso, <strong>F
 <p><strong>Editar &gt; Preferencias del editor &gt; Editor de scripts &gt; Abrir scripts con</strong>: <strong>Editor de Nova</strong> (por defecto),
 <strong>Visual Studio Code</strong> o el editor de código de siempre. La extensión de Nova para VS Code sigue igual.</p>
 </section><section class="version"><h2 id="v0-9-24">Nova Engine 0.9.24<a class="ancla" href="#v0-9-24" aria-label="Enlace a esta sección">#</a></h2>
-<p>Editor con estilo nuevo (tema violeta de Nova, espacio Animación unificado, menú Ventana agrupado, distribuciones, Outliner/Details, cajón de Contenido y avisos) y destrucción de objetos como Chaos de UE5.</p>
+<p>Editor con estilo nuevo (tema violeta de Nova, espacio Animación unificado, menú Ventana agrupado, distribuciones, Outliner/Details, cajón de Contenido y avisos) y destrucción de objetos.</p>
 <h3 id="v0-9-24-estilo-nuevo-y-ventanas">Estilo nuevo y ventanas<a class="ancla" href="#v0-9-24-estilo-nuevo-y-ventanas" aria-label="Enlace a esta sección">#</a></h3>
 <p>El editor estrena un <strong>aspecto propio de Nova</strong>, inspirado en los editores grandes pero con su carácter: oscuro, con el
 <strong>violeta de Nova</strong> como acento, botones en «pastillas», <strong>Jugar</strong> en verde en el centro y avisos que salen y se van solos.
@@ -1094,10 +1089,10 @@ venga, como el editor de scripts integrado). Los widgets nuevos (<code>PillButto
 <li>Capturas de antes y después en <code>capturas-estilo/</code>.</li>
 </ul>
 <h3 id="v0-9-24-destrucción">Destrucción<a class="ancla" href="#v0-9-24-destrucción" aria-label="Enlace a esta sección">#</a></h3>
-<p><strong>Destrucción como Chaos de UE5.</strong> Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo,
+<p><strong>Destrucción.</strong> Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo,
 cajas que revientan y barriles que explotan, también en multijugador.</p>
 <p>Guía: <a href="docs/destruccion.html">destruccion.md</a>. Ejemplo: <code>game/destruccion_lua</code>.</p>
-<h4 id="v0-9-24-ventana-fracturar-el-fracture-mode">Ventana Fracturar (el Fracture Mode)<a class="ancla" href="#v0-9-24-ventana-fracturar-el-fracture-mode" aria-label="Enlace a esta sección">#</a></h4>
+<h4 id="v0-9-24-ventana-fracturar">Ventana Fracturar<a class="ancla" href="#v0-9-24-ventana-fracturar" aria-label="Enlace a esta sección">#</a></h4>
 <ul>
 <li><strong>Ventana &gt; Fracturar</strong>: parte la malla de la entidad seleccionada en trozos con estos métodos:<ul>
 <li><strong>Voronoi uniforme</strong> (número de trozos y semilla);</li>
@@ -1486,7 +1481,7 @@ JSON con versión: también se puede escribir a mano.</li>
 <li><strong>Compuestos</strong>: Secuencia, Selector, Paralelo (éxito y fallo con uno o con todos) y Selector aleatorio con pesos.</li>
 <li><strong>Decoradores</strong>: Invertir, Repetir (N veces o siempre), Reintentar, Tiempo límite, Enfriamiento, Siempre éxito y
 Siempre fallo.</li>
-<li><strong>Condiciones</strong>: de la pizarra («X ≠ nada», <code>==</code>, <code>&lt;</code>...) o en Lua, con <strong>Abortar</strong> como en Unreal:<ul>
+<li><strong>Condiciones</strong>: de la pizarra («X ≠ nada», <code>==</code>, <code>&lt;</code>...) o en Lua, con <strong>Abortar</strong>:<ul>
 <li><strong>propio</strong>: corta su rama cuando deja de cumplirse;</li>
 <li><strong>inferiores</strong>: corta una rama menos importante cuando pasa a cumplirse;</li>
 <li><strong>ambos</strong>.</li>
@@ -1603,7 +1598,7 @@ antes.</li>
 se abren igual; el esquema de red no cambia.</p>
 <h3 id="v0-9-18-la-ventana-animar-huesos">La ventana «Animar huesos»<a class="ancla" href="#v0-9-18-la-ventana-animar-huesos" aria-label="Enlace a esta sección">#</a></h3>
 <ul>
-<li><strong>Un visor aparte</strong>, como el editor de animaciones de Unreal o de Unity. Muestra el personaje con suelo, luz y una
+<li><strong>Un visor aparte</strong>. Muestra el personaje con suelo, luz y una
 cámara que orbita (botón derecho), se desplaza (central) y se acerca (rueda).</li>
 <li>Se abre con <strong>doble clic</strong> en un modelo con esqueleto (<code>.glb</code>, <code>.fbx</code>) o en un clip de huesos del Contenido. También
 con <strong>clic derecho &gt; Animar huesos</strong>, con el botón <strong>Animar huesos</strong> del Animador de una entidad o de la Jerarquía, o
@@ -2256,8 +2251,7 @@ aunque sus huesos se llamen distinto, mida otra cosa o esté en pose A en vez de
 <a href="docs/modelos-y-animaciones.html#animaciones-de-otros-personajes-retargeting">modelos-y-animaciones.md</a>.</p>
 <ul>
 <li><strong>Avatar humanoide automático</strong>: Nova reconoce caderas, columna, pecho, cuello, cabeza, hombros, brazos,
-antebrazos, manos, dedos, muslos, piernas, pies y dedos de los pies con los nombres de Mixamo, Unreal,
-Blender/Rigify, Unity, 3ds Max y en español (<code>Caderas</code>, <code>Brazo_I</code>, <code>Mano_D</code>...), y por la forma del esqueleto
+antebrazos, manos, dedos, muslos, piernas, pies y dedos de los pies con los nombres de Mixamo, Blender/Rigify, 3ds Max y en español (<code>Caderas</code>, <code>Brazo_I</code>, <code>Mano_D</code>...), y por la forma del esqueleto
 cuando los nombres no dicen nada.</li>
 <li><strong>Sección «Humanoide»</strong> en el Inspector del modelo: la lista de huesos con el nodo que hace de cada uno, aviso de
 los que faltan, elegirlos a mano, pose de referencia (automática o la de reposo) e IK de pies y manos.</li>
@@ -2795,7 +2789,7 @@ comprimida con Opus (unos 20 kbit/s por jugador que habla, nada mientras calla) 
 quien la oye. El micrófono empieza <strong>apagado</strong>: llama a <code>Voice.SetEnabled(true)</code> cuando el jugador lo active. Guía
 completa: «Chat de voz» (<code>docs/voz.md</code>).</p>
 <p><strong>Novedad: importar modelos FBX (y OBJ) directamente, sin pasar por Blender</strong></p>
-<p>Los personajes de Mixamo, los modelos de tiendas de assets y lo que exportes desde Blender, Maya, 3ds Max o Unity
+<p>Los personajes de Mixamo, los modelos de tiendas de assets y lo que exportes desde Blender, Maya o 3ds Max
 ya se importan tal cual:</p>
 <ol>
 <li>En <strong>Contenido</strong>, el botón <strong>Importar FBX...</strong> (o <strong>Archivo &gt; Importar modelo (FBX, OBJ, glTF)...</strong>), o arrastra
@@ -2916,7 +2910,7 @@ repartir la hierba.</p>
 ya no sale «Unknown type 'Vec3'» en <code>local p: Vec3 = ...</code>.</li>
 <li><code>nova.d.luau</code> se carga aunque luau-lsp traiga el FFlag <code>LuauIntegerType2</code> (con él, antes no había ni API ni
 autocompletado).</li>
-<li>Si tienes las extensiones <strong>Lua</strong> (sumneko) o <strong>FiveLab Lua</strong>, el aviso trae un botón <strong>Apagar ... en este
+<li>Si tienes otras extensiones de Lua (como <strong>Lua</strong>, de sumneko), el aviso trae un botón <strong>Apagar ... en este
 proyecto</strong> que las calla solo en el proyecto de Nova, sin desactivarlas.</li>
 </ul>
 <p><strong>Importante, para tenerlo:</strong></p>
@@ -3073,7 +3067,7 @@ ellos (200 agentes en medio milisegundo).</li>
 <li><strong>Geometry</strong>: polígonos, triangulación, envolventes convexas, curvas e intersecciones.</li>
 <li><strong>Noise</strong>: ruido Perlin, Simplex y Worley con fBm, crestas y deformación, para generar mundos (el generador de
 terrenos usa el mismo, con exactamente el mismo resultado).</li>
-<li><strong>Matemáticas al estilo de Unity</strong>: <code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code>, <code>Quat</code>, <code>Mat4</code> y <code>Color</code> completos, y <code>Ray</code>, <code>Plane</code>,
+<li><strong>Matemáticas completas</strong>: <code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code>, <code>Quat</code>, <code>Mat4</code> y <code>Color</code> completos, y <code>Ray</code>, <code>Plane</code>,
 <code>Bounds</code>, <code>Sphere</code> y <code>Frustum</code> (lo que ve la cámara); más funciones en <code>Mathf</code> y <code>Random</code>.</li>
 <li><code>Audio.PlayOneShot</code> con opciones (distancias, atenuación y bus) para disparos y explosiones que se oyen lejos.</li>
 <li>VS Code autocompleta y explica en español todo lo nuevo.</li>
@@ -3141,7 +3135,7 @@ todas formas).</p>
 </section><section class="version"><h2 id="v0-9-0">Nova Engine 0.9.0<a class="ancla" href="#v0-9-0" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Novedad: partículas</strong></p>
 <ul>
-<li>Componente <strong>Sistema de partículas</strong> con módulos como en Unity: emisión con ráfagas, formas, velocidad, fuerzas,
+<li>Componente <strong>Sistema de partículas</strong> con módulos: emisión con ráfagas, formas, velocidad, fuerzas,
 color, tamaño y giro durante la vida, ruido, colisiones, subemisores, hojas de textura, luces, rastros y cintas,
 con editores de curvas y degradados en el Inspector y vista previa en el visor.</li>
 <li><strong>13 preajustes</strong> en <strong>Entidad &gt; Efectos</strong>: fuego, humo, chispas, explosión, fogonazo, impacto de bala, sangre,
@@ -3347,12 +3341,11 @@ extensión de Nova en VS Code</strong>. Si VS Code estaba abierto, recarga su ve
 Lua en VS Code sin ella, el editor te la ofrece (una sola vez; nunca la instala sin preguntar).</li>
 <li><strong>Instala sola Luau Language Server (luau-lsp)</strong>, el que entiende el Luau de los scripts de Nova. VS Code lo
 descarga con la extensión (la primera vez hace falta Internet).</li>
-<li><strong>Se acabaron los errores falsos de las extensiones Lua (sumneko) y FiveLab Lua</strong>, que leían los scripts como Lua
-5.4: marcaban en rojo las anotaciones de tipo, <code>+=</code> o las if-expresiones, tachaban <code>math.atan2</code> y añadían nativas de
-FiveM que en Nova no existen. La extensión de Nova deja <code>*.luau</code> y <code>*.lua</code> como Luau en los ajustes del proyecto
+<li><strong>Se acabaron los errores falsos de otras extensiones Lua (como la de sumneko)</strong>, que leían los scripts como Lua
+5.4: marcaban en rojo las anotaciones de tipo, <code>+=</code> o las if-expresiones y tachaban <code>math.atan2</code>. La extensión de Nova deja <code>*.luau</code> y <code>*.lua</code> como Luau en los ajustes del proyecto
 (pasa a Luau los scripts que ya estaban abiertos como Lua) y te avisa si alguna de esas extensiones está activa, con
 un botón que te lleva a ella. Desactívala <strong>solo para el proyecto de Nova</strong> (rueda dentada &gt; <strong>Deshabilitar (área
-de trabajo)</strong>): sigue funcionando en tus proyectos de FiveM.</li>
+de trabajo)</strong>): sigue funcionando en tus otros proyectos.</li>
 <li><strong>Autocompletado y ayuda en español</strong> de toda la API al escribir y al pasar el ratón (<code>Input</code>, <code>Scene</code>,
 <code>Network</code>, <code>UI</code>, <code>Vec3</code>, los componentes y sus métodos, también los de tu DLL de C++).</li>
 <li><strong>Atributos</strong> (<code>--[Server]</code>, <code>--[Client]</code>, <code>--[Multicast]</code>, <code>--[Replicated]</code>, <code>--[Global]</code>, <code>--[Range(0, 100)]</code>...)
@@ -3497,7 +3490,7 @@ y para unirse por código, todos deben tener la 0.8.0.</p>
 todas formas).</p>
 </section><section class="version"><h2 id="v0-7-0">Nova Engine 0.7.0<a class="ancla" href="#v0-7-0" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Novedad: Nova Enlace, jugar y editar en equipo por Internet con un código</strong></p>
-<p>Como en Roblox: compartes un código como <code>NOVA-7K2F-Q9XM</code> y la otra persona entra desde su casa, <strong>sin abrir
+<p>Compartes un código como <code>NOVA-7K2F-Q9XM</code> y la otra persona entra desde su casa, <strong>sin abrir
 puertos en el router, sin VPN</strong> y aunque tu compañía de Internet use <strong>CG-NAT</strong> (cuando no se puede abrir ningún
 puerto). Los dos PC se conectan hacia fuera a un relé en Cloudflare, que pasa los paquetes de uno a otro.</p>
 <ul>
@@ -3615,7 +3608,7 @@ dormir y despertar cuerpos y mover cuerpos cinemáticos.</li>
 desde Lua.</li>
 <li><strong>Partidas guardadas</strong>: <code>PlayerPrefs</code> (opciones) y <code>SaveGame</code> (partidas), en la carpeta del juego.</li>
 <li><strong>Tablas replicadas</strong>: un campo <code>{}</code> con <code>--[Replicated]</code> se reparte a los jugadores enviando solo lo que cambia,
-y con la condición <strong>«Observers»</strong> solo a los jugadores que elijas (como los <em>state bags</em> de FiveM).
+y con la condición <strong>«Observers»</strong> solo a los jugadores que elijas.
 <code>OnReplicated</code> avisa una vez por actualización.</li>
 <li><strong>Escenas</strong>: <code>Scene.Load</code> y <code>Scene.Reload</code>; cámara lenta con <code>Time.timeScale</code>.</li>
 <li>Y más: <code>Random</code> con semilla (igual en todas las máquinas), <code>Mathf</code>, dibujo de depuración (<code>Debug.DrawLine</code>...),
@@ -3694,16 +3687,16 @@ equipo, todos deben tener la misma versión del motor.</p>
 todas formas).</p>
 </section><section class="version"><h2 id="v0-5-0">Nova Engine 0.5.0<a class="ancla" href="#v0-5-0" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Novedad: scripts en Lua (Luau)</strong></p>
-<p>Ahora la lógica de tus juegos se puede escribir en <strong>Lua</strong> (Luau, el Lua con tipos de Roblox). No hace falta
+<p>Ahora la lógica de tus juegos se puede escribir en <strong>Lua</strong> (Luau, el Lua con tipos). No hace falta
 Visual Studio ni compilar: guardas el script y el cambio se aplica al momento. Los scripts C++ siguen funcionando.</p>
 <ul>
-<li><strong>Un script para servidor y cliente</strong>, con atributos estilo Unity en comentarios:<ul>
+<li><strong>Un script para servidor y cliente</strong>, con atributos en comentarios:<ul>
 <li>Inspector: <code>--[Header]</code>, <code>--[Range]</code>, <code>--[Tooltip]</code>, <code>--[Hide]</code>, <code>--[Int]</code>...</li>
 <li>Red: <code>--[Replicated(onChange = &quot;Metodo&quot;)]</code> para campos que se sincronizan solos, y <code>--[Server]</code>, <code>--[Client]</code>
 y <code>--[Multicast]</code> para funciones que se ejecutan donde toca (con <code>reliable</code> y <code>rate</code>). Los tipos de los
 parámetros salen de las anotaciones de Luau y el servidor valida lo que llega.</li>
 <li><code>self:To(jugador)</code>, <code>source</code> (quién llamó) y scripts <code>--[Global]</code> para la lógica general (rondas, chat, tienda).</li>
-<li>Eventos al estilo FiveM como opción (<code>RegisterNetEvent</code>, <code>TriggerServerEvent</code>, <code>TriggerClientEvent</code>...),
+<li>Eventos con nombre como opción (<code>RegisterNetEvent</code>, <code>TriggerServerEvent</code>, <code>TriggerClientEvent</code>...),
 <code>SetTimeout</code>, <code>CreateThread</code> y <code>Wait</code>.</li>
 <li>Red desde Lua: <code>Spawn</code> con dueño, <code>Network.SetOwner</code>, <code>Network.Teleport</code>, empujar personajes
 (<code>CharacterController:Push</code>), llamadas al servidor con respuesta y crear o unirse a partidas para hacer menús.</li>
@@ -3719,7 +3712,7 @@ Un proyecto solo con Lua no necesita compilador en ningún PC.</li>
 consola, autocompletado en VS Code (luau-lsp) y «Publicar juego» con los scripts precompilados.</li>
 <li><strong>Plantillas nuevas en Nova Hub</strong>: «Vacío (Lua)» y «Ejemplo 3D (Lua)».</li>
 <li><strong>Ejemplo multijugador en Lua</strong>: «Rey de la arena» (empujones, rondas, chat y HUD con la interfaz del motor).</li>
-<li><strong>Guía</strong>: «Scripts en Lua» en la documentación (Nova Hub &gt; Aprender), con una sección «Si vienes de FiveM».</li>
+<li><strong>Guía</strong>: «Scripts en Lua» en la documentación (Nova Hub &gt; Aprender).</li>
 </ul>
 <p><strong>Actualizar</strong>: si ya tienes Nova Engine, Nova Hub te mostrará el aviso; pulsa <strong>Actualizar</strong>. Después, en los
 proyectos con scripts C++, pulsa <strong>Compilar scripts</strong> (Ctrl+B). Para trabajar en equipo, todos deben tener la misma
@@ -3728,8 +3721,7 @@ versión del motor.</p>
 todas formas).</p>
 </section><section class="version"><h2 id="v0-4-0">Nova Engine 0.4.0<a class="ancla" href="#v0-4-0" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Novedad: edición en equipo, también para la interfaz</strong></p>
-<p>Ahora varias personas pueden crear el mismo juego a la vez, cada una desde su Nova Editor, como en Roblox Studio
-con Team Create: los mapas y la interfaz (HUD, menús) se montan juntos y cada cambio aparece al instante en todos
+<p>Ahora varias personas pueden crear el mismo juego a la vez, cada una desde su Nova Editor: los mapas y la interfaz (HUD, menús) se montan juntos y cada cambio aparece al instante en todos
 los PC.</p>
 <ul>
 <li><strong>Crear o unirse a una sesión</strong> (menú <strong>Equipo</strong>): quien crea la sesión arranca el servidor del proyecto en su
@@ -3765,8 +3757,7 @@ casillas de la plantilla <strong>Inventario</strong> ya vienen listas para arras
 <p><strong>Arreglos</strong>:</p>
 <ul>
 <li>Unirse a una sesión con el PC muy cargado ya no falla con «No se pudo abrir la carpeta de trabajo».</li>
-<li><strong>Grupos de layout</strong>: los hijos que no caben ya no se salen; encogen entre su tamaño mínimo y el preferido, como
-en Unity. Nueva opción <strong>Mismo tamaño</strong> (los grupos nuevos de la paleta la traen puesta) y el inspector avisa si
+<li><strong>Grupos de layout</strong>: los hijos que no caben ya no se salen; encogen entre su tamaño mínimo y el preferido. Nueva opción <strong>Mismo tamaño</strong> (los grupos nuevos de la paleta la traen puesta) y el inspector avisa si
 algo no cabe.</li>
 <li><strong>Fuentes</strong>: una fuente que llega después del cambio que la usa (en equipo) o que se sustituye ya no deja el texto
 en Roboto hasta reiniciar el editor: cambia solo. Al unirte, las fuentes de hasta 8 MB llegan antes de abrir la
@@ -3790,8 +3781,7 @@ motor.</p>
 todas formas).</p>
 </section><section class="version"><h2 id="v0-3-0">Nova Engine 0.3.0<a class="ancla" href="#v0-3-0" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Novedad: creador visual de interfaz (UI)</strong></p>
-<p>Ahora la interfaz de tus juegos (HUD, menús, inventarios, marcadores) se crea <strong>visualmente dentro del editor</strong>,
-como el Canvas de Unity o UMG de Unreal. OnGUI (ImGui por código) sigue funcionando.</p>
+<p>Ahora la interfaz de tus juegos (HUD, menús, inventarios, marcadores) se crea <strong>visualmente dentro del editor</strong>. OnGUI (ImGui por código) sigue funcionando.</p>
 <ul>
 <li><strong>Panel «Interfaz»</strong> (junto a Escena y Juego, o en Ventana &gt; Interfaz): lienzo con zoom, resoluciones de vista
 previa (16:9, 21:9, 4:3, móvil...), DPI, imán, rejilla y guías; mover, redimensionar y girar con el ratón; pivote y

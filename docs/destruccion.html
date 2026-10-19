@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Destrucción de objetos · Nova Engine</title>
 <meta name="description" content="Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo, cajas que revientan y barriles
-que explotan: lo que en UE5 hace Chaos Destruction. Se hace en dos pasos:">
+que explotan. Se hace en dos pasos:">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#121318">
 <meta property="og:title" content="Destrucción de objetos · Nova Engine">
 <meta property="og:description" content="Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo, cajas que revientan y barriles
-que explotan: lo que en UE5 hace Chaos Destruction. Se hace en dos pasos:">
+que explotan. Se hace en dos pasos:">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/destruccion.html">
 <link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/destruccion.html">
@@ -27,10 +27,10 @@ que explotan: lo que en UE5 hace Chaos Destruction. Se hace en dos pasos:">
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="destrucción-de-objetos">Destrucción de objetos</h1>
 <details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-paso-a-paso-romper-una-puerta">1. Paso a paso: romper una puerta</a></li><li class="n2"><a href="#2-la-ventana-fracturar">2. La ventana Fracturar</a></li><li class="n3"><a href="#materiales-de-fuera-y-de-dentro">Materiales de fuera y de dentro</a></li><li class="n2"><a href="#3-el-componente-destructible">3. El componente Destructible</a></li><li class="n3"><a href="#casas-y-objetos-huecos">Casas y objetos huecos</a></li><li class="n2"><a href="#4-daño-golpes-disparos-y-explosiones">4. Daño: golpes, disparos y explosiones</a></li><li class="n2"><a href="#5-anclaje-y-conectividad">5. Anclaje y conectividad</a></li><li class="n2"><a href="#6-campos-de-destrucción">6. Campos de destrucción</a></li><li class="n2"><a href="#7-restos-dormir-desvanecer-y-el-límite-de-trozos">7. Restos: dormir, desvanecer y el límite de trozos</a></li><li class="n2"><a href="#8-efectos-y-eventos-en-lua">8. Efectos y eventos en Lua</a></li><li class="n2"><a href="#9-referencia-de-lua">9. Referencia de Lua</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#13-límites-conocidos">13. Límites conocidos</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Puertas que se astillan, cristales que estallan, paredes de ladrillo que se vienen abajo, cajas que revientan y barriles
-que explotan: lo que en UE5 hace <strong>Chaos Destruction</strong>. Se hace en dos pasos:</p>
+que explotan. Se hace en dos pasos:</p>
 <ol>
-<li>En el editor, <strong>Ventana &gt; Fracturar</strong> parte la malla de un objeto en trozos (como el <em>Fracture Mode</em> de UE5) y la guarda
-como un asset <strong>.destructible</strong> (la «Geometry Collection» de Chaos).</li>
+<li>En el editor, <strong>Ventana &gt; Fracturar</strong> parte la malla de un objeto en trozos y la guarda
+como un asset <strong>.destructible</strong>.</li>
 <li>El componente <strong>Destructible</strong> usa ese asset. Mientras está entero se dibuja como una malla normal. Cuando recibe daño, se
 rompe en trozos con físicas, y esos trozos pueden romperse a su vez en otros más pequeños. Los trozos sujetos (el marco
 de una puerta, la base de una pared) se quedan en su sitio, y el resto cae.</li>
@@ -169,7 +169,7 @@ los trozos quedan exactamente donde se veía la malla.</li>
 <ul>
 <li><strong>Semilla</strong>: la misma semilla da siempre los mismos trozos (en todas las máquinas).</li>
 <li><strong>Niveles</strong>: cada nivel parte los trozos del anterior. Al jugar, los trozos grandes se rompen primero y luego en otros más
-pequeños, como los clústeres de Chaos. Hay hasta 4 niveles y 4000 trozos en total.</li>
+pequeños. Hay hasta 4 niveles y 4000 trozos en total.</li>
 <li><strong>Caras interiores</strong>: los cortes se tapan con caras nuevas. Su material se elige en la <a href="#materiales-de-fuera-y-de-dentro">sección de materiales</a>.</li>
 <li>Todos los trozos son <strong>cerrados</strong> (sin agujeros: la prueba lo comprueba) y entre todos suman el volumen del original.</li>
 <li><strong>Guardar asset</strong> guarda el <code>.destructible</code> sin tocar la escena.</li>
@@ -560,8 +560,7 @@ punto como <code>Physics.Raycast</code>, así que vale igual: <code>if golpe and
 <p>Sin conectividad, los trozos solo caen cuando el daño los suelta. Un objeto <strong>Dinámico</strong> no tiene anclaje: al romperse,
 todos sus trozos siguen la física.</p>
 <h2 id="6-campos-de-destrucción">6. Campos de destrucción<a class="ancla" href="#6-campos-de-destrucción" aria-label="Enlace a esta sección">#</a></h2>
-<p>El componente <strong>Campo de destrucción</strong> (categoría <strong>Física</strong>) es una esfera que hace daño (el «strain» de los campos de
-Chaos) y empuja los trozos. Sirve para preparar zonas que se rompen con un evento: una pared que vuela en una cinemática, el
+<p>El componente <strong>Campo de destrucción</strong> (categoría <strong>Física</strong>) es una esfera que hace daño (el «strain») y empuja los trozos. Sirve para preparar zonas que se rompen con un evento: una pared que vuela en una cinemática, el
 techo que se cae.</p>
 <div class="tabla"><table>
 <thead>

@@ -43,7 +43,7 @@ Internet (van dentro del motor instalado) y están preparados para el multijugad
 </tr>
 <tr>
   <td><strong>Tercera persona (multijugador)</strong></td>
-  <td>El mismo personaje y movimiento con la cámara por encima del hombro, con colisión (no atraviesa paredes); el cuerpo se gira hacia donde andas</td>
+  <td>El mismo personaje y movimiento con la cámara por encima del hombro, con colisión (no atraviesa paredes); el cuerpo se gira hacia donde andas. Desde la 1.1.0, <strong>apunta con la parte de arriba</strong> (botón derecho o gatillo izquierdo) mientras las piernas siguen andando, y <strong>los pies se apoyan en escalones y rampas</strong> (IK de pies)</td>
 </tr>
 </tbody>
 </table></div>
@@ -166,6 +166,7 @@ jugador más. Los demás ven tu personaje animado igual que tú ves el suyo.</li
 <div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">assets/Nova/Personaje/                       núcleo común
   Maniqui.glb                                el personaje (Quaternius, CC0): malla completa, sin cabeza, solo brazos y 10 animaciones
   Personaje.controller                       quieto/andar/trotar/esprintar, agachado, salto, en el aire y aterrizar
+  Aim.anim                                   la pose de apuntar (Personaje 1.2.0; la usa Tercera persona)
   Mapa/                                      rejilla y materiales del mapa de prueba
 scripts/Nova/Personaje/
   PersonajeRed.luau                          el personaje: controles, movimiento, red y animación
@@ -174,9 +175,11 @@ scripts/Nova/Personaje/
 assets/Nova/PrimeraPersona/                  (o TerceraPersona/)
   JugadorPrimeraPersona.prefab               el prefab del jugador
   BrazosPrimeraPersona.prefab                los brazos de primera persona (solo Primera persona, 1.1.0)
+  TerceraPersona.controller                  capa Aim e IK de pies (solo Tercera persona, 1.1.0)
   PruebaPrimeraPersona.scene                 la escena de prueba
 scripts/Nova/PrimeraPersona/
   CamaraPrimeraPersona.luau                  (o scripts/Nova/TerceraPersona/CamaraTerceraPersona.luau)
+  AimThirdPerson.luau                        (solo Tercera persona, 1.1.0: apuntar con la parte de arriba)
   BrazosFP.luau                              cómo se mueven los brazos (solo Primera persona, 1.1.0)
 paquetes.json                                lo instalado: versión y huella de cada fichero</code></pre></div>
 <p>El <strong>prefab del jugador</strong> (<code>Jugador</code>):</p>
@@ -461,6 +464,16 @@ y <code>CamaraPrimeraPersona.luau</code>. Si habías cambiado alguno de esos dos
 <code>.nuevo</code>: sin la cámara nueva no salen los brazos (verás solo la sombra de tu cuerpo; pon <strong>Vista en primera persona =
 Cuerpo completo</strong> si quieres seguir como antes, o pasa tus cambios al <code>.nuevo</code>). El prefab del jugador y la escena de
 prueba no cambian. <strong>Tercera persona</strong> se queda en la 1.0.0 (solo cambia su núcleo).</p>
+<p><strong>Tercera persona 1.1.0 y Personaje 1.2.0 (motor 0.9.37: capas y IK de pies)</strong>: <strong>Actualizar</strong> en <strong>Tercera persona</strong>
+trae su propio controlador, <code>Nova/TerceraPersona/TerceraPersona.controller</code> (el de Personaje con la capa <strong>Aim</strong> de la
+parte de arriba y el <strong>IK de pies</strong>, solo en el suelo), el script <code>AimThirdPerson.luau</code> (el botón derecho o el gatillo
+izquierdo suben el peso de la capa con <code>SetLayerWeight(&quot;Aim&quot;, ...)</code>; lo lleva a los demás el Animador de red) y el
+prefab del jugador con los dos. El núcleo (Personaje 1.2.0) trae la pose <code>Aim.anim</code> (los brazos delante del pecho) y el
+<code>.meta</code> de <code>Maniqui.glb</code> que la añade al maniquí. <strong>Compatibilidad</strong>: <code>Personaje.controller</code> no cambia, así que
+<strong>Primera persona</strong> y tus propios prefabs con ese controlador siguen igual; si habías cambiado el prefab de tercera
+persona, el tuyo se queda (con <code>Personaje.controller</code>, sin apuntar ni IK de pies) y el nuevo va a su <code>.nuevo</code>. Los
+proyectos con un motor anterior a la 0.9.37 no deben instalar estas versiones: sus controladores ignoran <code>&quot;ikPies&quot;</code> y
+la capa se vería pero sin pesos por rama.</p>
 <h2 id="8-animación-en-red-para-cualquier-juego">8. Animación en red para cualquier juego<a class="ancla" href="#8-animación-en-red-para-cualquier-juego" aria-label="Enlace a esta sección">#</a></h2>
 <p>Lo que usan los paquetes sirve para cualquier personaje (0.9.16):</p>
 <ul>

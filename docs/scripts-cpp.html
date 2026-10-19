@@ -78,7 +78,7 @@ multijugador en C++.</p>
 </ol>
 <h2 id="cómo-funcionan-los-scripts">Cómo funcionan los scripts<a class="ancla" href="#cómo-funcionan-los-scripts" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
-<li>Un script es una clase derivada de <code>nova::Behaviour</code> (estilo <code>MonoBehaviour</code> de Unity).</li>
+<li>Un script es una clase derivada de <code>nova::Behaviour</code>.</li>
 <li>Los scripts del juego se compilan en una <strong>DLL</strong> (por ejemplo <code>sample_game.dll</code>) que enlaza la librería del
 motor <code>nova_engine</code>.</li>
 <li>El editor y <code>NovaGame.exe</code> cargan esa DLL y le pasan su contexto del motor (ver
@@ -1599,8 +1599,7 @@ tutorial, Beto ve siempre las cargas de Ana con el valor del prefab (3): no uses
 <p><strong>OnRep.</strong> <code>.OnRep(&amp;Clase::Metodo)</code> llama a un método sin argumentos (del mismo componente o script) cuando
 llega un valor nuevo:</p>
 <ul>
-<li>solo en los <strong>clientes</strong>: el servidor (y el anfitrión, que es servidor) no lo recibe, como en Unreal,
-porque el valor nace ahí. Si el anfitrión necesita el mismo efecto, llama al método a mano tras cambiar el
+<li>solo en los <strong>clientes</strong>: el servidor (y el anfitrión, que es servidor) no lo recibe, porque el valor nace ahí. Si el anfitrión necesita el mismo efecto, llama al método a mano tras cambiar el
 valor (como <code>SumarPuntos</code> en el tutorial);</li>
 <li>también con los <strong>valores iniciales</strong>: al aparecer la entidad en un cliente se llama para cada campo cuyo
 valor recibido es distinto del local (el del prefab o la escena). <code>OnNetworkSpawn()</code> llega antes, con todos

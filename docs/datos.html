@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Datos de juego: structs, listas, Data Assets, tablas, enums y curvas · Nova Engine</title>
 <meta name="description" content="Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
-escritos dentro del código. Nova Engine tiene las mismas herramientas que Unity y Unreal Engine 5 para">
+escritos dentro del código. Nova Engine tiene herramientas para separarlos,
+todas declaradas en Lua y ">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#121318">
 <meta property="og:title" content="Datos de juego: structs, listas, Data Assets, tablas, enums y curvas · Nova Engine">
 <meta property="og:description" content="Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
-escritos dentro del código. Nova Engine tiene las mismas herramientas que Unity y Unreal Engine 5 para">
+escritos dentro del código. Nova Engine tiene herramientas para separarlos,
+todas declaradas en Lua y ">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/datos.html">
 <link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/datos.html">
@@ -27,53 +29,39 @@ escritos dentro del código. Nova Engine tiene las mismas herramientas que Unity
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="datos-de-juego-structs-listas-data-assets-tablas-enums-y-curvas">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</h1>
 <details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos</a></li><li class="n3"><a href="#1-el-tipo-de-datos-struct">1. El tipo de datos: Struct</a></li><li class="n3"><a href="#2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector</a></li><li class="n3"><a href="#3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto</a></li><li class="n3"><a href="#4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)</a></li><li class="n3"><a href="#5-un-enum-compartido">5. Un enum compartido</a></li><li class="n3"><a href="#6-curvas">6. Curvas</a></li><li class="n3"><a href="#7-todo-junto">7. Todo junto</a></li><li class="n2"><a href="#valores-en-lua-copias">Valores en Lua: copias</a></li><li class="n2"><a href="#multijugador">Multijugador</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#ficheros">Ficheros</a></li><li class="n2"><a href="#avisos-y-límites">Avisos y límites</a></li></ul></details><p>Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
-escritos dentro del código. Nova Engine tiene las mismas herramientas que Unity y Unreal Engine 5 para separarlos,
+escritos dentro del código. Nova Engine tiene herramientas para separarlos,
 todas declaradas en Lua y editables en el editor:</p>
 <div class="tabla"><table>
 <thead>
 <tr>
   <th>En Nova</th>
   <th>Para qué</th>
-  <th>En Unity</th>
-  <th>En UE5</th>
 </tr>
 </thead>
 <tbody>
 <tr>
   <td><code>Struct({...})</code></td>
   <td>un tipo de datos con sus campos (nombre, precio, peso, icono...)</td>
-  <td>clase <code>[Serializable]</code></td>
-  <td><code>USTRUCT</code></td>
 </tr>
 <tr>
   <td><code>List(...)</code>, <code>Dict(...)</code></td>
   <td>listas y diccionarios en el Inspector</td>
-  <td><code>List&lt;T&gt;</code></td>
-  <td><code>TArray</code>, <code>TMap</code></td>
 </tr>
 <tr>
   <td><strong>Data Asset</strong> (<code>.datos</code>)</td>
   <td>un asset con los valores de un struct: <code>Lingote.datos</code></td>
-  <td><code>ScriptableObject</code></td>
-  <td>Data Asset</td>
 </tr>
 <tr>
   <td><strong>Data Table</strong> (<code>.tabla</code>)</td>
   <td>filas de un struct, como una hoja de cálculo, con CSV</td>
-  <td>—</td>
-  <td>Data Table</td>
 </tr>
 <tr>
   <td><strong>Enum</strong> (<code>.enum</code>)</td>
   <td>una lista de valores con nombre que comparten varios scripts</td>
-  <td><code>enum</code></td>
-  <td><code>UENUM</code></td>
 </tr>
 <tr>
   <td><strong>Curva</strong> (<code>.curva</code>, <code>Curve()</code>)</td>
   <td>una función y = f(x) dibujada con puntos</td>
-  <td><code>AnimationCurve</code></td>
-  <td>Curve Float</td>
 </tr>
 </tbody>
 </table></div>

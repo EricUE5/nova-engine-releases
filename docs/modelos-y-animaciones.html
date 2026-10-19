@@ -26,7 +26,7 @@ Mixamo, cómo importarlos y colocarlos en una escena, cómo configurar el compon
 <nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo" open><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html" aria-current="page">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="modelos-y-animaciones">Modelos y animaciones</h1>
-<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#formatos">Formatos</a></li><li class="n3"><a href="#qué-se-importa">Qué se importa</a></li><li class="n2"><a href="#exportar-desde-blender">Exportar desde Blender</a></li><li class="n3"><a href="#antes-de-exportar">Antes de exportar</a></li><li class="n3"><a href="#opciones-recomendadas-fbx">Opciones recomendadas: FBX</a></li><li class="n3"><a href="#opciones-recomendadas-glb">Opciones recomendadas: GLB</a></li><li class="n3"><a href="#si-aun-así-sale-girado">Si aun así sale girado</a></li><li class="n3"><a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a></li><li class="n2"><a href="#personajes-de-mixamo">Personajes de Mixamo</a></li><li class="n2"><a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a></li><li class="n3"><a href="#paso-a-paso-con-mixamo">Paso a paso con Mixamo</a></li><li class="n3"><a href="#automático-por-nombre-o-reorientado-y-hornear">Automático, por nombre o reorientado, y «Hornear»</a></li><li class="n3"><a href="#la-sección-humanoide">La sección Humanoide</a></li><li class="n3"><a href="#huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano en los scripts</a></li><li class="n3"><a href="#en-el-meta">En el .meta</a></li><li class="n3"><a href="#si-algo-sale-raro">Si algo sale raro</a></li><li class="n2"><a href="#importar-en-nova">Importar en Nova</a></li><li class="n3"><a href="#opciones-de-importación-fbx-obj-y-gltf">Opciones de importación (FBX, OBJ y glTF)</a></li><li class="n3"><a href="#qué-fbx-funcionan">Qué FBX funcionan</a></li><li class="n3"><a href="#ajustes-de-importación-eventos-de-los-clips-y-sockets">Ajustes de importación: eventos de los clips y sockets</a></li><li class="n2"><a href="#colocar-un-modelo-en-la-escena">Colocar un modelo en la escena</a></li><li class="n3"><a href="#escala">Escala</a></li><li class="n2"><a href="#el-componente-animator">El componente Animator</a></li><li class="n3"><a href="#sin-controlador-un-clip">Sin controlador: un clip</a></li><li class="n3"><a href="#con-controlador-máquina-de-estados">Con controlador: máquina de estados</a></li><li class="n2"><a href="#controlar-el-animator-desde-un-script">Controlar el Animator desde un script</a></li><li class="n2"><a href="#capas-y-máscaras">Capas y máscaras</a></li><li class="n2"><a href="#árboles-de-mezcla-2d">Árboles de mezcla 2D</a></li><li class="n2"><a href="#enganchar-objetos-a-huesos">Enganchar objetos a huesos</a></li><li class="n2"><a href="#sockets">Sockets</a></li><li class="n3"><a href="#la-pestaña-sockets">La pestaña Sockets</a></li><li class="n3"><a href="#paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma">Paso a paso: equipar un arma en la mano con un socket «Arma»</a></li><li class="n2"><a href="#cinemática-inversa-ik">Cinemática inversa (IK)</a></li><li class="n2"><a href="#root-motion">Root motion</a></li><li class="n2"><a href="#eventos-de-animación">Eventos de animación</a></li><li class="n2"><a href="#animación-en-red">Animación en red</a></li><li class="n2"><a href="#el-editor-de-animación">El editor de animación</a></li><li class="n2"><a href="#receta-shooter-en-tercera-persona">Receta: shooter en tercera persona</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Este documento explica qué modelos 3D admite Nova Engine (glTF, <strong>FBX</strong> y OBJ), cómo exportarlos desde Blender y
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#formatos">Formatos</a></li><li class="n3"><a href="#qué-se-importa">Qué se importa</a></li><li class="n2"><a href="#exportar-desde-blender">Exportar desde Blender</a></li><li class="n3"><a href="#antes-de-exportar">Antes de exportar</a></li><li class="n3"><a href="#opciones-recomendadas-fbx">Opciones recomendadas: FBX</a></li><li class="n3"><a href="#opciones-recomendadas-glb">Opciones recomendadas: GLB</a></li><li class="n3"><a href="#si-aun-así-sale-girado">Si aun así sale girado</a></li><li class="n3"><a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a></li><li class="n2"><a href="#personajes-de-mixamo">Personajes de Mixamo</a></li><li class="n2"><a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a></li><li class="n3"><a href="#paso-a-paso-con-mixamo">Paso a paso con Mixamo</a></li><li class="n3"><a href="#automático-por-nombre-o-reorientado-y-hornear">Automático, por nombre o reorientado, y «Hornear»</a></li><li class="n3"><a href="#la-sección-humanoide">La sección Humanoide</a></li><li class="n3"><a href="#huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano en los scripts</a></li><li class="n3"><a href="#en-el-meta">En el .meta</a></li><li class="n3"><a href="#si-algo-sale-raro">Si algo sale raro</a></li><li class="n2"><a href="#importar-en-nova">Importar en Nova</a></li><li class="n3"><a href="#opciones-de-importación-fbx-obj-y-gltf">Opciones de importación (FBX, OBJ y glTF)</a></li><li class="n3"><a href="#qué-fbx-funcionan">Qué FBX funcionan</a></li><li class="n3"><a href="#ajustes-de-importación-eventos-de-los-clips-y-sockets">Ajustes de importación: eventos de los clips y sockets</a></li><li class="n2"><a href="#colocar-un-modelo-en-la-escena">Colocar un modelo en la escena</a></li><li class="n3"><a href="#escala">Escala</a></li><li class="n2"><a href="#el-componente-animator">El componente Animator</a></li><li class="n3"><a href="#sin-controlador-un-clip">Sin controlador: un clip</a></li><li class="n3"><a href="#con-controlador-máquina-de-estados">Con controlador: máquina de estados</a></li><li class="n2"><a href="#controlar-el-animator-desde-un-script">Controlar el Animator desde un script</a></li><li class="n2"><a href="#capas-y-máscaras">Capas y máscaras</a></li><li class="n2"><a href="#árboles-de-mezcla-2d">Árboles de mezcla 2D</a></li><li class="n2"><a href="#capas-aim-offset-ik-de-pies-y-blend-spaces-0937">Capas: aim offset, IK de pies y blend spaces (0.9.37)</a></li><li class="n3"><a href="#parte-de-arriba-y-parte-de-abajo">Parte de arriba y parte de abajo</a></li><li class="n3"><a href="#aim-offset-apuntar-arriba-abajo-y-a-los-lados">Aim offset: apuntar arriba, abajo y a los lados</a></li><li class="n3"><a href="#blend-spaces-2d-triangulado-ejes-y-rejilla">Blend spaces 2D: triangulado, ejes y rejilla</a></li><li class="n3"><a href="#ik-de-pies">IK de pies</a></li><li class="n3"><a href="#ik-de-manos-la-izquierda-sobre-el-arma">IK de manos: la izquierda sobre el arma</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n3"><a href="#api-de-lua-0937">API de Lua (0.9.37)</a></li><li class="n2"><a href="#enganchar-objetos-a-huesos">Enganchar objetos a huesos</a></li><li class="n2"><a href="#sockets">Sockets</a></li><li class="n3"><a href="#la-pestaña-sockets">La pestaña Sockets</a></li><li class="n3"><a href="#paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma">Paso a paso: equipar un arma en la mano con un socket «Arma»</a></li><li class="n2"><a href="#cinemática-inversa-ik">Cinemática inversa (IK)</a></li><li class="n2"><a href="#root-motion">Root motion</a></li><li class="n2"><a href="#eventos-de-animación">Eventos de animación</a></li><li class="n2"><a href="#animación-en-red">Animación en red</a></li><li class="n2"><a href="#el-editor-de-animación">El editor de animación</a></li><li class="n2"><a href="#receta-shooter-en-tercera-persona">Receta: shooter en tercera persona</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Este documento explica qué modelos 3D admite Nova Engine (glTF, <strong>FBX</strong> y OBJ), cómo exportarlos desde Blender y
 Mixamo, cómo importarlos y colocarlos en una escena, cómo configurar el componente Animador con o sin controlador de
 animación y cómo controlarlo desde un script.</p>
 <p>Desde la 0.9.0 también: <strong>capas con máscara de huesos</strong> (apuntar con el torso mientras las piernas andan),
@@ -40,13 +40,17 @@ pose A en vez de pose T. Ver <a href="#animaciones-de-otros-personajes-retargeti
 <p>Desde la 0.9.17, <strong>las animaciones se pueden crear en el propio editor</strong>: la ventana <strong>Animar huesos</strong> pone el personaje
 en un visor propio para girar y mover sus huesos (con IK para posar), grabar claves por hueso y poner eventos, también en
 los clips importados. Ver <a href="animar-huesos.html">animar-huesos.md</a>.</p>
-<p>Desde la 0.9.24, <strong>sockets como en UE5</strong>: la pestaña <strong>Sockets</strong> del espacio Animación enseña todos los huesos del modelo
+<p>Desde la 0.9.24, <strong>sockets</strong>: la pestaña <strong>Sockets</strong> del espacio Animación enseña todos los huesos del modelo
 y les añades puntos con nombre («Arma» en la mano, «Sombrero» en la cabeza) que colocas con el gizmo, con objetos de
 vista previa y el personaje animado. En Lua, <code>arma:AttachTo(personaje, &quot;Arma&quot;)</code> la equipa. Ver <a href="#sockets">Sockets</a>.</p>
+<p>Desde la 0.9.37, <strong>capas de animación avanzadas</strong>: máscaras con pesos por rama (la parte de arriba
+dispara mientras las piernas corren), <strong>aim offsets</strong> (aditivas en el espacio del modelo), <strong>blend spaces 2D
+triangulados</strong> con ejes y rejilla, <strong>IK de pies</strong> sobre escalones y rampas e IK de manos a un socket del arma. Ver
+<a href="#capas-aim-offset-ik-de-pies-y-blend-spaces-0937">Capas</a>.</p>
 <h2 id="formatos">Formatos<a class="ancla" href="#formatos" aria-label="Enlace a esta sección">#</a></h2>
 <p>Nova importa:</p>
 <ul>
-<li><strong>FBX</strong> (<code>.fbx</code>, desde la 0.9.5): binario o de texto, de Blender, Mixamo, Maya, 3ds Max, Unity, Cinema 4D...
+<li><strong>FBX</strong> (<code>.fbx</code>, desde la 0.9.5): binario o de texto, de Blender, Mixamo, Maya, 3ds Max, Cinema 4D...
 Con las texturas embebidas o en ficheros aparte. Es lo más cómodo si tus modelos vienen de Mixamo o de una
 tienda de assets: no hace falta pasar por Blender.</li>
 <li><strong>GLB</strong> (<code>.glb</code>): un solo fichero binario glTF 2.0 con las texturas embebidas. Es el formato más ligero de
@@ -138,7 +142,7 @@ materiales, huesos y clips en el Animador, el Inspector y las físicas.</p>
 </tr>
 <tr>
   <td>Unidades y ejes</td>
-  <td>Todo se pasa a metros con Y arriba, sea cual sea el programa: centímetros de Maya, Mixamo y 3ds Max, Z arriba de 3ds Max o Blender. En un fichero con Z arriba el giro queda en la entidad de la malla (como en Unity)</td>
+  <td>Todo se pasa a metros con Y arriba, sea cual sea el programa: centímetros de Maya, Mixamo y 3ds Max, Z arriba de 3ds Max o Blender. En un fichero con Z arriba el giro queda en la entidad de la malla</td>
 </tr>
 <tr>
   <td>Materiales</td>
@@ -162,7 +166,7 @@ materiales, huesos y clips en el Animador, el Inspector y las físicas.</p>
 por malla (se usa la primera, con aviso). De un OBJ no hay huesos ni animaciones (el formato no los tiene).</p>
 <h2 id="exportar-desde-blender">Exportar desde Blender<a class="ancla" href="#exportar-desde-blender" aria-label="Enlace a esta sección">#</a></h2>
 <p>Desde la 0.9.33 un modelo exportado de Blender con las opciones <strong>por defecto</strong> sale en Nova <strong>de pie, mirando
-hacia donde miraba y a su tamaño</strong>, igual que en Blender y en Unity, tanto en FBX como en GLB. No hace falta
+hacia donde miraba y a su tamaño</strong>, igual que en Blender, tanto en FBX como en GLB. No hace falta
 aplicar transformaciones ni girar nada a mano.</p>
 <p><strong>Cómo se pasan los ejes.</strong> Blender trabaja con <strong>Z arriba</strong> y el &quot;frente&quot; de un modelo es <strong>-Y</strong>; Nova, como glTF,
 usa <strong>Y arriba</strong> y el frente es <strong>+Z</strong>. Un punto (x, y, z) de Blender es (x, z, -y) en Nova:</p>
@@ -207,7 +211,7 @@ aplicar, sin ese giro). Ver <a href="#modelos-importados-antes-de-la-0933">Model
 <li>No hace falta aplicar las transformaciones (<strong>Ctrl+A</strong>): el giro y la escala de los objetos se respetan. Aplicarlas
 sigue siendo buena idea en personajes con esqueleto (escala 1 en el esqueleto y en la malla).</li>
 <li>El <strong>origen</strong> del objeto es el punto por el que se coloca el modelo en Nova. En un modelo de una sola malla, la
-posición del objeto en Blender no cuenta (el modelo va donde lo sueltas, como en Unity); en uno de varias mallas se
+posición del objeto en Blender no cuenta (el modelo va donde lo sueltas); en uno de varias mallas se
 conserva dónde está cada pieza.</li>
 <li>Si el modelo tiene esqueleto, comprueba que cada vértice tenga como mucho 4 huesos con peso (el exportador lo limita
 por defecto).</li>
@@ -253,7 +257,7 @@ acción es el nombre del clip (<code>Andar</code>, <code>Correr</code>, <code>Sa
 <tr>
   <td><strong>Forward</strong> / <strong>Up</strong></td>
   <td><strong>-Z Forward</strong>, <strong>Y Up</strong> (por defecto)</td>
-  <td>Cualquier otra pareja también sale bien si es la del fichero; estos son los de Unity</td>
+  <td>Cualquier otra pareja también sale bien si es la del fichero</td>
 </tr>
 <tr>
   <td><strong>Apply Unit</strong></td>
@@ -349,8 +353,8 @@ animaciones sin malla también se pasan a metros, por eso encajan aunque una ven
 cabeza, hombros, brazos, antebrazos, manos, dedos, muslos, piernas, pies y dedos de los pies, aunque se llamen
 distinto en cada programa. Con el avatar, una animación de <strong>cualquier humanoide</strong> se adapta a otro:</p>
 <ul>
-<li>Los huesos se emparejan por lo que son, no por su nombre: <code>mixamorig:LeftArm</code> (Mixamo), <code>upperarm_l</code> (Unreal),
-<code>DEF-upper_arm.L</code> (Blender/Rigify), <code>LeftUpperArm</code> (Unity), <code>Bip01 L UpperArm</code> (3ds Max) o <code>Brazo_I</code>.</li>
+<li>Los huesos se emparejan por lo que son, no por su nombre: <code>mixamorig:LeftArm</code> (Mixamo),
+<code>DEF-upper_arm.L</code> (Blender/Rigify), <code>Bip01 L UpperArm</code> (3ds Max) o <code>Brazo_I</code>.</li>
 <li>Las <strong>proporciones</strong> se adaptan: un personaje más bajo mueve las caderas y da pasos más cortos en proporción a
 su altura (también el <a href="#root-motion">root motion</a>), y los <strong>pies</strong> van a su altura: no se hunden en el suelo ni
 flotan aunque las piernas sean más largas o más cortas.</li>
@@ -433,7 +437,7 @@ que usan sus clips se recalculan solos.</p>
 <code>BoneAttachment.Attach</code>, el campo <strong>Hueso</strong> de un enganche, los huesos de una máscara...) acepta también el nombre
 del hueso humano, en español o en inglés: <code>&quot;ManoDerecha&quot;</code> o <code>&quot;RightHand&quot;</code>, <code>&quot;Cabeza&quot;</code> o <code>&quot;Head&quot;</code>, <code>&quot;MusloIzquierdo&quot;</code>
 o <code>&quot;LeftUpperLeg&quot;</code>. Así el mismo script sirve para cualquier personaje:</p>
-<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Engancha el arma a la mano derecha de cualquier humanoide (Mixamo, Unreal, Blender o huesos en español)</span>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Engancha el arma a la mano derecha de cualquier humanoide (Mixamo, Blender o huesos en español)</span>
 <span class="hl-k">local</span> <span class="hl-t">ArmaEnLaMano</span> = <span class="hl-f">Script</span>()
 
 <span class="hl-t">ArmaEnLaMano</span>.arma = <span class="hl-f">Entity</span>()
@@ -503,7 +507,7 @@ o de ayuda como <code>upperarm_twist</code> no debe hacer de brazo).</li>
 <li><strong>El personaje sale torcido</strong> con las animaciones de otro: prueba la <strong>Pose de referencia</strong> «La de reposo del
 modelo» en los dos modelos, o descarga la animación de Mixamo <strong>With Skin</strong>.</li>
 <li><strong>Los pies resbalan o se doblan las rodillas</strong>: desactiva <strong>IK de pies</strong> para ver la animación tal cual.</li>
-<li><strong>El root motion no avanza</strong> en un esqueleto con un hueso raíz por encima de las caderas (Unreal: <code>root</code>): pon
+<li><strong>El root motion no avanza</strong> en un esqueleto con un hueso raíz por encima de las caderas (por ejemplo <code>root</code>): pon
 las caderas (<code>pelvis</code>) en <strong>Hueso raíz</strong> del Animador.</li>
 </ul>
 <h2 id="importar-en-nova">Importar en Nova<a class="ancla" href="#importar-en-nova" aria-label="Enlace a esta sección">#</a></h2>
@@ -604,7 +608,7 @@ está, es un <code>.meta</code> antiguo (ver <a href="#modelos-importados-antes-
 <h3 id="qué-fbx-funcionan">Qué FBX funcionan<a class="ancla" href="#qué-fbx-funcionan" aria-label="Enlace a esta sección">#</a></h3>
 <ul>
 <li><strong>Mixamo</strong> (With Skin y Without Skin), <strong>Blender</strong> (con o sin <em>Apply Transform</em>), <strong>Maya</strong>, <strong>3ds Max</strong>,
-<strong>Unity</strong> (FBX Exporter), <strong>Cinema 4D</strong>, <strong>Unreal</strong>: FBX 6.1 a 7.7, binarios o de texto. Si un fichero no se
+<strong>Cinema 4D</strong>: FBX 6.1 a 7.7, binarios o de texto. Si un fichero no se
 puede leer, la consola y el Inspector dicen por qué.</li>
 <li>Se usan los <strong>4 huesos de más peso</strong> de cada vértice (los pesos se reparten entre esos 4).</li>
 <li>Las animaciones con curvas (Bézier, escalones) se muestrean a 30 fotogramas por segundo y se guardan como claves
@@ -806,6 +810,10 @@ correr según <code>velocidad</code>, y un salto con un disparador):</p>
   <td>Lista de estados</td>
 </tr>
 <tr>
+  <td><code>ikPies</code></td>
+  <td>IK de pies (0.9.37): ver <a href="#ik-de-pies">IK de pies</a>. Sin esta clave, apagado</td>
+</tr>
+<tr>
   <td><code>transiciones</code></td>
   <td>Lista de transiciones</td>
 </tr>
@@ -963,6 +971,11 @@ correr según <code>velocidad</code>, y un salto con un disparador):</p>
   <td>Muestras en cualquier sitio, cuando los parámetros no son una dirección: bandas de gradiente</td>
 </tr>
 <tr>
+  <td><code>2D triangulado</code></td>
+  <td><code>parametro</code>, <code>parametroY</code></td>
+  <td>Triángulos de Delaunay entre las muestras y coordenadas baricéntricas (0.9.37). Con <code>&quot;ejes&quot;</code> (opcional, en cualquier árbol): rango y rejilla</td>
+</tr>
+<tr>
   <td><code>Directo</code></td>
   <td><code>parametroDirecto</code> de cada hijo</td>
   <td>Cada hijo pesa lo que vale su parámetro; si suman menos de 1, el resto es la pose de reposo</td>
@@ -1089,7 +1102,7 @@ distinto, y la velocidad del estado es la media de las de sus clips según su pe
 <tr>
   <td><code>mascara</code></td>
   <td></td>
-  <td>Huesos que toca: en línea <code>{&quot;porDefecto&quot;: false, &quot;huesos&quot;: {&quot;Spine&quot;: true}}</code> o un asset <code>{&quot;asset&quot;: &quot;&lt;uuid&gt;&quot;, &quot;ruta&quot;: &quot;mascaras/Torso.mask&quot;}</code>. Sin máscara, todo el esqueleto</td>
+  <td>Huesos que toca: en línea <code>{&quot;porDefecto&quot;: false, &quot;huesos&quot;: {&quot;Spine&quot;: true}}</code> o un asset <code>{&quot;asset&quot;: &quot;&lt;uuid&gt;&quot;, &quot;ruta&quot;: &quot;mascaras/Torso.mask&quot;}</code>. Sin máscara, todo el esqueleto. Con <code>&quot;pesos&quot;: {&quot;Spine&quot;: 0.3}</code> (0.9.37), peso por rama</td>
 </tr>
 <tr>
   <td><code>estadoInicial</code>, <code>estados</code>, <code>transiciones</code></td>
@@ -1105,6 +1118,16 @@ distinto, y la velocidad del estado es la media de las de sus clips según su pe
   <td><code>clipReferencia</code>, <code>tiempoReferencia</code></td>
   <td></td>
   <td>Capa aditiva: pose de referencia (por defecto, el primer fotograma de cada clip de la capa)</td>
+</tr>
+<tr>
+  <td><code>espacioAditivo</code></td>
+  <td><code>&quot;local&quot;</code></td>
+  <td>Capa aditiva (0.9.37): <code>&quot;modelo&quot;</code> suma los giros en el espacio del personaje (aim offsets)</td>
+</tr>
+<tr>
+  <td><code>ikPies</code></td>
+  <td><code>true</code></td>
+  <td><code>false</code>: la capa apaga el IK de pies mientras pesa (0.9.37)</td>
 </tr>
 </tbody>
 </table></div>
@@ -1358,7 +1381,7 @@ de cojear.</li>
 <li><strong>2D simple direccional</strong>: una muestra por dirección (más la del centro). Para andar en 4 u 8 direcciones a una
 sola velocidad.</li>
 <li><strong>2D libre direccional</strong>: varias muestras en la misma dirección (andar y correr). Mezcla por ángulo y por
-distancia al centro (bandas de gradiente polares, como Unity): en cada muestra pesa solo ella, los pesos suman 1
+distancia al centro (bandas de gradiente polares): en cada muestra pesa solo ella, los pesos suman 1
 y cambian sin saltos.</li>
 <li><strong>2D libre cartesiano</strong>: cuando los parámetros no son una dirección (por ejemplo, giro e inclinación).</li>
 <li><strong>Directo</strong>: cada hijo pesa lo que vale su parámetro, sin normalizar (caras, capas aditivas de varias poses).</li>
@@ -1386,6 +1409,247 @@ mueves una muestra o, en el vacío, los parámetros de la vista previa para ver 
 <span class="hl-k">end</span>
 
 <span class="hl-k">return</span> <span class="hl-t">Locomocion8</span></code></pre></div>
+<h2 id="capas-aim-offset-ik-de-pies-y-blend-spaces-0937">Capas: aim offset, IK de pies y blend spaces (0.9.37)<a class="ancla" href="#capas-aim-offset-ik-de-pies-y-blend-spaces-0937" aria-label="Enlace a esta sección">#</a></h2>
+<p>Desde la 0.9.37 el controlador mezcla animaciones por capas sin programar nada: capas con
+máscaras <strong>con pesos</strong>, <strong>aim offsets</strong> (aditivas en el espacio del modelo), <strong>blend spaces 2D triangulados</strong> con ejes y
+rejilla, <strong>IK de pies</strong> sobre escalones y rampas e IK de manos a un socket. Los controladores de antes se cargan igual:
+sin las claves nuevas todo funciona como en la 0.9.36.</p>
+<h3 id="parte-de-arriba-y-parte-de-abajo">Parte de arriba y parte de abajo<a class="ancla" href="#parte-de-arriba-y-parte-de-abajo" aria-label="Enlace a esta sección">#</a></h3>
+<p>El caso típico: las piernas corren con la base y el torso dispara o recarga con una capa de <strong>sustituir</strong> cuya máscara
+va de la columna hacia arriba. Desde la 0.9.37 la máscara puede tener <strong>pesos por rama</strong> (<code>&quot;pesos&quot;</code>), para que la capa
+entre poco a poco por la columna y la cadera no gire de golpe:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"capas"</span>: [ { <span class="hl-k">"nombre"</span>: <span class="hl-s">"UpperBody"</span>, <span class="hl-k">"modo"</span>: <span class="hl-s">"sustituir"</span>, <span class="hl-k">"peso"</span>: <span class="hl-n">0</span>,
+             <span class="hl-k">"mascara"</span>: { <span class="hl-k">"porDefecto"</span>: <span class="hl-b">false</span>, <span class="hl-k">"huesos"</span>: { <span class="hl-k">"Spine"</span>: <span class="hl-b">true</span> },
+                          <span class="hl-k">"pesos"</span>: { <span class="hl-k">"Spine"</span>: <span class="hl-n">0.3</span>, <span class="hl-k">"Spine1"</span>: <span class="hl-n">0.6</span>, <span class="hl-k">"Spine2"</span>: <span class="hl-n">1</span> } },
+             <span class="hl-k">"estados"</span>: [ { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Reload"</span>, <span class="hl-k">"clip"</span>: <span class="hl-s">"Reload"</span> } ] } ]</code></pre></div>
+<ul>
+<li>Cada hueso de <code>pesos</code> pone el peso (0 a 1) de toda su rama, hasta otro hueso con peso propio. El peso final de un
+hueso es su inclusión (dentro o fuera, de <code>huesos</code>) por ese peso.</li>
+<li>En <code>huesos</code> también vale un número: <code>&quot;Spine&quot;: 0.5</code> es «dentro, con peso 0,5».</li>
+<li>En el panel <strong>Animador</strong>, la pestaña <strong>Máscara</strong> tiene a la derecha de cada casilla el <strong>peso de la rama</strong>: arrástralo
+para darle uno propio (en blanco) y clic derecho para volver a heredar el del padre (en gris).</li>
+<li>El botón <strong>+ Parte de arriba</strong> (bajo la lista de capas) crea la capa <code>UpperBody</code> con la máscara de la columna hacia
+arriba y un estado con el primer clip: cámbialo por el de disparar o recargar.</li>
+</ul>
+<p>Desde un script, el peso de la capa (por su nombre, entre comillas y con autocompletado):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- La parte de arriba recarga mientras las piernas siguen corriendo: sube el peso de la capa UpperBody unos segundos</span>
+<span class="hl-k">local</span> <span class="hl-t">UpperBodyWeight</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">UpperBodyWeight</span>.seconds = <span class="hl-n">1.2</span>
+
+<span class="hl-k">function</span> <span class="hl-t">UpperBodyWeight</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._animator = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+    <span class="hl-b">self</span>._left = <span class="hl-n">0</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">UpperBodyWeight</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> animator = <span class="hl-b">self</span>._animator
+    <span class="hl-k">if</span> <span class="hl-k">not</span> animator <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Reload"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._left = <span class="hl-b">self</span>.seconds
+        animator:<span class="hl-f">PlayInLayer</span>(<span class="hl-s">"UpperBody"</span>, <span class="hl-s">"Reload"</span>, <span class="hl-n">0.1</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-b">self</span>._left = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>._left - dt)
+    animator:<span class="hl-f">SetLayerWeight</span>(<span class="hl-s">"UpperBody"</span>, <span class="hl-k">if</span> <span class="hl-b">self</span>._left &gt; <span class="hl-n">0</span> <span class="hl-k">then</span> <span class="hl-n">1</span> <span class="hl-k">else</span> <span class="hl-n">0</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">UpperBodyWeight</span></code></pre></div>
+<h3 id="aim-offset-apuntar-arriba-abajo-y-a-los-lados">Aim offset: apuntar arriba, abajo y a los lados<a class="ancla" href="#aim-offset-apuntar-arriba-abajo-y-a-los-lados" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un <strong>aim offset</strong> suma, encima de cualquier animación (andar, correr, agachado), unas poses de apuntar según hacia
+dónde mira el jugador. En Nova es una <strong>capa aditiva</strong> con:</p>
+<ul>
+<li><code>&quot;espacioAditivo&quot;: &quot;modelo&quot;</code>: la diferencia de cada hueso respecto a la referencia se suma en el espacio del
+personaje, no en el del hueso padre. Así apuntar arriba gira la columna igual aunque la animación de debajo esté
+inclinada (al correr, agachado). Sin esa clave (o <code>&quot;local&quot;</code>) es la aditiva de siempre.</li>
+<li><code>&quot;clipReferencia&quot;</code>: la pose del centro (mirar al frente). Lo que se suma es «pose de apuntar − pose del centro».</li>
+<li>Un <strong>árbol 2D</strong> según <code>yaw</code> (a los lados) y <code>pitch</code> (arriba y abajo) con las poses de apuntar.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">{ <span class="hl-k">"nombre"</span>: <span class="hl-s">"AimOffset"</span>, <span class="hl-k">"modo"</span>: <span class="hl-s">"aditiva"</span>, <span class="hl-k">"espacioAditivo"</span>: <span class="hl-s">"modelo"</span>, <span class="hl-k">"clipReferencia"</span>: <span class="hl-s">"Aim_Center"</span>,
+  <span class="hl-k">"mascara"</span>: { <span class="hl-k">"porDefecto"</span>: <span class="hl-b">false</span>, <span class="hl-k">"huesos"</span>: { <span class="hl-k">"Spine"</span>: <span class="hl-b">true</span> } },
+  <span class="hl-k">"estados"</span>: [ { <span class="hl-k">"nombre"</span>: <span class="hl-s">"Aim"</span>, <span class="hl-k">"mezcla"</span>: { <span class="hl-k">"tipo"</span>: <span class="hl-s">"2D triangulado"</span>, <span class="hl-k">"parametro"</span>: <span class="hl-s">"yaw"</span>, <span class="hl-k">"parametroY"</span>: <span class="hl-s">"pitch"</span>,
+      <span class="hl-k">"ejes"</span>: { <span class="hl-k">"min"</span>: [<span class="hl-n">-90</span>, <span class="hl-n">-90</span>], <span class="hl-k">"max"</span>: [<span class="hl-n">90</span>, <span class="hl-n">90</span>], <span class="hl-k">"divisiones"</span>: [<span class="hl-n">4</span>, <span class="hl-n">4</span>] },
+      <span class="hl-k">"movimientos"</span>: [ {<span class="hl-k">"clip"</span>: <span class="hl-s">"Aim_Center"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">0</span>], <span class="hl-k">"velocidad"</span>: <span class="hl-n">0</span>},
+                       {<span class="hl-k">"clip"</span>: <span class="hl-s">"Aim_Up"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">90</span>], <span class="hl-k">"velocidad"</span>: <span class="hl-n">0</span>},
+                       {<span class="hl-k">"clip"</span>: <span class="hl-s">"Aim_Down"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">0</span>, <span class="hl-n">-90</span>], <span class="hl-k">"velocidad"</span>: <span class="hl-n">0</span>},
+                       {<span class="hl-k">"clip"</span>: <span class="hl-s">"Aim_Left"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">-90</span>, <span class="hl-n">0</span>], <span class="hl-k">"velocidad"</span>: <span class="hl-n">0</span>},
+                       {<span class="hl-k">"clip"</span>: <span class="hl-s">"Aim_Right"</span>, <span class="hl-k">"posicion"</span>: [<span class="hl-n">90</span>, <span class="hl-n">0</span>], <span class="hl-k">"velocidad"</span>: <span class="hl-n">0</span>} ] } } ] }</code></pre></div>
+<p>El botón <strong>+ Aim offset</strong> del panel crea esta capa (<code>AimOffset</code>, estado <code>Aim</code>, los parámetros <code>yaw</code> y <code>pitch</code> si no
+están y una rejilla de 3 × 3 poses con el primer clip del modelo): elige en la tabla del árbol la pose de cada punto y,
+en <strong>Referencia</strong>, la del centro. Desde Lua, los dos parámetros de una vez:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- El aim offset sigue a la cámara: yaw y pitch en grados respecto a hacia donde mira el personaje</span>
+<span class="hl-k">local</span> <span class="hl-t">AimOffsetCamera</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">AimOffsetCamera</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._animator = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">AimOffsetCamera</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> camera = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._animator <span class="hl-k">or</span> <span class="hl-k">not</span> camera <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> look = <span class="hl-b">self</span>.transform:<span class="hl-f">InverseTransformDirection</span>(camera.transform.forward)
+    <span class="hl-k">local</span> yaw = <span class="hl-t">math</span>.<span class="hl-f">deg</span>(<span class="hl-t">math</span>.<span class="hl-f">atan2</span>(look.x, look.z))
+    <span class="hl-k">local</span> pitch = <span class="hl-t">math</span>.<span class="hl-f">deg</span>(<span class="hl-t">math</span>.<span class="hl-f">asin</span>(<span class="hl-t">math</span>.<span class="hl-f">clamp</span>(look.y, -<span class="hl-n">1</span>, <span class="hl-n">1</span>)))
+    <span class="hl-b">self</span>._animator:<span class="hl-f">SetFloat2</span>(<span class="hl-s">"yaw"</span>, <span class="hl-s">"pitch"</span>, yaw, pitch)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">AimOffsetCamera</span></code></pre></div>
+<h3 id="blend-spaces-2d-triangulado-ejes-y-rejilla">Blend spaces 2D: triangulado, ejes y rejilla<a class="ancla" href="#blend-spaces-2d-triangulado-ejes-y-rejilla" aria-label="Enlace a esta sección">#</a></h3>
+<p>Además de los 2D de la 0.9.0 (bandas de gradiente), el tipo <strong>2D triangulado</strong> (<code>&quot;2D triangulado&quot;</code>) es un <strong>blend space</strong> triangulado: une las muestras en triángulos (Delaunay) y mezcla el punto con las tres esquinas del
+suyo. En cada muestra pesa solo ella, en el centro de un triángulo un tercio cada esquina y fuera de las muestras vale
+el punto más cercano del borde. Es el más predecible para rejillas de poses (aim offsets, locomoción en 8 direcciones
+con velocidad).</p>
+<p><strong>Ejes</strong> (<code>&quot;ejes&quot;</code>, opcional en cualquier árbol): el rango de cada parámetro (<code>min</code> y <code>max</code>; el valor se limita a él)
+y las <strong>divisiones</strong> de la rejilla. En el panel, la casilla <strong>Ejes</strong> del árbol los activa; el gráfico dibuja la rejilla
+(y los triángulos del 2D triangulado), al arrastrar una muestra se ajusta a la rejilla (<strong>Alt</strong>: libre) y <strong>Ajustar
+muestras</strong> lleva todas a su punto más cercano. Arrastrando en el vacío del gráfico mueves los parámetros de la vista
+previa y ves el resultado en la escena. El 1D (<code>&quot;parametro&quot;</code> sin <code>&quot;tipo&quot;</code>) también admite ejes.</p>
+<h3 id="ik-de-pies">IK de pies<a class="ancla" href="#ik-de-pies" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los pies se apoyan solos en <strong>escalones y rampas</strong>: después de animar (y de las capas), un rayo hacia abajo desde cada
+pie busca el suelo; la <strong>pelvis baja</strong> lo necesario para que llegue el pie más bajo (nunca sube), cada pierna (muslo y
+pierna, IK de dos huesos) lleva su tobillo a su suelo y el <strong>pie gira con la normal</strong> (con un ángulo máximo). Todo con
+<strong>suavizado</strong> y <strong>límites</strong>. Se configura en el controlador:</p>
+<div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"ikPies"</span>: { <span class="hl-k">"activo"</span>: <span class="hl-b">true</span>, <span class="hl-k">"parametroPeso"</span>: <span class="hl-s">"enSuelo"</span>, <span class="hl-k">"pies"</span>: [<span class="hl-s">"LeftFoot"</span>, <span class="hl-s">"RightFoot"</span>], <span class="hl-k">"pelvis"</span>: <span class="hl-s">"Hips"</span>,
+            <span class="hl-k">"rayoArriba"</span>: <span class="hl-n">0.5</span>, <span class="hl-k">"rayoAbajo"</span>: <span class="hl-n">0.6</span>, <span class="hl-k">"bajadaPelvis"</span>: <span class="hl-n">0.45</span>, <span class="hl-k">"subidaPie"</span>: <span class="hl-n">0.5</span>,
+            <span class="hl-k">"seguirNormal"</span>: <span class="hl-b">true</span>, <span class="hl-k">"anguloMaximo"</span>: <span class="hl-n">35</span>, <span class="hl-k">"suavizado"</span>: <span class="hl-n">14</span>, <span class="hl-k">"suavizadoPelvis"</span>: <span class="hl-n">10</span> }</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Clave</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>activo</code></td>
+  <td><code>true</code></td>
+  <td>Encendido. Sin <code>&quot;ikPies&quot;</code>, apagado (como antes)</td>
+</tr>
+<tr>
+  <td><code>peso</code>, <code>parametroPeso</code></td>
+  <td><code>1</code>, ninguno</td>
+  <td>Peso de 0 a 1, multiplicado por un parámetro. Con <code>&quot;enSuelo&quot;</code> (bool), en el aire no hace nada</td>
+</tr>
+<tr>
+  <td><code>pies</code></td>
+  <td>los del humanoide</td>
+  <td>Tobillos (sus dos padres son la rodilla y la cadera). Vacío: los pies del humanoide o, si no es humanoide, adivinados por el nombre (<code>foot</code>, <code>pie</code>, <code>ankle</code>). Más de dos para animales</td>
+</tr>
+<tr>
+  <td><code>pelvis</code></td>
+  <td>las caderas</td>
+  <td>Hueso que baja (vacío: las caderas del humanoide o el antecesor común de los pies)</td>
+</tr>
+<tr>
+  <td><code>alturaTobillo</code></td>
+  <td>automática</td>
+  <td>Del tobillo a la suela (por defecto, la de la pose de reposo)</td>
+</tr>
+<tr>
+  <td><code>rayoArriba</code>, <code>rayoAbajo</code></td>
+  <td><code>0.5</code>, <code>0.6</code></td>
+  <td>El rayo sale de esto por encima del tobillo y busca hasta esto por debajo</td>
+</tr>
+<tr>
+  <td><code>bajadaPelvis</code>, <code>subidaPie</code></td>
+  <td><code>0.45</code>, <code>0.5</code></td>
+  <td>Límites en metros</td>
+</tr>
+<tr>
+  <td><code>seguirNormal</code>, <code>anguloMaximo</code></td>
+  <td><code>true</code>, <code>35</code></td>
+  <td>El pie gira con el suelo, como mucho esos grados</td>
+</tr>
+<tr>
+  <td><code>suavizado</code>, <code>suavizadoPelvis</code></td>
+  <td><code>14</code>, <code>10</code></td>
+  <td>Rapidez (1/s) con la que van los pies y la pelvis a su sitio; <code>0</code> = al momento</td>
+</tr>
+<tr>
+  <td><code>capasFisicas</code></td>
+  <td>nivel, dinámicos y escombros</td>
+  <td>Máscara de capas de las físicas (nunca toca a otros personajes ni sensores)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Por capa</strong>: <code>&quot;ikPies&quot;: false</code> en una capa lo apaga en la medida en que la capa pesa (una capa de saltar, trepar o
+una animación de cuerpo entero). <strong>Por Animador</strong>, desde un script: <code>animador:SetFootIK(false)</code> lo apaga en ese
+personaje y <code>animador:SetFootIK(true, 0.5)</code> lo enciende con medio peso aunque el controlador no lo tenga (con los pies
+del humanoide); <code>ResetFootIK()</code> vuelve a lo del controlador y <code>GetFootIKWeight()</code> dice el peso aplicado.</p>
+<p>El suelo son las <strong>físicas</strong> al jugar (colisionadores del nivel, sin el propio personaje). En el editor sin jugar no
+hay físicas: la pestaña <strong>IK de pies</strong> del panel Animador tiene un <strong>suelo de prueba</strong> (plano, rampa con su inclinación
+o escalones con su alto y fondo, girado y desplazado) que se dibuja en el visor Escena bajo la entidad de la vista
+previa; con <strong>Previsualizar</strong> en su Animador ves los pies apoyarse en él y, con <strong>Ver los apoyos</strong>, dónde toca cada
+rayo. Esa pestaña tiene también todos los ajustes de arriba, los huesos (con lo que encuentra en el modelo) y qué
+capas lo apagan.</p>
+<h3 id="ik-de-manos-la-izquierda-sobre-el-arma">IK de manos: la izquierda sobre el arma<a class="ancla" href="#ik-de-manos-la-izquierda-sobre-el-arma" aria-label="Enlace a esta sección">#</a></h3>
+<p>El componente <strong>IK</strong> (ver <a href="#cinemática-inversa-ik">Cinemática inversa</a>) pone una mano en un objetivo. Desde la 0.9.37,
+<strong>Punto del objetivo</strong> (<code>targetSocket</code>) lleva la mano a un <strong>socket o hueso</strong> del Animator del objetivo, o a una <strong>hija</strong>
+suya con ese nombre (el agarre de un arma), y el Animador lo hace todo desde Lua:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- La mano izquierda sujeta el arma por su hija «Grip»; al soltar el arma, la mano vuelve a la animación</span>
+<span class="hl-k">local</span> <span class="hl-t">GripWeapon</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-t">GripWeapon</span>.weapon = <span class="hl-f">Entity</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">GripWeapon</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._animator = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Animator"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">GripWeapon</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>._animator <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.weapon <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._animator:<span class="hl-f">SetIKTarget</span>(<span class="hl-s">"LeftHand"</span>, <span class="hl-b">self</span>.weapon, <span class="hl-s">"Grip"</span>)
+    <span class="hl-k">else</span>
+        <span class="hl-b">self</span>._animator:<span class="hl-f">SetIKTarget</span>(<span class="hl-s">"LeftHand"</span>, <span class="hl-b">nil</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">GripWeapon</span></code></pre></div>
+<p><code>SetIKTarget(nombre, objetivo, socket?, peso?)</code>: si el componente IK no tiene esa cadena y el nombre es un hueso humano
+(<code>&quot;LeftHand&quot;</code>, <code>&quot;RightHand&quot;</code>, <code>&quot;LeftFoot&quot;</code>, <code>&quot;RightFoot&quot;</code>) o uno del modelo, la crea (y el componente IK si hace
+falta). El objetivo es un <code>Vec3</code>, una <code>Entity</code> o <code>nil</code> (la apaga); el peso puede ir en lugar del socket:
+<code>SetIKTarget(&quot;LeftHand&quot;, grip, 0.5)</code>. El IK de manos va después del IK de pies (bajar la pelvis mueve los brazos y lo
+que llevan).</p>
+<h3 id="en-red">En red<a class="ancla" href="#en-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>Como los parámetros de siempre: los parámetros de los árboles 2D (<code>yaw</code>, <code>pitch</code>, <code>velX</code>...) son parámetros <code>float</code>, y
+los <strong>pesos de las capas</strong> (<code>SetLayerWeight</code>) y lo que pida un script con <strong><code>SetFootIK</code></strong> viajan con el <strong>Animador de
+red</strong> (desde el servidor o, con <strong>Lo anima el dueño</strong>, desde el dueño; igual que en la 0.9.36). Los rayos y el IK de pies
+y de manos <strong>no se replican</strong>: cada máquina los calcula con su copia del personaje y su suelo.</p>
+<h3 id="api-de-lua-0937">API de Lua (0.9.37)<a class="ancla" href="#api-de-lua-0937" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>animador:</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>SetLayerWeight(capa, peso)</code></td>
+  <td>Igual que antes, también con las capas nuevas (<code>&quot;UpperBody&quot;</code>, <code>&quot;AimOffset&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>SetFloat2(paramX, paramY, x, y)</code>, <code>GetFloat2(paramX, paramY)</code></td>
+  <td>Los dos parámetros de un árbol 2D de una vez</td>
+</tr>
+<tr>
+  <td><code>SetFootIK(activo, peso?)</code>, <code>ResetFootIK()</code>, <code>GetFootIKWeight()</code></td>
+  <td>IK de pies de este personaje</td>
+</tr>
+<tr>
+  <td><code>SetIKTarget(nombre, objetivo, socket?, peso?)</code></td>
+  <td>Objetivo de una cadena de IK (crea la de una mano o un pie si hace falta)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los nombres de capa, parámetro y cadena de IK salen en el autocompletado entre comillas (los de los controladores y
+los componentes IK de las entidades que llevan el script).</p>
 <h2 id="enganchar-objetos-a-huesos">Enganchar objetos a huesos<a class="ancla" href="#enganchar-objetos-a-huesos" aria-label="Enlace a esta sección">#</a></h2>
 <p>Los huesos no son entidades, pero cualquier entidad puede <strong>seguir a un hueso</strong> con el componente <strong>Enganche a
 hueso</strong> (<code>BoneAttachment</code>): un arma en la mano, un sombrero en la cabeza, una mochila en la espalda, o las cajas
@@ -1519,7 +1783,7 @@ y <a href="multijugador.html#18-disparos-y-compensación-de-latencia">multijugad
 <code>GetAllBoneWorldPoses(scene, personaje, poses)</code> para todo el esqueleto (nombre, padre y matriz en el mundo de cada
 nodo, con la pose ya animada y con el IK).</p>
 <h2 id="sockets">Sockets<a class="ancla" href="#sockets" aria-label="Enlace a esta sección">#</a></h2>
-<p>Un <strong>socket</strong> es un punto con nombre pegado a un hueso, como en UE5: «Arma» en la palma de la mano derecha, «Sombrero»
+<p>Un <strong>socket</strong> es un punto con nombre pegado a un hueso: «Arma» en la palma de la mano derecha, «Sombrero»
 encima de la cabeza, «Mochila» en la espalda. Se colocan una vez en el modelo y cualquier <strong>Enganche a hueso</strong> (o
 <code>AttachTo</code> en Lua) usa el nombre: el arma queda bien en la mano sin ajustar su Transform en cada prefab, y si mueves el
 socket, todas las armas enganchadas se mueven con él.</p>
@@ -1765,7 +2029,10 @@ controlador</strong> en el Animador) edita el controlador sin tocar el JSON:</p>
 vivo (no se guarda): mueve los parámetros para probar transiciones y mezclas.</li>
 <li><strong>Capas</strong>: añadir, quitar, ordenar (flechas), peso, modo, parámetro de peso, sincronización y referencia aditiva.
 La pestaña <strong>Máscara</strong> elige la máscara (ninguna, en el controlador o un asset) y muestra el esqueleto con
-casillas: clic cambia la rama entera, Mayús+clic solo ese hueso.</li>
+casillas: clic cambia la rama entera, Mayús+clic solo ese hueso; a la derecha, el peso de la rama (0.9.37). Desde la
+0.9.37 también el <strong>espacio aditivo</strong> (local o del modelo), <strong>IK de pies con esta capa</strong> y los botones <strong>+ Aim
+offset</strong> y <strong>+ Parte de arriba</strong> (<a href="#capas-aim-offset-ik-de-pies-y-blend-spaces-0937">Capas</a>).</li>
+<li><strong>IK de pies</strong> (0.9.37): sus ajustes, los huesos y el suelo de prueba de la vista previa (<a href="#ik-de-pies">IK de pies</a>).</li>
 <li><strong>Estados</strong>: la lista marca el inicial y, en verde, el que se reproduce en la vista previa (con su fase).
 <strong>Probar</strong> salta a ese estado. Cada estado reproduce un clip (de la lista del modelo) o un <strong>árbol de mezcla</strong>:
 tipo, parámetros, la tabla de movimientos (clip o árbol anidado, umbral o posición, velocidad, tiempo fijo y su
@@ -1853,8 +2120,8 @@ arma enganchada y la mira se calculan en cada máquina.</li>
 <h2 id="limitaciones">Limitaciones<a class="ancla" href="#limitaciones" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li><strong>Root motion</strong> solo del desplazamiento horizontal: los giros del clip no giran la entidad.</li>
-<li><strong>IK sencillo</strong>: cadenas de apuntar y extremidades de dos huesos; no hay IK de cuerpo entero ni los pies se
-apoyan solos en el terreno (pon tú los objetivos con un raycast hacia abajo).</li>
+<li><strong>IK sencillo</strong>: cadenas de apuntar, extremidades de dos huesos y el <a href="#ik-de-pies">IK de pies</a> (dos huesos por
+pierna y la pelvis); no hay IK de cuerpo entero (FABRIK, columna que se agacha para llegar).</li>
 <li><strong>Retargeting solo entre humanoides</strong>: los clips se reorientan entre personajes con dos brazos, dos piernas,
 columna y cabeza. Entre otros esqueletos (animales, máquinas) solo valen por nombre de hueso con el mismo
 esqueleto. No se corrige el giro de los huesos alrededor de sí mismos (si en un modelo las palmas miran hacia
@@ -1862,7 +2129,6 @@ abajo en reposo y en el otro hacia delante, las muñecas pueden salir giradas), 
 cara, colas, pelo o ropa (se quedan como estén). Los desplazamientos se escalan con la altura de las caderas: un
 personaje con las piernas muy cortas y el cuerpo muy largo da pasos cortos.</li>
 <li>Sin morph targets ni animación de nodos rígidos como entidades (ver arriba).</li>
-<li>Las máscaras son por hueso (dentro o fuera), sin pesos intermedios.</li>
 </ul>
 <h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
@@ -1875,7 +2141,7 @@ personaje con las piernas muy cortas y el cuerpo muy largo da pasos cortos.</li>
 </ul>
 <nav class="ant-sig" aria-label="Páginas"><a class="ant" href="rendimiento.html"><small>Anterior</small>Rendimiento</a><a class="sig" href="animar-huesos.html"><small>Siguiente</small>Animar huesos: posar personajes, crear animaciones y poner eventos</a></nav></article>
 </main>
-<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#formatos">Formatos</a></li><li class="n3"><a href="#qué-se-importa">Qué se importa</a></li><li class="n2"><a href="#exportar-desde-blender">Exportar desde Blender</a></li><li class="n3"><a href="#antes-de-exportar">Antes de exportar</a></li><li class="n3"><a href="#opciones-recomendadas-fbx">Opciones recomendadas: FBX</a></li><li class="n3"><a href="#opciones-recomendadas-glb">Opciones recomendadas: GLB</a></li><li class="n3"><a href="#si-aun-así-sale-girado">Si aun así sale girado</a></li><li class="n3"><a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a></li><li class="n2"><a href="#personajes-de-mixamo">Personajes de Mixamo</a></li><li class="n2"><a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a></li><li class="n3"><a href="#paso-a-paso-con-mixamo">Paso a paso con Mixamo</a></li><li class="n3"><a href="#automático-por-nombre-o-reorientado-y-hornear">Automático, por nombre o reorientado, y «Hornear»</a></li><li class="n3"><a href="#la-sección-humanoide">La sección Humanoide</a></li><li class="n3"><a href="#huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano en los scripts</a></li><li class="n3"><a href="#en-el-meta">En el .meta</a></li><li class="n3"><a href="#si-algo-sale-raro">Si algo sale raro</a></li><li class="n2"><a href="#importar-en-nova">Importar en Nova</a></li><li class="n3"><a href="#opciones-de-importación-fbx-obj-y-gltf">Opciones de importación (FBX, OBJ y glTF)</a></li><li class="n3"><a href="#qué-fbx-funcionan">Qué FBX funcionan</a></li><li class="n3"><a href="#ajustes-de-importación-eventos-de-los-clips-y-sockets">Ajustes de importación: eventos de los clips y sockets</a></li><li class="n2"><a href="#colocar-un-modelo-en-la-escena">Colocar un modelo en la escena</a></li><li class="n3"><a href="#escala">Escala</a></li><li class="n2"><a href="#el-componente-animator">El componente Animator</a></li><li class="n3"><a href="#sin-controlador-un-clip">Sin controlador: un clip</a></li><li class="n3"><a href="#con-controlador-máquina-de-estados">Con controlador: máquina de estados</a></li><li class="n2"><a href="#controlar-el-animator-desde-un-script">Controlar el Animator desde un script</a></li><li class="n2"><a href="#capas-y-máscaras">Capas y máscaras</a></li><li class="n2"><a href="#árboles-de-mezcla-2d">Árboles de mezcla 2D</a></li><li class="n2"><a href="#enganchar-objetos-a-huesos">Enganchar objetos a huesos</a></li><li class="n2"><a href="#sockets">Sockets</a></li><li class="n3"><a href="#la-pestaña-sockets">La pestaña Sockets</a></li><li class="n3"><a href="#paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma">Paso a paso: equipar un arma en la mano con un socket «Arma»</a></li><li class="n2"><a href="#cinemática-inversa-ik">Cinemática inversa (IK)</a></li><li class="n2"><a href="#root-motion">Root motion</a></li><li class="n2"><a href="#eventos-de-animación">Eventos de animación</a></li><li class="n2"><a href="#animación-en-red">Animación en red</a></li><li class="n2"><a href="#el-editor-de-animación">El editor de animación</a></li><li class="n2"><a href="#receta-shooter-en-tercera-persona">Receta: shooter en tercera persona</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#formatos">Formatos</a></li><li class="n3"><a href="#qué-se-importa">Qué se importa</a></li><li class="n2"><a href="#exportar-desde-blender">Exportar desde Blender</a></li><li class="n3"><a href="#antes-de-exportar">Antes de exportar</a></li><li class="n3"><a href="#opciones-recomendadas-fbx">Opciones recomendadas: FBX</a></li><li class="n3"><a href="#opciones-recomendadas-glb">Opciones recomendadas: GLB</a></li><li class="n3"><a href="#si-aun-así-sale-girado">Si aun así sale girado</a></li><li class="n3"><a href="#modelos-importados-antes-de-la-0933">Modelos importados antes de la 0.9.33</a></li><li class="n2"><a href="#personajes-de-mixamo">Personajes de Mixamo</a></li><li class="n2"><a href="#animaciones-de-otros-personajes-retargeting">Animaciones de otros personajes (retargeting)</a></li><li class="n3"><a href="#paso-a-paso-con-mixamo">Paso a paso con Mixamo</a></li><li class="n3"><a href="#automático-por-nombre-o-reorientado-y-hornear">Automático, por nombre o reorientado, y «Hornear»</a></li><li class="n3"><a href="#la-sección-humanoide">La sección Humanoide</a></li><li class="n3"><a href="#huesos-por-su-nombre-humano-en-los-scripts">Huesos por su nombre humano en los scripts</a></li><li class="n3"><a href="#en-el-meta">En el .meta</a></li><li class="n3"><a href="#si-algo-sale-raro">Si algo sale raro</a></li><li class="n2"><a href="#importar-en-nova">Importar en Nova</a></li><li class="n3"><a href="#opciones-de-importación-fbx-obj-y-gltf">Opciones de importación (FBX, OBJ y glTF)</a></li><li class="n3"><a href="#qué-fbx-funcionan">Qué FBX funcionan</a></li><li class="n3"><a href="#ajustes-de-importación-eventos-de-los-clips-y-sockets">Ajustes de importación: eventos de los clips y sockets</a></li><li class="n2"><a href="#colocar-un-modelo-en-la-escena">Colocar un modelo en la escena</a></li><li class="n3"><a href="#escala">Escala</a></li><li class="n2"><a href="#el-componente-animator">El componente Animator</a></li><li class="n3"><a href="#sin-controlador-un-clip">Sin controlador: un clip</a></li><li class="n3"><a href="#con-controlador-máquina-de-estados">Con controlador: máquina de estados</a></li><li class="n2"><a href="#controlar-el-animator-desde-un-script">Controlar el Animator desde un script</a></li><li class="n2"><a href="#capas-y-máscaras">Capas y máscaras</a></li><li class="n2"><a href="#árboles-de-mezcla-2d">Árboles de mezcla 2D</a></li><li class="n2"><a href="#capas-aim-offset-ik-de-pies-y-blend-spaces-0937">Capas: aim offset, IK de pies y blend spaces (0.9.37)</a></li><li class="n3"><a href="#parte-de-arriba-y-parte-de-abajo">Parte de arriba y parte de abajo</a></li><li class="n3"><a href="#aim-offset-apuntar-arriba-abajo-y-a-los-lados">Aim offset: apuntar arriba, abajo y a los lados</a></li><li class="n3"><a href="#blend-spaces-2d-triangulado-ejes-y-rejilla">Blend spaces 2D: triangulado, ejes y rejilla</a></li><li class="n3"><a href="#ik-de-pies">IK de pies</a></li><li class="n3"><a href="#ik-de-manos-la-izquierda-sobre-el-arma">IK de manos: la izquierda sobre el arma</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n3"><a href="#api-de-lua-0937">API de Lua (0.9.37)</a></li><li class="n2"><a href="#enganchar-objetos-a-huesos">Enganchar objetos a huesos</a></li><li class="n2"><a href="#sockets">Sockets</a></li><li class="n3"><a href="#la-pestaña-sockets">La pestaña Sockets</a></li><li class="n3"><a href="#paso-a-paso-equipar-un-arma-en-la-mano-con-un-socket-arma">Paso a paso: equipar un arma en la mano con un socket «Arma»</a></li><li class="n2"><a href="#cinemática-inversa-ik">Cinemática inversa (IK)</a></li><li class="n2"><a href="#root-motion">Root motion</a></li><li class="n2"><a href="#eventos-de-animación">Eventos de animación</a></li><li class="n2"><a href="#animación-en-red">Animación en red</a></li><li class="n2"><a href="#el-editor-de-animación">El editor de animación</a></li><li class="n2"><a href="#receta-shooter-en-tercera-persona">Receta: shooter en tercera persona</a></li><li class="n2"><a href="#limitaciones">Limitaciones</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></div></aside>
 </div>
 <footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
 <script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>

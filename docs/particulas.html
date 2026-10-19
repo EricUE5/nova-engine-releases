@@ -28,7 +28,7 @@ polvo, salpicaduras, magia u hojas que caen: miles de imágenes pequeñas (o mal
 <article class="doc"><h1 id="partículas">Partículas</h1>
 <details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-crear-un-efecto">1. Crear un efecto</a></li><li class="n2"><a href="#2-el-componente-y-sus-módulos">2. El componente y sus módulos</a></li><li class="n2"><a href="#3-valores-curvas-y-degradados">3. Valores, curvas y degradados</a></li><li class="n2"><a href="#4-la-vista-previa-en-el-editor">4. La vista previa en el editor</a></li><li class="n2"><a href="#5-cómo-se-dibujan">5. Cómo se dibujan</a></li><li class="n2"><a href="#6-colisiones">6. Colisiones</a></li><li class="n2"><a href="#7-subemisores">7. Subemisores</a></li><li class="n2"><a href="#8-rastros-y-cintas">8. Rastros y cintas</a></li><li class="n2"><a href="#9-desde-los-scripts-lua">9. Desde los scripts Lua</a></li><li class="n2"><a href="#10-multijugador">10. Multijugador</a></li><li class="n2"><a href="#11-rendimiento">11. Rendimiento</a></li><li class="n2"><a href="#12-referencia-de-la-api">12. Referencia de la API</a></li><li class="n2"><a href="#13-detalles-y-límites">13. Detalles y límites</a></li></ul></details><p>El componente <strong>Sistema de partículas</strong> crea fuego, humo, chispas, explosiones, fogonazos, sangre, lluvia, nieve,
 polvo, salpicaduras, magia u hojas que caen: miles de imágenes pequeñas (o mallas) que nacen, se mueven, cambian
-de color y de tamaño y mueren. Se configura como en Unity, con <strong>módulos</strong> que se activan por separado, se ve en
+de color y de tamaño y mueren. Se configura con <strong>módulos</strong> que se activan por separado, se ve en
 el visor <strong>Escena</strong> sin jugar (vista previa) y se controla desde los <a href="scripts-lua.html">scripts Lua</a> con
 <code>Play</code>, <code>Stop</code>, <code>Emit</code>, <code>EmitAt</code> y <code>Effects.Spawn</code>.</p>
 <p>Las partículas son <strong>solo visuales y locales</strong>: cada máquina simula las suyas. En una partida en red se lanzan en
@@ -123,7 +123,7 @@ elegidos: se ven moverse en el visor sin pulsar Jugar.</p>
 <p>En el Inspector, <strong>Aplicar un preajuste...</strong> cambia los valores del sistema elegido por los de un preajuste (y crea
 sus partes como hijas). Todo se deshace con Ctrl+Z y funciona en la <a href="edicion-en-equipo.html">edición en equipo</a>.</p>
 <h2 id="2-el-componente-y-sus-módulos">2. El componente y sus módulos<a class="ancla" href="#2-el-componente-y-sus-módulos" aria-label="Enlace a esta sección">#</a></h2>
-<p>El Inspector muestra el sistema como en Unity: arriba los botones de la vista previa y los preajustes; después
+<p>El Inspector muestra el sistema así: arriba los botones de la vista previa y los preajustes; después
 <strong>Principal</strong> y los módulos, cada uno plegable y con su casilla para activarlo.</p>
 <p><strong>Principal</strong></p>
 <div class="tabla"><table>

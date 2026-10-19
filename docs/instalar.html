@@ -325,7 +325,7 @@ scripts en C++</strong>:</p>
   scripts\*.luau        los scripts del juego (no se compilan: se recargan al guardarlos)</code></pre></div>
 <p>No tiene DLL, <code>CMakeLists.txt</code> ni módulo de scripts: sus <code>scripts\*.luau</code> los carga el motor. Al crear un script
 en el editor, o al abrirlo con VS Code, se crean además <code>nova.d.luau</code>, <code>nova.docs.json</code>, <code>.luaurc</code> y
-<code>.vscode\settings.json</code>, para el autocompletado en VS Code (<a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>).</p>
+<code>.vscode\settings.json</code>, para el autocompletado en VS Code (<a href="scripts-lua.html#13-vs-code-y-autocompletado">scripts-lua.md</a>).</p>
 <p>Un proyecto de C++ (avanzado) tiene además:</p>
 <div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto">  scripts\*.cpp         el código C++ del juego
   CMakeLists.txt        compila scripts\ con el SDK del motor (no hace falta tocarlo)
@@ -361,8 +361,8 @@ API en español al escribir y al pasar el ratón, los atributos (<code>--[Server
 del editor &gt; Extensión de Nova para VS Code &gt; Instalar la extensión de Nova en VS Code</strong> (VS Code descarga con ella
 <strong>luau-lsp</strong>, que entiende el Luau de los scripts; la primera vez hace falta Internet). Al actualizar el motor, el
 <code>.vsix</code> nuevo se instala con el mismo botón. Todo lo demás, y qué hacer si VS Code marca errores que no lo son
-porque tienes las extensiones <strong>Lua</strong> (sumneko) o <strong>FiveLab Lua</strong>, en
-<a href="scripts-lua.html#14-vs-code-y-autocompletado">scripts-lua.md</a>.</p>
+porque tienes otras extensiones de Lua (como <strong>Lua</strong>, de sumneko), en
+<a href="scripts-lua.html#13-vs-code-y-autocompletado">scripts-lua.md</a>.</p>
 <h2 id="compilar-los-scripts-visual-studio-o-build-tools">Compilar los scripts (Visual Studio o Build Tools)<a class="ancla" href="#compilar-los-scripts-visual-studio-o-build-tools" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Solo para los scripts en C++</strong> (opcionales: <a href="scripts-cpp.html">scripts-cpp.md</a>). Los scripts en Lua no se
 compilan y no necesitan nada de esto. Los de C++ se compilan en una DLL, y el motor no incluye el compilador: hace

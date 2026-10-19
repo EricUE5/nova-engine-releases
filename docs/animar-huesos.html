@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Animar huesos: posar personajes, crear animaciones y poner eventos · Nova Engine</title>
 <meta name="description" content="Desde la 0.9.17 puedes crear las animaciones de tus personajes dentro del editor, sin Blender ni Mixamo. La ventana
-Animar huesos es un visor aparte, como el editor de animaciones de Unreal o de Unity:">
+Animar huesos es un visor aparte:">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#121318">
 <meta property="og:title" content="Animar huesos: posar personajes, crear animaciones y poner eventos · Nova Engine">
 <meta property="og:description" content="Desde la 0.9.17 puedes crear las animaciones de tus personajes dentro del editor, sin Blender ni Mixamo. La ventana
-Animar huesos es un visor aparte, como el editor de animaciones de Unreal o de Unity:">
+Animar huesos es un visor aparte:">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/animar-huesos.html">
 <link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/animar-huesos.html">
@@ -27,7 +27,7 @@ Animar huesos es un visor aparte, como el editor de animaciones de Unreal o de U
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="animar-huesos-posar-personajes-crear-animaciones-y-poner-eventos">Animar huesos: posar personajes, crear animaciones y poner eventos</h1>
 <details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-abrir-la-ventana">1. Abrir la ventana</a></li><li class="n2"><a href="#2-la-ventana">2. La ventana</a></li><li class="n3"><a href="#deshacer-y-rehacer">Deshacer y rehacer</a></li><li class="n2"><a href="#3-posar-girar-y-mover-huesos-ik-copiar-espejar-y-reiniciar">3. Posar: girar y mover huesos, IK, copiar, espejar y reiniciar</a></li><li class="n2"><a href="#4-paso-a-paso-una-animación-de-saludar">4. Paso a paso: una animación de saludar</a></li><li class="n2"><a href="#5-eventos">5. Eventos</a></li><li class="n2"><a href="#6-paso-a-paso-el-evento-paso-en-la-animación-de-andar">6. Paso a paso: el evento «Paso» en la animación de andar</a></li><li class="n2"><a href="#7-usar-el-clip-en-el-animador-en-los-controladores-y-en-otros-personajes">7. Usar el clip en el Animador, en los controladores y en otros personajes</a></li><li class="n2"><a href="#8-corregir-una-animación-importada-editar-una-copia">8. Corregir una animación importada: «Editar una copia»</a></li><li class="n2"><a href="#9-los-eventos-desde-lua">9. Los eventos desde Lua</a></li><li class="n2"><a href="#10-el-fichero-anim-de-huesos">10. El fichero .anim de huesos</a></li><li class="n2"><a href="#11-atajos">11. Atajos</a></li><li class="n2"><a href="#12-límites">12. Límites</a></li><li class="n2"><a href="#13-sockets-en-el-mismo-visor">13. Sockets en el mismo visor</a></li></ul></details><p>Desde la 0.9.17 puedes <strong>crear las animaciones de tus personajes dentro del editor</strong>, sin Blender ni Mixamo. La ventana
-<strong>Animar huesos</strong> es un visor aparte, como el editor de animaciones de Unreal o de Unity:</p>
+<strong>Animar huesos</strong> es un visor aparte:</p>
 <ul>
 <li>Abres un modelo con esqueleto (<code>.glb</code>, <code>.fbx</code> o el de una entidad de la escena) y lo ves con suelo, luz y una cámara que
 orbita.</li>
@@ -310,7 +310,7 @@ que la pose de reposo es simétrica (pose T o A).</li>
 </ul>
 <p>Con <strong>Grabar</strong>, cada uno de estos cambios pone claves en el tiempo actual (solo en los huesos que cambian) y es <strong>un paso
 del historial</strong>. Sin Grabar, el cambio queda <strong>pendiente</strong>: se ve en el visor (en rojo), pero no se guarda hasta que pulses
-<strong>K</strong> o <strong>Poner clave</strong>. Si cambias de instante o reproduces, se pierde, como en Unity. Aun así, cada cambio pendiente
+<strong>K</strong> o <strong>Poner clave</strong>. Si cambias de instante o reproduces, se pierde. Aun así, cada cambio pendiente
 también es un paso del historial: Ctrl+Z lo deshace y te devuelve a ese instante.</p>
 <p>En la pose de reposo o en un clip importado también puedes posar, pero solo para probar: para guardar, crea un clip o
 pulsa <strong>Editar una copia</strong>.</p>

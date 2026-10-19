@@ -1251,8 +1251,7 @@ cada una:</p>
 </table></div>
 <p>Dentro de una función <code>[Server]</code>, <code>source</code> es el id del jugador que la llamó (0 = el propio servidor). <code>Physics.</code>
 y <code>Audio.</code> funcionan igual en todas las máquinas: en una escena sin físicas o en un servidor sin audio no hacen
-nada, así que el código compartido no necesita comprobar nada. La referencia completa, con los eventos al
-estilo FiveM, las llamadas con respuesta y las tablas replicadas, está en
+nada, así que el código compartido no necesita comprobar nada. La referencia completa, con los eventos con nombre, las llamadas con respuesta y las tablas replicadas, está en
 <a href="scripts-lua.html#9-multijugador">scripts-lua.md</a>.</p>
 <h2 id="7-campos-replicados">7. Campos replicados<a class="ancla" href="#7-campos-replicados" aria-label="Enlace a esta sección">#</a></h2>
 <p>Cualquier campo de un script puede replicarse con <code>--[Replicated]</code> encima (o al final de su línea):</p>
@@ -1296,8 +1295,7 @@ tutorial, Beto ve siempre las cargas de Ana con el valor del prefab (3): no uses
 <p><strong>onChange.</strong> <code>--[Replicated(onChange = &quot;Funcion&quot;)]</code> llama a esa función de la clase (sin argumentos) cuando
 llega un valor nuevo:</p>
 <ul>
-<li>solo en los <strong>clientes</strong>: el servidor (y el anfitrión, que es servidor) no lo recibe, como en Unreal,
-porque el valor nace ahí. Si el anfitrión necesita el mismo efecto, llama a la función a mano tras cambiar el
+<li>solo en los <strong>clientes</strong>: el servidor (y el anfitrión, que es servidor) no lo recibe, porque el valor nace ahí. Si el anfitrión necesita el mismo efecto, llama a la función a mano tras cambiar el
 valor (como <code>SumarPuntos</code> en el tutorial);</li>
 <li>también con los <strong>valores iniciales</strong>: al aparecer la entidad en un cliente se llama para cada campo cuyo
 valor recibido es distinto del local (el del prefab o la escena). <code>OnNetworkSpawn()</code> llega antes, con todos
@@ -1496,9 +1494,8 @@ tipo de los argumentos se comprueban: si no encajan, es un error en quien llama 
 envía nada. El motor también descarta los números NaN o infinitos de los parámetros <code>number</code>; el resto lo
 compruebas tú (distancias, esperas, que esté vivo, la longitud de los textos):
 <a href="scripts-lua.html#98-límites-y-validación">scripts-lua.md</a>.</p>
-<p>Los tipos de los parámetros forman parte del esquema de red (sección 16). Para traer código de FiveM, también
-hay eventos con nombre (<code>TriggerServerEvent</code>, <code>RegisterNetEvent</code>...):
-<a href="scripts-lua.html#12-eventos-al-estilo-fivem">scripts-lua.md</a>.</p>
+<p>Los tipos de los parámetros forman parte del esquema de red (sección 16). También hay eventos con nombre (<code>TriggerServerEvent</code>, <code>RegisterNetEvent</code>...):
+<a href="scripts-lua.html#11-eventos">scripts-lua.md</a>.</p>
 <h2 id="9-movimiento-predicho-con-charactercontroller">9. Movimiento predicho con CharacterController<a class="ancla" href="#9-movimiento-predicho-con-charactercontroller" aria-label="Enlace a esta sección">#</a></h2>
 <p>Un personaje con <strong>Controlador de personaje</strong>, <strong>Transform de red</strong> e <strong>Identidad de red</strong> cuyo dueño es un
 jugador (todo lo que crea <code>PlayerSpawner</code>) se predice solo:</p>
@@ -1988,7 +1985,7 @@ ejemplo multijugador en C++ (<code>game/multiplayer_sample</code>) y su recorrid
 </tr>
 </tbody>
 </table></div>
-<p>Más errores de los scripts Lua (con sus mensajes) en <a href="scripts-lua.html#17-errores-comunes">scripts-lua.md</a>.</p>
+<p>Más errores de los scripts Lua (con sus mensajes) en <a href="scripts-lua.html#16-errores-comunes">scripts-lua.md</a>.</p>
 <p><strong>Versiones.</strong> Lo que hace incompatibles dos versiones del juego en red:</p>
 <ul>
 <li>cambiar el <strong>nombre del juego</strong> (<code>name</code> de <code>project.nova</code>);</li>

@@ -4,15 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Scripts en Lua · Nova Engine</title>
-<meta name="description" content="La guía principal para programar juegos con Nova Engine en Lua (en concreto Luau, el Lua con tipos
-opcionales de Roblox). Explica por qué Lua, cómo es un script, todos los atributos y la API por áreas, la recarga
-en cali">
+<meta name="description" content="La guía principal para programar juegos con Nova Engine en Lua (en concreto Luau, el Lua con tipos opcionales). Explica por qué Lua, cómo es un script, todos los atributos y la API por áreas, la recarga
+en caliente, el m">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#121318">
 <meta property="og:title" content="Scripts en Lua · Nova Engine">
-<meta property="og:description" content="La guía principal para programar juegos con Nova Engine en Lua (en concreto Luau, el Lua con tipos
-opcionales de Roblox). Explica por qué Lua, cómo es un script, todos los atributos y la API por áreas, la recarga
-en cali">
+<meta property="og:description" content="La guía principal para programar juegos con Nova Engine en Lua (en concreto Luau, el Lua con tipos opcionales). Explica por qué Lua, cómo es un script, todos los atributos y la API por áreas, la recarga
+en caliente, el m">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/scripts-lua.html">
 <link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/scripts-lua.html">
@@ -28,10 +26,9 @@ en cali">
 <nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html" aria-current="page">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="scripts-en-lua">Scripts en Lua</h1>
-<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-por-qué-lua-y-cuándo-c">1. Por qué Lua (y cuándo C++)</a></li><li class="n2"><a href="#2-tu-primer-script-en-cinco-minutos">2. Tu primer script en cinco minutos</a></li><li class="n2"><a href="#3-los-ejemplos-en-lua">3. Los ejemplos en Lua</a></li><li class="n2"><a href="#4-anatomía-de-un-script">4. Anatomía de un script</a></li><li class="n3"><a href="#la-clase-y-self">La clase y self</a></li><li class="n3"><a href="#ciclo-de-vida">Ciclo de vida</a></li><li class="n3"><a href="#módulos-require">Módulos (require)</a></li><li class="n2"><a href="#5-atributos">5. Atributos</a></li><li class="n2"><a href="#6-campos-en-el-inspector">6. Campos en el Inspector</a></li><li class="n2"><a href="#7-referencia-de-la-api">7. Referencia de la API</a></li><li class="n3"><a href="#entidades-y-escena">Entidades y escena</a></li><li class="n3"><a href="#transform">Transform</a></li><li class="n3"><a href="#entrada">Entrada</a></li><li class="n3"><a href="#tiempo">Tiempo</a></li><li class="n3"><a href="#físicas">Físicas</a></li><li class="n3"><a href="#terreno">Terreno</a></li><li class="n3"><a href="#agua">Agua</a></li><li class="n3"><a href="#decals">Decals</a></li><li class="n3"><a href="#navegación">Navegación</a></li><li class="n3"><a href="#ia">IA</a></li><li class="n3"><a href="#audio">Audio</a></li><li class="n3"><a href="#animación-y-personajes">Animación y personajes</a></li><li class="n3"><a href="#cámara">Cámara</a></li><li class="n3"><a href="#materiales-y-visibilidad">Materiales y visibilidad</a></li><li class="n3"><a href="#datos-guardados">Datos guardados</a></li><li class="n3"><a href="#dibujo-de-depuración">Dibujo de depuración</a></li><li class="n3"><a href="#aplicación">Aplicación</a></li><li class="n3"><a href="#registro">Registro</a></li><li class="n3"><a href="#matemáticas">Matemáticas</a></li><li class="n3"><a href="#interfaz-del-juego-ui">Interfaz del juego (UI)</a></li><li class="n3"><a href="#idiomas-loc">Idiomas (Loc)</a></li><li class="n3"><a href="#interfaz-mínima-ongui">Interfaz mínima (OnGUI)</a></li><li class="n2"><a href="#8-errores-y-recarga-en-caliente">8. Errores y recarga en caliente</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n3"><a href="#91-el-servidor-manda">9.1 El servidor manda</a></li><li class="n3"><a href="#92-un-fichero-los-dos-lados">9.2 Un fichero, los dos lados</a></li><li class="n3"><a href="#93-campos-replicados">9.3 Campos replicados</a></li><li class="n3"><a href="#94-funciones-de-red-server-client-y-multicast">9.4 Funciones de red: [Server], [Client] y [Multicast]</a></li><li class="n3"><a href="#95-selftojugador">9.5 self:To(jugador)</a></li><li class="n3"><a href="#96-source">9.6 source</a></li><li class="n3"><a href="#97-scripts-global">9.7 Scripts [Global]</a></li><li class="n3"><a href="#98-límites-y-validación">9.8 Límites y validación</a></li><li class="n3"><a href="#99-objetos-de-red-crear-dueño-teletransporte-y-empujones">9.9 Objetos de red: crear, dueño, teletransporte y empujones</a></li><li class="n3"><a href="#910-llamadas-al-servidor-con-respuesta">9.10 Llamadas al servidor con respuesta</a></li><li class="n3"><a href="#911-empezar-y-unirse-a-partidas-desde-lua-menús">9.11 Empezar y unirse a partidas desde Lua (menús)</a></li><li class="n3"><a href="#912-jugadores-ping-y-expulsar">9.12 Jugadores, ping y expulsar</a></li><li class="n3"><a href="#913-lo-que-no-se-puede-hacer-todavía">9.13 Lo que no se puede hacer (todavía)</a></li><li class="n3"><a href="#914-dónde-se-ejecuta-una-función">9.14 Dónde se ejecuta una función</a></li><li class="n2"><a href="#10-tutorial-rey-de-la-arena">10. Tutorial: «Rey de la arena»</a></li><li class="n3"><a href="#101-probarlo">10.1 Probarlo</a></li><li class="n3"><a href="#102-cómo-está-montado">10.2 Cómo está montado</a></li><li class="n3"><a href="#103-interfazluau-todo-lo-que-se-ve-en-un-sitio">10.3 Interfaz.luau: todo lo que se ve, en un sitio</a></li><li class="n3"><a href="#104-jugadorluau">10.4 Jugador.luau</a></li><li class="n3"><a href="#105-rondasluau">10.5 Rondas.luau</a></li><li class="n3"><a href="#106-las-pruebas-automáticas">10.6 Las pruebas automáticas</a></li><li class="n2"><a href="#11-si-vienes-de-fivem">11. Si vienes de FiveM</a></li><li class="n2"><a href="#12-eventos-al-estilo-fivem">12. Eventos al estilo FiveM</a></li><li class="n2"><a href="#13-settimeout-createthread-y-wait">13. SetTimeout, CreateThread y Wait</a></li><li class="n2"><a href="#14-vs-code-y-autocompletado">14. VS Code y autocompletado</a></li><li class="n3"><a href="#instalarla">Instalarla</a></li><li class="n3"><a href="#si-vs-code-marca-errores-que-no-lo-son">Si VS Code marca errores que no lo son</a></li><li class="n3"><a href="#lo-que-se-escribe-en-el-proyecto">Lo que se escribe en el proyecto</a></li><li class="n3"><a href="#dentro-de-la-clase">Dentro de la clase</a></li><li class="n3"><a href="#tus-scripts-getscript-global-y-los-nombres-entre-comillas">Tus scripts: GetScript, Global y los nombres entre comillas</a></li><li class="n3"><a href="#textos-entre-comillas-y-funciones-del-motor">Textos entre comillas y funciones del motor</a></li><li class="n2"><a href="#15-publicar-solo-el-bytecode">15. Publicar: solo el bytecode</a></li><li class="n2"><a href="#16-el-sandbox-y-los-límites">16. El sandbox y los límites</a></li><li class="n2"><a href="#17-errores-comunes">17. Errores comunes</a></li><li class="n2"><a href="#18-consejos-de-rendimiento">18. Consejos de rendimiento</a></li><li class="n2"><a href="#apéndice-paridad-con-c">Apéndice: Paridad con C++</a></li></ul></details><p>La guía principal para programar juegos con Nova Engine en <strong>Lua</strong> (en concreto <strong>Luau</strong>, el Lua con tipos
-opcionales de Roblox). Explica por qué Lua, cómo es un script, todos los atributos y la API por áreas, la recarga
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-por-qué-lua-y-cuándo-c">1. Por qué Lua (y cuándo C++)</a></li><li class="n2"><a href="#2-tu-primer-script-en-cinco-minutos">2. Tu primer script en cinco minutos</a></li><li class="n2"><a href="#3-los-ejemplos-en-lua">3. Los ejemplos en Lua</a></li><li class="n2"><a href="#4-anatomía-de-un-script">4. Anatomía de un script</a></li><li class="n3"><a href="#la-clase-y-self">La clase y self</a></li><li class="n3"><a href="#ciclo-de-vida">Ciclo de vida</a></li><li class="n3"><a href="#módulos-require">Módulos (require)</a></li><li class="n2"><a href="#5-atributos">5. Atributos</a></li><li class="n2"><a href="#6-campos-en-el-inspector">6. Campos en el Inspector</a></li><li class="n2"><a href="#7-referencia-de-la-api">7. Referencia de la API</a></li><li class="n3"><a href="#entidades-y-escena">Entidades y escena</a></li><li class="n3"><a href="#transform">Transform</a></li><li class="n3"><a href="#entrada">Entrada</a></li><li class="n3"><a href="#tiempo">Tiempo</a></li><li class="n3"><a href="#físicas">Físicas</a></li><li class="n3"><a href="#terreno">Terreno</a></li><li class="n3"><a href="#agua">Agua</a></li><li class="n3"><a href="#decals">Decals</a></li><li class="n3"><a href="#navegación">Navegación</a></li><li class="n3"><a href="#ia">IA</a></li><li class="n3"><a href="#audio">Audio</a></li><li class="n3"><a href="#animación-y-personajes">Animación y personajes</a></li><li class="n3"><a href="#cámara">Cámara</a></li><li class="n3"><a href="#materiales-y-visibilidad">Materiales y visibilidad</a></li><li class="n3"><a href="#datos-guardados">Datos guardados</a></li><li class="n3"><a href="#dibujo-de-depuración">Dibujo de depuración</a></li><li class="n3"><a href="#aplicación">Aplicación</a></li><li class="n3"><a href="#registro">Registro</a></li><li class="n3"><a href="#matemáticas">Matemáticas</a></li><li class="n3"><a href="#interfaz-del-juego-ui">Interfaz del juego (UI)</a></li><li class="n3"><a href="#idiomas-loc">Idiomas (Loc)</a></li><li class="n3"><a href="#interfaz-mínima-ongui">Interfaz mínima (OnGUI)</a></li><li class="n2"><a href="#8-errores-y-recarga-en-caliente">8. Errores y recarga en caliente</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n3"><a href="#91-el-servidor-manda">9.1 El servidor manda</a></li><li class="n3"><a href="#92-un-fichero-los-dos-lados">9.2 Un fichero, los dos lados</a></li><li class="n3"><a href="#93-campos-replicados">9.3 Campos replicados</a></li><li class="n3"><a href="#94-funciones-de-red-server-client-y-multicast">9.4 Funciones de red: [Server], [Client] y [Multicast]</a></li><li class="n3"><a href="#95-selftojugador">9.5 self:To(jugador)</a></li><li class="n3"><a href="#96-source">9.6 source</a></li><li class="n3"><a href="#97-scripts-global">9.7 Scripts [Global]</a></li><li class="n3"><a href="#98-límites-y-validación">9.8 Límites y validación</a></li><li class="n3"><a href="#99-objetos-de-red-crear-dueño-teletransporte-y-empujones">9.9 Objetos de red: crear, dueño, teletransporte y empujones</a></li><li class="n3"><a href="#910-llamadas-al-servidor-con-respuesta">9.10 Llamadas al servidor con respuesta</a></li><li class="n3"><a href="#911-empezar-y-unirse-a-partidas-desde-lua-menús">9.11 Empezar y unirse a partidas desde Lua (menús)</a></li><li class="n3"><a href="#912-jugadores-ping-y-expulsar">9.12 Jugadores, ping y expulsar</a></li><li class="n3"><a href="#913-lo-que-no-se-puede-hacer-todavía">9.13 Lo que no se puede hacer (todavía)</a></li><li class="n3"><a href="#914-dónde-se-ejecuta-una-función">9.14 Dónde se ejecuta una función</a></li><li class="n2"><a href="#10-tutorial-rey-de-la-arena">10. Tutorial: «Rey de la arena»</a></li><li class="n3"><a href="#101-probarlo">10.1 Probarlo</a></li><li class="n3"><a href="#102-cómo-está-montado">10.2 Cómo está montado</a></li><li class="n3"><a href="#103-interfazluau-todo-lo-que-se-ve-en-un-sitio">10.3 Interfaz.luau: todo lo que se ve, en un sitio</a></li><li class="n3"><a href="#104-jugadorluau">10.4 Jugador.luau</a></li><li class="n3"><a href="#105-rondasluau">10.5 Rondas.luau</a></li><li class="n3"><a href="#106-las-pruebas-automáticas">10.6 Las pruebas automáticas</a></li><li class="n2"><a href="#11-eventos">11. Eventos</a></li><li class="n2"><a href="#12-settimeout-createthread-y-wait">12. SetTimeout, CreateThread y Wait</a></li><li class="n2"><a href="#13-vs-code-y-autocompletado">13. VS Code y autocompletado</a></li><li class="n3"><a href="#instalarla">Instalarla</a></li><li class="n3"><a href="#si-vs-code-marca-errores-que-no-lo-son">Si VS Code marca errores que no lo son</a></li><li class="n3"><a href="#lo-que-se-escribe-en-el-proyecto">Lo que se escribe en el proyecto</a></li><li class="n3"><a href="#dentro-de-la-clase">Dentro de la clase</a></li><li class="n3"><a href="#tus-scripts-getscript-global-y-los-nombres-entre-comillas">Tus scripts: GetScript, Global y los nombres entre comillas</a></li><li class="n3"><a href="#textos-entre-comillas-y-funciones-del-motor">Textos entre comillas y funciones del motor</a></li><li class="n2"><a href="#14-publicar-solo-el-bytecode">14. Publicar: solo el bytecode</a></li><li class="n2"><a href="#15-el-sandbox-y-los-límites">15. El sandbox y los límites</a></li><li class="n2"><a href="#16-errores-comunes">16. Errores comunes</a></li><li class="n2"><a href="#17-consejos-de-rendimiento">17. Consejos de rendimiento</a></li><li class="n2"><a href="#apéndice-paridad-con-c">Apéndice: Paridad con C++</a></li></ul></details><p>La guía principal para programar juegos con Nova Engine en <strong>Lua</strong> (en concreto <strong>Luau</strong>, el Lua con tipos opcionales). Explica por qué Lua, cómo es un script, todos los atributos y la API por áreas, la recarga
 en caliente, el <strong>multijugador</strong> con el servidor al mando (un solo fichero para servidor y cliente), un tutorial
-completo de un juego en red («Rey de la arena»), las equivalencias para quien viene de <strong>FiveM</strong>, VS Code con
+completo de un juego en red («Rey de la arena»), VS Code con
 autocompletado, la publicación, el sandbox, los errores comunes, consejos de rendimiento y, al final, qué tiene Lua
 de lo que pueden hacer los scripts C++ y el motor (apéndice <a href="#apéndice-paridad-con-c">Paridad con C++</a>).</p>
 <p>Lua es el lenguaje de los scripts por defecto: las plantillas de Nova Hub, los ejemplos y todas las guías lo usan.
@@ -49,14 +46,13 @@ sigue disponible, como opción avanzada, para lo que necesite código nativo: <a
 <li><a href="#8-errores-y-recarga-en-caliente">Errores y recarga en caliente</a></li>
 <li><a href="#9-multijugador">Multijugador</a></li>
 <li><a href="#10-tutorial-rey-de-la-arena">Tutorial: «Rey de la arena»</a></li>
-<li><a href="#11-si-vienes-de-fivem">Si vienes de FiveM</a></li>
-<li><a href="#12-eventos-al-estilo-fivem">Eventos al estilo FiveM</a></li>
-<li><a href="#13-settimeout-createthread-y-wait">SetTimeout, CreateThread y Wait</a></li>
-<li><a href="#14-vs-code-y-autocompletado">VS Code y autocompletado</a></li>
-<li><a href="#15-publicar-solo-el-bytecode">Publicar: solo el bytecode</a></li>
-<li><a href="#16-el-sandbox-y-los-límites">El sandbox y los límites</a></li>
-<li><a href="#17-errores-comunes">Errores comunes</a></li>
-<li><a href="#18-consejos-de-rendimiento">Consejos de rendimiento</a></li>
+<li><a href="#11-eventos">Eventos</a></li>
+<li><a href="#12-settimeout-createthread-y-wait">SetTimeout, CreateThread y Wait</a></li>
+<li><a href="#13-vs-code-y-autocompletado">VS Code y autocompletado</a></li>
+<li><a href="#14-publicar-solo-el-bytecode">Publicar: solo el bytecode</a></li>
+<li><a href="#15-el-sandbox-y-los-límites">El sandbox y los límites</a></li>
+<li><a href="#16-errores-comunes">Errores comunes</a></li>
+<li><a href="#17-consejos-de-rendimiento">Consejos de rendimiento</a></li>
 </ol>
 <ul>
 <li><a href="#apéndice-paridad-con-c">Apéndice: Paridad con C++</a></li>
@@ -65,8 +61,7 @@ sigue disponible, como opción avanzada, para lo que necesite código nativo: <a
 <ul>
 <li><strong>Sin compilar.</strong> Guardas el fichero y el editor lo recarga al momento, también con el juego en marcha, sin
 perder el estado. No hace falta Visual Studio.</li>
-<li><strong>Fácil de leer y de aprender.</strong> Es el lenguaje de Roblox, de FiveM, de muchos <em>mods</em>… Si vienes de FiveM, casi
-todo te sonará (sección <a href="#11-si-vienes-de-fivem">11</a>).</li>
+<li><strong>Fácil de leer y de aprender.</strong> Es un lenguaje pequeño y muy usado en juegos y <em>mods</em>.</li>
 <li><strong>Seguro.</strong> Cada partida ejecuta los scripts en una máquina virtual aislada: sin acceso a ficheros, al sistema
 ni a Internet, con límite de memoria y de tiempo. Un bucle infinito detiene ese script, no el editor.</li>
 <li><strong>El mismo motor.</strong> Un script Lua va en el mismo componente <strong>Scripts</strong> que los de C++: sus campos salen en el
@@ -398,7 +393,7 @@ interfaz (eventos «Al hacer clic»), sin argumentos.</li>
 <code>OnCollisionEnter(choque: Collision)</code>, <code>OnInteract(jugador: number)</code>, <code>OnBreak(nivel: number, punto: Vec3)</code>. Con otro
 tipo, el motor no puede llamar a las que llama por la reflexión: <code>function Pickup:OnInteract(player: Entity)</code> da en la
 Consola «OnInteract: Pickup.OnInteract no se puede llamar (recibe 1 parámetro(s))», porque le llega el número del
-jugador. El editor de scripts y la extensión de VS Code lo subrayan con el arreglo rápido (sección <a href="#14-vs-code-y-autocompletado">14</a>).
+jugador. El editor de scripts y la extensión de VS Code lo subrayan con el arreglo rápido (sección <a href="#13-vs-code-y-autocompletado">13</a>).
 <code>Interaction.OnInteract(function(entidad, jugador) ... end)</code> es otra forma, desde cualquier script: recibe la entidad
 usada <strong>y</strong> el jugador.</p>
 <p>Lo que use la escena (<code>Scene.Find</code>, <code>Global</code>, componentes…) tiene que ir dentro de estas funciones: en el nivel
@@ -438,7 +433,7 @@ scripts:</p>
 
 <span class="hl-k">return</span> <span class="hl-t">Cronometro</span></code></pre></div>
 <p><code>require</code> solo carga ficheros de <code>scripts/</code>. Para pasar datos entre scripts también sirven <code>Global(&quot;X&quot;)</code>
-(sección <a href="#9-multijugador">9</a>) y los eventos (sección <a href="#12-eventos-al-estilo-fivem">12</a>).</p>
+(sección <a href="#9-multijugador">9</a>) y los eventos (sección <a href="#11-eventos">11</a>).</p>
 <h2 id="5-atributos">5. Atributos<a class="ancla" href="#5-atributos" aria-label="Enlace a esta sección">#</a></h2>
 <p>Los atributos configuran campos y funciones. Van en un comentario que empieza por <code>--[</code>, <strong>encima</strong> de la línea
 o <strong>al final</strong> de ella; varios se separan con comas y varios comentarios seguidos se suman:</p>
@@ -629,7 +624,7 @@ o <strong>al final</strong> de ella; varios se separan con comas y varios coment
 <li>Un atributo desconocido, mal escrito o mal puesto es un <strong>aviso</strong> en la Consola con fichero y línea, con
 sugerencia: <code>scripts/Jugador.luau:7: atributo desconocido [Rnage] (¿querías [Range]?)</code>. El script funciona
 igual, sin ese atributo. Con la extensión de Nova para VS Code el mismo aviso sale mientras escribes (sección
-<a href="#14-vs-code-y-autocompletado">14</a>).</li>
+<a href="#13-vs-code-y-autocompletado">13</a>).</li>
 </ul>
 <h2 id="6-campos-en-el-inspector">6. Campos en el Inspector<a class="ancla" href="#6-campos-en-el-inspector" aria-label="Enlace a esta sección">#</a></h2>
 <p>Un campo es una clave de la clase con un valor que no es una función, asignada en el nivel principal del
@@ -787,7 +782,7 @@ minúsculas.</p>
 <h2 id="7-referencia-de-la-api">7. Referencia de la API<a class="ancla" href="#7-referencia-de-la-api" aria-label="Enlace a esta sección">#</a></h2>
 <p>Los nombres de la API están en inglés, como los de C++. Todo lo que sigue funciona igual en el editor, en
 <code>NovaGame.exe</code> y en <code>NovaServer.exe</code> (sin pantalla, <code>GUI</code> y el audio no hacen nada). La lista completa, con tipos,
-está en <code>nova.d.luau</code> (sección <a href="#14-vs-code-y-autocompletado">14</a>) y, con una página por librería, componente y tipo,
+está en <code>nova.d.luau</code> (sección <a href="#13-vs-code-y-autocompletado">13</a>) y, con una página por librería, componente y tipo,
 en la <a href="lua.html">Referencia de Lua</a> de la documentación en HTML (con su buscador arriba: <strong>Ctrl+K</strong>).</p>
 <h3 id="entidades-y-escena">Entidades y escena<a class="ancla" href="#entidades-y-escena" aria-label="Enlace a esta sección">#</a></h3>
 <div class="tabla"><table>
@@ -2216,7 +2211,7 @@ módulo: «Recargado Util.luau (y 3 scripts que lo usan)».</li>
 (se sigue usando la versión anterior)». El error queda también en la Consola y el juego no se para. <strong>Pulsa el
 aviso</strong> (o el error en la Consola) para abrir el script en esa línea en el <a href="editor-scripts.html">editor de scripts</a>. Con
 la extensión de Nova para VS Code, el error sale también en el panel
-<strong>Problemas</strong> de VS Code y se quita al arreglarlo (sección <a href="#14-vs-code-y-autocompletado">14</a>).</li>
+<strong>Problemas</strong> de VS Code y se quita al arreglarlo (sección <a href="#13-vs-code-y-autocompletado">13</a>).</li>
 <li>Si los campos cambian, el Inspector se actualiza y los valores de las entidades se conservan por nombre.</li>
 <li>Las instancias que ya existen pasan a usar las funciones nuevas <strong>conservando su estado</strong> (campos y <code>self._x</code>);
 no se vuelven a llamar <code>Awake</code> ni <code>Start</code>.</li>
@@ -2251,7 +2246,7 @@ recarga al cambiar su fecha.</li>
 <p>Primero el fichero y la línea, después el mensaje, qué función y en qué entidad, y la pila. El mismo error no se
 repite cada frame: sale una vez y después un resumen cada 5 segundos. Ese script sigue recibiendo llamadas (el
 error puede ser de un solo frame), salvo que agote el tiempo o la memoria: entonces se detiene hasta la próxima
-partida (sección <a href="#16-el-sandbox-y-los-límites">16</a>). Un error nunca cierra el editor ni el juego.</p>
+partida (sección <a href="#15-el-sandbox-y-los-límites">15</a>). Un error nunca cierra el editor ni el juego.</p>
 <p>Un script con errores al cargarse aparece en el Inspector como «Script Lua con errores o borrado (mira la
 Consola)»; sus datos se conservan y vuelve a funcionar en cuanto lo arreglas.</p>
 <h2 id="9-multijugador">9. Multijugador<a class="ancla" href="#9-multijugador" aria-label="Enlace a esta sección">#</a></h2>
@@ -2456,7 +2451,6 @@ partida con megas en tablas las recibe todas sin que la red lo expulse. Una enti
 reciben los jugadores de <code>self:SetObservers({ ids })</code> (solo en el servidor; la lista es de la entidad y vale para
 todas sus tablas <code>&quot;Observers&quot;</code>; <code>self:GetObservers()</code> la devuelve). A quien sale de la lista se le vacía la
 tabla. Desde otro script: <code>Network.SetObservers(entidad, ids)</code> y <code>Network.GetObservers(entidad)</code>.</li>
-<li>Es lo que en FiveM serían los <em>state bags</em> de una entidad, y en Unity un <code>NetworkList</code>/<code>NetworkDictionary</code>.</li>
 <li>El <a href="ejemplo-inventario.html#5-las-casillas-por-la-red">inventario tipo Rust</a> reparte sus casillas de otra forma:
 un campo de texto replicado por casilla (declarados en un bucle con <code>:Field</code>) y un <code>[Client]</code> con el contenido.</li>
 </ul>
@@ -2594,14 +2588,13 @@ cierre:</p>
 <li>Un <code>[Client]</code> sin <code>To</code> en algo sin dueño (un <code>[Global]</code>, un objeto del servidor) es un error que lo explica.</li>
 </ul>
 <h3 id="96-source">9.6 <code>source</code><a class="ancla" href="#96-source" aria-label="Enlace a esta sección">#</a></h3>
-<p>Como en FiveM: dentro de una función <code>[Server]</code> (y de un manejador de un evento que llega de un jugador),
+<p>Dentro de una función <code>[Server]</code> (y de un manejador de un evento que llega de un jugador),
 <code>source</code> es el id del jugador que la llamó (0 = el propio servidor). En lo demás es <code>nil</code>. Es una variable global
 de solo lectura que cambia en cada llamada: si la necesitas después (en un <code>SetTimeout</code>), cópiala a un <code>local</code>.</p>
 <h3 id="97-scripts-global">9.7 Scripts <code>[Global]</code><a class="ancla" href="#97-scripts-global" aria-label="Enlace a esta sección">#</a></h3>
 <p><code>--[Global]</code> encima de <code>local X = Script()</code> crea un script de la <strong>partida</strong>: no se pone en ninguna escena; el
 motor crea una instancia en el servidor y en cada cliente al empezar, con la misma identidad de red en todas. Sus
-<code>[Replicated]</code> y sus funciones de red funcionan como en cualquier entidad. Es el equivalente al <code>GameState</code> de
-Unreal, a un <em>singleton</em> de Unity o a un recurso de servidor de FiveM.</p>
+<code>[Replicated]</code> y sus funciones de red funcionan como en cualquier entidad.</p>
 <ul>
 <li>Desde cualquier script: <code>Global(&quot;Rondas&quot;)</code> (o la ruta: <code>Global(&quot;reglas/Rondas.luau&quot;)</code>) devuelve su instancia.</li>
 <li>Como no tiene dueño, <strong>cualquier jugador</strong> puede llamar a sus <code>[Server]</code> (valida con <code>source</code>) y sus <code>[Client]</code>
@@ -2740,8 +2733,7 @@ justo después de <code>Spawn</code> viaja en el <strong>primer envío</strong> 
 valores (con su <code>onChange</code>); sus tablas replicadas llegan justo después. En los clientes, <code>Awake</code> se ejecuta al
 aparecer allí la entidad; si solo debe hacer algo el servidor, compruébalo con <code>IsServer()</code>.</p>
 <h3 id="910-llamadas-al-servidor-con-respuesta">9.10 Llamadas al servidor con respuesta<a class="ancla" href="#910-llamadas-al-servidor-con-respuesta" aria-label="Enlace a esta sección">#</a></h3>
-<p>Una función <code>[Server]</code> no devuelve nada a quien la llama. Para preguntar algo al servidor y recibir la respuesta,
-como el <code>ESX.TriggerServerCallback</code> o <code>lib.callback</code> de FiveM: el servidor registra la respuesta con
+<p>Una función <code>[Server]</code> no devuelve nada a quien la llama. Para preguntar algo al servidor y recibir la respuesta: el servidor registra la respuesta con
 <code>RegisterServerCallback</code> y el cliente pregunta con <code>TriggerServerCallback</code>, que llama a su función cuando llega:</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-a">--[Global]</span>
 <span class="hl-k">local</span> <span class="hl-t">Precios</span> = <span class="hl-f">Script</span>()
@@ -3134,79 +3126,6 @@ ejecutan: al cargar la clase (y si cambia el modo de la red) la VM pone en la cl
 envoltorio donde no. Medido con un millón de llamadas: 25 ns la función normal y 25 ns la <code>ServerOnly</code> (llamadas
 directas), 24 ns la llamada ignorada. <code>OwnerOnly</code> y <code>Cooldown</code> pasan siempre por el envoltorio (unos 90 ns más por
 llamada: miran el dueño de la entidad o la hora).</p>
-<p><strong>Equivalencias</strong> con otros motores:</p>
-<div class="tabla"><table>
-<thead>
-<tr>
-  <th>Nova</th>
-  <th>Unreal Engine</th>
-  <th>Mirror (Unity)</th>
-  <th>Netcode for GameObjects</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td><code>--[ServerOnly]</code></td>
-  <td><code>if (HasAuthority())</code> / <code>BlueprintAuthorityOnly</code></td>
-  <td><code>[Server]</code> (sin red avisa y no ejecuta)</td>
-  <td><code>if (IsServer)</code></td>
-</tr>
-<tr>
-  <td><code>--[ClientOnly]</code></td>
-  <td><code>if (!IsRunningDedicatedServer())</code> / <code>BlueprintCosmetic</code></td>
-  <td><code>[Client]</code></td>
-  <td><code>if (IsClient)</code></td>
-</tr>
-<tr>
-  <td><code>--[OwnerOnly]</code></td>
-  <td><code>if (IsLocallyControlled())</code></td>
-  <td><code>if (isOwned)</code></td>
-  <td><code>if (IsOwner)</code></td>
-</tr>
-<tr>
-  <td><code>--[EditorOnly]</code></td>
-  <td><code>#if WITH_EDITOR</code> / <code>UPROPERTY(EditorOnly)</code></td>
-  <td><code>#if UNITY_EDITOR</code></td>
-  <td><code>#if UNITY_EDITOR</code></td>
-</tr>
-<tr>
-  <td><code>--[Server]</code></td>
-  <td><code>UFUNCTION(Server, Reliable)</code></td>
-  <td><code>[Command]</code></td>
-  <td><code>[ServerRpc]</code> / <code>[Rpc(SendTo.Server)]</code></td>
-</tr>
-<tr>
-  <td><code>--[Server(validate = &quot;X&quot;)]</code></td>
-  <td><code>WithValidation</code> (<code>_Validate</code>)</td>
-  <td>validar dentro del <code>[Command]</code></td>
-  <td>validar dentro del <code>ServerRpc</code></td>
-</tr>
-<tr>
-  <td><code>--[Server, OwnerOnly]</code></td>
-  <td>RPC de servidor (el dueño)</td>
-  <td><code>[Command(requiresAuthority = true)]</code></td>
-  <td><code>[ServerRpc(RequireOwnership = true)]</code></td>
-</tr>
-<tr>
-  <td><code>--[Client]</code></td>
-  <td><code>UFUNCTION(Client)</code></td>
-  <td><code>[TargetRpc]</code></td>
-  <td><code>[ClientRpc]</code> a un cliente</td>
-</tr>
-<tr>
-  <td><code>--[Multicast]</code></td>
-  <td><code>UFUNCTION(NetMulticast)</code></td>
-  <td><code>[ClientRpc]</code></td>
-  <td><code>[ClientRpc]</code> / <code>[Rpc(SendTo.Everyone)]</code></td>
-</tr>
-<tr>
-  <td><code>--[Cooldown(s)]</code></td>
-  <td>a mano (temporizador)</td>
-  <td>a mano</td>
-  <td>a mano</td>
-</tr>
-</tbody>
-</table></div>
 <h2 id="10-tutorial-rey-de-la-arena">10. Tutorial: «Rey de la arena»<a class="ancla" href="#10-tutorial-rey-de-la-arena" aria-label="Enlace a esta sección">#</a></h2>
 <p>Un juego en red completo, solo con Lua, en <code>game/multiplayer_lua</code>: varios jugadores en una plataforma flotante se
 empujan con <strong>E</strong>. Cada empujón quita vida, y <strong>cuanta menos vida tienes, más lejos sales volando</strong>. Quien cae
@@ -3465,148 +3384,8 @@ que el servidor rechaza el segundo empujón seguido, que nadie puede empujar con
 se anuncia, el ganador, la ronda siguiente con todos de vuelta y el chat (con su límite por segundo). Otra prueba
 juega de anfitrión con la vista y la entrada simuladas: el HUD con sus textos y el chat escrito en su campo. Es un buen
 modelo para probar tus juegos: el código Lua de las pruebas se ejecuta en la máquina virtual de cada «máquina».</p>
-<h2 id="11-si-vienes-de-fivem">11. Si vienes de FiveM<a class="ancla" href="#11-si-vienes-de-fivem" aria-label="Enlace a esta sección">#</a></h2>
-<p>Casi todo tiene un equivalente directo. La diferencia principal: en Nova la forma normal de comunicar servidor y
-clientes son <strong>funciones con atributos</strong> en lugar de eventos con nombre; los eventos siguen ahí para traer código
-(sección <a href="#12-eventos-al-estilo-fivem">12</a>).</p>
-<div class="tabla"><table>
-<thead>
-<tr>
-  <th>FiveM</th>
-  <th>Nova (forma principal)</th>
-  <th>Nova (eventos)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td><code>client_script</code> / <code>server_script</code></td>
-  <td>Un solo fichero; <code>IsServer()</code> / <code>IsClient()</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>fxmanifest.lua</code>, <em>resources</em></td>
-  <td>La carpeta <code>scripts/</code>: cada fichero es una clase o un módulo (<code>require</code>)</td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>exports</code></td>
-  <td><code>require(&quot;./Modulo&quot;)</code> y <code>Global(&quot;Script&quot;)</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>TriggerServerEvent(&quot;x&quot;, ...)</code></td>
-  <td><code>self:X(...)</code> con <code>--[Server]</code></td>
-  <td><code>TriggerServerEvent(&quot;x&quot;, ...)</code></td>
-</tr>
-<tr>
-  <td><code>TriggerClientEvent(&quot;x&quot;, -1, ...)</code></td>
-  <td><code>self:X(...)</code> con <code>--[Multicast]</code></td>
-  <td><code>TriggerClientEvent(&quot;x&quot;, -1, ...)</code></td>
-</tr>
-<tr>
-  <td><code>TriggerClientEvent(&quot;x&quot;, id, ...)</code></td>
-  <td><code>self:To(id):X(...)</code> con <code>--[Client]</code></td>
-  <td><code>TriggerClientEvent(&quot;x&quot;, id, ...)</code></td>
-</tr>
-<tr>
-  <td><code>RegisterNetEvent(&quot;x&quot;)</code> + <code>AddEventHandler(&quot;x&quot;, fn)</code></td>
-  <td>La función con su atributo</td>
-  <td><code>RegisterNetEvent(&quot;x&quot;, fn)</code></td>
-</tr>
-<tr>
-  <td><code>source</code></td>
-  <td><code>source</code> (igual)</td>
-  <td><code>source</code></td>
-</tr>
-<tr>
-  <td>State bags (<code>Entity(e).state.vida</code>, <code>Player(id).state</code>, <code>GlobalState</code>)</td>
-  <td>Campos <code>--[Replicated]</code> (en la entidad, en el personaje del jugador o en un <code>[Global]</code>); para datos con claves, tablas replicadas (<code>--[Replicated] X.estado = {}</code>, sección <a href="#93-campos-replicados">9.3</a>)</td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>AddStateBagChangeHandler</code></td>
-  <td><code>--[Replicated(onChange = &quot;Funcion&quot;)]</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>Citizen.CreateThread</code>, <code>Citizen.Wait</code></td>
-  <td><code>CreateThread</code>, <code>Wait</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>SetTimeout</code></td>
-  <td><code>SetTimeout</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>while true do ... Wait(0) end</code></td>
-  <td><code>function X:Update(dt) ... end</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>GetPlayers()</code>, <code>GetPlayerName(id)</code></td>
-  <td><code>GetPlayers()</code>, <code>GetPlayerName(id)</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>AddEventHandler(&quot;playerDropped&quot;, ...)</code></td>
-  <td><code>AddEventHandler(&quot;playerDropped&quot;, function(id, motivo) ... end)</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>AddEventHandler(&quot;onResourceStart&quot;, ...)</code></td>
-  <td><code>Start()</code>, o el evento <code>gameStart</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td>Nativas (<code>GetEntityCoords(ped)</code>, <code>SetEntityCoords</code>)</td>
-  <td><code>entidad.position</code> (lectura y escritura), <code>Physics.Teleport</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>ESX.TriggerServerCallback</code>, <code>lib.callback</code></td>
-  <td><code>TriggerServerCallback</code> / <code>RegisterServerCallback</code> (<a href="#910-llamadas-al-servidor-con-respuesta">9.10</a>), o un <code>[Server]</code> y la respuesta con <code>self:To(source):Respuesta(...)</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>CreateVehicle</code>, <code>NetworkSetEntityOwner</code></td>
-  <td><code>Spawn(prefab, pos, rot, { owner = id })</code>, <code>Network.SetOwner</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>SetEntityCoords</code> (con red)</td>
-  <td><code>Network.Teleport(entidad, posicion)</code></td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>SetResourceKvp</code> / <code>GetResourceKvpString</code></td>
-  <td><code>PlayerPrefs.Set</code> / <code>PlayerPrefs.Get</code>, y <code>SaveGame</code> para tablas enteras</td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>DrawLine</code>, <code>DrawMarker</code> (depuración)</td>
-  <td><code>Debug.DrawLine</code>, <code>Debug.DrawSphere</code>...</td>
-  <td></td>
-</tr>
-<tr>
-  <td><code>GetPlayerPing(id)</code>, <code>DropPlayer(id, motivo)</code></td>
-  <td><code>Network.GetPing(id)</code>, <code>Network.Kick(id, motivo)</code></td>
-  <td></td>
-</tr>
-</tbody>
-</table></div>
-<p>Diferencias que conviene saber:</p>
-<ul>
-<li><strong>Los tipos se comprueban.</strong> Un parámetro <code>(cantidad: number)</code> rechaza un texto, también sin red. Y el motor
-comprueba el dueño de cada <code>[Server]</code> de una entidad: un cliente no puede pedir cosas en nombre del personaje de
-otro.</li>
-<li><strong>No hay red de «cualquier evento»</strong>: solo los registrados con <code>RegisterNetEvent</code> se aceptan desde la red.</li>
-<li><strong>El servidor es la verdad.</strong> Lo que el cliente cambia en su máquina no llega a nadie: pídeselo al servidor.</li>
-<li><strong>Un solo proyecto.</strong> No hay recursos que arrancar y parar: los scripts son parte del juego y se recargan al
-guardar.</li>
-</ul>
-<h2 id="12-eventos-al-estilo-fivem">12. Eventos al estilo FiveM<a class="ancla" href="#12-eventos-al-estilo-fivem" aria-label="Enlace a esta sección">#</a></h2>
-<p>Para traer código de FiveM o comunicar scripts entre sí sin conocerse. Disponibles en cualquier script:</p>
+<h2 id="11-eventos">11. Eventos<a class="ancla" href="#11-eventos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para comunicar scripts entre sí sin conocerse. Disponibles en cualquier script:</p>
 <div class="tabla"><table>
 <thead>
 <tr>
@@ -3647,13 +3426,13 @@ guardar.</li>
 </table></div>
 <p>Eventos de la partida: <code>gameStart</code> (antes del primer <code>Start</code>), <code>gameStop</code> (al parar; solo para manejadores
 registrados al cargar el fichero), <code>playerJoined(id)</code> y <code>playerDropped(id, motivo)</code> (en el servidor).</p>
-<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Una tienda escrita como en FiveM (en un [Global], para que exista en todas las maquinas)</span>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Una tienda con eventos con nombre (en un [Global], para que exista en todas las maquinas)</span>
 <span class="hl-a">--[Global]</span>
-<span class="hl-k">local</span> <span class="hl-t">TiendaFiveM</span> = <span class="hl-f">Script</span>()
+<span class="hl-k">local</span> <span class="hl-t">TiendaEventos</span> = <span class="hl-f">Script</span>()
 
 <span class="hl-k">local</span> <span class="hl-t">PRECIOS</span> = { pan = <span class="hl-n">2</span>, agua = <span class="hl-n">1</span> }
 
-<span class="hl-k">function</span> <span class="hl-t">TiendaFiveM</span>:<span class="hl-f">Awake</span>()
+<span class="hl-k">function</span> <span class="hl-t">TiendaEventos</span>:<span class="hl-f">Awake</span>()
     <span class="hl-c">-- Servidor: compra pedida por un cliente</span>
     <span class="hl-f">RegisterNetEvent</span>(<span class="hl-s">"tienda:comprar"</span>, <span class="hl-k">function</span>(articulo)
         <span class="hl-k">local</span> precio = <span class="hl-t">PRECIOS</span>[articulo]
@@ -3669,13 +3448,13 @@ registrados al cargar el fichero), <code>playerJoined(id)</code> y <code>playerD
     <span class="hl-k">end</span>)
 <span class="hl-k">end</span>
 
-<span class="hl-k">function</span> <span class="hl-t">TiendaFiveM</span>:<span class="hl-f">Update</span>(dt: number)
+<span class="hl-k">function</span> <span class="hl-t">TiendaEventos</span>:<span class="hl-f">Update</span>(dt: number)
     <span class="hl-k">if</span> <span class="hl-f">IsClient</span>() <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"B"</span>) <span class="hl-k">then</span>
         <span class="hl-f">TriggerServerEvent</span>(<span class="hl-s">"tienda:comprar"</span>, <span class="hl-s">"pan"</span>)
     <span class="hl-k">end</span>
 <span class="hl-k">end</span>
 
-<span class="hl-k">return</span> <span class="hl-t">TiendaFiveM</span></code></pre></div>
+<span class="hl-k">return</span> <span class="hl-t">TiendaEventos</span></code></pre></div>
 <p>Límites: hasta 16 argumentos y 8 KB por evento, nombres de 1 a 128 caracteres, valores como los parámetros sin
 tipo (sección <a href="#94-funciones-de-red-server-client-y-multicast">9.4</a>) pero con <strong>tablas anidadas de hasta 8 niveles
 y 256 elementos por tabla</strong> (un inventario con sus contenedores cabe tal cual, sin <code>Json.Encode</code>; desde la 0.9.13:
@@ -3686,7 +3465,7 @@ Las funciones de red (<a href="#94-funciones-de-red-server-client-y-multicast">9
 niveles.
 Los eventos no registrados que llegan al servidor se descartan con un aviso. Un manejador añadido en una función
 de una instancia se quita solo al destruirse; uno añadido al cargar el fichero, al recargarlo.</p>
-<h2 id="13-settimeout-createthread-y-wait">13. SetTimeout, CreateThread y Wait<a class="ancla" href="#13-settimeout-createthread-y-wait" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="12-settimeout-createthread-y-wait">12. SetTimeout, CreateThread y Wait<a class="ancla" href="#12-settimeout-createthread-y-wait" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li><code>SetTimeout(ms, fn)</code>: llama a <code>fn</code> dentro de <code>ms</code> milisegundos.</li>
 <li><code>CreateThread(fn)</code>: ejecuta <code>fn</code> como una tarea que puede esperar con <code>Wait(ms)</code> sin parar el juego.</li>
@@ -3716,10 +3495,10 @@ llamada.</p>
 
 <span class="hl-k">return</span> <span class="hl-t">Semaforo</span></code></pre></div>
 <p>Un <code>while true</code> sin <code>Wait</code> dentro de una tarea es un bucle infinito: el motor lo corta al pasar el tiempo máximo.</p>
-<p>Desde la 0.9.2 está también <code>Task</code> (como <code>task</code> de Roblox, sobre el mismo planificador): <code>Task.Wait(segundos)</code>,
+<p>Desde la 0.9.2 está también <code>Task</code> (sobre el mismo planificador): <code>Task.Wait(segundos)</code>,
 <code>Task.Delay</code>, <code>Task.Spawn</code>, <code>Task.Defer</code>, <code>Task.Every</code> y <code>Task.Cancel</code>, en segundos, con el tiempo de juego o el real
 y que se cancelan al desactivar su script o su entidad (<a href="nativas-juego.html#3-task-esperar-sin-parar-el-juego">nativas-juego.md</a>).</p>
-<h2 id="14-vs-code-y-autocompletado">14. VS Code y autocompletado<a class="ancla" href="#14-vs-code-y-autocompletado" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="13-vs-code-y-autocompletado">13. VS Code y autocompletado<a class="ancla" href="#13-vs-code-y-autocompletado" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Lo recomendado desde la 0.9.25 es el editor de scripts integrado</strong>: la ventana <strong>Scripts</strong> del editor de Nova, con
 autocompletado de toda la API y de tus scripts (también <code>self.</code> y los nombres entre comillas), avisos mientras escribes
 con arreglo rápido, ir a la definición, renombrar, buscar en el proyecto y un depurador con puntos de parada, sin
@@ -3751,7 +3530,7 @@ viajan; sección <a href="#94-funciones-de-red-server-client-y-multicast">9.4</a
 <li><strong>Los errores del motor en Problemas</strong>: cuando el editor de Nova recarga un script con errores (al guardarlo),
 salen en el panel <strong>Problemas</strong> de VS Code con su línea, y se quitan al arreglarlos.</li>
 <li><strong>Fragmentos</strong>: escribe <code>nova-</code> y elige: script nuevo con <code>Start</code>/<code>Update</code>, script <code>[Global]</code>, campo,
-funciones <code>[Server]</code>, <code>[Client]</code> y <code>[Multicast]</code>, campo y tabla <code>[Replicated]</code>, evento al estilo FiveM,
+funciones <code>[Server]</code>, <code>[Client]</code> y <code>[Multicast]</code>, campo y tabla <code>[Replicated]</code>, evento con nombre,
 <code>self:To(id)</code>, anfitrión y unirse a una partida (también con código de Nova Enlace), interfaz, choques, tareas y
 llamadas con respuesta.</li>
 <li><strong>Órdenes</strong> (Ctrl+Shift+P y escribe «Nova»): <strong>Nuevo script Lua</strong> (la misma plantilla que el editor), <strong>Regenerar
@@ -3775,20 +3554,18 @@ nunca la instala solo). También se puede instalar a mano: <code>code --install-
 <p>Síntomas: abajo a la derecha el modo de lenguaje dice <strong>Lua</strong> (en lugar de <strong>Luau</strong>); salen en rojo las anotaciones
 de tipo (<code>local camara: Entity? = nil</code>), <code>+=</code>, las if-expresiones (<code>if a then b else c</code>) o los tipos de los
 parámetros; <code>math.atan2</code> sale tachado como obsoleto; y no se autocompleta la API de Nova.</p>
-<p>Causa: falta luau-lsp y otra extensión lee los scripts como <strong>Lua 5.4</strong>. Las habituales son <strong>Lua</strong> (de sumneko)
-y <strong>FiveLab Lua</strong> (la de FiveM/GTA V): las dos se activan con los ficheros Lua, no conocen Luau y la segunda añade
-las nativas de FiveM, que en Nova no existen.</p>
+<p>Causa: falta luau-lsp y otra extensión lee los scripts como <strong>Lua 5.4</strong>. La habitual es <strong>Lua</strong> (de sumneko), pero hay otras: se activan con los ficheros Lua y no conocen Luau.</p>
 <p>Arreglo:</p>
 <ol>
 <li>Instala la extensión de Nova (arriba). Ella instala luau-lsp y deja <code>*.luau</code> y <code>*.lua</code> como Luau en los
 ajustes del proyecto; si un script ya estaba abierto como Lua, lo pasa a Luau.</li>
-<li>Desactiva <strong>Lua</strong> (sumneko) y <strong>FiveLab Lua</strong> <strong>solo para este proyecto</strong>: en la vista de Extensiones
+<li>Desactiva <strong>Lua</strong> (sumneko) y las demás extensiones de Lua 5.4 <strong>solo para este proyecto</strong>: en la vista de Extensiones
 (Ctrl+Shift+X), en cada una, la rueda dentada &gt; <strong>Deshabilitar (área de trabajo)</strong> («Disable (Workspace)» con
-VS Code en inglés). Siguen funcionando en tus otros proyectos, por ejemplo en los de FiveM. Una extensión no
+VS Code en inglés). Siguen funcionando en tus otros proyectos. Una extensión no
 puede desactivar otra: la de Nova avisa de las que chocan (también <strong>Nova: Comprobar extensiones en
 conflicto</strong>) con un botón que las enseña en Extensiones y otro, <strong>Apagar ... en este proyecto</strong>, que apaga sus
 avisos y su autocompletado solo aquí (ajustes del área de trabajo: <code>&quot;Lua.diagnostics.enable&quot;: false</code>... para la
-de sumneko, que si no revisa también los <code>.lua</code> que no tienes abiertos, y <code>&quot;fivelab.diagnostics&quot;: false</code>).</li>
+de sumneko, que si no revisa también los <code>.lua</code> que no tienes abiertos).</li>
 <li>Si aún dice <strong>Lua</strong> abajo a la derecha, pulsa ahí y elige <strong>Luau</strong>, o recarga la ventana.</li>
 </ol>
 <h3 id="lo-que-se-escribe-en-el-proyecto">Lo que se escribe en el proyecto<a class="ancla" href="#lo-que-se-escribe-en-el-proyecto" aria-label="Enlace a esta sección">#</a></h3>
@@ -3818,7 +3595,7 @@ de sumneko, que si no revisa también los <code>.lua</code> que no tienes abiert
 </tr>
 <tr>
   <td><code>.vscode/settings.json</code></td>
-  <td>Para luau-lsp: <code>&quot;files.associations&quot;</code> con <code>*.luau</code> y <code>*.lua</code> como <code>luau</code>, <code>&quot;luau-lsp.types.definitionFiles&quot;: {&quot;@nova&quot;: &quot;nova.d.luau&quot;}</code>, <code>&quot;luau-lsp.types.documentationFiles&quot;: [&quot;nova.docs.json&quot;]</code>, <code>&quot;luau-lsp.platform.type&quot;: &quot;standard&quot;</code> (sin los tipos de Roblox), <code>&quot;luau-lsp.sourcemap.enabled&quot;: false</code> y <code>&quot;luau-lsp.fflags.override&quot;: {&quot;LuauIntegerType2&quot;: &quot;false&quot;}</code> (con ese FFlag, que luau-lsp puede traer al sincronizar los de Roblox, <code>integer</code> es un tipo de Luau y <code>nova.d.luau</code> no se carga). Solo se añade lo que falta: nunca se borra ni se cambia nada tuyo</td>
+  <td>Para luau-lsp: <code>&quot;files.associations&quot;</code> con <code>*.luau</code> y <code>*.lua</code> como <code>luau</code>, <code>&quot;luau-lsp.types.definitionFiles&quot;: {&quot;@nova&quot;: &quot;nova.d.luau&quot;}</code>, <code>&quot;luau-lsp.types.documentationFiles&quot;: [&quot;nova.docs.json&quot;]</code>, <code>&quot;luau-lsp.platform.type&quot;: &quot;standard&quot;</code>, <code>&quot;luau-lsp.sourcemap.enabled&quot;: false</code> y <code>&quot;luau-lsp.fflags.override&quot;: {&quot;LuauIntegerType2&quot;: &quot;false&quot;}</code> (con ese FFlag, que luau-lsp puede traer al sincronizar sus FFlags, <code>integer</code> es un tipo de Luau y <code>nova.d.luau</code> no se carga). Solo se añade lo que falta: nunca se borra ni se cambia nada tuyo</td>
 </tr>
 <tr>
   <td><code>.nova/diagnosticos-lua.json</code></td>
@@ -4055,13 +3832,13 @@ le pasa number en «player» y aquí pone Entity... Con ese tipo el motor no la 
 <li><strong>Un valor que no existe</strong> en una lista cerrada: <code>Input.WasKeyPressed(&quot;Espacios&quot;)</code> → «¿querías decir «Espacio»?»;
 también acciones y ejes del proyecto, huesos humanos, preajustes, Data Tables y valores de un enum.</li>
 </ul>
-<h2 id="15-publicar-solo-el-bytecode">15. Publicar: solo el bytecode<a class="ancla" href="#15-publicar-solo-el-bytecode" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="14-publicar-solo-el-bytecode">14. Publicar: solo el bytecode<a class="ancla" href="#14-publicar-solo-el-bytecode" aria-label="Enlace a esta sección">#</a></h2>
 <p><strong>Publicar juego</strong> (en el editor o con <code>NovaEditor.exe --project &lt;proyecto&gt; --publish &lt;carpeta&gt;</code>) compila cada script a
 <code>data/scripts/&lt;ruta&gt;.luauc</code>: el bytecode de Luau más la declaración de la clase (campos, funciones y atributos).
 <strong>No se copia ningún <code>.luau</code></strong>. <code>NovaGame.exe</code> y <code>NovaServer.exe</code> cargan el bytecode sin compilar nada, y los
 errores siguen diciendo fichero y línea. Si un script no compila, la publicación falla con su error. Más en
 <a href="publicar-juego.html">publicar-juego.md</a>.</p>
-<h2 id="16-el-sandbox-y-los-límites">16. El sandbox y los límites<a class="ancla" href="#16-el-sandbox-y-los-límites" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="15-el-sandbox-y-los-límites">15. El sandbox y los límites<a class="ancla" href="#15-el-sandbox-y-los-límites" aria-label="Enlace a esta sección">#</a></h2>
 <p>Cada partida (cada escena que se juega) tiene su propia máquina virtual, que empieza limpia y se cierra al parar.
 En el editor, con el modo <strong>Anfitrión + clientes</strong>, cada ventana de juego tiene la suya.</p>
 <ul>
@@ -4080,7 +3857,7 @@ fichero y línea, también aunque esté dentro de un <code>pcall</code>. Ese scr
 </ul>
 <p>Los límites se cambian en <code>project.nova</code>:</p>
 <div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json"><span class="hl-k">"lua"</span>: { <span class="hl-k">"memoriaMB"</span>: <span class="hl-n">512</span>, <span class="hl-k">"tiempoMaximoMs"</span>: <span class="hl-n">5000</span>, <span class="hl-k">"recargar"</span>: <span class="hl-b">true</span>, <span class="hl-k">"guardadoMaxKB"</span>: <span class="hl-n">1024</span>, <span class="hl-k">"guardadoMaxFicheros"</span>: <span class="hl-n">256</span> }</code></pre></div>
-<h2 id="17-errores-comunes">17. Errores comunes<a class="ancla" href="#17-errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="16-errores-comunes">16. Errores comunes<a class="ancla" href="#16-errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
 <div class="tabla"><table>
 <thead>
 <tr>
@@ -4111,7 +3888,7 @@ fichero y línea, también aunque esté dentro de un <code>pcall</code>. Ese scr
 </tr>
 <tr>
   <td>VS Code marca en rojo <code>camara: Entity?</code>, <code>+=</code> o <code>if a then b else c</code>, tacha <code>math.atan2</code> o abajo dice «Lua»</td>
-  <td>Falta luau-lsp y otra extensión (Lua de sumneko, FiveLab Lua) lee el script como Lua 5.4: instala la extensión de Nova y deshabilita las otras solo en este proyecto (sección <a href="#si-vs-code-marca-errores-que-no-lo-son">14</a>)</td>
+  <td>Falta luau-lsp y otra extensión (como la Lua de sumneko) lee el script como Lua 5.4: instala la extensión de Nova y deshabilita las otras solo en este proyecto (sección <a href="#si-vs-code-marca-errores-que-no-lo-son">13</a>)</td>
 </tr>
 <tr>
   <td><code>X.vida es un número y se le asignó string</code></td>
@@ -4195,7 +3972,7 @@ fichero y línea, también aunque esté dentro de un <code>pcall</code>. Ese scr
 </tr>
 </tbody>
 </table></div>
-<h2 id="18-consejos-de-rendimiento">18. Consejos de rendimiento<a class="ancla" href="#18-consejos-de-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="17-consejos-de-rendimiento">17. Consejos de rendimiento<a class="ancla" href="#17-consejos-de-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li><strong>Guarda los componentes en <code>Start</code></strong>: <code>self._cuerpo = self:GetComponent(&quot;RigidBody&quot;)</code> y úsalo en <code>Update</code>, en
 vez de buscarlo cada frame. Lo mismo con <code>Scene.Find</code>.</li>
@@ -4454,7 +4231,7 @@ explica; <strong>No</strong>: todavía no (y por qué).</p>
 </table></div>
 <nav class="ant-sig" aria-label="Páginas"><a class="ant" href="editor-scripts.html"><small>Anterior</small>Editor de scripts integrado</a><a class="sig" href="escenas-y-componentes.html"><small>Siguiente</small>Escenas y componentes</a></nav></article>
 </main>
-<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-por-qué-lua-y-cuándo-c">1. Por qué Lua (y cuándo C++)</a></li><li class="n2"><a href="#2-tu-primer-script-en-cinco-minutos">2. Tu primer script en cinco minutos</a></li><li class="n2"><a href="#3-los-ejemplos-en-lua">3. Los ejemplos en Lua</a></li><li class="n2"><a href="#4-anatomía-de-un-script">4. Anatomía de un script</a></li><li class="n3"><a href="#la-clase-y-self">La clase y self</a></li><li class="n3"><a href="#ciclo-de-vida">Ciclo de vida</a></li><li class="n3"><a href="#módulos-require">Módulos (require)</a></li><li class="n2"><a href="#5-atributos">5. Atributos</a></li><li class="n2"><a href="#6-campos-en-el-inspector">6. Campos en el Inspector</a></li><li class="n2"><a href="#7-referencia-de-la-api">7. Referencia de la API</a></li><li class="n3"><a href="#entidades-y-escena">Entidades y escena</a></li><li class="n3"><a href="#transform">Transform</a></li><li class="n3"><a href="#entrada">Entrada</a></li><li class="n3"><a href="#tiempo">Tiempo</a></li><li class="n3"><a href="#físicas">Físicas</a></li><li class="n3"><a href="#terreno">Terreno</a></li><li class="n3"><a href="#agua">Agua</a></li><li class="n3"><a href="#decals">Decals</a></li><li class="n3"><a href="#navegación">Navegación</a></li><li class="n3"><a href="#ia">IA</a></li><li class="n3"><a href="#audio">Audio</a></li><li class="n3"><a href="#animación-y-personajes">Animación y personajes</a></li><li class="n3"><a href="#cámara">Cámara</a></li><li class="n3"><a href="#materiales-y-visibilidad">Materiales y visibilidad</a></li><li class="n3"><a href="#datos-guardados">Datos guardados</a></li><li class="n3"><a href="#dibujo-de-depuración">Dibujo de depuración</a></li><li class="n3"><a href="#aplicación">Aplicación</a></li><li class="n3"><a href="#registro">Registro</a></li><li class="n3"><a href="#matemáticas">Matemáticas</a></li><li class="n3"><a href="#interfaz-del-juego-ui">Interfaz del juego (UI)</a></li><li class="n3"><a href="#idiomas-loc">Idiomas (Loc)</a></li><li class="n3"><a href="#interfaz-mínima-ongui">Interfaz mínima (OnGUI)</a></li><li class="n2"><a href="#8-errores-y-recarga-en-caliente">8. Errores y recarga en caliente</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n3"><a href="#91-el-servidor-manda">9.1 El servidor manda</a></li><li class="n3"><a href="#92-un-fichero-los-dos-lados">9.2 Un fichero, los dos lados</a></li><li class="n3"><a href="#93-campos-replicados">9.3 Campos replicados</a></li><li class="n3"><a href="#94-funciones-de-red-server-client-y-multicast">9.4 Funciones de red: [Server], [Client] y [Multicast]</a></li><li class="n3"><a href="#95-selftojugador">9.5 self:To(jugador)</a></li><li class="n3"><a href="#96-source">9.6 source</a></li><li class="n3"><a href="#97-scripts-global">9.7 Scripts [Global]</a></li><li class="n3"><a href="#98-límites-y-validación">9.8 Límites y validación</a></li><li class="n3"><a href="#99-objetos-de-red-crear-dueño-teletransporte-y-empujones">9.9 Objetos de red: crear, dueño, teletransporte y empujones</a></li><li class="n3"><a href="#910-llamadas-al-servidor-con-respuesta">9.10 Llamadas al servidor con respuesta</a></li><li class="n3"><a href="#911-empezar-y-unirse-a-partidas-desde-lua-menús">9.11 Empezar y unirse a partidas desde Lua (menús)</a></li><li class="n3"><a href="#912-jugadores-ping-y-expulsar">9.12 Jugadores, ping y expulsar</a></li><li class="n3"><a href="#913-lo-que-no-se-puede-hacer-todavía">9.13 Lo que no se puede hacer (todavía)</a></li><li class="n3"><a href="#914-dónde-se-ejecuta-una-función">9.14 Dónde se ejecuta una función</a></li><li class="n2"><a href="#10-tutorial-rey-de-la-arena">10. Tutorial: «Rey de la arena»</a></li><li class="n3"><a href="#101-probarlo">10.1 Probarlo</a></li><li class="n3"><a href="#102-cómo-está-montado">10.2 Cómo está montado</a></li><li class="n3"><a href="#103-interfazluau-todo-lo-que-se-ve-en-un-sitio">10.3 Interfaz.luau: todo lo que se ve, en un sitio</a></li><li class="n3"><a href="#104-jugadorluau">10.4 Jugador.luau</a></li><li class="n3"><a href="#105-rondasluau">10.5 Rondas.luau</a></li><li class="n3"><a href="#106-las-pruebas-automáticas">10.6 Las pruebas automáticas</a></li><li class="n2"><a href="#11-si-vienes-de-fivem">11. Si vienes de FiveM</a></li><li class="n2"><a href="#12-eventos-al-estilo-fivem">12. Eventos al estilo FiveM</a></li><li class="n2"><a href="#13-settimeout-createthread-y-wait">13. SetTimeout, CreateThread y Wait</a></li><li class="n2"><a href="#14-vs-code-y-autocompletado">14. VS Code y autocompletado</a></li><li class="n3"><a href="#instalarla">Instalarla</a></li><li class="n3"><a href="#si-vs-code-marca-errores-que-no-lo-son">Si VS Code marca errores que no lo son</a></li><li class="n3"><a href="#lo-que-se-escribe-en-el-proyecto">Lo que se escribe en el proyecto</a></li><li class="n3"><a href="#dentro-de-la-clase">Dentro de la clase</a></li><li class="n3"><a href="#tus-scripts-getscript-global-y-los-nombres-entre-comillas">Tus scripts: GetScript, Global y los nombres entre comillas</a></li><li class="n3"><a href="#textos-entre-comillas-y-funciones-del-motor">Textos entre comillas y funciones del motor</a></li><li class="n2"><a href="#15-publicar-solo-el-bytecode">15. Publicar: solo el bytecode</a></li><li class="n2"><a href="#16-el-sandbox-y-los-límites">16. El sandbox y los límites</a></li><li class="n2"><a href="#17-errores-comunes">17. Errores comunes</a></li><li class="n2"><a href="#18-consejos-de-rendimiento">18. Consejos de rendimiento</a></li><li class="n2"><a href="#apéndice-paridad-con-c">Apéndice: Paridad con C++</a></li></ul></div></aside>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-por-qué-lua-y-cuándo-c">1. Por qué Lua (y cuándo C++)</a></li><li class="n2"><a href="#2-tu-primer-script-en-cinco-minutos">2. Tu primer script en cinco minutos</a></li><li class="n2"><a href="#3-los-ejemplos-en-lua">3. Los ejemplos en Lua</a></li><li class="n2"><a href="#4-anatomía-de-un-script">4. Anatomía de un script</a></li><li class="n3"><a href="#la-clase-y-self">La clase y self</a></li><li class="n3"><a href="#ciclo-de-vida">Ciclo de vida</a></li><li class="n3"><a href="#módulos-require">Módulos (require)</a></li><li class="n2"><a href="#5-atributos">5. Atributos</a></li><li class="n2"><a href="#6-campos-en-el-inspector">6. Campos en el Inspector</a></li><li class="n2"><a href="#7-referencia-de-la-api">7. Referencia de la API</a></li><li class="n3"><a href="#entidades-y-escena">Entidades y escena</a></li><li class="n3"><a href="#transform">Transform</a></li><li class="n3"><a href="#entrada">Entrada</a></li><li class="n3"><a href="#tiempo">Tiempo</a></li><li class="n3"><a href="#físicas">Físicas</a></li><li class="n3"><a href="#terreno">Terreno</a></li><li class="n3"><a href="#agua">Agua</a></li><li class="n3"><a href="#decals">Decals</a></li><li class="n3"><a href="#navegación">Navegación</a></li><li class="n3"><a href="#ia">IA</a></li><li class="n3"><a href="#audio">Audio</a></li><li class="n3"><a href="#animación-y-personajes">Animación y personajes</a></li><li class="n3"><a href="#cámara">Cámara</a></li><li class="n3"><a href="#materiales-y-visibilidad">Materiales y visibilidad</a></li><li class="n3"><a href="#datos-guardados">Datos guardados</a></li><li class="n3"><a href="#dibujo-de-depuración">Dibujo de depuración</a></li><li class="n3"><a href="#aplicación">Aplicación</a></li><li class="n3"><a href="#registro">Registro</a></li><li class="n3"><a href="#matemáticas">Matemáticas</a></li><li class="n3"><a href="#interfaz-del-juego-ui">Interfaz del juego (UI)</a></li><li class="n3"><a href="#idiomas-loc">Idiomas (Loc)</a></li><li class="n3"><a href="#interfaz-mínima-ongui">Interfaz mínima (OnGUI)</a></li><li class="n2"><a href="#8-errores-y-recarga-en-caliente">8. Errores y recarga en caliente</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n3"><a href="#91-el-servidor-manda">9.1 El servidor manda</a></li><li class="n3"><a href="#92-un-fichero-los-dos-lados">9.2 Un fichero, los dos lados</a></li><li class="n3"><a href="#93-campos-replicados">9.3 Campos replicados</a></li><li class="n3"><a href="#94-funciones-de-red-server-client-y-multicast">9.4 Funciones de red: [Server], [Client] y [Multicast]</a></li><li class="n3"><a href="#95-selftojugador">9.5 self:To(jugador)</a></li><li class="n3"><a href="#96-source">9.6 source</a></li><li class="n3"><a href="#97-scripts-global">9.7 Scripts [Global]</a></li><li class="n3"><a href="#98-límites-y-validación">9.8 Límites y validación</a></li><li class="n3"><a href="#99-objetos-de-red-crear-dueño-teletransporte-y-empujones">9.9 Objetos de red: crear, dueño, teletransporte y empujones</a></li><li class="n3"><a href="#910-llamadas-al-servidor-con-respuesta">9.10 Llamadas al servidor con respuesta</a></li><li class="n3"><a href="#911-empezar-y-unirse-a-partidas-desde-lua-menús">9.11 Empezar y unirse a partidas desde Lua (menús)</a></li><li class="n3"><a href="#912-jugadores-ping-y-expulsar">9.12 Jugadores, ping y expulsar</a></li><li class="n3"><a href="#913-lo-que-no-se-puede-hacer-todavía">9.13 Lo que no se puede hacer (todavía)</a></li><li class="n3"><a href="#914-dónde-se-ejecuta-una-función">9.14 Dónde se ejecuta una función</a></li><li class="n2"><a href="#10-tutorial-rey-de-la-arena">10. Tutorial: «Rey de la arena»</a></li><li class="n3"><a href="#101-probarlo">10.1 Probarlo</a></li><li class="n3"><a href="#102-cómo-está-montado">10.2 Cómo está montado</a></li><li class="n3"><a href="#103-interfazluau-todo-lo-que-se-ve-en-un-sitio">10.3 Interfaz.luau: todo lo que se ve, en un sitio</a></li><li class="n3"><a href="#104-jugadorluau">10.4 Jugador.luau</a></li><li class="n3"><a href="#105-rondasluau">10.5 Rondas.luau</a></li><li class="n3"><a href="#106-las-pruebas-automáticas">10.6 Las pruebas automáticas</a></li><li class="n2"><a href="#11-eventos">11. Eventos</a></li><li class="n2"><a href="#12-settimeout-createthread-y-wait">12. SetTimeout, CreateThread y Wait</a></li><li class="n2"><a href="#13-vs-code-y-autocompletado">13. VS Code y autocompletado</a></li><li class="n3"><a href="#instalarla">Instalarla</a></li><li class="n3"><a href="#si-vs-code-marca-errores-que-no-lo-son">Si VS Code marca errores que no lo son</a></li><li class="n3"><a href="#lo-que-se-escribe-en-el-proyecto">Lo que se escribe en el proyecto</a></li><li class="n3"><a href="#dentro-de-la-clase">Dentro de la clase</a></li><li class="n3"><a href="#tus-scripts-getscript-global-y-los-nombres-entre-comillas">Tus scripts: GetScript, Global y los nombres entre comillas</a></li><li class="n3"><a href="#textos-entre-comillas-y-funciones-del-motor">Textos entre comillas y funciones del motor</a></li><li class="n2"><a href="#14-publicar-solo-el-bytecode">14. Publicar: solo el bytecode</a></li><li class="n2"><a href="#15-el-sandbox-y-los-límites">15. El sandbox y los límites</a></li><li class="n2"><a href="#16-errores-comunes">16. Errores comunes</a></li><li class="n2"><a href="#17-consejos-de-rendimiento">17. Consejos de rendimiento</a></li><li class="n2"><a href="#apéndice-paridad-con-c">Apéndice: Paridad con C++</a></li></ul></div></aside>
 </div>
 <footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
 <script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>

@@ -58,12 +58,12 @@ los scripts, con su firma y ejemplos, están en la <a href="lua.html">Referencia
 <tr>
   <td>3</td>
   <td><a href="scripts-lua.html">scripts-lua.md</a></td>
-  <td>La lógica del juego en Lua: atributos, campos en el Inspector, la API completa, errores y recarga, el multijugador con atributos, «Rey de la arena», FiveM y VS Code</td>
+  <td>La lógica del juego en Lua: atributos, campos en el Inspector, la API completa, errores y recarga, el multijugador con atributos, «Rey de la arena» y VS Code</td>
 </tr>
 <tr>
   <td>3b</td>
   <td><a href="editor-scripts.html">editor-scripts.md</a></td>
-  <td><strong>Editor de scripts integrado</strong> (como Roblox Studio): escribir los scripts dentro del editor con autocompletado, avisos y arreglo rápido, buscar en el proyecto, ir a la definición, renombrar y el depurador con puntos de parada y paso a paso; todos los atajos</td>
+  <td><strong>Editor de scripts integrado</strong>: escribir los scripts dentro del editor con autocompletado, avisos y arreglo rápido, buscar en el proyecto, ir a la definición, renombrar y el depurador con puntos de parada y paso a paso; todos los atajos</td>
 </tr>
 <tr>
   <td>4</td>
@@ -83,7 +83,7 @@ los scripts, con su firma y ejemplos, están en la <a href="lua.html">Referencia
 <tr>
   <td>6a</td>
   <td><a href="materiales-nodos.html">materiales-nodos.md</a></td>
-  <td><strong>Materiales por nodos</strong> (como el Material Editor de Unreal o el Shader Graph de Unity): la ventana del grafo, los nodos, la salida PBR, la vista previa, los parámetros por instancia y <code>SetParam</code> en Lua, y los ejemplos de agua, lava, roca triplanar y holograma</td>
+  <td><strong>Materiales por nodos</strong>: la ventana del grafo, los nodos, la salida PBR, la vista previa, los parámetros por instancia y <code>SetParam</code> en Lua, y los ejemplos de agua, lava, roca triplanar y holograma</td>
 </tr>
 <tr>
   <td>6b</td>
@@ -206,7 +206,7 @@ mismo proyecto, el 17 (y el 13 para hacerlo por Internet con un código).</p>
 </tr>
 <tr>
   <td><a href="datos.html">datos.md</a></td>
-  <td>Datos de juego como en Unity y UE5: <strong>Struct</strong> (tipos de datos con sus campos), listas y diccionarios en el Inspector (añadir, quitar, arrastrar para ordenar, deshacer), <strong>Data Assets</strong> (<code>.datos</code>, como un ScriptableObject), <strong>Data Tables</strong> (<code>.tabla</code>, una hoja de cálculo con CSV y pegar de Excel), <strong>enums</strong> compartidos y <strong>curvas</strong>; paso a paso con el botín de un juego de robos (<code>game/botin_lua</code>)</td>
+  <td>Datos de juego: <strong>Struct</strong> (tipos de datos con sus campos), listas y diccionarios en el Inspector (añadir, quitar, arrastrar para ordenar, deshacer), <strong>Data Assets</strong> (<code>.datos</code>), <strong>Data Tables</strong> (<code>.tabla</code>, una hoja de cálculo con CSV y pegar de Excel), <strong>enums</strong> compartidos y <strong>curvas</strong>; paso a paso con el botín de un juego de robos (<code>game/botin_lua</code>)</td>
 </tr>
 <tr>
   <td><a href="ejemplo-inventario.html">ejemplo-inventario.md</a></td>
@@ -250,7 +250,7 @@ mismo proyecto, el 17 (y el 13 para hacerlo por Internet con un código).</p>
 </tr>
 <tr>
   <td><a href="destruccion.html">destruccion.md</a></td>
-  <td>Destrucción de objetos como Chaos de UE5: la ventana <strong>Fracturar</strong> (Voronoi uniforme y agrupado, planos, radial y rejilla de ladrillos, por niveles, con caras interiores y vista previa), el asset <code>.destructible</code>, el componente <strong>Destructible</strong> (umbrales de daño, golpes de físicas, anclaje y conectividad, restos que se desvanecen), campos de destrucción, <code>Destruction.Explode</code> y <code>OnBreak</code> en Lua, el multijugador (el servidor decide, quien entra tarde lo ve roto) y el ejemplo con puerta, ventana, pared y barril explosivo (<code>game/destruccion_lua</code>)</td>
+  <td>Destrucción de objetos: la ventana <strong>Fracturar</strong> (Voronoi uniforme y agrupado, planos, radial y rejilla de ladrillos, por niveles, con caras interiores y vista previa), el asset <code>.destructible</code>, el componente <strong>Destructible</strong> (umbrales de daño, golpes de físicas, anclaje y conectividad, restos que se desvanecen), campos de destrucción, <code>Destruction.Explode</code> y <code>OnBreak</code> en Lua, el multijugador (el servidor decide, quien entra tarde lo ve roto) y el ejemplo con puerta, ventana, pared y barril explosivo (<code>game/destruccion_lua</code>)</td>
 </tr>
 <tr>
   <td><a href="voz.html">voz.md</a></td>
@@ -258,7 +258,7 @@ mismo proyecto, el 17 (y el 13 para hacerlo por Internet con un código).</p>
 </tr>
 <tr>
   <td><a href="particulas.html">particulas.md</a></td>
-  <td>Partículas: fuego, humo, chispas, explosiones, fogonazos, sangre, lluvia, nieve, magia... con preajustes, módulos como en Unity, vista previa en el editor, <code>Effects.Spawn</code> desde Lua y efectos en red</td>
+  <td>Partículas: fuego, humo, chispas, explosiones, fogonazos, sangre, lluvia, nieve, magia... con preajustes, módulos, vista previa en el editor, <code>Effects.Spawn</code> desde Lua y efectos en red</td>
 </tr>
 <tr>
   <td><a href="splines-carreteras-rios.html">splines-carreteras-rios.md</a></td>
@@ -266,11 +266,11 @@ mismo proyecto, el 17 (y el 13 para hacerlo por Internet con un código).</p>
 </tr>
 <tr>
   <td><a href="matematicas.html">matematicas.md</a></td>
-  <td>Matemáticas en Lua: vectores, rotaciones, matrices y colores con la API de Unity; rayos, planos, cajas, esferas y lo que ve la cámara; geometría (polígonos, triangulación, curvas); ruido procedural (<code>Noise</code>) para generar mundos; y lo que cuesta cada cosa</td>
+  <td>Matemáticas en Lua: vectores, rotaciones, matrices y colores; rayos, planos, cajas, esferas y lo que ve la cámara; geometría (polígonos, triangulación, curvas); ruido procedural (<code>Noise</code>) para generar mundos; y lo que cuesta cada cosa</td>
 </tr>
 <tr>
   <td><a href="utilidades-lua.html">utilidades-lua.md</a></td>
-  <td>Utilidades de código como en UE5 y Unity: <strong>Gameplay Tags</strong> jerárquicas (ventana Etiquetas de juego, selector en el Inspector, red), <strong>interfaces</strong> (<code>Interface</code>, <code>Implements</code>, <code>Interfaces.Call</code>), <strong>eventos del Inspector</strong> (<code>Event()</code>, como UnityEvent) y <code>Connect</code>, <strong>temporizadores</strong> con mango (<code>Timer</code>) y <strong>pools</strong> (también de objetos de red) con su medida; ejemplos: botín recogible, puerta con evento, balas con pool y estados con etiquetas</td>
+  <td>Utilidades de código: <strong>Gameplay Tags</strong> jerárquicas (ventana Etiquetas de juego, selector en el Inspector, red), <strong>interfaces</strong> (<code>Interface</code>, <code>Implements</code>, <code>Interfaces.Call</code>), <strong>eventos del Inspector</strong> (<code>Event()</code>) y <code>Connect</code>, <strong>temporizadores</strong> con mango (<code>Timer</code>) y <strong>pools</strong> (también de objetos de red) con su medida; ejemplos: botín recogible, puerta con evento, balas con pool y estados con etiquetas</td>
 </tr>
 <tr>
   <td><a href="nativas-juego.html">nativas-juego.md</a></td>
@@ -278,7 +278,7 @@ mismo proyecto, el 17 (y el 13 para hacerlo por Internet con un código).</p>
 </tr>
 <tr>
   <td><a href="herramientas-lua.html">herramientas-lua.md</a></td>
-  <td>Herramientas de prueba y de editor al estilo UE5: la <strong>consola</strong> dentro del juego (º o F1) con comandos y trucos (<code>RegisterCommand</code>, <code>tp</code>, <code>god</code>, <code>timescale</code>, permisos de admin en red), las <strong>variables de consola</strong> (<code>CVar</code>, replicadas por el servidor), <code>OnValidate</code> (el script que coloca cosas en el editor sin jugar, con deshacer), <strong>botones</strong> en el Inspector (<code>--[Button]</code>), el panel <strong>Problemas</strong> (validación de datos al guardar y publicar, <code>--[Required]</code>) y el <strong>Visual Logger</strong> (grabar la partida y rebobinarla por entidad, <code>VLog</code>)</td>
+  <td>Herramientas de prueba y de editor: la <strong>consola</strong> dentro del juego (º o F1) con comandos y trucos (<code>RegisterCommand</code>, <code>tp</code>, <code>god</code>, <code>timescale</code>, permisos de admin en red), las <strong>variables de consola</strong> (<code>CVar</code>, replicadas por el servidor), <code>OnValidate</code> (el script que coloca cosas en el editor sin jugar, con deshacer), <strong>botones</strong> en el Inspector (<code>--[Button]</code>), el panel <strong>Problemas</strong> (validación de datos al guardar y publicar, <code>--[Required]</code>) y el <strong>Visual Logger</strong> (grabar la partida y rebobinarla por entidad, <code>VLog</code>)</td>
 </tr>
 <tr>
   <td><a href="rendimiento.html">rendimiento.md</a></td>
@@ -322,10 +322,6 @@ mismo proyecto, el 17 (y el 13 para hacerlo por Internet con un código).</p>
 <tr>
   <td>Un inventario como el de Rust (casillas, ropa, cajas de botín, tirar y coger), en red</td>
   <td><a href="ejemplo-inventario.html">ejemplo-inventario.md</a></td>
-</tr>
-<tr>
-  <td>Traer lo que sé (o mi código) de FiveM</td>
-  <td><a href="scripts-lua.html#11-si-vienes-de-fivem">scripts-lua.md</a></td>
 </tr>
 <tr>
   <td>Un mundo abierto con montañas, islas o dunas (o excavar el suelo en la partida)</td>

@@ -750,7 +750,7 @@ celdas de 0,5 o 1 m en mundos de kilómetros.</p>
 <code>pathPending</code>, <code>isStopped</code>, <code>onLink</code>, <code>velocity</code>, <code>desiredVelocity</code> y <code>nextPosition</code>. Los demás componentes (<code>NavMeshSurface</code>,
 <code>NavObstacle</code>, <code>NavLink</code>, <code>NavArea</code>) también: <code>GetComponent(&quot;NavLink&quot;).activated = false</code>.</p>
 <h2 id="12-cómo-funciona-por-dentro-y-límites">12. Cómo funciona por dentro y límites<a class="ancla" href="#12-cómo-funciona-por-dentro-y-límites" aria-label="Enlace a esta sección">#</a></h2>
-<p><strong>El horneado</strong> es como el de Recast (el de Unity y Unreal), hecho desde cero en el motor: la geometría se convierte en
+<p><strong>El horneado</strong> es como el de Recast, hecho desde cero en el motor: la geometría se convierte en
 columnas de celdas (voxeles), se quita lo demasiado empinado, los techos bajos y los bordes de los precipicios, se
 separa lo caminable el radio del agente de las paredes y se marcan las áreas. Después, cada tesela se parte en
 <strong>rectángulos de celdas</strong>, que son los polígonos de la malla. Los rectángulos son siempre convexos y no necesitan

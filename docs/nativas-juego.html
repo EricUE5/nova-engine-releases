@@ -413,8 +413,8 @@ de celda lo que se movió de celda. Lo que se crea, se mueve o cambia de etiquet
 entra en el frame siguiente, o ya con <code>Spatial.Refresh()</code>. Las entidades desactivadas o destruidas salen solas. Los
 empates de distancia se ordenan igual en todas las máquinas.</p>
 <h2 id="3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego<a class="ancla" href="#3-task-esperar-sin-parar-el-juego" aria-label="Enlace a esta sección">#</a></h2>
-<p>Como <code>task</code> de Roblox, sobre el mismo planificador que <code>SetTimeout</code>, <code>CreateThread</code> y <code>Wait</code>
-(<a href="scripts-lua.html#13-settimeout-createthread-y-wait">scripts-lua.md</a>), pero en segundos y con más control:</p>
+<p>Va sobre el mismo planificador que <code>SetTimeout</code>, <code>CreateThread</code> y <code>Wait</code>
+(<a href="scripts-lua.html#12-settimeout-createthread-y-wait">scripts-lua.md</a>), pero en segundos y con más control:</p>
 <div class="tabla"><table>
 <thead>
 <tr>
@@ -623,7 +623,7 @@ valores se suman a los de ahora), <code>unscaled</code> (sigue con <code>Time.ti
 <code>Back</code>, <code>Elastic</code> y <code>Bounce</code>), <code>In...</code> (acelera al principio), <code>Out...</code> (frena al final) e <code>InOut...</code> (las dos):
 <code>Easing.OutBounce(t)</code> con <code>t</code> de 0 a 1. Son las de <a href="https://easings.net" rel="noopener">easings.net</a> y también sirven para tus
 propias cuentas.</p>
-<p><strong>Curve</strong> es como <code>AnimationCurve</code> de Unity: claves <code>{tiempo, valor, tangenteEntrada?, tangenteSalida?}</code> evaluadas en
+<p><strong>Curve</strong> es una curva: claves <code>{tiempo, valor, tangenteEntrada?, tangenteSalida?}</code> evaluadas en
 el motor. Sin tangentes, la curva es suave sin pasarse de las claves (la misma que las curvas de las
 <a href="particulas.html">partículas</a>); una tangente <code>math.huge</code> hace un escalón.</p>
 <div class="tabla"><table>
@@ -1012,7 +1012,7 @@ devuelven <code>true</code> o <code>false</code>, por eso ganan más.</li>
 <li>Con el motor en <code>debug</code> las diferencias son mayores (de x2 a x140): el código de Lua y las llamadas a la API pesan
 más que el trabajo que hacen.</li>
 </ul>
-<p>Recuerda también los consejos de siempre (<a href="scripts-lua.html#18-consejos-de-rendimiento">scripts-lua.md</a>): guarda los
+<p>Recuerda también los consejos de siempre (<a href="scripts-lua.html#17-consejos-de-rendimiento">scripts-lua.md</a>): guarda los
 componentes en <code>Start</code> y no crees tablas en cada frame (las funciones con <code>destino</code> rellenan una tabla que ya tienes).</p>
 <h2 id="10-en-multijugador">10. En multijugador<a class="ancla" href="#10-en-multijugador" aria-label="Enlace a esta sección">#</a></h2>
 <p>Todo esto es <strong>local</strong>: cada máquina (servidor y clientes) tiene sus propios índices, tareas, tweens y pools.</p>
