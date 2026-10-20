@@ -1,0 +1,89 @@
+WEBVTT
+
+1
+00:00:00.350 --> 00:00:02.613
+Vas a sacar tu juego del editor:
+
+2
+00:00:02.613 --> 00:00:07.209
+una carpeta con el .exe que funciona
+en cualquier PC con Windows.
+
+3
+00:00:07.209 --> 00:00:11.028
+Este proyecto ya tiene un
+cubo que gira con un script.
+
+4
+00:00:11.028 --> 00:00:14.367
+Pulsa Siguiente.
+
+5
+00:00:14.717 --> 00:00:16.577
+Pruébalo antes de publicar:
+
+6
+00:00:16.577 --> 00:00:17.900
+pulsa Jugar.
+
+7
+00:00:18.250 --> 00:00:19.017
+Todo bien:
+
+8
+00:00:19.017 --> 00:00:22.167
+pulsa Detener.
+
+9
+00:00:22.517 --> 00:00:25.433
+Abre Archivo > Publicar juego...
+
+10
+00:00:25.783 --> 00:00:30.536
+Aquí está la carpeta donde se
+crea el juego (con Elegir...
+
+11
+00:00:30.536 --> 00:00:31.486
+la cambias).
+
+12
+00:00:31.486 --> 00:00:35.763
+Debajo van el nombre del
+.exe, la versión y el icono.
+
+13
+00:00:35.763 --> 00:00:39.233
+Pulsa Siguiente.
+
+14
+00:00:39.583 --> 00:00:40.674
+Pulsa Publicar.
+
+15
+00:00:40.674 --> 00:00:45.182
+El editor guarda la escena,
+convierte los scripts en bytecode,
+
+16
+00:00:45.182 --> 00:00:48.767
+empaqueta los datos y copia el ejecutable.
+
+17
+00:00:49.117 --> 00:00:49.955
+¡Publicado!
+
+18
+00:00:49.955 --> 00:00:52.401
+Con «Abrir carpeta» ves el juego:
+
+19
+00:00:52.401 --> 00:00:56.803
+abre el .exe para jugarlo o
+pásale la carpeta a quien quieras.
+
+20
+00:00:56.803 --> 00:01:03.367
+Para Steam, la pestaña Steam
+prepara la subida con SteamPipe.
+

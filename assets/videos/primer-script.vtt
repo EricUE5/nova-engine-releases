@@ -1,0 +1,162 @@
+WEBVTT
+
+1
+00:00:00.350 --> 00:00:02.068
+Vas a programar con Lua:
+
+2
+00:00:02.068 --> 00:00:04.430
+un script que hace girar el cubo,
+
+3
+00:00:04.430 --> 00:00:09.368
+con un campo que se cambia en el
+Inspector, y la recarga en caliente.
+
+4
+00:00:09.368 --> 00:00:13.233
+No hace falta compilar nada
+ni instalar Visual Studio.
+
+5
+00:00:13.233 --> 00:00:16.600
+Pulsa Siguiente.
+
+6
+00:00:16.950 --> 00:00:18.056
+Crea el script:
+
+7
+00:00:18.056 --> 00:00:21.433
+abre el menú Scripts > Nuevo script...
+
+8
+00:00:21.783 --> 00:00:24.438
+Escribe el nombre Girar y pulsa Crear.
+
+9
+00:00:24.438 --> 00:00:28.070
+El editor crea scripts/Girar.luau
+con una plantilla:
+
+10
+00:00:28.070 --> 00:00:30.767
+los scripts Lua no se compilan.
+
+11
+00:00:31.117 --> 00:00:32.934
+Ábrelo en el editor de scripts:
+
+12
+00:00:32.934 --> 00:00:35.733
+pulsa «Abrir en el editor de código».
+
+13
+00:00:36.083 --> 00:00:41.951
+Cambia el código por este (con «Copiar el
+código» y Ctrl+V) y guárdalo con Ctrl+S.
+
+14
+00:00:41.951 --> 00:00:43.839
+Girar.velocidad es un campo:
+
+15
+00:00:43.839 --> 00:00:47.009
+sale en el Inspector y
+se guarda con la escena.
+
+16
+00:00:47.009 --> 00:00:50.767
+Update se llama en cada
+frame y gira la entidad.
+
+17
+00:00:51.117 --> 00:00:52.208
+Ponlo en el cubo.
+
+18
+00:00:52.208 --> 00:00:54.967
+Elige el «Cubo» en la Jerarquía.
+
+19
+00:00:55.317 --> 00:01:01.553
+En el Inspector, pulsa «Añadir componente»
+y elige Scripts (en la categoría Scripts).
+
+20
+00:01:01.553 --> 00:01:06.808
+Después, en el componente Scripts,
+pulsa «Añadir script» y elige Girar.
+
+21
+00:01:06.808 --> 00:01:12.167
+(También puedes arrastrar Girar.luau
+desde Contenido hasta el cubo.)
+
+22
+00:01:12.517 --> 00:01:16.132
+El campo Velocidad ya está en el Inspector.
+
+23
+00:01:16.132 --> 00:01:17.118
+Ponlo a 180:
+
+24
+00:01:17.118 --> 00:01:21.900
+doble clic en el número,
+escribe 180 y pulsa Intro.
+
+25
+00:01:22.250 --> 00:01:23.195
+Pulsa Jugar:
+
+26
+00:01:23.195 --> 00:01:26.700
+el cubo gira a 180 grados por segundo.
+
+27
+00:01:27.050 --> 00:01:29.361
+Ahora, la recarga en caliente:
+
+28
+00:01:29.361 --> 00:01:33.135
+con el juego en marcha,
+abre la pestaña Scripts,
+
+29
+00:01:33.135 --> 00:01:37.500
+cambia Vec3.up por Vec3.right
+y guarda con Ctrl+S.
+
+30
+00:01:37.850 --> 00:01:39.547
+Vuelve a la pestaña Juego:
+
+31
+00:01:39.547 --> 00:01:45.333
+el cubo ya gira sobre otro eje, sin haber
+parado el juego y sin perder la velocidad.
+
+32
+00:01:45.683 --> 00:01:49.800
+Detén el juego.
+
+33
+00:01:50.150 --> 00:01:50.919
+¡Muy bien!
+
+34
+00:01:50.919 --> 00:01:54.484
+Has creado un script, lo
+has puesto en una entidad,
+
+35
+00:01:54.484 --> 00:01:59.028
+has cambiado su campo en el
+Inspector y lo has recargado jugando.
+
+36
+00:01:59.028 --> 00:02:05.100
+En la documentación, Scripts
+en Lua tiene toda la API.
+

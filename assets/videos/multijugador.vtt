@@ -1,0 +1,111 @@
+WEBVTT
+
+1
+00:00:00.350 --> 00:00:05.388
+En Nova Engine un mismo script vale
+para el servidor y para los clientes.
+
+2
+00:00:05.388 --> 00:00:07.804
+Vas a hacer un contador compartido:
+
+3
+00:00:07.804 --> 00:00:12.428
+cualquier jugador pulsa E, el
+servidor suma y todos ven el número.
+
+4
+00:00:12.428 --> 00:00:15.733
+Pulsa Siguiente.
+
+5
+00:00:16.083 --> 00:00:17.189
+Crea el script:
+
+6
+00:00:17.189 --> 00:00:20.567
+abre el menú Scripts > Nuevo script...
+
+7
+00:00:20.917 --> 00:00:23.756
+Escribe el nombre Contador y pulsa Crear.
+
+8
+00:00:23.756 --> 00:00:27.564
+El editor crea scripts/Contador.luau
+con una plantilla:
+
+9
+00:00:27.564 --> 00:00:30.233
+los scripts Lua no se compilan.
+
+10
+00:00:30.583 --> 00:00:32.401
+Ábrelo en el editor de scripts:
+
+11
+00:00:32.401 --> 00:00:35.200
+pulsa «Abrir en el editor de código».
+
+12
+00:00:35.550 --> 00:00:40.867
+Cambia el código por este (con «Copiar el
+código» y Ctrl+V) y guárdalo con Ctrl+S.
+
+13
+00:00:40.867 --> 00:00:43.556
+--[Global] lo crea el motor en cada partida,
+
+14
+00:00:43.556 --> 00:00:50.500
+--[Replicated] envía pulsaciones a todos y --[Server]
+hace que Pulsar se ejecute siempre en el servidor.
+
+15
+00:00:50.850 --> 00:00:53.124
+Juega con un cliente de prueba:
+
+16
+00:00:53.124 --> 00:00:56.206
+Jugar > Anfitrión + clientes > 1 cliente.
+
+17
+00:00:56.206 --> 00:01:03.900
+Tú eres el anfitrión (el servidor y un jugador)
+y se abre otra ventana con un cliente conectado.
+
+18
+00:01:04.250 --> 00:01:06.733
+Haz clic en la vista Juego y pulsa E:
+
+19
+00:01:06.733 --> 00:01:11.901
+Pulsar viaja al servidor, el servidor
+suma y la red lleva el número a todos.
+
+20
+00:01:11.901 --> 00:01:15.300
+En la ventana del cliente, E también suma.
+
+21
+00:01:15.650 --> 00:01:16.721
+Detén el juego:
+
+22
+00:01:16.721 --> 00:01:19.833
+el cliente se cierra solo.
+
+23
+00:01:20.183 --> 00:01:21.424
+¡Así de fácil!
+
+24
+00:01:21.424 --> 00:01:27.335
+Campos con --[Replicated] y funciones con
+--[Server], --[Client] o --[Multicast].
+
+25
+00:01:27.335 --> 00:01:35.300
+Para jugar por Internet sin abrir puertos,
+mira Jugar > Por Internet (código).
+

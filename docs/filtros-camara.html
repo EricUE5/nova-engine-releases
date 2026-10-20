@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas · Nova Engine</title>
+<meta name="description" content="Los filtros de cámara cambian cómo se ve la imagen del juego, después de dibujar la escena: píxeles grandes, pocos
+colores como una consola antigua, una tele de tubo, una cinta VHS, cine mudo, cómic, letras ASCII, visión">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas · Nova Engine">
+<meta property="og:description" content="Los filtros de cámara cambian cómo se ve la imagen del juego, después de dibujar la escena: píxeles grandes, pocos
+colores como una consola antigua, una tele de tubo, una cinta VHS, cine mudo, cómic, letras ASCII, visión">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/filtros-camara.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/filtros-camara.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html" aria-current="page">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="filtros-de-cámara-que-el-juego-se-vea-antiguo-con-píxeles-y-con-otras-formas">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-ponerlos-en-el-editor">1. Ponerlos en el editor</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-los-filtros">3. Los filtros</a></li><li class="n3"><a href="#retro">Retro</a></li><li class="n3"><a href="#formas-y-estilos">Formas y estilos</a></li><li class="n3"><a href="#visión">Visión</a></li><li class="n3"><a href="#utilidad">Utilidad</a></li><li class="n2"><a href="#4-la-interfaz-y-el-arma-en-primera-persona">4. La interfaz y el arma en primera persona</a></li><li class="n2"><a href="#5-desde-lua">5. Desde Lua</a></li><li class="n2"><a href="#6-rendimiento">6. Rendimiento</a></li><li class="n2"><a href="#7-límites">7. Límites</a></li></ul></details><p>Los <strong>filtros de cámara</strong> cambian cómo se ve la imagen del juego, después de dibujar la escena: píxeles grandes, pocos
+colores como una consola antigua, una tele de tubo, una cinta VHS, cine mudo, cómic, letras ASCII, visión nocturna...</p>
+<ul>
+<li>Van en el componente <strong>Filtros de cámara</strong> de la entidad de la cámara.</li>
+<li>Son una <strong>pila</strong>: cada filtro trabaja sobre lo que deja el anterior, en orden.</li>
+<li>Cada filtro se puede activar o desactivar y tiene su <strong>intensidad</strong> (0 a 1) y sus parámetros.</li>
+<li>Hay <strong>preajustes</strong> listos para elegir («PS1», «Game Boy», «Tele de los 80»...). Rellenan la pila y luego se puede retocar.</li>
+<li>Desde Lua se ponen, se quitan y se hacen <strong>transiciones</strong> (<code>camara:FadeFilter(&quot;VHS&quot;, 0, 2.0)</code>): para golpes, flashbacks
+o cámaras de seguridad.</li>
+<li>Sin filtros no cuestan nada: el render es exactamente el de siempre.</li>
+</ul>
+<p></p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-ponerlos-en-el-editor">Ponerlos en el editor</a></li>
+<li><a href="#2-preajustes">Preajustes</a></li>
+<li><a href="#3-los-filtros">Los filtros</a></li>
+<li><a href="#4-la-interfaz-y-el-arma-en-primera-persona">La interfaz y el arma en primera persona</a></li>
+<li><a href="#5-desde-lua">Desde Lua</a></li>
+<li><a href="#6-rendimiento">Rendimiento</a></li>
+<li><a href="#7-límites">Límites</a></li>
+</ol>
+<h2 id="1-ponerlos-en-el-editor">1. Ponerlos en el editor<a class="ancla" href="#1-ponerlos-en-el-editor" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Elige la cámara en la <strong>Jerarquía</strong>.</li>
+<li><strong>Inspector &gt; Añadir componente &gt; Render &gt; Filtros de cámara</strong>.</li>
+<li>En el desplegable de arriba, elige un <strong>preajuste</strong>, o pulsa <strong>Añadir filtro</strong> y elige uno de la lista (por
+categorías: Retro, Formas y estilos, Visión y Utilidad).</li>
+<li>Cada filtro tiene una fila con:<ul>
+<li>la casilla para activarlo o desactivarlo;</li>
+<li>su nombre (pulsa para ver sus opciones: intensidad, parámetros, «Afecta a la interfaz» y «Afecta a la capa de vista»);</li>
+<li>las flechas para <strong>subirlo</strong> (se aplica antes) o <strong>bajarlo</strong>, y la cruz para quitarlo.</li>
+</ul>
+</li>
+</ol>
+<p>Lo que cambias se ve <strong>al momento</strong> en los visores <strong>Escena</strong> y <strong>Juego</strong>:</p>
+<ul>
+<li>El visor Juego enseña los filtros de la cámara principal.</li>
+<li>El visor Escena enseña los de la cámara elegida (si tiene filtros) o los de la principal.</li>
+<li>El botón con el icono de imagen de la barra del visor (junto a <strong>Mostrar</strong>) enciende o apaga la vista previa de los
+filtros. Sirve para editar el mapa sin ellos.</li>
+</ul>
+<p>Todo se puede <strong>deshacer</strong> (Ctrl+Z) y funciona en la <strong>edición en equipo</strong> como cualquier otro cambio del Inspector.</p>
+<h2 id="2-preajustes">2. Preajustes<a class="ancla" href="#2-preajustes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Preajuste</th>
+  <th>Nombre en Lua</th>
+  <th>Filtros</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>PS1</td>
+  <td><code>&quot;PS1&quot;</code></td>
+  <td>Pixelado a 320x240, 15 bits de color con tramado Bayer, vértices que tiemblan y texturas sin filtrar</td>
+</tr>
+<tr>
+  <td>Game Boy</td>
+  <td><code>&quot;GameBoy&quot;</code></td>
+  <td>160x144 con los 4 verdes de la Game Boy y tramado</td>
+</tr>
+<tr>
+  <td>Tele de los 80</td>
+  <td><code>&quot;RetroTV&quot;</code></td>
+  <td>Aberración cromática y tele de tubo (líneas, fósforo, cristal curvo)</td>
+</tr>
+<tr>
+  <td>VHS</td>
+  <td><code>&quot;VHS&quot;</code></td>
+  <td>Un poco menos de color y la cinta con tracking, ruido y la fecha</td>
+</tr>
+<tr>
+  <td>Película muda</td>
+  <td><code>&quot;SilentFilm&quot;</code></td>
+  <td>Desenfoque suave y película en blanco y negro con grano, rayas, polvo y saltos</td>
+</tr>
+<tr>
+  <td>Cómic</td>
+  <td><code>&quot;Comic&quot;</code></td>
+  <td>Puntos de trama en las sombras, colores planos y contorno</td>
+</tr>
+<tr>
+  <td>Visión nocturna</td>
+  <td><code>&quot;NightVision&quot;</code></td>
+  <td>Verde, más luz, grano y el borde del visor</td>
+</tr>
+<tr>
+  <td>Térmica</td>
+  <td><code>&quot;Thermal&quot;</code></td>
+  <td>Desenfoque y paleta de calor (hierro)</td>
+</tr>
+<tr>
+  <td>Pixel art moderno</td>
+  <td><code>&quot;PixelArt&quot;</code></td>
+  <td>Contorno, colores planos y píxeles grandes (270 líneas)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Estas capturas son de la plantilla <strong>Mundo abierto</strong> (<code>game/mundo_abierto_lua</code>), en el visor Juego:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Sin filtros</th>
+  <th>PS1</th>
+  <th>Game Boy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-sin-filtros.webp" srcset="../assets/img/capturas-filtros-sin-filtros-800.webp 800w, ../assets/img/capturas-filtros-sin-filtros.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Sin filtros" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Sin filtros</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-PS1.webp" srcset="../assets/img/capturas-filtros-PS1-800.webp 800w, ../assets/img/capturas-filtros-PS1.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="PS1" width="1191" height="638" loading="lazy" decoding="async"><figcaption>PS1</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-GameBoy.webp" srcset="../assets/img/capturas-filtros-GameBoy-800.webp 800w, ../assets/img/capturas-filtros-GameBoy.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Game Boy" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Game Boy</figcaption></figure></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tele de los 80</th>
+  <th>VHS</th>
+  <th>Película muda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-RetroTV.webp" srcset="../assets/img/capturas-filtros-RetroTV-800.webp 800w, ../assets/img/capturas-filtros-RetroTV.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Tele de los 80" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Tele de los 80</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-VHS.webp" srcset="../assets/img/capturas-filtros-VHS-800.webp 800w, ../assets/img/capturas-filtros-VHS.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="VHS" width="1191" height="638" loading="lazy" decoding="async"><figcaption>VHS</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-SilentFilm.webp" srcset="../assets/img/capturas-filtros-SilentFilm-800.webp 800w, ../assets/img/capturas-filtros-SilentFilm.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Película muda" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Película muda</figcaption></figure></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Cómic</th>
+  <th>Visión nocturna</th>
+  <th>Térmica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-Comic.webp" srcset="../assets/img/capturas-filtros-Comic-800.webp 800w, ../assets/img/capturas-filtros-Comic.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Cómic" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Cómic</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-NightVision.webp" srcset="../assets/img/capturas-filtros-NightVision-800.webp 800w, ../assets/img/capturas-filtros-NightVision.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Visión nocturna" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Visión nocturna</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-Thermal.webp" srcset="../assets/img/capturas-filtros-Thermal-800.webp 800w, ../assets/img/capturas-filtros-Thermal.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Térmica" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Térmica</figcaption></figure></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Pixel art moderno</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><figure class="captura"><img src="../assets/img/capturas-filtros-PixelArt.webp" srcset="../assets/img/capturas-filtros-PixelArt-800.webp 800w, ../assets/img/capturas-filtros-PixelArt.webp 1191w" sizes="(max-width: 900px) 100vw, 900px" alt="Pixel art moderno" width="1191" height="638" loading="lazy" decoding="async"><figcaption>Pixel art moderno</figcaption></figure></td>
+</tr>
+</tbody>
+</table></div>
+<p>Las capturas con el editor entero (y el Inspector con la pila) están en <code>capturas-filtros/editor-&lt;preajuste&gt;.png</code>. Se
+hacen con <code>NovaEditor.exe --project game\mundo_abierto_lua --hidden --capture &lt;png&gt; --frames 150 --size 1920x1080 --filtros-prueba &lt;preajuste&gt; --focus Juego</code> (con <code>--filtros-prueba None</code>, la imagen sin filtros).</p>
+<h2 id="3-los-filtros">3. Los filtros<a class="ancla" href="#3-los-filtros" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los nombres de Lua y las claves de los parámetros van en inglés. Las opciones de una lista se escriben por su
+identificador (por ejemplo, <code>palette = &quot;NES&quot;</code>).</p>
+<h3 id="retro">Retro<a class="ancla" href="#retro" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Filtro (Lua)</th>
+  <th>Qué hace</th>
+  <th>Parámetros (clave: valores, por defecto)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Pixelado (<code>&quot;Pixelate&quot;</code>)</td>
+  <td>Píxeles grandes y cuadrados, sin suavizar</td>
+  <td><code>mode</code>: <code>PixelSize</code> o <code>FixedResolution</code>; <code>size</code>: lado del píxel en píxeles de pantalla (4); <code>height</code>: líneas con resolución fija (240 = 320x240 en 4:3)</td>
+</tr>
+<tr>
+  <td>Estilo PS1 (<code>&quot;PS1&quot;</code>)</td>
+  <td>Pocos colores con tramado y el dibujo de la PS1</td>
+  <td><code>bits</code> por canal (5); <code>dither</code>: <code>None</code>, <code>Bayer4x4</code> o <code>Bayer8x8</code>; <code>ditherStrength</code> (1); <code>vertexWobble</code>: temblor de vértices (0,5); <code>unfilteredTextures</code>: texturas sin filtrar (sí)</td>
+</tr>
+<tr>
+  <td>Paleta limitada (<code>&quot;Palette&quot;</code>)</td>
+  <td>Solo los colores de una paleta</td>
+  <td><code>palette</code>: <code>GameBoy</code> (4 verdes), <code>CGA</code>, <code>NES</code> (54 colores), <code>Sepia</code>, <code>BlackAndWhite</code> o <code>Custom</code> (desde una textura); <code>tones</code> de sepia y blanco y negro (4); <code>dither</code> y <code>ditherStrength</code></td>
+</tr>
+<tr>
+  <td>Tele antigua (<code>&quot;CRT&quot;</code>)</td>
+  <td>Tele de tubo</td>
+  <td><code>lines</code> (240), <code>scanlines</code>, <code>phosphorMask</code>, <code>curvature</code>, <code>vignette</code>, <code>edgeGlow</code> (reflejo junto al marco y halo), <code>flicker</code></td>
+</tr>
+<tr>
+  <td>VHS (<code>&quot;VHS&quot;</code>)</td>
+  <td>Cinta de vídeo</td>
+  <td><code>colorShift</code>, <code>noise</code>, <code>tracking</code> (bandas que suben), <code>blur</code> (horizontal), <code>date</code> («PLAY» con la fecha y la hora del PC)</td>
+</tr>
+<tr>
+  <td>Película antigua (<code>&quot;OldFilm&quot;</code>)</td>
+  <td>Cine mudo</td>
+  <td><code>color</code>: <code>Sepia</code>, <code>BlackAndWhite</code> o <code>Color</code>; <code>grain</code>, <code>scratches</code>, <code>dust</code>, <code>vignette</code>, <code>flicker</code>, <code>frameJumps</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Paleta propia:</strong> con <code>palette = &quot;Custom&quot;</code>, arrastra a <strong>Paleta propia</strong> una imagen pequeña en la que cada píxel es un
+color (por ejemplo, una tira de 16 x 1). Se usan hasta 256 colores.</p>
+<h3 id="formas-y-estilos">Formas y estilos<a class="ancla" href="#formas-y-estilos" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Filtro (Lua)</th>
+  <th>Qué hace</th>
+  <th>Parámetros</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Semitono (<code>&quot;Halftone&quot;</code>)</td>
+  <td>Puntos de cómic, más grandes donde es más oscuro</td>
+  <td><code>size</code> (8), <code>shape</code>: <code>Dot</code>, <code>Line</code> o <code>Square</code>; <code>angle</code> (45); <code>ink</code>: <code>Color</code> o <code>Black</code> (en negro solo marca las sombras); color del papel</td>
+</tr>
+<tr>
+  <td>ASCII (<code>&quot;Ascii&quot;</code>)</td>
+  <td>La imagen escrita con caracteres (<code> .:-=+*#%@</code>)</td>
+  <td><code>size</code> del carácter (8); <code>color</code>: <code>Image</code>, <code>GreenTerminal</code> o <code>BlackAndWhite</code>; <code>background</code></td>
+</tr>
+<tr>
+  <td>Mosaico (<code>&quot;Mosaic&quot;</code>)</td>
+  <td>Vidriera: piezas irregulares (Voronoi) con plomo</td>
+  <td><code>size</code> de las piezas (28), <code>leadWidth</code>; color del plomo</td>
+</tr>
+<tr>
+  <td>Contorno de cómic (<code>&quot;Outline&quot;</code>)</td>
+  <td>Líneas en los bordes de los objetos y en las aristas</td>
+  <td><code>thickness</code> (1), <code>depthSensitivity</code>, <code>edgeSensitivity</code>, <code>maxDistance</code> (150 m); color de la línea</td>
+</tr>
+<tr>
+  <td>Posterizar (<code>&quot;Posterize&quot;</code>)</td>
+  <td>Pocos tonos por canal</td>
+  <td><code>levels</code> (6)</td>
+</tr>
+</tbody>
+</table></div>
+<p>El contorno sale de la <strong>profundidad</strong> de la escena: marca dónde un objeto tapa a otro y dónde la superficie cambia de
+dirección (las esquinas de una caja), sin tocar los materiales.</p>
+<h3 id="visión">Visión<a class="ancla" href="#visión" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Filtro (Lua)</th>
+  <th>Qué hace</th>
+  <th>Parámetros</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Visión nocturna (<code>&quot;NightVision&quot;</code>)</td>
+  <td>Verde, más luz, grano y el borde del visor</td>
+  <td><code>gain</code> (3), <code>grain</code>, <code>vignette</code>, <code>scanlines</code>; color del fósforo</td>
+</tr>
+<tr>
+  <td>Térmica (<code>&quot;Thermal&quot;</code>)</td>
+  <td>Colores de calor</td>
+  <td><code>palette</code>: <code>Iron</code>, <code>Rainbow</code>, <code>WhiteHot</code> o <code>BlackHot</code>; <code>contrast</code>, <code>noise</code></td>
+</tr>
+<tr>
+  <td>Ojo de pez / lente (<code>&quot;Fisheye&quot;</code>)</td>
+  <td>Distorsión de lente</td>
+  <td><code>distortion</code> (positiva: barril; negativa: cojín), <code>zoom</code></td>
+</tr>
+<tr>
+  <td>Aberración cromática (<code>&quot;ChromaticAberration&quot;</code>)</td>
+  <td>Rojo y azul se separan</td>
+  <td><code>amount</code> (píxeles a 1080 líneas), <code>radial</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>La térmica usa <strong>lo claro que es cada zona</strong>: las luces y lo iluminado salen calientes. No usa etiquetas de las
+entidades.</p>
+<h3 id="utilidad">Utilidad<a class="ancla" href="#utilidad" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Filtro (Lua)</th>
+  <th>Qué hace</th>
+  <th>Parámetros</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Desenfoque (<code>&quot;Blur&quot;</code>)</td>
+  <td>Imagen borrosa</td>
+  <td><code>radius</code> (píxeles a 1080 líneas)</td>
+</tr>
+<tr>
+  <td>Nitidez (<code>&quot;Sharpen&quot;</code>)</td>
+  <td>Realza los bordes</td>
+  <td><code>amount</code></td>
+</tr>
+<tr>
+  <td>Viñeta de color (<code>&quot;Vignette&quot;</code>)</td>
+  <td>Oscurece o tiñe los bordes (daño en rojo, veneno en verde)</td>
+  <td><code>size</code>, <code>softness</code>; color</td>
+</tr>
+<tr>
+  <td>LUT de color (<code>&quot;ColorLut&quot;</code>)</td>
+  <td>Gradación con una tabla</td>
+  <td><strong>Textura de la LUT</strong>: una tira de N cuadrados de N x N (256 x 16 o 1024 x 32). Sin textura no hace nada</td>
+</tr>
+<tr>
+  <td>Desaturar (<code>&quot;Desaturate&quot;</code>)</td>
+  <td>Quita el color</td>
+  <td>(la intensidad dice cuánto)</td>
+</tr>
+<tr>
+  <td>Tinte (<code>&quot;Tint&quot;</code>)</td>
+  <td>Tiñe de un color</td>
+  <td><code>mode</code>: <code>Multiply</code>, <code>Colorize</code> o <code>Add</code>; color</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Intensidad.</strong> Con 0 el filtro no hace nada y la imagen es idéntica a la de sin filtros. Con valores intermedios se
+mezcla con la imagen de antes. En los que mueven la imagen, la intensidad hace crecer el efecto: el pixelado empieza con
+píxeles de 1 (sin cambio) y crece hasta su tamaño, y el ojo de pez y la curvatura del CRT, desde una lente plana.</p>
+<h2 id="4-la-interfaz-y-el-arma-en-primera-persona">4. La interfaz y el arma en primera persona<a class="ancla" href="#4-la-interfaz-y-el-arma-en-primera-persona" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Afecta a la interfaz</strong> (por defecto, solo en el CRT y el VHS): el filtro se aplica también encima de la interfaz del
+juego (los lienzos de <a href="interfaz-ui.html">interfaz-ui.md</a>), como si la tele o la cinta lo grabaran todo. El resto se
+aplican antes de dibujar la interfaz, que queda limpia. Las ventanas de <code>OnGUI</code>, el perfilador y los avisos del motor
+nunca se filtran.</li>
+<li><strong>Afecta a la capa de vista</strong> (por defecto, sí): con la casilla apagada, el arma y las manos en primera persona (la
+<a href="render.html#12-capa-de-vista-el-arma-en-primera-persona">capa de vista</a>) no se filtran. Por ejemplo, un tinte de
+visión nocturna que no colorea el arma.</li>
+</ul>
+<p>Los filtros que afectan a la interfaz van <strong>detrás</strong> de los demás, aunque en la pila estén antes.</p>
+<h2 id="5-desde-lua">5. Desde Lua<a class="ancla" href="#5-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los métodos están en el componente <strong>Camera</strong>. Si la entidad no tiene <strong>Filtros de cámara</strong>, se le añade.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> camara = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Camera"</span>)
+
+<span class="hl-c">-- Poner o cambiar un filtro (sin intensidad: 1)</span>
+camara:<span class="hl-f">SetFilter</span>(<span class="hl-s">"CRT"</span>, { intensity = <span class="hl-n">1</span>, curvature = <span class="hl-n">0.5</span> })
+camara:<span class="hl-f">SetFilter</span>(<span class="hl-s">"Palette"</span>, { palette = <span class="hl-s">"NES"</span>, dither = <span class="hl-s">"Bayer8x8"</span> })
+camara:<span class="hl-f">SetFilter</span>(<span class="hl-s">"Tint"</span>, { color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.2</span>, <span class="hl-n">0.2</span>), mode = <span class="hl-s">"Multiply"</span>, affectsUi = <span class="hl-b">false</span> })
+
+<span class="hl-c">-- Transición: el VHS baja a 0 en 2 segundos (si no estaba, aparece desde 0)</span>
+camara:<span class="hl-f">FadeFilter</span>(<span class="hl-s">"VHS"</span>, <span class="hl-n">0</span>, <span class="hl-n">2.0</span>)
+
+<span class="hl-c">-- Leer, quitar y preajustes</span>
+<span class="hl-k">local</span> crt = camara:<span class="hl-f">GetFilter</span>(<span class="hl-s">"CRT"</span>)      <span class="hl-c">-- nil si no lo tiene</span>
+<span class="hl-f">print</span>(crt.intensity, crt.curvature, crt.fading)
+camara:<span class="hl-f">RemoveFilter</span>(<span class="hl-s">"CRT"</span>)
+camara:<span class="hl-f">ClearFilters</span>()
+camara:<span class="hl-f">ApplyFilterPreset</span>(<span class="hl-s">"PS1"</span>)
+<span class="hl-f">print</span>(<span class="hl-t">table</span>.<span class="hl-f">concat</span>(camara:<span class="hl-f">GetFilters</span>(), <span class="hl-s">", "</span>))   <span class="hl-c">-- "Pixelate, PS1"</span></code></pre></div>
+<p>La tabla <strong><code>Filters</code></strong> hace lo mismo en la <strong>cámara principal</strong> (o en la que se pase al final):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Filters</span>.<span class="hl-f">ApplyPreset</span>(<span class="hl-s">"PS1"</span>)
+<span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"NightVision"</span>, { gain = <span class="hl-n">4</span> })
+<span class="hl-t">Filters</span>.<span class="hl-f">Fade</span>(<span class="hl-s">"NightVision"</span>, <span class="hl-n">0</span>, <span class="hl-n">1.5</span>)
+<span class="hl-t">Filters</span>.<span class="hl-f">Get</span>(<span class="hl-s">"NightVision"</span>)
+<span class="hl-t">Filters</span>.<span class="hl-f">Remove</span>(<span class="hl-s">"NightVision"</span>)
+<span class="hl-t">Filters</span>.<span class="hl-f">Clear</span>()
+<span class="hl-t">Filters</span>.<span class="hl-f">GetPresets</span>()   <span class="hl-c">-- { "PS1", "GameBoy", "RetroTV", ... }</span>
+<span class="hl-t">Filters</span>.<span class="hl-f">GetNames</span>()     <span class="hl-c">-- { "Pixelate", "PS1", "Palette", ... }</span></code></pre></div>
+<p><strong>Opciones de <code>SetFilter</code>:</strong> <code>intensity</code>, <code>enabled</code>, <code>affectsUi</code>, <code>affectsViewLayer</code>, <code>color</code> (un <code>Color</code> o un <code>Vec3</code>),
+<code>texture</code> (un asset o su ruta) y los parámetros del filtro por su clave. Un nombre de filtro, una opción o un valor que no
+existen dan un error que dice los que hay. Los nombres no miran mayúsculas.</p>
+<p><strong><code>GetFilter</code></strong> devuelve <code>name</code>, <code>intensity</code> (la de ahora, con la transición), <code>enabled</code>, <code>affectsUi</code>,
+<code>affectsViewLayer</code>, <code>fading</code>, <code>color</code> (si el filtro tiene color) y sus parámetros.</p>
+<p><strong>Recetas:</strong></p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Un golpe: aberración y desenfoque que se van en medio segundo</span>
+<span class="hl-k">function</span> <span class="hl-t">Jugador</span>:<span class="hl-f">OnDamage</span>()
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>():<span class="hl-f">GetComponent</span>(<span class="hl-s">"Camera"</span>)
+    camara:<span class="hl-f">SetFilter</span>(<span class="hl-s">"ChromaticAberration"</span>, { intensity = <span class="hl-n">1</span>, amount = <span class="hl-n">12</span> })
+    camara:<span class="hl-f">FadeFilter</span>(<span class="hl-s">"ChromaticAberration"</span>, <span class="hl-n">0</span>, <span class="hl-n">0.5</span>)
+    camara:<span class="hl-f">SetFilter</span>(<span class="hl-s">"Blur"</span>, { intensity = <span class="hl-n">1</span>, radius = <span class="hl-n">3</span> })
+    camara:<span class="hl-f">FadeFilter</span>(<span class="hl-s">"Blur"</span>, <span class="hl-n">0</span>, <span class="hl-n">0.5</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Flashback en sepia que entra y sale</span>
+<span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"OldFilm"</span>, { color = <span class="hl-s">"Sepia"</span> })
+<span class="hl-t">Filters</span>.<span class="hl-f">Fade</span>(<span class="hl-s">"OldFilm"</span>, <span class="hl-n">1</span>, <span class="hl-n">1.0</span>)
+
+<span class="hl-c">-- Cámara de seguridad</span>
+<span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"VHS"</span>, { date = <span class="hl-b">true</span> })
+<span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"Fisheye"</span>, { distortion = <span class="hl-n">0.4</span> })</code></pre></div>
+<p>Las transiciones van con el reloj de la escena (se paran con la pausa). Los filtros son de <strong>cada máquina</strong>: no se
+envían por la red (cada jugador ve los suyos).</p>
+<p>El autocompletado del editor de scripts y de VS Code propone los nombres de filtro y de preajuste entre las comillas
+(<code>camara:SetFilter(&quot;|&quot;)</code>, <code>Filters.ApplyPreset(&quot;|&quot;)</code>), y <code>nova.d.luau</code> tiene los tipos.</p>
+<h2 id="6-rendimiento">6. Rendimiento<a class="ancla" href="#6-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Cada filtro es una pasada barata y los activos se <strong>juntan</strong> en el menor número de pasadas de pantalla completa:<ul>
+<li>los que mueven la imagen (pixelado, ojo de pez, saltos de la película) y los que solo cambian el color (paletas,
+PS1, posterizar, tinte, LUT...) van en la misma pasada, todos los que haya;</li>
+<li>los que leen alrededor de cada píxel (CRT, VHS, desenfoque, nitidez, aberración, semitono, ASCII, vidriera,
+contorno) van uno por pasada, con los que cambian el color detrás.</li>
+</ul>
+</li>
+<li>Con todos apagados (o con intensidad 0) no hay ninguna pasada: el render es idéntico al de sin filtros.</li>
+<li>El Inspector enseña las <strong>pasadas</strong> del último frame.</li>
+</ul>
+<p>Medido en la GPU (RTX 5060 Ti) a 1920 x 1080, con tres filtros:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Filtros</th>
+  <th>Pasadas</th>
+  <th>GPU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Pixelado + PS1 + viñeta</td>
+  <td>1</td>
+  <td>0,22 ms</td>
+</tr>
+<tr>
+  <td>Aberración + CRT + desaturar</td>
+  <td>2</td>
+  <td>0,35 ms</td>
+</tr>
+<tr>
+  <td>Desaturar + VHS + tinte</td>
+  <td>2</td>
+  <td>0,41 ms</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="7-límites">7. Límites<a class="ancla" href="#7-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>El <strong>temblor de vértices</strong> y las <strong>texturas sin filtrar</strong> del estilo PS1 se ven en las mallas normales (con huesos o
+sin ellos). El terreno, la vegetación, el agua y las partículas no tiemblan.</li>
+<li>La <strong>térmica</strong> sale del brillo de la imagen, no de etiquetas «calientes» en las entidades.</li>
+<li>El <strong>contorno</strong> usa la profundidad: no marca las líneas dentro de una textura, solo la forma de los objetos. En el
+arma de la capa de vista las líneas pueden ser más gruesas o más finas que en el mundo.</li>
+<li>Un filtro de cada tipo por cámara (<code>SetFilter(&quot;Blur&quot;, ...)</code> cambia el que hay).</li>
+<li>La fecha del VHS es la del PC, en inglés (<code>PLAY  PM 6:16 / OCT. 19 2026</code>), con la fuente propia de 5 x 7 del motor
+(la misma de los caracteres del filtro ASCII).</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="render.html"><small>Anterior</small>Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a><a class="sig" href="iluminacion-horneada.html"><small>Siguiente</small>Iluminación horneada: lightmaps y sondas de luz</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-ponerlos-en-el-editor">1. Ponerlos en el editor</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-los-filtros">3. Los filtros</a></li><li class="n3"><a href="#retro">Retro</a></li><li class="n3"><a href="#formas-y-estilos">Formas y estilos</a></li><li class="n3"><a href="#visión">Visión</a></li><li class="n3"><a href="#utilidad">Utilidad</a></li><li class="n2"><a href="#4-la-interfaz-y-el-arma-en-primera-persona">4. La interfaz y el arma en primera persona</a></li><li class="n2"><a href="#5-desde-lua">5. Desde Lua</a></li><li class="n2"><a href="#6-rendimiento">6. Rendimiento</a></li><li class="n2"><a href="#7-límites">7. Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

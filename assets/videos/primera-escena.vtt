@@ -1,0 +1,174 @@
+WEBVTT
+
+1
+00:00:00.350 --> 00:00:00.845
+¡Hola!
+
+2
+00:00:00.845 --> 00:00:04.027
+Vas a hacer tu primera escena en Nova Engine.
+
+3
+00:00:04.027 --> 00:00:09.402
+Este panel te dice qué hacer en cada
+paso y lo que hay que usar se ilumina.
+
+4
+00:00:09.402 --> 00:00:13.433
+Cuando lo hagas, el tutorial
+pasa solo al siguiente paso.
+
+5
+00:00:13.433 --> 00:00:17.700
+Pulsa Siguiente para empezar.
+
+6
+00:00:18.050 --> 00:00:20.314
+Esto es el visor de la escena.
+
+7
+00:00:20.314 --> 00:00:26.201
+Para mirar alrededor, mantén pulsado el
+botón derecho del ratón y muévelo;
+
+8
+00:00:26.201 --> 00:00:27.937
+con W, A, S y D vuelas.
+
+9
+00:00:27.937 --> 00:00:30.427
+Para girar alrededor de un punto,
+
+10
+00:00:30.427 --> 00:00:36.012
+mantén Alt y arrastra con el botón
+izquierdo, y la rueda acerca y aleja.
+
+11
+00:00:36.012 --> 00:00:37.800
+Muévete un poco.
+
+12
+00:00:38.150 --> 00:00:39.677
+Ahora crea un cubo:
+
+13
+00:00:39.677 --> 00:00:43.500
+abre el menú Entidad > Objeto 3D > Cubo.
+
+14
+00:00:43.850 --> 00:00:47.082
+El cubo aparece delante de
+la cámara y queda elegido.
+
+15
+00:00:47.082 --> 00:00:50.254
+La Jerarquía tiene todas
+las entidades de la escena:
+
+16
+00:00:50.254 --> 00:00:52.933
+haz clic en «Suelo» para elegirlo.
+
+17
+00:00:53.283 --> 00:00:56.682
+El Inspector enseña los
+componentes de lo que eliges:
+
+18
+00:00:56.682 --> 00:01:00.270
+el Suelo tiene un Transform,
+una Malla y un Colisionador.
+
+19
+00:01:00.270 --> 00:01:03.633
+Vuelve a elegir el «Cubo» en la Jerarquía.
+
+20
+00:01:03.983 --> 00:01:05.091
+Súbelo un poco.
+
+21
+00:01:05.091 --> 00:01:09.800
+En el Inspector, en Posición, haz
+doble clic en el número de la Y,
+
+22
+00:01:09.800 --> 00:01:14.509
+escribe 3 y pulsa Intro (también
+puedes arrastrar sobre el número,
+
+23
+00:01:14.509 --> 00:01:17.533
+o las flechas de colores del visor).
+
+24
+00:01:17.883 --> 00:01:19.038
+Ahora dale física:
+
+25
+00:01:19.038 --> 00:01:22.197
+pulsa «Añadir componente»
+al final del Inspector,
+
+26
+00:01:22.197 --> 00:01:25.333
+escribe «rígido» y elige Cuerpo rígido.
+
+27
+00:01:25.683 --> 00:01:26.398
+Pruébalo:
+
+28
+00:01:26.398 --> 00:01:29.187
+pulsa Jugar, el botón verde de arriba.
+
+29
+00:01:29.187 --> 00:01:33.200
+El cubo cae por la gravedad
+y choca con el suelo.
+
+30
+00:01:33.550 --> 00:01:35.078
+¿Lo has visto caer?
+
+31
+00:01:35.078 --> 00:01:38.439
+Pulsa Detener (el mismo botón, ahora rojo).
+
+32
+00:01:38.439 --> 00:01:42.106
+Lo que pasa mientras juegas
+no cambia la escena:
+
+33
+00:01:42.106 --> 00:01:45.533
+al detener, el cubo vuelve a su sitio.
+
+34
+00:01:45.883 --> 00:01:48.501
+Por último, guarda la escena:
+
+35
+00:01:48.501 --> 00:01:52.167
+Archivo > Guardar escena (o Ctrl+S).
+
+36
+00:01:52.517 --> 00:01:53.089
+¡Hecho!
+
+37
+00:01:53.089 --> 00:01:56.455
+Ya sabes moverte por el
+visor, crear entidades,
+
+38
+00:01:56.455 --> 00:02:00.536
+cambiarlas en el Inspector,
+probar la escena y guardarla.
+
+39
+00:02:00.536 --> 00:02:06.400
+En «Tu primer script en
+Lua» le das vida al cubo.
+

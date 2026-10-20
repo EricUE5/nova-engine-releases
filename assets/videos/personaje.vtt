@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.350 --> 00:00:04.651
+Vas a tener un personaje que se
+mueve con el teclado y el ratón,
+
+2
+00:00:04.651 --> 00:00:07.893
+listo para el multijugador,
+sin escribir código:
+
+3
+00:00:07.893 --> 00:00:12.590
+con el paquete Tercera persona del
+motor y una Aparición de jugadores.
+
+4
+00:00:12.590 --> 00:00:15.867
+Pulsa Siguiente.
+
+5
+00:00:16.217 --> 00:00:19.667
+Abre el menú Paquetes
+> Paquetes del motor...
+
+6
+00:00:20.017 --> 00:00:23.157
+Instala «Tercera persona (multijugador)»:
+
+7
+00:00:23.157 --> 00:00:24.983
+pulsa su botón Instalar.
+
+8
+00:00:24.983 --> 00:00:31.867
+Copia a tu proyecto el personaje, sus
+animaciones, los scripts y el prefab del jugador.
+
+9
+00:00:32.217 --> 00:00:32.650
+Listo:
+
+10
+00:00:32.650 --> 00:00:36.633
+cierra la ventana de paquetes con su X.
+
+11
+00:00:36.983 --> 00:00:38.774
+Crea una entidad vacía:
+
+12
+00:00:38.774 --> 00:00:41.167
+Entidad > Entidad vacía.
+
+13
+00:00:41.517 --> 00:00:43.960
+Añádele una Aparición de jugadores:
+
+14
+00:00:43.960 --> 00:00:48.075
+pulsa «Añadir componente»,
+escribe «aparición» y elígela.
+
+15
+00:00:48.075 --> 00:00:52.400
+Crea un personaje por cada
+jugador que entra en la partida.
+
+16
+00:00:52.750 --> 00:00:54.436
+Dile qué personaje crear:
+
+17
+00:00:54.436 --> 00:00:57.224
+en «Prefab del jugador», pulsa el botón,
+
+18
+00:00:57.224 --> 00:01:01.433
+escribe «jugador» y elige
+JugadorTerceraPersona.prefab.
+
+19
+00:01:01.783 --> 00:01:04.363
+Ahora haz que la cámara siga al personaje.
+
+20
+00:01:04.363 --> 00:01:06.967
+Elige «Cámara» en la Jerarquía.
+
+21
+00:01:07.317 --> 00:01:10.240
+Pulsa «Añadir componente» y elige Scripts.
+
+22
+00:01:10.240 --> 00:01:16.086
+Después, en el componente Scripts, pulsa
+«Añadir script» y elige CamaraTerceraPersona:
+
+23
+00:01:16.086 --> 00:01:21.733
+es el script del paquete que pone la
+cámara por encima del hombro del jugador.
+
+24
+00:01:22.083 --> 00:01:22.864
+Pulsa Jugar:
+
+25
+00:01:22.864 --> 00:01:26.233
+aparece tu personaje con la cámara detrás.
+
+26
+00:01:26.583 --> 00:01:32.321
+Muévete con W, A, S y D (si no
+responde, haz clic en la vista Juego),
+
+27
+00:01:32.321 --> 00:01:36.994
+corre con Mayús, salta con
+Espacio y mira con el ratón.
+
+28
+00:01:36.994 --> 00:01:38.900
+Anda unos metros.
+
+29
+00:01:39.250 --> 00:01:40.301
+Detén el juego.
+
+30
+00:01:40.301 --> 00:01:42.536
+Este personaje ya funciona en red:
+
+31
+00:01:42.536 --> 00:01:47.267
+el movimiento lo decide el servidor
+y los demás te ven animado.
+
+32
+00:01:47.617 --> 00:01:48.148
+¡Listo!
+
+33
+00:01:48.148 --> 00:01:52.996
+Con un paquete y una Aparición de
+jugadores tienes un personaje jugable.
+
+34
+00:01:52.996 --> 00:02:00.600
+En «Multijugador en 5 minutos» pruebas
+el juego con un anfitrión y un cliente.
+
