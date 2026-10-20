@@ -1330,7 +1330,9 @@ prueba mueve el ratón y pulsa como lo haría una persona:</p>
 
 <span class="hl-k">return</span> <span class="hl-t">PruebaArrastre</span></code></pre></div>
 <p>Para pasar a mayúsculas o minúsculas textos con tildes, <code>Text.Upper(&quot;táctico&quot;)</code> da <code>&quot;TÁCTICO&quot;</code> y <code>Text.Lower</code>
-lo contrario (<code>string.upper</code> de Luau solo cambia las letras sin tilde).</p>
+lo contrario (<code>string.upper</code> de Luau solo cambia las letras sin tilde). <code>Text</code> tiene también <code>Split</code>, <code>Trim</code>,
+<code>StartsWith</code>, <code>EndsWith</code>, <code>FormatTime</code> (<code>&quot;03:25&quot;</code>) y <code>FormatNumber</code> (<code>&quot;1,234,567&quot;</code>), y <code>Table</code> las ayudas de las
+tablas (<code>SortBy</code>, <code>DeepCopy</code>, <code>Filter</code>, <code>Map</code>, <code>Sum</code>, <code>Max</code>...): ver <a href="nativas-juego.html#9-tablas-y-textos">nativas-juego.md</a>.</p>
 <h4 id="el-cursor-bloqueado-en-el-editor-y-en-el-juego-publicado">El cursor bloqueado en el editor y en el juego publicado<a class="ancla" href="#el-cursor-bloqueado-en-el-editor-y-en-el-juego-publicado" aria-label="Enlace a esta sección">#</a></h4>
 <p><code>SetCursorLocked(true)</code> <strong>pide</strong> el cursor bloqueado; quien lo aplica es la ventana:</p>
 <ul>
@@ -2533,7 +2535,9 @@ así que el mismo script sirve para probar solo. Reglas prácticas:</p>
 <p><code>Network.</code> da más detalles: <code>Mode()</code> (<code>&quot;None&quot;</code>, <code>&quot;Offline&quot;</code>, <code>&quot;Host&quot;</code>, <code>&quot;Client&quot;</code>, <code>&quot;DedicatedServer&quot;</code>),
 <code>IsRunning()</code>, <code>IsConnected()</code>, <code>IsHost()</code>, <code>IsDedicatedServer()</code>, <code>LocalClientId()</code> y <code>PlayerName()</code>.
 <code>GetPlayers()</code> da los ids de los jugadores y <code>GetPlayerName(id)</code> su nombre; con su ping y más, <code>Network.Players()</code>
-(sección <a href="#912-jugadores-ping-y-expulsar">9.12</a>).</p>
+(sección <a href="#912-jugadores-ping-y-expulsar">9.12</a>). Los jugadores cerca de un sitio, el más cercano, los eventos a un
+equipo o a los de alrededor, los equipos equilibrados y las apariciones lejos de los enemigos tienen funciones
+nativas: <a href="nativas-juego.html#10-red-jugadores-equipos-y-envíos">nativas-juego.md</a>.</p>
 <h3 id="93-campos-replicados">9.3 Campos replicados<a class="ancla" href="#93-campos-replicados" aria-label="Enlace a esta sección">#</a></h3>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Barril</span> = <span class="hl-f">Script</span>()
 
@@ -4389,7 +4393,7 @@ explica; <strong>No</strong>: todavía no (y por qué).</p>
 <tr>
   <td>Funciones nativas de juego</td>
   <td>lo que se programe</td>
-  <td><code>Spatial</code> (índice espacial), lotes de rayos y de líneas de visión, <code>Tween</code>, <code>Easing</code>, <code>Curve</code>, <code>Pool</code>, <code>Json</code>, <code>Scene.SetPositions</code>... (<a href="nativas-juego.html">nativas-juego.md</a>)</td>
+  <td><code>Spatial</code> (índice espacial), lotes de rayos y de líneas de visión, <code>Tween</code>, <code>Easing</code>, <code>Curve</code>, <code>Pool</code>, <code>Json</code>, <code>Scene.SetPositions</code>, <code>Table</code>, <code>Text.Split</code>/<code>FormatTime</code>, <code>Network.GetPlayersInRadius</code>/<code>SendToTeam</code>/<code>AssignTeams</code>/<code>PickSpawnPoint</code>... (<a href="nativas-juego.html">nativas-juego.md</a>)</td>
   <td>Sí (más que en C++: hechas en el motor para Lua)</td>
 </tr>
 <tr>

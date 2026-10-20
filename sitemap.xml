@@ -118,6 +118,7 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-sphere.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-spline.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-steam.html</loc><lastmod>2026-10-20</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-table.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-tags.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-task.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-terrain.html</loc><lastmod>2026-10-20</lastmod></url>
@@ -164,7 +165,6 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-lake.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-lightprobevolume.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-loadingscreensettings.html</loc><lastmod>2026-10-20</lastmod></url>
-  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-marcador.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-materialparameters.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-meshrenderer.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-name.html</loc><lastmod>2026-10-20</lastmod></url>
@@ -182,7 +182,6 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-pointlight.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-poolreturn.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-prefabinstance.html</loc><lastmod>2026-10-20</lastmod></url>
-  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-pruebacomp.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-ragdoll.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-reflectionprobe.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-rigidbody.html</loc><lastmod>2026-10-20</lastmod></url>
@@ -239,7 +238,6 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-vehicle.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-vehiclecamera.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-vehicleseats.html</loc><lastmod>2026-10-20</lastmod></url>
-  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-vida.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-viewlayer.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-globales.html</loc><lastmod>2026-10-20</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-tipos.html</loc><lastmod>2026-10-20</lastmod></url>

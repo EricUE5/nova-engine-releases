@@ -453,13 +453,94 @@ sustituyen, y la barra de estado dice cuáles.</li>
 <p>Los scripts C++ tienen algunas reglas más (las subcarpetas no se compilan, <code>NOVA_GAME_MODULE()</code>, IntelliSense):
 ver <a href="scripts-cpp.html#crear-y-abrir-scripts-desde-el-editor">scripts-cpp.md</a>.</p>
 <h3 id="consola">Consola<a class="ancla" href="#consola" aria-label="Enlace a esta sección">#</a></h3>
-<p>Mensajes del log del motor y de la compilación de scripts. Tiene <strong>Limpiar</strong>, filtros de mensajes, avisos y
-errores, <strong>Auto-desplazar</strong> y un campo <strong>Filtrar</strong> por texto. El log completo también se escribe en
-<code>%LOCALAPPDATA%\NovaEngine\editor.log</code>.</p>
+<p>Mensajes del log del motor, del editor y de tus scripts (los errores de Lua con su fichero, su línea y su pila). El log
+completo también se escribe en <code>%LOCALAPPDATA%\NovaEngine\editor.log</code>.</p>
+<p><strong>Ir al script y a la línea con un clic.</strong> Toda referencia a un script que sale en un mensaje es un <strong>enlace</strong> (en cian,
+subrayado al pasar el ratón): <code>scripts/Jugador.luau:37</code>, <code>scripts/Armas/Pistola.luau:12:5</code> (con columna, del analizador),
+una ruta de C++ con <code>(12,5)</code>...</p>
+<ul>
+<li><strong>Clic</strong>: abre el script en el <strong>editor de scripts integrado</strong>, en su pestaña de documento <strong>Scripts</strong>, con el cursor en
+esa línea y columna y la línea <strong>resaltada</strong> un momento. Si en <strong>Preferencias del editor &gt; Editor de scripts &gt; Abrir
+scripts con</strong> elegiste VS Code, lo abre allí.</li>
+<li><strong>Ctrl+clic</strong>: lo abre en <strong>VS Code</strong> (<code>code &lt;proyecto&gt; -g fichero:línea</code>) aunque la preferencia diga otra cosa.</li>
+<li><strong>Doble clic en una fila</strong>: abre su primer script.</li>
+<li>Funciona en los errores de compilación y de ejecución de Lua, en los avisos del analizador y en <strong>cada línea de la pila</strong>:
+los mensajes con pila o muy largos tienen un <strong>triángulo</strong> a la izquierda que los despliega, y cada nivel de la pila
+(<code>scripts/Jugador.luau:14 function Update</code>) es su propio enlace.</li>
+<li><strong><code>Log.Info</code>, <code>Log.Warn</code>, <code>Log.Error</code> y <code>print</code></strong> llevan al final, atenuado, el script y la línea que los llamó
+(<code>← scripts/Ladron.luau:13</code>): también es un enlace. El motor lo mira solo al escribir el mensaje.</li>
+<li><strong>Jugando en red y en «Jugar en equipo»</strong>, los mensajes del servidor (<code>Server:</code>) y de los clientes (<code>Client:</code>) enlazan al
+script <strong>de la carpeta de este PC</strong>: si la ruta es de otro PC, del servidor dedicado o de la carpeta de la sesión de otra
+persona (<code>D:\Servidor\datos\scripts\Banco.luau:8</code>), la Consola busca el mismo script desde la carpeta <code>scripts/</code> de tu
+proyecto y, si no, por su nombre.</li>
+<li><strong>Entidades</strong>: un nombre entre comillas simples que existe en la escena (<code>'JugadorLadron'</code>, el de los errores de Lua) es
+un enlace que la <strong>selecciona en la Jerarquía</strong> (y la encuadra si no estás jugando).</li>
+<li><strong>Assets</strong>: las rutas de <code>assets/</code> y las que acaban en un tipo de asset (<code>scenes/Principal.scene</code>, <code>models/caja.glb</code>)
+<strong>muestran el asset en Contenido</strong> (su carpeta, elegido y en el Inspector).</li>
+</ul>
+<p><strong>Barra de la Consola</strong>, de izquierda a derecha:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Botón</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Limpiar</strong></td>
+  <td>Vacía la Consola</td>
+</tr>
+<tr>
+  <td>Contadores de mensajes, avisos y errores</td>
+  <td>Cuentan también los repetidos; clic para ver u ocultar cada tipo</td>
+</tr>
+<tr>
+  <td><strong>Solo errores</strong></td>
+  <td>Deja solo los errores (otra vez: todo)</td>
+</tr>
+<tr>
+  <td><strong>Todo / Server / Client</strong></td>
+  <td>El lado de la red (ver abajo)</td>
+</tr>
+<tr>
+  <td><strong>Todos los scripts</strong></td>
+  <td>Filtro por script: solo los mensajes que escribió ese script y los errores y avisos que lo nombran (también en la pila)</td>
+</tr>
+<tr>
+  <td><strong>Filtrar</strong></td>
+  <td>Texto (sin distinguir mayúsculas), también en la pila y en el origen; lo encontrado se <strong>resalta</strong></td>
+</tr>
+<tr>
+  <td><strong>⋯</strong> (opciones)</td>
+  <td>Auto-desplazar, las opciones de abajo, <strong>Exportar todo...</strong> / <strong>Exportar lo filtrado...</strong> a un <code>.txt</code> y volver a mostrar los silenciados</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Repetidos.</strong> El mismo mensaje seguido (mismo tipo, lado, texto y origen) sale una sola vez con un contador <strong>×12</strong>. Se
+desactiva con <strong>Agrupar repetidos</strong>.</p>
+<p><strong>Clic derecho en una fila:</strong> <strong>Copiar el mensaje</strong>, <strong>Copiar con la pila</strong>, <strong>Abrir</strong> el script (y <strong>Abrir en VS Code</strong>),
+<strong>Buscar en la documentación</strong> (para los errores del motor conocidos, su sección de resolución de problemas: los errores
+comunes de los scripts Lua, del multijugador o de Nova Enlace) y <strong>Silenciar este aviso durante la sesión</strong> (deja de verse
+y de contar para el aviso del visor hasta que cierres el editor o pulses <strong>Volver a mostrar los silenciados</strong>). <strong>Ctrl+C</strong>
+copia la fila elegida con su pila.</p>
+<p><strong>Opciones</strong> (en <strong>⋯</strong> y en <strong>Preferencias del editor &gt; Consola</strong>; se guardan en <code>editor.json</code>, <code>&quot;consola&quot;</code>):</p>
+<ul>
+<li><strong>Limpiar al jugar</strong>: al pulsar Jugar, la Consola se vacía y solo quedan los mensajes de esa partida.</li>
+<li><strong>Aviso de errores en el visor de juego</strong> (activada): mientras juegas, un error grave sale unos segundos arriba a la
+derecha del visor <strong>Juego</strong> con su primera línea, cuántos seguidos y <strong>Ver en la Consola</strong> (lleva a esa fila). No para el
+juego ni captura el ratón; con el ratón encima no se va. La <strong>X</strong> lo cierra.</li>
+<li><strong>Pausar al primer error</strong>: el juego se pone en pausa con el primer error, para ver la
+escena tal y como estaba.</li>
+<li><strong>Agrupar repetidos</strong> (activada).</li>
+<li><strong>Marca de tiempo</strong>: <strong>Hora real</strong> (por defecto), <strong>Tiempo de juego</strong> (desde que pulsaste Jugar; <code>-</code> en lo de antes),
+<strong>Desde que se abrió el editor</strong> o ninguna.</li>
+<li><strong>Mensajes que se guardan</strong> (50.000 por defecto): las filas más viejas se pierden. La lista solo dibuja las filas que se
+ven y, al llegar mensajes, solo mira los nuevos: con 50.000 no se ralentiza.</li>
+</ul>
 <p>Al jugar con red, cada mensaje de los scripts y de la red lleva delante su lado, con color: <strong>Server:</strong> (naranja),
 <strong>Client:</strong> (turquesa) y <strong>Host:</strong> (violeta, el código común del anfitrión). La regla está en
-<a href="multijugador.html#registros-server-y-client">multijugador.md</a>. Junto a los botones de mensajes, avisos y errores, el
-filtro <strong>Todo / Server / Client</strong> deja solo un lado:</p>
+<a href="multijugador.html#registros-server-y-client">multijugador.md</a>. El filtro <strong>Todo / Server / Client</strong> deja solo un lado:</p>
 <ul>
 <li><strong>Server</strong>: las líneas <code>Server:</code> y <code>Host:</code> (el anfitrión también es el servidor);</li>
 <li><strong>Client</strong>: las líneas <code>Client:</code> (<code>Client 2:</code>...) y <code>Host:</code>;</li>
@@ -468,6 +549,8 @@ filtro <strong>Todo / Server / Client</strong> deja solo un lado:</p>
 <p><strong>Filtrar</strong> también busca en el prefijo: «client 2» deja las líneas de ese cliente. El prefijo se quita (de la Consola y
 de <code>editor.log</code>) en <strong>Preferencias del editor &gt; Consola &gt; Mostrar Server:/Client: en los mensajes</strong>; el filtro sigue
 funcionando.</p>
+<p>El panel <strong>Problemas</strong> (Ventana &gt; Depuración) abre los scripts igual: clic, en su línea en la pestaña Scripts; Ctrl+clic,
+en VS Code.</p>
 <h2 id="pestañas-de-editor">Pestañas de editor<a class="ancla" href="#pestañas-de-editor" aria-label="Enlace a esta sección">#</a></h2>
 <p>Los editores de assets se abren en <strong>pestañas de documento</strong> a pantalla completa. Bajo el menú y
 la barra de herramientas hay una barra de pestañas:</p>

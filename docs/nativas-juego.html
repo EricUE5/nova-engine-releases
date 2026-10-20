@@ -26,7 +26,7 @@ cercano entre miles, esperar sin parar el juego, animar valores, reutilizar bala
 <nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html" aria-current="page">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="funciones-nativas-de-juego-lua">Funciones nativas de juego (Lua)</h1>
-<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas</a></li><li class="n3"><a href="#perdigones-de-escopeta">Perdigones de escopeta</a></li><li class="n3"><a href="#cabe-aquí-me-ve">¿Cabe aquí? ¿Me ve?</a></li><li class="n3"><a href="#atravesar-capas-y-contactos">Atravesar, capas y contactos</a></li><li class="n2"><a href="#2-spatial-buscar-lo-que-hay-cerca">2. Spatial: buscar lo que hay cerca</a></li><li class="n2"><a href="#3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego</a></li><li class="n2"><a href="#4-tween-easing-y-curve">4. Tween, Easing y Curve</a></li><li class="n2"><a href="#5-pool-reutilizar-entidades">5. Pool: reutilizar entidades</a></li><li class="n2"><a href="#6-json">6. Json</a></li><li class="n2"><a href="#7-posiciones-y-rotaciones-por-lotes">7. Posiciones y rotaciones por lotes</a></li><li class="n2"><a href="#8-audioplayoneshot-con-opciones">8. Audio.PlayOneShot con opciones</a></li><li class="n2"><a href="#9-cuánto-más-rápido">9. Cuánto más rápido</a></li><li class="n2"><a href="#10-en-multijugador">10. En multijugador</a></li><li class="n2"><a href="#11-errores-comunes">11. Errores comunes</a></li></ul></details><p>Desde la 0.9.2, lo que en un juego se hace muchas veces por frame (lanzar decenas de rayos, buscar al enemigo más
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas</a></li><li class="n3"><a href="#perdigones-de-escopeta">Perdigones de escopeta</a></li><li class="n3"><a href="#cabe-aquí-me-ve">¿Cabe aquí? ¿Me ve?</a></li><li class="n3"><a href="#atravesar-capas-y-contactos">Atravesar, capas y contactos</a></li><li class="n2"><a href="#2-spatial-buscar-lo-que-hay-cerca">2. Spatial: buscar lo que hay cerca</a></li><li class="n2"><a href="#3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego</a></li><li class="n2"><a href="#4-tween-easing-y-curve">4. Tween, Easing y Curve</a></li><li class="n2"><a href="#5-pool-reutilizar-entidades">5. Pool: reutilizar entidades</a></li><li class="n2"><a href="#6-json">6. Json</a></li><li class="n2"><a href="#7-posiciones-y-rotaciones-por-lotes">7. Posiciones y rotaciones por lotes</a></li><li class="n2"><a href="#8-audioplayoneshot-con-opciones">8. Audio.PlayOneShot con opciones</a></li><li class="n2"><a href="#9-tablas-y-textos">9. Tablas y textos</a></li><li class="n2"><a href="#10-red-jugadores-equipos-y-envíos">10. Red: jugadores, equipos y envíos</a></li><li class="n2"><a href="#11-cuánto-más-rápido">11. Cuánto más rápido</a></li><li class="n3"><a href="#tablas-textos-azar-y-red">Tablas, textos, azar y red</a></li><li class="n2"><a href="#12-en-multijugador">12. En multijugador</a></li><li class="n2"><a href="#13-errores-comunes">13. Errores comunes</a></li></ul></details><p>Desde la 0.9.2, lo que en un juego se hace muchas veces por frame (lanzar decenas de rayos, buscar al enemigo más
 cercano entre miles, esperar sin parar el juego, animar valores, reutilizar balas, leer y escribir JSON, mover cientos
 de entidades) tiene una función <strong>nativa</strong>: se escribe en Lua, como siempre, pero el trabajo lo hace el motor en C++
 (y, cuando se puede, repartido entre los núcleos del procesador). No hay que compilar nada ni saber C++: es la misma
@@ -80,10 +80,20 @@ API de Lua de <a href="scripts-lua.html">scripts-lua.md</a>, con más funciones.
   <td>Disparos y explosiones que se oyen lejos</td>
   <td>—</td>
 </tr>
+<tr>
+  <td><a href="#9-tablas-y-textos">Tablas y textos</a></td>
+  <td>Ordenar el marcador, copiar una partida, partir textos, el reloj y los miles</td>
+  <td><strong>x8</strong> (<code>Table.SortBy</code>), <strong>x7</strong> (<code>Text.Split</code>), <strong>x21</strong> (<code>Text.Trim</code>), <strong>x4</strong> (<code>Text.FormatNumber</code>), <strong>x8</strong> (<code>Random.Sample</code>); <code>Filter</code>, <code>Map</code>, <code>Sum</code>... son para escribir menos (igual o más lentas que el bucle a mano)</td>
+</tr>
+<tr>
+  <td><a href="#10-red-jugadores-equipos-y-envíos">Red: jugadores, equipos y envíos</a></td>
+  <td>Jugadores cerca, el más cercano, eventos a un equipo o a los de alrededor, equipos equilibrados y apariciones</td>
+  <td><strong>x2</strong> a <strong>x6</strong> frente a recorrer <code>Network.Players()</code> en Lua</td>
+</tr>
 </tbody>
 </table></div>
-<p>Las medidas son las de las pruebas del motor (<code>tests/test_lua_nativas_perf.cpp</code>), en la sección
-<a href="#9-cuánto-más-rápido">9</a>.</p>
+<p>Las medidas son las de las pruebas del motor (<code>tests/test_lua_nativas_perf.cpp</code>, <code>test_lua_nativas_mas_perf.cpp</code> y
+<code>test_lua_nativas_mas_red.cpp</code>), en la sección <a href="#11-cuánto-más-rápido">11</a>.</p>
 <h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
 <ol>
 <li><a href="#1-físicas-la-misma-consulta-en-todas">Físicas: la misma consulta en todas</a></li>
@@ -94,9 +104,11 @@ API de Lua de <a href="scripts-lua.html">scripts-lua.md</a>, con más funciones.
 <li><a href="#6-json">Json</a></li>
 <li><a href="#7-posiciones-y-rotaciones-por-lotes">Posiciones y rotaciones por lotes</a></li>
 <li><a href="#8-audioplayoneshot-con-opciones">Audio.PlayOneShot con opciones</a></li>
-<li><a href="#9-cuánto-más-rápido">Cuánto más rápido</a></li>
-<li><a href="#10-en-multijugador">En multijugador</a></li>
-<li><a href="#11-errores-comunes">Errores comunes</a></li>
+<li><a href="#9-tablas-y-textos">Tablas y textos</a></li>
+<li><a href="#10-red-jugadores-equipos-y-envíos">Red: jugadores, equipos y envíos</a></li>
+<li><a href="#11-cuánto-más-rápido">Cuánto más rápido</a></li>
+<li><a href="#12-en-multijugador">En multijugador</a></li>
+<li><a href="#13-errores-comunes">Errores comunes</a></li>
 </ol>
 <h2 id="1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas<a class="ancla" href="#1-físicas-la-misma-consulta-en-todas" aria-label="Enlace a esta sección">#</a></h2>
 <p>Todas las consultas de <code>Physics</code> (las de siempre y las nuevas) aceptan al final la misma tabla opcional, la
@@ -941,7 +953,274 @@ baja hasta los 40 m). Con una <strong>tabla</strong> en lugar del volumen se eli
 
 <span class="hl-k">return</span> <span class="hl-t">Explosion</span></code></pre></div>
 <p>En red, el sonido se lanza en cada máquina (en un <code>[Multicast]</code>), como siempre.</p>
-<h2 id="9-cuánto-más-rápido">9. Cuánto más rápido<a class="ancla" href="#9-cuánto-más-rápido" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="9-tablas-y-textos">9. Tablas y textos<a class="ancla" href="#9-tablas-y-textos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lo que todo juego acaba escribiendo a mano en Lua: ordenar el marcador, sumar los puntos de un equipo, buscar al de más
+vida, copiar una partida guardada, partir un texto, el reloj de la ronda...</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Table.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>SortBy(lista, clave, descendente?)</code></td>
+  <td>Ordena la lista (en la misma tabla) por un campo (<code>&quot;puntos&quot;</code>) o por lo que devuelve <code>fn(elemento, i)</code>, y la devuelve. <strong>Estable</strong>: los empates conservan su orden (igual en todas las máquinas)</td>
+</tr>
+<tr>
+  <td><code>DeepCopy(tabla)</code></td>
+  <td>Una copia con todas las tablas de dentro copiadas (las compartidas siguen compartidas en la copia, los ciclos no son un problema y conserva las metatablas)</td>
+</tr>
+<tr>
+  <td><code>Filter(lista, fn)</code>, <code>Map(lista, fn)</code></td>
+  <td>Una lista nueva con los elementos para los que <code>fn(elemento, i)</code> es verdadero / con lo que devuelve <code>fn</code> (los <code>nil</code> no se guardan)</td>
+</tr>
+<tr>
+  <td><code>Find(lista, fn o valor)</code></td>
+  <td>El primer elemento que cumple <code>fn(elemento, i)</code> (o igual al valor) y su índice</td>
+</tr>
+<tr>
+  <td><code>Count(tabla, fn o valor?)</code></td>
+  <td>Cuántas claves tiene (también un diccionario, donde <code>#</code> no sirve), cuántas cumplen <code>fn(valor, clave)</code> o cuántas veces está un valor</td>
+</tr>
+<tr>
+  <td><code>Sum(lista, clave?)</code>, <code>Min(lista, clave?)</code>, <code>Max(lista, clave?)</code></td>
+  <td>La suma; el elemento con el valor más pequeño o más grande, ese valor y su índice. La clave es un campo o una función, como en <code>SortBy</code></td>
+</tr>
+<tr>
+  <td><code>Keys(tabla, ordenar?)</code>, <code>Values(tabla)</code></td>
+  <td>Sus claves (con <code>true</code>, ordenadas: números y después textos) y sus valores</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Text.</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Split(texto, separador?, opciones?)</code></td>
+  <td>Las partes de un texto. El separador es un texto tal cual (<code>&quot;,&quot;</code> por defecto, no un patrón). Quita los espacios de cada parte y las vacías: <code>Text.Split(&quot;a, b,,c&quot;)</code> da <code>{ &quot;a&quot;, &quot;b&quot;, &quot;c&quot; }</code>. Opciones: <code>{ trim = false, keepEmpty = true, max = n }</code></td>
+</tr>
+<tr>
+  <td><code>Trim(texto)</code></td>
+  <td>Sin espacios, tabuladores ni saltos de línea al principio y al final</td>
+</tr>
+<tr>
+  <td><code>StartsWith(texto, prefijo)</code>, <code>EndsWith(texto, final)</code></td>
+  <td>Si empieza o acaba así (sin crear textos)</td>
+</tr>
+<tr>
+  <td><code>FormatTime(segundos, decimales?)</code></td>
+  <td>El reloj: <code>&quot;03:25&quot;</code>, desde una hora <code>&quot;1:02:03&quot;</code> y con decimales <code>&quot;03:25.4&quot;</code>. Trunca como un cronómetro (para una cuenta atrás, <code>math.ceil(restante)</code>)</td>
+</tr>
+<tr>
+  <td><code>FormatNumber(n, decimales?, miles?, coma?)</code></td>
+  <td>Con separador de miles: <code>&quot;1,234,567&quot;</code>; <code>Text.FormatNumber(1234.5, 2, &quot;.&quot;, &quot;,&quot;)</code> da <code>&quot;1.234,50&quot;</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Text.Upper</code> y <code>Text.Lower</code> siguen como siempre (<a href="scripts-lua.html">scripts-lua.md</a>). Para elegir al azar sin repetir
+y por pesos, <code>Random.Sample</code> y <code>Random.Weighted</code> (<a href="matematicas.html#7-random">matematicas.md</a>); para saber si algo
+está en un cono de visión sin raycast, <code>Geometry.IsInViewCone</code> (<a href="matematicas.html#10-geometry">matematicas.md</a>).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- El marcador de la ronda: ordenado por puntos, con el MVP, el total de un equipo y el reloj</span>
+<span class="hl-k">local</span> <span class="hl-t">MarcadorNativo</span> = <span class="hl-f">Script</span>()
+<span class="hl-a">--[Tooltip("Segundos de la ronda")]</span>
+<span class="hl-t">MarcadorNativo</span>.duracion = <span class="hl-n">600</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MarcadorNativo</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._jugadores = {}
+    <span class="hl-b">self</span>._inicio = <span class="hl-t">Time</span>.time
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MarcadorNativo</span>:<span class="hl-f">Sumar</span>(nombre: <span class="hl-t">string</span>, equipo: number, puntos: number)
+    <span class="hl-k">local</span> j = <span class="hl-t">Table</span>.<span class="hl-f">Find</span>(<span class="hl-b">self</span>._jugadores, <span class="hl-k">function</span>(x) <span class="hl-k">return</span> x.nombre == nombre <span class="hl-k">end</span>)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> j <span class="hl-k">then</span>
+        j = { nombre = nombre, equipo = equipo, puntos = <span class="hl-n">0</span> }
+        <span class="hl-t">table</span>.<span class="hl-f">insert</span>(<span class="hl-b">self</span>._jugadores, j)
+    <span class="hl-k">end</span>
+    j.puntos += puntos
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MarcadorNativo</span>:<span class="hl-f">OnGUI</span>()
+    <span class="hl-k">local</span> restante = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-n">0</span>, <span class="hl-b">self</span>.duracion - (<span class="hl-t">Time</span>.time - <span class="hl-b">self</span>._inicio))
+    <span class="hl-t">GUI</span>.<span class="hl-f">Begin</span>(<span class="hl-s">"Marcador"</span>, <span class="hl-n">20</span>, <span class="hl-n">20</span>)
+    <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-s">"Tiempo: "</span> .. <span class="hl-t">Text</span>.<span class="hl-f">FormatTime</span>(<span class="hl-t">math</span>.<span class="hl-f">ceil</span>(restante)))
+    <span class="hl-t">Table</span>.<span class="hl-f">SortBy</span>(<span class="hl-b">self</span>._jugadores, <span class="hl-s">"puntos"</span>, <span class="hl-b">true</span>)
+    <span class="hl-k">for</span> i, j <span class="hl-k">in</span> <span class="hl-b">self</span>._jugadores <span class="hl-k">do</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%d. %s  %s"</span>, i, j.nombre, <span class="hl-t">Text</span>.<span class="hl-f">FormatNumber</span>(j.puntos)))
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> azules = <span class="hl-t">Table</span>.<span class="hl-f">Filter</span>(<span class="hl-b">self</span>._jugadores, <span class="hl-k">function</span>(j) <span class="hl-k">return</span> j.equipo == <span class="hl-n">1</span> <span class="hl-k">end</span>)
+    <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-s">"Equipo azul: "</span> .. <span class="hl-t">Text</span>.<span class="hl-f">FormatNumber</span>(<span class="hl-t">Table</span>.<span class="hl-f">Sum</span>(azules, <span class="hl-s">"puntos"</span>)))
+    <span class="hl-k">local</span> mvp = <span class="hl-t">Table</span>.<span class="hl-f">Max</span>(<span class="hl-b">self</span>._jugadores, <span class="hl-s">"puntos"</span>)
+    <span class="hl-k">if</span> mvp <span class="hl-k">then</span>
+        <span class="hl-t">GUI</span>.<span class="hl-f">Text</span>(<span class="hl-s">"MVP: "</span> .. mvp.nombre)
+    <span class="hl-k">end</span>
+    <span class="hl-t">GUI</span>.<span class="hl-f">End</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MarcadorNativo</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Órdenes escritas por el jugador ("/dar venda 3"), una configuración en una línea y una copia de la partida</span>
+<span class="hl-k">local</span> <span class="hl-t">OrdenesConsola</span> = <span class="hl-f">Script</span>()
+<span class="hl-a">--[Tooltip("Mapas de la rotación, separados por comas")]</span>
+<span class="hl-t">OrdenesConsola</span>.mapas = <span class="hl-s">"Puerto, Fábrica , Bosque,"</span>
+
+<span class="hl-k">function</span> <span class="hl-t">OrdenesConsola</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._rotacion = <span class="hl-t">Text</span>.<span class="hl-f">Split</span>(<span class="hl-b">self</span>.mapas) <span class="hl-c">-- { "Puerto", "Fábrica", "Bosque" }</span>
+    <span class="hl-b">self</span>._partida = { inventario = { { objeto = <span class="hl-s">"venda"</span>, n = <span class="hl-n">1</span> } } }
+    <span class="hl-b">self</span>._guardada = <span class="hl-t">Table</span>.<span class="hl-f">DeepCopy</span>(<span class="hl-b">self</span>._partida) <span class="hl-c">-- cambiar la partida no toca la copia</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">OrdenesConsola</span>:<span class="hl-f">Ejecutar</span>(linea: <span class="hl-t">string</span>)
+    linea = <span class="hl-t">Text</span>.<span class="hl-f">Trim</span>(linea)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Text</span>.<span class="hl-f">StartsWith</span>(linea, <span class="hl-s">"/"</span>) <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> partes = <span class="hl-t">Text</span>.<span class="hl-f">Split</span>(linea, <span class="hl-s">" "</span>, { max = <span class="hl-n">3</span> })
+    <span class="hl-k">if</span> partes[<span class="hl-n">1</span>] == <span class="hl-s">"/dar"</span> <span class="hl-k">and</span> partes[<span class="hl-n">2</span>] <span class="hl-k">then</span>
+        <span class="hl-t">table</span>.<span class="hl-f">insert</span>(<span class="hl-b">self</span>._partida.inventario, { objeto = partes[<span class="hl-n">2</span>], n = <span class="hl-f">tonumber</span>(partes[<span class="hl-n">3</span>]) <span class="hl-k">or</span> <span class="hl-n">1</span> })
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Objetos:"</span>, <span class="hl-t">Table</span>.<span class="hl-f">Count</span>(<span class="hl-b">self</span>._partida.inventario), <span class="hl-s">"de"</span>, <span class="hl-t">Table</span>.<span class="hl-f">Sum</span>(<span class="hl-b">self</span>._partida.inventario, <span class="hl-s">"n"</span>), <span class="hl-s">"unidades"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">OrdenesConsola</span></code></pre></div>
+<p><strong>Qué está en C++ y qué no.</strong> <code>SortBy</code>, <code>DeepCopy</code> y todas las de <code>Text</code> son C++. <code>Filter</code>, <code>Map</code>, <code>Find</code>, <code>Count</code>,
+<code>Sum</code>, <code>Min</code>, <code>Max</code>, <code>Keys</code> y <code>Values</code> están escritas <strong>en Luau dentro del motor</strong> (y se compilan a código máquina en
+las partidas): medidas, en C++ eran de 2 a 5 veces <strong>más lentas</strong> que el bucle escrito a mano, porque la API de C de
+Luau (leer un elemento, un campo o llamar a una función de Lua) cuesta más que el propio bucle del intérprete. Así que
+son para escribir menos y con menos errores, no para ir más rápido: <code>Sum</code>, <code>Min</code>, <code>Max</code>, <code>Count</code> y <code>Keys</code> cuestan lo
+mismo que el bucle a mano, y <code>Filter</code>, <code>Map</code> y <code>Find</code> con una función, entre 1,5 y 2,5 veces más (una llamada a tu
+función por elemento). En un bucle que se repite miles de veces por frame, escribe el bucle. Los números, en la
+<a href="#11-cuánto-más-rápido">sección 11</a>.</p>
+<h2 id="10-red-jugadores-equipos-y-envíos">10. Red: jugadores, equipos y envíos<a class="ancla" href="#10-red-jugadores-equipos-y-envíos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Lo que un juego multijugador escribe una y otra vez en Lua: los jugadores que hay cerca de algo, el más cercano,
+mandar un evento solo a un equipo o a los de alrededor, repartir equipos equilibrados y elegir una aparición lejos de
+los enemigos.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Network.</code></th>
+  <th>Dónde</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>GetPlayersInRadius(posicion, radio, opciones?)</code></td>
+  <td>Todas</td>
+  <td>Los ids de los jugadores con su personaje a esa distancia, de más cerca a más lejos. Opciones: <code>{ team, excludeTeam, ignore, max, distances }</code> (con <code>distances = true</code>, también la lista de distancias)</td>
+</tr>
+<tr>
+  <td><code>GetNearestPlayer(posicion, opciones?)</code></td>
+  <td>Todas</td>
+  <td>El id del más cercano, su personaje y la distancia (o <code>nil</code>). Opciones: <code>{ team, excludeTeam, ignore, maxDistance }</code></td>
+</tr>
+<tr>
+  <td><code>GetPlayerInfo(id?)</code></td>
+  <td>Todas</td>
+  <td><code>{ id, name, ping, team, isLocal, isLeader, entity, steamId }</code> (sin id, el de esta máquina; <code>nil</code> si no está)</td>
+</tr>
+<tr>
+  <td><code>GetPlayersOnTeam(equipo)</code></td>
+  <td>Todas</td>
+  <td>Los ids de un equipo, de menor a mayor</td>
+</tr>
+<tr>
+  <td><code>SendToPlayers(ids, evento, ...)</code></td>
+  <td>Servidor</td>
+  <td>Un evento de red (como <code>TriggerClientEvent</code>) a esos jugadores, <strong>serializado una vez</strong>. Devuelve a cuántos</td>
+</tr>
+<tr>
+  <td><code>SendToTeam(equipo, evento, ...)</code></td>
+  <td>Servidor</td>
+  <td>... a los de un equipo</td>
+</tr>
+<tr>
+  <td><code>SendToNearby(posicion, radio, evento, ...)</code></td>
+  <td>Servidor</td>
+  <td>... a los que tienen su personaje cerca</td>
+</tr>
+<tr>
+  <td><code>AssignTeams(n, opciones?)</code></td>
+  <td>Servidor</td>
+  <td>Reparte a los jugadores en los equipos 1..n (como mucho uno de diferencia) y devuelve <code>{ [id] = equipo }</code>. Con <code>skill = { [id] = nivel }</code>, además, el nivel total de los equipos queda lo más parecido posible; sin nivel, por turnos en el orden de <code>players</code></td>
+</tr>
+<tr>
+  <td><code>PickSpawnPoint(puntos, opciones?)</code></td>
+  <td>Todas</td>
+  <td>El punto más lejos del enemigo más cercano: una lista de <code>Vec3</code> o de entidades, o una etiqueta. Opciones: <code>{ player, team, ignore }</code>. Devuelve el punto, su índice y la distancia al enemigo más cercano</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Dónde</strong>: las consultas valen en cualquier máquina, cada una con lo que sabe (en un cliente, los personajes que le
+llegan; con <a href="multijugador.html">relevancia</a> o <code>SetObservers</code>, solo los cercanos). Los envíos y <code>AssignTeams</code> son del
+servidor: en un cliente dan un error que lo dice (<code>Network.SendToTeam solo se puede usar en el servidor (en un cliente, pídeselo al servidor con una función [Server] o TriggerServerEvent)</code>). Sin red, el jugador local (id 0)
+cuenta y los envíos le llegan aquí mismo.</li>
+<li><strong>Los eventos</strong> se reciben como siempre, con <code>RegisterNetEvent(evento, fn)</code>. Al jugador del anfitrión le llegan en el
+acto, como con <code>TriggerClientEvent</code>. Un servidor dedicado no es un jugador.</li>
+<li><strong>Personaje</strong>: un jugador cuenta en las consultas por la posición de su personaje (<code>Network.GetPlayerEntity</code>); sin
+personaje, o con él desactivado (muerto), no cuenta.</li>
+<li><strong>Equipos</strong>: los de la sala (<code>Lobby.SetTeam</code> / <code>Lobby.GetTeam</code>, que también usa el canal de equipo del chat).
+<code>AssignTeams</code> los cambia para todos.</li>
+<li><strong>Enemigos de <code>PickSpawnPoint</code></strong>: los jugadores de otro equipo que el de <code>player</code> (o <code>team</code>); con equipo 0, todos
+los demás. Entre puntos igual de lejos de los enemigos gana el que está más lejos de cualquier jugador (los del mismo
+equipo no aparecen uno encima de otro) y, si no, el primero. Con una etiqueta, los puntos se ordenan por su
+identificador: el mismo resultado en todas las máquinas.</li>
+<li><strong>Lo que ya había</strong> y sigue igual: <code>Network.GetPing(id)</code>, <code>Network.GetServerTime()</code>, el disparo con compensación de
+latencia <code>Physics.RaycastRewind</code> (<a href="multijugador.html#18-disparos-y-compensación-de-latencia">multijugador.md</a>), la
+relevancia por distancia (<strong>Ajustes del proyecto &gt; Red</strong>) y <code>Network.SetObservers</code>.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Partida por equipos (en el servidor): equipos equilibrados, apariciones lejos del enemigo y avisos solo a quien toca</span>
+<span class="hl-a">--[Global]</span>
+<span class="hl-k">local</span> <span class="hl-t">PartidaEquipos</span> = <span class="hl-f">Script</span>()
+<span class="hl-a">--[Tooltip("Las entidades con esta etiqueta son puntos de aparición")]</span>
+<span class="hl-t">PartidaEquipos</span>.aparicion = <span class="hl-s">"Aparicion"</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PartidaEquipos</span>:<span class="hl-f">EmpezarRonda</span>(niveles: { [number]: number })
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">Network</span>.<span class="hl-f">AssignTeams</span>(<span class="hl-n">2</span>, { skill = niveles })
+    <span class="hl-k">for</span> equipo = <span class="hl-n">1</span>, <span class="hl-n">2</span> <span class="hl-k">do</span>
+        <span class="hl-k">for</span> _, id <span class="hl-k">in</span> <span class="hl-t">Network</span>.<span class="hl-f">GetPlayersOnTeam</span>(equipo) <span class="hl-k">do</span>
+            <span class="hl-b">self</span>:<span class="hl-f">Reaparecer</span>(id)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-t">Network</span>.<span class="hl-f">SendToTeam</span>(<span class="hl-n">1</span>, <span class="hl-s">"ronda:empieza"</span>, <span class="hl-s">"Ataca"</span>)
+    <span class="hl-t">Network</span>.<span class="hl-f">SendToTeam</span>(<span class="hl-n">2</span>, <span class="hl-s">"ronda:empieza"</span>, <span class="hl-s">"Defiende"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PartidaEquipos</span>:<span class="hl-f">Reaparecer</span>(id: number)
+    <span class="hl-k">local</span> personaje = <span class="hl-t">Network</span>.<span class="hl-f">GetPlayerEntity</span>(id)
+    <span class="hl-k">local</span> punto = <span class="hl-t">Network</span>.<span class="hl-f">PickSpawnPoint</span>(<span class="hl-b">self</span>.aparicion, { player = id })
+    <span class="hl-k">if</span> personaje <span class="hl-k">and</span> punto <span class="hl-k">then</span>
+        <span class="hl-t">Network</span>.<span class="hl-f">Teleport</span>(personaje, punto.position)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PartidaEquipos</span>:<span class="hl-f">Explosion</span>(donde: <span class="hl-t">Vector3</span>, radio: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span>
+        <span class="hl-k">return</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">for</span> _, id <span class="hl-k">in</span> <span class="hl-t">Network</span>.<span class="hl-f">GetPlayersInRadius</span>(donde, radio) <span class="hl-k">do</span>
+        <span class="hl-k">local</span> info = <span class="hl-t">Network</span>.<span class="hl-f">GetPlayerInfo</span>(id)
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-k">if</span> info <span class="hl-k">then</span> info.name <span class="hl-k">else</span> id, <span class="hl-s">"está dentro de la explosión"</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-c">-- El sonido y el temblor de la cámara, solo a los que están cerca (no a todo el mapa)</span>
+    <span class="hl-t">Network</span>.<span class="hl-f">SendToNearby</span>(donde, radio * <span class="hl-n">4</span>, <span class="hl-s">"efecto:explosion"</span>, donde)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PartidaEquipos</span></code></pre></div>
+<p>En los clientes, como cualquier evento:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-f">RegisterNetEvent</span>(<span class="hl-s">"ronda:empieza"</span>, <span class="hl-k">function</span>(mision)
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Tu misión:"</span>, mision)
+<span class="hl-k">end</span>)</code></pre></div>
+<h2 id="11-cuánto-más-rápido">11. Cuánto más rápido<a class="ancla" href="#11-cuánto-más-rápido" aria-label="Enlace a esta sección">#</a></h2>
 <p>Medidas de <code>tests/test_lua_nativas_perf.cpp</code> en un PC de 16 hilos con el motor en <code>release</code>
 (<code>tools\test.cmd release &quot;nativas rendimiento&quot;</code>), la mejor de varias rondas:</p>
 <div class="tabla"><table>
@@ -1012,9 +1291,174 @@ devuelven <code>true</code> o <code>false</code>, por eso ganan más.</li>
 <li>Con el motor en <code>debug</code> las diferencias son mayores (de x2 a x140): el código de Lua y las llamadas a la API pesan
 más que el trabajo que hacen.</li>
 </ul>
+<h3 id="tablas-textos-azar-y-red">Tablas, textos, azar y red<a class="ancla" href="#tablas-textos-azar-y-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>Medidas de <code>tests/test_lua_nativas_mas_perf.cpp</code> (<code>tools\test.cmd release &quot;nativas mas rendimiento&quot;</code>), dentro del
+<code>Start</code> de un script de una partida (lo normal: el script va en el intérprete y el motor tiene código nativo), frente a
+lo mismo escrito a mano en Lua como lo escribiría cualquiera. La mejor de varias rondas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Prueba</th>
+  <th>En Lua</th>
+  <th>Nativo</th>
+  <th>Veces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ordenar 20 000 jugadores por puntos (empates por id)</td>
+  <td>13,2 ms (<code>table.sort</code> con una función)</td>
+  <td>1,7 ms (<code>Table.SortBy(lista, &quot;kills&quot;, true)</code>)</td>
+  <td>x7,7</td>
+</tr>
+<tr>
+  <td>Copiar una partida de 2000 registros con tablas dentro</td>
+  <td>2,9 ms (una copia recursiva)</td>
+  <td>2,1 ms (<code>Table.DeepCopy</code>)</td>
+  <td>x1,4</td>
+</tr>
+<tr>
+  <td>Partir 20 000 líneas por comas, sin espacios ni vacías</td>
+  <td>44,8 ms (<code>string.find</code> + <code>string.match</code>)</td>
+  <td>6,2 ms (<code>Text.Split</code>)</td>
+  <td>x7,2</td>
+</tr>
+<tr>
+  <td>Quitar los espacios de 20 000 textos</td>
+  <td>24,0 ms (<code>string.match(s, &quot;^%s*(.-)%s*$&quot;)</code>)</td>
+  <td>1,2 ms (<code>Text.Trim</code>)</td>
+  <td>x21</td>
+</tr>
+<tr>
+  <td>20 000 números con separador de miles</td>
+  <td>10,3 ms (<code>string.gsub</code> al revés)</td>
+  <td>2,7 ms (<code>Text.FormatNumber</code>)</td>
+  <td>x3,8</td>
+</tr>
+<tr>
+  <td>20 000 relojes <code>&quot;mm:ss&quot;</code></td>
+  <td>4,5 ms (<code>string.format</code>)</td>
+  <td>2,7 ms (<code>Text.FormatTime</code>)</td>
+  <td>x1,7</td>
+</tr>
+<tr>
+  <td>20 000 <code>EndsWith</code> / <code>StartsWith</code></td>
+  <td>0,82 / 0,40 ms (<code>string.sub(...) == ...</code>)</td>
+  <td>0,62 / 0,60 ms</td>
+  <td>x1,3 / x0,7</td>
+</tr>
+<tr>
+  <td>Elegir 5 de 100 sin repetir, 20 000 veces</td>
+  <td>24,7 ms (copiar los índices y barajar)</td>
+  <td>2,9 ms (<code>Random.Sample</code>)</td>
+  <td>x8,5</td>
+</tr>
+<tr>
+  <td>Elegir por pesos entre 6, 20 000 veces</td>
+  <td>3,5 ms (dos <code>pairs</code>, sin ordenar las claves)</td>
+  <td>3,8 ms (<code>Random.Weighted</code>, ordenándolas)</td>
+  <td>x0,9</td>
+</tr>
+<tr>
+  <td>20 000 puntos en un cono de visión</td>
+  <td>1,03 ms (<code>Vec3.Distance</code> + <code>Vec3.Angle</code>)</td>
+  <td>0,99 ms (<code>Geometry.IsInViewCone</code>)</td>
+  <td>x1,0</td>
+</tr>
+<tr>
+  <td>Sumar un campo de 20 000 (10 veces)</td>
+  <td>2,3 ms</td>
+  <td>2,6 ms (<code>Table.Sum(lista, &quot;kills&quot;)</code>)</td>
+  <td>x0,9</td>
+</tr>
+<tr>
+  <td>El máximo de un campo de 20 000 (10 veces)</td>
+  <td>2,7 ms</td>
+  <td>3,2 ms (<code>Table.Max</code>)</td>
+  <td>x0,9</td>
+</tr>
+<tr>
+  <td>Contar las claves de un diccionario de 20 000 (10 veces)</td>
+  <td>1,9 ms</td>
+  <td>2,3 ms (<code>Table.Count</code>)</td>
+  <td>x0,8</td>
+</tr>
+<tr>
+  <td>Las claves de un diccionario de 20 000 (10 veces)</td>
+  <td>4,6 ms</td>
+  <td>3,5 ms (<code>Table.Keys</code>)</td>
+  <td>x1,3</td>
+</tr>
+<tr>
+  <td>Filtrar / transformar 20 000 con una función (10 veces)</td>
+  <td>5,0 / 3,0 ms (el bucle con la condición dentro)</td>
+  <td>8,4 / 6,3 ms (<code>Table.Filter</code> / <code>Table.Map</code>)</td>
+  <td>x0,6 / x0,5</td>
+</tr>
+<tr>
+  <td>Buscar con una función entre 20 000 (10 veces)</td>
+  <td>2,4 ms</td>
+  <td>6,0 ms (<code>Table.Find</code>)</td>
+  <td>x0,4</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y las de red (<code>tests/test_lua_nativas_mas_red.cpp</code>), en el servidor dedicado de una partida en memoria con 12
+clientes, frente a recorrer <code>Network.Players()</code> con <code>GetPlayerEntity</code> en Lua:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Prueba</th>
+  <th>En Lua</th>
+  <th>Nativo</th>
+  <th>Veces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>500 veces los jugadores a 30 m, ordenados</td>
+  <td>5,0 ms</td>
+  <td>2,1 ms (<code>Network.GetPlayersInRadius</code>)</td>
+  <td>x2,3</td>
+</tr>
+<tr>
+  <td>500 veces el jugador más cercano</td>
+  <td>3,9 ms</td>
+  <td>2,1 ms (<code>Network.GetNearestPlayer</code>)</td>
+  <td>x1,9</td>
+</tr>
+<tr>
+  <td>500 veces la aparición más lejos de los enemigos (20 puntos)</td>
+  <td>8,3 ms</td>
+  <td>2,8 ms (<code>Network.PickSpawnPoint</code>)</td>
+  <td>x3,0</td>
+</tr>
+<tr>
+  <td>50 eventos a los que están a 25 m</td>
+  <td>1,8 ms (<code>TriggerClientEvent</code> a cada uno)</td>
+  <td>0,95 ms (<code>Network.SendToNearby</code>)</td>
+  <td>x1,9</td>
+</tr>
+<tr>
+  <td>50 eventos a un equipo</td>
+  <td>2,1 ms (<code>Lobby.GetPlayers</code> + <code>TriggerClientEvent</code>)</td>
+  <td>0,36 ms (<code>Network.SendToTeam</code>)</td>
+  <td>x5,8</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Lo que más gana es lo que en Lua llama a una función por comparación (<code>table.sort</code>), crea textos de más
+(<code>Split</code>, <code>Trim</code>, los miles) o copia listas para barajar (<code>Sample</code>), y en red lo que en Lua recorre la lista de
+jugadores y serializa el mismo evento una vez por jugador.</li>
+<li><code>Random.Weighted</code> ordena las claves antes de elegir (para que con la misma semilla salga lo mismo en todas las
+máquinas); el bucle con <code>pairs</code> no lo hace y por eso no es comparable del todo.</li>
+<li><code>Filter</code>, <code>Map</code>, <code>Find</code>, <code>Sum</code>, <code>Min</code>, <code>Max</code>, <code>Count</code> y <code>Keys</code> están en Luau (ver la <a href="#9-tablas-y-textos">sección 9</a>):
+sirven para escribir menos, no para ir más rápido.</li>
+</ul>
 <p>Recuerda también los consejos de siempre (<a href="scripts-lua.html#17-consejos-de-rendimiento">scripts-lua.md</a>): guarda los
 componentes en <code>Start</code> y no crees tablas en cada frame (las funciones con <code>destino</code> rellenan una tabla que ya tienes).</p>
-<h2 id="10-en-multijugador">10. En multijugador<a class="ancla" href="#10-en-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="12-en-multijugador">12. En multijugador<a class="ancla" href="#12-en-multijugador" aria-label="Enlace a esta sección">#</a></h2>
 <p>Todo esto es <strong>local</strong>: cada máquina (servidor y clientes) tiene sus propios índices, tareas, tweens y pools.</p>
 <ul>
 <li><strong>Físicas</strong>: las consultas valen en cualquier máquina. <code>IgnoreCollision</code> y <code>SetLayerCollision</code> cambian solo la
@@ -1028,8 +1472,12 @@ campo <code>[Replicated]</code>) dura hasta la siguiente actualización. Lanza l
 servidor).</li>
 <li><strong>Pool</strong>: local; un prefab con Identidad de red es un error que lo explica (usa <code>Spawn</code>).</li>
 <li><strong>Json</strong>: el mismo texto en todas las máquinas (claves ordenadas): sirve para mandar datos en un evento.</li>
+<li><strong>Table y Text</strong>: locales y deterministas (<code>Table.SortBy</code> es estable y <code>Table.Keys(t, true)</code> ordena las claves: el
+mismo orden en todas las máquinas).</li>
+<li><strong>Network.GetPlayersInRadius y compañía</strong>: ver la <a href="#10-red-jugadores-equipos-y-envíos">sección 10</a> (las consultas en
+cualquier máquina; los envíos y <code>AssignTeams</code>, en el servidor).</li>
 </ul>
-<h2 id="11-errores-comunes">11. Errores comunes<a class="ancla" href="#11-errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="13-errores-comunes">13. Errores comunes<a class="ancla" href="#13-errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
 <div class="tabla"><table>
 <thead>
 <tr>
@@ -1078,11 +1526,27 @@ servidor).</li>
   <td><code>Json.Decode: línea 1, columna 7: sobra la coma antes de ']'</code></td>
   <td>El texto no es JSON válido (JSON no admite comas al final ni comentarios)</td>
 </tr>
+<tr>
+  <td><code>Network.SendToTeam solo se puede usar en el servidor...</code></td>
+  <td>Los envíos y <code>AssignTeams</code> son del servidor: desde un cliente, pídeselo con una función <code>[Server]</code> o <code>TriggerServerEvent</code></td>
+</tr>
+<tr>
+  <td><code>Network.GetPlayersInRadius</code> no devuelve a un jugador</td>
+  <td>No tiene personaje (aún no ha cargado, está muerto con el personaje desactivado) o, en un cliente, su personaje no le llega por la relevancia</td>
+</tr>
+<tr>
+  <td><code>Table.Sum: el elemento 3 no tiene un número en 'kills' (es nil)</code></td>
+  <td>A ese elemento le falta el campo (o no es un número)</td>
+</tr>
+<tr>
+  <td><code>Table.SortBy: el elemento 2 mezcla números y textos en 'nombre'</code></td>
+  <td>La clave tiene que ser del mismo tipo en todos (todos números o todos textos)</td>
+</tr>
 </tbody>
 </table></div>
 <nav class="ant-sig" aria-label="Páginas"><a class="ant" href="utilidades-lua.html"><small>Anterior</small>Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a><a class="sig" href="matematicas.html"><small>Siguiente</small>Matemáticas, geometría y ruido</a></nav></article>
 </main>
-<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas</a></li><li class="n3"><a href="#perdigones-de-escopeta">Perdigones de escopeta</a></li><li class="n3"><a href="#cabe-aquí-me-ve">¿Cabe aquí? ¿Me ve?</a></li><li class="n3"><a href="#atravesar-capas-y-contactos">Atravesar, capas y contactos</a></li><li class="n2"><a href="#2-spatial-buscar-lo-que-hay-cerca">2. Spatial: buscar lo que hay cerca</a></li><li class="n2"><a href="#3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego</a></li><li class="n2"><a href="#4-tween-easing-y-curve">4. Tween, Easing y Curve</a></li><li class="n2"><a href="#5-pool-reutilizar-entidades">5. Pool: reutilizar entidades</a></li><li class="n2"><a href="#6-json">6. Json</a></li><li class="n2"><a href="#7-posiciones-y-rotaciones-por-lotes">7. Posiciones y rotaciones por lotes</a></li><li class="n2"><a href="#8-audioplayoneshot-con-opciones">8. Audio.PlayOneShot con opciones</a></li><li class="n2"><a href="#9-cuánto-más-rápido">9. Cuánto más rápido</a></li><li class="n2"><a href="#10-en-multijugador">10. En multijugador</a></li><li class="n2"><a href="#11-errores-comunes">11. Errores comunes</a></li></ul></div></aside>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-físicas-la-misma-consulta-en-todas">1. Físicas: la misma consulta en todas</a></li><li class="n3"><a href="#perdigones-de-escopeta">Perdigones de escopeta</a></li><li class="n3"><a href="#cabe-aquí-me-ve">¿Cabe aquí? ¿Me ve?</a></li><li class="n3"><a href="#atravesar-capas-y-contactos">Atravesar, capas y contactos</a></li><li class="n2"><a href="#2-spatial-buscar-lo-que-hay-cerca">2. Spatial: buscar lo que hay cerca</a></li><li class="n2"><a href="#3-task-esperar-sin-parar-el-juego">3. Task: esperar sin parar el juego</a></li><li class="n2"><a href="#4-tween-easing-y-curve">4. Tween, Easing y Curve</a></li><li class="n2"><a href="#5-pool-reutilizar-entidades">5. Pool: reutilizar entidades</a></li><li class="n2"><a href="#6-json">6. Json</a></li><li class="n2"><a href="#7-posiciones-y-rotaciones-por-lotes">7. Posiciones y rotaciones por lotes</a></li><li class="n2"><a href="#8-audioplayoneshot-con-opciones">8. Audio.PlayOneShot con opciones</a></li><li class="n2"><a href="#9-tablas-y-textos">9. Tablas y textos</a></li><li class="n2"><a href="#10-red-jugadores-equipos-y-envíos">10. Red: jugadores, equipos y envíos</a></li><li class="n2"><a href="#11-cuánto-más-rápido">11. Cuánto más rápido</a></li><li class="n3"><a href="#tablas-textos-azar-y-red">Tablas, textos, azar y red</a></li><li class="n2"><a href="#12-en-multijugador">12. En multijugador</a></li><li class="n2"><a href="#13-errores-comunes">13. Errores comunes</a></li></ul></div></aside>
 </div>
 <footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
 <script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>

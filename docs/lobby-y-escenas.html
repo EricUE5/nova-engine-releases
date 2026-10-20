@@ -28,7 +28,7 @@ carga">
 <nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html" aria-current="page">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="sala-escenas-sincronizadas-pantalla-de-carga-chat-e-interactuables">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</h1>
-<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-qué-hay">1. Qué hay</a></li><li class="n2"><a href="#2-el-ejemplo-fiesta">2. El ejemplo «Fiesta»</a></li><li class="n2"><a href="#3-la-sala-lobby">3. La sala (lobby)</a></li><li class="n3"><a href="#31-la-interfaz-la-plantilla-sala-lobby">3.1 La interfaz: la plantilla «Sala (lobby)»</a></li><li class="n3"><a href="#32-crear-y-unirse">3.2 Crear y unirse</a></li><li class="n3"><a href="#33-jugadores-listo-líder-y-expulsar">3.3 Jugadores, «Listo», líder y expulsar</a></li><li class="n3"><a href="#34-ajustes-de-la-partida">3.4 Ajustes de la partida</a></li><li class="n3"><a href="#35-empezar-cuenta-atrás-y-volver-a-la-sala">3.5 Empezar, cuenta atrás y volver a la sala</a></li><li class="n3"><a href="#36-invitar">3.6 Invitar</a></li><li class="n2"><a href="#4-cambio-de-escena-sincronizado">4. Cambio de escena sincronizado</a></li><li class="n3"><a href="#41-uso">4.1 Uso</a></li><li class="n3"><a href="#42-qué-pasa">4.2 Qué pasa</a></li><li class="n3"><a href="#43-avisos-a-los-scripts">4.3 Avisos a los scripts</a></li><li class="n3"><a href="#44-quien-entra-tarde">4.4 Quien entra tarde</a></li><li class="n3"><a href="#45-un-solo-jugador-a-otra-escena">4.5 Un solo jugador a otra escena</a></li><li class="n2"><a href="#5-pantalla-de-carga">5. Pantalla de carga</a></li><li class="n3"><a href="#51-la-integrada">5.1 La integrada</a></li><li class="n3"><a href="#52-la-tuya-hecha-con-la-interfaz">5.2 La tuya, hecha con la Interfaz</a></li><li class="n3"><a href="#53-para-tus-propias-cargas">5.3 Para tus propias cargas</a></li><li class="n2"><a href="#6-getowner-el-objeto-de-un-jugador">6. GetOwner: el objeto de un jugador</a></li><li class="n2"><a href="#7-interactuables">7. Interactuables</a></li><li class="n3"><a href="#71-el-componente">7.1 El componente</a></li><li class="n2"><a href="#8-chat-de-texto">8. Chat de texto</a></li><li class="n2"><a href="#9-eventos-y-métodos-referencia">9. Eventos y métodos (referencia)</a></li><li class="n2"><a href="#10-errores-comunes">10. Errores comunes</a></li><li class="n2"><a href="#11-limitaciones">11. Limitaciones</a></li></ul></details><p>Esta guía explica las piezas del motor para los juegos <strong>por rondas</strong>: una <strong>sala</strong> (lobby) donde se junta la gente,
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-qué-hay">1. Qué hay</a></li><li class="n2"><a href="#2-el-ejemplo-fiesta">2. El ejemplo «Fiesta»</a></li><li class="n2"><a href="#3-la-sala-lobby">3. La sala (lobby)</a></li><li class="n3"><a href="#31-la-interfaz-la-plantilla-sala-lobby">3.1 La interfaz: la plantilla «Sala (lobby)»</a></li><li class="n3"><a href="#32-crear-y-unirse">3.2 Crear y unirse</a></li><li class="n3"><a href="#33-jugadores-listo-líder-y-expulsar">3.3 Jugadores, «Listo», líder y expulsar</a></li><li class="n3"><a href="#34-ajustes-de-la-partida">3.4 Ajustes de la partida</a></li><li class="n3"><a href="#35-empezar-cuenta-atrás-y-volver-a-la-sala">3.5 Empezar, cuenta atrás y volver a la sala</a></li><li class="n3"><a href="#36-invitar">3.6 Invitar</a></li><li class="n3"><a href="#37-datos-de-cada-jugador-líder-y-avatares">3.7 Datos de cada jugador, líder y avatares</a></li><li class="n3"><a href="#38-qué-ha-cambiado-avisos-de-la-sala">3.8 Qué ha cambiado: avisos de la sala</a></li><li class="n3"><a href="#39-ejemplo-completo-un-menú-de-sala-básico">3.9 Ejemplo completo: un menú de sala básico</a></li><li class="n2"><a href="#4-cambio-de-escena-sincronizado">4. Cambio de escena sincronizado</a></li><li class="n3"><a href="#41-uso">4.1 Uso</a></li><li class="n3"><a href="#42-qué-pasa">4.2 Qué pasa</a></li><li class="n3"><a href="#43-avisos-a-los-scripts">4.3 Avisos a los scripts</a></li><li class="n3"><a href="#44-quien-entra-tarde">4.4 Quien entra tarde</a></li><li class="n3"><a href="#45-un-solo-jugador-a-otra-escena">4.5 Un solo jugador a otra escena</a></li><li class="n2"><a href="#5-pantalla-de-carga">5. Pantalla de carga</a></li><li class="n3"><a href="#51-la-integrada">5.1 La integrada</a></li><li class="n3"><a href="#52-la-tuya-hecha-con-la-interfaz">5.2 La tuya, hecha con la Interfaz</a></li><li class="n3"><a href="#53-para-tus-propias-cargas">5.3 Para tus propias cargas</a></li><li class="n2"><a href="#6-getowner-el-objeto-de-un-jugador">6. GetOwner: el objeto de un jugador</a></li><li class="n2"><a href="#7-interactuables">7. Interactuables</a></li><li class="n3"><a href="#71-el-componente">7.1 El componente</a></li><li class="n2"><a href="#8-chat-de-texto">8. Chat de texto</a></li><li class="n2"><a href="#9-eventos-y-métodos-referencia">9. Eventos y métodos (referencia)</a></li><li class="n2"><a href="#10-errores-comunes">10. Errores comunes</a></li><li class="n2"><a href="#11-limitaciones">11. Limitaciones</a></li></ul></details><p>Esta guía explica las piezas del motor para los juegos <strong>por rondas</strong>: una <strong>sala</strong> (lobby) donde se junta la gente,
 se invita con un código y cada uno pulsa «Listo»; el <strong>cambio de escena para todos a la vez</strong> con <strong>pantalla de
 carga</strong>; <code>GetOwner(id)</code> para encontrar el personaje de un jugador; los objetos <strong>Interactuables</strong> («Pulsa E para
 abrir») y el <strong>chat de texto</strong> de la partida. Todo se usa desde Lua y el editor, sin compilar nada.</p>
@@ -144,7 +144,7 @@ el código y <strong>Unirse</strong>.</p>
 </tr>
 <tr>
   <td><code>Espera</code></td>
-  <td><code>Invitar/Código</code>, <code>Invitar/Copiar</code>, <code>Invitar/Amigos</code>, <code>Jugadores/Cuenta</code>, <code>Jugadores/Filas/Fila 1</code> … <code>Fila 8</code> (cada una con <code>Nombre</code>, <code>Estado</code> y <code>Expulsar</code>), <code>Ajustes/Opciones/...</code>, <code>Aviso</code>, <code>Botones/Salir</code>, <code>Botones/Listo</code>, <code>Botones/Empezar</code></td>
+  <td><code>Invitar/Código</code>, <code>Invitar/Copiar</code>, <code>Invitar/Amigos</code>, <code>Jugadores/Cuenta</code>, <code>Jugadores/Filas/Fila 1</code> … <code>Fila 8</code> (cada una con <code>Foto</code> para el avatar, <code>Nombre</code>, <code>Estado</code> y <code>Expulsar</code>), <code>Ajustes/Opciones/...</code>, <code>Aviso</code>, <code>Botones/Salir</code>, <code>Botones/Listo</code>, <code>Botones/Empezar</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -224,6 +224,14 @@ opciones sin las de red). <code>Lobby.Leave()</code> sale de la partida (el anfi
   <td><code>ping</code></td>
   <td>ida y vuelta en milisegundos (el servidor lo sabe de todos)</td>
 </tr>
+<tr>
+  <td><code>steamId</code></td>
+  <td>su SteamID (<code>&quot;&quot;</code> sin Steam; sección 3.7)</td>
+</tr>
+<tr>
+  <td><code>data</code></td>
+  <td>sus datos de la sala: <code>{ personaje = &quot;Ladrón&quot; }</code> (<code>Lobby.SetPlayerData</code>, sección 3.7)</td>
+</tr>
 </tbody>
 </table></div>
 <p>El <strong>líder</strong> es el anfitrión o, en un servidor dedicado, el primero que entró (si se va, el siguiente). Solo el líder
@@ -282,6 +290,198 @@ de la lista de amigos abre el juego y entra con el código) y abre la lista de a
 <p>Sin Steam devuelve <code>false</code> y el motivo.</p>
 </li>
 </ul>
+<h3 id="37-datos-de-cada-jugador-líder-y-avatares">3.7 Datos de cada jugador, líder y avatares<a class="ancla" href="#37-datos-de-cada-jugador-líder-y-avatares" aria-label="Enlace a esta sección">#</a></h3>
+<p>Desde la 0.9.40 cada jugador de la sala lleva, además de lo de la sección 3.3:</p>
+<ul>
+<li><strong>sus datos</strong> (<code>Lobby.SetPlayerData</code>): el personaje que eligió, su color, su arma... Los pone cada uno y los ven
+todos. Son textos (un número o un booleano se guardan como texto); hasta 16 por jugador, con claves de 32 letras y
+valores de 256. <code>nil</code> borra el dato;</li>
+<li><strong>su SteamID</strong> (<code>steamId</code> en <code>Lobby.GetPlayers()</code>, <code>Lobby.GetSteamId(id)</code>): cada jugador con Steam lo dice al entrar,
+<strong>también en las partidas por código o en la red local</strong>, que no van por Steam. Así cualquier máquina puede pedir el
+avatar de un compañero. No está comprobado por el servidor: no lo uses para la seguridad (para eso, el transporte de
+Steam o Nova Datos).</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Lobby</span>.<span class="hl-f">SetPlayerData</span>(<span class="hl-s">"personaje"</span>, <span class="hl-s">"Ladrón"</span>)       <span class="hl-c">-- el tuyo; llega a todos</span>
+<span class="hl-k">local</span> suyo = <span class="hl-t">Lobby</span>.<span class="hl-f">GetPlayerData</span>(id, <span class="hl-s">"personaje"</span>) <span class="hl-c">-- nil si no lo tiene</span>
+<span class="hl-k">for</span> _, p <span class="hl-k">in</span> <span class="hl-t">Lobby</span>.<span class="hl-f">GetPlayers</span>() <span class="hl-k">do</span>
+    <span class="hl-f">print</span>(p.name, p.data.personaje, p.steamId)
+<span class="hl-k">end</span>
+<span class="hl-c">-- Su avatar de Steam (llega cuando Steam lo tiene; queda en caché)</span>
+<span class="hl-t">Lobby</span>.<span class="hl-f">GetAvatarAsync</span>(id, <span class="hl-s">"medium"</span>, <span class="hl-k">function</span>(avatar)
+    <span class="hl-k">if</span> avatar <span class="hl-k">then</span> <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Jugadores/Filas/Fila 2/Foto"</span>):<span class="hl-f">SetSprite</span>(avatar) <span class="hl-k">end</span>
+<span class="hl-k">end</span>)
+<span class="hl-c">-- El líder pasa el liderazgo a otro (podrá empezar, expulsar y cambiar los ajustes)</span>
+<span class="hl-t">Lobby</span>.<span class="hl-f">SetLeader</span>(id)</code></pre></div>
+<p><code>Lobby.SetLeader(id)</code> lo puede hacer el líder o un script del servidor. El servidor (el anfitrión) sigue pudiendo dar
+órdenes; si el elegido se va, el liderazgo vuelve al de siempre. <code>Lobby.GetAvatar(id)</code> es la forma directa (devuelve
+<code>nil</code> mientras llega). Las filas de la plantilla <strong>Sala (lobby)</strong> traen un cuadro <code>Foto</code> para el avatar.</p>
+<p>Sin Steam no hay SteamID ni avatar (<code>steamId</code> es <code>&quot;&quot;</code> y <code>GetAvatarAsync</code> llama a tu función con <code>nil</code>), pero los datos,
+el líder y lo demás funcionan igual: la sala no depende del transporte (red local, Nova Enlace, Tailscale o Steam).</p>
+<h3 id="38-qué-ha-cambiado-avisos-de-la-sala">3.8 Qué ha cambiado: avisos de la sala<a class="ancla" href="#38-qué-ha-cambiado-avisos-de-la-sala" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Lobby.OnChanged</code> avisa de <em>cualquier</em> cambio. Para reaccionar a uno concreto («Ana se ha unido», un sonido al pulsar
+«Listo»), estos eventos llegan en todas las máquinas:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Evento</th>
+  <th>Argumentos</th>
+  <th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>lobby:playerJoined</code></td>
+  <td>jugador, nombre</td>
+  <td>Entra alguien (los que ya estaban al entrar tú no se avisan)</td>
+</tr>
+<tr>
+  <td><code>lobby:playerLeft</code></td>
+  <td>jugador, nombre</td>
+  <td>Sale o le expulsan</td>
+</tr>
+<tr>
+  <td><code>lobby:readyChanged</code></td>
+  <td>jugador, listo</td>
+  <td>Pulsa o quita «Listo»</td>
+</tr>
+<tr>
+  <td><code>lobby:leaderChanged</code></td>
+  <td>jugador</td>
+  <td>Hay otro líder</td>
+</tr>
+<tr>
+  <td><code>lobby:settingChanged</code></td>
+  <td>clave, valor</td>
+  <td>Cambia un ajuste de la partida (<code>valor</code> es <code>nil</code> si se borró)</td>
+</tr>
+<tr>
+  <td><code>lobby:playerDataChanged</code></td>
+  <td>jugador, clave, valor</td>
+  <td>Cambia un dato de un jugador (<code>Lobby.SetPlayerData</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-f">AddEventHandler</span>(<span class="hl-s">"lobby:playerJoined"</span>, <span class="hl-k">function</span>(id, nombre)
+    <span class="hl-t">Chat</span>.<span class="hl-f">SendSystem</span>(nombre .. <span class="hl-s">" se ha unido"</span>)
+<span class="hl-k">end</span>)
+<span class="hl-f">AddEventHandler</span>(<span class="hl-s">"lobby:readyChanged"</span>, <span class="hl-k">function</span>(id, listo)
+    <span class="hl-k">if</span> listo <span class="hl-k">then</span> <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"El jugador "</span> .. id .. <span class="hl-s">" está listo"</span>) <span class="hl-k">end</span>
+<span class="hl-k">end</span>)</code></pre></div>
+<h3 id="39-ejemplo-completo-un-menú-de-sala-básico">3.9 Ejemplo completo: un menú de sala básico<a class="ancla" href="#39-ejemplo-completo-un-menú-de-sala-básico" aria-label="Enlace a esta sección">#</a></h3>
+<p>Este script conecta la plantilla <strong>Sala (lobby)</strong> con todo lo anterior: <strong>crear</strong> la partida (con código de Nova
+Enlace), <strong>unirse</strong> con el código, <strong>invitar</strong> (copiar el código o amigos de Steam), la lista de jugadores con su
+<strong>avatar</strong>, su personaje y «Listo», <strong>expulsar</strong> (el líder) y <strong>Empezar</strong>. Crea el lienzo con <strong>Interfaz &gt; Plantillas &gt;
+Sala (lobby)</strong>, pon el script en cualquier objeto de la escena y cambia <code>escena</code> por la de tu partida.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">MenuSalaBasico</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-a">--[Tooltip("Escena de la partida (la carga Lobby.Start para todos)")]</span>
+<span class="hl-t">MenuSalaBasico</span>.escena = <span class="hl-s">"scenes/Partida"</span>
+
+<span class="hl-k">local</span> <span class="hl-t">PERSONAJES</span> = { <span class="hl-s">"Ladrón"</span>, <span class="hl-s">"Hacker"</span>, <span class="hl-s">"Conductor"</span> }
+
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">Fila</span>(i: number)
+    <span class="hl-k">return</span> <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Jugadores/Filas/Fila "</span> .. i)
+<span class="hl-k">end</span>
+
+<span class="hl-k">local</span> <span class="hl-k">function</span> <span class="hl-f">Aviso</span>(texto: <span class="hl-t">string</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Aviso"</span>):<span class="hl-f">SetText</span>(texto)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuSalaBasico</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>._filas = {}
+    <span class="hl-b">self</span>._fotos = {}
+    <span class="hl-c">-- Crear y unirse</span>
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio/Opciones/Nombre"</span>):<span class="hl-f">SetText</span>(<span class="hl-t">Network</span>.<span class="hl-f">PlayerName</span>())
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio/Opciones/Crear"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-t">Network</span>.<span class="hl-f">SetPlayerName</span>(<span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio/Opciones/Nombre"</span>):<span class="hl-f">GetText</span>())
+        <span class="hl-k">local</span> codigo, motivo = <span class="hl-t">Lobby</span>.<span class="hl-f">Host</span>({ maxPlayers = <span class="hl-n">4</span>, minPlayers = <span class="hl-n">2</span>, countdown = <span class="hl-n">3</span>, scene = <span class="hl-b">self</span>.escena })
+        <span class="hl-k">if</span> <span class="hl-k">not</span> codigo <span class="hl-k">then</span>
+            <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio/Estado"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"No se pudo crear la partida: "</span> .. <span class="hl-f">tostring</span>(motivo))
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio/Opciones/Unirse"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-t">Network</span>.<span class="hl-f">SetPlayerName</span>(<span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio/Opciones/Nombre"</span>):<span class="hl-f">GetText</span>())
+        <span class="hl-t">Lobby</span>.<span class="hl-f">Join</span>(<span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio/Opciones/Código"</span>):<span class="hl-f">GetText</span>())
+    <span class="hl-k">end</span>)
+    <span class="hl-c">-- Invitar: el código (Discord, WhatsApp) o amigos de Steam (el que acepta entra solo)</span>
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Invitar/Copiar"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-k">if</span> <span class="hl-t">Lobby</span>.<span class="hl-f">CopyCode</span>() <span class="hl-k">then</span> <span class="hl-f">Aviso</span>(<span class="hl-s">"Código copiado"</span>) <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Invitar/Amigos"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-k">local</span> ok, motivo = <span class="hl-t">Lobby</span>.<span class="hl-f">InviteFriends</span>()
+        <span class="hl-k">if</span> <span class="hl-k">not</span> ok <span class="hl-k">then</span> <span class="hl-f">Aviso</span>(<span class="hl-f">tostring</span>(motivo)) <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+    <span class="hl-c">-- Listo, Empezar (el líder) y Salir</span>
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Botones/Listo"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-t">Lobby</span>.<span class="hl-f">ToggleReady</span>()
+    <span class="hl-k">end</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Botones/Empezar"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-k">local</span> ok, motivo = <span class="hl-t">Lobby</span>.<span class="hl-f">Start</span>()
+        <span class="hl-k">if</span> <span class="hl-k">not</span> ok <span class="hl-k">then</span> <span class="hl-f">Aviso</span>(<span class="hl-s">"No se puede empezar: "</span> .. <span class="hl-f">tostring</span>(motivo)) <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Botones/Salir"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+        <span class="hl-t">Lobby</span>.<span class="hl-f">Leave</span>()
+    <span class="hl-k">end</span>)
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-n">8</span> <span class="hl-k">do</span>
+        <span class="hl-f">Fila</span>(i):<span class="hl-f">Child</span>(<span class="hl-s">"Expulsar"</span>):<span class="hl-f">OnClick</span>(<span class="hl-k">function</span>()
+            <span class="hl-k">local</span> p = <span class="hl-b">self</span>._filas[i]
+            <span class="hl-k">if</span> p <span class="hl-k">then</span> <span class="hl-t">Lobby</span>.<span class="hl-f">Kick</span>(p.id, <span class="hl-s">"Te han expulsado de la sala"</span>) <span class="hl-k">end</span>
+        <span class="hl-k">end</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"lobby:playerJoined"</span>, <span class="hl-k">function</span>(id: number, nombre: <span class="hl-t">string</span>)
+        <span class="hl-f">Aviso</span>(nombre .. <span class="hl-s">" se ha unido"</span>)
+    <span class="hl-k">end</span>)
+    <span class="hl-f">AddEventHandler</span>(<span class="hl-s">"lobby:playerLeft"</span>, <span class="hl-k">function</span>(id: number, nombre: <span class="hl-t">string</span>)
+        <span class="hl-f">Aviso</span>(nombre .. <span class="hl-s">" se ha ido"</span>)
+    <span class="hl-k">end</span>)
+    <span class="hl-t">Lobby</span>.<span class="hl-f">OnChanged</span>(<span class="hl-k">function</span>() <span class="hl-b">self</span>:<span class="hl-f">Refrescar</span>() <span class="hl-k">end</span>)
+    <span class="hl-b">self</span>:<span class="hl-f">Refrescar</span>()
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">MenuSalaBasico</span>:<span class="hl-f">Refrescar</span>()
+    <span class="hl-k">local</span> enSala = <span class="hl-t">Network</span>.<span class="hl-f">IsRunning</span>() <span class="hl-k">and</span> <span class="hl-t">Lobby</span>.<span class="hl-f">IsOpen</span>()
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Inicio"</span>):<span class="hl-f">SetVisible</span>(<span class="hl-k">not</span> <span class="hl-t">Network</span>.<span class="hl-f">IsRunning</span>())
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera"</span>):<span class="hl-f">SetVisible</span>(enSala)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> enSala <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-c">-- Mi personaje: uno al azar al entrar (con tus botones: Lobby.SetPlayerData("personaje", ...))</span>
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Lobby</span>.<span class="hl-f">GetPlayerData</span>(<span class="hl-s">"personaje"</span>) <span class="hl-k">then</span>
+        <span class="hl-t">Lobby</span>.<span class="hl-f">SetPlayerData</span>(<span class="hl-s">"personaje"</span>, <span class="hl-t">PERSONAJES</span>[<span class="hl-t">math</span>.<span class="hl-f">random</span>(#<span class="hl-t">PERSONAJES</span>)])
+    <span class="hl-k">end</span>
+    <span class="hl-k">local</span> codigo = <span class="hl-t">Lobby</span>.<span class="hl-f">GetCode</span>()
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Invitar/Código"</span>):<span class="hl-f">SetText</span>(<span class="hl-k">if</span> codigo ~= <span class="hl-s">""</span> <span class="hl-k">then</span> codigo <span class="hl-k">else</span> <span class="hl-s">"Red local"</span>)
+    <span class="hl-k">local</span> lider = <span class="hl-t">Lobby</span>.<span class="hl-f">IsLeader</span>()
+    <span class="hl-k">local</span> jugadores = <span class="hl-t">Lobby</span>.<span class="hl-f">GetPlayers</span>()
+    <span class="hl-b">self</span>._filas = jugadores
+    <span class="hl-k">for</span> i = <span class="hl-n">1</span>, <span class="hl-n">8</span> <span class="hl-k">do</span>
+        <span class="hl-k">local</span> p = jugadores[i]
+        <span class="hl-k">local</span> fila = <span class="hl-f">Fila</span>(i)
+        fila:<span class="hl-f">SetVisible</span>(p ~= <span class="hl-b">nil</span>)
+        <span class="hl-k">if</span> p <span class="hl-k">then</span>
+            <span class="hl-k">local</span> personaje = p.data.personaje <span class="hl-k">or</span> <span class="hl-s">"?"</span>
+            fila:<span class="hl-f">Child</span>(<span class="hl-s">"Nombre"</span>):<span class="hl-f">SetText</span>(p.name .. <span class="hl-s">" · "</span> .. personaje .. (<span class="hl-k">if</span> p.isLeader <span class="hl-k">then</span> <span class="hl-s">"  (líder)"</span> <span class="hl-k">else</span> <span class="hl-s">""</span>))
+            fila:<span class="hl-f">Child</span>(<span class="hl-s">"Estado"</span>):<span class="hl-f">SetText</span>(<span class="hl-k">if</span> p.ready <span class="hl-k">then</span> <span class="hl-s">"Listo"</span> <span class="hl-k">else</span> <span class="hl-s">"No listo"</span>)
+            fila:<span class="hl-f">Child</span>(<span class="hl-s">"Expulsar"</span>):<span class="hl-f">SetVisible</span>(lider <span class="hl-k">and</span> <span class="hl-k">not</span> p.isLocal)
+            <span class="hl-c">-- Su avatar de Steam: se pide una vez por jugador y fila (sin Steam se queda el cuadro)</span>
+            <span class="hl-k">local</span> clave = <span class="hl-f">tostring</span>(p.id) .. <span class="hl-s">"/"</span> .. p.steamId
+            <span class="hl-k">if</span> <span class="hl-b">self</span>._fotos[i] ~= clave <span class="hl-k">then</span>
+                <span class="hl-b">self</span>._fotos[i] = clave
+                <span class="hl-t">Lobby</span>.<span class="hl-f">GetAvatarAsync</span>(p.id, <span class="hl-s">"medium"</span>, <span class="hl-k">function</span>(avatar)
+                    <span class="hl-k">if</span> avatar <span class="hl-k">and</span> <span class="hl-b">self</span>._fotos[i] == clave <span class="hl-k">then</span>
+                        fila:<span class="hl-f">Child</span>(<span class="hl-s">"Foto"</span>):<span class="hl-f">SetSprite</span>(avatar):<span class="hl-f">SetColor</span>(<span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>, <span class="hl-n">1</span>))
+                    <span class="hl-k">end</span>
+                <span class="hl-k">end</span>)
+            <span class="hl-k">end</span>
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Jugadores/Cuenta"</span>):<span class="hl-f">SetText</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%d / %d"</span>, #jugadores, <span class="hl-t">Lobby</span>.<span class="hl-f">GetMaxPlayers</span>()))
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Botones/Listo/Texto"</span>):<span class="hl-f">SetText</span>(<span class="hl-k">if</span> <span class="hl-t">Lobby</span>.<span class="hl-f">IsReady</span>() <span class="hl-k">then</span> <span class="hl-s">"No listo"</span> <span class="hl-k">else</span> <span class="hl-s">"Listo"</span>)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Sala/Espera/Botones/Empezar"</span>):<span class="hl-f">SetVisible</span>(lider)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">MenuSalaBasico</span></code></pre></div>
+<p>Para entrar desde Steam sin tocar nada: con la partida <strong>por Steam</strong> (<code>Lobby.Host({ transport = &quot;steam&quot; })</code>) el botón
+<strong>Invitar</strong> abre el diálogo de Steam y quien acepta (aunque tenga el juego cerrado: <code>+connect_lobby</code>) entra solo; con la
+partida <strong>por código</strong>, «Unirse a la partida» de la lista de amigos abre el juego y entra con el código (sección 3.6).</p>
 <h2 id="4-cambio-de-escena-sincronizado">4. Cambio de escena sincronizado<a class="ancla" href="#4-cambio-de-escena-sincronizado" aria-label="Enlace a esta sección">#</a></h2>
 <h3 id="41-uso">4.1 Uso<a class="ancla" href="#41-uso" aria-label="Enlace a esta sección">#</a></h3>
 <p>En el <strong>servidor</strong> (o el anfitrión):</p>
@@ -642,6 +842,11 @@ voz propio, <code>Chat.SetTalking(id, true)</code> lo marca a mano (en el servid
   <td>todas</td>
 </tr>
 <tr>
+  <td><code>lobby:playerJoined</code>, <code>lobby:playerLeft</code>, <code>lobby:readyChanged</code>, <code>lobby:leaderChanged</code>, <code>lobby:settingChanged</code>, <code>lobby:playerDataChanged</code></td>
+  <td>ver la sección 3.8</td>
+  <td>todas</td>
+</tr>
+<tr>
   <td><code>chatMessage</code></td>
   <td>mensaje</td>
   <td>quien lo recibe (el servidor, todos; también <code>Chat.OnMessage</code>)</td>
@@ -724,11 +929,15 @@ dar un tirón al final de la carga, tapado por la pantalla de carga.</li>
 <li>Los eventos de red (<code>TriggerClientEvent</code>) que llegan a un cliente mientras carga esperan a la escena nueva; las
 funciones <code>[Client]</code> de objetos de la escena vieja se pierden (envíalas después de <code>OnAllPlayersLoaded</code>).</li>
 <li>La invitación de Steam necesita el juego publicado con el SDK de Steam; sin él, se comparte el código.</li>
+<li>El SteamID de cada jugador (sección 3.7) lo dice cada uno: el servidor no lo comprueba en las partidas por código o en la
+red local.</li>
+<li>No hay lista de partidas públicas con el backend de Nova (relé o Tailscale): se entra con el código. La lista existe en
+la red local (<code>Network.StartLanSearch</code>) y por Steam (<code>Steam.FindLobbies</code>).</li>
 <li>El chat de voz va aparte (<a href="voz.html">voz.md</a>); aquí se enseña quién habla y la voz sale del personaje de <code>GetOwner</code>.</li>
 </ul>
 <nav class="ant-sig" aria-label="Páginas"><a class="ant" href="multijugador.html"><small>Anterior</small>Multijugador: tutorial y guía</a><a class="sig" href="paquetes.html"><small>Siguiente</small>Paquetes del motor: primera y tercera persona listas para multijugador</a></nav></article>
 </main>
-<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-qué-hay">1. Qué hay</a></li><li class="n2"><a href="#2-el-ejemplo-fiesta">2. El ejemplo «Fiesta»</a></li><li class="n2"><a href="#3-la-sala-lobby">3. La sala (lobby)</a></li><li class="n3"><a href="#31-la-interfaz-la-plantilla-sala-lobby">3.1 La interfaz: la plantilla «Sala (lobby)»</a></li><li class="n3"><a href="#32-crear-y-unirse">3.2 Crear y unirse</a></li><li class="n3"><a href="#33-jugadores-listo-líder-y-expulsar">3.3 Jugadores, «Listo», líder y expulsar</a></li><li class="n3"><a href="#34-ajustes-de-la-partida">3.4 Ajustes de la partida</a></li><li class="n3"><a href="#35-empezar-cuenta-atrás-y-volver-a-la-sala">3.5 Empezar, cuenta atrás y volver a la sala</a></li><li class="n3"><a href="#36-invitar">3.6 Invitar</a></li><li class="n2"><a href="#4-cambio-de-escena-sincronizado">4. Cambio de escena sincronizado</a></li><li class="n3"><a href="#41-uso">4.1 Uso</a></li><li class="n3"><a href="#42-qué-pasa">4.2 Qué pasa</a></li><li class="n3"><a href="#43-avisos-a-los-scripts">4.3 Avisos a los scripts</a></li><li class="n3"><a href="#44-quien-entra-tarde">4.4 Quien entra tarde</a></li><li class="n3"><a href="#45-un-solo-jugador-a-otra-escena">4.5 Un solo jugador a otra escena</a></li><li class="n2"><a href="#5-pantalla-de-carga">5. Pantalla de carga</a></li><li class="n3"><a href="#51-la-integrada">5.1 La integrada</a></li><li class="n3"><a href="#52-la-tuya-hecha-con-la-interfaz">5.2 La tuya, hecha con la Interfaz</a></li><li class="n3"><a href="#53-para-tus-propias-cargas">5.3 Para tus propias cargas</a></li><li class="n2"><a href="#6-getowner-el-objeto-de-un-jugador">6. GetOwner: el objeto de un jugador</a></li><li class="n2"><a href="#7-interactuables">7. Interactuables</a></li><li class="n3"><a href="#71-el-componente">7.1 El componente</a></li><li class="n2"><a href="#8-chat-de-texto">8. Chat de texto</a></li><li class="n2"><a href="#9-eventos-y-métodos-referencia">9. Eventos y métodos (referencia)</a></li><li class="n2"><a href="#10-errores-comunes">10. Errores comunes</a></li><li class="n2"><a href="#11-limitaciones">11. Limitaciones</a></li></ul></div></aside>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-qué-hay">1. Qué hay</a></li><li class="n2"><a href="#2-el-ejemplo-fiesta">2. El ejemplo «Fiesta»</a></li><li class="n2"><a href="#3-la-sala-lobby">3. La sala (lobby)</a></li><li class="n3"><a href="#31-la-interfaz-la-plantilla-sala-lobby">3.1 La interfaz: la plantilla «Sala (lobby)»</a></li><li class="n3"><a href="#32-crear-y-unirse">3.2 Crear y unirse</a></li><li class="n3"><a href="#33-jugadores-listo-líder-y-expulsar">3.3 Jugadores, «Listo», líder y expulsar</a></li><li class="n3"><a href="#34-ajustes-de-la-partida">3.4 Ajustes de la partida</a></li><li class="n3"><a href="#35-empezar-cuenta-atrás-y-volver-a-la-sala">3.5 Empezar, cuenta atrás y volver a la sala</a></li><li class="n3"><a href="#36-invitar">3.6 Invitar</a></li><li class="n3"><a href="#37-datos-de-cada-jugador-líder-y-avatares">3.7 Datos de cada jugador, líder y avatares</a></li><li class="n3"><a href="#38-qué-ha-cambiado-avisos-de-la-sala">3.8 Qué ha cambiado: avisos de la sala</a></li><li class="n3"><a href="#39-ejemplo-completo-un-menú-de-sala-básico">3.9 Ejemplo completo: un menú de sala básico</a></li><li class="n2"><a href="#4-cambio-de-escena-sincronizado">4. Cambio de escena sincronizado</a></li><li class="n3"><a href="#41-uso">4.1 Uso</a></li><li class="n3"><a href="#42-qué-pasa">4.2 Qué pasa</a></li><li class="n3"><a href="#43-avisos-a-los-scripts">4.3 Avisos a los scripts</a></li><li class="n3"><a href="#44-quien-entra-tarde">4.4 Quien entra tarde</a></li><li class="n3"><a href="#45-un-solo-jugador-a-otra-escena">4.5 Un solo jugador a otra escena</a></li><li class="n2"><a href="#5-pantalla-de-carga">5. Pantalla de carga</a></li><li class="n3"><a href="#51-la-integrada">5.1 La integrada</a></li><li class="n3"><a href="#52-la-tuya-hecha-con-la-interfaz">5.2 La tuya, hecha con la Interfaz</a></li><li class="n3"><a href="#53-para-tus-propias-cargas">5.3 Para tus propias cargas</a></li><li class="n2"><a href="#6-getowner-el-objeto-de-un-jugador">6. GetOwner: el objeto de un jugador</a></li><li class="n2"><a href="#7-interactuables">7. Interactuables</a></li><li class="n3"><a href="#71-el-componente">7.1 El componente</a></li><li class="n2"><a href="#8-chat-de-texto">8. Chat de texto</a></li><li class="n2"><a href="#9-eventos-y-métodos-referencia">9. Eventos y métodos (referencia)</a></li><li class="n2"><a href="#10-errores-comunes">10. Errores comunes</a></li><li class="n2"><a href="#11-limitaciones">11. Limitaciones</a></li></ul></div></aside>
 </div>
 <footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
 <script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>

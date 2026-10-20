@@ -185,8 +185,26 @@ sección 9; si no, en «Ver información del juego»).</p>
     <span class="hl-k">local</span> yo = <span class="hl-t">Steam</span>.<span class="hl-f">GetSteamID</span>() <span class="hl-c">-- texto: "76561198..."</span>
 <span class="hl-k">end</span></code></pre></div>
 <p>Los <strong>SteamID y los ids de lobby son textos</strong> en Lua (son números de 64 bits y un número de Lua perdería cifras).</p>
-<p><strong>Avatar</strong> para la interfaz: <code>Steam.GetAvatar(id)</code> (sin id, el tuyo) devuelve una textura para <code>SetSprite</code>, o <code>nil</code>
-mientras Steam la descarga; cuando llega, avisa con <code>steam:avatarLoaded</code>:</p>
+<p><strong>Avatar</strong> para la interfaz. Lo más cómodo (0.9.40) es <code>Steam.GetAvatarAsync</code>: pide el avatar y llama a tu función con
+la textura cuando llega (enseguida si ya estaba), y con <code>nil</code> si no llega (sin Steam, la persona no tiene o 15 s). Queda
+en caché: pedirlo otra vez es instantáneo.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">AvatarAsincrono</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">AvatarAsincrono</span>:<span class="hl-f">Start</span>()
+    <span class="hl-c">-- Sin id: el tuyo. Con el SteamID de otro (Steam.GetFriends, Lobby.GetSteamId...): el suyo</span>
+    <span class="hl-t">Steam</span>.<span class="hl-f">GetAvatarAsync</span>(<span class="hl-b">nil</span>, <span class="hl-s">"medium"</span>, <span class="hl-k">function</span>(avatar)
+        <span class="hl-k">if</span> avatar <span class="hl-k">then</span>
+            <span class="hl-f">UI</span>(<span class="hl-s">"Lobby/Avatar"</span>):<span class="hl-f">SetSprite</span>(avatar)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">AvatarAsincrono</span></code></pre></div>
+<p>Para el avatar de un <strong>compañero de partida</strong> (también en las partidas por código o en la red local) usa
+<code>Lobby.GetAvatarAsync(jugador, tamaño, función)</code> con su id de jugador: cada uno dice su SteamID al entrar en la sala
+(<a href="lobby-y-escenas.html#37-datos-de-cada-jugador-líder-y-avatares">lobby-y-escenas.md</a>).</p>
+<p>También existe la forma directa: <code>Steam.GetAvatar(id)</code> (sin id, el tuyo) devuelve una textura para <code>SetSprite</code>, o <code>nil</code>
+mientras Steam la descarga; cuando llega, avisa con <code>steam:avatarLoaded</code> (y con <code>steam:avatarFailed</code> si no llega):</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">AvatarJugador</span> = <span class="hl-f">Script</span>()
 
 <span class="hl-k">function</span> <span class="hl-t">AvatarJugador</span>:<span class="hl-f">Start</span>()
@@ -205,6 +223,18 @@ mientras Steam la descarga; cuando llega, avisa con <code>steam:avatarLoaded</co
 
 <span class="hl-k">return</span> <span class="hl-t">AvatarJugador</span></code></pre></div>
 <p>Tamaños: <code>&quot;small&quot;</code> (32), <code>&quot;medium&quot;</code> (64) y <code>&quot;large&quot;</code> (184).</p>
+<blockquote>
+<p><strong>Por qué a veces no salía el avatar de otro jugador</strong> (arreglado en la 0.9.40). Steam solo avisa cuando descarga el
+avatar <em>grande</em>; el pequeño y el mediano de alguien que tu Steam aún no conoce (un compañero que no es tu amigo, o tu
+propio avatar justo al arrancar el juego) devuelven «no tiene» sin avisar después. El motor lo trataba como definitivo y
+la imagen se quedaba vacía. Ahora el motor pide a Steam la información de esa persona y su avatar grande, vuelve a mirar
+cada 400 ms y avisa con <code>steam:avatarLoaded</code> en cuanto está (o con <code>steam:avatarFailed</code> a los 12 s).</p>
+</blockquote>
+<p><strong>Amigos</strong>: <code>Steam.GetFriends()</code> da <code>{ id, name, online, playingThisGame, state }</code> (primero los que juegan a tu juego);
+<code>state</code> es <code>&quot;online&quot;</code>, <code>&quot;offline&quot;</code>, <code>&quot;busy&quot;</code>, <code>&quot;away&quot;</code>, <code>&quot;snooze&quot;</code>, <code>&quot;lookingToPlay&quot;</code>... Para invitarlos al lobby:
+<code>Steam.InviteFriend(id)</code> o el diálogo del overlay con <code>Steam.InviteFriends()</code>.</p>
+<p><strong>Steam Deck</strong>: <code>Steam.IsSteamDeck()</code> (para elegir la calidad o los controles por defecto) y <code>Steam.IsBigPicture()</code>
+(modo Big Picture: pantalla grande y mando; también en la Deck).</p>
 <p><strong>Idioma</strong>: <code>Application.GetLanguage()</code> es el idioma por defecto del juego: el elegido en Steam si el juego va por
 Steam (<code>&quot;es&quot;</code>, <code>&quot;en&quot;</code>, <code>&quot;es-419&quot;</code>...) y si no el de Windows. <code>Steam.GetLanguage()</code> da el nombre de Steam
 (<code>&quot;spanish&quot;</code>, <code>&quot;latam&quot;</code>...). Los textos traducidos del juego (<code>Loc(&quot;clave&quot;)</code>) ya arrancan solos en el idioma que
@@ -411,6 +441,11 @@ script usa un logro que no está ahí y da los nombres a <code>Steam.GetAchievem
 <li>Estadísticas: <code>Steam.SetStat</code>, <code>Steam.AddStat</code> y <code>Steam.GetStat</code>; se guardan con <code>Steam.StoreStats()</code> (al acabar
 una ronda, no en cada frame).</li>
 <li>Para probar: <code>Steam.ClearAchievement(id)</code> y <code>Steam.ResetStats(true)</code> (estadísticas y logros a cero).</li>
+<li><strong>Sin Steam</strong> (Steam desactivado, el juego fuera de Steam o el editor sin el simulado) los logros, las estadísticas y
+las tablas se guardan <strong>en local</strong> (0.9.40), en <code>steam-local.json</code> de la carpeta de guardado del juego: el mismo script
+se prueba igual y <code>Steam.UnlockAchievement</code> devuelve <code>true</code>. <code>Steam.IsUsingLocalStats()</code> dice si está pasando y
+<code>Steam.SetLocalFallback(false)</code> lo apaga (sin Steam devuelven <code>false</code> y <code>nil</code>, como antes). Las tablas locales solo
+tienen las puntuaciones de ese PC.</li>
 <li>Los logros se desbloquean en la máquina de cada jugador (no en el servidor): si los decide el servidor, avísale
 con un <code>--[Client]</code> o un evento.</li>
 <li><strong>Tablas de clasificación</strong> (opcionales): <code>Steam.UploadScore(tabla, puntos, opciones, función)</code> (la tabla se crea
@@ -499,6 +534,11 @@ si no existe; <code>keepBest</code> guarda solo la mejor, <code>ascending = true
   <td>Ya está el avatar de esa persona (vuelve a pedir <code>GetAvatar</code>)</td>
 </tr>
 <tr>
+  <td><code>steam:avatarFailed</code></td>
+  <td>id</td>
+  <td>El avatar de esa persona no llegó en 12 s (o no tiene)</td>
+</tr>
+<tr>
   <td><code>steam:friendChanged</code></td>
   <td>id</td>
   <td>Un amigo cambia de estado o de nombre</td>
@@ -544,8 +584,12 @@ si no existe; <code>keepBest</code> guarda solo la mejor, <code>ascending = true
   <td>Estado de Steam</td>
 </tr>
 <tr>
-  <td><code>GetSteamID()</code>, <code>GetPersonaName()</code>, <code>GetFriendName(id)</code>, <code>GetFriends()</code>, <code>GetAvatar(id, tamaño)</code></td>
+  <td><code>GetSteamID()</code>, <code>GetPersonaName()</code>, <code>GetFriendName(id)</code>, <code>GetFriends()</code>, <code>GetAvatar(id, tamaño)</code>, <code>GetAvatarAsync(id, tamaño, función)</code></td>
   <td>El jugador y sus amigos</td>
+</tr>
+<tr>
+  <td><code>IsSteamDeck()</code>, <code>IsBigPicture()</code></td>
+  <td>El dispositivo</td>
 </tr>
 <tr>
   <td><code>GetLanguage()</code>, <code>GetLanguageCode()</code>, <code>IsSubscribed(appId)</code>, <code>IsDlcInstalled(appId)</code></td>
@@ -584,13 +628,17 @@ si no existe; <code>keepBest</code> guarda solo la mejor, <code>ascending = true
   <td>Estadísticas</td>
 </tr>
 <tr>
+  <td><code>SetLocalFallback(sí)</code>, <code>IsUsingLocalStats()</code></td>
+  <td>Logros y estadísticas en local sin Steam</td>
+</tr>
+<tr>
   <td><code>UploadScore(tabla, puntos, opciones, función)</code>, <code>GetScores(tabla, opciones, función)</code></td>
   <td>Tablas de clasificación</td>
 </tr>
 </tbody>
 </table></div>
-<p>Sin Steam (o en el editor con «Sin Steam») todas responden <code>false</code>, <code>&quot;&quot;</code>, <code>0</code> o <code>nil</code> sin errores: el mismo script
-funciona con y sin Steam. Pasar un SteamID como número es un error que lo explica (usa el texto que da Steam).</p>
+<p>Sin Steam (o en el editor con «Sin Steam») todas responden <code>false</code>, <code>&quot;&quot;</code>, <code>0</code> o <code>nil</code> sin errores, salvo los logros, las
+estadísticas y las tablas, que se guardan en local (sección 11): el mismo script funciona con y sin Steam. Pasar un SteamID como número es un error que lo explica (usa el texto que da Steam).</p>
 <h2 id="14-probar-con-dos-cuentas-de-steam">14. Probar con dos cuentas de Steam<a class="ancla" href="#14-probar-con-dos-cuentas-de-steam" aria-label="Enlace a esta sección">#</a></h2>
 <p>Steam solo deja una cuenta por PC, así que para jugar de verdad entre dos hacen falta <strong>dos PC</strong> (o un PC y una
 máquina virtual) con cuentas distintas que tengan el juego (con tu App ID: claves de desarrollo de <strong>Request Steam
@@ -689,6 +737,10 @@ del tamaño de la voz, política de conexiones y el flujo completo lobby → anf
 fin de la partida.</li>
 <li>Estado para los amigos, logros, estadísticas (también al volver a entrar), tablas, avatares y la tabla <code>Steam</code> de
 Lua con sus eventos; el bus entre procesos del Steam simulado.</li>
+<li>(0.9.40) El avatar que Steam no avisa (el simulado imita al de verdad con <code>NOVA_STEAM_SIM_AVATAR_RETRASO</code> y
+<code>NOVA_STEAM_SIM_AVATAR_SIN_AVISO</code>), <code>GetAvatarAsync</code> con caché, los logros en local sin Steam y la sala con el SteamID,
+los datos y el avatar de cada jugador por la red de Nova, por el transporte de Steam y con tres <code>NovaGame.exe</code>
+(<code>nova_tests.exe steam-lobbys</code>).</li>
 <li>La edición en equipo por Steam (0.9.33): la pasarela, la lista de amigos, la invitación, <code>+connect_lobby</code>, la contraseña, la
 reconexión, la prueba en equipo por Steam y el equipo fijo visto por el lobby con el relé caído, con editores sin ventana y el
 Steam simulado (<code>nova_tests.exe equipo-steam</code>); y la partida y la edición en equipo a la vez por el mismo Steam.</li>
