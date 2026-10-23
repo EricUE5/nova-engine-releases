@@ -1338,6 +1338,10 @@ los campos ya puestos;</li>
   <td>Comprimido</td>
 </tr>
 <tr>
+  <td><code>Vector4</code>, <code>Color</code></td>
+  <td>16 bits por componente (medio float: unos 3 decimales; vale para colores con alfa)</td>
+</tr>
+<tr>
   <td>Texto</td>
   <td>Hasta 256 bytes</td>
 </tr>
@@ -2015,7 +2019,6 @@ se mueve se prueba donde está ahora.</li>
 <li>En red no vale <code>Scene.Load</code>: se cambia de escena con <code>Network.LoadScene</code> desde el servidor (sección 19). Llevar a
 un jugador a otra escena distinta de la del servidor la convierte en una escena <strong>local</strong> suya (sin objetos de red).</li>
 <li>Los scripts de una entidad de red se fijan al crearla en la red.</li>
-<li>No se replican <code>Vec4</code> ni <code>Color</code> en campos sueltos (sí dentro de una tabla replicada).</li>
 <li>Sin predicción propia desde Lua: el <code>CharacterController</code> de los jugadores se predice solo; otros movimientos
 los simula el servidor.</li>
 <li>El servidor (también el anfitrión) no recibe <code>onChange</code>: llama a la función a mano si lo necesita.</li>

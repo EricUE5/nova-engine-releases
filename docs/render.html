@@ -26,7 +26,7 @@ mapas hechos con texturas escaneadas (de Poly Haven, ambientCG...):">
 <nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html" aria-current="page">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="render-realista-reflejos-antialiasing-temporal-cielos-hdri-y-de-noche-texturas-comprimidas">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</h1>
-<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-dónde-están-las-opciones">1. Dónde están las opciones</a></li><li class="n2"><a href="#2-reflejos-en-pantalla-ssr">2. Reflejos en pantalla (SSR)</a></li><li class="n2"><a href="#3-antialiasing-temporal-taa">3. Antialiasing temporal (TAA)</a></li><li class="n2"><a href="#4-cielo-procedural-hdri-o-noche">4. Cielo: procedural, HDRI o noche</a></li><li class="n3"><a href="#procedural-día">Procedural (día)</a></li><li class="n3"><a href="#hdri">HDRI</a></li><li class="n3"><a href="#noche">Noche</a></li><li class="n2"><a href="#5-texturas-comprimidas-bc7-bc5-bc4">5. Texturas comprimidas (BC7, BC5, BC4)</a></li><li class="n2"><a href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal">6. Sombras de contacto, sondas de reflejos y cristal</a></li><li class="n3"><a href="#sombras-de-contacto">Sombras de contacto</a></li><li class="n3"><a href="#sondas-de-reflejos-interiores">Sondas de reflejos (interiores)</a></li><li class="n3"><a href="#cristal-y-lentes">Cristal y lentes</a></li><li class="n2"><a href="#7-preajustes-de-calidad">7. Preajustes de calidad</a></li><li class="n2"><a href="#8-cuánto-cuesta-cada-efecto">8. Cuánto cuesta cada efecto</a></li><li class="n2"><a href="#9-receta-una-calle-mojada-de-noche">9. Receta: una calle mojada de noche</a></li><li class="n2"><a href="#10-desde-lua">10. Desde Lua</a></li><li class="n2"><a href="#11-claves-de-projectnova-y-del-entorno">11. Claves de project.nova y del Entorno</a></li><li class="n2"><a href="#12-capa-de-vista-el-arma-en-primera-persona">12. Capa de vista: el arma en primera persona</a></li><li class="n3"><a href="#cómo-se-usa">Cómo se usa</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n3"><a href="#antes-y-después">Antes y después</a></li><li class="n2"><a href="#13-distancia-máxima-de-dibujo">13. Distancia máxima de dibujo</a></li><li class="n2"><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">14. Calidad de las texturas y memoria de vídeo</a></li><li class="n3"><a href="#medida-el-mapa-realista-del-modo-zombis">Medida: el mapa realista del modo Zombis</a></li><li class="n2"><a href="#15-desenfoque-de-movimiento">15. Desenfoque de movimiento</a></li><li class="n2"><a href="#16-estadísticas-de-render-desde-lua">16. Estadísticas de render desde Lua</a></li><li class="n2"><a href="#17-límites">17. Límites</a></li></ul></details><p>Esta guía explica las opciones de <strong>realismo</strong> del render que llegan con la 0.9.8. Sirven para escenas nocturnas y
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-dónde-están-las-opciones">1. Dónde están las opciones</a></li><li class="n2"><a href="#2-reflejos-en-pantalla-ssr">2. Reflejos en pantalla (SSR)</a></li><li class="n2"><a href="#3-antialiasing-temporal-taa">3. Antialiasing temporal (TAA)</a></li><li class="n2"><a href="#4-cielo-procedural-hdri-o-noche">4. Cielo: procedural, HDRI o noche</a></li><li class="n3"><a href="#procedural-día">Procedural (día)</a></li><li class="n3"><a href="#hdri">HDRI</a></li><li class="n3"><a href="#noche">Noche</a></li><li class="n2"><a href="#5-texturas-comprimidas-bc7-bc5-bc4">5. Texturas comprimidas (BC7, BC5, BC4)</a></li><li class="n2"><a href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal">6. Sombras de contacto, sondas de reflejos y cristal</a></li><li class="n3"><a href="#sombras-de-contacto">Sombras de contacto</a></li><li class="n3"><a href="#sondas-de-reflejos-interiores">Sondas de reflejos (interiores)</a></li><li class="n3"><a href="#cristal-y-lentes">Cristal y lentes</a></li><li class="n2"><a href="#7-preajustes-de-calidad">7. Preajustes de calidad</a></li><li class="n2"><a href="#8-cuánto-cuesta-cada-efecto">8. Cuánto cuesta cada efecto</a></li><li class="n2"><a href="#9-receta-una-calle-mojada-de-noche">9. Receta: una calle mojada de noche</a></li><li class="n2"><a href="#10-desde-lua">10. Desde Lua</a></li><li class="n2"><a href="#11-claves-de-projectnova-y-del-entorno">11. Claves de project.nova y del Entorno</a></li><li class="n2"><a href="#12-capa-de-vista-el-arma-en-primera-persona">12. Capa de vista: el arma en primera persona</a></li><li class="n3"><a href="#cómo-se-usa">Cómo se usa</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n3"><a href="#antes-y-después">Antes y después</a></li><li class="n2"><a href="#13-distancia-máxima-de-dibujo">13. Distancia máxima de dibujo</a></li><li class="n2"><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">14. Calidad de las texturas y memoria de vídeo</a></li><li class="n3"><a href="#medida-el-mapa-realista-del-modo-zombis">Medida: el mapa realista del modo Zombis</a></li><li class="n2"><a href="#15-desenfoque-de-movimiento">15. Desenfoque de movimiento</a></li><li class="n2"><a href="#16-estadísticas-de-render-desde-lua">16. Estadísticas de render desde Lua</a></li><li class="n2"><a href="#17-contorno-resaltar-objetos">17. Contorno: resaltar objetos</a></li><li class="n3"><a href="#campos">Campos</a></li><li class="n3"><a href="#los-tres-modos">Los tres modos</a></li><li class="n3"><a href="#en-el-editor">En el editor</a></li><li class="n3"><a href="#desde-lua-1">Desde Lua</a></li><li class="n3"><a href="#ejemplo-resaltar-lo-que-mira-el-jugador">Ejemplo: resaltar lo que mira el jugador</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n3"><a href="#cuánto-cuesta">Cuánto cuesta</a></li><li class="n2"><a href="#18-límites">18. Límites</a></li></ul></details><p>Esta guía explica las opciones de <strong>realismo</strong> del render que llegan con la 0.9.8. Sirven para escenas nocturnas y
 mapas hechos con texturas escaneadas (de Poly Haven, ambientCG...):</p>
 <ul>
 <li><strong>reflejos en pantalla</strong> (charcos, asfalto mojado, suelos pulidos, metal);</li>
@@ -35,6 +35,8 @@ mapas hechos con texturas escaneadas (de Poly Haven, ambientCG...):</p>
 <li><strong>texturas comprimidas</strong> en la GPU, para poder usar texturas de 2K y 4K en todo;</li>
 <li><strong>sombras de contacto</strong>, <strong>sondas de reflejos</strong> para los interiores y materiales de <strong>cristal</strong> con refracción.</li>
 </ul>
+<p>El <strong>contorno</strong> (componente <code>Outline</code>) dibuja un borde en pantalla para resaltar lo que se puede usar, los aliados a
+través de las paredes o lo seleccionado (sección <a href="#17-contorno-resaltar-objetos">17</a>).</p>
 <p>La 0.9.9 añade la <strong>capa de vista</strong> para el arma en primera persona, la <strong>distancia máxima</strong> de dibujo por malla y por luz,
 la <strong>calidad de las texturas</strong> (con la memoria de vídeo medida en un mapa real), el <strong>desenfoque de movimiento</strong> y las
 <strong>estadísticas de render</strong> desde Lua.</p>
@@ -59,7 +61,8 @@ preajustes de calidad están en <a href="rendimiento.html">rendimiento.md</a>.</
 <li><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">Calidad de las texturas y memoria de vídeo</a></li>
 <li><a href="#15-desenfoque-de-movimiento">Desenfoque de movimiento</a></li>
 <li><a href="#16-estadísticas-de-render-desde-lua">Estadísticas de render desde Lua</a></li>
-<li><a href="#17-límites">Límites</a></li>
+<li><a href="#17-contorno-resaltar-objetos">Contorno: resaltar objetos</a></li>
+<li><a href="#18-límites">Límites</a></li>
 </ol>
 <h2 id="1-dónde-están-las-opciones">1. Dónde están las opciones<a class="ancla" href="#1-dónde-están-las-opciones" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
@@ -884,7 +887,211 @@ la imagen: el mundo al girar la cámara y los objetos rápidos, con el movimient
 <code>project.nova</code>, «Límite de fps» en Ajustes del proyecto &gt; Ventana; <code>Application.SetTargetFrameRate</code> lo cambia en
 partida). Con <code>--fps-max</code>, el límite vale también en las ejecuciones con <code>--frames</code>.</li>
 </ul>
-<h2 id="17-límites">17. Límites<a class="ancla" href="#17-límites" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="17-contorno-resaltar-objetos">17. Contorno: resaltar objetos<a class="ancla" href="#17-contorno-resaltar-objetos" aria-label="Enlace a esta sección">#</a></h2>
+<p>El componente <strong>Contorno</strong> (<code>Outline</code>, en <strong>Añadir componente &gt; Render</strong>) dibuja un borde alrededor de un objeto, del
+mismo grosor en píxeles a cualquier distancia. Sirve para lo típico de los juegos:</p>
+<ul>
+<li>resaltar lo que se puede <strong>coger o usar</strong> cuando el jugador lo mira;</li>
+<li>ver a los <strong>aliados a través de las paredes</strong> (solo la parte tapada);</li>
+<li>marcar lo <strong>seleccionado</strong> o el objetivo de una misión.</li>
+</ul>
+<p><figure class="captura"><img src="../assets/img/capturas-contorno-juego-contorno.webp" srcset="../assets/img/capturas-contorno-juego-contorno-800.webp 800w, ../assets/img/capturas-contorno-juego-contorno.webp 1280w" sizes="(max-width: 900px) 100vw, 900px" alt="Contornos en el juego: el zorro (Siempre), la esfera dorada (Visible, suave) y el cubo rojo (con relleno)" width="1280" height="720" loading="lazy" decoding="async"><figcaption>Contornos en el juego: el zorro (Siempre), la esfera dorada (Visible, suave) y el cubo rojo (con relleno)</figcaption></figure></p>
+<p>Vale para <strong>mallas</strong>, <strong>mallas con huesos</strong> (animadas: el borde sigue la pose) y, con <strong>Incluir hijos</strong>, para todas las
+mallas de los hijos. Un modelo importado tiene sus mallas en entidades hijas: pon el Contorno en la raíz del modelo. Si
+un hijo tiene su propio Contorno, manda el suyo.</p>
+<p><figure class="captura"><img src="../assets/img/capturas-contorno-contorno-zorro-2.webp" alt="El zorro andando con el Contorno en la raíz del modelo: el borde sigue cada pose" width="640" height="360" loading="lazy" decoding="async"><figcaption>El zorro andando con el Contorno en la raíz del modelo: el borde sigue cada pose</figcaption></figure></p>
+<h3 id="campos">Campos<a class="ancla" href="#campos" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo (Lua)</th>
+  <th>En el Inspector</th>
+  <th>Por defecto</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>enabled</code></td>
+  <td>Activo</td>
+  <td><code>true</code></td>
+  <td>Apagado no se dibuja ni cuesta nada</td>
+</tr>
+<tr>
+  <td><code>color</code></td>
+  <td>Color</td>
+  <td>naranja</td>
+  <td>Color del borde tal cual se ve (no le afectan la luz, la exposición ni el tonemapping). El alfa es la opacidad</td>
+</tr>
+<tr>
+  <td><code>width</code></td>
+  <td>Grosor (px)</td>
+  <td><code>3</code></td>
+  <td>Píxeles de pantalla, de 0 a 32. El mismo grosor cerca y lejos</td>
+</tr>
+<tr>
+  <td><code>mode</code></td>
+  <td>Modo</td>
+  <td><code>&quot;Always&quot;</code></td>
+  <td><code>&quot;Always&quot;</code> (Siempre: también a través de las paredes), <code>&quot;Visible&quot;</code> (solo lo que se ve), <code>&quot;Occluded&quot;</code> (solo lo tapado)</td>
+</tr>
+<tr>
+  <td><code>occludedColor</code></td>
+  <td>Color tapado</td>
+  <td>alfa 0</td>
+  <td>Con <code>&quot;Always&quot;</code>: color de la parte tapada. Con alfa 0 se usa <code>color</code></td>
+</tr>
+<tr>
+  <td><code>style</code></td>
+  <td>Estilo</td>
+  <td><code>&quot;Solid&quot;</code></td>
+  <td><code>&quot;Solid&quot;</code> (borde nítido) o <code>&quot;Soft&quot;</code> (brillo que se desvanece hacia fuera a lo largo del grosor)</td>
+</tr>
+<tr>
+  <td><code>pulseSpeed</code></td>
+  <td>Pulso (por segundo)</td>
+  <td><code>0</code></td>
+  <td>Pulsos por segundo de la opacidad (0 = fijo). Entre 0,5 y 1,5 llama la atención sin molestar</td>
+</tr>
+<tr>
+  <td><code>fillColor</code></td>
+  <td>Relleno</td>
+  <td>alfa 0</td>
+  <td>Tinte encima del objeto, en la misma parte que el borde (en <code>&quot;Occluded&quot;</code>, la silueta tapada). Alfa 0 = sin relleno</td>
+</tr>
+<tr>
+  <td><code>includeChildren</code></td>
+  <td>Incluir hijos</td>
+  <td><code>true</code></td>
+  <td>También las mallas de los hijos</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="los-tres-modos">Los tres modos<a class="ancla" href="#los-tres-modos" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Siempre (<code>&quot;Always&quot;</code>, con otro color para lo tapado)</th>
+  <th>Solo lo visible (<code>&quot;Visible&quot;</code>)</th>
+  <th>Solo lo tapado (<code>&quot;Occluded&quot;</code>, con relleno)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><figure class="captura"><img src="../assets/img/capturas-contorno-contorno-siempre.webp" alt="Siempre" width="640" height="360" loading="lazy" decoding="async"><figcaption>Siempre</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-contorno-contorno-visible.webp" alt="Visible" width="640" height="360" loading="lazy" decoding="async"><figcaption>Visible</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-contorno-contorno-tapado.webp" alt="Tapado" width="640" height="360" loading="lazy" decoding="async"><figcaption>Tapado</figcaption></figure></td>
+</tr>
+</tbody>
+</table></div>
+<p>El cubo tiene su mitad derecha detrás de una pared:</p>
+<ul>
+<li><strong>Siempre</strong> dibuja todo el borde; la parte de detrás de la pared, con el <strong>Color tapado</strong> (cian).</li>
+<li><strong>Solo lo visible</strong> no dibuja nada de la parte tapada (lo normal para lo que se puede usar).</li>
+<li><strong>Solo lo tapado</strong> dibuja el borde y el relleno solo donde la pared lo oculta: lo típico para los aliados.</li>
+</ul>
+<p><figure class="captura"><img src="../assets/img/capturas-contorno-contorno-suave.webp" alt="Estilo suave (brillo) de 10 px" width="640" height="360" loading="lazy" decoding="async"><figcaption>Estilo suave (brillo) de 10 px</figcaption></figure></p>
+<h3 id="en-el-editor">En el editor<a class="ancla" href="#en-el-editor" aria-label="Enlace a esta sección">#</a></h3>
+<p>El contorno se ve en el visor de la escena del editor y en el juego. No se mezcla con la selección del editor: lo
+seleccionado sigue teniendo su caja de selección y el contorno es parte de la imagen (en la captura, el zorro está
+seleccionado y tiene a la vez su caja y su contorno).</p>
+<p><figure class="captura"><img src="../assets/img/capturas-contorno-editor-contorno.webp" srcset="../assets/img/capturas-contorno-editor-contorno-800.webp 800w, ../assets/img/capturas-contorno-editor-contorno.webp 1600w" sizes="(max-width: 900px) 100vw, 900px" alt="El visor del editor con contornos y una selección" width="1600" height="900" loading="lazy" decoding="async"><figcaption>El visor del editor con contornos y una selección</figcaption></figure></p>
+<h3 id="desde-lua-1">Desde Lua<a class="ancla" href="#desde-lua-1" aria-label="Enlace a esta sección">#</a></h3>
+<p>Es un componente como los demás, y además hay una tabla <code>Outline</code> con atajos:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> cofre = <span class="hl-t">Scene</span>.<span class="hl-f">Find</span>(<span class="hl-s">"Cofre"</span>)
+<span class="hl-k">local</span> contorno = cofre:<span class="hl-f">AddComponent</span>(<span class="hl-s">"Outline"</span>)
+contorno.color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.8</span>, <span class="hl-n">0.2</span>)
+contorno.width = <span class="hl-n">4</span>
+contorno.mode = <span class="hl-s">"Visible"</span>
+
+<span class="hl-c">-- Atajos: añaden (o cambian) el contorno, lo activan y devuelven el componente</span>
+<span class="hl-t">Outline</span>.<span class="hl-f">Set</span>(cofre, <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.8</span>, <span class="hl-n">0.2</span>), <span class="hl-n">3</span>) <span class="hl-c">-- color y grosor (los dos opcionales)</span>
+<span class="hl-t">Outline</span>.<span class="hl-f">Set</span>(cofre, { mode = <span class="hl-s">"Occluded"</span>, fillColor = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">0.3</span>, <span class="hl-n">0.7</span>, <span class="hl-n">1</span>, <span class="hl-n">0.25</span>) }) <span class="hl-c">-- o una tabla de campos</span>
+<span class="hl-k">local</span> c = <span class="hl-t">Outline</span>.<span class="hl-f">Get</span>(cofre) <span class="hl-c">-- el componente, o nil</span>
+<span class="hl-t">Outline</span>.<span class="hl-f">Clear</span>(cofre) <span class="hl-c">-- lo quita (true si tenía)</span></code></pre></div>
+<p><code>nova.d.luau</code> declara el componente, sus modos (<code>OutlineMode</code>, <code>OutlineStyle</code>) y la tabla <code>Outline</code>, así que VS Code
+autocompleta los campos y los textos de <code>mode</code> y <code>style</code>.</p>
+<h3 id="ejemplo-resaltar-lo-que-mira-el-jugador">Ejemplo: resaltar lo que mira el jugador<a class="ancla" href="#ejemplo-resaltar-lo-que-mira-el-jugador" aria-label="Enlace a esta sección">#</a></h3>
+<p>Pon este script en la cámara del jugador y la etiqueta <code>Interactuable</code> (componente <strong>Etiquetas</strong>) en lo que se puede
+usar. Las entidades interactuables necesitan un <strong>Colisionador</strong> para que las encuentre el rayo.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Resalta lo que tiene delante la cámara (entidades con la etiqueta «Interactuable») y lo usa con la E</span>
+<span class="hl-k">local</span> <span class="hl-t">ResaltarAlMirar</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">ResaltarAlMirar</span>.alcance = <span class="hl-n">4</span> <span class="hl-a">--[Range(1, 20)]</span>
+<span class="hl-t">ResaltarAlMirar</span>.color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.8</span>, <span class="hl-n">0.2</span>)
+
+<span class="hl-k">function</span> <span class="hl-t">ResaltarAlMirar</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> t = <span class="hl-b">self</span>.transform
+    <span class="hl-k">local</span> golpe = <span class="hl-t">Physics</span>.<span class="hl-f">Raycast</span>(t.worldPosition, t.forward, <span class="hl-b">self</span>.alcance, { ignore = <span class="hl-b">self</span>.entity })
+    <span class="hl-k">local</span> mirado = golpe <span class="hl-k">and</span> golpe.entity
+    <span class="hl-c">-- El rayo puede dar en un hijo: sube hasta la entidad con la etiqueta</span>
+    <span class="hl-k">while</span> mirado <span class="hl-k">and</span> <span class="hl-k">not</span> mirado:<span class="hl-f">HasTag</span>(<span class="hl-s">"Interactuable"</span>) <span class="hl-k">do</span>
+        mirado = mirado.parent
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> mirado ~= <span class="hl-b">self</span>._mirado <span class="hl-k">then</span>
+        <span class="hl-k">if</span> <span class="hl-b">self</span>._mirado <span class="hl-k">and</span> <span class="hl-b">self</span>._mirado:<span class="hl-f">IsValid</span>() <span class="hl-k">then</span>
+            <span class="hl-t">Outline</span>.<span class="hl-f">Clear</span>(<span class="hl-b">self</span>._mirado)
+        <span class="hl-k">end</span>
+        <span class="hl-k">if</span> mirado <span class="hl-k">then</span>
+            <span class="hl-k">local</span> contorno = <span class="hl-t">Outline</span>.<span class="hl-f">Set</span>(mirado, <span class="hl-b">self</span>.color, <span class="hl-n">3</span>)
+            contorno.pulseSpeed = <span class="hl-n">1</span>
+        <span class="hl-k">end</span>
+        <span class="hl-b">self</span>._mirado = mirado
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._mirado <span class="hl-k">and</span> <span class="hl-t">Input</span>.<span class="hl-f">WasKeyPressed</span>(<span class="hl-s">"E"</span>) <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Usar "</span> .. <span class="hl-b">self</span>._mirado.name)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">ResaltarAlMirar</span></code></pre></div>
+<h3 id="en-red">En red<a class="ancla" href="#en-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>El Contorno se guarda en la escena y en los prefabs, y sus campos se <strong>replican</strong> como los de cualquier componente: si el
+servidor lo cambia en una entidad con <strong>Identidad de red</strong> (<code>NetworkIdentity</code>) que ya lo tiene, los clientes ven el cambio.</p>
+<p>Pero lo normal es ponerlo <strong>solo en el cliente</strong>: lo que se resalta suele depender de lo que mira o hace el jugador local
+(el ejemplo de arriba corre en cada máquina con su propia cámara y no envía nada por la red). Para los aliados a través
+de las paredes, cada cliente puede añadir el Contorno con <code>&quot;Occluded&quot;</code> a los personajes de su equipo cuando aparecen.</p>
+<h3 id="cuánto-cuesta">Cuánto cuesta<a class="ancla" href="#cuánto-cuesta" aria-label="Enlace a esta sección">#</a></h3>
+<p>Sin ningún Contorno activo <strong>no cuesta nada</strong>: no hay pasadas ni texturas. Con contornos, todos los objetos y colores van
+en <strong>una sola pasada agrupada</strong>: una máscara con las mallas con contorno, la búsqueda del borde por pantalla (<em>jump flood</em>,
+unas pocas pasadas según el grosor) y la mezcla final, solo en el rectángulo de pantalla que ocupan los objetos.</p>
+<p>Medido en la GPU a 1920 × 1080 con grosor 3 (prueba <code>contorno: coste en la GPU con 1, 10 y 100 objetos</code>, en una
+RTX 5060 Ti, con el resto del frame en unos 0,8 ms):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Objetos con contorno</th>
+  <th>Contornos (GPU)</th>
+  <th>Pasadas de pantalla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>0</td>
+  <td>0 ms (no se dibuja nada)</td>
+  <td>0</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>0,015 ms</td>
+  <td>6</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td>0,022 ms</td>
+  <td>6</td>
+</tr>
+<tr>
+  <td>100 (cada uno con su color y su modo)</td>
+  <td>0,048 ms</td>
+  <td>6</td>
+</tr>
+</tbody>
+</table></div>
+<p>El número de pasadas solo depende del grosor más grande: 6 con 3 px, 9 con 32 px. Más objetos solo añaden su dibujo en la
+máscara. El tramo sale como «Contornos» en los tiempos de GPU del perfilador.</p>
+<p>Funciona igual con normales duras, mallas con huesos y recortes alfa (el borde sale de lo que se ve en pantalla, no de
+inflar la malla), y no tiembla con el TAA: la máscara se dibuja sin el desplazamiento del antialiasing temporal y el
+borde lleva medio píxel de suavizado.</p>
+<h2 id="18-límites">18. Límites<a class="ancla" href="#18-límites" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li><strong>Reflejos en pantalla</strong>:<ul>
 <li>Solo reflejan lo que está en la imagen. Lo que queda detrás de la cámara o tapado por otra cosa refleja el cielo.</li>
@@ -927,10 +1134,20 @@ múltiplo de 4, compresión apagada) no cambian hasta que se recargan.</li>
 ventanas de «Anfitrión + clientes» y el juego publicado); la vista Juego del propio editor no lo respeta.</li>
 <li><strong>Desenfoque de movimiento</strong>: no tiene en cuenta el movimiento de cada hueso de los personajes (usa el de su objeto) ni el
 de las partículas.</li>
+<li><strong>Contorno</strong>:<ul>
+<li>Va encima de la imagen final (después del tonemapping y antes de los filtros de cámara): la niebla, el agua y lo
+transparente no lo tapan, y los filtros de cámara sí lo cambian.</li>
+<li>Dos objetos con contorno que se tocan en pantalla no tienen borde entre ellos; si sus grosores son distintos, donde
+se juntan manda el más cercano.</li>
+<li>Las partículas, los decals y el agua no llevan contorno. La capa de vista (el arma en primera persona) tampoco, en la
+cámara de su capa.</li>
+<li>Lo transparente cuenta como visible (no tapa lo que tiene detrás).</li>
+</ul>
+</li>
 </ul>
 <nav class="ant-sig" aria-label="Páginas"><a class="ant" href="materiales-nodos.html"><small>Anterior</small>Materiales por nodos</a><a class="sig" href="filtros-camara.html"><small>Siguiente</small>Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></nav></article>
 </main>
-<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-dónde-están-las-opciones">1. Dónde están las opciones</a></li><li class="n2"><a href="#2-reflejos-en-pantalla-ssr">2. Reflejos en pantalla (SSR)</a></li><li class="n2"><a href="#3-antialiasing-temporal-taa">3. Antialiasing temporal (TAA)</a></li><li class="n2"><a href="#4-cielo-procedural-hdri-o-noche">4. Cielo: procedural, HDRI o noche</a></li><li class="n3"><a href="#procedural-día">Procedural (día)</a></li><li class="n3"><a href="#hdri">HDRI</a></li><li class="n3"><a href="#noche">Noche</a></li><li class="n2"><a href="#5-texturas-comprimidas-bc7-bc5-bc4">5. Texturas comprimidas (BC7, BC5, BC4)</a></li><li class="n2"><a href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal">6. Sombras de contacto, sondas de reflejos y cristal</a></li><li class="n3"><a href="#sombras-de-contacto">Sombras de contacto</a></li><li class="n3"><a href="#sondas-de-reflejos-interiores">Sondas de reflejos (interiores)</a></li><li class="n3"><a href="#cristal-y-lentes">Cristal y lentes</a></li><li class="n2"><a href="#7-preajustes-de-calidad">7. Preajustes de calidad</a></li><li class="n2"><a href="#8-cuánto-cuesta-cada-efecto">8. Cuánto cuesta cada efecto</a></li><li class="n2"><a href="#9-receta-una-calle-mojada-de-noche">9. Receta: una calle mojada de noche</a></li><li class="n2"><a href="#10-desde-lua">10. Desde Lua</a></li><li class="n2"><a href="#11-claves-de-projectnova-y-del-entorno">11. Claves de project.nova y del Entorno</a></li><li class="n2"><a href="#12-capa-de-vista-el-arma-en-primera-persona">12. Capa de vista: el arma en primera persona</a></li><li class="n3"><a href="#cómo-se-usa">Cómo se usa</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n3"><a href="#antes-y-después">Antes y después</a></li><li class="n2"><a href="#13-distancia-máxima-de-dibujo">13. Distancia máxima de dibujo</a></li><li class="n2"><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">14. Calidad de las texturas y memoria de vídeo</a></li><li class="n3"><a href="#medida-el-mapa-realista-del-modo-zombis">Medida: el mapa realista del modo Zombis</a></li><li class="n2"><a href="#15-desenfoque-de-movimiento">15. Desenfoque de movimiento</a></li><li class="n2"><a href="#16-estadísticas-de-render-desde-lua">16. Estadísticas de render desde Lua</a></li><li class="n2"><a href="#17-límites">17. Límites</a></li></ul></div></aside>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-dónde-están-las-opciones">1. Dónde están las opciones</a></li><li class="n2"><a href="#2-reflejos-en-pantalla-ssr">2. Reflejos en pantalla (SSR)</a></li><li class="n2"><a href="#3-antialiasing-temporal-taa">3. Antialiasing temporal (TAA)</a></li><li class="n2"><a href="#4-cielo-procedural-hdri-o-noche">4. Cielo: procedural, HDRI o noche</a></li><li class="n3"><a href="#procedural-día">Procedural (día)</a></li><li class="n3"><a href="#hdri">HDRI</a></li><li class="n3"><a href="#noche">Noche</a></li><li class="n2"><a href="#5-texturas-comprimidas-bc7-bc5-bc4">5. Texturas comprimidas (BC7, BC5, BC4)</a></li><li class="n2"><a href="#6-sombras-de-contacto-sondas-de-reflejos-y-cristal">6. Sombras de contacto, sondas de reflejos y cristal</a></li><li class="n3"><a href="#sombras-de-contacto">Sombras de contacto</a></li><li class="n3"><a href="#sondas-de-reflejos-interiores">Sondas de reflejos (interiores)</a></li><li class="n3"><a href="#cristal-y-lentes">Cristal y lentes</a></li><li class="n2"><a href="#7-preajustes-de-calidad">7. Preajustes de calidad</a></li><li class="n2"><a href="#8-cuánto-cuesta-cada-efecto">8. Cuánto cuesta cada efecto</a></li><li class="n2"><a href="#9-receta-una-calle-mojada-de-noche">9. Receta: una calle mojada de noche</a></li><li class="n2"><a href="#10-desde-lua">10. Desde Lua</a></li><li class="n2"><a href="#11-claves-de-projectnova-y-del-entorno">11. Claves de project.nova y del Entorno</a></li><li class="n2"><a href="#12-capa-de-vista-el-arma-en-primera-persona">12. Capa de vista: el arma en primera persona</a></li><li class="n3"><a href="#cómo-se-usa">Cómo se usa</a></li><li class="n3"><a href="#desde-lua">Desde Lua</a></li><li class="n3"><a href="#antes-y-después">Antes y después</a></li><li class="n2"><a href="#13-distancia-máxima-de-dibujo">13. Distancia máxima de dibujo</a></li><li class="n2"><a href="#14-calidad-de-las-texturas-y-memoria-de-vídeo">14. Calidad de las texturas y memoria de vídeo</a></li><li class="n3"><a href="#medida-el-mapa-realista-del-modo-zombis">Medida: el mapa realista del modo Zombis</a></li><li class="n2"><a href="#15-desenfoque-de-movimiento">15. Desenfoque de movimiento</a></li><li class="n2"><a href="#16-estadísticas-de-render-desde-lua">16. Estadísticas de render desde Lua</a></li><li class="n2"><a href="#17-contorno-resaltar-objetos">17. Contorno: resaltar objetos</a></li><li class="n3"><a href="#campos">Campos</a></li><li class="n3"><a href="#los-tres-modos">Los tres modos</a></li><li class="n3"><a href="#en-el-editor">En el editor</a></li><li class="n3"><a href="#desde-lua-1">Desde Lua</a></li><li class="n3"><a href="#ejemplo-resaltar-lo-que-mira-el-jugador">Ejemplo: resaltar lo que mira el jugador</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n3"><a href="#cuánto-cuesta">Cuánto cuesta</a></li><li class="n2"><a href="#18-límites">18. Límites</a></li></ul></div></aside>
 </div>
 <footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
 <script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>

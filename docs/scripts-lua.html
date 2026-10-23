@@ -1140,6 +1140,10 @@ componentes tienen funciones extra:</p>
   <td><code>Environment</code></td>
   <td>La niebla también con la tabla global <code>Environment</code>: <code>SetFog</code>, <code>SetFogPreset</code>, <code>TransitionFog</code> (el tiempo que cambia poco a poco) y <code>CreateFogVolume</code> (ver <a href="niebla-volumetrica.html#6-desde-los-scripts-lua">niebla-volumetrica.md</a>)</td>
 </tr>
+<tr>
+  <td><code>Outline</code></td>
+  <td>Contorno en pantalla; también con la tabla global <code>Outline</code>: <code>Outline.Set(entidad, color?, grosor?)</code> o <code>Outline.Set(entidad, { mode = &quot;Occluded&quot;, ... })</code>, <code>Outline.Clear(entidad)</code> y <code>Outline.Get(entidad)</code> (ver <a href="render.html#17-contorno-resaltar-objetos">render.md</a>)</td>
+</tr>
 </tbody>
 </table></div>
 <p><strong>Cambiar de escena.</strong> <code>Scene.Load(&quot;scenes/Nivel2&quot;)</code> (o con un campo <code>Asset(&quot;Scene&quot;)</code>) carga otra escena al
