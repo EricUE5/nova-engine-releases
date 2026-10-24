@@ -148,7 +148,7 @@ C++, su DLL) y la escena inicial, y la ejecuta en modo juego. En la carpeta publ
 </tr>
 <tr>
   <td><code>--scene &lt;ruta&gt;</code></td>
-  <td>Empieza en otra escena, por ejemplo <code>scenes/Nivel2.scene</code> (en <code>assets/</code>; también vale una ruta absoluta)</td>
+  <td>Empieza en otra escena, por ejemplo <code>scenes/Nivel2.scene</code> (en <code>assets/</code>; también vale una ruta absoluta, y sin <code>.scene</code>). Si la escena inicial no carga, sale con el código 3 y el motivo en el log (con <code>--hidden</code> o <code>--frames</code>, sin ventanas de aviso)</td>
 </tr>
 <tr>
   <td><code>--fullscreen</code></td>
@@ -318,7 +318,7 @@ C++ le falta su DLL, el juego arranca igualmente sin esos scripts y lo anota en 
 </tr>
 <tr>
   <td><code>shadercache\</code></td>
-  <td>Shaders compilados. El primer arranque es algo más lento porque los compila; después se cargan de aquí</td>
+  <td>Shaders compilados que no venían con el juego (los del motor ya van compilados en la carpeta <code>shadercache\</code> del juego publicado, así que el primer arranque no tarda; aquí quedan los de los materiales por nodos y los que cambien)</td>
 </tr>
 <tr>
   <td><code>servidor.log</code></td>

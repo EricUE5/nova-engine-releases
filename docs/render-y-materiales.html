@@ -219,6 +219,12 @@ están, el motor sigue sin ella. Sus avisos y errores pasan al log (y a la Conso
 <li><strong>Caché</strong>: el bytecode se guarda en disco, indexado por un hash del código (incluidos los <code>#include</code>), el
 punto de entrada, el perfil y los defines. En compilaciones de desarrollo la caché está en
 <code>build\&lt;preset&gt;\shadercache</code>; en el juego publicado, en <code>%LOCALAPPDATA%\&lt;nombre del juego&gt;\shadercache</code>.</li>
+<li><strong>Shaders ya compilados con el motor</strong>: el motor instalado y los juegos publicados llevan los shaders del motor ya
+compilados en <code>bin\shadercache</code> (o <code>shadercache\</code> junto al juego), una caché de solo lectura que se mira si el shader no
+está en la propia. Sin ella, el primer arranque con una versión nueva (o con otra carpeta de datos) compilaba todos los
+shaders y tardaba entre 10 y 25 segundos. La prepara <code>NovaGame.exe --preparar-shaders &lt;carpeta&gt;</code> (lo hace
+<code>tools\package.cmd</code>). El registro dice cuánto tardó el render y cuántos shaders compiló:
+«Render: listo en 18,2 s (85 shaders compilados porque no estaban en la caché...)».</li>
 <li><strong>Recarga en caliente</strong> (solo <code>debug</code> y <code>release</code>): los shaders se leen directamente de <code>engine/shaders</code>.
 Edita un <code>.hlsl</code> con el editor abierto y, al guardar, se recompila y se sustituye en menos de un segundo. Si
 la compilación falla, se conserva la versión anterior y el error aparece en la Consola.</li>

@@ -142,7 +142,7 @@ de tener dibujos.</p>
 <tr>
   <td>Destello</td>
   <td><code>flash</code></td>
-  <td>Tiñe el sprite de un color (el alfa dice cuánto): el blanco de un golpe</td>
+  <td>Tiñe el sprite de un color: el alfa es la intensidad de la mezcla hacia ese color (no la opacidad del sprite, que no cambia). El blanco de un golpe es alfa 1</td>
 </tr>
 <tr>
   <td>Modo / Tamaño</td>
@@ -272,7 +272,7 @@ aplica al <strong>dibujo</strong>, no al Transform: las físicas, la red y los s
 </tr>
 <tr>
   <td><strong>Destello</strong></td>
-  <td><code>juice:Flash()</code>: blanco entero al recibir daño, se apaga solo</td>
+  <td><code>juice:Flash()</code>: blanco entero al recibir daño, se apaga solo. <code>juice:Flash(Color.new(1, 1, 1, 0.5))</code> lo tiñe a medias (el alfa es la intensidad)</td>
 </tr>
 <tr>
   <td><strong>Parpadeo</strong></td>
@@ -313,7 +313,8 @@ dibujarle el borde, y el contorno sigue al fotograma, al volteo, al squash &amp;
 <h2 id="7-efectos-de-juego-números-de-daño-y-estallidos">7. Efectos de juego: números de daño y estallidos<a class="ancla" href="#7-efectos-de-juego-números-de-daño-y-estallidos" aria-label="Enlace a esta sección">#</a></h2>
 <p><code>Effects2D</code> lanza <strong>números de daño flotantes</strong> (saltan, rebotan y se desvanecen) y <strong>estallidos de formas planas</strong>
 (círculos, estrellas, rombos, corazones, cuadrados y anillos) con el mismo contorno de dibujo. No son entidades: no cuestan
-nada en la Jerarquía y van en un solo lote.</p>
+nada en la Jerarquía y van en un solo lote. Los textos tienen todo el Latin-1 («¡», «¿», tildes, «ñ», «ü», «ç»...) y los
+signos de la interfaz («€», «…», comillas y rayas); lo que no está en la fuente sale como «?».</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Effects2D</span>.<span class="hl-f">DamageNumber</span>(enemigo.position, <span class="hl-n">25</span>)
 <span class="hl-t">Effects2D</span>.<span class="hl-f">DamageNumber</span>(enemigo.position, <span class="hl-s">"¡CRÍTICO!"</span>, { color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.3</span>, <span class="hl-n">0.3</span>), size = <span class="hl-n">0.8</span> })
 <span class="hl-t">Effects2D</span>.<span class="hl-f">Burst</span>(posicion, { shape = <span class="hl-s">"Heart"</span>, count = <span class="hl-n">6</span>, speed = <span class="hl-n">2</span> })
@@ -455,7 +456,7 @@ y deja el lado múltiplo de 4.</li>
 </tr>
 <tr>
   <td><code>sprite:Flash(color?, segundos?)</code></td>
-  <td>Destello que se apaga solo</td>
+  <td>Destello que se apaga solo (el alfa del color es la intensidad con que empieza)</td>
 </tr>
 <tr>
   <td><code>anim:Play(estado, reiniciar?)</code></td>

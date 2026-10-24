@@ -214,7 +214,8 @@ cualquier frecuencia de pantalla).</li>
 </table></div>
 <p>Mover el <strong>Transform</strong> de un cuerpo desde un script también vale: un estático o un dinámico se teletransportan; un
 cinemático <strong>llega</strong> a esa pose en el siguiente paso con la velocidad que hace falta (así empuja y arrastra lo que tiene
-encima).</p>
+encima) y <strong>se para allí</strong>: en un paso en el que no se le pide otra pose, su velocidad pasa a 0, igual que un cinemático
+3D. Solo sigue moviéndose solo si le das tú una velocidad con <code>rb:SetVelocity</code>.</p>
 <h2 id="3-colisionadores-2d">3. Colisionadores 2D<a class="ancla" href="#3-colisionadores-2d" aria-label="Enlace a esta sección">#</a></h2>
 <p>Todos tienen:</p>
 <div class="tabla"><table>
