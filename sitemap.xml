@@ -22,6 +22,9 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/materiales-nodos.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/render.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/filtros-camara.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/juegos-2d.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/fisicas-2d.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/mundo-2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/iluminacion-horneada.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/niebla-volumetrica.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/nubes.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -68,6 +71,7 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-boneattachment.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-bounds.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-camera.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-camera2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-chat.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-color.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-console.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -79,6 +83,7 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-easing.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-editor.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-effects.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-effects2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-environment.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-event.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-filters.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -100,8 +105,10 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-navigation.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-network.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-noise.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-outline.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-persistence.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-physics.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-physics2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-plane.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-playerprefs.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-pool.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -118,6 +125,7 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-sphere.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-spline.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-steam.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-table.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-tags.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-task.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-terrain.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -142,10 +150,14 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-asset.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-audiolistener.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-audiosource.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-boxcollider2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-buoyancy.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-cvarobject.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-camerafilters.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-capsulecollider2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-charactercontroller.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-charactercontroller2d.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-circlecollider2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-collider.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-curvevalue.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-decal.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -153,6 +165,7 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-destructible.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-destructionfield.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-directionallight.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-edgecollider2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-editorgenerated.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-entity.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-eventconnection.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -177,15 +190,18 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-networkidentity.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-networktransform.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-noisegenerator.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-parallaxlayer.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-particlesystem.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-playerspawner.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-pointlight.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-polygoncollider2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-poolreturn.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-prefabinstance.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-pruebacomp.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-ragdoll.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-reflectionprobe.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-rigidbody.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-rigidbody2d.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-road.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-roadjunction.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-script.html</loc><lastmod>2026-10-24</lastmod></url>
@@ -194,7 +210,11 @@
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-skinnedmeshrenderer.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-splinefollower.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-spotlight.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-spriteanimator.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-spritejuice.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-spriterenderer.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-tagcontainer.html</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-tilemap.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-transform.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-uianimation.html</loc><lastmod>2026-10-24</lastmod></url>
   <url><loc>https://ericue5.github.io/nova-engine-releases/docs/lua-uibutton.html</loc><lastmod>2026-10-24</lastmod></url>

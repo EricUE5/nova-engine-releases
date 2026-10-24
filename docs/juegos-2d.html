@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juegos 2D: plataformas con disparos, jefes y dibujos con vida · Nova Engine</title>
+<meta name="description" content="Nova Engine hace juegos 2D con el mismo editor, los mismos scripts Lua y la misma red que los 3D. Esta guía cuenta cómo
+montar un juego de plataformas y disparos con personajes dibujados, jefes por fases y fondos por cap">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Juegos 2D: plataformas con disparos, jefes y dibujos con vida · Nova Engine">
+<meta property="og:description" content="Nova Engine hace juegos 2D con el mismo editor, los mismos scripts Lua y la misma red que los 3D. Esta guía cuenta cómo
+montar un juego de plataformas y disparos con personajes dibujados, jefes por fases y fondos por cap">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/juegos-2d.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/juegos-2d.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html" aria-current="page">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="juegos-2d-plataformas-con-disparos-jefes-y-dibujos-con-vida">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-la-escena-2d">1. La escena 2D</a></li><li class="n2"><a href="#2-sprites">2. Sprites</a></li><li class="n2"><a href="#3-hojas-de-sprites-y-atlas">3. Hojas de sprites y atlas</a></li><li class="n3"><a href="#empaquetar-imágenes-sueltas-atlas">Empaquetar imágenes sueltas (atlas)</a></li><li class="n2"><a href="#4-animación-por-fotogramas">4. Animación por fotogramas</a></li><li class="n3"><a href="#el-animador-de-sprites">El Animador de sprites</a></li><li class="n2"><a href="#5-animación-procedural-juice">5. Animación procedural (juice)</a></li><li class="n2"><a href="#6-el-contorno-de-dibujo">6. El contorno de dibujo</a></li><li class="n2"><a href="#7-efectos-de-juego-números-de-daño-y-estallidos">7. Efectos de juego: números de daño y estallidos</a></li><li class="n2"><a href="#8-capas-de-dibujo-y-orden">8. Capas de dibujo y orden</a></li><li class="n2"><a href="#9-el-aspecto-de-dibujos-animados-antiguos">9. El aspecto de dibujos animados antiguos</a></li><li class="n2"><a href="#10-jefes-por-fases">10. Jefes por fases</a></li><li class="n2"><a href="#11-en-red">11. En red</a></li><li class="n2"><a href="#12-rendimiento-y-memoria">12. Rendimiento y memoria</a></li><li class="n2"><a href="#13-referencia-de-lua">13. Referencia de Lua</a></li><li class="n2"><a href="#14-físicas-y-personaje-de-plataformas">14. Físicas y personaje de plataformas</a></li><li class="n2"><a href="#15-la-plantilla-plataformas-2d-lua">15. La plantilla «Plataformas 2D (Lua)»</a></li><li class="n3"><a href="#qué-hay-en-la-escena">Qué hay en la escena</a></li><li class="n3"><a href="#cómo-se-juega-y-qué-hace-cada-script">Cómo se juega y qué hace cada script</a></li><li class="n3"><a href="#cambiar-el-nivel">Cambiar el nivel</a></li></ul></details><p>Nova Engine hace juegos 2D con el mismo editor, los mismos scripts Lua y la misma red que los 3D. Esta guía cuenta cómo
+montar un juego de <strong>plataformas y disparos</strong> con personajes dibujados, <strong>jefes por fases</strong> y fondos por capas, con dos
+aspectos posibles:</p>
+<ul>
+<li><strong>Arcade moderno</strong>: dibujo vectorial limpio, colores planos y vivos, un <strong>contorno oscuro y grueso</strong> alrededor de cada
+personaje y objeto, formas redondeadas y personajes muy expresivos, casi sin sombreado. La animación es sobre todo
+<strong>procedural</strong> (se estira al saltar, se aplasta al aterrizar, se balancea al andar, destella al recibir un golpe).</li>
+<li><strong>Dibujos animados clásicos</strong>: cada movimiento dibujado a mano fotograma a fotograma, a <strong>24 fotogramas por segundo</strong>,
+con el filtro <strong>«Cartoon antiguo»</strong> (grano de película, viñeta, tono cálido, rayas y parpadeo).</li>
+</ul>
+<p>Las dos cosas se mezclan: un personaje con animación por fotogramas también puede llevar contorno y «juice».</p>
+<p>Esta guía cubre lo que se dibuja (sprites, animación, contorno, efectos) y la plantilla. Las otras dos piezas de un juego
+2D tienen su propia guía:</p>
+<ul>
+<li><a href="fisicas-2d.html">Físicas 2D</a>: cuerpos, colisionadores, sensores, plataformas de un sentido y el personaje de plataformas
+(<code>CharacterController2D</code> con coyote time, buffer de salto, dash y parry).</li>
+<li><a href="mundo-2d.html">Mundo 2D</a>: la vista 2D del editor, los fondos por capas (<strong>ParallaxLayer</strong>), la cámara de plataformas
+(<strong>Camera2D</strong>) y los niveles por tiles (<strong>Tilemap</strong> y <strong>TileSet</strong>).</li>
+</ul>
+<p><figure class="captura"><img src="../assets/img/capturas-2d-juego-2d.webp" srcset="../assets/img/capturas-2d-juego-2d-800.webp 800w, ../assets/img/capturas-2d-juego-2d.webp 1280w" sizes="(max-width: 900px) 100vw, 900px" alt="Una escena 2D en el juego: sprites con el contorno de dibujo y el tonemapping «Ninguno»" width="1280" height="720" loading="lazy" decoding="async"><figcaption>Una escena 2D en el juego: sprites con el contorno de dibujo y el tonemapping «Ninguno»</figcaption></figure></p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-la-escena-2d">La escena 2D</a></li>
+<li><a href="#2-sprites">Sprites</a></li>
+<li><a href="#3-hojas-de-sprites-y-atlas">Hojas de sprites y atlas</a></li>
+<li><a href="#4-animación-por-fotogramas">Animación por fotogramas</a></li>
+<li><a href="#5-animación-procedural-juice">Animación procedural (juice)</a></li>
+<li><a href="#6-el-contorno-de-dibujo">El contorno de dibujo</a></li>
+<li><a href="#7-efectos-de-juego-números-de-daño-y-estallidos">Efectos de juego: números de daño y estallidos</a></li>
+<li><a href="#8-capas-de-dibujo-y-orden">Capas de dibujo y orden</a></li>
+<li><a href="#9-el-aspecto-de-dibujos-animados-antiguos">El aspecto de dibujos animados antiguos</a></li>
+<li><a href="#10-jefes-por-fases">Jefes por fases</a></li>
+<li><a href="#11-en-red">En red</a></li>
+<li><a href="#12-rendimiento-y-memoria">Rendimiento y memoria</a></li>
+<li><a href="#13-referencia-de-lua">Referencia de Lua</a></li>
+<li><a href="#14-físicas-y-personaje-de-plataformas">Físicas y personaje de plataformas</a></li>
+<li><a href="#15-la-plantilla-plataformas-2d-lua">La plantilla «Plataformas 2D (Lua)»</a></li>
+</ol>
+<h2 id="1-la-escena-2d">1. La escena 2D<a class="ancla" href="#1-la-escena-2d" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un juego 2D es una escena normal vista con una <strong>cámara ortográfica</strong> de frente:</p>
+<ol>
+<li>En la cámara: <strong>Proyección: Ortográfica</strong> y <strong>Tamaño ortográfico</strong> = la mitad del alto que se ve, en unidades (5 = se
+ven 10 unidades de alto). La cámara mira hacia −Z (la rotación por defecto) desde Z = 10, por ejemplo. Para que siga
+al jugador, añádele <strong>2D &gt; Cámara 2D</strong> (<a href="mundo-2d.html#3-la-cámara-de-plataformas-camera2d">mundo-2d.md</a>). En el editor,
+el botón <strong>2D</strong> del visor pone la vista de frente, ortográfica.</li>
+<li>Los sprites viven en el plano XY (Z = 0). La Z solo sirve para desempatar el orden (lo más cercano a la cámara,
+delante) y para que un objeto 3D tape lo que tiene detrás.</li>
+<li>En el <strong>Entorno</strong>: <strong>Tonemapping: Ninguno</strong>. Con «Ninguno», los colores de los dibujos salen <strong>exactamente</strong> como en el
+programa de dibujo (con ACES, el tonemapping de cine de las escenas 3D, se ven más oscuros y apagados). Quita también el
+bloom, la viñeta y la oclusión ambiental si no los quieres.</li>
+<li>Una unidad del mundo = 100 píxeles de los dibujos por defecto (lo cambia cada hoja con <strong>Píxeles por unidad</strong>).</li>
+</ol>
+<p>El TAA (antialiasing temporal) no estropea los sprites: con TAA se dibujan sobre la imagen ya resuelta, sin el temblor de
+la cámara, así que no se emborronan ni dejan estela al moverse. El bloom, los filtros de cámara y el resto del postproceso
+sí les llegan.</p>
+<h2 id="2-sprites">2. Sprites<a class="ancla" href="#2-sprites" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Añadir componente &gt; 2D &gt; Sprite</strong> (<code>SpriteRenderer</code> en Lua). Dibuja una imagen, o un fotograma de una hoja de sprites,
+en el plano de la entidad. Sin imagen dibuja un cuadrado blanco de 1 × 1: sirve para probar con bloques de colores antes
+de tener dibujos.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Lua</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Imagen</td>
+  <td><code>sprite</code></td>
+  <td>La textura: una imagen suelta o una hoja de sprites</td>
+</tr>
+<tr>
+  <td>Fotograma</td>
+  <td><code>frame</code></td>
+  <td>El fotograma de la hoja por su nombre (vacío = el primero). Con un Animador de sprites, lo pone él</td>
+</tr>
+<tr>
+  <td>Color</td>
+  <td><code>color</code></td>
+  <td>Tinte (multiplica el dibujo); el alfa es la opacidad</td>
+</tr>
+<tr>
+  <td>Voltear X / Y</td>
+  <td><code>flipX</code>, <code>flipY</code></td>
+  <td>Espejo sobre el pivote: un personaje que mira a la izquierda</td>
+</tr>
+<tr>
+  <td>Pivote del fotograma / Pivote</td>
+  <td><code>useSpritePivot</code>, <code>pivot</code></td>
+  <td>El punto del dibujo que cae en el origen de la entidad (los pies)</td>
+</tr>
+<tr>
+  <td>Capa de dibujo / Orden en la capa</td>
+  <td><code>sortingLayer</code>, <code>orderInLayer</code></td>
+  <td>Qué se dibuja delante (ver <a href="#8-capas-de-dibujo-y-orden">Capas</a>)</td>
+</tr>
+<tr>
+  <td>Píxeles por unidad</td>
+  <td><code>pixelsPerUnit</code></td>
+  <td>0 = los de la hoja</td>
+</tr>
+<tr>
+  <td>Luz</td>
+  <td><code>lighting</code></td>
+  <td><code>&quot;Unlit&quot;</code> (el dibujo tal cual) o <code>&quot;Lit&quot;</code> (luz 2D: ambiente, sol y luces cercanas, sin normales)</td>
+</tr>
+<tr>
+  <td>Mezcla</td>
+  <td><code>blend</code></td>
+  <td><code>&quot;Alpha&quot;</code>, <code>&quot;Additive&quot;</code> (fogonazos y chispas que suman luz) o <code>&quot;Premultiplied&quot;</code></td>
+</tr>
+<tr>
+  <td>Destello</td>
+  <td><code>flash</code></td>
+  <td>Tiñe el sprite de un color (el alfa dice cuánto): el blanco de un golpe</td>
+</tr>
+<tr>
+  <td>Modo / Tamaño</td>
+  <td><code>drawMode</code>, <code>size</code></td>
+  <td><code>&quot;Tiled&quot;</code> repite la imagen hasta llenar <code>size</code> (suelos, fondos que se repiten)</td>
+</tr>
+<tr>
+  <td>Grosor y color del contorno</td>
+  <td><code>outlineWidth</code>, <code>outlineColor</code></td>
+  <td>El <a href="#6-el-contorno-de-dibujo">contorno de dibujo</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Los sprites con la misma textura se dibujan <strong>juntos en una sola llamada</strong> a la GPU (un lote): miles de enemigos, balas o
+monedas de la misma hoja cuestan casi lo mismo que uno.</p>
+<p>Al elegir un sprite en el visor <strong>Escena</strong> se selecciona por su dibujo (lo transparente no cuenta).</p>
+<h2 id="3-hojas-de-sprites-y-atlas">3. Hojas de sprites y atlas<a class="ancla" href="#3-hojas-de-sprites-y-atlas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una <strong>hoja de sprites</strong> es un PNG con muchos dibujos. Los cortes (nombre, rectángulo y pivote de cada fotograma) se guardan
+en el <code>.meta</code> de la textura, así que la imagen sigue siendo una textura normal y se puede volver a cortar sin romper nada.</p>
+<p>Elige la textura en <strong>Contenido</strong> y pulsa <strong>Editar hoja de sprites</strong> en el Inspector:</p>
+<p><figure class="captura"><img src="../assets/img/capturas-2d-editor-hoja-sprites.webp" srcset="../assets/img/capturas-2d-editor-hoja-sprites-800.webp 800w, ../assets/img/capturas-2d-editor-hoja-sprites.webp 1600w" sizes="(max-width: 900px) 100vw, 900px" alt="La ventana Hoja de sprites con tres fotogramas elegidos" width="1600" height="900" loading="lazy" decoding="async"><figcaption>La ventana Hoja de sprites con tres fotogramas elegidos</figcaption></figure></p>
+<ul>
+<li><strong>Cortar</strong>: imagen entera, <strong>rejilla</strong> (ancho, alto, margen y espacio entre celdas; las celdas vacías se saltan),
+<strong>automático</strong> (un fotograma por cada dibujo separado por transparencia) o <strong>a mano</strong> (arrastra en un hueco de la imagen).
+Volver a cortar conserva el nombre y el pivote de los cortes que no se mueven.</li>
+<li><strong>Fotograma</strong>: nombre (el que usan el Sprite y las animaciones), rectángulo y <strong>pivote</strong>. El pivote también se arrastra
+con la cruz roja en la imagen (con Mayús, a octavos). Ponlo en los pies: así el personaje no baila al cambiar de dibujo.</li>
+<li><strong>Vista previa</strong>: los fotogramas elegidos (Ctrl o Mayús para varios) animados a los FPS que digas.</li>
+<li><strong>Crear animación</strong>: un <code>.anim2d</code> con los fotogramas elegidos.</li>
+<li><strong>Pixel art (sin suavizar)</strong> y <strong>Comprimir (BC7)</strong> (ver <a href="#12-rendimiento-y-memoria">Rendimiento</a>).</li>
+<li><strong>Ctrl+Z / Ctrl+Y</strong> deshacen y rehacen dentro de la ventana; <strong>Guardar</strong> (o cerrarla) lo escribe en el <code>.meta</code>.</li>
+</ul>
+<h3 id="empaquetar-imágenes-sueltas-atlas">Empaquetar imágenes sueltas (atlas)<a class="ancla" href="#empaquetar-imágenes-sueltas-atlas" aria-label="Enlace a esta sección">#</a></h3>
+<p>Muchos programas de dibujo exportan cada fotograma en su PNG. <strong>Empaquetar imágenes sueltas</strong> (en la misma ventana) junta
+los PNG de una carpeta en una sola hoja:</p>
+<ul>
+<li>recorta lo transparente de cada dibujo, y el pivote no se mueve (el fotograma recuerda dónde estaba dentro del original);</li>
+<li>los dibujos repetidos (el mismo dibujo en dos fotogramas) se guardan una vez;</li>
+<li>deja un borde entre fotogramas para que el filtro y los mips no mezclen dibujos;</li>
+<li>el lado de la hoja es múltiplo de 4 (para la compresión BC7);</li>
+<li>cada fotograma conserva el nombre de su fichero (<code>Correr_00</code>, <code>Correr_01</code>...).</li>
+</ul>
+<h2 id="4-animación-por-fotogramas">4. Animación por fotogramas<a class="ancla" href="#4-animación-por-fotogramas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una <strong>animación 2D</strong> es un asset <code>.anim2d</code> (<strong>Contenido &gt; Crear &gt; Animación &gt; Animación 2D</strong>, o <strong>Crear animación</strong> en la
+ventana de la hoja): sus fotogramas, los FPS, si va en bucle y un <strong>evento</strong> opcional en cada fotograma. En el Inspector del
+<code>.anim2d</code> se ve animada y se cambia todo con deshacer.</p>
+<ul>
+<li><strong>Dura</strong>: cuántos fotogramas del clip dura cada dibujo. La animación a mano clásica va a 24 FPS con muchos dibujos que
+duran 2 («en doses»): pon el clip a 24 y esos dibujos con <strong>Dura = 2</strong>.</li>
+<li><strong>Evento</strong>: al entrar en ese fotograma llega <code>OnAnimationEvent(nombre)</code> a los scripts de la entidad y el evento de Lua
+<code>&quot;sprite:frameEvent&quot;</code>. Es lo que sincroniza el juego con el dibujo: la bala sale en el fotograma en el que el brazo se
+estira, el paso suena cuando el pie toca el suelo.</li>
+<li>Un clip puede usar fotogramas de <strong>varias hojas</strong> (las animaciones largas no caben en una).</li>
+</ul>
+<h3 id="el-animador-de-sprites">El Animador de sprites<a class="ancla" href="#el-animador-de-sprites" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Añadir componente &gt; 2D &gt; Animador de sprites</strong> (<code>SpriteAnimator</code>), en la misma entidad que el Sprite:</p>
+<ul>
+<li><strong>Estados</strong>: nombre (<code>Idle</code>, <code>Run</code>, <code>Jump</code>, <code>Shoot</code>...), su clip <code>.anim2d</code>, su velocidad y <strong>Al acabar, pasar a</strong> (para
+los clips sin bucle: el disparo vuelve a <code>Idle</code>).</li>
+<li><strong>Transiciones</strong>: de un estado (o de cualquiera) a otro con un <strong>disparador</strong> (<code>anim:SetTrigger(&quot;Saltar&quot;)</code>) o <strong>al acabar</strong>
+el clip.</li>
+<li><strong>Estado inicial</strong>, <strong>Reproducir al empezar</strong>, <strong>Velocidad</strong> y <strong>Animar en el editor</strong> (se ve animado en el visor sin
+jugar, sin eventos).</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el personaje (con Sprite y Animador de sprites con los estados Idle, Run y Shoot)</span>
+<span class="hl-k">local</span> <span class="hl-t">HeroeAnimado</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">HeroeAnimado</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>.anim = <span class="hl-b">self</span>.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpriteAnimator"</span>)
+    <span class="hl-b">self</span>.sprite = <span class="hl-b">self</span>.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpriteRenderer"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">HeroeAnimado</span>:<span class="hl-f">Update</span>(dt)
+    <span class="hl-k">local</span> x = <span class="hl-t">Input</span>.<span class="hl-f">GetAxis</span>(<span class="hl-s">"MoverX"</span>)
+    <span class="hl-k">if</span> <span class="hl-t">math</span>.<span class="hl-f">abs</span>(x) &gt; <span class="hl-n">0.1</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.sprite.flipX = x &lt; <span class="hl-n">0</span>
+        <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.anim:<span class="hl-f">IsPlaying</span>(<span class="hl-s">"Shoot"</span>) <span class="hl-k">then</span> <span class="hl-b">self</span>.anim:<span class="hl-f">Play</span>(<span class="hl-s">"Run"</span>) <span class="hl-k">end</span>
+    <span class="hl-k">elseif</span> <span class="hl-k">not</span> <span class="hl-b">self</span>.anim:<span class="hl-f">IsPlaying</span>(<span class="hl-s">"Shoot"</span>) <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.anim:<span class="hl-f">Play</span>(<span class="hl-s">"Idle"</span>)
+    <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span> <span class="hl-b">self</span>.anim:<span class="hl-f">Play</span>(<span class="hl-s">"Shoot"</span>, <span class="hl-b">true</span>) <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- El clip Shoot tiene el evento «Disparo» en el fotograma en el que sale la bala</span>
+<span class="hl-k">function</span> <span class="hl-t">HeroeAnimado</span>:<span class="hl-f">OnAnimationEvent</span>(nombre)
+    <span class="hl-k">if</span> nombre == <span class="hl-s">"Disparo"</span> <span class="hl-k">then</span>
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"¡pum!"</span>)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">HeroeAnimado</span></code></pre></div>
+<p>Cualquier script recibe los eventos de todos los sprites con <code>AddEventHandler(&quot;sprite:frameEvent&quot;, function(entidad, nombre, fotograma, estado, parametro) ... end)</code> (el fotograma cuenta desde 1).</p>
+<h2 id="5-animación-procedural-juice">5. Animación procedural (juice)<a class="ancla" href="#5-animación-procedural-juice" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Añadir componente &gt; 2D &gt; Animación procedural (juice)</strong> (<code>SpriteJuice</code>). Da vida a un dibujo sin fotogramas nuevos. Todo se
+aplica al <strong>dibujo</strong>, no al Transform: las físicas, la red y los scripts siguen viendo la posición real.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Squash &amp; stretch</strong></td>
+  <td>Un muelle: se <strong>estira al saltar</strong> y se <strong>aplasta al aterrizar</strong> solo (según cómo se mueve la entidad); <code>juice:Squash(0.3)</code> y <code>juice:Stretch(0.25)</code> a mano</td>
+</tr>
+<tr>
+  <td><strong>Punch</strong></td>
+  <td>Golpe de escala que rebota: <code>juice:Punch(0.2)</code> al recoger algo o al pulsar un botón</td>
+</tr>
+<tr>
+  <td><strong>Balanceo al andar</strong></td>
+  <td>Sube y baja y se inclina un poco a cada paso, más rápido cuanto más rápido va</td>
+</tr>
+<tr>
+  <td><strong>Inclinación</strong></td>
+  <td>Se inclina hacia donde se mueve</td>
+</tr>
+<tr>
+  <td><strong>Latido</strong></td>
+  <td>Crece y vuelve con pulso (un corazón, un objeto que se puede coger, un jefe enfadado)</td>
+</tr>
+<tr>
+  <td><strong>Temblor</strong></td>
+  <td><code>juice:Wobble(0.8, 0.5)</code>: tiembla y se tambalea medio segundo</td>
+</tr>
+<tr>
+  <td><strong>Destello</strong></td>
+  <td><code>juice:Flash()</code>: blanco entero al recibir daño, se apaga solo</td>
+</tr>
+<tr>
+  <td><strong>Parpadeo</strong></td>
+  <td><code>juice:Blink(1.5)</code>: invulnerable después de un golpe; <code>juice:IsBlinking()</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>El muelle se ajusta con <strong>Muelle (por segundo)</strong> (lo rápido que vuelve) y <strong>Amortiguación</strong> (0 = gelatina, 1 = sin rebote).</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En un enemigo con Sprite y Animación procedural (juice)</span>
+<span class="hl-k">local</span> <span class="hl-t">RecibirGolpe</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">RecibirGolpe</span>.vida = <span class="hl-n">5</span>
+
+<span class="hl-k">function</span> <span class="hl-t">RecibirGolpe</span>:<span class="hl-f">Golpe</span>(dano: number)
+    <span class="hl-k">local</span> juice = <span class="hl-b">self</span>.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpriteJuice"</span>)
+    <span class="hl-k">if</span> juice:<span class="hl-f">IsBlinking</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span> <span class="hl-c">-- invulnerable un momento</span>
+    <span class="hl-b">self</span>.vida -= dano
+    juice:<span class="hl-f">Flash</span>()
+    juice:<span class="hl-f">Squash</span>(<span class="hl-n">0.35</span>)
+    juice:<span class="hl-f">Blink</span>(<span class="hl-n">0.6</span>)
+    <span class="hl-t">Effects2D</span>.<span class="hl-f">DamageNumber</span>(<span class="hl-b">self</span>.entity.position + <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>), dano)
+    <span class="hl-k">if</span> <span class="hl-b">self</span>.vida &lt;= <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-t">Effects2D</span>.<span class="hl-f">Burst</span>(<span class="hl-b">self</span>.entity.position, { shape = <span class="hl-s">"Star"</span>, count = <span class="hl-n">14</span>, colors = { <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.85</span>, <span class="hl-n">0.2</span>), <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.4</span>, <span class="hl-n">0.3</span>) } })
+        <span class="hl-b">self</span>.entity:<span class="hl-f">Destroy</span>()
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">RecibirGolpe</span></code></pre></div>
+<h2 id="6-el-contorno-de-dibujo">6. El contorno de dibujo<a class="ancla" href="#6-el-contorno-de-dibujo" aria-label="Enlace a esta sección">#</a></h2>
+<p>El borde grueso y oscuro de los dibujos vectoriales lo pone el propio sprite: <strong>Grosor del contorno</strong> (en píxeles de la
+imagen) y <strong>Color del contorno</strong>. Se calcula en el shader a partir del alfa, así que <strong>cualquier PNG</strong> queda contorneado sin
+dibujarle el borde, y el contorno sigue al fotograma, al volteo, al squash &amp; stretch y al destello.</p>
+<ul>
+<li>4 a 8 píxeles en dibujos de unos 200 píxeles dan el aspecto de dibujo animado moderno.</li>
+<li>No cuesta una pasada aparte: va en el mismo dibujo del sprite (y en el mismo lote).</li>
+<li>El modo Repetido no lleva contorno.</li>
+</ul>
+<p><figure class="captura"><img src="../assets/img/capturas-2d-2d-contorno.webp" alt="Contorno de dibujo (a la izquierda y a la derecha) y sin contorno (arriba)" width="640" height="360" loading="lazy" decoding="async"><figcaption>Contorno de dibujo (a la izquierda y a la derecha) y sin contorno (arriba)</figcaption></figure></p>
+<h2 id="7-efectos-de-juego-números-de-daño-y-estallidos">7. Efectos de juego: números de daño y estallidos<a class="ancla" href="#7-efectos-de-juego-números-de-daño-y-estallidos" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Effects2D</code> lanza <strong>números de daño flotantes</strong> (saltan, rebotan y se desvanecen) y <strong>estallidos de formas planas</strong>
+(círculos, estrellas, rombos, corazones, cuadrados y anillos) con el mismo contorno de dibujo. No son entidades: no cuestan
+nada en la Jerarquía y van en un solo lote.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Effects2D</span>.<span class="hl-f">DamageNumber</span>(enemigo.position, <span class="hl-n">25</span>)
+<span class="hl-t">Effects2D</span>.<span class="hl-f">DamageNumber</span>(enemigo.position, <span class="hl-s">"¡CRÍTICO!"</span>, { color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.3</span>, <span class="hl-n">0.3</span>), size = <span class="hl-n">0.8</span> })
+<span class="hl-t">Effects2D</span>.<span class="hl-f">Burst</span>(posicion, { shape = <span class="hl-s">"Heart"</span>, count = <span class="hl-n">6</span>, speed = <span class="hl-n">2</span> })
+<span class="hl-t">Effects2D</span>.<span class="hl-f">Burst</span>(posicion, { shape = <span class="hl-s">"Star"</span>, count = <span class="hl-n">10</span>, arc = <span class="hl-n">120</span>, angle = <span class="hl-n">90</span>, colors = { <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.85</span>, <span class="hl-n">0.2</span>) } })</code></pre></div>
+<p>Son visuales y de cada máquina: en un juego en red, lánzalos desde una función <code>[Multicast]</code> (ver <a href="#11-en-red">En red</a>).</p>
+<p><figure class="captura"><img src="../assets/img/capturas-2d-2d-efectos.webp" alt="Números de daño y estallidos" width="640" height="360" loading="lazy" decoding="async"><figcaption>Números de daño y estallidos</figcaption></figure></p>
+<h2 id="8-capas-de-dibujo-y-orden">8. Capas de dibujo y orden<a class="ancla" href="#8-capas-de-dibujo-y-orden" aria-label="Enlace a esta sección">#</a></h2>
+<p>El orden en que se dibujan los sprites sale de, por este orden:</p>
+<ol>
+<li>la <strong>capa de dibujo</strong> (<strong>Ajustes del proyecto &gt; 2D</strong>; por defecto <code>Background</code>, <code>Default</code>, <code>Foreground</code> y <code>UI</code>: las de
+abajo de la lista se dibujan delante);</li>
+<li>el <strong>orden en la capa</strong> (el mayor, delante);</li>
+<li>la <strong>distancia a la cámara</strong> (lo más cercano, delante);</li>
+<li>el orden de la escena (siempre el mismo: la imagen no parpadea entre fotogramas).</li>
+</ol>
+<p>En <strong>Ajustes del proyecto &gt; 2D</strong> se añaden, quitan, renombran y ordenan las capas, y se elige <strong>Partículas después de</strong>:
+las partículas de la escena se dibujan después de esa capa y antes de las siguientes (las chispas delante del personaje y
+detrás del decorado de primer plano). Una capa que no existe (mal escrita o borrada) cuenta como <code>Default</code>.</p>
+<p>Un objeto 3D opaco tapa a los sprites que tiene detrás (los sprites leen la profundidad de lo opaco).</p>
+<p>El <strong>Tilemap</strong> (<a href="mundo-2d.html#4-tilemap-y-tileset">mundo-2d.md</a>) entra en el mismo orden: tiene los mismos campos <strong>Capa
+de orden</strong> y <strong>Orden en la capa</strong>, y cada trozo de 16 x 16 celdas se dibuja como un lote más entre los sprites (un
+dibujado por trozo, no uno por tile). Un suelo de tiles con orden −10 queda detrás del personaje (orden 10) en la misma
+capa. Los sprites y los Tilemap hijos de una <strong>Capa de parallax</strong> se desplazan con ella y conservan su capa y su orden.</p>
+<h2 id="9-el-aspecto-de-dibujos-animados-antiguos">9. El aspecto de dibujos animados antiguos<a class="ancla" href="#9-el-aspecto-de-dibujos-animados-antiguos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para el aspecto de los dibujos animados de los años 30:</p>
+<ul>
+<li><strong>Animación por fotogramas a 24 FPS</strong> con dibujos «en doses» (ver <a href="#4-animación-por-fotogramas">4</a>).</li>
+<li>En la cámara, <strong>Filtros de cámara &gt; preajuste «Cartoon antiguo»</strong> (<code>Filters.ApplyPreset(&quot;OldCartoon&quot;)</code>): una copia de cine
+algo blanda, color cálido y un poco apagado, grano, viñeta, rayas finas, polvo y parpadeo
+(ver <a href="filtros-camara.html">filtros-camara.md</a>).</li>
+<li>Fondos pintados en varias capas con el mismo filtro.</li>
+</ul>
+<p><figure class="captura"><img src="../assets/img/capturas-2d-2d-cartoon-antiguo.webp" alt="El preajuste «Cartoon antiguo»" width="640" height="360" loading="lazy" decoding="async"><figcaption>El preajuste «Cartoon antiguo»</figcaption></figure></p>
+<h2 id="10-jefes-por-fases">10. Jefes por fases<a class="ancla" href="#10-jefes-por-fases" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un jefe es una entidad con su Sprite, su Animador (o su juice) y un script con su <strong>vida</strong> y sus <strong>fases</strong>: al bajar de cierta
+vida cambia de ataques, de estado de animación y de velocidad.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- En el jefe (Sprite, Animación procedural y Animador de sprites con los estados Idle, Enfadado y Furioso)</span>
+<span class="hl-k">local</span> <span class="hl-t">JefeFases</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">JefeFases</span>.vidaMaxima = <span class="hl-n">60</span>
+<span class="hl-t">JefeFases</span>.vida = <span class="hl-n">60</span> <span class="hl-a">--[Replicated]</span>
+<span class="hl-t">JefeFases</span>.fase = <span class="hl-n">1</span> <span class="hl-a">--[Replicated]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">JefeFases</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>.juice = <span class="hl-b">self</span>.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpriteJuice"</span>)
+    <span class="hl-b">self</span>.anim = <span class="hl-b">self</span>.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpriteAnimator"</span>)
+<span class="hl-k">end</span>
+
+<span class="hl-c">-- Fase 1: hasta 2/3 de la vida; fase 2: hasta 1/3; fase 3: el resto</span>
+<span class="hl-k">function</span> <span class="hl-t">JefeFases</span>:<span class="hl-f">FaseDeLaVida</span>(): number
+    <span class="hl-k">local</span> parte = <span class="hl-b">self</span>.vida / <span class="hl-b">self</span>.vidaMaxima
+    <span class="hl-k">if</span> parte &gt; <span class="hl-n">2</span> / <span class="hl-n">3</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-n">1</span> <span class="hl-k">elseif</span> parte &gt; <span class="hl-n">1</span> / <span class="hl-n">3</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-n">2</span> <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-n">3</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">JefeFases</span>:<span class="hl-f">Golpe</span>(dano: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">or</span> <span class="hl-b">self</span>.vida &lt;= <span class="hl-n">0</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-b">self</span>.vida = <span class="hl-t">math</span>.<span class="hl-f">max</span>(<span class="hl-b">self</span>.vida - dano, <span class="hl-n">0</span>)
+    <span class="hl-k">local</span> nueva = <span class="hl-b">self</span>:<span class="hl-f">FaseDeLaVida</span>()
+    <span class="hl-k">if</span> nueva ~= <span class="hl-b">self</span>.fase <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.fase = nueva
+        <span class="hl-b">self</span>:<span class="hl-f">CambioDeFase</span>(nueva)
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-a">--[Multicast]</span>
+<span class="hl-k">function</span> <span class="hl-t">JefeFases</span>:<span class="hl-f">CambioDeFase</span>(fase: number)
+    <span class="hl-b">self</span>.juice:<span class="hl-f">Wobble</span>(<span class="hl-n">1</span>, <span class="hl-n">0.8</span>)
+    <span class="hl-b">self</span>.juice.pulseAmount = <span class="hl-n">0.04</span> * fase
+    <span class="hl-b">self</span>.anim:<span class="hl-f">Play</span>(<span class="hl-k">if</span> fase == <span class="hl-n">2</span> <span class="hl-k">then</span> <span class="hl-s">"Enfadado"</span> <span class="hl-k">else</span> <span class="hl-s">"Furioso"</span>)
+    <span class="hl-t">Effects2D</span>.<span class="hl-f">Burst</span>(<span class="hl-b">self</span>.entity.position, { shape = <span class="hl-s">"Star"</span>, count = <span class="hl-n">16</span>, speed = <span class="hl-n">7</span> })
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">JefeFases</span></code></pre></div>
+<h2 id="11-en-red">11. En red<a class="ancla" href="#11-en-red" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>Los componentes 2D se replican como los demás en las entidades con <strong>Identidad de red</strong>: imagen, fotograma, color, volteo,
+capa, orden, destello y contorno del Sprite.</li>
+<li>El <strong>Animador de sprites</strong> replica su <strong>estado</strong> (y cuándo se pidió, para reiniciar el mismo): cada máquina anima sus
+fotogramas y lanza sus eventos, así no viaja un fotograma 24 veces por segundo. Pide los estados en el servidor.</li>
+<li>El <strong>juice</strong> y los <strong>efectos</strong> son visuales y de cada máquina: lánzalos desde una función <code>[Multicast]</code>.</li>
+<li><strong>NetworkTransform</strong> mueve a los personajes 2D igual que a los 3D (la Z se queda en su sitio).</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Moneda en red: en la entidad con Sprite, Animación procedural, Identidad de red y NetworkTransform</span>
+<span class="hl-k">local</span> <span class="hl-t">Moneda2D</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Moneda2D</span>:<span class="hl-f">Update</span>(dt)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-f">IsServer</span>() <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-c">-- El servidor la mueve en el plano XY; NetworkTransform lleva la posición a los demás</span>
+    <span class="hl-k">local</span> p = <span class="hl-b">self</span>.entity.position
+    <span class="hl-b">self</span>.entity.position = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(p.x, <span class="hl-n">1</span> + <span class="hl-t">math</span>.<span class="hl-f">sin</span>(<span class="hl-t">Time</span>.time * <span class="hl-n">3</span>) * <span class="hl-n">0.25</span>, p.z)
+<span class="hl-k">end</span>
+
+<span class="hl-a">--[Multicast]</span>
+<span class="hl-k">function</span> <span class="hl-t">Moneda2D</span>:<span class="hl-f">Recogida</span>()
+    <span class="hl-b">self</span>.entity:<span class="hl-f">GetComponent</span>(<span class="hl-s">"SpriteJuice"</span>):<span class="hl-f">Punch</span>(<span class="hl-n">0.4</span>)
+    <span class="hl-t">Effects2D</span>.<span class="hl-f">Burst</span>(<span class="hl-b">self</span>.entity.position, { shape = <span class="hl-s">"Circle"</span>, count = <span class="hl-n">8</span>, color = <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.85</span>, <span class="hl-n">0.2</span>) })
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Moneda2D</span></code></pre></div>
+<h2 id="12-rendimiento-y-memoria">12. Rendimiento y memoria<a class="ancla" href="#12-rendimiento-y-memoria" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Lotes</strong>: los sprites seguidos (en el orden de dibujo) con la misma textura, mezcla, luz y filtro van en una sola llamada.
+Pon los dibujos de una misma capa en la misma hoja: 5.000 sprites animados de una hoja son <strong>un</strong> lote.</li>
+<li><strong>Medido</strong> en una RTX 5060 Ti a 1920 × 1080 (las pruebas lo guardan en <code>capturas-2d/rendimiento.json</code>): 5.000 sprites
+animados cuestan unos 0,04 ms de GPU y 0,25 ms de CPU en el render; animarlos, 1,7 ms de CPU, y pasarlos de la escena al
+render, 1,6 ms.</li>
+<li><strong>Hojas grandes</strong>: con <strong>Comprimir (BC7)</strong> (y «Texturas comprimidas» en Ajustes del proyecto &gt; Render) una hoja ocupa la
+cuarta parte de memoria de vídeo. Una animación larga a 24 FPS con dibujos grandes llena varias hojas de 4096 × 4096: sin
+comprimir son 64 MB cada una; comprimidas, 16. Empaqueta con recorte (el atlas no guarda lo transparente ni los repetidos)
+y deja el lado múltiplo de 4.</li>
+<li><strong>Calidad de las texturas</strong> de los ajustes de render (Media, Baja) baja también la resolución de las hojas.</li>
+<li>Los <strong>efectos</strong> (<code>Effects2D</code>) no crean entidades: cientos de números y partículas no cargan la escena.</li>
+<li>Sin sprites, la pasada no hace nada: las escenas 3D se ven y cuestan lo mismo que antes.</li>
+</ul>
+<h2 id="13-referencia-de-lua">13. Referencia de Lua<a class="ancla" href="#13-referencia-de-lua" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Llamada</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>sprite:SetSprite(textura, fotograma?)</code></td>
+  <td>Cambia la imagen (asset o ruta) y el fotograma</td>
+</tr>
+<tr>
+  <td><code>sprite:SetFrame(nombre)</code></td>
+  <td>Cambia el fotograma</td>
+</tr>
+<tr>
+  <td><code>sprite:GetFrames()</code></td>
+  <td>Los nombres de los fotogramas de la hoja</td>
+</tr>
+<tr>
+  <td><code>sprite:GetSize()</code></td>
+  <td>Ancho y alto en unidades (sin la escala de la entidad)</td>
+</tr>
+<tr>
+  <td><code>sprite:Flash(color?, segundos?)</code></td>
+  <td>Destello que se apaga solo</td>
+</tr>
+<tr>
+  <td><code>anim:Play(estado, reiniciar?)</code></td>
+  <td>Pasa a un estado (error si no existe)</td>
+</tr>
+<tr>
+  <td><code>anim:Stop()</code>, <code>Pause()</code>, <code>Resume()</code></td>
+  <td>Para y sigue</td>
+</tr>
+<tr>
+  <td><code>anim:IsPlaying(estado?)</code>, <code>IsFinished()</code>, <code>GetState()</code>, <code>GetFrame()</code></td>
+  <td>Estado actual</td>
+</tr>
+<tr>
+  <td><code>anim:SetSpeed(v)</code>, <code>GetSpeed()</code></td>
+  <td>Velocidad del animador</td>
+</tr>
+<tr>
+  <td><code>anim:SetTrigger(nombre)</code></td>
+  <td>Lanza una transición por disparador</td>
+</tr>
+<tr>
+  <td><code>anim:GetDuration(estado?)</code>, <code>GetStates()</code></td>
+  <td>Duración de un clip y los estados</td>
+</tr>
+<tr>
+  <td><code>OnAnimationEvent(nombre)</code></td>
+  <td>Evento de un fotograma (en los scripts de la entidad)</td>
+</tr>
+<tr>
+  <td><code>OnSpriteAnimationFinished(estado)</code></td>
+  <td>Un estado sin bucle llegó a su último fotograma</td>
+</tr>
+<tr>
+  <td><code>AddEventHandler(&quot;sprite:frameEvent&quot;, fn)</code></td>
+  <td>Los eventos de todos los sprites: <code>fn(entidad, nombre, fotograma, estado, parametro)</code></td>
+</tr>
+<tr>
+  <td><code>juice:Squash(n?)</code>, <code>Stretch(n?)</code>, <code>Punch(n?)</code>, <code>Wobble(n?, s?)</code></td>
+  <td>Golpes al muelle y temblor</td>
+</tr>
+<tr>
+  <td><code>juice:Flash(color?, s?)</code>, <code>Blink(s?)</code>, <code>StopBlink()</code>, <code>IsBlinking()</code></td>
+  <td>Destello y parpadeo</td>
+</tr>
+<tr>
+  <td><code>Effects2D.DamageNumber(pos, valor, opciones?)</code></td>
+  <td>Número o texto flotante</td>
+</tr>
+<tr>
+  <td><code>Effects2D.Burst(pos, opciones?)</code></td>
+  <td>Estallido de formas planas</td>
+</tr>
+<tr>
+  <td><code>Effects2D.Clear()</code>, <code>Count()</code></td>
+  <td>Quitar y contar los efectos</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="14-físicas-y-personaje-de-plataformas">14. Físicas y personaje de plataformas<a class="ancla" href="#14-físicas-y-personaje-de-plataformas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Las físicas 2D (cuerpos, colisionadores, sensores, plataformas de un sentido y el <strong>CharacterController2D</strong> con coyote
+time, buffer de salto, salto variable, dash y parry) están en <a href="fisicas-2d.html">fisicas-2d.md</a>. Con los sprites encajan así:</p>
+<ul>
+<li>El <strong>juice</strong> de un personaje con <code>CharacterController2D</code> no adivina los saltos por el movimiento: los eventos del personaje
+(<code>OnJump</code>, <code>OnLanded</code>, <code>OnDash</code>, <code>OnParry</code>) lo estiran al saltar, lo aplastan al aterrizar (más cuanto más fuerte cae),
+lo ensanchan en el dash y le dan un golpe de escala en el parry.</li>
+<li>La <strong>gravedad 2D</strong> del proyecto está en <strong>Ajustes del proyecto &gt; 2D</strong>, junto a las capas de dibujo.</li>
+<li>Las balas suelen ser <strong>sensores</strong>; dos sensores no se ven entre sí, así que lo que recibe balas lleva además una forma
+sólida en una capa que solo choca con la capa de las balas (como el Nubarrón de la plantilla).</li>
+</ul>
+<h2 id="15-la-plantilla-plataformas-2d-lua">15. La plantilla «Plataformas 2D (Lua)»<a class="ancla" href="#15-la-plantilla-plataformas-2d-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Nuevo proyecto &gt; Plataformas 2D (Lua)</strong> crea un nivel listo para jugar con todo lo de esta guía, con dibujos planos de
+contorno grueso hechos por código (personajes originales). La escena <code>scenes/Nivel1.scene</code> se abre en la <strong>vista 2D</strong>
+del editor.</p>
+<p><figure class="captura"><img src="../assets/img/capturas-2d-plantilla-jefe.webp" srcset="../assets/img/capturas-2d-plantilla-jefe-800.webp 800w, ../assets/img/capturas-2d-plantilla-jefe.webp 1280w" sizes="(max-width: 900px) 100vw, 900px" alt="La plantilla: Chispa contra el Nubarrón en su fase 2" width="1280" height="720" loading="lazy" decoding="async"><figcaption>La plantilla: Chispa contra el Nubarrón en su fase 2</figcaption></figure></p>
+<h3 id="qué-hay-en-la-escena">Qué hay en la escena<a class="ancla" href="#qué-hay-en-la-escena" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Entidad</th>
+  <th>Componentes</th>
+  <th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Camara</strong></td>
+  <td>Cámara ortográfica + <strong>Camera2D</strong></td>
+  <td>Sigue a Chispa con suavizado, zona muerta y anticipación, sin salir del nivel (límites de pared a pared). El jefe la hace temblar y la encuadra con Chispa en la pelea</td>
+</tr>
+<tr>
+  <td><strong>Camara/HUD</strong></td>
+  <td>Sprites en la capa <code>UI</code> + <code>HUD2D.luau</code></td>
+  <td>Retrato, corazones y la barra del jefe, colgados de la cámara</td>
+</tr>
+<tr>
+  <td><strong>Fondo/Cielo</strong>, <strong>ColinasLejos</strong>, <strong>ColinasCerca</strong>, <strong>Nubes</strong></td>
+  <td><strong>ParallaxLayer</strong> con un hijo «Dibujo» (SpriteRenderer en modo Mosaico)</td>
+  <td>El fondo por capas: factor 0 el cielo, 0,25 y 0,5 las colinas; las nubes con desplazamiento automático. Repetición infinita en X y «Previsualizar en el editor» encendido</td>
+</tr>
+<tr>
+  <td><strong>Nivel/Suelo</strong></td>
+  <td><strong>Tilemap</strong> (celdas de 0,5) con etiqueta «Solido»</td>
+  <td>Hierba arriba y tierra debajo; su colisión sale de los tiles. Las balas se rompen contra lo «Solido»</td>
+</tr>
+<tr>
+  <td><strong>Nivel/Plataformas</strong></td>
+  <td><strong>Tilemap</strong></td>
+  <td>Plataformas de un sentido (piezas izquierda, centro y derecha): se suben desde abajo y se bajan con abajo + salto</td>
+</tr>
+<tr>
+  <td><strong>Nivel/ParedIzquierda</strong>, <strong>ParedDerecha</strong></td>
+  <td>BoxCollider2D</td>
+  <td>Los extremos del nivel</td>
+</tr>
+<tr>
+  <td><strong>Chispa</strong></td>
+  <td>SpriteRenderer, SpriteAnimator, SpriteJuice, <strong>CharacterController2D</strong>, <code>Jugador2D.luau</code></td>
+  <td>El jugador</td>
+</tr>
+<tr>
+  <td><strong>Nubarron</strong></td>
+  <td>SpriteRenderer, SpriteAnimator, SpriteJuice, Rigidbody2D cinemático, un sensor y una forma sólida, <code>Jefe2D.luau</code></td>
+  <td>El jefe por fases</td>
+</tr>
+<tr>
+  <td><strong>Gotita0..2</strong></td>
+  <td>SpriteRenderer, SpriteAnimator, SpriteJuice, Rigidbody2D, cápsula y sensor, <code>Gotita2D.luau</code></td>
+  <td>Enemigos que patrullan</td>
+</tr>
+<tr>
+  <td><strong>Moneda0..5</strong></td>
+  <td>SpriteRenderer, SpriteJuice (latido), sensor</td>
+  <td>Se recogen al tocarlas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los prefabs <code>Bala</code>, <code>Gota</code>, <code>Rayo</code> y <code>Gotita</code> (carpeta <code>prefabs</code>) los crean los scripts al disparar.</p>
+<h3 id="cómo-se-juega-y-qué-hace-cada-script">Cómo se juega y qué hace cada script<a class="ancla" href="#cómo-se-juega-y-qué-hace-cada-script" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Chispa</strong> (<code>Jugador2D.luau</code>): corre con A/D o las flechas, salta con Espacio (salto variable), hace dash con Mayúsculas,
+dispara con el clic izquierdo o J y baja de las plataformas con abajo + salto. Tiene tres corazones; al recibir un golpe
+destella, se aplasta, parpadea invulnerable y la cámara tiembla (<code>Camera2D.Shake</code>). Al aterrizar de muy alto suma un
+poco de temblor (<code>Camera2D.AddTrauma</code>); al reaparecer, la cámara salta a ella (<code>Camera2D.Snap</code>).</li>
+<li><strong>Gotitas</strong> (<code>Gotita2D.luau</code>): patrullan y caen con dos chispas, con número de daño y estallido.</li>
+<li><strong>El Nubarrón</strong> (<code>Jefe2D.luau</code>): despierta al acercarte y tiene <strong>tres fases</strong> (lluvia; lluvia y Gotitas mientras se mueve;
+rayos directos). Sus ataques salen en el fotograma con el evento «Ataque» de su clip. Al despertar, la cámara encuadra a
+Chispa y al jefe (<code>Camera2D.SetTargets</code>); cada golpe suma temblor, cada cambio de fase sacude la cámara y, al caer,
+vuelve a seguir solo a Chispa (<code>Camera2D.SetTarget</code>).</li>
+<li><strong>Monedas</strong> que laten y el <strong>HUD</strong> (<code>HUD2D.luau</code>), que sigue la vida del jugador y la del jefe.</li>
+<li>Capas de colisión: 0 nivel, 1 jugador, 2 enemigos, 3 balas enemigas y 4 balas del jugador.</li>
+</ul>
+<h3 id="cambiar-el-nivel">Cambiar el nivel<a class="ancla" href="#cambiar-el-nivel" aria-label="Enlace a esta sección">#</a></h3>
+<ul>
+<li><strong>Pintar el suelo y las plataformas</strong>: elige «Suelo» o «Plataformas» y abre el panel <strong>Tilemap</strong>
+(<a href="mundo-2d.html#4-tilemap-y-tileset">mundo-2d.md</a>). El TileSet es <code>tiles/Nivel.tileset</code>: los tiles 1 a 3 (hierba y
+tierra) chocan y los 4 a 6 (las piezas de la plataforma) son <strong>unidireccionales</strong> (en un tile, «Colisión» lo hace
+sólido y «Unidireccional» solo desde arriba: no marques las dos). La colisión se rehace sola al pintar.</li>
+<li><strong>El fondo</strong>: cambia el <strong>Factor</strong> de cada capa (más cerca de 0, más lejos) o pon otra imagen en su «Dibujo».</li>
+<li><strong>La cámara</strong>: en <strong>Camera2D</strong>, la zona muerta, el suavizado, la anticipación y los <strong>límites</strong> (si alargas el nivel,
+sube <code>boundsMax</code>).</li>
+<li><strong>Los dibujos</strong> los genera <code>game/plataformas2d_lua/tools</code> (<code>nova_plataformas2dgen</code>): cambia los colores o las formas
+allí, o sustituye las hojas de <code>assets/sprites</code> por las tuyas con los mismos nombres de fotograma.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="filtros-camara.html"><small>Anterior</small>Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a><a class="sig" href="fisicas-2d.html"><small>Siguiente</small>Físicas 2D</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-la-escena-2d">1. La escena 2D</a></li><li class="n2"><a href="#2-sprites">2. Sprites</a></li><li class="n2"><a href="#3-hojas-de-sprites-y-atlas">3. Hojas de sprites y atlas</a></li><li class="n3"><a href="#empaquetar-imágenes-sueltas-atlas">Empaquetar imágenes sueltas (atlas)</a></li><li class="n2"><a href="#4-animación-por-fotogramas">4. Animación por fotogramas</a></li><li class="n3"><a href="#el-animador-de-sprites">El Animador de sprites</a></li><li class="n2"><a href="#5-animación-procedural-juice">5. Animación procedural (juice)</a></li><li class="n2"><a href="#6-el-contorno-de-dibujo">6. El contorno de dibujo</a></li><li class="n2"><a href="#7-efectos-de-juego-números-de-daño-y-estallidos">7. Efectos de juego: números de daño y estallidos</a></li><li class="n2"><a href="#8-capas-de-dibujo-y-orden">8. Capas de dibujo y orden</a></li><li class="n2"><a href="#9-el-aspecto-de-dibujos-animados-antiguos">9. El aspecto de dibujos animados antiguos</a></li><li class="n2"><a href="#10-jefes-por-fases">10. Jefes por fases</a></li><li class="n2"><a href="#11-en-red">11. En red</a></li><li class="n2"><a href="#12-rendimiento-y-memoria">12. Rendimiento y memoria</a></li><li class="n2"><a href="#13-referencia-de-lua">13. Referencia de Lua</a></li><li class="n2"><a href="#14-físicas-y-personaje-de-plataformas">14. Físicas y personaje de plataformas</a></li><li class="n2"><a href="#15-la-plantilla-plataformas-2d-lua">15. La plantilla «Plataformas 2D (Lua)»</a></li><li class="n3"><a href="#qué-hay-en-la-escena">Qué hay en la escena</a></li><li class="n3"><a href="#cómo-se-juega-y-qué-hace-cada-script">Cómo se juega y qué hace cada script</a></li><li class="n3"><a href="#cambiar-el-nivel">Cambiar el nivel</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D · Nova Engine</title>
+<meta name="description" content="Herramientas para juegos 2D de plataformas y disparos, de pixel art o dibujados a mano: fondos por capas que se mueven a
+distinta velocidad (parallax), una cámara de plataformas que sigue al jugador, tiembla y encuadra a">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D · Nova Engine">
+<meta property="og:description" content="Herramientas para juegos 2D de plataformas y disparos, de pixel art o dibujados a mano: fondos por capas que se mueven a
+distinta velocidad (parallax), una cámara de plataformas que sigue al jugador, tiembla y encuadra a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/mundo-2d.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/mundo-2d.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html" aria-current="page">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="mundo-2d-parallax-cámara-de-plataformas-tilemap-y-vista-2d">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-la-vista-2d-del-editor">1. La vista 2D del editor</a></li><li class="n2"><a href="#2-parallax-fondos-por-capas-pintadas">2. Parallax: fondos por capas pintadas</a></li><li class="n2"><a href="#3-la-cámara-de-plataformas-camera2d">3. La cámara de plataformas (Camera2D)</a></li><li class="n2"><a href="#4-tilemap-y-tileset">4. Tilemap y TileSet</a></li><li class="n3"><a href="#el-tileset-asset-tileset">El TileSet (asset .tileset)</a></li><li class="n3"><a href="#pintar-con-el-panel-tilemap">Pintar con el panel Tilemap</a></li><li class="n3"><a href="#el-componente-tilemap">El componente Tilemap</a></li><li class="n2"><a href="#5-desde-los-scripts-lua">5. Desde los scripts Lua</a></li><li class="n3"><a href="#cámara">Cámara</a></li><li class="n3"><a href="#tilemap">Tilemap</a></li><li class="n2"><a href="#6-orden-de-dibujo-y-colisiones">6. Orden de dibujo y colisiones</a></li><li class="n2"><a href="#7-rendimiento">7. Rendimiento</a></li></ul></details><p>Herramientas para juegos 2D de plataformas y disparos, de pixel art o dibujados a mano: fondos por capas que se mueven a
+distinta velocidad (<strong>parallax</strong>), una <strong>cámara de plataformas</strong> que sigue al jugador, tiembla y encuadra a dos
+jugadores, niveles pintados con <strong>tiles</strong> y una <strong>vista 2D</strong> en el editor para trabajar de frente al plano del juego.</p>
+<p>Todo vive en el plano <strong>XY</strong> del mundo: X hacia la derecha, Y hacia arriba y la Z para el orden de dibujo (más alta =
+más cerca de la cámara). La cámara del juego mira hacia <strong>-Z</strong>, normalmente con proyección <strong>Ortográfica</strong>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-la-vista-2d-del-editor">La vista 2D del editor</a></li>
+<li><a href="#2-parallax-fondos-por-capas-pintadas">Parallax: fondos por capas pintadas</a></li>
+<li><a href="#3-la-cámara-de-plataformas-camera2d">La cámara de plataformas (Camera2D)</a></li>
+<li><a href="#4-tilemap-y-tileset">Tilemap y TileSet</a></li>
+<li><a href="#5-desde-los-scripts-lua">Desde los scripts Lua</a></li>
+<li><a href="#6-orden-de-dibujo-y-colisiones">Orden de dibujo y colisiones</a></li>
+<li><a href="#7-rendimiento">Rendimiento</a></li>
+<li><span class="enlace-interno-quitado">Para quien programa el motor (C++)</span></li>
+</ol>
+<h2 id="1-la-vista-2d-del-editor">1. La vista 2D del editor<a class="ancla" href="#1-la-vista-2d-del-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p>El botón <strong>2D / 3D</strong> de la barra flotante del visor <strong>Escena</strong> cambia la cámara del editor:</p>
+<ul>
+<li>en <strong>2D</strong> la cámara es <strong>ortográfica</strong> y mira de frente al plano XY (hacia -Z): lo que ves es el nivel tal y como lo
+verá la cámara del juego;</li>
+<li><strong>rueda</strong>: zoom hacia el cursor (el punto bajo el ratón se queda quieto);</li>
+<li><strong>botón central</strong> o <strong>botón derecho</strong> arrastrando: desplazar;</li>
+<li><strong>F</strong>: encuadra la selección;</li>
+<li>la <strong>rejilla</strong> se dibuja en el plano XY, con una línea más marcada cada 10 celdas, el eje X en rojo y el Y en verde.
+Su paso es el <strong>Paso al mover</strong> de la barra (el del imán); si con el zoom quedaría demasiado densa, se dobla.</li>
+</ul>
+<p>Los <strong>gizmos</strong> pasan a ser 2D: mover en X, en Y o en el plano (el cuadrado entre las flechas), <strong>girar solo en Z</strong> y
+escalar en X e Y. Con el <strong>imán</strong> activado (o manteniendo <strong>Ctrl</strong>), la posición queda <strong>en la rejilla</strong>: un objeto que
+empezó fuera de ella cae en la celda más cercana al soltarlo. Cada arrastre es un paso de <strong>Deshacer</strong>.</p>
+<p>El modo y la cámara se <strong>recuerdan para cada escena</strong>. Una escena que no se ha abierto nunca se abre en 2D si tiene un
+<strong>Tilemap</strong>, una <strong>Cámara 2D</strong> o una <strong>Capa de parallax</strong>.</p>
+<p>Soltar un prefab o un modelo en el visor en 2D lo coloca en el plano Z = 0, bajo el ratón.</p>
+<h2 id="2-parallax-fondos-por-capas-pintadas">2. Parallax: fondos por capas pintadas<a class="ancla" href="#2-parallax-fondos-por-capas-pintadas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un fondo de dibujo animado se pinta en capas: el cielo, las montañas lejanas, los árboles del medio, el nivel y, a
+veces, plantas por delante. Al moverse la cámara, cada capa se desplaza a su propia velocidad y da sensación de
+profundidad.</p>
+<ol>
+<li>Crea una entidad vacía por capa («Cielo», «Montes», «Árboles») y añádele <strong>2D &gt; Capa de parallax</strong>.</li>
+<li>Pon de <strong>hijos</strong> lo que se dibuja en esa capa: sprites, mallas o un Tilemap. El hijo es el dibujo de la capa (los
+sprites y el Tilemap conservan su capa de orden y su orden en la capa).</li>
+<li>Ajusta el <strong>Factor</strong> y la Z de cada capa (las lejanas, con la Z más baja).</li>
+</ol>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Factor</strong> (<code>factor</code>)</td>
+  <td>Por eje. <strong>0</strong> = se mueve con la cámara (el cielo, siempre en el mismo sitio de la pantalla); <strong>1</strong> = fijo en el mundo (como el nivel); entre medias, más lejos cuanto más cerca de 0 (0,2 montañas, 0,5 árboles). <strong>Más de 1</strong>: primer plano que pasa más rápido que el nivel. Lo normal es <code>(0,3; 1)</code>: en vertical sigue al nivel</td>
+</tr>
+<tr>
+  <td><strong>Repetir en X</strong> / <strong>Repetir en Y</strong></td>
+  <td>Copia el dibujo de los hijos sin fin, sin huecos, para que cubra siempre la vista</td>
+</tr>
+<tr>
+  <td><strong>Tamaño de la repetición</strong> (<code>repeatSize</code>)</td>
+  <td>Cada cuánto se repite. <strong>0</strong> = el tamaño del dibujo, para que empalme justo (pinta el fondo para que el borde derecho case con el izquierdo)</td>
+</tr>
+<tr>
+  <td><strong>Desplazamiento automático</strong> (<code>scrollSpeed</code>)</td>
+  <td>Unidades por segundo que se mueve sola, además de con la cámara: nubes, niebla, agua lejana</td>
+</tr>
+<tr>
+  <td><strong>Previsualizar en el editor</strong></td>
+  <td>También en el visor del editor sin jugar, con la cámara del editor. Apagado, en el editor el dibujo se ve donde está colocado (más cómodo para editarlo)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Cómo se calcula.</strong> Desplazamiento = (cámara − posición de la capa) × (1 − factor). Con la cámara en la posición de la
+capa, el dibujo está donde se colocó en el editor; así se puede montar todo con la cámara al principio del nivel.</p>
+<p>El parallax se aplica <strong>al dibujar</strong>, para cada vista con su cámara: vale con varias cámaras a la vez (pantalla
+partida, la vista del editor y la del juego) y no cambia los <strong>Transform</strong> de las entidades (los scripts y la red no ven
+nada raro). Las copias de la repetición son solo dibujo: no se seleccionan aparte ni tienen colisiones.</p>
+<h2 id="3-la-cámara-de-plataformas-camera2d">3. La cámara de plataformas (Camera2D)<a class="ancla" href="#3-la-cámara-de-plataformas-camera2d" aria-label="Enlace a esta sección">#</a></h2>
+<p>Añade <strong>2D &gt; Cámara 2D</strong> a la entidad de la <strong>Cámara</strong> (mejor con proyección <strong>Ortográfica</strong>) y elige el <strong>Objetivo</strong>
+(el jugador). Al jugar, la cámara se mueve sola después de los scripts y de la animación.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Grupo</th>
+  <th>Campos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Seguimiento</strong></td>
+  <td><strong>Objetivo</strong>, <strong>Más objetivos</strong> (cooperativo), <strong>Desplazamiento</strong> (un poco hacia arriba para ver más), <strong>Suavizado (s)</strong> (segundos para alcanzarlo; 0 = pegada), <strong>Zona muerta</strong> (ancho y alto del rectángulo central en el que el jugador se mueve sin que la cámara lo siga) y <strong>Anticipación</strong> (se adelanta hacia donde corre el jugador; también en vertical)</td>
+</tr>
+<tr>
+  <td><strong>Límites del nivel</strong></td>
+  <td><strong>Sin límites</strong>, <strong>Rectángulo</strong> (<strong>Mínimo</strong> y <strong>Máximo</strong>) o <strong>Caja de una entidad</strong>: su Colisionador (también el de caja 2D), su <strong>Tilemap</strong> (las celdas pintadas) o su escala. La vista nunca enseña lo que hay fuera; si el nivel es más pequeño que la vista, queda centrado</td>
+</tr>
+<tr>
+  <td><strong>Zoom</strong></td>
+  <td><strong>Zoom</strong> (1 = el tamaño de la cámara al empezar; 2 = el doble de cerca), su suavizado, el mínimo y el máximo</td>
+</tr>
+<tr>
+  <td><strong>Varios objetivos</strong></td>
+  <td>Con <strong>Más objetivos</strong>, encuadra a todos (el centro de su caja) y, con <strong>Alejarse para encuadrar</strong>, se aleja lo justo para que quepan (con el <strong>Margen del encuadre</strong>, sin pasar del <strong>Zoom mínimo</strong>)</td>
+</tr>
+<tr>
+  <td><strong>Temblor</strong></td>
+  <td><strong>Desplazamiento</strong> y <strong>Giro</strong> máximos, <strong>Frecuencia</strong>, <strong>Recuperación del trauma</strong> y <strong>Semilla</strong></td>
+</tr>
+<tr>
+  <td><strong>Pixel art</strong></td>
+  <td><strong>Pixel-perfect</strong>, <strong>Ancho/Alto de referencia</strong>, <strong>Píxeles por unidad</strong>, <strong>Escala entera</strong> y <strong>Ajustar a los píxeles</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Temblor.</strong> Hay dos formas, y se suman:</p>
+<ul>
+<li><code>Camera2D.Shake(intensidad, duración)</code>: temblor de intensidad 0..1 que baja hasta 0 en esa duración (un disparo, un
+golpe del jefe);</li>
+<li><strong>trauma</strong> acumulable con <code>Camera2D.AddTrauma(cantidad)</code>: cada golpe suma y se desvanece solo (<strong>Recuperación del
+trauma</strong> por segundo). El temblor es el trauma <strong>al cuadrado</strong>: los golpes pequeños apenas se notan y varios seguidos
+hacen temblar mucho.</li>
+</ul>
+<p>El movimiento sale de un ruido suave con <strong>semilla</strong>: con la misma semilla y los mismos pasos tiembla exactamente igual
+(útil para repeticiones y pruebas). El temblor no se acumula en la posición: al acabar, la cámara vuelve a su sitio.</p>
+<p><strong>Pixel-perfect.</strong> Para pixel art: con una resolución de referencia de 320 x 180 y 16 píxeles por unidad, a 1920 x 1080
+el arte se escala <strong>x6</strong> exacto (todos los píxeles del mismo tamaño) y la cámara cae en la rejilla de píxeles del arte
+(sin temblores de un píxel). Si la ventana no es múltiplo de la referencia, con <strong>Escala entera</strong> se usa la escala entera
+que cabe y se ve un poco más de nivel. El <strong>Zoom</strong> en pixel-perfect redondea a enteros (x2, x3...).</p>
+<h2 id="4-tilemap-y-tileset">4. Tilemap y TileSet<a class="ancla" href="#4-tilemap-y-tileset" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un <strong>Tilemap</strong> es una rejilla de tiles en el plano XY de su entidad: suelos, paredes, plataformas, decoración. Los tiles
+salen de un <strong>TileSet</strong>.</p>
+<h3 id="el-tileset-asset-tileset">El TileSet (asset <code>.tileset</code>)<a class="ancla" href="#el-tileset-asset-tileset" aria-label="Enlace a esta sección">#</a></h3>
+<p>Es una textura partida en celdas iguales (el <strong>atlas</strong>) más las propiedades de cada tile:</p>
+<ul>
+<li><strong>Colisión</strong>: el tile choca;</li>
+<li><strong>Unidireccional</strong>: una plataforma que se atraviesa desde abajo (márcalo sin «Colisión»: con las dos, el tile es sólido);</li>
+<li><strong>Etiqueta</strong>: un texto libre («Pinchos», «Agua», «Moneda») que los scripts leen con <code>GetTileTag</code>.</li>
+</ul>
+<p>Para crearlo: en el panel <strong>Tilemap</strong>, <strong>Nuevo TileSet</strong>, elige la textura e indica el <strong>ancho y alto de celda</strong> en
+píxeles, el <strong>margen</strong> alrededor del atlas y el <strong>espacio</strong> entre celdas. Las columnas y filas salen del tamaño de la
+textura. Los atlas de celdas pequeñas (32 píxeles o menos) usan el filtro de punto (pixel art nítido); los grandes, el
+lineal (dibujo a mano suavizado). Los tiles se numeran desde 1, fila a fila desde arriba a la izquierda.</p>
+<h3 id="pintar-con-el-panel-tilemap">Pintar con el panel Tilemap<a class="ancla" href="#pintar-con-el-panel-tilemap" aria-label="Enlace a esta sección">#</a></h3>
+<p><strong>Ventana &gt; Tilemap</strong> (o doble clic en un <code>.tileset</code> en Contenido). El panel trabaja con el Tilemap elegido; sin
+ninguno, <strong>Crear Tilemap</strong> crea uno con una capa «Suelo».</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Herramienta</th>
+  <th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Pincel</strong></td>
+  <td>Clic y arrastrar pinta el tile elegido. El trazo no deja huecos aunque muevas el ratón rápido. <strong>Mayús + clic</strong> borra y <strong>Ctrl + clic</strong> coge el tile de la celda</td>
+</tr>
+<tr>
+  <td><strong>Goma</strong></td>
+  <td>Clic y arrastrar vacía las celdas</td>
+</tr>
+<tr>
+  <td><strong>Rellenar</strong></td>
+  <td>Rellena las celdas conectadas que tienen el mismo tile (o las vacías) con el elegido, como un bote de pintura</td>
+</tr>
+<tr>
+  <td><strong>Rectángulo</strong></td>
+  <td>Arrastra para pintar un rectángulo (con <strong>Mayús</strong>, para borrarlo)</td>
+</tr>
+<tr>
+  <td><strong>Cuentagotas</strong></td>
+  <td>Clic en una celda para elegir su tile</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>La <strong>paleta</strong> muestra los tiles del atlas; debajo, las propiedades del tile elegido (se guardan en el <code>.tileset</code>).</li>
+<li><strong>Capas</strong>: visible, colisión, mover arriba o abajo, renombrar, <strong>Z de la capa</strong> (orden de dibujo entre capas),
+añadir y quitar. Lo normal: «Fondo» (sin colisión, Z −0,5), «Suelo» y «Decoración» (sin colisión, Z 0,1).</li>
+<li><strong>Mostrar rejilla</strong> dibuja las celdas alrededor de lo pintado y <strong>Mostrar colisión</strong> los rectángulos de colisión
+fusionados (verdes; los unidireccionales, azules).</li>
+<li><strong>Esc</strong> suelta la herramienta. Cada trazo es un paso de <strong>Deshacer</strong> (Ctrl+Z / Ctrl+Y) y viaja a la edición en
+equipo.</li>
+</ul>
+<h3 id="el-componente-tilemap">El componente Tilemap<a class="ancla" href="#el-componente-tilemap" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>TileSet</strong> (<code>tileSet</code>)</td>
+  <td>El asset <code>.tileset</code></td>
+</tr>
+<tr>
+  <td><strong>Tamaño de celda</strong> (<code>cellSize</code>)</td>
+  <td>Unidades del mundo de cada celda (1 = un metro). La celda (0, 0) va de (0, 0) a ese tamaño, en el espacio de la entidad</td>
+</tr>
+<tr>
+  <td><strong>Color</strong> y <strong>Brillo</strong></td>
+  <td>Tinte de todos los tiles. Los tiles <strong>no reciben luz</strong>: se ven como están pintados (el brillo los aclara u oscurece)</td>
+</tr>
+<tr>
+  <td><strong>Colisión</strong> (<code>collision</code>)</td>
+  <td>Genera los rectángulos de colisión (ver <a href="#6-orden-de-dibujo-y-colisiones">6</a>)</td>
+</tr>
+<tr>
+  <td><strong>Capa de orden</strong> y <strong>Orden en la capa</strong></td>
+  <td>Para el orden de dibujo por capas de los sprites (ver <a href="#6-orden-de-dibujo-y-colisiones">6</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Las celdas se guardan en la escena de forma <strong>compacta</strong>: las capas en JSON y sus celdas en binario comprimido con RLE
+(en base64). Un nivel de 500 x 200 celdas ocupa unas decenas de KB; uno lleno de un solo tile, unos pocos.</p>
+<h2 id="5-desde-los-scripts-lua">5. Desde los scripts Lua<a class="ancla" href="#5-desde-los-scripts-lua" aria-label="Enlace a esta sección">#</a></h2>
+<h3 id="cámara">Cámara<a class="ancla" href="#cámara" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Golpe del jefe: temblor fuerte y corto, y zoom un momento</span>
+<span class="hl-t">Camera2D</span>.<span class="hl-f">Shake</span>(<span class="hl-n">0.8</span>, <span class="hl-n">0.35</span>)
+<span class="hl-t">Camera2D</span>.<span class="hl-f">AddTrauma</span>(<span class="hl-n">0.3</span>)              <span class="hl-c">-- se suma y se desvanece solo</span>
+<span class="hl-t">Camera2D</span>.<span class="hl-f">SetZoom</span>(<span class="hl-n">1.3</span>)                <span class="hl-c">-- suave; SetZoom(1.3, true) al momento</span>
+<span class="hl-t">Camera2D</span>.<span class="hl-f">SetTarget</span>(jugador)          <span class="hl-c">-- o nil para dejar de seguir</span>
+<span class="hl-t">Camera2D</span>.<span class="hl-f">SetTargets</span>({ jugador1, jugador2 })   <span class="hl-c">-- cooperativo: encuadra a los dos</span>
+<span class="hl-t">Camera2D</span>.<span class="hl-f">SetBounds</span>(-<span class="hl-n">20</span>, -<span class="hl-n">5</span>, <span class="hl-n">180</span>, <span class="hl-n">40</span>) <span class="hl-c">-- o SetBounds(entidadNivel), o SetBounds(nil)</span>
+<span class="hl-t">Camera2D</span>.<span class="hl-f">Snap</span>()                      <span class="hl-c">-- a su sitio sin suavizado (tras un teletransporte)</span>
+
+<span class="hl-k">local</span> cam = <span class="hl-t">Camera2D</span>.<span class="hl-f">Get</span>()           <span class="hl-c">-- el componente de la cámara por defecto</span>
+cam.smoothTime = <span class="hl-n">0.1</span>
+cam.lookAhead = <span class="hl-n">2</span>
+cam:<span class="hl-f">Shake</span>(<span class="hl-n">0.5</span>, <span class="hl-n">0.2</span>)                  <span class="hl-c">-- los mismos métodos en el componente</span></code></pre></div>
+<p>Todas las funciones de la tabla <code>Camera2D</code> aceptan al final la cámara (el componente o su entidad); sin ella, la cámara
+principal si tiene <code>Camera2D</code> (si no, la primera que haya). <code>Camera2D.GetShake()</code> da el temblor de ahora (0..1).</p>
+<h3 id="tilemap">Tilemap<a class="ancla" href="#tilemap" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>mapa:GetTile(x, y, capa?)</code></td>
+  <td>Tile de la celda (0 = vacía). La capa es su número (1 = la primera, por defecto) o su nombre</td>
+</tr>
+<tr>
+  <td><code>mapa:SetTile(x, y, tile, capa?)</code></td>
+  <td>Pone el tile (0 la vacía); <code>true</code> si cambió. El dibujo y la colisión se rehacen solos</td>
+</tr>
+<tr>
+  <td><code>mapa:Fill(x0, y0, x1, y1, tile, capa?)</code></td>
+  <td>Rellena un rectángulo de celdas (incluidas); devuelve las cambiadas</td>
+</tr>
+<tr>
+  <td><code>mapa:FloodFill(x, y, tile, capa?)</code></td>
+  <td>Rellena las conectadas con el mismo tile</td>
+</tr>
+<tr>
+  <td><code>mapa:Clear(capa?)</code></td>
+  <td>Vacía una capa (o todas)</td>
+</tr>
+<tr>
+  <td><code>mapa:WorldToCell(posicion)</code></td>
+  <td>Celda <code>x, y</code> de un punto del mundo (<code>Vec3</code> o <code>Vec2</code>)</td>
+</tr>
+<tr>
+  <td><code>mapa:CellToWorld(x, y)</code></td>
+  <td>Centro de la celda en el mundo (<code>Vec3</code>)</td>
+</tr>
+<tr>
+  <td><code>mapa:GetTileTag(x, y, capa?)</code></td>
+  <td>Etiqueta del tile en su TileSet, o <code>nil</code></td>
+</tr>
+<tr>
+  <td><code>mapa:IsSolid(x, y)</code></td>
+  <td>La celda tiene un tile que choca en alguna capa con colisión</td>
+</tr>
+<tr>
+  <td><code>mapa:GetCollisionRects()</code></td>
+  <td>Los rectángulos de colisión fusionados (<code>{min, max, oneWay}</code>, espacio local)</td>
+</tr>
+<tr>
+  <td><code>mapa:GetBounds()</code></td>
+  <td>Celdas pintadas: <code>minX, minY, maxX, maxY</code>, o <code>nil</code></td>
+</tr>
+<tr>
+  <td><code>mapa:GetLayerCount()</code>, <code>GetLayerName(capa)</code>, <code>FindLayer(nombre)</code>, <code>AddLayer(nombre?)</code>, <code>SetLayerVisible(capa, visible)</code>, <code>CountTiles(capa?)</code></td>
+  <td>Capas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Un bloque que se rompe al golpearlo desde abajo y suelta una moneda:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Bloques</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Bloques</span>.nivel = <span class="hl-f">Entity</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Bloques</span>:<span class="hl-f">Golpe</span>(cabeza: <span class="hl-t">Vec3</span>)
+    <span class="hl-k">local</span> mapa = <span class="hl-b">self</span>.nivel:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Tilemap"</span>)
+    <span class="hl-k">local</span> x, y = mapa:<span class="hl-f">WorldToCell</span>(cabeza)
+    y += <span class="hl-n">1</span> <span class="hl-c">-- la celda de encima de la cabeza</span>
+    <span class="hl-k">if</span> mapa:<span class="hl-f">GetTileTag</span>(x, y) == <span class="hl-s">"Rompible"</span> <span class="hl-k">then</span>
+        mapa:<span class="hl-f">SetTile</span>(x, y, <span class="hl-n">0</span>)
+        <span class="hl-t">Camera2D</span>.<span class="hl-f">Shake</span>(<span class="hl-n">0.25</span>, <span class="hl-n">0.15</span>)
+        <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"bloque roto en "</span> .. x .. <span class="hl-s">", "</span> .. y)
+        <span class="hl-k">return</span> <span class="hl-b">true</span>
+    <span class="hl-k">end</span>
+    <span class="hl-k">return</span> <span class="hl-b">false</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Bloques</span></code></pre></div>
+<p>Los campos de los componentes se leen y se escriben como siempre: <code>capa:GetComponent(&quot;ParallaxLayer&quot;).scrollSpeed = Vec2.new(2, 0)</code>, <code>cam.deadZone = Vec2.new(1, 0.5)</code>, <code>mapa.color = Color.new(1, 0.9, 0.8)</code>.</p>
+<h2 id="6-orden-de-dibujo-y-colisiones">6. Orden de dibujo y colisiones<a class="ancla" href="#6-orden-de-dibujo-y-colisiones" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Orden de dibujo.</strong> El Tilemap se dibuja con los sprites (<a href="juegos-2d.html#8-capas-de-dibujo-y-orden">juegos-2d.md</a>):
+cada trozo es un lote más de la pasada de sprites en la <strong>Capa de orden</strong> (<code>sortingLayer</code>, las capas de dibujo del
+proyecto) y el <strong>Orden en la capa</strong> (<code>orderInLayer</code>) del Tilemap, los mismos campos que los del SpriteRenderer. Así, un
+personaje en la capa «Default» con orden 10 va delante de un suelo con orden −10 y detrás de unas plantas en
+«Foreground», tenga la Z que tenga. Dentro de la misma capa y orden manda la profundidad: la <strong>Z de la capa</strong> del Tilemap
+(y la de su entidad) pone unas capas de tiles detrás de otras. Los bordes de los tiles se mezclan con lo de detrás
+(alfa), como los de un sprite.</p>
+<p><strong>Colisiones.</strong> El Tilemap choca solo con las <strong>físicas 2D</strong> (<a href="fisicas-2d.html">fisicas-2d.md</a>), sin añadirle ningún
+colisionador: los tiles que chocan se convierten en los <strong>contornos</strong> de cada isla sólida (lazos cerrados sin puntos en
+medio de los lados, así el personaje no se engancha en las juntas entre tiles) y los <strong>unidireccionales</strong> en plataformas
+que se atraviesan desde abajo. Se rehacen solos al pintar, en el editor (se ven con las formas de las físicas) y jugando
+(romper un bloque abre el hueco al momento). Las formas no se guardan con la escena: el Tilemap las vuelve a poner al
+cargar. Para tus propios cálculos, <code>GetCollisionRects()</code> da las mismas celdas en <strong>rectángulos fusionados</strong> (greedy
+meshing: un suelo de 200 celdas es un solo rectángulo).</p>
+<h2 id="7-rendimiento">7. Rendimiento<a class="ancla" href="#7-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Tilemap</strong>: una malla por trozo de 16 x 16 celdas y capa, con todos sus tiles (un dibujado por trozo, fuera de la
+vista no se dibuja). Pintar una celda rehace solo su trozo. Medido con un nivel de 500 x 200 celdas (prueba
+<code>mundo2d coste</code>, <code>capturas-mundo2d/coste.json</code>): unos 20 000 tiles en 414 trozos; la colisión fusionada tarda menos
+de 1 ms y pintar una celda y rehacer su trozo, menos de 0,5 ms. Lleno del todo (100 000 tiles), las mallas tardan
+unos 130 ms la primera vez (al cargar) y el frame entero a 1920 x 1080 (cielo y posproceso incluidos) ronda 1 ms.</li>
+<li><strong>Parallax</strong>: no cuesta nada sin capas; con ellas, solo las copias que se ven.</li>
+<li><strong>Camera2D</strong>: unos microsegundos por cámara y frame.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="fisicas-2d.html"><small>Anterior</small>Físicas 2D</a><a class="sig" href="iluminacion-horneada.html"><small>Siguiente</small>Iluminación horneada: lightmaps y sondas de luz</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-la-vista-2d-del-editor">1. La vista 2D del editor</a></li><li class="n2"><a href="#2-parallax-fondos-por-capas-pintadas">2. Parallax: fondos por capas pintadas</a></li><li class="n2"><a href="#3-la-cámara-de-plataformas-camera2d">3. La cámara de plataformas (Camera2D)</a></li><li class="n2"><a href="#4-tilemap-y-tileset">4. Tilemap y TileSet</a></li><li class="n3"><a href="#el-tileset-asset-tileset">El TileSet (asset .tileset)</a></li><li class="n3"><a href="#pintar-con-el-panel-tilemap">Pintar con el panel Tilemap</a></li><li class="n3"><a href="#el-componente-tilemap">El componente Tilemap</a></li><li class="n2"><a href="#5-desde-los-scripts-lua">5. Desde los scripts Lua</a></li><li class="n3"><a href="#cámara">Cámara</a></li><li class="n3"><a href="#tilemap">Tilemap</a></li><li class="n2"><a href="#6-orden-de-dibujo-y-colisiones">6. Orden de dibujo y colisiones</a></li><li class="n2"><a href="#7-rendimiento">7. Rendimiento</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>
