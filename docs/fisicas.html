@@ -359,8 +359,8 @@ personaje:<span class="hl-f">Move</span>(direccion, correr) <span class="hl-c">-
 personaje:<span class="hl-f">Face</span>(guinada)           <span class="hl-c">-- radianes; 0 = mirando hacia +Z (como los modelos glTF)</span>
 personaje:<span class="hl-f">Jump</span>()                  <span class="hl-c">-- salta en el siguiente paso fijo si está en el suelo</span></code></pre></div>
 <ul>
-<li><p>No muevas su <code>Transform</code> para andar: escribirlo lo <strong>teletransporta</strong> (al momento, también con muchos fps). Sí
-sirve para reaparecer.</p>
+<li><p>No muevas su <code>Transform</code> para andar: escribir su posición lo <strong>teletransporta</strong> (al momento, también con muchos
+fps). Sí sirve para reaparecer. Escribir solo su rotación lo gira sin moverlo ni frenarlo.</p>
 </li>
 <li><p><code>personaje:SetHeight(altura)</code> cambia la altura de la cápsula <strong>sin recrear el personaje</strong> (agacharse con altura
 graduable). Devuelve <code>false</code> si no cabe, por ejemplo debajo de una mesa, y se queda como estaba:</p>
@@ -708,9 +708,12 @@ que los scripts. Las fuerzas e impulsos se aplican en el siguiente paso. Lo que 
 paso va mejor en <code>FixedUpdate(dt)</code>.</li>
 <li>Entre pasos, el <code>Transform</code> de los cuerpos dinámicos y de los personajes se <strong>interpola</strong> para que se vean
 suaves aunque el juego vaya a más FPS.</li>
-<li>Escribir el <code>Transform</code> (o <code>entidad.position</code>) de un cuerpo <strong>dinámico</strong> o de un personaje lo
+<li>Escribir la posición del <code>Transform</code> (o <code>entidad.position</code>) de un cuerpo <strong>dinámico</strong> o de un personaje lo
 <strong>teletransporta</strong> (sin velocidad nueva). <code>Physics.Teleport</code> hace lo mismo de forma explícita; en una partida
 en red, <code>Network.Teleport</code> además avisa a los clientes para que no interpolen el salto.</li>
+<li>Escribir <strong>solo la rotación</strong> (<code>entidad.rotation</code>) no es un teletransporte: el cuerpo gira donde está de verdad
+(no en la pose interpolada, que va un poco por detrás) y conserva su velocidad, aunque se haga en cada frame y a
+cualquier FPS. Volver a escribir la posición que ya tenía junto con el giro tampoco lo mueve.</li>
 <li>Un cuerpo <strong>cinemático</strong> sigue a su <code>Transform</code>: muévelo cada frame o cada paso fijo (o con
 <code>cuerpo:MovePosition</code>) y empujará a lo que encuentre (plataformas, puertas, ascensores).</li>
 <li>Mover un cuerpo <strong>estático</strong> funciona, pero es caro y no empuja nada: usa Cinemático para lo que se mueve.</li>

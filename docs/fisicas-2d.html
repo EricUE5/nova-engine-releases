@@ -216,6 +216,11 @@ cualquier frecuencia de pantalla).</li>
 cinemático <strong>llega</strong> a esa pose en el siguiente paso con la velocidad que hace falta (así empuja y arrastra lo que tiene
 encima) y <strong>se para allí</strong>: en un paso en el que no se le pide otra pose, su velocidad pasa a 0, igual que un cinemático
 3D. Solo sigue moviéndose solo si le das tú una velocidad con <code>rb:SetVelocity</code>.</p>
+<p>Escribir <strong>solo la rotación</strong> (<code>entity.rotation</code>, por ejemplo para que una flecha mire hacia donde va) no es un
+teletransporte: el cuerpo gira donde está de verdad y sigue con su velocidad, aunque se haga en cada frame y a cualquier
+fps. Lo mismo si vuelves a escribir la posición que ya tenía junto con la rotación nueva. Solo una posición distinta lo
+lleva a otro sitio (y la interpolación empieza de nuevo allí). Vale para dinámicos, para cinemáticos movidos con
+<code>rb:SetVelocity</code> y para <code>CharacterController2D</code>.</p>
 <h2 id="3-colisionadores-2d">3. Colisionadores 2D<a class="ancla" href="#3-colisionadores-2d" aria-label="Enlace a esta sección">#</a></h2>
 <p>Todos tienen:</p>
 <div class="tabla"><table>
