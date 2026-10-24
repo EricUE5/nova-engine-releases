@@ -112,9 +112,14 @@ en el visor</strong> (menú Ver o el botón del visor): las 2D se dibujan junto 
 <li>El giro del cuerpo es el giro alrededor del eje Z; el resto del giro de la entidad se conserva (un sprite girado hacia la
 cámara sigue girado).</li>
 <li>La <strong>escala</strong> de la entidad (x, y) escala las formas.</li>
+<li>El <code>offset</code> y el ángulo de cada forma son <strong>locales</strong>: la forma está en la posición de la entidad + giro · (<code>offset</code> ×
+escala), y su ángulo se suma al de la entidad. Si giras la entidad, sus formas giran con ella (también a mitad de
+partida), igual que se dibujan en el visor.</li>
 <li>Se simula a paso fijo (60 por segundo) y el Transform de lo que se mueve se <strong>interpola</strong> entre pasos (se ve fluido a
 cualquier frecuencia de pantalla).</li>
-<li>Una entidad hija con cuerpo funciona: la física escribe su Transform local respetando al padre.</li>
+<li>Una entidad hija con cuerpo funciona: la física escribe su Transform local respetando al padre. Si el padre se mueve o
+gira, una hija <strong>estática</strong> o <strong>cinemática</strong> (sin velocidad propia) le sigue con sus formas; una dinámica va por su
+cuenta, y un cinemático al que das velocidad con <code>rb:SetVelocity</code> también.</li>
 </ul>
 <h2 id="2-rigidbody2d">2. Rigidbody2D<a class="ancla" href="#2-rigidbody2d" aria-label="Enlace a esta sección">#</a></h2>
 <div class="tabla"><table>
@@ -149,7 +154,7 @@ cualquier frecuencia de pantalla).</li>
 <tr>
   <td><code>fixedRotation</code></td>
   <td>no</td>
-  <td>No gira nunca (cajas que no vuelcan)</td>
+  <td>La simulación no lo hace girar (cajas que no vuelcan); si giras tú la entidad, sí gira, con sus formas</td>
 </tr>
 <tr>
   <td><code>bullet</code></td>
@@ -215,7 +220,9 @@ cualquier frecuencia de pantalla).</li>
 <p>Mover el <strong>Transform</strong> de un cuerpo desde un script también vale: un estático o un dinámico se teletransportan; un
 cinemático <strong>llega</strong> a esa pose en el siguiente paso con la velocidad que hace falta (así empuja y arrastra lo que tiene
 encima) y <strong>se para allí</strong>: en un paso en el que no se le pide otra pose, su velocidad pasa a 0, igual que un cinemático
-3D. Solo sigue moviéndose solo si le das tú una velocidad con <code>rb:SetVelocity</code>.</p>
+3D. Solo sigue moviéndose solo si le das tú una velocidad con <code>rb:SetVelocity</code>. El giro llega igual, aunque sea grande
+(90 grados de golpe) o el cuerpo tenga <code>fixedRotation</code>: un jefe que rueda girando su entidad lleva sus formas de daño en el
+sitio que se dibuja.</p>
 <p>Escribir <strong>solo la rotación</strong> (<code>entity.rotation</code>, por ejemplo para que una flecha mire hacia donde va) no es un
 teletransporte: el cuerpo gira donde está de verdad y sigue con su velocidad, aunque se haga en cada frame y a cualquier
 fps. Lo mismo si vuelves a escribir la posición que ya tenía junto con la rotación nueva. Solo una posición distinta lo
@@ -233,7 +240,7 @@ lleva a otro sitio (y la interpolación empieza de nuevo allí). Vale para diná
 <tbody>
 <tr>
   <td><code>offset</code></td>
-  <td>Centro de la forma respecto a la entidad</td>
+  <td>Centro de la forma respecto a la entidad, en sus ejes: gira y se escala con ella</td>
 </tr>
 <tr>
   <td><code>isTrigger</code></td>
@@ -319,7 +326,7 @@ con <code>OnDropThrough()</code>). En un suelo normal, abajo + salto es un salto
 <p>Un personaje con el tacto de un plataformas de precisión. Es una cápsula vertical (<code>size</code>, centrada en la entidad +
 <code>offset</code>) que se mueve contra el nivel (no lo empuja la simulación): lo mueve su entrada, y su cuerpo cinemático empuja
 cajas dinámicas y lo ven los sensores. Los colisionadores sólidos de la misma entidad no cuentan (los sensores sí: una
-caja de daño, por ejemplo).</p>
+caja de daño, por ejemplo). La cápsula no gira nunca, pero los sensores de la entidad sí giran con ella (con su <code>offset</code>).</p>
 <p>Valores por defecto (pensados para un personaje de 1,6 m que se sienta ágil):</p>
 <div class="tabla"><table>
 <thead>
