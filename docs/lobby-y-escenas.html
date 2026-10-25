@@ -763,6 +763,51 @@ partidas, enciéndelo con <code>Chat.SetEnabled(true)</code>; si tu juego ya tie
 el juego no recibe el teclado mientras escribes), <strong>Tab</strong> cambia entre «todos» y «equipo» (si hay equipos), <strong>Intro</strong>
 envía y <strong>Esc</strong> cierra. Los mensajes se ven unos segundos y luego se desvanecen; los avisos de la red («Ana se ha
 unido a la partida») salen también ahí.</p>
+<p><strong>Cuándo está encendido.</strong> Lo decide <strong>Ajustes del proyecto &gt; Red &gt; Chat integrado</strong> (<code>&quot;chat&quot;: {&quot;enabled&quot;: ...}</code> en
+<code>project.nova</code>):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th><code>enabled</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Automático (por defecto)</td>
+  <td><code>&quot;auto&quot;</code> (o sin poner)</td>
+  <td>Se enciende solo en las partidas con sala (<code>Lobby.Host</code> / <code>Lobby.Open</code>)</td>
+</tr>
+<tr>
+  <td>Siempre en las partidas en red</td>
+  <td><code>true</code></td>
+  <td>En cualquier partida en red (anfitrión o cliente), con sala o sin ella</td>
+</tr>
+<tr>
+  <td>Desactivado</td>
+  <td><code>false</code></td>
+  <td>Nunca se enciende solo: tu juego no lo usa o tiene el suyo</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Chat.SetEnabled(true)</code> o <code>Chat.SetEnabled(false)</code> desde Lua manda sobre el ajuste del proyecto en esa máquina hasta que
+acaba la sesión. <code>Chat.Send</code> y <code>Chat.OnMessage</code> funcionan siempre, aunque la caja esté apagada.</p>
+<p><strong>Intro es del juego cuando el juego la usa.</strong> Aunque el chat esté encendido, Intro <strong>no</strong> abre la caja (le llega al juego
+o a la interfaz) si en ese momento:</p>
+<ul>
+<li>la interfaz está escribiendo en un <strong>campo de texto</strong>;</li>
+<li>un <strong>botón o un menú tiene el foco</strong> (se navegó con el teclado o el mando, la pantalla lo selecciona al abrirse o un
+script llamó a <code>Focus</code>): Intro lo pulsa;</li>
+<li>tus <strong>scripts están leyendo Intro</strong>: <code>Input.WasKeyPressed(&quot;Enter&quot;)</code>, <code>Input.IsKeyDown(&quot;Enter&quot;)</code>, una acción con Intro
+(<code>Input.WasActionPressed</code>) o <code>Input.AnyKeyPressed()</code> en este frame o en los dos anteriores. Por ejemplo, un teclado
+numérico que confirma con Intro o una pantalla de resultados con «Intro para continuar»: mientras están abiertos, Intro es
+suya; al cerrarlos (el script deja de leer Intro), Intro vuelve a abrir el chat. Un juego en C++ avisa con
+<code>Input::NoteGameKeyRead(Key::Enter)</code>.</li>
+</ul>
+<p>Así no hace falta apagar el chat con <code>Chat.SetEnabled(false)</code> al abrir cada menú del juego. Si tu juego lee Intro en todos
+los frames (un «pulsa Intro» que siempre está mirando), el chat no se abrirá nunca con Intro: lee Intro solo cuando la usas
+o abre la caja desde tu propia tecla con <code>Chat.Open()</code>.</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-t">Chat</span>.<span class="hl-f">Send</span>(<span class="hl-s">"¡Hola!"</span>)                          <span class="hl-c">-- como el jugador de esta máquina</span>
 <span class="hl-t">Chat</span>.<span class="hl-f">Send</span>(<span class="hl-s">"Voy por la izquierda"</span>, <span class="hl-s">"team"</span>)  <span class="hl-c">-- a los de su equipo (Lobby.SetTeam en el servidor)</span>
 <span class="hl-t">Chat</span>.<span class="hl-f">SendSystem</span>(<span class="hl-s">"¡Ronda 2!"</span>)                 <span class="hl-c">-- servidor: aviso del sistema para todos (o Chat.SendSystem(texto, id))</span>

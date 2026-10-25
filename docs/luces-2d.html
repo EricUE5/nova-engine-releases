@@ -252,9 +252,20 @@ luz, con los mismos contornos que usan las físicas 2D (sin juntas entre tiles).
 reciben la luz en la cara que mira a la luz (hasta una celda de fondo).</p>
 <h2 id="parpadeo-y-pulso">Parpadeo y pulso<a class="ancla" href="#parpadeo-y-pulso" aria-label="Enlace a esta sección">#</a></h2>
 <p>El parpadeo mezcla un ruido suave con apagones cortos, como una bombilla vieja o un fluorescente que falla. Es
-<strong>determinista</strong>: con la misma semilla y el mismo reloj de la escena sale lo mismo (en el editor y en todas las máquinas). Dos
-bombillas con semillas distintas no fallan a la vez. El pulso sube y baja suave (<code>pulse</code> es cuánto baja). Desde Lua:
-<code>Light2D.Flicker(bombilla, 0.8, 10, 7)</code> o <code>luz:Pulse(0.5, 1)</code>.</p>
+<strong>determinista</strong>: con la misma semilla y el mismo reloj sale lo mismo. Dos bombillas con semillas distintas no fallan a la
+vez. El pulso sube y baja suave (<code>pulse</code> es cuánto baja). Desde Lua: <code>Light2D.Flicker(bombilla, 0.8, 10, 7)</code> o
+<code>luz:Pulse(0.5, 1)</code>.</p>
+<p><strong>Qué reloj usan</strong> (el parpadeo, el pulso y <code>Light2D.GetFactor</code>):</p>
+<ul>
+<li><strong>Con una partida en red</strong> (anfitrión, cliente o servidor dedicado): la <strong>hora del servidor</strong>, la misma que devuelve
+<code>Network.GetServerTime()</code>. Así la misma bombilla está encendida o apagada a la vez en todas las pantallas, aunque cada
+jugador haya cargado la escena en un momento distinto. Y <code>Light2D.GetLightAt</code> en el anfitrión ve la luz que ven los
+jugadores: si un monstruo solo se mueve a oscuras, se para cuando la bombilla está encendida en todas las pantallas.</li>
+<li><strong>Sin red</strong> (un jugador, el visor Escena del editor): el reloj de la escena, como siempre.</li>
+<li>El reloj se lee una vez por frame: el dibujo y todas las consultas de los scripts de ese frame ven la misma luz.</li>
+</ul>
+<p>No hace falta calcular el parpadeo a mano con la hora del servidor: basta con <code>flicker</code> y <code>flickerSeed</code> (iguales en todas las
+máquinas porque se replican o están en la escena).</p>
 <h2 id="máscara-de-capas">Máscara de capas<a class="ancla" href="#máscara-de-capas" aria-label="Enlace a esta sección">#</a></h2>
 <p><code>layerMask</code> dice a qué capas de dibujo (las de <strong>Ajustes del proyecto &gt; 2D</strong>) llega la luz: el bit N es la capa N
 (4294967295 = todas). Por ejemplo, una luz solo para los personajes: <code>luz.layerMask = Light2D.LayerMask(&quot;Personajes&quot;)</code>. Las
@@ -329,7 +340,8 @@ círculo pequeño con rayos para las Global. Con un Proyector de sombra 2D selec
 <li><strong>Botón de la luz</strong> en la barra del visor (sale en la vista 2D o con alguna Luz 2D en la escena): ver la escena con las
 luces y sombras o sin ellas (los sprites iluminados con su color), para colocar cosas a oscuras. Jugando, siempre con
 luces.</li>
-<li>La luz se ve en el visor Escena sin jugar (el parpadeo, quieto; se mueve con el reloj de la escena al jugar).</li>
+<li>La luz se ve en el visor Escena sin jugar (el parpadeo, quieto; se mueve con el reloj de la escena al jugar, o con la hora
+del servidor en una partida en red).</li>
 </ul>
 <h2 id="cómo-se-calculan-las-sombras-y-lo-que-cuestan">Cómo se calculan las sombras y lo que cuestan<a class="ancla" href="#cómo-se-calculan-las-sombras-y-lo-que-cuestan" aria-label="Enlace a esta sección">#</a></h2>
 <p>Cada luz con sombras tiene un <strong>mapa de sombras polar de una dimensión</strong>: 1024 ángulos alrededor de la luz con la distancia
@@ -356,9 +368,10 @@ sombras y <strong>0,14 ms</strong> de GPU para el frame entero a 1280 x 720 (0,1
 en <code>capturas-terror2d/rendimiento.json</code>.</p>
 <h2 id="multijugador">Multijugador<a class="ancla" href="#multijugador" aria-label="Enlace a esta sección">#</a></h2>
 <p>Los campos principales de la Luz 2D (tipo, color, intensidad, radio, ángulos, sombras, parpadeo y encendida) y la luz propia
-de los sprites se replican como cualquier campo <code>Replicated</code>. El parpadeo es determinista con su semilla y el reloj de la
-escena de cada máquina. <code>Light2D.GetLightAt</code> funciona igual en el servidor dedicado (no necesita gráficos): úsalo allí para
-decidir si un monstruo puede moverse.</p>
+de los sprites se replican como cualquier campo <code>Replicated</code>. El parpadeo y el pulso van con la hora del servidor (ver
+<a href="#parpadeo-y-pulso">Parpadeo y pulso</a>): con la misma semilla, la bombilla parpadea igual en todas las máquinas.
+<code>Light2D.GetLightAt</code> funciona igual en el servidor dedicado (no necesita gráficos): úsalo allí para decidir si un monstruo
+puede moverse.</p>
 <h2 id="límites">Límites<a class="ancla" href="#límites" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li>Hasta 128 luces 2D encendidas a la vez y 64 con sombras (las demás iluminan sin sombras).</li>

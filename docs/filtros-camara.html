@@ -383,18 +383,31 @@ píxeles de 1 (sin cambio) y crece hasta su tamaño, y el ojo de pez y la curvat
 <p>El filtro <strong>Cámara de vigilancia / CRT / VHS</strong> (<code>&quot;SecurityCam&quot;</code>) da el aspecto de las cámaras de seguridad y las cintas
 viejas de un juego de terror, en 2D y en 3D:</p>
 <ul>
-<li><strong>Pantalla</strong>: líneas de barrido (<code>scanlines</code>, <code>lines</code>), pantalla curva (<code>curvature</code>) y viñeta (<code>vignette</code>).</li>
-<li><strong>Color</strong>: rojo y azul separados hacia los bordes (<code>chromatic</code>) y el color quitado y teñido de verde grisáceo (<code>tint</code>,
-con el <strong>color del tinte</strong>; en estilo VHS, casi sin tinte).</li>
-<li><strong>Ruido</strong>: grano que cambia en cada imagen (<code>noise</code>) y nieve de mala señal, con motas blancas (<code>snow</code>).</li>
-<li><strong>Cortes de señal</strong> (<code>signalCuts</code>): una banda que baja y tuerce las líneas que pasan por ella, tirones verticales de vez
+<li><p><strong>Pantalla</strong>: líneas de barrido (<code>scanlines</code>, <code>lines</code>), pantalla curva (<code>curvature</code>) y viñeta (<code>vignette</code>).</p>
+</li>
+<li><p><strong>Color</strong>: rojo y azul separados hacia los bordes (<code>chromatic</code>) y el color quitado y teñido de verde grisáceo (<code>tint</code>,
+con el <strong>color del tinte</strong>; en estilo VHS, casi sin tinte).</p>
+</li>
+<li><p><strong>Ruido</strong>: grano que cambia en cada imagen (<code>noise</code>) y nieve de mala señal, con motas blancas (<code>snow</code>).</p>
+</li>
+<li><p><strong>Cortes de señal</strong> (<code>signalCuts</code>): una banda que baja y tuerce las líneas que pasan por ella, tirones verticales de vez
 en cuando (la imagen salta y vuelve) y algún fallo con bloques de líneas desplazados y los colores separados. Más =
 más a menudo y más fuertes. <code>seed</code> cambia cuándo pasan (dos cámaras no fallan a la vez); con la misma semilla y el
-mismo reloj, la misma imagen.</li>
-<li><strong>Texto encima</strong> (<code>overlay</code>): arriba a la izquierda el <strong>nombre de la cámara</strong> («CAM 03 – SÓTANO»), arriba a la
+mismo reloj, la misma imagen (ver «Qué reloj usa» más abajo).</p>
+</li>
+<li><p><strong>Texto encima</strong> (<code>overlay</code>): arriba a la izquierda el <strong>nombre de la cámara</strong> («CAM 03 · PLATÓ B»), arriba a la
 derecha <strong>«● REC»</strong> con el punto rojo parpadeando, abajo a la izquierda la <strong>fecha y la hora</strong> que avanzan y abajo a la
 derecha un texto libre. En estilo VHS: «PLAY ▶» y la fecha de la cinta. La fuente es la propia de 5 x 7 del motor, de
-estilo monoespaciado: mayúsculas, cifras, tildes, la ñ y <code>/ ( ) ! ? , ' ● ▶</code> (las minúsculas se pasan a mayúsculas).</li>
+estilo monoespaciado. Tiene:</p>
+<ul>
+<li>mayúsculas y cifras; las minúsculas salen como su mayúscula (también con acento: «plató» sale «PLATÓ»);</li>
+<li>las <strong>mayúsculas con acento</strong>, con el acento encima de la letra: Á É Í Ó Ú Ü Ñ, À È Ì Ò Ù, Â Ê Î Ô Û, Ä Ë Ï Ö,
+Ã Õ Å Ý Ÿ, la Ç con su cedilla y Ø Æ ß;</li>
+<li>signos: <code>. : , ; - _ = + * # % @ / ( ) [ ] ! ? ¡ ¿ ' &quot; « » · &amp; $ € £ &lt; | ~ ° º ª ● ▶</code> («&gt;» sale como «▶», «–» y «—»
+como «-», «…» como «...» y «×» como «X»). Lo que no está sale como un espacio.</li>
+</ul>
+<p><figure class="captura"><img src="../assets/img/capturas-terror2d-terror2d-securitycam-letras.webp" srcset="../assets/img/capturas-terror2d-terror2d-securitycam-letras-800.webp 800w, ../assets/img/capturas-terror2d-terror2d-securitycam-letras.webp 960w" sizes="(max-width: 900px) 100vw, 900px" alt="Las letras y signos del texto encima" width="960" height="540" loading="lazy" decoding="async"><figcaption>Las letras y signos del texto encima</figcaption></figure></p>
+</li>
 </ul>
 <p>El texto se cambia en el Inspector (al abrir el filtro, debajo de sus parámetros) o con <code>CameraFilter.SetOverlay</code>:</p>
 <div class="tabla"><table>
@@ -411,7 +424,7 @@ estilo monoespaciado: mayúsculas, cifras, tildes, la ñ y <code>/ ( ) ! ? , ' �
 </tr>
 <tr>
   <td>Fecha y hora de inicio</td>
-  <td>Vacío: la hora del PC. <code>&quot;1987-10-25 03:14:00&quot;</code>: empieza ahí y avanza con el reloj de la escena (el mismo texto en todas las máquinas)</td>
+  <td>Vacío: la hora del PC. <code>&quot;1987-10-25 03:14:00&quot;</code>: empieza ahí y avanza con el juego (con la hora del servidor en red: el mismo texto en todas las máquinas)</td>
 </tr>
 <tr>
   <td>Velocidad del reloj</td>
@@ -431,6 +444,11 @@ estilo monoespaciado: mayúsculas, cifras, tildes, la ñ y <code>/ ( ) ! ? , ' �
 </tr>
 </tbody>
 </table></div>
+<p><strong>Qué reloj usa.</strong> En una partida en red, los cortes de señal y los tirones (con su <code>seed</code>), el grano, el parpadeo de
+«● REC» y la hora que avanza van con la <strong>hora del servidor</strong> (<code>Network.GetServerTime()</code>): todas las pantallas ven el mismo
+corte en el mismo momento y la misma hora, aunque cada jugador haya cargado la escena en otro momento. Sin red, con el reloj
+de la escena. Lo que empieza una sola máquina va con el reloj de su escena: <code>CameraFilter.Static</code>, <code>CameraFilter.Glitch</code> y
+las transiciones de <code>FadeFilter</code> (un susto o un daño que solo ve ese jugador).</p>
 <p><strong>Cambio de cámara con estática.</strong> <code>CameraFilter.Static(0.3)</code> pone nieve de tele a pantalla completa (el filtro
 <code>&quot;TVStatic&quot;</code>, también por encima de la interfaz) durante ese tiempo: entera casi todo el rato y se va en el último 30 %.
 Cambia la cámara a mitad de la estática y no se ve el salto. No hace falta tener el filtro en la pila; sin ningún filtro
