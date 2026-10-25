@@ -23,10 +23,10 @@ colores como una consola antigua, una tele de tubo, una cinta VHS, cine mudo, c�
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 <header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
 <div class="marco con-lateral con-toc">
-<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html" aria-current="page">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html" aria-current="page">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <article class="doc"><h1 id="filtros-de-cámara-que-el-juego-se-vea-antiguo-con-píxeles-y-con-otras-formas">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</h1>
-<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-ponerlos-en-el-editor">1. Ponerlos en el editor</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-los-filtros">3. Los filtros</a></li><li class="n3"><a href="#retro">Retro</a></li><li class="n3"><a href="#formas-y-estilos">Formas y estilos</a></li><li class="n3"><a href="#visión">Visión</a></li><li class="n3"><a href="#utilidad">Utilidad</a></li><li class="n2"><a href="#4-la-interfaz-y-el-arma-en-primera-persona">4. La interfaz y el arma en primera persona</a></li><li class="n2"><a href="#5-desde-lua">5. Desde Lua</a></li><li class="n2"><a href="#6-rendimiento">6. Rendimiento</a></li><li class="n2"><a href="#7-límites">7. Límites</a></li></ul></details><p>Los <strong>filtros de cámara</strong> cambian cómo se ve la imagen del juego, después de dibujar la escena: píxeles grandes, pocos
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-ponerlos-en-el-editor">1. Ponerlos en el editor</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-los-filtros">3. Los filtros</a></li><li class="n3"><a href="#retro">Retro</a></li><li class="n3"><a href="#formas-y-estilos">Formas y estilos</a></li><li class="n3"><a href="#visión">Visión</a></li><li class="n3"><a href="#utilidad">Utilidad</a></li><li class="n2"><a href="#4-cámara-de-vigilancia-crt-y-vhs">4. Cámara de vigilancia, CRT y VHS</a></li><li class="n2"><a href="#5-la-interfaz-y-el-arma-en-primera-persona">5. La interfaz y el arma en primera persona</a></li><li class="n2"><a href="#6-desde-lua">6. Desde Lua</a></li><li class="n2"><a href="#7-rendimiento">7. Rendimiento</a></li><li class="n2"><a href="#8-límites">8. Límites</a></li></ul></details><p>Los <strong>filtros de cámara</strong> cambian cómo se ve la imagen del juego, después de dibujar la escena: píxeles grandes, pocos
 colores como una consola antigua, una tele de tubo, una cinta VHS, cine mudo, cómic, letras ASCII, visión nocturna...</p>
 <ul>
 <li>Van en el componente <strong>Filtros de cámara</strong> de la entidad de la cámara.</li>
@@ -35,6 +35,8 @@ colores como una consola antigua, una tele de tubo, una cinta VHS, cine mudo, c�
 <li>Hay <strong>preajustes</strong> listos para elegir («PS1», «Game Boy», «Tele de los 80»...). Rellenan la pila y luego se puede retocar.</li>
 <li>Desde Lua se ponen, se quitan y se hacen <strong>transiciones</strong> (<code>camara:FadeFilter(&quot;VHS&quot;, 0, 2.0)</code>): para golpes, flashbacks
 o cámaras de seguridad.</li>
+<li>Para juegos de terror, la <strong>cámara de vigilancia</strong> con su texto («● REC», la fecha y la hora, el nombre de la cámara),
+los cortes de señal y la <strong>estática</strong> del cambio de cámara (<a href="#4-cámara-de-vigilancia-crt-y-vhs">sección 4</a>).</li>
 <li>Sin filtros no cuestan nada: el render es exactamente el de siempre.</li>
 </ul>
 <p></p>
@@ -43,10 +45,11 @@ o cámaras de seguridad.</li>
 <li><a href="#1-ponerlos-en-el-editor">Ponerlos en el editor</a></li>
 <li><a href="#2-preajustes">Preajustes</a></li>
 <li><a href="#3-los-filtros">Los filtros</a></li>
-<li><a href="#4-la-interfaz-y-el-arma-en-primera-persona">La interfaz y el arma en primera persona</a></li>
-<li><a href="#5-desde-lua">Desde Lua</a></li>
-<li><a href="#6-rendimiento">Rendimiento</a></li>
-<li><a href="#7-límites">Límites</a></li>
+<li><a href="#4-cámara-de-vigilancia-crt-y-vhs">Cámara de vigilancia, CRT y VHS</a></li>
+<li><a href="#5-la-interfaz-y-el-arma-en-primera-persona">La interfaz y el arma en primera persona</a></li>
+<li><a href="#6-desde-lua">Desde Lua</a></li>
+<li><a href="#7-rendimiento">Rendimiento</a></li>
+<li><a href="#8-límites">Límites</a></li>
 </ol>
 <h2 id="1-ponerlos-en-el-editor">1. Ponerlos en el editor<a class="ancla" href="#1-ponerlos-en-el-editor" aria-label="Enlace a esta sección">#</a></h2>
 <ol>
@@ -97,7 +100,12 @@ filtros. Sirve para editar el mapa sin ellos.</li>
 <tr>
   <td>VHS</td>
   <td><code>&quot;VHS&quot;</code></td>
-  <td>Un poco menos de color y la cinta con tracking, ruido y la fecha</td>
+  <td>Cinta de terror: la cámara de vigilancia en estilo cinta (color algo apagado, colores separados, ruido, cortes de señal, «PLAY ▶» y la fecha). Hasta la 0.9.45 era desaturar + el filtro VHS: esa pila se puede seguir montando a mano</td>
+</tr>
+<tr>
+  <td>Cámara de vigilancia</td>
+  <td><code>&quot;SecurityCam&quot;</code></td>
+  <td>Cámara de seguridad de terror: verde grisácea, curva, con ruido, nieve, cortes de señal, «● REC», la fecha y la hora y el nombre de la cámara</td>
 </tr>
 <tr>
   <td>Película muda</td>
@@ -152,7 +160,7 @@ filtros. Sirve para editar el mapa sin ellos.</li>
 <thead>
 <tr>
   <th>Tele de los 80</th>
-  <th>VHS</th>
+  <th>VHS (la pila de antes de la 0.9.46: desaturar + VHS)</th>
   <th>Película muda</th>
 </tr>
 </thead>
@@ -238,6 +246,16 @@ identificador (por ejemplo, <code>palette = &quot;NES&quot;</code>).</p>
   <td>Película antigua (<code>&quot;OldFilm&quot;</code>)</td>
   <td>Cine mudo</td>
   <td><code>color</code>: <code>Sepia</code>, <code>BlackAndWhite</code> o <code>Color</code>; <code>grain</code>, <code>scratches</code>, <code>dust</code>, <code>vignette</code>, <code>flicker</code>, <code>frameJumps</code></td>
+</tr>
+<tr>
+  <td>Cámara de vigilancia / CRT / VHS (<code>&quot;SecurityCam&quot;</code>)</td>
+  <td>Cámara de seguridad o cinta vieja con texto encima (<a href="#4-cámara-de-vigilancia-crt-y-vhs">sección 4</a>)</td>
+  <td><code>style</code>: <code>SecurityCam</code> o <code>VHS</code>; <code>scanlines</code> (0,45), <code>curvature</code> (0,3), <code>vignette</code> (0,55), <code>chromatic</code> (0,35), <code>noise</code> (0,35), <code>snow</code> (0,15), <code>signalCuts</code> (0,35), <code>tint</code> (0,75), <code>overlay</code> (sí), <code>seed</code> (0), <code>lines</code> (240); color del tinte</td>
+</tr>
+<tr>
+  <td>Estática (<code>&quot;TVStatic&quot;</code>)</td>
+  <td>Nieve de tele a pantalla completa con bandas que bajan (el cambio de cámara)</td>
+  <td><code>bars</code> (0,5), <code>seed</code></td>
 </tr>
 </tbody>
 </table></div>
@@ -361,7 +379,140 @@ entidades.</p>
 <p><strong>Intensidad.</strong> Con 0 el filtro no hace nada y la imagen es idéntica a la de sin filtros. Con valores intermedios se
 mezcla con la imagen de antes. En los que mueven la imagen, la intensidad hace crecer el efecto: el pixelado empieza con
 píxeles de 1 (sin cambio) y crece hasta su tamaño, y el ojo de pez y la curvatura del CRT, desde una lente plana.</p>
-<h2 id="4-la-interfaz-y-el-arma-en-primera-persona">4. La interfaz y el arma en primera persona<a class="ancla" href="#4-la-interfaz-y-el-arma-en-primera-persona" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="4-cámara-de-vigilancia-crt-y-vhs">4. Cámara de vigilancia, CRT y VHS<a class="ancla" href="#4-cámara-de-vigilancia-crt-y-vhs" aria-label="Enlace a esta sección">#</a></h2>
+<p>El filtro <strong>Cámara de vigilancia / CRT / VHS</strong> (<code>&quot;SecurityCam&quot;</code>) da el aspecto de las cámaras de seguridad y las cintas
+viejas de un juego de terror, en 2D y en 3D:</p>
+<ul>
+<li><strong>Pantalla</strong>: líneas de barrido (<code>scanlines</code>, <code>lines</code>), pantalla curva (<code>curvature</code>) y viñeta (<code>vignette</code>).</li>
+<li><strong>Color</strong>: rojo y azul separados hacia los bordes (<code>chromatic</code>) y el color quitado y teñido de verde grisáceo (<code>tint</code>,
+con el <strong>color del tinte</strong>; en estilo VHS, casi sin tinte).</li>
+<li><strong>Ruido</strong>: grano que cambia en cada imagen (<code>noise</code>) y nieve de mala señal, con motas blancas (<code>snow</code>).</li>
+<li><strong>Cortes de señal</strong> (<code>signalCuts</code>): una banda que baja y tuerce las líneas que pasan por ella, tirones verticales de vez
+en cuando (la imagen salta y vuelve) y algún fallo con bloques de líneas desplazados y los colores separados. Más =
+más a menudo y más fuertes. <code>seed</code> cambia cuándo pasan (dos cámaras no fallan a la vez); con la misma semilla y el
+mismo reloj, la misma imagen.</li>
+<li><strong>Texto encima</strong> (<code>overlay</code>): arriba a la izquierda el <strong>nombre de la cámara</strong> («CAM 03 – SÓTANO»), arriba a la
+derecha <strong>«● REC»</strong> con el punto rojo parpadeando, abajo a la izquierda la <strong>fecha y la hora</strong> que avanzan y abajo a la
+derecha un texto libre. En estilo VHS: «PLAY ▶» y la fecha de la cinta. La fuente es la propia de 5 x 7 del motor, de
+estilo monoespaciado: mayúsculas, cifras, tildes, la ñ y <code>/ ( ) ! ? , ' ● ▶</code> (las minúsculas se pasan a mayúsculas).</li>
+</ul>
+<p>El texto se cambia en el Inspector (al abrir el filtro, debajo de sus parámetros) o con <code>CameraFilter.SetOverlay</code>:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Nombre de la cámara</td>
+  <td>Arriba a la izquierda</td>
+</tr>
+<tr>
+  <td>Fecha y hora de inicio</td>
+  <td>Vacío: la hora del PC. <code>&quot;1987-10-25 03:14:00&quot;</code>: empieza ahí y avanza con el reloj de la escena (el mismo texto en todas las máquinas)</td>
+</tr>
+<tr>
+  <td>Velocidad del reloj</td>
+  <td>Segundos del reloj por segundo de juego (1 = tiempo real; 60 = una hora por minuto)</td>
+</tr>
+<tr>
+  <td>«● REC»</td>
+  <td>Arriba a la derecha, parpadeando</td>
+</tr>
+<tr>
+  <td>Fecha y hora</td>
+  <td>Abajo a la izquierda</td>
+</tr>
+<tr>
+  <td>Texto libre</td>
+  <td>Abajo a la derecha («PLANTA -1», «SEÑAL DÉBIL»...)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Cambio de cámara con estática.</strong> <code>CameraFilter.Static(0.3)</code> pone nieve de tele a pantalla completa (el filtro
+<code>&quot;TVStatic&quot;</code>, también por encima de la interfaz) durante ese tiempo: entera casi todo el rato y se va en el último 30 %.
+Cambia la cámara a mitad de la estática y no se ve el salto. No hace falta tener el filtro en la pila; sin ningún filtro
+también funciona.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Cámaras de vigilancia: C cambia de cámara con un golpe de estática (la plantilla «Terror 2D», Camaras.luau)</span>
+<span class="hl-k">local</span> <span class="hl-t">CAMARAS</span> = {
+    { nombre = <span class="hl-s">"CAM 01 – SÓTANO"</span>, centro = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">12</span>, <span class="hl-n">7</span>, <span class="hl-n">20</span>) },
+    { nombre = <span class="hl-s">"CAM 02 – CALDERAS"</span>, centro = <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">19.5</span>, <span class="hl-n">7</span>, <span class="hl-n">20</span>) },
+}
+
+<span class="hl-k">function</span> <span class="hl-t">Camaras</span>:<span class="hl-f">Cambiar</span>()
+    <span class="hl-t">CameraFilter</span>.<span class="hl-f">Static</span>(<span class="hl-n">0.35</span>)              <span class="hl-c">-- estática a pantalla completa</span>
+    <span class="hl-t">CameraFilter</span>.<span class="hl-f">Glitch</span>(<span class="hl-n">0.6</span>, <span class="hl-n">0.6</span>)          <span class="hl-c">-- y unos cortes de señal que se van apagando</span>
+    <span class="hl-t">Audio</span>.<span class="hl-f">PlayOneShot2D</span>(<span class="hl-s">"sonidos/Estatica.wav"</span>, <span class="hl-n">0.5</span>)
+    <span class="hl-b">self</span>._cambio = <span class="hl-n">0.17</span>                    <span class="hl-c">-- a mitad de la estática, el encuadre nuevo</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Camaras</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"CambiarCamara"</span>) <span class="hl-k">then</span> <span class="hl-b">self</span>:<span class="hl-f">Cambiar</span>() <span class="hl-k">end</span>
+    <span class="hl-k">if</span> <span class="hl-b">self</span>._cambio <span class="hl-k">and</span> <span class="hl-b">self</span>._cambio &gt;= <span class="hl-n">0</span> <span class="hl-k">then</span>
+        <span class="hl-b">self</span>._cambio -= dt
+        <span class="hl-k">if</span> <span class="hl-b">self</span>._cambio &lt; <span class="hl-n">0</span> <span class="hl-k">then</span>
+            <span class="hl-b">self</span>.actual = <span class="hl-b">self</span>.actual % #<span class="hl-t">CAMARAS</span> + <span class="hl-n">1</span>
+            <span class="hl-b">self</span>.entity.position = <span class="hl-t">CAMARAS</span>[<span class="hl-b">self</span>.actual].centro
+            <span class="hl-t">CameraFilter</span>.<span class="hl-f">SetOverlayText</span>(<span class="hl-t">CAMARAS</span>[<span class="hl-b">self</span>.actual].nombre)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span></code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>CameraFilter.SetOverlayText(texto, camara?)</code></td>
+  <td>El nombre de la cámara (arriba a la izquierda)</td>
+</tr>
+<tr>
+  <td><code>CameraFilter.SetOverlay({ cameraName, dateTime, timeScale, rec, showDate, corner }, camara?)</code></td>
+  <td>Todo el texto a la vez</td>
+</tr>
+<tr>
+  <td><code>CameraFilter.Static(segundos?, camara?)</code></td>
+  <td>Estática a pantalla completa (0,3 s por defecto; lo normal entre 0,2 y 0,5)</td>
+</tr>
+<tr>
+  <td><code>CameraFilter.IsStatic(camara?)</code></td>
+  <td><code>true</code> mientras dura la estática</td>
+</tr>
+<tr>
+  <td><code>CameraFilter.Glitch(fuerza?, segundos?, camara?)</code></td>
+  <td>Cortes de señal forzados (fuerza 0..1): un susto o algo que se acerca a la cámara</td>
+</tr>
+<tr>
+  <td><code>CameraFilter.ApplyPreset(preajuste, camara?)</code></td>
+  <td>Lo mismo que <code>Filters.ApplyPreset</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Sin cámara, la principal; si no tiene <strong>Filtros de cámara</strong>, se le pone.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Cámara de vigilancia</th>
+  <th>VHS</th>
+  <th>Estática</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><figure class="captura"><img src="../assets/img/capturas-terror2d-terror2d-securitycam.webp" alt="Cámara de vigilancia" width="480" height="270" loading="lazy" decoding="async"><figcaption>Cámara de vigilancia</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-terror2d-terror2d-vhs.webp" alt="VHS" width="480" height="270" loading="lazy" decoding="async"><figcaption>VHS</figcaption></figure></td>
+  <td><figure class="captura"><img src="../assets/img/capturas-terror2d-terror2d-estatica.webp" alt="Estática" width="480" height="270" loading="lazy" decoding="async"><figcaption>Estática</figcaption></figure></td>
+</tr>
+</tbody>
+</table></div>
+<p>Como la tele antigua y el VHS, va por defecto <strong>encima de la interfaz</strong> (el texto y la interfaz quedan dentro de la
+«pantalla»).</p>
+<h2 id="5-la-interfaz-y-el-arma-en-primera-persona">5. La interfaz y el arma en primera persona<a class="ancla" href="#5-la-interfaz-y-el-arma-en-primera-persona" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li><strong>Afecta a la interfaz</strong> (por defecto, solo en el CRT y el VHS): el filtro se aplica también encima de la interfaz del
 juego (los lienzos de <a href="interfaz-ui.html">interfaz-ui.md</a>), como si la tele o la cinta lo grabaran todo. El resto se
@@ -372,7 +523,7 @@ nunca se filtran.</li>
 visión nocturna que no colorea el arma.</li>
 </ul>
 <p>Los filtros que afectan a la interfaz van <strong>detrás</strong> de los demás, aunque en la pila estén antes.</p>
-<h2 id="5-desde-lua">5. Desde Lua<a class="ancla" href="#5-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="6-desde-lua">6. Desde Lua<a class="ancla" href="#6-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
 <p>Los métodos están en el componente <strong>Camera</strong>. Si la entidad no tiene <strong>Filtros de cámara</strong>, se le añade.</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> camara = <span class="hl-b">self</span>:<span class="hl-f">GetComponent</span>(<span class="hl-s">"Camera"</span>)
 
@@ -419,14 +570,15 @@ existen dan un error que dice los que hay. Los nombres no miran mayúsculas.</p>
 <span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"OldFilm"</span>, { color = <span class="hl-s">"Sepia"</span> })
 <span class="hl-t">Filters</span>.<span class="hl-f">Fade</span>(<span class="hl-s">"OldFilm"</span>, <span class="hl-n">1</span>, <span class="hl-n">1.0</span>)
 
-<span class="hl-c">-- Cámara de seguridad</span>
-<span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"VHS"</span>, { date = <span class="hl-b">true</span> })
-<span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"Fisheye"</span>, { distortion = <span class="hl-n">0.4</span> })</code></pre></div>
+<span class="hl-c">-- Cámara de seguridad (con su texto y los cortes de señal: ver la sección 4)</span>
+<span class="hl-t">Filters</span>.<span class="hl-f">ApplyPreset</span>(<span class="hl-s">"SecurityCam"</span>)
+<span class="hl-t">CameraFilter</span>.<span class="hl-f">SetOverlayText</span>(<span class="hl-s">"CAM 02 – PASILLO"</span>)
+<span class="hl-t">Filters</span>.<span class="hl-f">Set</span>(<span class="hl-s">"Fisheye"</span>, { distortion = <span class="hl-n">0.3</span> })</code></pre></div>
 <p>Las transiciones van con el reloj de la escena (se paran con la pausa). Los filtros son de <strong>cada máquina</strong>: no se
 envían por la red (cada jugador ve los suyos).</p>
 <p>El autocompletado del editor de scripts y de VS Code propone los nombres de filtro y de preajuste entre las comillas
 (<code>camara:SetFilter(&quot;|&quot;)</code>, <code>Filters.ApplyPreset(&quot;|&quot;)</code>), y <code>nova.d.luau</code> tiene los tipos.</p>
-<h2 id="6-rendimiento">6. Rendimiento<a class="ancla" href="#6-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="7-rendimiento">7. Rendimiento<a class="ancla" href="#7-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li>Cada filtro es una pasada barata y los activos se <strong>juntan</strong> en el menor número de pasadas de pantalla completa:<ul>
 <li>los que mueven la imagen (pixelado, ojo de pez, saltos de la película) y los que solo cambian el color (paletas,
@@ -465,7 +617,7 @@ contorno) van uno por pasada, con los que cambian el color detrás.</li>
 </tr>
 </tbody>
 </table></div>
-<h2 id="7-límites">7. Límites<a class="ancla" href="#7-límites" aria-label="Enlace a esta sección">#</a></h2>
+<h2 id="8-límites">8. Límites<a class="ancla" href="#8-límites" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li>El <strong>temblor de vértices</strong> y las <strong>texturas sin filtrar</strong> del estilo PS1 se ven en las mallas normales (con huesos o
 sin ellos). El terreno, la vegetación, el agua y las partículas no tiemblan.</li>
@@ -475,10 +627,11 @@ arma de la capa de vista las líneas pueden ser más gruesas o más finas que en
 <li>Un filtro de cada tipo por cámara (<code>SetFilter(&quot;Blur&quot;, ...)</code> cambia el que hay).</li>
 <li>La fecha del VHS es la del PC, en inglés (<code>PLAY  PM 6:16 / OCT. 19 2026</code>), con la fuente propia de 5 x 7 del motor
 (la misma de los caracteres del filtro ASCII).</li>
+<li>El texto de la cámara de vigilancia tiene 4 bloques de una línea de hasta 32 caracteres cada uno.</li>
 </ul>
 <nav class="ant-sig" aria-label="Páginas"><a class="ant" href="render.html"><small>Anterior</small>Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a><a class="sig" href="juegos-2d.html"><small>Siguiente</small>Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></nav></article>
 </main>
-<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-ponerlos-en-el-editor">1. Ponerlos en el editor</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-los-filtros">3. Los filtros</a></li><li class="n3"><a href="#retro">Retro</a></li><li class="n3"><a href="#formas-y-estilos">Formas y estilos</a></li><li class="n3"><a href="#visión">Visión</a></li><li class="n3"><a href="#utilidad">Utilidad</a></li><li class="n2"><a href="#4-la-interfaz-y-el-arma-en-primera-persona">4. La interfaz y el arma en primera persona</a></li><li class="n2"><a href="#5-desde-lua">5. Desde Lua</a></li><li class="n2"><a href="#6-rendimiento">6. Rendimiento</a></li><li class="n2"><a href="#7-límites">7. Límites</a></li></ul></div></aside>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-ponerlos-en-el-editor">1. Ponerlos en el editor</a></li><li class="n2"><a href="#2-preajustes">2. Preajustes</a></li><li class="n2"><a href="#3-los-filtros">3. Los filtros</a></li><li class="n3"><a href="#retro">Retro</a></li><li class="n3"><a href="#formas-y-estilos">Formas y estilos</a></li><li class="n3"><a href="#visión">Visión</a></li><li class="n3"><a href="#utilidad">Utilidad</a></li><li class="n2"><a href="#4-cámara-de-vigilancia-crt-y-vhs">4. Cámara de vigilancia, CRT y VHS</a></li><li class="n2"><a href="#5-la-interfaz-y-el-arma-en-primera-persona">5. La interfaz y el arma en primera persona</a></li><li class="n2"><a href="#6-desde-lua">6. Desde Lua</a></li><li class="n2"><a href="#7-rendimiento">7. Rendimiento</a></li><li class="n2"><a href="#8-límites">8. Límites</a></li></ul></div></aside>
 </div>
 <footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
 <script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
