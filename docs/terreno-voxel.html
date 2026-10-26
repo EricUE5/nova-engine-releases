@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="es" data-sec="docs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terreno de vóxeles (cavar, picar y esculpir) · Nova Engine</title>
+<meta name="description" content="El componente Terreno de vóxeles (VoxelTerrain en Lua y en inglés) es un volumen que se deforma donde se cava. No
+son cubos que desaparecen: cada golpe deja un cráter suave y orgánico con el borde redondeado, el color de">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Terreno de vóxeles (cavar, picar y esculpir) · Nova Engine">
+<meta property="og:description" content="El componente Terreno de vóxeles (VoxelTerrain en Lua y en inglés) es un volumen que se deforma donde se cava. No
+son cubos que desaparecen: cada golpe deja un cráter suave y orgánico con el borde redondeado, el color de">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/terreno-voxel.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/terreno-voxel.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="terreno-voxel.html" aria-current="page">Terreno de vóxeles (cavar, picar y esculpir)</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<article class="doc"><h1 id="terreno-de-vóxeles-cavar-picar-y-esculpir">Terreno de vóxeles (cavar, picar y esculpir)</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#1-empezar">1. Empezar</a></li><li class="n2"><a href="#2-materiales-y-capas">2. Materiales y capas</a></li><li class="n2"><a href="#3-cavar-añadir-suavizar-y-pintar">3. Cavar, añadir, suavizar y pintar</a></li><li class="n2"><a href="#4-consultas">4. Consultas</a></li><li class="n2"><a href="#5-generar-desde-lua">5. Generar desde Lua</a></li><li class="n2"><a href="#6-física">6. Física</a></li><li class="n2"><a href="#7-multijugador">7. Multijugador</a></li><li class="n2"><a href="#8-guardar-y-cargar">8. Guardar y cargar</a></li><li class="n2"><a href="#9-editor">9. Editor</a></li><li class="n2"><a href="#10-rendimiento">10. Rendimiento</a></li><li class="n2"><a href="#11-mallas-desde-lua-meshnew">11. Mallas desde Lua (Mesh.new)</a></li><li class="n2"><a href="#12-cómo-funciona">12. Cómo funciona</a></li><li class="n2"><a href="#13-límites">13. Límites</a></li></ul></details><p>El componente <strong>Terreno de vóxeles</strong> (<code>VoxelTerrain</code> en Lua y en inglés) es un volumen que se deforma donde se cava. No
+son cubos que desaparecen: cada golpe deja un <strong>cráter suave y orgánico</strong> con el borde redondeado, el color de las capas
+mezclado y la colisión rehecha al momento. Sirve para picar un bloque de hielo, excavar una mina, abrir túneles con un
+soplete o esculpir rocas en el editor.</p>
+<ul>
+<li>Capas de <strong>materiales</strong> (hasta 32) con <strong>dureza</strong> (el hielo duro aguanta más golpes), <strong>densidad</strong> y <strong>valor</strong>.</li>
+<li><code>Dig</code> devuelve <strong>lo extraído por material</strong> (m³, kg y valor) para dar al jugador lo que ha picado.</li>
+<li><strong>Colisión</strong> de Jolt por trozos: el personaje y los objetos chocan con lo que queda (y caen en lo que se cava).</li>
+<li><strong>Multijugador</strong>: el servidor manda, cada cliente ve su golpe al momento (predicción) y quien entra tarde recibe lo
+cambiado.</li>
+<li>Lo editado se <strong>guarda con la escena</strong> y también en las partidas guardadas.</li>
+<li>Pincel de <strong>esculpir y pintar</strong> en el editor, y <strong>mallas desde Lua</strong> (<code>Mesh.new</code>) para cualquier otra cosa.</li>
+</ul>
+<p>La plantilla <strong>Cavar (Lua)</strong> del Hub es un ejemplo jugable: un pozo con un bloque de hielo por capas que se pica en primera
+persona, con lo extraído en el HUD.</p>
+<p><figure class="captura"><img src="../assets/img/capturas-voxel-voxel-hielo.webp" srcset="../assets/img/capturas-voxel-voxel-hielo-800.webp 800w, ../assets/img/capturas-voxel-voxel-hielo.webp 960w" sizes="(max-width: 900px) 100vw, 900px" alt="Bloque de hielo por capas con cráteres" width="960" height="540" loading="lazy" decoding="async"><figcaption>Bloque de hielo por capas con cráteres</figcaption></figure></p>
+<h2 id="1-empezar">1. Empezar<a class="ancla" href="#1-empezar" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><strong>Entidad &gt; Crear vacía</strong> y <strong>Añadir componente &gt; Mundo &gt; Terreno de vóxeles</strong>.</li>
+<li>La entidad marca el <strong>centro de la base</strong> del volumen: va de <code>-Tamaño.x/2</code> a <code>+Tamaño.x/2</code>, de <code>0</code> a <code>Tamaño.y</code> y de
+<code>-Tamaño.z/2</code> a <code>+Tamaño.z/2</code> desde su posición. <strong>Su giro y su escala no se usan.</strong></li>
+<li>Elige el <strong>Tamaño (m)</strong> y el <strong>Tamaño del vóxel (m)</strong> (0,25 m es fino; 0,5 m es más barato). Por defecto sale una caja
+llena de hielo.</li>
+<li>Pon tus <strong>Materiales</strong> y <strong>Capas</strong> (abajo) y pulsa <strong>Jugar</strong>. Desde un script:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> <span class="hl-t">Picar</span> = <span class="hl-f">Script</span>()
+
+<span class="hl-k">function</span> <span class="hl-t">Picar</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> <span class="hl-t">Input</span>.<span class="hl-f">WasActionPressed</span>(<span class="hl-s">"Disparar"</span>) <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-k">end</span>
+    <span class="hl-k">local</span> camara = <span class="hl-t">Camera</span>.<span class="hl-f">GetMain</span>()
+    <span class="hl-k">local</span> terreno = <span class="hl-t">VoxelTerrain</span>.<span class="hl-f">Find</span>()            <span class="hl-c">-- el primer terreno de vóxeles de la escena</span>
+    <span class="hl-k">local</span> golpe = terreno:<span class="hl-f">Raycast</span>(camara.position, camara.transform.forward, <span class="hl-n">4</span>)
+    <span class="hl-k">if</span> golpe <span class="hl-k">then</span>
+        <span class="hl-k">local</span> r = terreno:<span class="hl-f">Dig</span>(golpe.point, <span class="hl-n">0.45</span>)   <span class="hl-c">-- radio 0,45 m, fuerza 1</span>
+        <span class="hl-k">for</span> _, m <span class="hl-k">in</span> r.materials <span class="hl-k">do</span>
+            <span class="hl-f">print</span>(m.name, m.kg, <span class="hl-s">"kg"</span>)
+        <span class="hl-k">end</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">Picar</span></code></pre></div>
+<h2 id="2-materiales-y-capas">2. Materiales y capas<a class="ancla" href="#2-materiales-y-capas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cada vóxel guarda <strong>cuánto está lleno</strong> (de vacío a lleno) y <strong>de qué material es</strong>. Los materiales van en la lista
+<strong>Materiales</strong> del componente; el primero es el <strong>0</strong>, el segundo el <strong>1</strong>... (en Lua también se usan esos números).</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Campo</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Nombre</strong></td>
+  <td>El que devuelve <code>Dig</code> en <code>materials[i].name</code></td>
+</tr>
+<tr>
+  <td><strong>Color</strong></td>
+  <td>Color del material (se mezcla con el de al lado en el paso de una capa a otra)</td>
+</tr>
+<tr>
+  <td><strong>Dureza</strong></td>
+  <td><code>1</code> normal; <code>2</code> = hacen falta el doble de golpes (cada golpe deja un cráter de la mitad de tamaño); <code>0</code> = no se puede picar (paredes, fondo, roca madre)</td>
+</tr>
+<tr>
+  <td><strong>Densidad</strong></td>
+  <td>kg por m³ (hielo 917, nieve 300-500, roca 2600): los kg de lo extraído</td>
+</tr>
+<tr>
+  <td><strong>Valor</strong></td>
+  <td>Valor por kg (dinero, puntos...): <code>Dig</code> lo devuelve sumado en <code>value</code></td>
+</tr>
+<tr>
+  <td><strong>Rugosidad</strong></td>
+  <td>Brillo de la superficie</td>
+</tr>
+<tr>
+  <td><strong>Translucidez</strong></td>
+  <td><code>0</code> opaco (roca); hacia <code>1</code> hielo claro: brillo de los bordes y luz que lo atraviesa a contraluz</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Generación</strong> (lo que hay al cargar, sin código):</p>
+<ul>
+<li><strong>Forma</strong>: <strong>Vacío</strong> (para generar desde Lua), <strong>Caja</strong> (todo lleno hasta <strong>Altura llena</strong>), <strong>Pozo lleno</strong> (una caja con
+pared y fondo de <strong>Material de la pared</strong>, con su <strong>Grosor</strong>), <strong>Esfera</strong> y <strong>Cilindro</strong> (centrados en el volumen).</li>
+<li><strong>Relieve (m)</strong> y <strong>Escala del relieve</strong>: la superficie de arriba sube y baja (ruido).</li>
+<li><strong>Capas</strong>: de <strong>Desde (m)</strong> a <strong>Hasta (m)</strong> (metros desde el fondo del volumen) el material es <strong>Material</strong>, con el
+borde ondulado (<strong>Ondulación</strong> y su escala). La primera capa que contiene el vóxel manda; donde no hay ninguna, el
+<strong>Material base</strong>.</li>
+</ul>
+<p>Cambiar el tamaño, el vóxel o la generación vuelve a generar el volumen (lo editado se conserva si las medidas siguen
+siendo las mismas). Cambiar colores, dureza o valores no toca lo editado.</p>
+<h2 id="3-cavar-añadir-suavizar-y-pintar">3. Cavar, añadir, suavizar y pintar<a class="ancla" href="#3-cavar-añadir-suavizar-y-pintar" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua">terreno:<span class="hl-f">Dig</span>(posicion, radio, fuerza?, opciones?)          <span class="hl-c">-- quita</span>
+terreno:<span class="hl-f">Add</span>(posicion, radio, material, fuerza?, opciones?) <span class="hl-c">-- pone material</span>
+terreno:<span class="hl-f">Smooth</span>(posicion, radio, fuerza?, opciones?)       <span class="hl-c">-- alisa (quita picos y rellena hoyos pequeños)</span>
+terreno:<span class="hl-f">Paint</span>(posicion, radio, material, fuerza?, opciones?) <span class="hl-c">-- cambia el material de lo que hay</span></code></pre></div>
+<ul>
+<li><strong>Posición</strong> en el mundo y <strong>radio</strong> en metros.</li>
+<li><strong>Fuerza</strong> (1 por defecto): con dureza 1, el cráter entero; con menos fuerza (o más dureza) la forma encoge: fuerza 1
+contra dureza 2 deja un cráter de la mitad de radio. Con fuerza 2 contra dureza 2, el entero.</li>
+<li><strong>Opciones</strong>: <code>{ shape = &quot;Sphere&quot; | &quot;Capsule&quot; | &quot;Cone&quot; | &quot;Box&quot;, direction = Vec3, length = 2, falloff = 0.5, noise = 0.1, seed = 7 }</code><ul>
+<li><strong>Capsule</strong>: una zanja o un túnel desde <code>posicion</code> hacia <code>direction</code> de <code>length</code> metros.</li>
+<li><strong>Cone</strong>: un <strong>soplete</strong>: el vértice en <code>posicion</code> y se abre hasta <code>radio</code> a <code>length</code> metros en <code>direction</code>.</li>
+<li><strong>Box</strong>: un cubo de media arista <code>radio</code> (con <code>falloff = 0</code> y <code>noise = 0</code> el corte es exacto: útil para pruebas).</li>
+<li><strong>falloff</strong>: cuánto se redondea el canto del cráter contra la superficie (0 = canto vivo). Por defecto, el
+<strong>Suavizado del borde</strong> del componente.</li>
+<li><strong>noise</strong>: lo irregular que es el borde (fracción del radio). Por defecto, la <strong>Irregularidad</strong> del componente.</li>
+</ul>
+</li>
+</ul>
+<p><code>Dig</code> devuelve <strong>lo extraído</strong>:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua">{
+    ok = <span class="hl-b">true</span>, predicted = <span class="hl-b">false</span>,      <span class="hl-c">-- predicted: en un cliente, a la espera de que el servidor lo confirme</span>
+    volume = <span class="hl-n">0.41</span>, kg = <span class="hl-n">376.2</span>, value = <span class="hl-n">512.9</span>, added = <span class="hl-n">0</span>,
+    position = <span class="hl-t">Vec3</span>,                   <span class="hl-c">-- dónde (mundo)</span>
+    material = <span class="hl-n">2</span>,                      <span class="hl-c">-- el que más se ha quitado</span>
+    materials = { { id = <span class="hl-n">1</span>, name = <span class="hl-s">"Hielo claro"</span>, volume = <span class="hl-n">0.12</span>, kg = <span class="hl-n">110</span>, value = <span class="hl-n">110</span> },
+                  { id = <span class="hl-n">2</span>, name = <span class="hl-s">"Hielo azul"</span>, volume = <span class="hl-n">0.29</span>, kg = <span class="hl-n">266.2</span>, value = <span class="hl-n">402.9</span> } },
+}</code></pre></div>
+<p>Los números cuadran: lo que devuelve <code>Dig</code> es exactamente lo que deja de haber (<code>GetVolume</code> antes menos después).</p>
+<p><strong>Trozos sueltos</strong>: con <strong>Trozos sueltos</strong> marcado, cada golpe suelta partículas del color del material (solo jugando y no
+en un servidor dedicado).</p>
+<h2 id="4-consultas">4. Consultas<a class="ancla" href="#4-consultas" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Lua</th>
+  <th>Devuelve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>terreno:Raycast(origen, direccion, distancia?)</code></td>
+  <td><code>{ point, normal, material, distance }</code> o <code>nil</code>. Va contra los vóxeles (no espera a la colisión rehecha)</td>
+</tr>
+<tr>
+  <td><code>terreno:GetMaterialAt(pos)</code></td>
+  <td>El material del sólido en ese punto (número) o <code>nil</code> si es aire</td>
+</tr>
+<tr>
+  <td><code>terreno:IsSolid(pos)</code></td>
+  <td><code>true</code> dentro del sólido</td>
+</tr>
+<tr>
+  <td><code>terreno:GetVolume(material?)</code></td>
+  <td>m³ que quedan (de un material o de todos)</td>
+</tr>
+<tr>
+  <td><code>terreno:GetInitialVolume(material?)</code></td>
+  <td>m³ que había al cargar (o al generar desde Lua)</td>
+</tr>
+<tr>
+  <td><code>terreno:GetProgress(material?)</code></td>
+  <td>Fracción ya extraída (0..1)</td>
+</tr>
+<tr>
+  <td><code>terreno:GetRegionVolume(min, max, material?)</code></td>
+  <td>m³ que quedan dentro de una caja del mundo</td>
+</tr>
+<tr>
+  <td><code>terreno:GetMaterial(id)</code> / <code>GetMaterialCount()</code></td>
+  <td><code>{ id, name, color, hardness, density, value }</code> y cuántos hay</td>
+</tr>
+<tr>
+  <td><code>terreno:GetOrigin()</code></td>
+  <td>Esquina mínima del volumen en el mundo</td>
+</tr>
+<tr>
+  <td><code>terreno:GetStateHash()</code></td>
+  <td>Huella del volumen (la misma en el servidor y en los clientes)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>«Sección completada %»</strong>: guarda el volumen de la zona al empezar y compáralo:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Mina</span>:<span class="hl-f">Start</span>()
+    <span class="hl-b">self</span>.terreno = <span class="hl-t">VoxelTerrain</span>.<span class="hl-f">Find</span>()
+    <span class="hl-b">self</span>.inicial = <span class="hl-b">self</span>.terreno:<span class="hl-f">GetRegionVolume</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(-<span class="hl-n">5</span>, -<span class="hl-n">6</span>, -<span class="hl-n">5</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>))
+<span class="hl-k">end</span>
+
+<span class="hl-k">function</span> <span class="hl-t">Mina</span>:<span class="hl-f">Progreso</span>(): number
+    <span class="hl-k">local</span> queda = <span class="hl-b">self</span>.terreno:<span class="hl-f">GetRegionVolume</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(-<span class="hl-n">5</span>, -<span class="hl-n">6</span>, -<span class="hl-n">5</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>))
+    <span class="hl-k">return</span> <span class="hl-n">1</span> - queda / <span class="hl-b">self</span>.inicial
+<span class="hl-k">end</span></code></pre></div>
+<h2 id="5-generar-desde-lua">5. Generar desde Lua<a class="ancla" href="#5-generar-desde-lua" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con la <strong>Forma</strong> en <strong>Vacío</strong> (o encima de lo generado), en el <code>Start</code> de un script. Se ejecuta en todas las máquinas y
+da lo mismo en todas (también con la misma semilla):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> t = <span class="hl-t">VoxelTerrain</span>.<span class="hl-f">Find</span>()
+t:<span class="hl-f">Clear</span>()
+t:<span class="hl-f">FillBox</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(-<span class="hl-n">6</span>, <span class="hl-n">0</span>, -<span class="hl-n">6</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">6</span>, <span class="hl-n">5</span>, <span class="hl-n">6</span>), <span class="hl-n">1</span>)                <span class="hl-c">-- caja de material 1</span>
+t:<span class="hl-f">FillSphere</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">5</span>, <span class="hl-n">0</span>), <span class="hl-n">3</span>, <span class="hl-n">2</span>)                               <span class="hl-c">-- una cúpula de material 2</span>
+t:<span class="hl-f">FillCylinder</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">4</span>, <span class="hl-n">0</span>, <span class="hl-n">4</span>), <span class="hl-n">1</span>, <span class="hl-n">5</span>, <span class="hl-n">0</span>, <span class="hl-b">false</span>)                   <span class="hl-c">-- false: vacía (un pozo)</span>
+t:<span class="hl-f">FillLayers</span>({ { fromY = <span class="hl-n">0</span>, toY = <span class="hl-n">1</span>, material = <span class="hl-n">3</span>, noise = <span class="hl-n">0.3</span> },   <span class="hl-c">-- solo cambia el material</span>
+               { fromY = <span class="hl-n">1</span>, toY = <span class="hl-n">3</span>, material = <span class="hl-n">2</span>, noise = <span class="hl-n">0.5</span> } }, <span class="hl-n">7</span>)
+<span class="hl-c">-- Función por vóxel en una caja: relleno 0..1 y material (nil = dejarlo como está)</span>
+t:<span class="hl-f">FillRegion</span>(<span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(-<span class="hl-n">2</span>, <span class="hl-n">0</span>, -<span class="hl-n">2</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">2</span>, <span class="hl-n">4</span>, <span class="hl-n">2</span>), <span class="hl-k">function</span>(p: <span class="hl-t">Vector3</span>)
+    <span class="hl-k">return</span> <span class="hl-k">if</span> (p.x * p.x + p.z * p.z) &lt; <span class="hl-n">1</span> + p.y * <span class="hl-n">0.3</span> <span class="hl-k">then</span> <span class="hl-n">1</span> <span class="hl-k">else</span> <span class="hl-b">nil</span>, <span class="hl-n">4</span>
+<span class="hl-k">end</span>)
+<span class="hl-c">-- Función por trozo (32 x 32 x 32 vóxeles): un trozo entero de un valor no gasta memoria</span>
+t:<span class="hl-f">GenerateChunks</span>(<span class="hl-k">function</span>(minimo: <span class="hl-t">Vector3</span>, maximo: <span class="hl-t">Vector3</span>)
+    <span class="hl-k">if</span> maximo.y &lt; <span class="hl-n">2</span> <span class="hl-k">then</span> <span class="hl-k">return</span> <span class="hl-n">1</span>, <span class="hl-n">3</span> <span class="hl-k">end</span>                            <span class="hl-c">-- todo el trozo de roca</span>
+    <span class="hl-k">return</span> <span class="hl-b">nil</span>                                                      <span class="hl-c">-- dejarlo como está</span>
+<span class="hl-k">end</span>)</code></pre></div>
+<p><code>terreno:Regenerate()</code> vuelve a lo que dicen los ajustes del componente (borra lo editado).</p>
+<h2 id="6-física">6. Física<a class="ancla" href="#6-física" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con <strong>Colisión</strong> marcado, cada trozo con superficie tiene un cuerpo estático de Jolt con su malla (con el Uuid de la
+entidad: <code>Physics.Raycast</code> devuelve el terreno). Al cavar, la malla y la forma de colisión del trozo se rehacen <strong>en otro
+hilo</strong> y la forma nueva se cambia en el cuerpo que ya existe: <strong>nunca hay un paso sin suelo</strong>; hasta que llega la nueva
+(unos milisegundos) sigue la de antes. Lo que estaba dormido encima se despierta y cae en el hueco. Los personajes
+(CharacterController) chocan con el terreno como con cualquier malla.</p>
+<h2 id="7-multijugador">7. Multijugador<a class="ancla" href="#7-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>El servidor manda.</strong> <code>Dig</code>, <code>Add</code>, <code>Smooth</code> y <code>Paint</code> en el servidor (o sin red) se aplican y se envían a todos como
+<strong>operaciones</strong> (posición, radio, fuerza, forma, semilla) numeradas y en orden fiable. Cada máquina las aplica igual:
+todas acaban con el mismo volumen (<code>GetStateHash</code>).</li>
+<li><strong>En un cliente</strong>, la edición se ve <strong>al momento</strong> (predicción, <code>predicted = true</code>) y se pide al servidor. Si el servidor
+la acepta, ya está; si llega antes otra edición del servidor, el cliente deshace sus predicciones, aplica la del
+servidor y las vuelve a aplicar encima. Si el servidor la <strong>rechaza</strong>, el cliente la deshace.</li>
+<li><strong>El servidor valida</strong> cada petición: <strong>Los clientes editan</strong>, <strong>Radio máximo (cliente)</strong> y <strong>Ediciones por segundo
+(cliente)</strong> del componente, y el evento <code>voxel:request</code>, que se puede cancelar:</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-f">AddEventHandler</span>(<span class="hl-s">"voxel:request"</span>, <span class="hl-k">function</span>(terreno, peticion, jugador)
+    <span class="hl-k">local</span> personaje = <span class="hl-t">Network</span>.<span class="hl-f">GetPlayerEntity</span>(jugador)
+    <span class="hl-k">if</span> <span class="hl-k">not</span> personaje <span class="hl-k">or</span> <span class="hl-t">Vec3</span>.<span class="hl-f">Distance</span>(personaje.position, peticion.position) &gt; <span class="hl-n">5</span> <span class="hl-k">then</span>
+        <span class="hl-f">CancelEvent</span>() <span class="hl-c">-- demasiado lejos: el cliente deshace su golpe</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>)</code></pre></div>
+<ul>
+<li><strong>Lo extraído de verdad</strong> llega en el servidor con el evento <code>voxel:dug (terreno, resultado, jugador)</code>: ahí se da el
+material al inventario del jugador. En el cliente, el resultado de <code>Dig</code> sirve para el HUD al momento.</li>
+<li><strong>Quien entra tarde</strong> recibe los trozos cambiados durante la partida (comprimidos, en fragmentos) y el número de la
+última operación; las que lleguen mientras tanto esperan su turno.</li>
+</ul>
+<h2 id="8-guardar-y-cargar">8. Guardar y cargar<a class="ancla" href="#8-guardar-y-cargar" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Con la escena</strong>: al guardar se escriben solo los trozos que difieren de lo generado (comprimidos en el <code>.scene</code>).</li>
+<li><strong>Partidas guardadas</strong>: <code>local datos = terreno:Serialize()</code> (texto) y <code>terreno:Deserialize(datos)</code> al cargar (devuelve
+<code>false</code> si las medidas no encajan). Por ejemplo con <code>SaveGame.Save(&quot;partida&quot;, { hielo = terreno:Serialize() })</code> y, al
+cargar, <code>terreno:Deserialize(SaveGame.Load(&quot;partida&quot;).hielo)</code>.</li>
+</ul>
+<h2 id="9-editor">9. Editor<a class="ancla" href="#9-editor" aria-label="Enlace a esta sección">#</a></h2>
+<p>Con una entidad con <strong>Terreno de vóxeles</strong> elegida aparece una barra abajo en el visor <strong>Escena</strong>: <strong>Ninguno</strong>, <strong>Cavar</strong>,
+<strong>Añadir</strong>, <strong>Suavizar</strong> y <strong>Pintar</strong>, con el <strong>Radio</strong>, la <strong>Fuerza</strong> y el <strong>Material</strong> (al añadir y pintar). Con una
+herramienta elegida, la esfera del pincel sigue al ratón sobre el terreno y el clic izquierdo (mantenido) edita; <strong>Mayús</strong>
+cambia entre Cavar y Añadir. Cada trazo se deshace con <strong>Ctrl+Z</strong>. La caja del volumen se dibuja en el visor.</p>
+<p><figure class="captura"><img src="../assets/img/capturas-voxel-editor-pincel.webp" srcset="../assets/img/capturas-voxel-editor-pincel-800.webp 800w, ../assets/img/capturas-voxel-editor-pincel.webp 1600w" sizes="(max-width: 900px) 100vw, 900px" alt="Pincel del terreno de vóxeles en el editor" width="1600" height="900" loading="lazy" decoding="async"><figcaption>Pincel del terreno de vóxeles en el editor</figcaption></figure></p>
+<p><strong>Caras exteriores</strong>: marcado, se ven los lados y el fondo del volumen (un bloque suelto). Desmárcalo cuando el volumen
+está metido en un pozo o en el suelo: esos triángulos no se hacen (con un bloque de 128 x 128 m, más de la mitad).</p>
+<h2 id="10-rendimiento">10. Rendimiento<a class="ancla" href="#10-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<p>Medido con un pozo de <strong>128 x 64 x 128 m</strong> lleno al 85 % con capas, sin caras exteriores y <strong>20 excavaciones por segundo</strong>
+durante 4 s (RTX 5060 Ti, otro programa compilando a la vez):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th></th>
+  <th>Vóxel de 0,5 m</th>
+  <th>Vóxel de 0,25 m</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Vóxeles</td>
+  <td>256 x 128 x 256</td>
+  <td>512 x 256 x 512</td>
+</tr>
+<tr>
+  <td>Generar</td>
+  <td>24 ms</td>
+  <td>156 ms</td>
+</tr>
+<tr>
+  <td>Mallas y colisión iniciales</td>
+  <td>49 ms</td>
+  <td>197 ms</td>
+</tr>
+<tr>
+  <td>Trozos con malla / triángulos</td>
+  <td>64 / 182 000</td>
+  <td>316 / 734 000</td>
+</tr>
+<tr>
+  <td>Memoria de los vóxeles</td>
+  <td>14 MB</td>
+  <td>63 MB</td>
+</tr>
+<tr>
+  <td>Hilo principal por frame (media / p99 / peor)</td>
+  <td>0,08 / 0,64 / 1,3 ms</td>
+  <td>0,16 / 1,4 / 1,7 ms</td>
+</tr>
+<tr>
+  <td>Aplicar una excavación (hilo principal)</td>
+  <td>0,03 ms</td>
+  <td>0,08 ms</td>
+</tr>
+<tr>
+  <td>Malla de un trozo (otro hilo, con sus buffers)</td>
+  <td>5,8 ms de media</td>
+  <td>5,4 ms de media</td>
+</tr>
+<tr>
+  <td>Forma de Jolt de un trozo (otro hilo)</td>
+  <td>1,4 ms</td>
+  <td>1,3 ms</td>
+</tr>
+<tr>
+  <td>Cambiar la forma en Jolt (hilo principal)</td>
+  <td>0,01 ms</td>
+  <td>0,006 ms</td>
+</tr>
+<tr>
+  <td>De la excavación a verla y chocar con ella</td>
+  <td>22 ms de media (41 máx.)</td>
+  <td>12 ms de media (29 máx.)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sin tirones a 60 fps: el hilo principal solo aplica la edición y recoge lo que terminan los hilos de trabajo; las mallas,
+los buffers de la GPU y las formas de colisión se hacen fuera. <code>VoxelTerrain.GetStats()</code> da estas medidas en tu juego.</p>
+<p>Consejos: un trozo todo igual (todo aire, todo roca) no gasta memoria ni dibuja nada; usa <strong>Caras exteriores</strong> desmarcado
+dentro de un pozo; para mundos muy grandes, varios terrenos de vóxeles juntos o un vóxel de 0,5 m.</p>
+<h2 id="11-mallas-desde-lua-meshnew">11. Mallas desde Lua (<code>Mesh.new</code>)<a class="ancla" href="#11-mallas-desde-lua-meshnew" aria-label="Enlace a esta sección">#</a></h2>
+<p>Para cualquier malla hecha por código (una rampa, un trofeo, una gema con colores):</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> m = <span class="hl-t">Mesh</span>.<span class="hl-f">new</span>(<span class="hl-s">"Rampa"</span>)
+m:<span class="hl-f">SetVertices</span>({ <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">2</span>, <span class="hl-n">0</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">2</span>, <span class="hl-n">1</span>, <span class="hl-n">0</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">0</span>, <span class="hl-n">0</span>, <span class="hl-n">2</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">2</span>, <span class="hl-n">0</span>, <span class="hl-n">2</span>), <span class="hl-t">Vec3</span>.<span class="hl-f">new</span>(<span class="hl-n">2</span>, <span class="hl-n">1</span>, <span class="hl-n">2</span>) })
+m:<span class="hl-f">SetIndices</span>({ <span class="hl-n">1</span>, <span class="hl-n">3</span>, <span class="hl-n">2</span>,  <span class="hl-n">4</span>, <span class="hl-n">5</span>, <span class="hl-n">6</span>,  <span class="hl-n">1</span>, <span class="hl-n">4</span>, <span class="hl-n">6</span>,  <span class="hl-n">1</span>, <span class="hl-n">6</span>, <span class="hl-n">3</span>,  <span class="hl-n">2</span>, <span class="hl-n">3</span>, <span class="hl-n">6</span>,  <span class="hl-n">2</span>, <span class="hl-n">6</span>, <span class="hl-n">5</span> }) <span class="hl-c">-- triángulos, desde 1, antihorario de frente</span>
+m:<span class="hl-f">SetColors</span>({ <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.5</span>, <span class="hl-n">0.2</span>), <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.5</span>, <span class="hl-n">0.2</span>), <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.9</span>, <span class="hl-n">0.3</span>),
+              <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.5</span>, <span class="hl-n">0.2</span>), <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.5</span>, <span class="hl-n">0.2</span>), <span class="hl-t">Color</span>.<span class="hl-f">new</span>(<span class="hl-n">1</span>, <span class="hl-n">0.9</span>, <span class="hl-n">0.3</span>) })
+m:<span class="hl-f">RecalculateNormals</span>()
+m:<span class="hl-f">Apply</span>(<span class="hl-b">self</span>.entity) <span class="hl-c">-- la sube y la pone en el MeshRenderer de la entidad</span></code></pre></div>
+<ul>
+<li><code>SetVertices</code>, <code>SetIndices</code> (desde 1), <code>SetNormals</code> (sin ellas se calculan), <code>SetUVs</code> (para el material del
+MeshRenderer), <code>SetColors</code> (con colores se dibuja con ellos, con luz y sombras, sin textura), <code>RecalculateNormals</code>,
+<code>Clear</code>, <code>GetVertexCount</code>, <code>GetTriangleCount</code>.</li>
+<li><code>Upload()</code> devuelve su <strong>Asset</strong> (el mismo cada vez que se actualiza): vale para <code>MeshRenderer.model</code> y para un
+Collider con forma <strong>Malla</strong>. <code>Apply(entidad)</code> hace lo mismo y pone el MeshRenderer.</li>
+</ul>
+<h2 id="12-cómo-funciona">12. Cómo funciona<a class="ancla" href="#12-cómo-funciona" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Rejilla por trozos de 32 x 32 x 32 vóxeles</strong>. Cada vóxel guarda su relleno (0 a 255; la superficie pasa por la mitad)
+y su material. Un trozo todo igual guarda solo esos dos números. Los datos de un trozo editado se comparten con los
+mallados en curso y se copian al escribir: los hilos de trabajo leen una foto fija.</li>
+<li><strong>Mallado Surface Nets</strong>: un vértice por celda que corta la superficie (la media de los cortes de sus aristas) y un
+cuadrado por arista que la cruza. Cada trozo lee también las muestras de borde de sus vecinos, así que los vértices
+compartidos salen idénticos: <strong>sin grietas entre trozos</strong>. Normales suaves del gradiente del relleno, color mezclado en
+un radio de tres vóxeles y oclusión ambiental según el relleno de alrededor.</li>
+<li><strong>Excavar</strong>: el relleno de cada vóxel baja hasta el de la forma tallada (su distancia a la superficie nueva, con un vóxel
+de transición: sin escalones) y el canto contra la superficie de antes se redondea. La dureza encoge la forma. Lo quitado
+se cuenta en unidades de relleno por material, así que lo extraído cuadra exacto.</li>
+<li><strong>Shader</strong> (<code>engine/shaders/voxel.hlsl</code>): PBR con las sombras del sol y de las luces, IBL, calcomanías y niebla; relieve
+fino procedural en 3D (sin texturas ni costuras) y, en el hielo, brillo de Fresnel, luz que lo atraviesa a contraluz,
+vetas y burbujas.</li>
+<li><strong>Determinista</strong>: las mismas operaciones sobre los mismos datos dan lo mismo en todas las máquinas.</li>
+<li>Código: <code>engine/nova/voxel</code> (datos, mallado, sistema, render y Lua), <code>engine/nova/render/MeshLua.cpp</code> y
+<code>editor/voxel</code>. Pruebas: <code>tests/test_voxel.cpp</code>. No usa librerías de terceros.</li>
+</ul>
+<h2 id="13-límites">13. Límites<a class="ancla" href="#13-límites" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li>El giro y la escala de la entidad no se usan (el volumen va alineado con los ejes del mundo).</li>
+<li>Hasta 4096 vóxeles por eje y 32 materiales; los colores van por vértice (sin texturas por material).</li>
+<li>Sin niveles de detalle: para volúmenes enormes, varios terrenos o un vóxel más grande.</li>
+<li>La generación desde Lua se hace en cada máquina (no viaja por la red): genera en el <code>Start</code> o usa los ajustes del
+componente.</li>
+</ul>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="terreno.html"><small>Anterior</small>Terreno</a><a class="sig" href="vegetacion.html"><small>Siguiente</small>Vegetación pintada: árboles, rocas, hierba y flores</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#1-empezar">1. Empezar</a></li><li class="n2"><a href="#2-materiales-y-capas">2. Materiales y capas</a></li><li class="n2"><a href="#3-cavar-añadir-suavizar-y-pintar">3. Cavar, añadir, suavizar y pintar</a></li><li class="n2"><a href="#4-consultas">4. Consultas</a></li><li class="n2"><a href="#5-generar-desde-lua">5. Generar desde Lua</a></li><li class="n2"><a href="#6-física">6. Física</a></li><li class="n2"><a href="#7-multijugador">7. Multijugador</a></li><li class="n2"><a href="#8-guardar-y-cargar">8. Guardar y cargar</a></li><li class="n2"><a href="#9-editor">9. Editor</a></li><li class="n2"><a href="#10-rendimiento">10. Rendimiento</a></li><li class="n2"><a href="#11-mallas-desde-lua-meshnew">11. Mallas desde Lua (Mesh.new)</a></li><li class="n2"><a href="#12-cómo-funciona">12. Cómo funciona</a></li><li class="n2"><a href="#13-límites">13. Límites</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>
