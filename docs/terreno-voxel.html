@@ -259,6 +259,8 @@ servidor y las vuelve a aplicar encima. Si el servidor la <strong>rechaza</stron
 material al inventario del jugador. En el cliente, el resultado de <code>Dig</code> sirve para el HUD al momento.</li>
 <li><strong>Quien entra tarde</strong> recibe los trozos cambiados durante la partida (comprimidos, en fragmentos) y el número de la
 última operación; las que lleguen mientras tanto esperan su turno.</li>
+<li><strong>Si algo se pierde</strong>, el cliente se recupera solo: si tras 2 segundos sigue esperando el estado (por ejemplo, porque
+aún cargaba la escena cuando llegó) o una operación que falta, lo pide otra vez al servidor y se pone al día.</li>
 </ul>
 <h2 id="8-guardar-y-cargar">8. Guardar y cargar<a class="ancla" href="#8-guardar-y-cargar" aria-label="Enlace a esta sección">#</a></h2>
 <ul>

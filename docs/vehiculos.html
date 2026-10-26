@@ -463,7 +463,7 @@ la cámara lo sigue; a pie no hace nada (la mueve tu script de siempre).</p>
 <tr>
   <td><strong>Girar con el ratón</strong></td>
   <td>sí</td>
-  <td>El ratón (o el stick derecho) gira la cámara alrededor; vuelve detrás al soltarlo. En las aeronaves que se manejan con el ratón no gira</td>
+  <td>El ratón (o el stick derecho) gira la cámara alrededor; vuelve detrás al soltarlo. A la derecha, la vista gira a la derecha; arriba, mira arriba (en tercera y en primera persona). En las aeronaves que se manejan con el ratón no gira</td>
 </tr>
 <tr>
   <td><strong>Cambiar con V</strong></td>
@@ -477,6 +477,9 @@ la cámara lo sigue; a pie no hace nada (la mueve tu script de siempre).</p>
 </tr>
 </tbody>
 </table></div>
+<p>Con <strong>Girar con el ratón</strong> desactivado, un script puede mover la cámara escribiendo <code>orbitYaw</code> y <code>orbitPitch</code> (grados) en la «Cámara de vehículo».
+En tercera persona, <code>orbitYaw</code> positivo rodea el vehículo hacia la izquierda y <code>orbitPitch</code> positivo sube la cámara (mira
+más abajo). En primera persona, <code>orbitYaw</code> positivo mira a la derecha y <code>orbitPitch</code> positivo mira abajo.</p>
 <p>Se mueve después de los scripts, así que gana a tu script de cámara mientras vas en un vehículo. Desde Lua:
 <code>Vehicles.SetCameraMode(&quot;FirstPerson&quot;)</code>.</p>
 <h2 id="7-sonido-del-motor">7. Sonido del motor<a class="ancla" href="#7-sonido-del-motor" aria-label="Enlace a esta sección">#</a></h2>
@@ -667,7 +670,9 @@ la numera y la envía al servidor sin fiabilidad: 30 envíos por segundo, cada u
 pierde un paquete, la siguiente lo cubre).</li>
 <li>El servidor aplica cada entrada en un paso (en orden; si se le acumulan, tira las viejas; si no llega ninguna, repite
 la última un momento y luego echa el freno de mano) y simula el vehículo con Jolt. Solo acepta la entrada de quien
-va en el asiento de conductor.</li>
+va en el asiento de conductor. La entrada que aplica queda también en el componente (<code>inThrottle</code>, <code>inSteer</code>,
+<code>inBrake</code> e <code>inHandBrake</code>; en una aeronave, <code>inCollective</code>, <code>inPitch</code>, <code>inRoll</code> e <code>inYaw</code>): un script del servidor que
+la lee (una capa de conducción propia, sonidos, consumo) ve lo mismo que el conductor en su máquina, sin RPC propias.</li>
 <li>El conductor <strong>predice</strong>: simula su vehículo en su máquina con la misma entrada, sin esperar al servidor, y guarda lo
 que predijo después de cada entrada. El servidor le contesta qué entrada ha aplicado y dónde dejó el vehículo
 (posición, giro y velocidades); el conductor lo compara con lo que predijo para esa misma entrada y <strong>corrige la
