@@ -2122,6 +2122,14 @@ cada <code>Update</code>).</p>
   <td>Pantalla completa o ventana</td>
 </tr>
 <tr>
+  <td><code>GetResolutions()</code></td>
+  <td>Los modos del monitor del juego: lista de <code>{width, height, refreshRate}</code> sin repetidos, de menor a mayor (vacía en el servidor dedicado)</td>
+</tr>
+<tr>
+  <td><code>SetResolution(ancho, alto, pantallaCompleta?)</code></td>
+  <td>Cambia la resolución en el modo de ahora, o en pantalla completa (<code>true</code>) o en ventana (<code>false</code>); ver abajo</td>
+</tr>
+<tr>
   <td><code>SetTargetFrameRate(fps)</code>, <code>GetTargetFrameRate()</code></td>
   <td>Límite de frames por segundo (0 = sin límite)</td>
 </tr>
@@ -2152,6 +2160,31 @@ cada <code>Update</code>).</p>
 </tbody>
 </table></div>
 <p>La ventana, el límite de FPS y la sincronía vertical los aplica <code>NovaGame.exe</code>; en el editor no cambian nada.</p>
+<h4 id="resolución">Resolución<a class="ancla" href="#resolución" aria-label="Enlace a esta sección">#</a></h4>
+<p>Para el menú de ajustes del juego: <code>GetResolutions()</code> da los modos del monitor y <code>SetResolution</code> aplica el elegido.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">local</span> modos = <span class="hl-t">Application</span>.<span class="hl-f">GetResolutions</span>()   <span class="hl-c">-- {{width = 1280, height = 720, refreshRate = 60}, ...}</span>
+<span class="hl-k">for</span> _, m <span class="hl-k">in</span> modos <span class="hl-k">do</span>
+    <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-t">string</span>.<span class="hl-f">format</span>(<span class="hl-s">"%dx%d a %d Hz"</span>, m.width, m.height, m.refreshRate))
+<span class="hl-k">end</span>
+<span class="hl-k">local</span> actual = <span class="hl-t">Application</span>.<span class="hl-f">GetScreenSize</span>()   <span class="hl-c">-- la de ahora (Vec2)</span>
+<span class="hl-t">Application</span>.<span class="hl-f">SetResolution</span>(<span class="hl-n">1600</span>, <span class="hl-n">900</span>)         <span class="hl-c">-- en el modo de ahora</span>
+<span class="hl-t">Application</span>.<span class="hl-f">SetResolution</span>(<span class="hl-n">1920</span>, <span class="hl-n">1080</span>, <span class="hl-b">true</span>)  <span class="hl-c">-- en pantalla completa</span>
+<span class="hl-t">Application</span>.<span class="hl-f">SetResolution</span>(<span class="hl-n">1280</span>, <span class="hl-n">720</span>, <span class="hl-b">false</span>)  <span class="hl-c">-- en ventana</span></code></pre></div>
+<ul>
+<li><strong>En ventana</strong>, el área de juego pasa a medir lo pedido (en píxeles reales del monitor) y la ventana queda centrada.
+Vale cualquier tamaño de 320x200 a 16384x16384, aunque no esté en la lista.</li>
+<li><strong>En pantalla completa</strong>, el monitor cambia a ese modo (el de más Hz de ese tamaño) y la ventana sin bordes lo cubre.
+El tamaño tiene que estar en <code>GetResolutions()</code>; si no, devuelve <code>true</code> pero no cambia nada y lo dice en el log. El
+monitor vuelve a su modo al salir de pantalla completa, con Alt+Tab (el juego se minimiza) y al cerrar el juego. Con el
+tamaño del escritorio no se cambia el modo: es la pantalla completa sin bordes de siempre.</li>
+<li><code>SetFullscreen(true)</code> y Alt+Intro usan la última resolución de pantalla completa pedida (o la del escritorio).</li>
+<li>Se aplica al <strong>empezar el frame siguiente</strong>; desde entonces <code>GetScreenSize()</code> da el tamaño nuevo. El contexto gráfico
+no se pierde: no hace falta volver a cargar nada.</li>
+<li><code>SetResolution</code> da error con tamaños fuera de 320x200 a 16384x16384 o no enteros.</li>
+<li>En el <strong>editor</strong> no cambia nada (la vista del juego es un panel): devuelve <code>false</code> y lo avisa en el log. Pruébalo con
+<strong>Jugar &gt; Anfitrión + clientes</strong> (abre copias de <code>NovaGame.exe</code>) o con el juego publicado. <code>GetResolutions()</code> sí
+funciona en el editor.</li>
+</ul>
 <h4 id="argumentos-de-la-línea-de-órdenes">Argumentos de la línea de órdenes<a class="ancla" href="#argumentos-de-la-línea-de-órdenes" aria-label="Enlace a esta sección">#</a></h4>
 <p>Son del juego todos los argumentos que van <strong>después de <code>--</code></strong> y, antes, los que el motor no conoce:</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- NovaGame.exe --project MiJuego --host 0 -- --modo prueba --bots=4 --sin-musica</span>
