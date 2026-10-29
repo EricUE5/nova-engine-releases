@@ -204,7 +204,7 @@ copia completa de sus instancias).</li>
 <li>La barra de estado dice cuántas instancias se actualizaron y cuántos valores propios se respetaron.</li>
 <li><strong>Jugando</strong> se puede mirar, pero no editar (para el juego).</li>
 <li>No cambia la jerarquía del prefab (crear, borrar o mover hijos): para eso, instáncialo, cámbialo en la escena y
-pulsa <strong>Aplicar</strong>.</li>
+pulsa <strong>Aplicar</strong> (las demás instancias reciben los hijos nuevos y pierden los quitados).</li>
 <li><strong>Edición en equipo</strong>: el cambio viaja como cualquier otro. Los demás editores escriben el mismo fichero (idéntico,
 así que la sincronización de ficheros no ve conflictos) y reciben los cambios de las instancias de la escena de la
 sesión. Si el fichero cambia por fuera (otro miembro del equipo, otro programa o Ctrl+Z), el Inspector lo vuelve a
@@ -230,7 +230,7 @@ normal, sino como una barra azul encima de los componentes con tres botones:</p>
 </tr>
 <tr>
   <td><strong>Aplicar</strong></td>
-  <td>Guarda esta instancia (con sus hijos y componentes actuales) en el fichero del prefab. Lo siguiente que se instancia o se revierte ya usa lo guardado (sin esperar a la recarga)</td>
+  <td>Guarda esta instancia (con sus hijos y componentes actuales) en el fichero del prefab y lleva el cambio a las <strong>demás instancias de la escena abierta</strong>, en un solo paso de Ctrl+Z (ver abajo). Lo siguiente que se instancia o se revierte ya usa lo guardado (sin esperar a la recarga)</td>
 </tr>
 <tr>
   <td><strong>Revertir</strong></td>
@@ -240,14 +240,32 @@ normal, sino como una barra azul encima de los componentes con tres botones:</p>
 </table></div>
 <p>Ten en cuenta:</p>
 <ul>
-<li><strong>Aplicar</strong> solo cambia el fichero. Las demás instancias que ya están en las escenas <strong>no se actualizan</strong>:
-cada escena guarda una copia completa de sus instancias. Usa <strong>Revertir</strong> en cada una si quieres traer los
-cambios. (Lo que cambias <a href="#editar-un-prefab-desde-el-inspector">desde el Inspector del prefab</a> sí llega a las
-instancias de la escena abierta.)</li>
-<li><strong>Revertir</strong> sustituye solo la instancia que muestra el Inspector. La raíz conserva su UUID y los hijos
+<li><p><strong>Aplicar</strong> actualiza también las <strong>demás instancias de la escena abierta</strong>, con las mismas reglas que
+<a href="#editar-un-prefab-desde-el-inspector">editar el prefab desde el Inspector</a>:</p>
+<ul>
+<li>lo que cada instancia tenía igual que el prefab pasa a lo nuevo; lo que tenía cambiado a mano (sus valores
+propios: un campo, un script, el nombre, el estado activo) se respeta;</li>
+<li>la posición y el giro de la raíz de cada instancia son suyos;</li>
+<li>los <strong>hijos nuevos</strong> de la instancia que aplicas aparecen en las demás (bajo el mismo padre, con sus componentes
+y con las referencias a entidades del prefab apuntando a las de cada instancia) y los hijos que <strong>quitaste</strong>
+desaparecen de ellas;</li>
+<li>el fichero conserva los UUID de sus entidades (las de la instancia que aplicas se guardan con los del prefab), así
+que <strong>Revertir</strong> y las demás instancias siguen encontrando cada hijo.</li>
+</ul>
+<p>Ejemplo: tres farolas del mismo prefab; la B tiene su luz a 9 a mano. Subes la luz de la A a 4, le cambias el alcance
+y le pones un cartel, y pulsas <strong>Aplicar</strong>: la C pasa a 4, la B se queda en 9, las dos reciben el alcance nuevo y el
+cartel. La barra de estado dice cuántas instancias se actualizaron y cuántos valores propios se respetaron (los
+nombres distintos de las raíces, como «FarolaB», cuentan). Todo es <strong>un solo paso de Ctrl+Z</strong>: el fichero y las
+instancias vuelven a como estaban, y Ctrl+Y lo rehace. En la edición en equipo viaja como un solo cambio: los demás
+editores escriben el mismo fichero y ven las mismas instancias actualizadas.</p>
+<p>Las instancias de <strong>otras escenas</strong> no se tocan (cada escena guarda una copia completa de sus instancias): ábrelas y
+usa <strong>Revertir</strong> en cada una. Jugando, <strong>Aplicar</strong> solo escribe el fichero, sin deshacer ni tocar las demás.</p>
+</li>
+<li><p><strong>Revertir</strong> sustituye solo la instancia que muestra el Inspector. La raíz conserva su UUID y los hijos
 reciben UUID derivados de él: tras el primer <strong>Revertir</strong>, los siguientes conservan también los de los hijos.
 Una referencia de fuera (un campo <code>Entity()</code>) a un hijo de una instancia creada antes de este cambio deja de
-encontrarlo la primera vez.</li>
+encontrarlo la primera vez.</p>
+</li>
 </ul>
 <h2 id="referencias-internas">Referencias internas<a class="ancla" href="#referencias-internas" aria-label="Enlace a esta sección">#</a></h2>
 <p>Al instanciar, las referencias a entidades que apuntan a entidades <strong>del propio prefab</strong> se reasignan a las
@@ -270,8 +288,10 @@ tiene distinto del prefab se trata como suyo (ver arriba).</li>
 <li><strong>Sin prefabs anidados con herencia</strong>: si un prefab contiene otra instancia de prefab, se guarda como una
 copia normal (su componente <code>PrefabInstance</code> se conserva como dato, pero los cambios del prefab interior no se
 propagan).</li>
-<li>Los cambios en un <code>.prefab</code> hechos fuera del Inspector del prefab (con <strong>Aplicar</strong>, a mano o con otro programa) no
-se propagan solos a las instancias existentes (ver <strong>Aplicar</strong> y <strong>Revertir</strong>).</li>
+<li>Los cambios en un <code>.prefab</code> hechos fuera del editor (a mano o con otro programa) no se propagan solos a las
+instancias existentes, ni los de <strong>Aplicar</strong> o del Inspector del prefab a las de otras escenas (ver <strong>Revertir</strong>).</li>
+<li>Mover un hijo a otro padre dentro de la instancia y aplicar no lo mueve en las demás instancias (solo se crean los
+hijos nuevos y se borran los quitados).</li>
 </ul>
 <h2 id="ver-también">Ver también<a class="ancla" href="#ver-también" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
