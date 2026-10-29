@@ -2018,6 +2018,10 @@ y el registro.</p>
 se contengan a sí mismas: es un error que dice dónde está el valor (<code>datos.inventario[3]</code>).</li>
 <li>Límites: 1 MB por partida y 256 partidas. Se cambian en <code>project.nova</code>:
 <code>&quot;lua&quot;: { &quot;guardadoMaxKB&quot;: 4096, &quot;guardadoMaxFicheros&quot;: 1000 }</code>.</li>
+<li><strong>En el editor</strong>, <strong>Ventana &gt; Scripts &gt; Base de datos &gt; Partidas (SaveGame)</strong> enseña las partidas de la carpeta
+<code>guardado-editor</code> (o <code>guardado</code>, la del juego) en árbol, con su tamaño y fecha, y deja cambiar valores, añadir y
+quitar claves, duplicar, exportar a JSON y borrar, guardando con este mismo formato y estos límites
+(<a href="base-de-datos.html#partidas-savegame">base-de-datos.md</a>).</li>
 <li>Cada máquina guarda en su disco. En red, lo que tiene que ser fiable (dinero, inventario, progreso) lo guarda el
 <strong>servidor</strong> (<code>if IsServer() then ... end</code>); los clientes, sus opciones (volumen, teclas, nombre).</li>
 </ul>
