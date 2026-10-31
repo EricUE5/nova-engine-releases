@@ -126,6 +126,17 @@ parámetros), huesos y sockets, clips de la Animación, cadenas de IK, claves de
 <code>Hide</code>, <code>ReadOnly</code>, <code>NoSave</code>, <code>Global</code>... con su ayuda; dentro de los paréntesis de <code>Replicated(</code>, sus opciones
 (<code>onChange</code>, <code>condition</code>), y en <code>Server(</code>, <code>rate</code> y <code>reliable</code>. Dentro de sus comillas, los valores:
 <code>condition = &quot;</code> (<code>All</code>, <code>OwnerOnly</code>, <code>SkipOwner</code>, <code>Observers</code>) y <code>onChange = &quot;</code> o <code>Validate(&quot;</code> (tus funciones).</li>
+<li><strong>Tween (0.9.59)</strong>: <code>Tween.</code> con sus funciones, su firma y su ayuda; tras <code>local t = Tween.To(...)</code> o
+<code>self._anim = Tween.Sequence({...})</code>, <code>t:</code> y <code>self._anim:</code> ofrecen <code>Pause</code>, <code>Play</code>, <code>Kill</code>, <code>Complete</code>, <code>IsPlaying</code>
+e <code>IsAlive</code>. En la tabla de opciones salen sus claves (<code>easing</code>, <code>delay</code>, <code>loops</code>, <code>yoyo</code>, <code>relative</code>, <code>unscaled</code>,
+<code>onComplete</code>, <code>onUpdate</code>; en <code>Sequence</code> y <code>Parallel</code>, las suyas) y dentro de <code>easing = &quot;</code> los nombres de <code>Easing</code>
+(<code>OutBack</code>, <code>InOutSine</code>...). En la tabla de valores, lo que se puede animar <strong>según el objetivo</strong>: de una entidad,
+<code>position</code>, <code>rotation</code>, <code>localPosition</code>, <code>localRotation</code> y <code>scale</code>; de su <code>transform</code>, también <code>worldPosition</code>,
+<code>worldRotation</code> y <code>eulerAngles</code>; de un componente (<code>entidad:GetComponent(&quot;PointLight&quot;)</code>), sus campos de números,
+vectores, colores y rotaciones (<code>intensity</code>, <code>color</code>, <code>range</code>...) más los que tienen <code>GetX</code> y <code>SetX</code> (el <code>color</code> de un
+renderer); de un elemento de UI (<code>UI(&quot;HUD/Dinero&quot;)</code>), <code>scale</code>, <code>position</code>, <code>size</code>, <code>rotation</code>, <code>alpha</code> y <code>color</code>; de
+<code>self</code> o una tabla, sus campos de números y vectores. VS Code completa lo mismo (la tabla de valores la añade la
+extensión con <code>nova.autocompletado.json</code>; el resto, luau-lsp con <code>nova.d.luau</code>).</li>
 <li><strong><code>function MiScript:</code></strong> sugiere las funciones que llama el motor y que aún no tienes, con los tipos que les pasa el
 motor (<code>Awake</code>, <code>Start</code>, <code>Update(dt: number)</code>, <code>OnCollisionEnter(choque: Collision)</code>, <code>OnTriggerEnter(otra: Entity)</code>,
 <code>OnInteract(jugador: number)</code>, <code>OnBreak(nivel: number, punto: Vec3)</code>, <code>OnValidate(motivo: string)</code>...) y, en una

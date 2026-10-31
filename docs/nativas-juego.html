@@ -548,6 +548,10 @@ las tres);</li>
 <li>cualquier componente: sus campos de números, vectores, colores y rotaciones (<code>luz.intensity</code>, <code>luz.color</code>,
 <code>camara.fieldOfView</code>...), que se escriben directamente;</li>
 <li>un renderer: <code>color</code> (con su <code>SetColor</code>): en general, cualquier <code>Campo</code> con <code>GetCampo</code> y <code>SetCampo</code>;</li>
+<li>un elemento de UI (<code>UI(&quot;HUD/Dinero&quot;)</code>): <code>scale</code> (un número vale para las dos), <code>position</code> (o <code>anchoredPosition</code>),
+<code>size</code>, <code>rotation</code> (en grados), <code>alpha</code> y <code>color</code>, como <code>ScaleTo</code>, <code>FadeTo</code>, <code>TintTo</code>, <code>SetPosition</code> y <code>SetSize</code>
+(0.9.59). Muere si se destruye el elemento y va con <code>unscaled</code> en los menús de pausa:
+<code>Tween.From(UI(&quot;Dinero&quot;), { scale = 1.5 }, 0.25, { easing = &quot;OutBack&quot; })</code>. Su entidad es <code>elemento.entity</code>;</li>
 <li>un script (<code>self</code>) o una tabla de Lua: sus campos.</li>
 </ul>
 <p>Se animan números, <code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code>, <code>Color</code> y <code>Quat</code> (las rotaciones, por el camino corto).</p>
