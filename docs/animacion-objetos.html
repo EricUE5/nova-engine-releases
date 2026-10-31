@@ -67,10 +67,12 @@ origen de la hoja en la bisagra (o mete la malla en un hijo desplazado) para que
 componente Animación).</li>
 <li>Pulsa <strong>Nuevo clip</strong> y llámalo <code>AbrirPuerta</code>. Se crea <code>assets/animaciones/Puerta_AbrirPuerta.anim</code> y la puerta
 recibe el componente <strong>Animación</strong> con ese clip.</li>
-<li>Con el tiempo en 0, pulsa <strong>Añadir propiedad &gt; Hoja &gt; Rotación</strong>: aparece la pista «Hoja · Rotación» con una clave
-(la puerta cerrada). Pulsa <strong>Grabar</strong> (se pone en rojo).</li>
+<li>Pulsa <strong>Grabar</strong> (se pone en rojo y sale el aviso «Grabando…»). No hace falta añadir antes la propiedad.</li>
 <li>Mueve el tiempo a <strong>1 s</strong> (arrastra en la regla o escribe <code>1</code> en el campo de segundos) y gira la Hoja 90 grados con
-el gizmo de rotar. Al soltar, la clave del segundo 1 se crea sola.</li>
+el gizmo de rotar (en la pestaña del nivel, si usas las <a href="editor.html#pestañas-de-editor">pestañas de editor</a>: sigue
+grabando aunque la Línea de tiempo no se vea). Al soltar se crea sola la pista «Hoja · Rotación» con dos claves: la
+del segundo 1 (abierta) y la del segundo 0 con cómo estaba antes de girarla (cerrada). El <code>.anim</code> se guarda en ese
+momento.</li>
 <li>Pulsa <strong>Reproducir</strong> en el panel: la puerta se abre en la escena sin entrar en Play. Ajusta la curva (abajo) si
 quieres que frene al final.</li>
 <li>Pulsa <strong>Grabar</strong> otra vez para dejar de grabar. Al quitar la vista previa (o al pulsar Play o guardar), la puerta
@@ -112,7 +114,7 @@ Inspector del componente Animación.</p>
 </tr>
 <tr>
   <td><strong>Grabar</strong></td>
-  <td>Lo que muevas en el visor o cambies en el Inspector en una entidad del clip se convierte en una clave en el tiempo actual (una sola entrada en el historial por gesto)</td>
+  <td>Lo que muevas, gires o escales en el visor (o cambies en el Inspector) en la entidad del clip o en cualquiera de sus hijos se convierte en una clave en el tiempo actual, tenga pista o no: si no la tiene, se crea, y si el tiempo no es 0 también se pone una clave en el segundo 0 con el valor de antes (para que vaya de A a B). Una sola entrada en el historial por gesto («Grabar clave») y el <code>.anim</code> se guarda al soltar. Mientras graba, el panel lo avisa en rojo; con las <a href="editor.html#pestañas-de-editor">pestañas de editor</a>, en la pestaña del nivel sale una ventanita con <strong>Dejar de grabar</strong> y <strong>Volver a la línea de tiempo</strong>. Elegir o cambiar una entidad que no es del clip no se graba (se avisa) ni cambia la entidad del panel</td>
 </tr>
 <tr>
   <td><strong>Vista previa</strong></td>
@@ -571,7 +573,10 @@ ponerle el nombre o crea la pista otra vez. Si dos hermanos se llaman igual, se 
 <li>Con la vista previa activa, las propiedades animadas las manda el clip: lo que cambies a mano en ellas (sin
 <strong>Grabar</strong>) se pierde al salir de la vista previa.</li>
 <li>Grabar en una sesión de edición en equipo deja también el cambio de la escena en el historial (los demás ya lo
-han recibido).</li>
+han recibido). Si un mismo gesto cambia entidades del clip y de fuera (varias elegidas), el cambio de la escena
+también se queda en el historial, para poder deshacer lo de las de fuera.</li>
+<li>Grabar no pone claves en las piezas que mueve el Animator de un modelo (las que tienen <strong>Nodo animado</strong>) ni en los
+materiales (el color de un material se anima con claves en su pista).</li>
 <li>Las plataformas con física avanzan a 60 Hz (el paso fijo): en monitores de más hercios se mueven a saltos muy
 pequeños.</li>
 <li>No anima listas ni assets (cambiar de malla o de sonido): para eso, un evento que llame a una función de tu script.</li>
