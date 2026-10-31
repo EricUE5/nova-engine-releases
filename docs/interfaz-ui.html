@@ -1174,24 +1174,86 @@ extensión de Nova para VS Code con luau-lsp; ver <a href="scripts-lua.html#13-v
 </ul>
 <h2 id="fuentes-sprites-y-nueve-cortes">Fuentes, sprites y nueve cortes<a class="ancla" href="#fuentes-sprites-y-nueve-cortes" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
-<li><strong>Fuentes:</strong> copia un <code>.ttf</code> o <code>.otf</code> al proyecto (panel <strong>Contenido</strong>) y arrástralo sobre un texto, o
+<li><p><strong>Fuentes:</strong> copia un <code>.ttf</code> o <code>.otf</code> al proyecto (panel <strong>Contenido</strong>) y arrástralo sobre un texto, o
 elígelo en el campo <strong>Fuente</strong>. Sin fuente se usa <strong>Roboto</strong>, que va dentro del motor. Si a una fuente le
 falta una letra (por ejemplo «¿» o «€»), se toma de Roboto automáticamente (y, si tampoco la tiene, de las fuentes
 de Windows: chino, japonés, coreano...; ver <a href="idiomas.html#7-fuentes-y-caracteres">idiomas.md</a>). Si la fuente de un texto aún no
 está en el proyecto (o su fichero no vale), se ve con Roboto hasta que esté; al copiarla, sustituirla o
-arreglarla, el texto cambia solo, sin reiniciar el editor.</li>
-<li><strong>El texto es nítido a cualquier tamaño</strong> (campos de distancia con signo): se puede escalar y animar. Por
-debajo de unos 14 px pierde algo de definición; para textos muy pequeños sube el <strong>Grosor</strong>.</li>
-<li><strong>Sprites:</strong> cualquier textura del proyecto (PNG, JPG...). <strong>Conservar proporción</strong> evita que se deforme.</li>
-<li><strong>Nueve cortes:</strong> para marcos y botones que se estiran sin deformar las esquinas. <strong>Tipo</strong> = <strong>Nueve
+arreglarla, el texto cambia solo, sin reiniciar el editor.</p>
+</li>
+<li><p><strong>Fuentes cartoon de serie:</strong> siete fuentes redondeadas y de cómic van dentro del motor, en todos los proyectos y sin
+importarlas, para juegos desenfadados (títulos, botones, números del HUD). Salen en el selector de <strong>Fuente</strong> de
+cualquier texto o estilo (también en las Pestañas, las Descripciones emergentes y los campos de texto) como
+«Fuentes/Fredoka»:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Fuente</th>
+  <th>Cómo es</th>
+  <th>Desde Lua</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Fredoka</strong></td>
+  <td>Redondeada y amable (variable: se usa su grosor por defecto, Light; para más gruesa sube el <strong>Grosor</strong>)</td>
+  <td><code>&quot;Fredoka&quot;</code></td>
+</tr>
+<tr>
+  <td><strong>Baloo 2</strong></td>
+  <td>Redondeada, gruesa y muy legible (variable: Regular)</td>
+  <td><code>&quot;Baloo 2&quot;</code></td>
+</tr>
+<tr>
+  <td><strong>Lilita One</strong></td>
+  <td>Negrita redonda para títulos</td>
+  <td><code>&quot;Lilita One&quot;</code></td>
+</tr>
+<tr>
+  <td><strong>Luckiest Guy</strong></td>
+  <td>De cómic, mayúsculas gordas</td>
+  <td><code>&quot;Luckiest Guy&quot;</code></td>
+</tr>
+<tr>
+  <td><strong>Titan One</strong></td>
+  <td>Muy gruesa y redonda, para logos y botones</td>
+  <td><code>&quot;Titan One&quot;</code></td>
+</tr>
+<tr>
+  <td><strong>Bangers</strong></td>
+  <td>De cómic, estrecha e inclinada (onomatopeyas)</td>
+  <td><code>&quot;Bangers&quot;</code></td>
+</tr>
+<tr>
+  <td><strong>Chewy</strong></td>
+  <td>Blanda y con rebote</td>
+  <td><code>&quot;Chewy&quot;</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Desde Lua se usan por su nombre o por su ruta, como cualquier asset: <code>UI():MeasureText(&quot;¡Hola!&quot;, 32, &quot;Fredoka&quot;)</code>,
+<code>self:GetComponent(&quot;UiText&quot;).font = &quot;Bangers&quot;</code> o con la ruta <code>&quot;builtin:Fuentes/Luckiest Guy&quot;</code>. Como las de los estilos, van dentro del ejecutable de
+todos los juegos (no hay que copiarlas al publicar) y su licencia (SIL OFL 1.1 o Apache 2.0) ya está en el
+<code>LICENCIAS.txt</code> del juego publicado.</p>
+</li>
+<li><p><strong>El texto es nítido a cualquier tamaño</strong> (campos de distancia con signo): se puede escalar y animar. Por
+debajo de unos 14 px pierde algo de definición; para textos muy pequeños sube el <strong>Grosor</strong>.</p>
+</li>
+<li><p><strong>Sprites:</strong> cualquier textura del proyecto (PNG, JPG...). <strong>Conservar proporción</strong> evita que se deforme.</p>
+</li>
+<li><p><strong>Nueve cortes:</strong> para marcos y botones que se estiran sin deformar las esquinas. <strong>Tipo</strong> = <strong>Nueve
 cortes</strong> y en <strong>Bordes</strong> los píxeles del sprite que no se estiran (izquierda, arriba, derecha, abajo). El inspector
 enseña el sprite con sus bordes, que se arrastran, y cómo queda estirado. <strong>Repetir el centro (mosaico)</strong> repite el
-centro y los bordes en vez de estirarlos (ver <a href="#nueve-cortes-y-en-mosaico">Nueve cortes (y en mosaico)</a>).</li>
-<li><strong>Relleno:</strong> <strong>Tipo</strong> = <strong>Relleno</strong> con <strong>Método de relleno</strong> horizontal, vertical o radial y <strong>Cantidad</strong> de 0 a 1
-(recargas circulares, barras con sprite).</li>
-<li><strong>Esquinas redondeadas y bordes</strong> no necesitan sprites: <strong>Radio de las esquinas</strong> y <strong>Grosor del borde</strong>.</li>
+centro y los bordes en vez de estirarlos (ver <a href="#nueve-cortes-y-en-mosaico">Nueve cortes (y en mosaico)</a>).</p>
+</li>
+<li><p><strong>Relleno:</strong> <strong>Tipo</strong> = <strong>Relleno</strong> con <strong>Método de relleno</strong> horizontal, vertical o radial y <strong>Cantidad</strong> de 0 a 1
+(recargas circulares, barras con sprite).</p>
+</li>
+<li><p><strong>Esquinas redondeadas y bordes</strong> no necesitan sprites: <strong>Radio de las esquinas</strong> y <strong>Grosor del borde</strong>.</p>
+</li>
 </ul>
-<p><strong>Licencias:</strong> Roboto (Apache 2.0) ya está en <code>LICENCIAS.txt</code> del juego publicado. Si usas otra fuente,
+<p><strong>Licencias:</strong> Roboto (Apache 2.0), las fuentes de los estilos y las cartoon de serie ya están en <code>LICENCIAS.txt</code> del
+juego publicado. Si usas otra fuente,
 comprueba que su licencia permite incluirla en un juego (las SIL OFL, como Karla, lo permiten) y añade su
 aviso a tus créditos (ver <a href="publicar-juego.html">publicar-juego.md</a>).</p>
 <h2 id="prefabs-de-interfaz-un-inventario">Prefabs de interfaz: un inventario<a class="ancla" href="#prefabs-de-interfaz-un-inventario" aria-label="Enlace a esta sección">#</a></h2>
