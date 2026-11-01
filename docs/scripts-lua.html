@@ -1593,6 +1593,12 @@ ritmo del servidor (es un error que lo dice). Vuelve a 1 al empezar cada partida
 <code>{entity, point, normal, distance}</code>. Las consultas nuevas de la 0.9.2 (lotes de rayos, <code>Check*</code>, <code>LineOfSight</code>,
 <code>ClosestPoint</code>...) y el resto de funciones nativas de juego (<code>Spatial</code>, <code>Task</code>, <code>Tween</code>, <code>Pool</code>, <code>Json</code>) están en
 <a href="nativas-juego.html">nativas-juego.md</a>.</p>
+<p><strong>Tween y el relevo</strong> (0.9.65). Un <code>Tween.To</code> o <code>Tween.From</code> que empieza releva a los tweens vivos que animan la misma
+propiedad del mismo objeto: el viejo deja de escribirla (si se queda sin nada, muere sin <code>onComplete</code>, como con
+<code>Kill()</code>). <code>From</code> vuelve al destino del relevado, así el pulso de la UI en cada cambio de dinero,
+<code>Tween.From(UI(&quot;Dinero&quot;), { scale = 1.5 }, 0.25, { easing = &quot;OutBack&quot; })</code>, siempre termina en la escala de reposo
+aunque se llame varias veces seguidas. <code>{ override = false }</code> lo desactiva para ese tween. Todo, en
+<a href="nativas-juego.html#4-tween-easing-y-curve">nativas-juego.md</a>.</p>
 <p><strong>Choques.</strong> <code>OnCollisionEnter(c)</code> y <code>OnCollisionExit(c)</code> reciben <code>c.other</code> (la otra entidad), <code>c.point</code> (punto
 de contacto), <code>c.normal</code> (de esta entidad hacia la otra), <code>c.impulse</code> (impulso del choque, en N·s: sirve para el
 volumen del golpe) y <code>c.relativeSpeed</code> (m/s con los que se acercaban); en <code>Exit</code>, el punto y la normal son cero.

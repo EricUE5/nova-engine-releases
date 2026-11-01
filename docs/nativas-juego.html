@@ -557,8 +557,40 @@ las tres);</li>
 <p>Se animan números, <code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code>, <code>Color</code> y <code>Quat</code> (las rotaciones, por el camino corto).</p>
 <p><strong>Opciones</strong>: <code>easing</code> (un nombre como <code>&quot;OutBack&quot;</code>, una función de <code>Easing</code>, una función propia o una <code>Curve</code>; por
 defecto <code>&quot;OutQuad&quot;</code>), <code>delay</code>, <code>loops</code> (veces; <code>-1</code> = sin fin), <code>yoyo</code> (con <code>loops</code>, ida y vuelta), <code>relative</code> (los
-valores se suman a los de ahora), <code>unscaled</code> (sigue con <code>Time.timeScale = 0</code>), <code>onComplete</code> y <code>onUpdate(progreso)</code>.
-<code>Sequence</code> y <code>Parallel</code> aceptan <code>delay</code>, <code>loops</code>, <code>yoyo</code>, <code>unscaled</code> y <code>onComplete</code>.</p>
+valores se suman a los de ahora), <code>unscaled</code> (sigue con <code>Time.timeScale = 0</code>), <code>onComplete</code>, <code>onUpdate(progreso)</code> y
+<code>override</code> (<code>To</code> y <code>From</code>; <code>true</code> por defecto, mira el relevo más abajo). <code>Sequence</code> y <code>Parallel</code> aceptan <code>delay</code>,
+<code>loops</code>, <code>yoyo</code>, <code>unscaled</code> y <code>onComplete</code>.</p>
+<p><strong>Relevo</strong> (0.9.65). Cuando un <code>Tween.To</code> o <code>Tween.From</code> empieza (al acabar su <code>delay</code>), <strong>releva</strong> a los tweens vivos
+que animan la <strong>misma propiedad del mismo objeto</strong> (la misma entidad, componente, elemento de UI o tabla, y el mismo
+campo; también los que están dentro de una secuencia o un grupo): esa propiedad del viejo deja de escribirse y la
+anima solo el nuevo. Así dos tweens no se pelean por el mismo valor.</p>
+<ul>
+<li>Solo se releva esa propiedad: si el viejo animaba más cosas (<code>{ scale = 2, alpha = 0 }</code>), sigue con las demás y
+llama a su <code>onComplete</code> al terminar. Si se queda sin ninguna, <strong>muere sin <code>onComplete</code></strong>, como con <code>tween:Kill()</code>; si
+era un paso de una secuencia, se queda como una espera (la secuencia sigue con sus tiempos) sin su <code>onUpdate</code> ni su
+<code>onComplete</code>.</li>
+<li>Propiedades distintas (<code>scale</code> y <code>alpha</code>) u objetos distintos no se relevan. La posición de una entidad y la de su
+<code>transform</code> (o <code>localPosition</code>) son la misma propiedad; igual con la rotación y la escala, y con <code>position</code> y
+<code>anchoredPosition</code> de un elemento de UI.</li>
+<li><code>To</code> sale del valor de ahora (aunque el viejo lo dejara a medias) hacia su destino.</li>
+<li><code>From</code> vuelve al <strong>destino del tween relevado</strong>, no al valor a medias: llamar a <code>Tween.From</code> muchas veces seguidas
+siempre termina en el valor de reposo. Con <code>relative</code>, el incremento se suma al destino del relevado (dos empujones
+seguidos suman los dos).</li>
+<li>El destino del relevado es donde lo habría dejado: su valor final (con <code>yoyo</code> y un número par de <code>loops</code>, donde
+empezó). Si no tenía fin (<code>loops = -1</code>), el valor que había antes de que empezara.</li>
+<li>Los que aún esperan su <code>delay</code> no se relevan: cuando empiecen, relevarán ellos al nuevo (manda el último en empezar).
+Los pasos ya terminados de una secuencia tampoco (si la secuencia da otra vuelta, vuelven a animar).</li>
+<li><code>{ override = false }</code>: este tween no releva a nadie (los dos escriben a la vez, como antes de la 0.9.65). Uno que
+empiece después sí puede relevarlo a él.</li>
+</ul>
+<p>El caso típico es el <strong>pulso de la UI</strong> cada vez que cambia un número:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-k">function</span> <span class="hl-t">Hud</span>:<span class="hl-f">SetDinero</span>(dinero: number)
+    <span class="hl-f">UI</span>(<span class="hl-s">"Dinero"</span>):<span class="hl-f">SetText</span>(<span class="hl-s">"$"</span> .. dinero)
+    <span class="hl-c">-- Aunque cambie cinco veces seguidas, el texto siempre vuelve a su tamaño (1)</span>
+    <span class="hl-t">Tween</span>.<span class="hl-f">From</span>(<span class="hl-f">UI</span>(<span class="hl-s">"Dinero"</span>), { scale = <span class="hl-n">1.5</span> }, <span class="hl-n">0.25</span>, { easing = <span class="hl-s">"OutBack"</span> })
+<span class="hl-k">end</span></code></pre></div>
+<p>Antes de la 0.9.65, un <code>From</code> lanzado con el anterior a medias (escala 1,3) tomaba 1,3 como «el valor de ahora» y el
+texto se quedaba grande para siempre.</p>
 <div class="tabla"><table>
 <thead>
 <tr>
