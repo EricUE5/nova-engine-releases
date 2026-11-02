@@ -101,6 +101,11 @@ con la sangría, solo si falta. Al escribir <code>end</code>, <code>else</code>,
 altura de su bloque.</li>
 <li><strong>Zoom</strong> con <strong>Ctrl+rueda</strong> (o <strong>Ctrl+=</strong> y <strong>Ctrl+-</strong>; <strong>Ctrl+0</strong> lo deja como estaba). La fuente es la monoespaciada
 del tema (Cascadia Mono o Consolas).</li>
+<li><strong>Colores</strong> (0.9.73): cada <code>Color.new(r, g, b, a?)</code> con números, <code>Color.FromHex(&quot;#rrggbb&quot;)</code> y color con nombre
+(<code>Color.red</code>, <code>Color.blue</code>...) se subraya con su color y lleva un <strong>cuadradito</strong> al final de la línea. Un clic en él
+abre la <strong>rueda de colores</strong> (con transparencia y el código hexadecimal); al moverla se reescribe la expresión con
+valores de 0 a 1 (<code>Color.new(0.2, 0.4, 1)</code>; un <code>FromHex</code> sigue en hexadecimal y <code>Color.red</code> pasa a <code>Color.new</code>). Todo
+el rato que la mueves es un solo paso de deshacer. Los de los comentarios y los textos no cuentan.</li>
 <li>Va fluido con ficheros de miles de líneas (las pruebas lo miden con 5000).</li>
 </ul>
 <h2 id="autocompletado">Autocompletado<a class="ancla" href="#autocompletado" aria-label="Enlace a esta sección">#</a></h2>
@@ -498,7 +503,7 @@ doble clic en Contenido), <code>scripts-ir:&lt;línea&gt;:&lt;col&gt;</code>, <c
 <code>scripts-bombilla</code>, <code>scripts-hay-arreglo</code>, <code>scripts-arreglar</code>, <code>scripts-raton:&lt;línea&gt;:&lt;col&gt;</code>, <code>scripts-f12</code>,
 <code>scripts-referencias</code>, <code>scripts-renombrar:&lt;nombre&gt;</code>, <code>scripts-renombrar-aplicar</code>, <code>scripts-buscar:&lt;texto&gt;</code>,
 <code>scripts-buscar-proyecto:&lt;texto&gt;</code>, <code>scripts-resultados</code>, <code>scripts-ctrlp:&lt;texto&gt;</code>, <code>scripts-ctrlp-abrir</code>,
-<code>scripts-pestana:&lt;ruta&gt;</code>, <code>scripts-linea:&lt;n&gt;</code>, <code>scripts-texto:&lt;texto&gt;</code>, <code>scripts-guardar</code>, <code>scripts-guardado</code>, <code>scripts-ancho</code> (Ctrl+Mayús+M y comprueba que el código está a lo ancho),
+<code>scripts-pestana:&lt;ruta&gt;</code>, <code>scripts-linea:&lt;n&gt;</code>, <code>scripts-texto:&lt;texto&gt;</code>, <code>scripts-guardar</code>, <code>scripts-guardado</code>, <code>scripts-ancho</code> (Ctrl+Mayús+M y comprueba que el código está a lo ancho), <code>scripts-colores:&lt;n&gt;</code>, <code>scripts-elegir-color:&lt;n&gt;</code>, <code>scripts-poner-color:&lt;r&gt;/&lt;g&gt;/&lt;b&gt;[/&lt;a&gt;]</code>,
 <code>scripts-soltar-entidad:&lt;nombre&gt;</code>, <code>scripts-soltar-asset:&lt;ruta&gt;</code>, <code>scripts-cambio-externo:&lt;texto&gt;</code>,
 <code>scripts-comprobar-disco</code>, <code>consola-error</code>, <code>depurar-punto:&lt;ruta&gt;:&lt;línea&gt;[:condición]</code>, <code>depurar-parado[:línea]</code>,
 <code>depurar-no-parado</code>, <code>depurar-variable:&lt;nombre&gt;[=valor]</code>, <code>depurar-evaluar:&lt;expresión&gt;=&lt;valor&gt;</code>,
