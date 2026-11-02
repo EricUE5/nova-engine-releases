@@ -76,6 +76,11 @@ juego se para ahí. En la ventana <strong>Depurador</strong> ves <code>self</cod
 <strong>Ctrl+Tab</strong> cambia de pestaña y <strong>Ctrl+W</strong> la cierra (también clic con la rueda).</p>
 <p>La ventana <strong>Scripts</strong> sale la primera vez junto a la vista de la escena; se puede acoplar donde quieras como cualquier
 otra (<strong>Ventana &gt; Scripts</strong>). Igual las ventanas <strong>Depurador</strong> y <strong>Buscar en el proyecto</strong>.</p>
+<p>En la pestaña <strong>Scripts</strong> (pestañas de editor), los botones del código (nuevo, abrir, buscar en el proyecto, depurador) van
+en la barra de arriba de la pestaña, con los errores, los avisos, la línea y el fichero a la derecha; así encima del texto
+solo quedan las pestañas de los scripts. El botón <strong>Código a lo ancho</strong> (<strong>Ctrl+Mayús+M</strong>) esconde el Esquema, los
+Problemas, el Depurador y Buscar en el proyecto y deja todo el sitio al código; se acuerda entre sesiones y vuelve a
+enseñarlos con el mismo botón, al buscar en el proyecto o al pararse el depurador.</p>
 <h2 id="escribir">Escribir<a class="ancla" href="#escribir" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li><strong>Números de línea</strong>, la línea actual resaltada, <strong>guías de sangría</strong> y <strong>plegado de bloques</strong>: el triángulo del margen
@@ -397,6 +402,10 @@ turnos (el último que guarda gana)».</p>
   <td>Buscar en el proyecto</td>
 </tr>
 <tr>
+  <td>Ctrl+Mayús+M</td>
+  <td>Código a lo ancho (pestaña Scripts)</td>
+</tr>
+<tr>
   <td>Ctrl+P</td>
   <td>Abrir un script por su nombre</td>
 </tr>
@@ -489,7 +498,7 @@ doble clic en Contenido), <code>scripts-ir:&lt;línea&gt;:&lt;col&gt;</code>, <c
 <code>scripts-bombilla</code>, <code>scripts-hay-arreglo</code>, <code>scripts-arreglar</code>, <code>scripts-raton:&lt;línea&gt;:&lt;col&gt;</code>, <code>scripts-f12</code>,
 <code>scripts-referencias</code>, <code>scripts-renombrar:&lt;nombre&gt;</code>, <code>scripts-renombrar-aplicar</code>, <code>scripts-buscar:&lt;texto&gt;</code>,
 <code>scripts-buscar-proyecto:&lt;texto&gt;</code>, <code>scripts-resultados</code>, <code>scripts-ctrlp:&lt;texto&gt;</code>, <code>scripts-ctrlp-abrir</code>,
-<code>scripts-pestana:&lt;ruta&gt;</code>, <code>scripts-linea:&lt;n&gt;</code>, <code>scripts-texto:&lt;texto&gt;</code>, <code>scripts-guardar</code>, <code>scripts-guardado</code>,
+<code>scripts-pestana:&lt;ruta&gt;</code>, <code>scripts-linea:&lt;n&gt;</code>, <code>scripts-texto:&lt;texto&gt;</code>, <code>scripts-guardar</code>, <code>scripts-guardado</code>, <code>scripts-ancho</code> (Ctrl+Mayús+M y comprueba que el código está a lo ancho),
 <code>scripts-soltar-entidad:&lt;nombre&gt;</code>, <code>scripts-soltar-asset:&lt;ruta&gt;</code>, <code>scripts-cambio-externo:&lt;texto&gt;</code>,
 <code>scripts-comprobar-disco</code>, <code>consola-error</code>, <code>depurar-punto:&lt;ruta&gt;:&lt;línea&gt;[:condición]</code>, <code>depurar-parado[:línea]</code>,
 <code>depurar-no-parado</code>, <code>depurar-variable:&lt;nombre&gt;[=valor]</code>, <code>depurar-evaluar:&lt;expresión&gt;=&lt;valor&gt;</code>,
