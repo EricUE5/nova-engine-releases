@@ -106,6 +106,9 @@ del tema (Cascadia Mono o Consolas).</li>
 abre la <strong>rueda de colores</strong> (con transparencia y el código hexadecimal); al moverla se reescribe la expresión con
 valores de 0 a 1 (<code>Color.new(0.2, 0.4, 1)</code>; un <code>FromHex</code> sigue en hexadecimal y <code>Color.red</code> pasa a <code>Color.new</code>). Todo
 el rato que la mueves es un solo paso de deshacer. Los de los comentarios y los textos no cuentan.</li>
+<li><strong>Textos con variables</strong> (0.9.76): en una cadena interpolada <code>`Vida: {self.vida}`</code> lo de dentro de las llaves se
+colorea como código (no como texto) y tiene <strong>autocompletado</strong>, igual que fuera. Al escribir <code>{</code> dentro del texto se
+pone su <code>}</code>; <code>\{</code> es una llave normal del texto.</li>
 <li>Va fluido con ficheros de miles de líneas (las pruebas lo miden con 5000).</li>
 </ul>
 <h2 id="autocompletado">Autocompletado<a class="ancla" href="#autocompletado" aria-label="Enlace a esta sección">#</a></h2>
