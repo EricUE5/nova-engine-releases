@@ -109,6 +109,39 @@ los elementos. Hay dos modos:</p>
 sirve para los nombres sobre los jugadores. <strong>Píxeles por metro</strong> dice cuánto mide. Con el mismo <strong>Orden</strong>,
 los carteles se pintan de lejos a cerca: el más cercano a la cámara queda delante.</li>
 </ul>
+<p>Opciones de los lienzos en el mundo (desde la 0.9.82):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Mirar a la cámara</strong></td>
+  <td>gira hacia la cámara (la del juego o, sin jugar, la del visor del editor). No se deforma con el giro ni la escala del objeto del que cuelga: solo cuenta la escala del propio lienzo</td>
+</tr>
+<tr>
+  <td><strong>Tamaño fijo en pantalla</strong></td>
+  <td>se ve siempre del mismo tamaño en píxeles, esté a 2 m o a 20 m: un puntito sobre un objeto, un marcador de misión, el aviso de un Interactuable. Un píxel del lienzo mide lo mismo que en un lienzo de pantalla (su <strong>Escalador del lienzo</strong> si lo tiene; si no, el de un lienzo nuevo: 1920 × 1080 de referencia), así que se adapta a la resolución igual que el HUD. Ignora <strong>Píxeles por metro</strong> y la escala del objeto</td>
+</tr>
+<tr>
+  <td><strong>Escala en pantalla</strong></td>
+  <td>con «Tamaño fijo en pantalla»: 2 = el doble de grande</td>
+</tr>
+<tr>
+  <td><strong>Por encima de todo</strong></td>
+  <td>se dibuja sin la profundidad de la escena: no lo tapan las paredes ni los objetos (ni el propio objeto que lo lleva). Con el mismo <strong>Orden</strong>, va después de los carteles normales</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los avisos de los Interactuables usan estas opciones: las plantillas <strong>«Aviso de lejos»</strong> (un puntito) y <strong>«Aviso de
+interacción en el mundo»</strong> (la tecla encima del objeto) son lienzos en el mundo que miran a la cámara con tamaño fijo en
+pantalla y por encima de todo. Entre lienzos «Por encima de todo» que se solapan (con el mismo <strong>Orden</strong>), el más cercano a
+la cámara queda delante. Ver <a href="lobby-y-escenas.html#7-interactuables">lobby-y-escenas.md</a>.</p>
+<p>El visor <strong>Escena</strong> del editor dibuja los lienzos en el mundo como el juego (con la cámara del visor). Los que empiezan
+ocultos (los avisos de los Interactuables) se ven al seleccionar su objeto, como vista previa.</p>
 <p>Si un HUD no tiene botones, desactiva <strong>Recibe entrada</strong> en su lienzo: así nunca se queda con un clic del
 juego (el HUD de la plantilla ya viene así).</p>
 <h3 id="rectángulo-anclajes-y-pivote">Rectángulo: anclajes y pivote<a class="ancla" href="#rectángulo-anclajes-y-pivote" aria-label="Enlace a esta sección">#</a></h3>
@@ -467,7 +500,7 @@ pocas) con estos componentes ya configurados.</p>
 <tr>
   <td><strong>Lienzo</strong> (<code>UiCanvas</code>)</td>
   <td>Raíz de una interfaz</td>
-  <td>Modo (Pantalla o Mundo), Orden, Ajustar a píxeles, Recibe entrada, Píxeles por metro, Mirar a la cámara</td>
+  <td>Modo (Pantalla o Mundo), Orden, Ajustar a píxeles, Recibe entrada, Píxeles por metro, Mirar a la cámara, Tamaño fijo en pantalla, Escala en pantalla, Por encima de todo</td>
 </tr>
 <tr>
   <td><strong>Escalador del lienzo</strong> (<code>UiCanvasScaler</code>)</td>
