@@ -907,9 +907,117 @@ poco a poco solo toca lo que decide la carretera (la posición en el suelo, el r
 giro): la altura, el cabeceo y el balanceo los lleva la suspensión de su máquina. Antes también los corregía y, tras
 un bache, empujaba los muelles a destiempo: el coche del conductor cliente rebotaba cada vez más. Si se separa más de
 4 m o vuelca de otra forma, salta a lo que dice el servidor.</li>
-<li>Los demás (pasajeros incluidos) ven el vehículo con la <strong>interpolación</strong> del Transform de red, como cualquier objeto
-del servidor, un poco en el pasado y sin tirones.</li>
+<li><strong>Los demás lo ven extrapolado (0.9.85).</strong> En cada cliente, un vehículo que no conduce ese cliente (pasajeros
+incluidos) se dibuja <strong>en la línea de tiempo de ese jugador</strong>: el último estado que mandó el servidor (posición, giro y
+velocidades) más lo que se habrá movido en el tiempo que esa máquina va por delante (lo que tardó en llegar el estado
+más lo que adelanta su propia predicción: con 50 ms por sentido, unos 0,2 s). Al llegar cada estado nuevo, la
+diferencia con lo que se estaba dibujando se corrige poco a poco (en una décima de segundo), sin tirones; un
+teletransporte o una diferencia de más de 4 m (un choque muy fuerte) salta. Su cuerpo de físicas en esa máquina es
+cinemático y va a esa misma pose, así que la predicción del conductor local choca donde lo ve. Un vehículo parado no
+se mueve nada. El anfitrión que juega es el servidor: ve a todos donde están de verdad.</li>
 </ol>
+<p><strong>Por qué extrapolado y no interpolado.</strong> Hasta la 0.9.84 los demás vehículos se dibujaban con la interpolación del
+Transform de red, en el pasado (lo que tarda en llegar el estado más 0,1 s de margen), mientras que el coche propio va
+adelantado (predice). En pantalla las dos cosas se suman: con 50 ms por sentido y a 60 km/h, el otro coche se veía unos
+5 m por detrás de donde estaba respecto al tuyo. Tú chocabas con él en tu pantalla y en la suya aún no habías llegado,
+aunque le afectara, y el servidor (el árbitro) chocaba donde ninguno de los dos lo veía. Es el enfoque de los juegos de
+coches en red: extrapolar los coches de los demás a tu propio presente.</p>
+<p><strong>Las opciones</strong>, en la sección <strong>Red</strong> del Vehículo y de la Aeronave:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Opción</th>
+  <th>Lua</th>
+  <th>De serie</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Extrapolar en las otras máquinas</td>
+  <td><code>extrapolate</code></td>
+  <td>sí</td>
+  <td>Lo de arriba. Desmarcada, los demás lo ven como antes, con la interpolación del Transform de red.</td>
+</tr>
+<tr>
+  <td>Extrapolación máxima</td>
+  <td><code>extrapolateMax</code></td>
+  <td>0,3 s</td>
+  <td>Lo que se adelanta como mucho. Con más ping (o si dejan de llegar estados), se queda ahí: se ve algo por detrás, pero no sale disparado.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Medido en las pruebas</strong> (<code>nova_tests &quot;vehiculos red: choque&quot;</code>: servidor dedicado, dos conductores clientes con 50 ms en
+cada sentido, A embiste a 60 km/h el costado de B): distancia entre donde dibuja cada uno al otro coche y donde está en el
+servidor en el mismo momento de la partida (el paso en el que el servidor aplica la entrada que ese cliente está viendo de
+su propio coche):</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Caso (50 ms por sentido, RTT medido ~127 ms)</th>
+  <th>Quién ve a quién</th>
+  <th>Interpolado (hasta la 0.9.84)</th>
+  <th>Extrapolado (0.9.85)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>B parado, A a 60 km/h</td>
+  <td>A ve a B</td>
+  <td>0,00 m</td>
+  <td>0,00 m</td>
+</tr>
+<tr>
+  <td></td>
+  <td>B ve a A</td>
+  <td>4,86 m de media (máx. 4,95)</td>
+  <td>0,03 m (máx. 0,09)</td>
+</tr>
+<tr>
+  <td>B cruzando a 22 km/h, A a 60 km/h</td>
+  <td>A ve a B</td>
+  <td>2,24 m (máx. 2,59)</td>
+  <td>0,08 m (máx. 0,21)</td>
+</tr>
+<tr>
+  <td></td>
+  <td>B ve a A</td>
+  <td>4,88 m (máx. 4,96)</td>
+  <td>0,03 m (máx. 0,10)</td>
+</tr>
+<tr>
+  <td>El anfitrión que juega (A) embiste a un cliente parado (B)</td>
+  <td>A ve a B</td>
+  <td>0 (es el servidor)</td>
+  <td>0 (es el servidor)</td>
+</tr>
+<tr>
+  <td></td>
+  <td>B ve a A</td>
+  <td>4,83 m (máx. 4,87)</td>
+  <td>0,00 m (máx. 0,01)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Cuando el servidor registra el choque</strong>, en la pantalla de B los centros de los dos coches estaban a 7,45 m (en el
+servidor, a 2,98 m: 4,5 m de error); extrapolado, a 2,98 m (0,02 m de error). En el cruce, 2,0 y 4,4 m de error antes;
+0,21 y 0,17 m ahora.</li>
+<li><strong>Sin tirones</strong>: el salto de un frame del otro coche (lo que cambia su desplazamiento de un frame al siguiente) es de
+1,1-1,3 cm conduciendo (interpolado, 1,0-1,8 cm); el giro, sin error medible (0,0°). Mientras arranca y acelera el
+error llega a 0,3-0,4 m (la extrapolación no sabe que va a acelerar) y se corrige solo.</li>
+<li><strong>Parados, quietos</strong>: con los dos coches parados, el otro no se mueve nada (0,000 m) en ninguna pantalla.</li>
+<li><strong>Después del choque</strong> cada máquina corrige: el otro coche llega a moverse 0,20-0,26 m de más en un frame cuando llega
+el estado de después del golpe (la corrección suave no pasa de 6 m/s) y el propio, por su predicción, 0,23-0,29 m (con
+la interpolación: 0,05-0,10 m el otro y 0,19-0,28 m el propio).</li>
+<li><strong>Con mucho ping</strong> (150 ms por sentido, RTT ~330 ms) hace falta adelantar ~0,4 s, más que la <strong>Extrapolación máxima</strong>:
+se queda en 0,3 s y el otro se ve algo por detrás (B ve a A a 1,67 m de media; interpolado, a 8,55 m), sin tirones.</li>
+</ul>
+<p><strong>Quién va por delante cuánto.</strong> Conduciendo, el adelanto es exacto: la confirmación de la entrada <code>n</code> llega con el estado
+del servidor de entonces, y lo que tu máquina simula ahora va tantos pasos por delante como entradas tienes sin
+confirmar (en las pruebas, 127 ms con 50 ms por sentido: el viaje de ida, la cola de entradas del servidor y los envíos
+cada dos pasos). A pie o de pasajero, la mitad del ping más dos pasos (lo que tarda en aplicarse una entrada de tu
+personaje).</p>
 <p><strong>Por qué así y no con la propiedad del cliente.</strong> La alternativa era que el conductor simulara su vehículo con
 autoridad y el servidor solo comprobara las posiciones (<code>Security.ValidateMove</code>). Es más simple, pero un cliente
 modificado podría mover su coche donde quisiera dentro del margen de la comprobación, empujar a los demás con su física
@@ -951,7 +1059,11 @@ juega (su conducción no necesita predicción: es el servidor), en «Jugar en eq
 </tr>
 </tbody>
 </table></div>
-<p>Un vehículo parado o sin conductor no gasta nada: solo se envía lo que cambia.</p>
+<p>Un vehículo parado no gasta nada: solo se envía lo que cambia. Para extrapolarlo, los demás necesitan sus velocidades:
+un vehículo que conduce un cliente ya las mandaba (para su predicción) y no cuesta más; uno que conduce el anfitrión,
+un script del servidor o que va suelto (empujado, cayendo) las manda ahora mientras se mueve: <strong>+0,15 KB/s por cada uno
+en marcha y por jugador</strong> (medido: 2,66 → 2,81 KB/s de bajada con el anfitrión conduciendo). Sin <strong>Extrapolar en las otras
+máquinas</strong>, no se mandan.</p>
 <h2 id="10-el-ejemplo-vehículos-lua">10. El ejemplo «Vehículos (Lua)»<a class="ancla" href="#10-el-ejemplo-vehículos-lua" aria-label="Enlace a esta sección">#</a></h2>
 <p><code>game/vehiculos_lua</code> (en el motor instalado, la plantilla <strong>Vehículos (Lua)</strong> de Nuevo proyecto):</p>
 <ul>
@@ -1229,6 +1341,13 @@ va de pie en su asiento (los asientos de los preajustes con cabina lo ocultan co
 <li>La puerta solo gira sobre un eje vertical (no puertas de ala de gaviota ni correderas).</li>
 <li>La predicción corrige la diferencia sin volver a simular: con mucha pérdida de paquetes o choques entre dos coches
 conducidos por dos clientes, el conductor nota alguna corrección suave.</li>
+<li><strong>La extrapolación (0.9.85) acierta mientras el otro sigue haciendo lo que hacía.</strong> Si frena de golpe, da un volantazo
+o choca, tu máquina se entera un ping después: hasta entonces lo ve seguir unos centímetros o, a toda velocidad, uno o
+dos metros, y luego se corrige suave (en un choque se nota esa corrección). Con mucho ping (más de unos 0,3 s de
+adelanto en total) se queda en la <strong>Extrapolación máxima</strong> y el otro se ve algo por detrás.</li>
+<li><strong>En tu máquina, el vehículo de otro es cinemático</strong>: tu coche choca con él donde lo ves, pero como contra algo de masa
+infinita (rebota como contra una pared y el otro no se frena) hasta que llega lo que pasó en el servidor (un ping) y
+tu predicción se corrige. El resultado final del choque es siempre el del servidor.</li>
 <li>Los aviones son sencillos (sin flaps, tren retráctil ni pérdida asimétrica). Los helicópteros no tienen par del rotor
 ni autorrotación completa.</li>
 <li>Los vehículos de orugas no dibujan las cadenas (solo las ruedas).</li>
