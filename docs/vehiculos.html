@@ -109,6 +109,16 @@ mira hacia <strong>+Z</strong> (como los modelos glTF) y la rueda visual se colo
   <td>Relaciones de la caja y del diferencial</td>
 </tr>
 <tr>
+  <td><strong>Tiempo de cambio</strong> (0.9.88)</td>
+  <td>0,5 s</td>
+  <td>Lo que está sin empujar en cada cambio de marcha. Menos = acelera más (0,15–0,25 s es un cambio rápido de deportivo)</td>
+</tr>
+<tr>
+  <td><strong>Fuerza del embrague</strong> (0.9.88)</td>
+  <td>10</td>
+  <td>N·m que pasa el embrague por cada rad/s de diferencia entre el motor y las ruedas. Con mucho par y poco embrague, al arrancar el embrague patina, las rpm se disparan y la caja automática sube de marcha antes de tiempo: súbela (30–60) para salir más rápido</td>
+</tr>
+<tr>
   <td><strong>Centro de masas</strong></td>
   <td>(0, −0,5, 0)</td>
   <td>Desplazamiento del centro de masas (local). <strong>Bajo = estable</strong>: el coche no vuelca en las curvas. La masa no cambia</td>
@@ -172,6 +182,11 @@ mira hacia <strong>+Z</strong> (como los modelos glTF) y la rueda visual se colo
   <td><strong>Velocidad máxima</strong> (0.9.77)</td>
   <td>0</td>
   <td>km/h a partir de los que no acelera (0 = sin límite)</td>
+</tr>
+<tr>
+  <td><strong>Agarre con freno de mano</strong> (0.9.88)</td>
+  <td>1</td>
+  <td>Agarre (de lado y hacia delante) de las ruedas con <strong>Freno de mano</strong> mientras se tira de él (Espacio o A del mando). 1 = como siempre; 0,15–0,35 = las de atrás patinan, la parte de atrás se va de lado y el coche derrapa sin frenarse de golpe (girar y tirar del freno de mano para cruzarlo). Por debajo de 1, mientras se tira, el embrague va suelto (si no, con tracción atrás o a las cuatro, las ruedas bloqueadas frenarían el motor y con él las de delante) y al soltarlo se coge poco a poco. Con el freno a medias, a medias</td>
 </tr>
 <tr>
   <td><strong>Balanceo en curvas</strong> (0.9.83)</td>
