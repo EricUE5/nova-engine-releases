@@ -499,9 +499,10 @@ hierba»… 40 % (3,4 de 8,5 MB)»</strong>. Lo que hagas después sale detrás,
 «recibiendo un cambio de otra persona… 40 %». Mientras sube, el chat, los bloqueos y los cambios pequeños de todos
 siguen llegando con normalidad.</li>
 <li>Para ti es <strong>un solo paso del historial</strong>: Ctrl+Z lo deshace entero (y también viaja por partes).</li>
-<li>Velocidad orientativa: unos 2 MB/s en la red local y unos 0,6 MB/s por código de Nova Enlace. Repartir la hierba
-en un terreno de 4000 m y 1025 muestras (8,5 MB) tarda unos 10 s en llegar a todos en la red local y unos 15 s por
-código; en uno de 4097 (29 MB), unos 33 s y un minuto.</li>
+<li>Velocidad orientativa: lo que dé la conexión en la red local, por Tailscale, por IP directa y por Steam (ya no hay
+un tope fijo de 2 MB/s: ver «Por dónde va mejor») y unos 0,6 MB/s por código de Nova Enlace. Por código, repartir la
+hierba en un terreno de 4000 m y 1025 muestras (8,5 MB) tarda unos 15 s en llegar a todos; en uno de 4097 (29 MB),
+alrededor de un minuto.</li>
 <li>Tope: <strong>256 MB por cambio</strong> (la propietaria lo puede cambiar con <code>limites.maxOpBytes</code> en
 <code>.nova-equipo\equipo.json</code>). Si un cambio lo pasa no se envía: se deshace en tu escena y se avisa «El cambio
 «Repartir hierba» no se ha podido enviar: ocupa 300 MB y el servidor del equipo admite 256 MB como mucho». Hazlo por
@@ -576,7 +577,11 @@ más: «Equipo: subida de assets/Tren Texturizado.fbx (Luis): 30 % (52,0/172,0 M
 reconexión o cerrar el editor, la subida sigue desde ahí. Si una subida pasa 30 s sin que el servidor reciba nada nuevo, el
 editor la da por atascada: avisa («La subida de X no avanzaba: se reintenta desde lo ya recibido») y la vuelve a empezar desde
 el <code>.parcial</code>; si se atasca tres veces seguidas, vuelve a conectar con el servidor (sin perder nada: lo pendiente se reenvía).</p>
-<p><strong>Por dónde va mejor.</strong> La velocidad depende del camino:</p>
+<p><strong>Por dónde va mejor.</strong> La velocidad depende del camino. Desde equipo-rapido la sesión <strong>no tiene un tope fijo</strong> (antes, 2 MB/s
+por conexión): sube el ritmo mientras el camino no se llena (si la cola del camino pasa de unos 100 ms o se pierden muchos
+paquetes, baja), así que llega a lo que dé tu red sin dejar atrás las ediciones, los bloqueos ni los pings. Las escenas, prefabs,
+materiales, <code>.meta</code>, scripts y JSON viajan <strong>comprimidos</strong> (suelen ocupar varias veces menos); los modelos, las texturas y el audio
+no (no ganan). Lo que ya tienes (mismo contenido, SHA-256) no se vuelve a bajar.</p>
 <div class="tabla"><table>
 <thead>
 <tr>
@@ -588,21 +593,32 @@ el <code>.parcial</code>; si se atasca tres veces seguidas, vuelve a conectar co
 <tbody>
 <tr>
   <td>Red local, Tailscale o IP directa</td>
-  <td>2 MB/s (el límite de cada conexión de la sesión)</td>
+  <td>Lo que dé la red (en un PC, más de 15 MB/s de bajada)</td>
   <td>Lo mejor para modelos grandes</td>
 </tr>
 <tr>
   <td>Steam (amigos)</td>
-  <td>Hasta 2 MB/s si tu conexión da para ello</td>
-  <td>Steam envía de serie a 256 KB/s fijos; la sesión lo sube a 2 MB/s</td>
+  <td>Lo que dé la subida de quien envía (la anfitriona para quien entra)</td>
+  <td>Steam envía de serie a 256 KB/s fijos; la sesión le pone 32 MB/s y el ritmo lo marca la sesión</td>
 </tr>
 <tr>
   <td>Nova Enlace (código)</td>
   <td>1-3 MB/s según tu subida</td>
-  <td>Todo pasa por Cloudflare: más latencia, y el plan gratuito cuenta los mensajes</td>
+  <td>Sin cambios: todo pasa por Cloudflare (más latencia) y el plan gratuito cuenta los mensajes</td>
 </tr>
 </tbody>
 </table></div>
+<p>Medido con las pruebas (<code>nova_tests &quot;velocidad: &quot;</code>, el Steam simulado como el de verdad; un proyecto de 31 MB con modelos GLB,
+texturas y 24 escenas JSON), antes → ahora: en un PC, 1,9 → 17-19 MB/s al entrar y 1,7 → 6 MB/s al subir; por Steam con 30 ms
+de ida y vuelta, 1,9 → 10 MB/s al entrar y 1,5 → 7-8 MB/s al subir; con 80 ms y un 1 % de pérdida, 1,5 → 3,4 MB/s y 1,5 →
+2,4 MB/s; con la subida de la anfitriona a 4 MB/s, 1,9 → 4,4 MB/s (la llena). Con el Steam de verdad no se ha podido medir
+(las pruebas nunca abren Steam): depende de tu conexión y de los relés de Valve.</p>
+<p><strong>Si quieres un tope</strong> (por ejemplo, para no llenar la subida de tu casa mientras juegas): la propietaria pone
+<code>&quot;limites&quot;: {&quot;sendBytesPerSecond&quot;: 2097152}</code> (bytes por segundo) en <code>.nova-equipo\equipo.json</code> del proyecto; vale para lo que envía
+el servidor y para lo que sube cada persona. Por Steam, <code>NOVA_EQUIPO_STEAM_RITMO=&lt;bytes/s&gt;</code> cambia el ritmo de Steam en ese PC.</p>
+<p><strong>Con el editor detrás de otras ventanas</strong> el visor dibuja a unos 10 fps, pero la sesión (y la pasarela de Steam de la anfitriona)
+se sigue atendiendo cada ~8 ms: dejar el editor en segundo plano o minimizado mientras entra alguien o mientras bajas el proyecto
+ya no lo frena (antes iba a 10 vueltas por segundo, y la pasarela de Steam no reenviaba nada con el editor minimizado).</p>
 <p>Al añadir un fichero de más de 50 MB estando por Nova Enlace o por Steam sale el aviso «Por Nova Enlace, los ficheros grandes van
 lentos: usa Tailscale/directa o Steam, o exporta en GLB/texturas más pequeñas» con <strong>Ayuda</strong> (esta sección). Se sube igualmente.
 Para que pese menos: exporta en <strong>GLB</strong> con las texturas aparte, reduce las texturas a 2048 px (o 1024 en lo que se ve de lejos) y
@@ -983,7 +999,8 @@ mejor dentro de una VPN.</li>
 absolutas, sin unidades, sin flujos de NTFS (<code>:</code>), sin nombres reservados de Windows y sin seguir enlaces ni
 uniones. Los tipos ejecutables nunca se sincronizan.</li>
 <li>Límites de tráfico por persona (60 cambios por segundo con ráfagas de 200, 5 mensajes de chat por segundo,
-bloqueos, vistas previas, presencia y 120 peticiones de ficheros por segundo) y 2 MB/s por conexión. Quien no
+bloqueos, vistas previas, presencia y 120 peticiones de ficheros por segundo) y 40.000 paquetes por segundo por conexión
+(sin tope fijo de bytes salvo <code>limites.sendBytesPerSecond</code>; por código de Nova Enlace, 2 MB/s como antes). Quien no
 da abasto se desconecta con un aviso. Cada fichero está como mucho una vez en la cola de descargas de cada
 persona (256 por petición, 4096 en cola), así que una petición pequeña no puede multiplicar el envío.</li>
 <li>Un cambio de escena ocupa como mucho 256 MB (<code>limites.maxOpBytes</code>). Los de más de 256 KB viajan por un canal
