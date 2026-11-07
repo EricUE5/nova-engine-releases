@@ -653,6 +653,9 @@ se hunde, la barca entre olas, el tronco que baja por un río, «Seguir las olas
 <li>Se llaman en el paso fijo, después de simular, solo en scripts activos. Puedes destruir entidades dentro
 (<code>otra:Destroy()</code>, <code>self:Destroy()</code>).</li>
 <li>Un objeto que se duerme apoyado no genera <code>OnCollisionExit</code>.</li>
+<li>Los avisos son por pareja de <strong>entidades</strong>: <code>Enter</code> cuando empiezan a tocarse y <code>Exit</code> cuando dejan de
+tocarse del todo. Un cuerpo que se vuelve a crear (cambia la escala de la entidad o el tamaño del colisionador desde un
+script, una zona que se encoge) no manda <code>Exit</code> + <code>Enter</code> a lo que tiene dentro.</li>
 <li>En multijugador, los avisos llegan en todas las máquinas que simulan: la lógica (dar puntos, quitar vida) va
 dentro de <code>if IsServer() then ... end</code>.</li>
 </ul>

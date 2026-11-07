@@ -1283,7 +1283,7 @@ un estado y sabe en cuál está; los eventos de la animación le llegan a <code>
 </tr>
 <tr>
   <td><code>CrossFade(estado, segundos)</code></td>
-  <td>Como <code>Play</code>, con el fundido que digas</td>
+  <td>Como <code>Play</code>, con el fundido que digas. Si ya había otro fundido a medias, el nuevo sale de la pose que se veía (sin saltos); pedir otra vez el estado al que ya se está fundiendo no lo reinicia</td>
 </tr>
 <tr>
   <td><code>currentState</code>, <code>IsInState(estado)</code></td>
@@ -1291,7 +1291,7 @@ un estado y sabe en cuál está; los eventos de la animación le llegan a <code>
 </tr>
 <tr>
   <td><code>normalizedTime</code></td>
-  <td>Fase normalizada del estado: 0 al empezar, 1 al terminar el primer ciclo. En un estado sin bucle se queda en 1; en bucle sigue creciendo (la parte entera cuenta los ciclos)</td>
+  <td>Fase normalizada del estado: 0 al empezar, 1 al terminar el primer ciclo. En un estado sin bucle se queda en 1; en bucle sigue creciendo (la parte entera cuenta los ciclos; tras 256 ciclos se le quitan ciclos enteros y se queda por encima de 128, para no perder precisión en partidas largas)</td>
 </tr>
 <tr>
   <td><code>SetLayerWeight(capa, peso)</code>, <code>GetLayerWeight(capa)</code>, <code>ResetLayerWeight(capa)</code></td>
@@ -2001,6 +2001,10 @@ servidor a los clientes, con las convenciones de la red del motor (solo viaja lo
 <tr>
   <td>Pesos de capa de <code>SetLayerWeight</code></td>
   <td>Peso en 8 bits, suavizado</td>
+</tr>
+<tr>
+  <td>Estado de cada capa</td>
+  <td>Solo para quien entra tarde: su máquina empieza en el estado (y, sin bucle, el tramo) en el que está la del servidor, aunque se llegara con un disparador viejo o con <code>PlayInLayer</code></td>
 </tr>
 </tbody>
 </table></div>

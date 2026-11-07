@@ -1061,6 +1061,8 @@ calcula los suyos).</li>
 <li>Los parámetros <code>float</code> se suavizan en los clientes; los <code>int</code> y <code>bool</code> llegan tal cual.</li>
 <li>Los <strong>disparadores</strong> (<em>triggers</em>) se replican desde la 0.9.0: un contador por disparador; el cliente dispara cada
 vez que cambia (al entrar en la partida no repite los disparos viejos).</li>
+<li>Quien entra tarde empieza con cada capa en el estado en el que está la del servidor (un personaje que
+murió con un disparador se le ve muerto, no en el estado inicial). Después siguen mandando los parámetros y disparadores.</li>
 <li>Los <strong>pesos de capa</strong> que pone un script del servidor (<code>animador:SetLayerWeight</code>) también se replican
 (suavizados); los que dependen de un parámetro ya llegan con el parámetro.</li>
 <li><strong>Parámetros</strong> y <strong>Suavizado</strong> se miran en cada envío y en cada frame: cambiarlos jugando vale al momento.</li>

@@ -843,7 +843,9 @@ como cualquier otro sonido (3D, con su distancia y su bus). El ejemplo trae dos 
 <p>Los campos del componente se leen como siempre: <code>vehiculo:GetComponent(&quot;Aircraft&quot;).health</code>.</p>
 <p><strong>Eventos.</strong> Al subir y al bajar, en <strong>todas</strong> las máquinas, llegan los eventos <code>vehicleEnter</code> y <code>vehicleExit</code> con el
 vehículo, el personaje (<code>nil</code> si ya no existe: un jugador que se ha desconectado), el asiento (desde 1) y el jugador (0 si
-es un NPC o no hay red):</p>
+es un NPC o no hay red). Llegan una vez por subida o bajada, también con el vehículo desactivado (fuera de la relevancia
+de la red). Si el vehículo se destruye con alguien dentro no llega <code>vehicleExit</code> (ya no hay vehículo), pero su parámetro
+<strong>sentado</strong> vuelve a falso:</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- Escribe en el registro quién sube y quién baja de cada vehículo</span>
 <span class="hl-k">local</span> <span class="hl-t">AvisosVehiculos</span> = <span class="hl-f">Script</span>()
 
