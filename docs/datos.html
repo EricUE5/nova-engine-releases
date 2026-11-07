@@ -96,6 +96,8 @@ línea del campo o en la línea de encima.</li>
 <li>El nombre del struct es el del <code>local</code> (<code>Objeto</code>). También se puede dar a mano: <code>Struct(&quot;Objeto&quot;, {...})</code>.</li>
 <li>Si cambias el struct (un campo nuevo, otro valor por defecto), los scripts que lo usan se recargan y los valores ya
 guardados se conservan <strong>por nombre</strong>: un campo nuevo sale con su valor por defecto y uno que desaparece se ignora.</li>
+<li>Se ve <strong>al momento</strong> al guardar el script: la tabla abierta gana o pierde la columna, el Inspector de sus Data Assets
+enseña el campo y el autocompletado lo conoce, sin reabrir nada ni reiniciar el editor.</li>
 </ul>
 <h3 id="2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector<a class="ancla" href="#2-una-lista-de-structs-en-el-inspector" aria-label="Enlace a esta sección">#</a></h3>
 <p>En el script de la furgoneta de la banda (<code>scripts/Botin.luau</code>):</p>
@@ -187,6 +189,10 @@ pegadas); sin cabecera, las celdas van por orden desde la fila elegida.</li>
 </ol>
 <p>El Inspector enseña un desplegable y en Lua el valor es el texto (<code>if o.tipo == &quot;Arma&quot; then</code>). Cambiar el nombre de un
 valor no cambia los que ya estaban guardados.</p>
+<p>Los cambios del enum llegan <strong>al momento</strong> a todo lo que lo usa: al añadir, quitar o renombrar un valor (o renombrar el
+<code>.enum</code>), los scripts y structs que lo piden se recargan solos y los desplegables, las columnas de las tablas y el
+autocompletado ya tienen los valores nuevos. Si guardaste el script antes de crear el enum, no carga (la Consola dice qué
+enum falta) y carga solo en cuanto el <code>.enum</code> existe con ese nombre, sin volver a guardarlo.</p>
 <p>También se puede compartir un enum desde un módulo de Lua:</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua"><span class="hl-c">-- scripts/datos/Tipos.luau</span>
 <span class="hl-k">local</span> <span class="hl-t">Tipos</span> = {}
@@ -266,7 +272,8 @@ scripts guardan en su bytecode el orden de los campos de sus structs.</p>
 <li>los campos de tus scripts: <code>List(Objeto)</code> es <code>{Objeto}</code>, <code>Asset(&quot;Objeto&quot;)</code> es un asset con los campos de <code>Objeto</code>,
 <code>Enum({...})</code> y <code>Enum(&quot;TipoObjeto&quot;)</code> sus valores y <code>Curve()</code> una <code>CurveValue</code> con <code>Evaluate</code>.</li>
 </ul>
-<p>Se rehace solo al guardar un script o al crear una tabla o un enum (si el proyecto ya usa <code>nova.d.luau</code>).</p>
+<p>Se rehace solo al guardar un script, al crear una tabla o un enum o al cambiar los valores de un enum (si el proyecto ya
+usa <code>nova.d.luau</code>). El editor de scripts integrado se pone al día igual.</p>
 <h2 id="ficheros">Ficheros<a class="ancla" href="#ficheros" aria-label="Enlace a esta sección">#</a></h2>
 <p>Son JSON (se pueden revisar en git o editar con un editor de texto; el motor los recarga al guardarlos):</p>
 <div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json">// datos/objetos/Lingote.datos
@@ -291,7 +298,9 @@ Data Assets y tablas.</li>
 <li>Dos structs con el mismo nombre en scripts distintos: gana el último que se carga.</li>
 <li>Si un Data Asset o una tabla son de un struct que ya no existe (renombrado, o un script con errores), el editor lo dice y
 no los toca: los valores siguen en el fichero.</li>
-<li><code>Enum(&quot;Nombre&quot;)</code> necesita que exista <code>Nombre.enum</code> en <code>assets/</code>: si no, el script no carga y la Consola lo dice.</li>
+<li><code>Enum(&quot;Nombre&quot;)</code> necesita que exista <code>Nombre.enum</code> en <code>assets/</code>: si no, el script no carga y la Consola lo dice. En
+cuanto existe (creado o renombrado así), el script carga solo; si después se renombra o se borra, la Consola lo vuelve a
+decir y lo ya cargado sigue como estaba.</li>
 <li><code>Asset(&quot;DataAsset&quot;)</code>, <code>Asset(&quot;DataTable&quot;)</code> y <code>Asset(&quot;Curve&quot;)</code> (hasta la 0.9.36, <code>&quot;Datos&quot;</code>, <code>&quot;Tabla&quot;</code> y <code>&quot;Curva&quot;</code>, que siguen valiendo con un aviso) aceptan cualquier asset de esa clase; <code>Asset(&quot;Objeto&quot;)</code>, solo Data
 Assets de ese struct.</li>
 <li>En un asset, <code>id</code>, <code>path</code> y <code>valid</code> son del asset: si tu struct tiene un campo con ese nombre, léelo con <code>asset:Get().id</code>.</li>
