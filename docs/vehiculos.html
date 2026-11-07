@@ -473,6 +473,9 @@ de las físicas.</p>
 uno conduce y los demás van de pasajeros.</li>
 <li>Mientras va sentado, el personaje va en su asiento en todas las máquinas, no choca con su vehículo y no anda (aunque
 su script le pida moverse). Al bajar aparece en la <strong>Salida</strong>, apoyado en el suelo.</li>
+<li>(0.9.91) El ocupante se coloca en su asiento <strong>antes</strong> de animarse, con el vehículo ya donde se dibuja: su IK hacia
+algo del vehículo (<code>animador:SetIKTarget(&quot;LeftHand&quot;, volante)</code>) y lo que lleva enganchado van pegados también a
+toda velocidad. Antes la mano se veía adelantada lo que el vehículo avanza en un frame.</li>
 <li>Si un jugador se desconecta, su asiento se libera solo.</li>
 </ul>
 <h3 id="subir-con-la-puerta-y-sentarse-0978">Subir con la puerta y sentarse (0.9.78)<a class="ancla" href="#subir-con-la-puerta-y-sentarse-0978" aria-label="Enlace a esta sección">#</a></h3>

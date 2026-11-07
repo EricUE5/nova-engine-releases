@@ -149,6 +149,11 @@ píxel, y se mezcla con los anteriores.</p>
 </li>
 <li><p>Si se mueve un objeto (un zombi, una puerta, el arma), se usa su propio movimiento.</p>
 </li>
+<li><p>En los personajes animados también cuenta lo que se mueve <strong>dentro</strong> de ellos (0.9.91): cada malla con huesos lleva
+sus huesos del frame anterior, así que un brazo que se balancea o la mano que lleva el arma se reproyectan con su
+movimiento de verdad, igual que el arma enganchada. Antes solo contaba el movimiento del personaje entero y la mano
+dejaba una estela que parecía ir con retraso respecto al arma.</p>
+</li>
 <li><p>Lo que aparece de repente se recorta a los colores de su alrededor: no deja estelas.</p>
 </li>
 <li><p><strong>Nitidez del TAA</strong> (0 a 1, por defecto 0,35): recupera el detalle que el TAA suaviza. Con más de 0,6 se nota el
