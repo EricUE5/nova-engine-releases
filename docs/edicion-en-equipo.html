@@ -549,7 +549,19 @@ cada carpeta de trabajo), no a la papelera de Windows.</li>
 nombre de otro que alguien acaba de subir. Un script Lua que se está editando a la vez en el editor de scripts nunca
 choca: lo que se escribe se mezcla, y un guardado desde VS Code también (<a href="#editar-el-mismo-script-a-la-vez-edición-conjunta">edición conjunta</a>).</li>
 <li>Si vuelves a unirte con una carpeta de trabajo antigua: lo que estaba desactualizado se sobrescribe y lo que
-cambiaste sin conexión se sube (si nadie más lo tocó) o va a conflictos.</li>
+cambiaste sin conexión se sube (si nadie más lo tocó) o va a conflictos. Lo que el servidor borró o movió
+mientras no estabas se quita también de tu carpeta (a <code>.nova-equipo/papelera/&lt;fecha&gt;/</code>), aunque se hiciera con el
+servidor apagado: el servidor recuerda lo que ya no tiene y nadie lo vuelve a subir.</li>
+<li><strong>Si entras con una carpeta que ya tenía ficheros y que nunca se ha sincronizado con este servidor</strong> (un equipo
+nuevo, tu copia del proyecto de antes): manda el servidor. Lo que tienes y el servidor no tiene (o tiene distinto)
+<strong>no se sube</strong>: se aparta a <code>.nova-equipo/conflictos/&lt;fecha&gt;/</code> y te llega la versión del servidor, con un aviso que
+dice cuántos ficheros son y dónde están. Si alguno era nuevo de verdad, vuelve a ponerlo en su sitio en tu carpeta
+de trabajo y se subirá (lo que creas o cambias después de entrar se sube como siempre). Antes se subía todo y una
+copia vieja del proyecto podía devolver al servidor ficheros movidos o borrados.</li>
+<li>Si una copia de un asset trae en su <code>.meta</code> el mismo UUID que otro (copiaste el fichero junto con su <code>.meta</code>), el
+UUID se lo queda <strong>el que ya estaba</strong> y la copia recibe uno nuevo en su <code>.meta</code>, con un aviso en la Consola. Así las
+escenas y los prefabs, que guardan los assets por UUID, siguen usando el original. Mover un asset con su <code>.meta</code>
+conserva su UUID, también si el programa que lo mueve copia primero y borra después.</li>
 <li>El <code>.scene</code> de una escena abierta en la sesión solo lo escribe el servidor: no se puede subir ni borrar desde
 fuera («está abierta en la sesión: edítala en el editor»).</li>
 <li>Límites por defecto: 512 MB por fichero, 20 GB y 100 000 ficheros por proyecto, 256 MB por cambio de escena
@@ -1091,6 +1103,18 @@ en su sandbox (sin sistema ni ficheros y con límites de memoria y tiempo).</li>
 <tr>
   <td>Tu versión de «X» chocaba con la del servidor</td>
   <td>Tu versión está en <code>.nova-equipo\conflictos</code> de tu carpeta de trabajo</td>
+</tr>
+<tr>
+  <td>Al entrar, N ficheros de tu carpeta de trabajo que el servidor no tiene (o tiene distintos) se han apartado en ... y no se han subido</td>
+  <td>Entraste con una carpeta sin historial con este servidor (equipo nuevo, una copia vieja del proyecto): manda el servidor. Si alguno era nuevo de verdad, vuelve a ponerlo en su sitio y se subirá</td>
+</tr>
+<tr>
+  <td>N ficheros que se borraron o se movieron en el servidor mientras no estabas se han quitado de tu carpeta de trabajo</td>
+  <td>Están en <code>.nova-equipo\papelera\&lt;fecha&gt;</code> de tu carpeta de trabajo; no hay que hacer nada</td>
+</tr>
+<tr>
+  <td>Assets: X tenía en su .meta el mismo Uuid que Y (una copia con su .meta)</td>
+  <td>Y conserva su UUID (las escenas siguen usándolo) y la copia X recibe uno nuevo en su <code>.meta</code></td>
 </tr>
 <tr>
   <td>No se pudo escribir «X» en tu carpeta de trabajo (motivo): se reintentará</td>
