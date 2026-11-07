@@ -507,7 +507,12 @@ con lo que se llevó el tiempo <strong>en ese frame</strong> (los tramos de más
 <div class="codigo"><div class="codigo-cab"><span>Texto</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-text">[Tirón] frame 3084: 131.7 ms; sin medir (fuera de los tramos) 0.1 ms; Interfaz (dibujo) &gt; Interfaz del juego &gt; Dibujo (GPU) 131.0 ms
 Registro de tirones: 5399 frames, 0 de más de 40 ms, el peor 39.7 ms, media 1.40 ms</code></pre></div>
 </li>
-<li><p>Desde C++: <code>profiler::SetSlowFrameLog(ms)</code> (nova/core/Profiler.h).</p>
+<li><p><strong><code>NovaEditor.exe --tirones [ms]</code></strong> (0.9.96) hace lo mismo en el editor, también jugando y en una sesión de equipo, con
+las fases del editor («Editor: equipo», «Editor: visor-juego», «Editor: motor (assets, entrada)»...) y los tramos de la
+edición en equipo («Equipo: ficheros: ...»). Al cerrar, además del resumen, escribe las líneas de los peores tirones.</p>
+</li>
+<li><p>Desde C++: <code>profiler::SetSlowFrameLog(ms)</code> (nova/core/Profiler.h); <code>profiler::SlowFrames().worst</code> tiene los peores con su
+línea.</p>
 </li>
 </ul>
 <p>Cómo leer la línea:</p>
