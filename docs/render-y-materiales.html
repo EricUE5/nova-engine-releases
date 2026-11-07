@@ -691,8 +691,17 @@ enteros. Sin red (un jugador clásico) no hay propietario: usa <strong>Solo somb
 <ul>
 <li>Sombras borrosas cerca de la cámara: baja <strong>Distancia de sombras</strong>, sube <strong>Cascadas</strong> o <strong>Resolución</strong>.</li>
 <li><strong>Suavidad</strong> es el radio del filtro PCF en texeles: 0 da bordes duros (y más baratos) y 6 muy suaves.</li>
-<li><strong>Sesgo de sombra</strong> se mide en profundidad de la cascada y <strong>Sesgo normal</strong> desplaza el punto a lo largo de la
-normal (0,02 equivale a un texel de la cascada).</li>
+<li><strong>Sesgo de sombra</strong> se mide en profundidad de la cascada (0,0005 es más o menos un texel con 2048).</li>
+<li>(0.9.90) <strong>Sesgo normal</strong> acerca al sol el punto que recibe la sombra <strong>en la dirección del sol</strong> (sigue en su rayo de
+luz, así que la sombra no se corre de lado): 0,02 = 1/4 de texel de la cascada por la tangente del ángulo entre la
+superficie y la luz (nada de cara al sol, más con luz rasante). Antes se movía un texel a lo largo de su normal: con el
+sol bajo, las sombras sobre las superficies rasantes salían corridas unos centímetros y las de lo fino y los relieves
+pequeños (las letras de un portón) se despegaban, como un rótulo doble.</li>
+<li>Cada muestra del filtro (<strong>Suavidad</strong>) se compara con el plano de la superficie en ese punto (<em>receiver plane</em>): una
+superficie rasante no se mancha con su propia sombra (acné) aunque el filtro sea grande. El mapa se dibuja con un sesgo
+por pendiente de 1 texel (antes 2, que también despegaba las sombras de los relieves).</li>
+<li>Un relieve más pequeño que un texel de la cascada (unos milímetros lejos de la cámara) no puede hacer una sombra
+nítida en el mapa: se ve como mucho una sombra suave en su sitio (de cerca la dibujan las sombras de contacto).</li>
 </ul>
 <h3 id="luces-puntuales-y-focos">Luces puntuales y focos<a class="ancla" href="#luces-puntuales-y-focos" aria-label="Enlace a esta sección">#</a></h3>
 <p>Con <strong>Proyectar sombras</strong> activado (lo está por defecto), la luz no atraviesa paredes ni objetos: detrás de
@@ -855,7 +864,7 @@ los visores del editor, en <code>NovaGame.exe</code> y en el juego publicado:</p
 <tbody>
 <tr>
   <td>Rayas o manchas en superficies iluminadas (acné)</td>
-  <td>Sube <strong>Sesgo de sombra</strong> o <strong>Sesgo normal</strong></td>
+  <td>Sube <strong>Sesgo de sombra</strong> o <strong>Sesgo normal</strong> (con los de serie no debería pasar desde la 0.9.90)</td>
 </tr>
 <tr>
   <td>La sombra empieza separada del objeto (se &quot;despega&quot;)</td>
