@@ -482,6 +482,13 @@ ella. <strong>Compatibilidad</strong>: <code>Personaje.controller</code> no camb
 persona, el tuyo se queda (con <code>Personaje.controller</code>, sin apuntar ni IK de pies) y el nuevo va a su <code>.nuevo</code>. Los
 proyectos con un motor anterior a la 0.9.37 no deben instalar estas versiones: sus controladores ignoran <code>&quot;ikPies&quot;</code>,
 la capa se vería pero sin pesos por rama, y no conocen el componente Ragdoll ni los <code>.fisica</code> (el muñeco se quedaría de pie).</p>
+<p><strong>Personaje 1.2.1 (ragdoll del jugador)</strong>: <code>PersonajeRed.luau</code>, mientras un Ragdoll con «Desactivar el personaje» tiene
+al jugador en el suelo o levantándose (<code>locked</code> del Controlador de personaje), no acumula inercia, no salta ni se agacha,
+y el cuerpo sigue hacia donde lo dejó el ragdoll: al levantarse arranca desde ahí, sin girar de golpe. Que el jugador
+muerto no ande ni gire lo hace ya el motor (también con la versión anterior del script); esto es para que al levantarse
+no salga corriendo con la inercia acumulada ni gire de golpe. <strong>Actualizar</strong> en Primera o Tercera persona trae el
+script; si lo habías cambiado, el nuevo va a <code>PersonajeRed.luau.nuevo</code> (el cambio es la función <code>Parado</code> y las líneas que
+la llaman en <code>Update</code>). Necesita un motor con <code>locked</code> en el Controlador de personaje.</p>
 <h2 id="8-animación-en-red-para-cualquier-juego">8. Animación en red para cualquier juego<a class="ancla" href="#8-animación-en-red-para-cualquier-juego" aria-label="Enlace a esta sección">#</a></h2>
 <p>Lo que usan los paquetes sirve para cualquier personaje (0.9.16):</p>
 <ul>

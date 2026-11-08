@@ -98,7 +98,9 @@ componente.</li>
 <span class="hl-k">end</span></code></pre></div>
 <p>El golpe (N s) se aplica en el hueso más cercano al punto: un disparo en la cabeza la echa hacia atrás. Sin punto, se
 reparte por todo el cuerpo (una explosión). El CharacterController deja de moverse y no choca con los huesos, y la entidad
-sigue a la pelvis por el suelo (la cámara que la sigue, las cajas de impacto y la red la ven donde está).</p>
+sigue a la pelvis por el suelo (la cámara que la sigue, las cajas de impacto y la red la ven donde está). Con un jugador
+en red pasa igual en todas las máquinas, también en la suya: aunque siga pulsando, no anda ni gira, y su cámara va con el
+cuerpo (<a href="#7-multijugador">Multijugador</a>).</p>
 <h2 id="2-el-physics-asset-fisica">2. El Physics Asset (.fisica)<a class="ancla" href="#2-el-physics-asset-fisica" aria-label="Enlace a esta sección">#</a></h2>
 <p>Por cada hueso con cuerpo:</p>
 <div class="tabla"><table>
@@ -174,11 +176,14 @@ huesos sin hijos: puntas de dedos, <code>_end</code>).</li>
 cuerpo</strong> o <strong>Quitar cuerpo</strong>.</li>
 <li><strong>Visor</strong> (centro): el modelo en reposo con las formas (verde; la elegida en amarillo), los <strong>conos</strong> de los límites de
 cada articulación (naranja: el cono del swing; azul: el arco del giro; en una bisagra, su arco) y el gizmo para mover (W)
-o girar (E) la forma elegida. Botón derecho para orbitar, central para desplazar, rueda para acercar, F para encuadrar.</li>
+o girar (E) la forma elegida. Botón derecho para orbitar, central para desplazar, rueda para acercar, F para encuadrar.
+Encima del visor, a la izquierda, sus herramientas (0.9.98): mover y girar, enseñar u ocultar las formas, los límites y
+los huesos, <strong>Vista</strong> (fondo claro u oscuro, brillo, suelo, rejilla, sombras y objetos de vista previa, como en
+<a href="animar-huesos.html#vista">Animar huesos</a>) y encuadrar. La luz sigue a la cámara: el muñeco se ve bien desde cualquier lado.</li>
 <li><strong>Detalles</strong> (derecha): las opciones del asset y la forma, la masa y la articulación del hueso elegido. <strong>Límites de
 partida</strong> pone los de Generar para ese hueso humano.</li>
 <li>La barra: el <strong>modelo</strong> con el que se edita, <strong>Generar</strong>, <strong>Simular</strong> (el muñeco cae en el visor desde la pose de reposo
-con un empujón que puedes cambiar), <strong>Restablecer</strong> (vuelve a la pose de reposo), y lo que se ve.</li>
+con un empujón que puedes cambiar) y <strong>Restablecer</strong> (vuelve a la pose de reposo).</li>
 </ul>
 <p>Cada cambio se guarda en el fichero al momento y es un paso del historial: Ctrl+Z / Ctrl+Y (o los botones de la barra)
 deshacen y rehacen, y en la <a href="edicion-en-equipo.html">edición en equipo</a> los demás ven el cambio como en los demás editores de
@@ -198,7 +203,7 @@ asset.</p>
 </tr>
 <tr>
   <td>Desactivar el personaje</td>
-  <td>Al activarlo, el CharacterController deja de moverse y no choca con sus huesos; vuelve al levantarse</td>
+  <td>Al activarlo, el CharacterController deja de andar, saltar y girar (en todas las máquinas: también la del jugador que lo predice) y no choca con sus huesos; vuelve al terminar de levantarse o al desactivarlo. Mientras, su campo <code>locked</code> es <code>true</code></td>
 </tr>
 <tr>
   <td>La entidad sigue a la pelvis</td>
@@ -243,10 +248,17 @@ a su padre con la animación. Lo que va enganchado a un hueso (un arma en la man
 <li><code>ragdoll:Activate(impulso, punto)</code> (los dos opcionales): los cuerpos salen de la <strong>pose actual</strong> con la <strong>velocidad</strong> que
 llevaba cada hueso (un personaje que corría sigue hacia delante al caer), más el golpe. Si ya estaba en el suelo, el golpe
 se suma.</li>
-<li><code>ragdoll:Deactivate()</code>: de vuelta a la animación con una mezcla corta, sin levantarse (para reaparecer en otro sitio).</li>
+<li><code>ragdoll:Deactivate()</code>: de vuelta a la animación con una mezcla corta, sin levantarse (para reaparecer en otro sitio).
+El personaje vuelve a moverse al acabar esa mezcla (0,2 s).</li>
 <li><code>ragdoll:GetUp(estado)</code>: se levanta. La entidad se coloca en el suelo bajo la pelvis, mirando hacia donde se levanta
 (boca arriba, los pies por delante; boca abajo, la cabeza), el Animator pasa al estado de levantarse y la pose mezcla del
-suelo a la animación en «Tiempo de levantarse». <code>ragdoll:IsFaceUp()</code> dice cómo quedó.</li>
+suelo a la animación en «Tiempo de levantarse». <code>ragdoll:IsFaceUp()</code> dice cómo quedó. Con «Desactivar el personaje»,
+el CharacterController sigue parado mientras se levanta y vuelve a andar al terminar (así no se desliza a medio
+levantarse), mirando hacia donde se ha levantado.</li>
+<li><code>personaje.locked</code> (el CharacterController) dice si el ragdoll lo tiene parado: en el suelo o levantándose. Sirve para
+que el script del jugador no acumule inercia, no salte ni se agache mientras tanto (es lo que hace <code>PersonajeRed</code> de
+los paquetes de primera y tercera persona); el motor ya no lo mueve aunque el script siga llamando a <code>Move</code>, <code>Jump</code> y
+<code>Face</code>.</li>
 <li>Eventos en los scripts de la entidad: <code>OnRagdollActivated()</code> (en todas las máquinas) y <code>OnRagdollSettled()</code> (ya quieto).</li>
 </ul>
 <p>El muñeco de la plantilla de tercera persona (<code>scripts/Nova/TerceraPersona/MunecoGolpeable.luau</code>) se levanta solo un rato
@@ -291,6 +303,20 @@ quedar en sitios algo distintos en cada pantalla. Para cosas pequeñas o lejanas
 volver a caer). Levantarse, desactivar, los golpes y la mezcla también llegan a todos.</p>
 <p>Con un personaje con identidad de red, su <code>NetworkTransform</code> lleva la entidad (que sigue a la pelvis en el servidor); los
 huesos los lleva el ragdoll.</p>
+<p><strong>El jugador con predicción</strong> (el personaje de <code>PlayerSpawner</code>, con CharacterController, Identidad y Transform de red):
+con «Desactivar el personaje», mientras está en el suelo o levantándose el motor lo para en todas las máquinas, sin que
+su script tenga que hacer nada:</p>
+<ul>
+<li>En <strong>su máquina</strong>, la red manda una entrada neutra: aunque siga pulsando, no anda, no salta ni gira, y no lo predice
+moviéndose. Su entidad (la que sigue su cámara) va con la pelvis del cuerpo que ve en su pantalla, como en el servidor.</li>
+<li>El <strong>servidor</strong> no aplica su entrada mientras tanto (aunque llegue tarde, de antes de enterarse): su posición
+autoritativa es la de la entidad, que sigue a la pelvis. Así <strong>los demás</strong> también ven la entidad con el cuerpo, y las
+<a href="multijugador.html#18-disparos-y-compensación-de-latencia">cajas de impacto</a> y <code>Physics.RaycastRewind</code> le dan donde está el cuerpo.</li>
+<li>Al <strong>levantarse</strong> (o desactivarlo), cada máquina le devuelve el control al acabar la mezcla, desde donde está y mirando
+hacia donde se levanta: la predicción sigue desde ahí, sin saltos ni tirones.</li>
+</ul>
+<p><code>locked</code> del CharacterController dice en cada máquina si está parado (es de solo lectura: lo pone el ragdoll con lo que
+llega del servidor).</p>
 <h2 id="8-referencia-de-lua">8. Referencia de Lua<a class="ancla" href="#8-referencia-de-lua" aria-label="Enlace a esta sección">#</a></h2>
 <p>Todo lo que se usa desde los scripts está en inglés (los textos del editor, traducidos).</p>
 <div class="tabla"><table>
@@ -345,6 +371,10 @@ huesos los lleva el ragdoll.</p>
   <td><code>Ragdolls.GetStats()</code></td>
   <td>Ragdolls con cuerpos, bytes de red y tiempo del sistema</td>
 </tr>
+<tr>
+  <td><code>personaje.locked</code> (CharacterController)</td>
+  <td><code>true</code> mientras el ragdoll lo tiene parado (en el suelo o levantándose, con «Desactivar el personaje»)</td>
+</tr>
 </tbody>
 </table></div>
 <p>Eventos: <code>OnRagdollActivated()</code> y <code>OnRagdollSettled()</code>. Todo está en <code>nova.d.luau</code> (autocompletado en VS Code y en el editor
@@ -361,8 +391,8 @@ quieto se duerme y casi no cuesta.</li>
 <li>Las articulaciones son algo blandas: con un golpe muy fuerte pueden pasarse un momento de sus límites (unos grados) y
 vuelven solas; en reposo quedan dentro.</li>
 <li>La entidad tiene que tener una escala parecida en los tres ejes (se usa la media).</li>
-<li>Un personaje con predicción de red (el jugador) en el servidor sigue recibiendo su entrada: al morir, que su script deje
-de mandar movimiento.</li>
+<li>La cápsula del CharacterController se queda donde cayó mientras está en el suelo (los demás pueden chocar con ella) y
+vuelve a la entidad al levantarse.</li>
 </ul>
 <h2 id="10-para-programadores-c-y-nova_physics">10. Para programadores: C++ y nova_physics<a class="ancla" href="#10-para-programadores-c-y-nova_physics" aria-label="Enlace a esta sección">#</a></h2>
 <ul>

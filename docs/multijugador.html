@@ -1538,6 +1538,10 @@ y aplica como mucho una entrada por tick: un cliente no puede ir más rápido de
 <li>Si el dueño deja de enviar entradas (se cuelga, corta la red), pasados 6 ticks (0,1 s) el servidor simula su
 personaje con la entrada neutra (sin moverse ni saltar): la gravedad sigue actuando y no se queda flotando.
 Cuando vuelven las entradas, el dueño se corrige solo.</li>
+<li>Con un <a href="ragdoll.html#7-multijugador">Ragdoll</a> con «Desactivar el personaje», mientras está en el suelo o levantándose
+(<code>personaje.locked</code>) la red manda una entrada neutra y ni el dueño ni el servidor lo mueven con lo que se pulse: la
+entidad (y la cámara del dueño) va con el cuerpo, y al levantarse la predicción sigue desde ahí sin saltos. El script
+no tiene que dejar de llamar a <code>Move</code>.</li>
 </ul>
 <p>El «Rey de la arena» usa otra forma: personajes con <strong>cuerpo rígido</strong> que mueve el servidor según lo que pide el
 dueño (sin predicción), para que los empujones los lancen de verdad
