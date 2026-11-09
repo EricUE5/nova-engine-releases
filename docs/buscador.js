@@ -344,9 +344,101 @@
         return qs.filter(function (q, i) { return qs.indexOf(q) === i; });
     }
 
+    // --- Selector de lenguaje (C# / Lua / C++) --------------------------------------------------------------------
+    // El elegido se recuerda en el navegador. Las entradas del buscador y el codigo de las paginas llevan su lenguaje:
+    // "lua", "csharp", "cpp", "api" (la API de los scripts: Lua y C#) o "" (de todos)
+    var LENGUAJES = { csharp: "C#", lua: "Lua", cpp: "C++" };
+    function lenguajeElegido() {
+        try {
+            var l = window.localStorage.getItem("nova-docs-lenguaje");
+            if (l && LENGUAJES[l]) return l;
+        } catch (e) { /* sin almacenamiento (file:// en algunos navegadores): Lua */ }
+        return "lua";
+    }
+    function guardarLenguaje(l) {
+        try { window.localStorage.setItem("nova-docs-lenguaje", l); } catch (e) { /* sin almacenamiento */ }
+    }
+    // La entrada vale para ese lenguaje
+    function deLenguaje(e, l) {
+        var x = e.lenguaje || "";
+        if (!x || !l) return true;
+        if (x === "api") return l === "lua" || l === "csharp";
+        return x === l;
+    }
+    function lenguajeDelBloque(code) {
+        var m = /(?:^|\s)language-([A-Za-z0-9+#]+)/.exec(code.className || "");
+        if (!m) return "";
+        var k = m[1].toLowerCase();
+        if (k === "lua" || k === "luau") return "lua";
+        if (k === "cs" || k === "csharp" || k === "c#") return "csharp";
+        if (k === "cpp" || k === "c++" || k === "cxx" || k === "h") return "cpp";
+        return "";
+    }
+    // Ensena el codigo del lenguaje elegido: los bloques seguidos de lenguajes distintos son pestañas del mismo ejemplo; un
+    // ejemplo que solo esta en otro lenguaje se tapa con un aviso (y se puede ver igual)
+    function aplicarLenguaje(l) {
+        if (typeof document === "undefined") return;
+        var html = document.documentElement;
+        var pagina = html.getAttribute("data-lenguaje") || "";
+        var botones = document.querySelectorAll("#lenguajes button");
+        for (var b = 0; b < botones.length; b++) botones[b].classList.toggle("elegido", botones[b].getAttribute("data-lenguaje") === l);
+        var viejos = document.querySelectorAll(".sin-version");
+        for (var v = 0; v < viejos.length; v++) viejos[v].parentNode.removeChild(viejos[v]);
+        // Una guia de otro lenguaje: aviso arriba con la suya, si la hay
+        var main = document.querySelector("main");
+        if (main && pagina && pagina !== "api" && pagina !== l) {
+            var eq = {};
+            try { eq = JSON.parse(html.getAttribute("data-equivalentes") || "{}"); } catch (e) { eq = {}; }
+            var aviso = document.createElement("div");
+            aviso.className = "sin-version";
+            aviso.innerHTML = "Esta guía es de " + LENGUAJES[pagina] + ". " + (eq[l] ? "La de " + LENGUAJES[l] + ": <a href=\"" + eq[l] + "\">" + eq[l].replace(".html", "") + "</a>."
+                : "Todavía no hay versión en " + LENGUAJES[l] + ".");
+            var ancla = document.getElementById("lenguajes");
+            if (ancla && ancla.parentNode) ancla.parentNode.insertBefore(aviso, ancla.nextSibling);
+        }
+        if (main && pagina === "api" && l === "csharp") {
+            var api = document.createElement("div");
+            api.className = "sin-version";
+            api.innerHTML = "Referencia de la API de Lua: en C# es la misma con los nombres en PascalCase (<code>Input.GetAxis</code>, <code>entidad.Position</code>). " +
+                "Las diferencias: <a href=\"scripts-csharp.html\">scripts-csharp</a> y <a href=\"csharp-paridad.html\">csharp-paridad</a>.";
+            var a2 = document.getElementById("lenguajes");
+            if (a2 && a2.parentNode) a2.parentNode.insertBefore(api, a2.nextSibling);
+        }
+        // Solo en las guias de todos: en una de un lenguaje su codigo es el suyo
+        if (pagina) return;
+        var bloques = document.querySelectorAll("main pre > code");
+        var grupos = [], actual = null, anterior = null;
+        for (var i = 0; i < bloques.length; i++) {
+            var code = bloques[i], lang = lenguajeDelBloque(code);
+            // El bloque entero: el <pre> o, en la web, su <div class="codigo"> con la cabecera y el boton de copiar
+            var pre = code.parentNode;
+            if (pre.parentNode && pre.parentNode.classList && pre.parentNode.classList.contains("codigo")) pre = pre.parentNode;
+            if (!lang) { actual = null; anterior = null; continue; }
+            var seguido = anterior && anterior.nextElementSibling === pre;
+            if (!seguido || !actual || actual.some(function (x) { return x.lang === lang; })) { actual = []; grupos.push(actual); }
+            actual.push({ pre: pre, lang: lang });
+            anterior = pre;
+        }
+        grupos.forEach(function (g) {
+            var hay = g.some(function (x) { return x.lang === l; });
+            g.forEach(function (x) { x.pre.hidden = hay ? x.lang !== l : true; });
+            if (hay) return;
+            var otro = g[0];
+            var aviso = document.createElement("div");
+            aviso.className = "sin-version";
+            aviso.innerHTML = "Este ejemplo todavía no tiene versión en " + LENGUAJES[l] + ". <button type=\"button\">Ver en " + LENGUAJES[otro.lang] + "</button>";
+            aviso.querySelector("button").addEventListener("click", function () {
+                otro.pre.hidden = false;
+                aviso.parentNode.removeChild(aviso);
+            });
+            otro.pre.parentNode.insertBefore(aviso, otro.pre);
+        });
+    }
+
     // Busca: { nativas, guias, secciones, todos, terminos, ms }
     function buscar(indice, consulta, opciones) {
         opciones = opciones || {};
+        var lenguaje = opciones.lenguaje !== undefined ? opciones.lenguaje : (typeof document !== "undefined" ? lenguajeElegido() : "");
         var t0 = Date.now();
         var texto = String(consulta || "").trim();
         var r = { consulta: texto, nativas: [], guias: [], secciones: [], todos: [], terminos: [], conceptos: 0, ms: 0 };
@@ -398,6 +490,7 @@
         r.conceptos = conceptos.length;
         for (var o = 0; o < orden.length; o++) {
             var en = indice.entradas[orden[o]];
+            if (!deLenguaje(en, lenguaje)) continue; // de otro lenguaje (selector de lenguaje)
             var item = { entrada: en, puntos: puntos[orden[o]], indice: orden[o] };
             if (r.todos.length < (opciones.todos || 60)) r.todos.push(item);
             var grupo = en.tipo === "n" || en.tipo === "l" ? "nativas" : en.tipo === "g" ? "guias" : "secciones";
@@ -498,6 +591,18 @@
     var EJEMPLOS = ["guardar partida", "saltar", "disparar", "sonido", "multijugador", "menú", "niebla", "enemigo que persigue", "logro", "idioma"];
 
     function iniciar() {
+        // Selector de lenguaje: los botones y el codigo de la pagina
+        var elegido = lenguajeElegido();
+        aplicarLenguaje(elegido);
+        var botonesLenguaje = document.querySelectorAll("#lenguajes button");
+        for (var bl = 0; bl < botonesLenguaje.length; bl++) {
+            botonesLenguaje[bl].addEventListener("click", function () {
+                elegido = this.getAttribute("data-lenguaje");
+                guardarLenguaje(elegido);
+                aplicarLenguaje(elegido);
+                ultima = null;
+            });
+        }
         var entrada = document.getElementById("buscador-entrada");
         var panel = document.getElementById("buscador-resultados");
         if (!entrada || !panel) return;

@@ -1,0 +1,1534 @@
+<!doctype html>
+<html lang="es" data-sec="docs" data-lenguaje="csharp" data-equivalentes='{&quot;lua&quot;:&quot;scripts-lua.html&quot;,&quot;cpp&quot;:&quot;scripts-cpp.html&quot;}'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scripts en C# · Nova Engine</title>
+<meta name="description" content="La guía para programar juegos con Nova Engine en C#: cómo es un script, todos los atributos, cómo se usa la API
+del motor desde C#, la recarga en caliente, el multijugador con el servidor al mando, async/await, cómo
+conv">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Scripts en C# · Nova Engine">
+<meta property="og:description" content="La guía para programar juegos con Nova Engine en C#: cómo es un script, todos los atributos, cómo se usa la API
+del motor desde C#, la recarga en caliente, el multijugador con el servidor al mando, async/await, cómo
+conv">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/scripts-csharp.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/scripts-csharp.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Scripts en C#</summary><ul><li><a href="scripts-csharp.html" aria-current="page">Scripts en C#</a></li><li><a href="ejemplo-inventario-csharp.html">Ejemplo: inventario tipo Rust (C#)</a></li><li><a href="csharp-paridad.html">Paridad de la API: Lua y C#</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="terreno-voxel.html">Terreno de vóxeles (cavar, picar y esculpir)</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="base-de-datos.html">Base de datos (tablas, filas y columnas)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="asistentes-ia.html">Asistentes de IA (Claude Code y otros)</a></li><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<div class="lenguajes" id="lenguajes" role="group" aria-label="Lenguaje de los scripts">Lenguaje: <button type="button" data-lenguaje="csharp">C#</button><button type="button" data-lenguaje="lua">Lua</button><button type="button" data-lenguaje="cpp">C++</button></div><article class="doc"><h1 id="scripts-en-c">Scripts en C#</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-por-qué-c-y-cuándo-lua-o-c">1. Por qué C# (y cuándo Lua o C++)</a></li><li class="n2"><a href="#2-tu-primer-script-en-cinco-minutos">2. Tu primer script en cinco minutos</a></li><li class="n2"><a href="#3-cómo-funciona-por-dentro">3. Cómo funciona por dentro</a></li><li class="n2"><a href="#4-anatomía-de-un-script">4. Anatomía de un script</a></li><li class="n3"><a href="#la-clase-y-lo-que-hereda-de-script">La clase y lo que hereda de Script</a></li><li class="n3"><a href="#ciclo-de-vida">Ciclo de vida</a></li><li class="n2"><a href="#5-atributos">5. Atributos</a></li><li class="n2"><a href="#6-campos-en-el-inspector">6. Campos en el Inspector</a></li><li class="n2"><a href="#7-la-api-del-motor-en-c">7. La API del motor en C#</a></li><li class="n2"><a href="#8-errores-y-recarga-en-caliente">8. Errores y recarga en caliente</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n2"><a href="#10-async-y-await">10. async y await</a></li><li class="n2"><a href="#11-lua-y-c-en-el-mismo-proyecto">11. Lua y C# en el mismo proyecto</a></li><li class="n2"><a href="#12-el-editor-de-scripts-integrado">12. El editor de scripts integrado</a></li><li class="n2"><a href="#13-vs-code-visual-studio-y-rider">13. VS Code, Visual Studio y Rider</a></li><li class="n2"><a href="#14-publicar">14. Publicar</a></li><li class="n2"><a href="#15-lo-que-todavía-no-hay-en-c">15. Lo que todavía no hay en C#</a></li><li class="n2"><a href="#16-errores-comunes">16. Errores comunes</a></li><li class="n2"><a href="#17-consejos-de-rendimiento">17. Consejos de rendimiento</a></li><li class="n2"><a href="#18-la-documentación-en-c">18. La documentación en C#</a></li><li class="n2"><a href="#apéndice-lo-que-cambia-respecto-a-lua">Apéndice: lo que cambia respecto a Lua</a></li></ul></details><p>La guía para programar juegos con Nova Engine en <strong>C#</strong>: cómo es un script, todos los atributos, cómo se usa la API
+del motor desde C#, la recarga en caliente, el <strong>multijugador</strong> con el servidor al mando, <code>async</code>/<code>await</code>, cómo
+conviven C# y Lua en un mismo proyecto, VS Code y Visual Studio con autocompletado, la publicación, lo que todavía no
+hay en C# y, al final, lo que cambia respecto a Lua.</p>
+<p>C# es el segundo lenguaje de los scripts, <strong>a la par que Lua</strong>: los dos van en el mismo componente <strong>Scripts</strong>, sus
+campos salen en el Inspector, se guardan con la escena, entran en los prefabs, el deshacer y la red, y usan la misma
+API del motor con los mismos nombres. Puedes mezclarlos en un proyecto (y en una misma entidad) como quieras. Si
+nunca has abierto el motor, empieza por <a href="empezar.html">empezar.md</a> y <a href="editor.html">editor.md</a>; la referencia completa de
+lo que hace cada función está en <a href="scripts-lua.html">scripts-lua.md</a> (los nombres son los mismos, en PascalCase).</p>
+<p>Hay un ejemplo completo en C#, el inventario multijugador tipo Rust: <a href="ejemplo-inventario-csharp.html">ejemplo-inventario-csharp.md</a>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-por-qué-c-y-cuándo-lua-o-c">Por qué C# (y cuándo Lua o C++)</a></li>
+<li><a href="#2-tu-primer-script-en-cinco-minutos">Tu primer script en cinco minutos</a></li>
+<li><a href="#3-cómo-funciona-por-dentro">Cómo funciona por dentro</a></li>
+<li><a href="#4-anatomía-de-un-script">Anatomía de un script</a></li>
+<li><a href="#5-atributos">Atributos</a></li>
+<li><a href="#6-campos-en-el-inspector">Campos en el Inspector</a></li>
+<li><a href="#7-la-api-del-motor-en-c">La API del motor en C#</a></li>
+<li><a href="#8-errores-y-recarga-en-caliente">Errores y recarga en caliente</a></li>
+<li><a href="#9-multijugador">Multijugador</a></li>
+<li><a href="#10-async-y-await"><code>async</code> y <code>await</code></a></li>
+<li><a href="#11-lua-y-c-en-el-mismo-proyecto">Lua y C# en el mismo proyecto</a></li>
+<li><a href="#12-el-editor-de-scripts-integrado">El editor de scripts integrado</a></li>
+<li><a href="#13-vs-code-visual-studio-y-rider">VS Code, Visual Studio y Rider</a></li>
+<li><a href="#14-publicar">Publicar</a></li>
+<li><a href="#15-lo-que-todavía-no-hay-en-c">Lo que todavía no hay en C#</a></li>
+<li><a href="#16-errores-comunes">Errores comunes</a></li>
+<li><a href="#17-consejos-de-rendimiento">Consejos de rendimiento</a></li>
+<li><a href="#18-la-documentación-en-c">La documentación en C#</a></li>
+</ol>
+<ul>
+<li><a href="#apéndice-lo-que-cambia-respecto-a-lua">Apéndice: lo que cambia respecto a Lua</a></li>
+</ul>
+<h2 id="1-por-qué-c-y-cuándo-lua-o-c">1. Por qué C# (y cuándo Lua o C++)<a class="ancla" href="#1-por-qué-c-y-cuándo-lua-o-c" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Un lenguaje que ya conoce media industria.</strong> Si ya sabes C#, no tienes que aprender otro: clases, tipos,
+<code>List&lt;T&gt;</code>, LINQ, <code>async</code>/<code>await</code>, genéricos...</li>
+<li><strong>Sin instalar nada.</strong> El editor lleva dentro el runtime de .NET y el compilador de C# (Roslyn): guardas el fichero
+y se compila y se recarga al momento, también con el juego en marcha y sin perder el estado. No hace falta Visual
+Studio ni el SDK de .NET (solo si quieres el autocompletado en un editor externo, sección <a href="#13-vs-code-visual-studio-y-rider">13</a>).</li>
+<li><strong>Con tipos.</strong> El compilador te avisa de los errores al guardar (y el editor de scripts mientras escribes), con
+fichero y línea; el autocompletado conoce toda la API del motor y tus propias clases.</li>
+<li><strong>La misma red que Lua.</strong> <code>[Replicated]</code>, <code>[Server]</code>, <code>[Client]</code>, <code>[Multicast]</code>, <code>[ServerOnly]</code>... con las mismas
+reglas, comprobaciones y huella de red: un script C# y uno Lua se comportan igual en una partida en red.</li>
+<li><strong>Junto a Lua.</strong> Un script C# puede leer y llamar a uno Lua (y al revés) con <code>GetScript</code>.</li>
+</ul>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th></th>
+  <th>Lua</th>
+  <th>C#</th>
+  <th>C++</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Compilar</td>
+  <td>No: se recarga al guardar</td>
+  <td>Sí, pero lo hace el editor al guardar (Roslyn integrado) y se recarga solo</td>
+  <td>Sí (Visual Studio o Build Tools; <code>Ctrl+B</code>)</td>
+</tr>
+<tr>
+  <td>Dónde</td>
+  <td><code>scripts/*.luau</code></td>
+  <td><code>scripts/*.cs</code></td>
+  <td><code>scripts/*.cpp</code> → DLL del juego</td>
+</tr>
+<tr>
+  <td>Campos en el Inspector</td>
+  <td><code>Clase.campo = valor</code> + <code>--[Range(...)]</code></td>
+  <td><code>public float Velocidad = 5;</code> + <code>[Range(...)]</code></td>
+  <td><code>NOVA_FIELD(campo).Range(...)</code></td>
+</tr>
+<tr>
+  <td>Red</td>
+  <td><code>--[Replicated]</code>, <code>--[Server]</code>...</td>
+  <td><code>[Replicated]</code>, <code>[Server]</code>... (los mismos)</td>
+  <td><code>.Replicated()</code>, <code>NOVA_RPC</code></td>
+</tr>
+<tr>
+  <td>Errores</td>
+  <td>Al ejecutar</td>
+  <td>Al compilar (la mayoría) y al ejecutar</td>
+  <td>Al compilar</td>
+</tr>
+<tr>
+  <td>Aislamiento</td>
+  <td>Total (sandbox, límite de tiempo y de memoria)</td>
+  <td>El código C# corre en el proceso del motor: un bucle infinito cuelga el editor</td>
+  <td>Ninguno</td>
+</tr>
+<tr>
+  <td>Para qué</td>
+  <td>Reglas, personajes, IA, interfaz, rondas...</td>
+  <td>Lo mismo, si prefieres C# o tienes código C# de antes</td>
+  <td>Sistemas pesados, librerías nativas</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-tu-primer-script-en-cinco-minutos">2. Tu primer script en cinco minutos<a class="ancla" href="#2-tu-primer-script-en-cinco-minutos" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li>Abre un proyecto (o crea uno con la plantilla <strong>Vacío (C#)</strong> de Nova Hub).</li>
+<li>En el panel <strong>Contenido</strong>, entra en <code>scripts/</code>, clic derecho &gt; <strong>Nuevo script...</strong>, elige <strong>C#</strong> (las opciones son
+<strong>Lua</strong>, <strong>C#</strong> y <strong>C++ (avanzado)</strong>) y llámalo
+<code>PrimerScript</code>. El editor crea <code>scripts/PrimerScript.cs</code> con una plantilla (y <code>Scripts.csproj</code> en la carpeta del
+proyecto, para VS Code).</li>
+<li>Doble clic en el fichero para abrirlo en el editor de scripts y cámbialo por esto:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class PrimerScript : Script
+{
+    [Range(-720, 720), Tooltip("Grados por segundo")]
+    public float Velocidad = 90;
+
+    void Start()
+    {
+        Log.Info("Hola desde " + Name);
+    }
+
+    void Update(float dt)
+    {
+        // Gira sobre el eje vertical; con Espacio cambia de sentido
+        Transform.Rotate(Vec3.Up, Velocidad * Mathf.Deg2Rad * dt);
+        if (Input.WasKeyPressed("Space"))
+            Velocidad = -Velocidad;
+    }
+}</code></pre></div>
+<ol start="4">
+<li>Guarda (<strong>Ctrl+S</strong>): abajo a la derecha sale <strong>«Scripts C# compilados y recargados»</strong>. Si hay un error, sale el
+primero en rojo con su línea y el botón <strong>Abrir script</strong>, y todos en la <strong>Consola</strong> y en <strong>Problemas</strong>.</li>
+<li>Arrastra el fichero desde <strong>Contenido</strong> hasta un cubo de la <strong>Jerarquía</strong> (o al <strong>Inspector</strong> del cubo).</li>
+<li>Pulsa <strong>Jugar</strong>. El cubo gira y la <strong>Consola</strong> dice <code>Hola desde Cubo</code>. Cambia <strong>Velocidad</strong> en el Inspector: el
+cubo cambia al momento. Con el juego en marcha, cambia el código y guarda: se recarga sin parar el juego y sin
+perder la velocidad que pusiste.</li>
+</ol>
+<h2 id="3-cómo-funciona-por-dentro">3. Cómo funciona por dentro<a class="ancla" href="#3-cómo-funciona-por-dentro" aria-label="Enlace a esta sección">#</a></h2>
+<p>No hace falta saberlo para programar, pero explica casi todo lo que sigue:</p>
+<ul>
+<li>El editor compila <strong>todos</strong> los <code>.cs</code> de <code>scripts/</code> juntos en un ensamblado (<code>Scripts.dll</code>) con Roslyn, cada vez
+que guardas uno. Por eso una clase puede usar otra de otro fichero sin <code>require</code> ni nada.</li>
+<li>Cada clase que hereda de <code>Script</code> y se llama como su fichero (<code>scripts/ia/Enemigo.cs</code> → <code>class Enemigo : Script</code>)
+es un <strong>script</strong>: sale en <strong>Añadir script</strong> y se arrastra a las entidades. Su nombre de tipo es la ruta dentro de
+<code>scripts/</code>: <code>Enemigo.cs</code>, <code>ia/Enemigo.cs</code>.</li>
+<li>Para el motor, un script C# es una clase de la misma biblioteca que los scripts Lua: el compilador escribe una
+«clase sombra» con los mismos campos, atributos y funciones, y cada función llama al método de C#. Por eso el
+Inspector, el guardado, la red, las comprobaciones de las funciones de red y <code>GetScript</code> son <strong>exactamente</strong> los de
+Lua.</li>
+<li>La API del motor en C# (<code>Input</code>, <code>Scene</code>, <code>Physics</code>, <code>UI</code>, los componentes...) se <strong>genera</strong> de la misma
+descripción de la API que usa el autocompletado de Lua (<code>nova.d.luau</code>): cada función de Lua tiene su versión C#
+con el mismo nombre. Qué tiene versión C# y qué no está, miembro a miembro, en <a href="csharp-paridad.html">csharp-paridad.md</a>.</li>
+<li>Las clases que no son scripts (<code>static class Util</code>, <code>class Objeto</code>) también se compilan y las usan los demás.</li>
+</ul>
+<h2 id="4-anatomía-de-un-script">4. Anatomía de un script<a class="ancla" href="#4-anatomía-de-un-script" aria-label="Enlace a esta sección">#</a></h2>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// 1. La clase: hereda de Script y se llama como el fichero (scripts/Puerta.cs)
+public class Puerta : Script
+{
+    // 2. Campos public: salen en el Inspector y se guardan con la escena. El tipo es el del campo
+    [Range(0, 180)]
+    public float AnguloAbierta = 90;
+    public bool Abierta;
+    public string Mensaje = "Pulsa E para abrir";
+    public Entity Jugador; // referencia a otra entidad (se elige en el Inspector)
+
+    // 3. Estado interno: lo que no es public no sale en el Inspector ni se guarda
+    float _angulo;
+    Quat _cerrada;
+
+    const float Velocidad = 120; // grados por segundo
+
+    static float Acercar(float actual, float objetivo, float paso) =&gt;
+        actual &lt; objetivo ? System.MathF.Min(objetivo, actual + paso) : System.MathF.Max(objetivo, actual - paso);
+
+    // 4. Funciones del ciclo de vida: por su nombre (las que no uses, no las escribas)
+    void Start()
+    {
+        _cerrada = Transform.Rotation;
+    }
+
+    void Update(float dt)
+    {
+        bool cerca = Jugador != null &amp;&amp; Vec3.Distance(Jugador.Position, Entity.Position) &lt; 2;
+        if (cerca &amp;&amp; Input.WasActionPressed("Accion"))
+            Alternar();
+        _angulo = Acercar(_angulo, Abierta ? AnguloAbierta : 0, Velocidad * dt);
+        Transform.Rotation = Quat.FromAxisAngle(Vec3.Up, _angulo * Mathf.Deg2Rad) * _cerrada;
+    }
+
+    // 5. Tus métodos: se llaman como cualquier método de C# (y desde la interfaz o Lua, por su nombre)
+    public void Alternar()
+    {
+        Abierta = !Abierta;
+        Log.Info(Name + (Abierta ? " abierta" : " cerrada"));
+    }
+}</code></pre></div>
+<h3 id="la-clase-y-lo-que-hereda-de-script">La clase y lo que hereda de <code>Script</code><a class="ancla" href="#la-clase-y-lo-que-hereda-de-script" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Miembro de <code>Script</code></th>
+  <th>Qué es (en Lua)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Entity</code></td>
+  <td>La entidad (<code>self.entity</code>)</td>
+</tr>
+<tr>
+  <td><code>Transform</code></td>
+  <td>Su <code>Transform</code> (<code>self.transform</code>)</td>
+</tr>
+<tr>
+  <td><code>Name</code></td>
+  <td>El nombre de la entidad (<code>self.name</code>; se puede cambiar)</td>
+</tr>
+<tr>
+  <td><code>Enabled</code></td>
+  <td>Si el script está activo (<code>self.enabled</code>; <code>false</code> = no recibe <code>Update</code>)</td>
+</tr>
+<tr>
+  <td><code>GetComponent&lt;RigidBody&gt;()</code>, <code>AddComponent&lt;T&gt;()</code>, <code>HasComponent&lt;T&gt;()</code>, <code>RemoveComponent&lt;T&gt;()</code></td>
+  <td>Componentes de su entidad (<code>self:GetComponent(&quot;RigidBody&quot;)</code>)</td>
+</tr>
+<tr>
+  <td><code>GetScript&lt;Inventario&gt;()</code></td>
+  <td>Otro script <strong>C#</strong> de su entidad, con su clase (o <code>null</code>)</td>
+</tr>
+<tr>
+  <td><code>GetScript(&quot;Vida&quot;)</code></td>
+  <td>Otro script por su nombre (Lua o C#) como <code>LuaScript</code>, para usarlo con <code>dynamic</code> (sección <a href="#11-lua-y-c-en-el-mismo-proyecto">11</a>)</td>
+</tr>
+<tr>
+  <td><code>AddScript&lt;T&gt;()</code>, <code>AddScript(&quot;Nombre&quot;)</code></td>
+  <td>Añade un script a su entidad</td>
+</tr>
+<tr>
+  <td><code>Destroy(segundos?)</code></td>
+  <td>Destruye su entidad (<code>self:Destroy()</code>)</td>
+</tr>
+<tr>
+  <td><code>IsServer()</code>, <code>IsClient()</code>, <code>HasAuthority()</code>, <code>IsOwner()</code>, <code>IsLocalPlayer()</code>, <code>To(jugador)</code></td>
+  <td>Red (sección <a href="#9-multijugador">9</a>)</td>
+</tr>
+<tr>
+  <td><code>Global&lt;T&gt;()</code>, <code>Instance&lt;T&gt;()</code></td>
+  <td>El script <code>[Global]</code> o <code>[Instance]</code> de esa clase (<code>Global(&quot;X&quot;)</code>, <code>Instances.X</code>)</td>
+</tr>
+<tr>
+  <td><code>Wait(segundos)</code></td>
+  <td>Espera sin parar el juego: <code>await Wait(1.5f)</code> (sección <a href="#10-async-y-await">10</a>)</td>
+</tr>
+<tr>
+  <td>Las funciones globales de la API</td>
+  <td><code>Spawn</code>, <code>SetTimeout</code>, <code>TriggerEvent</code>, <code>GetPlayers</code>, <code>Loc</code>... se usan sin prefijo dentro de un script</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Los métodos del ciclo de vida se escriben con su nombre</strong>, sin <code>override</code>. Pueden ser <code>private</code>,
+<code>public</code> o <code>protected</code>. Si no usas el parámetro, puedes quitarlo: <code>void Update()</code> también vale.</li>
+<li><strong>Lo <code>static</code> es de toda la sesión, no de la partida.</strong> En Lua, las variables <code>local</code> del fichero empiezan de cero
+en cada partida; en C#, un campo <code>static</code> sigue con su valor al parar y volver a jugar (y hasta que se recargan los
+scripts). Para datos de una partida usa campos de la instancia, o vacía los <code>static</code> en <code>OnDestroy</code>.</li>
+<li><strong>No uses la API en el constructor ni en los inicializadores de los campos</strong> (<code>public Entity Jefe = Scene.Find(&quot;Jefe&quot;);</code>):
+cuando se crea el objeto todavía no está en la escena. Es un error claro («La API del motor solo se puede usar dentro
+de las funciones del script»). Hazlo en <code>Awake</code> o <code>Start</code>.</li>
+<li>Una clase de script por fichero (la que se llama como él). Otras clases en el mismo fichero (ayudas, enums, datos)
+valen, pero no se pueden añadir a una entidad: el compilador avisa.</li>
+</ul>
+<h3 id="ciclo-de-vida">Ciclo de vida<a class="ancla" href="#ciclo-de-vida" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los mismos que en Lua y en el mismo orden:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Método</th>
+  <th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Awake()</code></td>
+  <td>Al crearse la instancia (al empezar la partida, al aparecer la entidad, o dentro de <code>Scene.Instantiate</code> y <code>Spawn</code>)</td>
+</tr>
+<tr>
+  <td><code>Start()</code></td>
+  <td>Justo antes de su primer <code>Update</code></td>
+</tr>
+<tr>
+  <td><code>Update(float dt)</code></td>
+  <td>Cada frame (<code>dt</code> en segundos)</td>
+</tr>
+<tr>
+  <td><code>FixedUpdate(float dt)</code></td>
+  <td>Cada paso fijo de las físicas (60 por segundo)</td>
+</tr>
+<tr>
+  <td><code>LateUpdate(float dt)</code></td>
+  <td>Cada frame, después de todos los <code>Update</code> (cámaras)</td>
+</tr>
+<tr>
+  <td><code>OnDestroy()</code></td>
+  <td>Al destruirse la entidad o el script, o al parar el juego</td>
+</tr>
+<tr>
+  <td><code>OnCollisionEnter(Collision c)</code>, <code>OnCollisionExit(Collision c)</code></td>
+  <td>Choques: <code>c.Other</code>, <code>c.Point</code>, <code>c.Normal</code>, <code>c.Impulse</code>, <code>c.RelativeSpeed</code></td>
+</tr>
+<tr>
+  <td><code>OnTriggerEnter(Entity otra)</code>, <code>OnTriggerExit(Entity otra)</code></td>
+  <td>Algo entra o sale de un sensor (<code>Collider</code> con <code>isTrigger</code>)</td>
+</tr>
+<tr>
+  <td><code>OnNetworkSpawn()</code></td>
+  <td>La red ya creó la entidad (en el servidor: ya tiene dueño)</td>
+</tr>
+<tr>
+  <td><code>OnReplicated()</code></td>
+  <td>En los clientes, una vez por actualización de la red que cambió algún campo o tabla replicada</td>
+</tr>
+<tr>
+  <td><code>OnAnimationEvent(string nombre)</code></td>
+  <td>Un evento de una animación</td>
+</tr>
+<tr>
+  <td><code>OnGUI()</code></td>
+  <td>Cada frame, para dibujar con <code>GUI.*</code></td>
+</tr>
+<tr>
+  <td><code>OnPoolGet()</code>, <code>OnPoolRelease()</code>, <code>OnAnimationFinished(string clip)</code>, <code>OnInteract(int jugador)</code>, <code>OnInteractFocus()</code>, <code>OnBreak(float nivel, Vec3 punto)</code>, <code>OnRagdollActivated()</code>, <code>OnCollisionEnter2D(Collision2D c)</code>, <code>OnTriggerEnter2D(Entity otra)</code>, <code>OnJump(string tipo)</code>, <code>OnSceneLoaded()</code>, <code>OnPlayerLoaded(int jugador)</code>, <code>OnValidate(string motivo)</code>...</td>
+  <td>Todas las de la tabla de <a href="scripts-lua.html#ciclo-de-vida">scripts-lua.md</a>, con el mismo nombre y sus parámetros con tipo</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class CicloDeVida : Script
+{
+    public int Golpes;
+
+    void Awake() { Log.Info("Awake de " + Name); }
+    void Start() { Log.Info("Start"); }
+    void FixedUpdate(float dt) { }
+    void LateUpdate(float dt) { }
+    void OnDestroy() { Log.Info("Adiós, " + Name); }
+
+    void OnCollisionEnter(Collision c)
+    {
+        if (c.RelativeSpeed &gt; 3) Golpes++;
+        if (c.Other != null) Log.Info("Choque con " + c.Other.Name + " en " + c.Point);
+    }
+
+    void OnTriggerEnter(Entity otra)
+    {
+        if (otra.HasTag("Jugador")) Log.Info(otra.Name + " ha entrado");
+    }
+
+    void OnAnimationEvent(string nombre)
+    {
+        if (nombre == "Paso") Audio.PlayOneShot("sonidos/paso.wav", Entity.Position);
+    }
+
+    void OnInteract(int jugador)
+    {
+        Log.Info("Lo ha usado " + GetPlayerName(jugador));
+    }
+}</code></pre></div>
+<h2 id="5-atributos">5. Atributos<a class="ancla" href="#5-atributos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los mismos que los de Lua (<code>--[Range(0, 100)]</code>), como atributos de C#: el compilador los traduce, así que hacen
+exactamente lo mismo.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>C#</th>
+  <th>Lua</th>
+  <th>Sobre</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>[Global]</code></td>
+  <td><code>--[Global]</code></td>
+  <td>clase</td>
+  <td>Script global: una instancia por partida, sin entidad del mapa (sección <a href="#9-multijugador">9</a>)</td>
+</tr>
+<tr>
+  <td><code>[Instance]</code></td>
+  <td><code>--[Instance]</code></td>
+  <td>clase</td>
+  <td>Script único de la escena: desde cualquier otro, <code>Instance&lt;T&gt;()</code></td>
+</tr>
+<tr>
+  <td><code>[Header(&quot;Texto&quot;)]</code></td>
+  <td><code>Header</code></td>
+  <td>campo</td>
+  <td>Título de sección en el Inspector</td>
+</tr>
+<tr>
+  <td><code>[Space]</code></td>
+  <td><code>Space</code></td>
+  <td>campo</td>
+  <td>Un hueco antes del campo</td>
+</tr>
+<tr>
+  <td><code>[Range(min, max)]</code></td>
+  <td><code>Range</code></td>
+  <td>campo</td>
+  <td>Límites al editarlo (y red más compacta si está replicado)</td>
+</tr>
+<tr>
+  <td><code>[Slider]</code>, <code>[Slider(min, max)]</code></td>
+  <td><code>Slider</code></td>
+  <td>campo</td>
+  <td>Deslizador</td>
+</tr>
+<tr>
+  <td><code>[Step(x)]</code></td>
+  <td><code>Step</code></td>
+  <td>campo</td>
+  <td>Paso al arrastrar</td>
+</tr>
+<tr>
+  <td><code>[Tooltip(&quot;Texto&quot;)]</code></td>
+  <td><code>Tooltip</code></td>
+  <td>campo</td>
+  <td>Ayuda al pasar el ratón</td>
+</tr>
+<tr>
+  <td><code>[Display(&quot;Nombre&quot;)]</code></td>
+  <td><code>Display</code></td>
+  <td>campo</td>
+  <td>Nombre en el Inspector (por defecto, el del campo: <code>VelocidadMaxima</code> → «Velocidad Maxima»)</td>
+</tr>
+<tr>
+  <td><code>[Hide]</code> (o <code>[HideInInspector]</code>)</td>
+  <td><code>Hide</code></td>
+  <td>campo</td>
+  <td>No sale en el Inspector (sí se guarda)</td>
+</tr>
+<tr>
+  <td><code>[ReadOnly]</code></td>
+  <td><code>ReadOnly</code></td>
+  <td>campo</td>
+  <td>Se ve pero no se edita</td>
+</tr>
+<tr>
+  <td><code>[Multiline]</code></td>
+  <td><code>Multiline</code></td>
+  <td><code>string</code></td>
+  <td>Caja de texto de varias líneas</td>
+</tr>
+<tr>
+  <td><code>[NoSave]</code></td>
+  <td><code>NoSave</code></td>
+  <td>campo</td>
+  <td>No se guarda con la escena (vuelve a su valor por defecto)</td>
+</tr>
+<tr>
+  <td><code>[Angle]</code></td>
+  <td><code>Angle</code></td>
+  <td>número</td>
+  <td>En radianes; el Inspector lo enseña en grados</td>
+</tr>
+<tr>
+  <td><code>[ColorField]</code></td>
+  <td><code>Color</code></td>
+  <td><code>Vec3</code></td>
+  <td>Selector de color (un campo <code>Color</code> ya lo es)</td>
+</tr>
+<tr>
+  <td><code>[HDR]</code></td>
+  <td><code>HDR</code></td>
+  <td>color</td>
+  <td>Color con intensidad mayor que 1</td>
+</tr>
+<tr>
+  <td>un campo <code>int</code> (o <code>long</code>, <code>short</code>, <code>byte</code>, <code>uint</code>)</td>
+  <td><code>Int</code></td>
+  <td>número</td>
+  <td>Número entero</td>
+</tr>
+<tr>
+  <td>un <code>enum</code> de C#</td>
+  <td><code>Enum({...})</code></td>
+  <td>campo</td>
+  <td>Desplegable con sus valores</td>
+</tr>
+<tr>
+  <td><code>[AssetType(&quot;Prefab&quot;)]</code></td>
+  <td><code>Asset(&quot;Prefab&quot;)</code></td>
+  <td><code>Asset</code></td>
+  <td>Tipo de asset del campo: <code>&quot;Prefab&quot;</code>, <code>&quot;Audio&quot;</code>, <code>&quot;Material&quot;</code>, <code>&quot;Model&quot;</code>, <code>&quot;Texture&quot;</code>, <code>&quot;Scene&quot;</code>, <code>&quot;AnimatorController&quot;</code>... (sin él, <code>&quot;Prefab&quot;</code>)</td>
+</tr>
+<tr>
+  <td><code>[Required]</code></td>
+  <td><code>Required</code></td>
+  <td>campo</td>
+  <td>Obligatorio: vacío, sale como error en <strong>Problemas</strong></td>
+</tr>
+<tr>
+  <td><code>[NonSerializedField]</code> (o <code>[System.NonSerialized]</code>)</td>
+  <td>empezar por <code>_</code></td>
+  <td>campo <code>public</code></td>
+  <td>No es un campo del motor aunque sea <code>public</code></td>
+</tr>
+<tr>
+  <td><code>[EditorOnly]</code></td>
+  <td><code>EditorOnly</code></td>
+  <td>campo o método</td>
+  <td>Solo en el editor (en el juego publicado el método no hace nada y el campo no va)</td>
+</tr>
+<tr>
+  <td><code>[Replicated]</code></td>
+  <td><code>Replicated</code></td>
+  <td>campo <code>public</code></td>
+  <td>Lo cambia el servidor y llega a los clientes. <code>OnChange = nameof(Metodo)</code>, <code>Condition = &quot;All&quot;</code> / <code>&quot;OwnerOnly&quot;</code> / <code>&quot;SkipOwner&quot;</code> (y <code>&quot;Observers&quot;</code> en tablas)</td>
+</tr>
+<tr>
+  <td><code>[Server]</code></td>
+  <td><code>Server</code></td>
+  <td>método</td>
+  <td>Llamada al servidor. <code>Rate = 5</code> (por segundo y jugador), <code>Reliable = false</code>, <code>AnyCaller = true</code>, <code>OwnerOnly = true</code>, <code>Validate = nameof(F)</code>, <code>KickAfter = 3</code></td>
+</tr>
+<tr>
+  <td><code>[Client]</code></td>
+  <td><code>Client</code></td>
+  <td>método</td>
+  <td>Del servidor al dueño (o a un jugador con <code>To(jugador)</code>). <code>Reliable = false</code></td>
+</tr>
+<tr>
+  <td><code>[Multicast]</code></td>
+  <td><code>Multicast</code></td>
+  <td>método</td>
+  <td>Del servidor a todos (y a él mismo). <code>Reliable = false</code></td>
+</tr>
+<tr>
+  <td><code>[ServerOnly]</code></td>
+  <td><code>ServerOnly</code></td>
+  <td>método</td>
+  <td>Solo se ejecuta en el servidor o el anfitrión. <code>Silent = true</code>, <code>Warn = true</code></td>
+</tr>
+<tr>
+  <td><code>[ClientOnly]</code></td>
+  <td><code>ClientOnly</code></td>
+  <td>método</td>
+  <td>Solo donde hay pantalla. <code>Silent</code>, <code>Warn</code></td>
+</tr>
+<tr>
+  <td><code>[OwnerOnly]</code></td>
+  <td><code>OwnerOnly</code></td>
+  <td>método</td>
+  <td>Solo en la máquina del dueño de la entidad. <code>Silent</code>, <code>Warn</code></td>
+</tr>
+<tr>
+  <td><code>[Cooldown(1.5)]</code></td>
+  <td><code>Cooldown</code></td>
+  <td>método</td>
+  <td>No se repite antes de esos segundos. <code>Warn = true</code></td>
+</tr>
+<tr>
+  <td><code>[ArgRange(&quot;cantidad&quot;, 1, 99)]</code></td>
+  <td><code>ArgRange</code></td>
+  <td>método <code>[Server]</code></td>
+  <td>Rechaza la llamada si ese argumento se sale del rango</td>
+</tr>
+<tr>
+  <td><code>[MaxLength(&quot;texto&quot;, 32)]</code></td>
+  <td><code>MaxLength</code></td>
+  <td>método <code>[Server]</code></td>
+  <td>Rechaza la llamada si ese texto es más largo</td>
+</tr>
+<tr>
+  <td><code>[Button(&quot;Texto&quot;)]</code></td>
+  <td><code>Button</code></td>
+  <td>método</td>
+  <td>Botón en el Inspector que lo ejecuta en el editor sin jugar, con deshacer</td>
+</tr>
+</tbody>
+</table></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class TodosLosAtributos : Script
+{
+    public enum Modo { Quieta, Vigilar, Disparar }
+
+    [Header("Movimiento")]
+    [Range(0, 20), Tooltip("Metros por segundo")]
+    public float Velocidad = 5;
+    [Slider(0, 1)]
+    public float Suavizado = 0.5f;
+    [Step(0.25)]
+    public float Paso = 1;
+    [Angle, Display("Giro inicial")]
+    public float Giro;
+
+    [Space, Header("Aspecto")]
+    [ColorField]
+    public Vec3 Tinte = new Vec3(1, 0.5f, 0);
+    [HDR]
+    public Color Brillo = new Color(4, 2, 1, 1);
+    [Multiline]
+    public string Descripcion = "Primera línea\nSegunda línea";
+
+    [Header("Referencias")]
+    [Required, Tooltip("A quién apunta")]
+    public Entity Objetivo;
+    [AssetType("Prefab")]
+    public Asset Bala;
+    [AssetType("Audio")]
+    public Asset Sonido;
+    public Modo Estado = Modo.Vigilar;
+
+    [Header("Interno")]
+    [ReadOnly]
+    public int Vidas = 3;
+    [Hide]
+    public bool Depurar;
+    [NoSave]
+    public int Contador;
+    [NonSerializedField]
+    public float NoEsUnCampo;
+
+    [Button("Reiniciar vidas")]
+    void Reiniciar()
+    {
+        Vidas = 3;
+    }
+}</code></pre></div>
+<p>Un atributo que no tiene sentido donde está (<code>[Range]</code> en un <code>string</code>, <code>[ArgRange]</code> sin <code>[Server]</code>) es un <strong>aviso</strong>
+en la Consola, igual que en Lua. Los nombres de los atributos son los de C#: si escribes uno que no existe
+(<code>[Rnage]</code>), es un error de compilación con su línea.</p>
+<h2 id="6-campos-en-el-inspector">6. Campos en el Inspector<a class="ancla" href="#6-campos-en-el-inspector" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un campo es un campo <strong><code>public</code></strong> de la instancia (no <code>static</code>, ni <code>const</code>, ni <code>readonly</code>). El orden del Inspector es
+el del código. Los tipos que pueden ser campos:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Tipo de C#</th>
+  <th>En el Inspector</th>
+  <th>En Lua</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>float</code>, <code>double</code></td>
+  <td>número decimal</td>
+  <td><code>number</code></td>
+</tr>
+<tr>
+  <td><code>int</code>, <code>long</code>, <code>short</code>, <code>byte</code>, <code>uint</code></td>
+  <td>número entero (<code>--[Int]</code>)</td>
+  <td><code>number</code></td>
+</tr>
+<tr>
+  <td><code>bool</code></td>
+  <td>casilla</td>
+  <td><code>boolean</code></td>
+</tr>
+<tr>
+  <td><code>string</code></td>
+  <td>texto</td>
+  <td><code>string</code></td>
+</tr>
+<tr>
+  <td>un <code>enum</code></td>
+  <td>desplegable con sus nombres</td>
+  <td><code>string</code> (<code>Enum({...})</code>)</td>
+</tr>
+<tr>
+  <td><code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code></td>
+  <td>vector</td>
+  <td><code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code></td>
+</tr>
+<tr>
+  <td><code>Quat</code></td>
+  <td>rotación</td>
+  <td><code>Quat</code></td>
+</tr>
+<tr>
+  <td><code>Color</code></td>
+  <td>color RGBA</td>
+  <td><code>Color</code></td>
+</tr>
+<tr>
+  <td><code>Entity</code></td>
+  <td>referencia a una entidad de la escena (<code>null</code> por defecto)</td>
+  <td><code>Entity()</code></td>
+</tr>
+<tr>
+  <td><code>Asset</code></td>
+  <td>referencia a un asset (con <code>[AssetType(&quot;...&quot;)]</code>)</td>
+  <td><code>Asset(&quot;...&quot;)</code></td>
+</tr>
+<tr>
+  <td><code>ReplicatedTable</code></td>
+  <td>no sale: es una tabla replicada (con <code>[Replicated]</code>, sección <a href="#9-multijugador">9</a>)</td>
+  <td><code>--[Replicated] X.t = {}</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>El <strong>valor por defecto</strong> es el de su inicializador (<code>public float Velocidad = 5;</code>); el motor crea un objeto de la
+clase para leerlos al compilar.</li>
+<li><code>Entity</code> y <code>Asset</code> son <code>null</code> hasta que eliges algo en el Inspector: compruébalo antes de usarlos
+(<code>if (Objetivo != null)</code>).</li>
+<li>Un <code>public</code> de otro tipo (<code>List&lt;int&gt;</code>, una clase tuya, un <code>Dictionary</code>) <strong>no es un campo</strong>: el compilador avisa
+«un campo de tipo List<code>1 no puede salir en el Inspector ni replicarse». Hazlo </code>private<code>(o ponle</code>[NonSerializedField]`).</li>
+<li>Nombres reservados que no pueden ser campos: <code>entity</code>, <code>transform</code>, <code>name</code>, <code>enabled</code>.</li>
+<li>Si borras o renombras un campo, los valores guardados de los demás se conservan (por nombre).</li>
+</ul>
+<h2 id="7-la-api-del-motor-en-c">7. La API del motor en C#<a class="ancla" href="#7-la-api-del-motor-en-c" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>La API es la misma que la de Lua</strong>, generada de ella. La referencia de cada función (qué hace, qué devuelve,
+ejemplos) está en <a href="scripts-lua.html#7-referencia-de-la-api">scripts-lua.md</a> y en la <a href="lua.html">Referencia de Lua</a>; en
+C# se escribe así:</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Lua</th>
+  <th>C#</th>
+  <th>Regla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Input.GetAxis(&quot;MoverX&quot;)</code></td>
+  <td><code>Input.GetAxis(&quot;MoverX&quot;)</code></td>
+  <td>Las tablas globales son clases estáticas con el mismo nombre</td>
+</tr>
+<tr>
+  <td><code>entidad.position</code>, <code>cuerpo.mass</code></td>
+  <td><code>entidad.Position</code>, <code>cuerpo.Mass</code></td>
+  <td>Los campos y propiedades, en PascalCase</td>
+</tr>
+<tr>
+  <td><code>entidad:GetComponent(&quot;RigidBody&quot;)</code></td>
+  <td><code>entidad.GetComponent&lt;RigidBody&gt;()</code></td>
+  <td>Los componentes, con su clase (también <code>GetComponent(&quot;RigidBody&quot;)</code>, que da un <code>LuaValue</code>)</td>
+</tr>
+<tr>
+  <td><code>self.transform</code>, <code>self.entity</code>, <code>self.name</code></td>
+  <td><code>Transform</code>, <code>Entity</code>, <code>Name</code></td>
+  <td>Lo de <code>self</code>, como miembros de <code>Script</code></td>
+</tr>
+<tr>
+  <td><code>Time.deltaTime</code>, <code>Time.time</code></td>
+  <td><code>Time.DeltaTime</code>, <code>Time.Elapsed</code></td>
+  <td>(un miembro no puede llamarse <code>Time</code> dentro de la clase <code>Time</code>)</td>
+</tr>
+<tr>
+  <td><code>Spawn(prefab, pos)</code>, <code>SetTimeout(500, f)</code></td>
+  <td><code>Spawn(prefab, pos)</code>, <code>SetTimeout(500, () =&gt; ...)</code></td>
+  <td>Las funciones globales, sin prefijo dentro de un script (fuera, <code>Globals.Spawn</code>)</td>
+</tr>
+<tr>
+  <td><code>source</code></td>
+  <td><code>Globals.Source</code> (<code>int?</code>)</td>
+  <td>El jugador que llamó a la <code>[Server]</code> o envió el evento</td>
+</tr>
+<tr>
+  <td><code>UI(&quot;HUD/Vida&quot;)</code>, <code>UI()</code></td>
+  <td><code>UI.Get(&quot;HUD/Vida&quot;)</code>, <code>UI.Get()</code></td>
+  <td>Lo que en Lua se llama como función, en C# es <code>.Get(...)</code> (también <code>DataTable.Get(nombre)</code>)</td>
+</tr>
+<tr>
+  <td><code>Tags({ ... })</code>, <code>Event()</code>, <code>Timer(...)</code>, <code>Curve(...)</code>, <code>Pool(...)</code></td>
+  <td><code>Tags.Create(...)</code>, <code>Event.Create()</code>, <code>Timer.Create(...)</code>...</td>
+  <td>Lo que en Lua se llama como tabla, <code>.Create(...)</code></td>
+</tr>
+<tr>
+  <td><code>Task.Delay(1, f)</code></td>
+  <td><code>Tasks.Delay(1, () =&gt; ...)</code></td>
+  <td><code>Task</code> se llama <code>Tasks</code> (para no chocar con <code>System.Threading.Tasks.Task</code>)</td>
+</tr>
+<tr>
+  <td><code>Vec3.new(1, 2, 3)</code>, <code>Vec3.up</code>, <code>Color.red</code></td>
+  <td><code>new Vec3(1, 2, 3)</code>, <code>Vec3.Up</code>, <code>Color.Red</code></td>
+  <td>Los tipos matemáticos son structs de C#, con sus operadores</td>
+</tr>
+<tr>
+  <td>números</td>
+  <td><code>float</code> (y <code>int</code> para los enteros: jugadores, índices, capas, contadores)</td>
+  <td>Un <code>int</code> vale donde va un <code>float</code></td>
+</tr>
+<tr>
+  <td><code>{ volume = 0.5, bus = &quot;Sfx&quot; }</code></td>
+  <td><code>new OneShotOptions { Volume = 0.5f, Bus = AudioBus.Sfx }</code></td>
+  <td>Las tablas de opciones son clases con sus propiedades; los textos de una lista, constantes (<code>AudioBus.Sfx</code> = <code>&quot;Sfx&quot;</code>). Donde la función admite varias cosas (un número <strong>o</strong> unas opciones), el parámetro es un <code>LuaValue</code> y se le pasa cualquiera de ellas tal cual</td>
+</tr>
+<tr>
+  <td><code>{RaycastHit}</code>, <code>{string}</code></td>
+  <td><code>List&lt;RaycastHit&gt;</code>, <code>List&lt;string&gt;</code></td>
+  <td>Las listas que devuelve el motor, <code>List&lt;T&gt;</code></td>
+</tr>
+<tr>
+  <td><code>function(e) ... end</code></td>
+  <td><code>e =&gt; ...</code></td>
+  <td>Los callbacks son lambdas (<code>Action</code>, <code>Func</code>)</td>
+</tr>
+<tr>
+  <td>un valor sin tipo (<code>any</code>)</td>
+  <td><code>LuaValue</code></td>
+  <td>Se convierte con <code>.AsFloat()</code>, <code>.AsString()</code>, <code>.As&lt;T&gt;()</code>...</td>
+</tr>
+<tr>
+  <td>una tabla de Lua</td>
+  <td><code>LuaTable</code> (<code>t[&quot;clave&quot;]</code>, <code>t[1]</code>, <code>foreach</code>)</td>
+  <td><code>LuaTable.Create()</code> para una nueva</td>
+</tr>
+<tr>
+  <td><code>Random.Number(1, 10)</code>, <code>Random.new(42)</code></td>
+  <td><code>Random.Number(1, 10)</code>, <code>Random.New(42)</code></td>
+  <td><code>Random.New</code> da un <code>RandomGenerator</code> (el generador con semilla, con los mismos métodos)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Cuando un nombre se repite.</strong> Algunas tablas globales se llaman como un componente o un tipo que tiene un método del
+mismo nombre y con los mismos parámetros (<code>River.FlowAt</code> de la tabla global y <code>rio.FlowAt</code> del componente). En C#, la de
+la tabla global lleva <code>Static</code> detrás: <code>River.FlowAtStatic(pos)</code>, <code>River.SurfaceAtStatic(pos)</code>,
+<code>Light2D.FlickerStatic(...)</code>, <code>Mat4.TranslationStatic(v)</code>. El autocompletado enseña las dos.</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+using System.Collections.Generic;
+
+public class Torreta : Script
+{
+    public enum Modo { Quieta, Vigilar, Disparar }
+
+    [Tooltip("A quién apunta (arrástralo desde la Jerarquía)")]
+    public Entity Objetivo;
+    [AssetType("Prefab"), Tooltip("Prefab de la bala")]
+    public Asset Bala;
+    [AssetType("Audio")]
+    public Asset Sonido;
+    public Modo Estado = Modo.Vigilar;
+    public Color ColorLaser = new Color(1, 0.2f, 0.2f, 1);
+    [Range(0.1, 10)]
+    public float Cadencia = 2;
+
+    float _espera;
+
+    void Update(float dt)
+    {
+        if (Estado == Modo.Quieta || Objetivo == null) return;
+        Transform.LookAt(Objetivo);
+        _espera -= dt;
+        if (Estado != Modo.Disparar || _espera &gt; 0 || Bala == null) return;
+        _espera = 1 / Cadencia;
+        Vec3 delante = Transform.Forward;
+        Entity bala = Scene.Instantiate(Bala, Entity.Position + delante);
+        bala?.GetComponent&lt;RigidBody&gt;()?.AddImpulse(delante * 20);
+        if (Sonido != null)
+            Audio.PlayOneShot(Sonido, Entity.Position, new OneShotOptions { Volume = 0.6f, Bus = AudioBus.Sfx });
+
+        // Un rayo: ¿hay algo entre la torreta y el objetivo?
+        RaycastHit golpe = Physics.Raycast(Entity.Position, delante, 50, new PhysicsQuery { Ignore = Entity });
+        if (golpe != null &amp;&amp; golpe.Entity != Objetivo)
+            Log.Warn("Hay algo en medio: " + golpe.Entity?.Name);
+
+        // Listas y tablas
+        List&lt;Entity&gt; enemigos = Scene.FindAllByTag("Enemigo");
+        Log.Info("Enemigos: " + enemigos.Count);
+    }
+}</code></pre></div>
+<p><strong>Componentes.</strong> Cada componente del motor es una clase: <code>RigidBody</code>, <code>Animator</code>, <code>CharacterController</code>,
+<code>AudioSource</code>, <code>Camera</code>, <code>UiText</code>... con todos sus campos como propiedades (<code>luz.Intensity</code>, <code>camara.FieldOfView</code>) y
+sus métodos. <code>GetComponent&lt;T&gt;()</code> da <code>null</code> si la entidad no lo tiene. Un componente de la DLL C++ de tu juego (sin
+clase en C#) se usa con <code>GetComponent(&quot;MiComponente&quot;)</code> y <code>Get</code>, <code>Set</code> y <code>Call</code> por nombre:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">LuaValue comp = Entity.GetComponent("MiComponente");
+Component mio = comp.As&lt;Component&gt;();
+mio?.Set("velocidad", 5);
+float v = mio?.Get("velocidad").AsFloat() ?? 0;</code></pre></div>
+<p>Cada componente tiene su <code>Entity</code> (la entidad en la que está) y <code>NetworkIdentity</code> su <code>Owner</code> (el jugador dueño, un
+<code>int</code>).</p>
+<p><strong>Interfaz.</strong> <code>UI.Get(&quot;HUD/Vida&quot;)</code> da un <code>UiElement</code> con los mismos métodos que en Lua; los eventos reciben un
+<code>UiEvent</code> con sus campos (<code>e.Pointer.Shift</code>, <code>e.Drag.Payload</code>...):</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class Marcador : Script
+{
+    public int Puntos;
+
+    void Start()
+    {
+        UI.Get("HUD/Botón").OnClick(e =&gt; Sumar(1));
+        UI.Get("HUD/Volumen").OnValueChanged((valor, e) =&gt; Audio.SetBusVolume(AudioBus.Music, valor));
+    }
+
+    void Sumar(int n)
+    {
+        Puntos += n;
+        UI.Get("HUD/Puntos").SetText("Puntos: " + Puntos);
+        UI.Get("HUD/Barra").SetValue(Puntos);
+        if (UI.Get().IsPointerOverUi()) Log.Info("el ratón está sobre la interfaz");
+    }
+}</code></pre></div>
+<p>Los oyentes que añade un script (<code>OnClick</code>, <code>OnDrop</code>...) son suyos: se quitan solos al destruirse el script, como
+en Lua. Una lambda que usa campos del script (<code>Puntos</code>) ve siempre los de ese momento.</p>
+<p><strong>Matemáticas.</strong> <code>Vec2</code>, <code>Vec3</code>, <code>Vec4</code>, <code>Quat</code> y <code>Color</code> son structs con operadores (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>==</code>) y
+las mismas funciones que en Lua (<code>Vec3.Dot</code>, <code>Vec3.Lerp</code>, <code>v.Length()</code>, <code>Vec3.Distance</code>, <code>Quat.Euler</code>,
+<code>Quat.LookRotation</code>, <code>q * v</code>...). Las básicas se calculan en C#; las de ángulos (<code>Quat.Euler</code>, <code>Vec3.Slerp</code>,
+<code>Vec3.Angle</code>...) llaman a las del motor, así que dan exactamente lo mismo que en Lua. <code>Mathf</code> tiene <code>Lerp</code>, <code>Clamp</code>,
+<code>Deg2Rad</code>, <code>SmoothDamp</code>...; y las de .NET (<code>System.MathF</code>) también valen.</p>
+<p><strong>Números aleatorios.</strong> <code>Random</code> tiene las mismas funciones que en Lua (<code>Random.Number(1, 10)</code>, <code>Random.Integer</code>,
+<code>Random.Bool</code>, <code>Random.Pick</code>, <code>Random.InsideUnitSphere</code>...); con semilla, <code>RandomGenerator dado = Random.New(42);</code> y
+<code>dado.Integer(1, 6)</code>.</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">float tirada = Random.Number(1, 10);
+RandomGenerator dado = Random.New(42); // misma semilla, mismos números
+float cara = dado.Integer(1, 6);
+Vec3 corriente = River.FlowAtStatic(Entity.Position); // la de la tabla global River (ver «Cuando un nombre se repite»)</code></pre></div>
+<blockquote>
+<p><strong><code>using System;</code></strong> trae <code>System.Random</code> y <code>System.Environment</code>, que se llaman igual que <code>Random</code> y <code>Environment</code> del
+motor: si lo pones, escribe <code>Nova.Random</code> y <code>Nova.Environment</code> (o no pongas <code>using System;</code> y usa <code>System.MathF</code>).</p>
+</blockquote>
+<h2 id="8-errores-y-recarga-en-caliente">8. Errores y recarga en caliente<a class="ancla" href="#8-errores-y-recarga-en-caliente" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Al guardar un <code>.cs</code></strong> el editor compila todos los scripts C# (la primera vez tarda un par de segundos; después,
+muy poco) y:</p>
+<ol>
+<li>Si compila, recarga: <strong>«Scripts C# compilados y recargados»</strong>. Los objetos que ya existen pasan a la clase nueva <strong>conservando
+su estado</strong>: los campos <code>public</code> (los del motor) y también el estado privado de tipos sencillos (números, textos,
+<code>bool</code>, vectores, <code>Entity</code>, <code>List&lt;int&gt;</code>, <code>Dictionary&lt;string, float&gt;</code>... de .NET y del motor) y las referencias a
+otros scripts C#. Lo demás (objetos de tus propias clases) vuelve a su valor inicial. No se vuelven a llamar
+<code>Awake</code> ni <code>Start</code>.</li>
+<li>Si no compila, <strong>se sigue con la versión anterior</strong> y los errores salen en la Consola (todos) y en <strong>Problemas</strong>
+(el primero de cada fichero), con fichero, línea y columna; el aviso de abajo a la derecha enseña el primero con el
+botón <strong>Abrir script</strong>. Pulsa el error para abrir el script en esa línea:</li>
+</ol>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto language-texto">ERROR C#: scripts/Roto.cs:5:29: error CS0103: El nombre 'noExiste' no existe en el contexto actual</code></pre></div>
+<ol start="3">
+<li>Si los campos cambian, el Inspector se actualiza y los valores de las entidades se conservan por nombre.</li>
+<li>Las versiones viejas de los scripts se descargan de la memoria (no se acumulan por muchas veces que guardes).</li>
+</ol>
+<p><strong>Excepciones.</strong> Una excepción en un script sale en la Consola con el fichero y la línea <strong>del <code>.cs</code></strong>, la función
+del motor que la llamó, la entidad y la pila de C#:</p>
+<div class="codigo"><div class="codigo-cab"><span></span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-texto language-texto">ERROR C#: scripts/Lanza.cs:11: NullReferenceException: Object reference not set to an instance of an object. (Update de Lanza.cs en 'Lanza')
+  en Lanza.Update(Single dt) en scripts/Lanza.cs:line 11</code></pre></div>
+<p>El mismo error no se repite cada frame (uno y después un resumen cada 5 segundos) y el script <strong>sigue</strong> recibiendo
+llamadas: una excepción nunca cierra el editor ni el juego. Los mensajes de las excepciones de .NET salen en inglés.</p>
+<p><strong>Sin .NET.</strong> Si falta el runtime de .NET (una instalación rota), los scripts C# no se cargan, la Consola lo dice y
+el resto del proyecto (y los scripts Lua) siguen funcionando. Reinstalar Nova Engine lo arregla.</p>
+<p><strong>Editor &gt; Recargar scripts (Ctrl+R)</strong> también vuelve a compilar y cargar los <code>.cs</code>.</p>
+<h2 id="9-multijugador">9. Multijugador<a class="ancla" href="#9-multijugador" aria-label="Enlace a esta sección">#</a></h2>
+<p>Todo lo de <a href="scripts-lua.html#9-multijugador">scripts-lua.md</a> vale igual en C# (el servidor manda, un fichero para los
+dos lados, <code>IsServer()</code>/<code>IsClient()</code>/<code>IsOwner()</code>/<code>IsLocalPlayer()</code>, <code>[Global]</code>, los límites y la validación...). Lo
+que cambia es cómo se escribe.</p>
+<p><strong>Las funciones de red se llaman como cualquier método.</strong> <code>Sumar(5)</code> en un método <code>[Server]</code> hace lo mismo que
+<code>self:Sumar(5)</code> en Lua: si quien llama está en el servidor, se ejecuta ahí; si es el dueño en un cliente, viaja al
+servidor; si no puede llamarla, es una excepción (<code>LuaException</code>) con el mismo mensaje que en Lua («[Server] Sumar solo
+la puede llamar el dueño de 'Jugador'»). Los parámetros llevan el tipo de C# (<code>int</code> viaja como entero, <code>float</code> y
+<code>double</code> como número, <code>string</code>, <code>bool</code>, <code>Vec3</code>, <code>Quat</code>, <code>Color</code>, <code>Entity</code>, <code>Asset</code>, <code>enum</code> como texto) y se comprueban
+igual que las anotaciones de Lua.</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class Barril : Script
+{
+    [Replicated(OnChange = nameof(AlCambiarVida)), Range(0, 100)]
+    public int Vida = 100;
+    [Replicated(Condition = "OwnerOnly")]
+    public string Secreto = ""; // solo lo recibe el dueño
+
+    // En el servidor: lo llama otro script cuando le disparan
+    public void Danar(int cantidad)
+    {
+        if (!IsServer()) return;
+        Vida = System.Math.Max(0, Vida - cantidad);
+        if (Vida == 0) Destroy(); // con Identidad de red, se destruye en todas las máquinas
+    }
+
+    // En los clientes, cada vez que llega un valor nuevo de Vida
+    void AlCambiarVida()
+    {
+        Log.Info(Name + " tiene " + Vida + " de vida");
+    }
+}</code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// El cofre del tesoro de la partida, como script [Global]: cualquier jugador puede pedir abrirlo (tecla F) y solo el
+// primero se lleva el premio. El servidor decide; los demás reciben el resultado.
+[Global]
+public class Cofre : Script
+{
+    [Replicated] public bool Abierto;
+    [Replicated] public string Quien = "";
+
+    // Cliente -&gt; servidor (en un [Global] la puede llamar cualquier jugador; Globals.Source dice quién)
+    [Server(Rate = 2)]
+    void Abrir()
+    {
+        int jugador = Globals.Source ?? 0;
+        if (Abierto)
+        {
+            To(jugador).Call(nameof(Aviso), "Llegas tarde: ya está abierto");
+            return;
+        }
+        Abierto = true;
+        Quien = GetPlayerName(jugador) ?? "?";
+        Efecto(new Vec3(0, 1, 0));
+        To(jugador).Call(nameof(Aviso), "¡Has encontrado 100 monedas!");
+    }
+
+    // Servidor -&gt; todos: sonido y partículas en cada máquina
+    [Multicast(Reliable = false)]
+    void Efecto(Vec3 donde)
+    {
+        Log.Info("¡Clac! El cofre se abre en", donde);
+    }
+
+    // Servidor -&gt; un jugador: To(id).Call(nameof(Aviso), ...)
+    [Client]
+    void Aviso(string texto)
+    {
+        Log.Info("Aviso:", texto);
+    }
+
+    void Update(float dt)
+    {
+        if (IsClient() &amp;&amp; Input.WasKeyPressed("F"))
+            Abrir();
+    }
+}</code></pre></div>
+<ul>
+<li><strong><code>To(jugador)</code></strong> es <code>self:To(jugador)</code>: <code>To(id).Call(nameof(Aviso), &quot;texto&quot;)</code> llama a la función <code>[Client]</code> en
+la máquina de ese jugador. Sin <code>To</code>, <code>Aviso(&quot;texto&quot;)</code> va al dueño de la entidad.</li>
+<li><strong><code>Globals.Source</code></strong> es <code>source</code>: el jugador que llamó a la <code>[Server]</code> (o que envió el evento), <code>null</code> fuera de
+ellas. Cópialo a una variable si lo necesitas después de un <code>await</code>.</li>
+<li><strong>Las funciones de red no devuelven valores</strong> (como en Lua): para una respuesta, el servidor llama a un <code>[Client]</code>.</li>
+<li><strong><code>[ServerOnly]</code>, <code>[ClientOnly]</code>, <code>[OwnerOnly]</code>, <code>[EditorOnly]</code> y <code>[Cooldown]</code></strong> funcionan igual que en Lua
+(<a href="scripts-lua.html#914-dónde-se-ejecuta-una-función">9.14</a>): donde no toca, la llamada no hace nada y devuelve el valor
+por defecto (<code>0</code>, <code>null</code>, <code>false</code>).</li>
+<li><strong><code>OnChange</code></strong> se llama en los clientes (no en el servidor ni en el anfitrión): si hace falta, llámalo tú después
+de cambiar el campo.</li>
+</ul>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class InventarioRed : Script
+{
+    [NoSave] public int Monedas;
+    [EditorOnly] public bool VerCasillas = true; // no va en el juego publicado
+
+    // Solo el servidor cambia el inventario de verdad; en un cliente no hace nada y devuelve 0
+    [ServerOnly]
+    public int AddItemInHand(string objeto)
+    {
+        Monedas++;
+        return Monedas;
+    }
+
+    // Un cliente lo pide; el servidor lo valida antes y lo acepta como mucho una vez cada 0,5 s de cada jugador
+    [Server(Validate = nameof(PuedeTirar), KickAfter = 5), Cooldown(0.5)]
+    [ArgRange("casilla", 1, 37)]
+    public void Tirar(int casilla)
+    {
+        AddItemInHand("nada");
+    }
+
+    bool PuedeTirar(int casilla) =&gt; Monedas &gt; 0;
+}</code></pre></div>
+<p><strong>Tablas replicadas.</strong> Un campo <code>ReplicatedTable</code> con <code>[Replicated]</code> es la tabla replicada de Lua
+(<code>--[Replicated] X.t = {}</code>): el motor la crea (no hace falta <code>new</code>), el servidor la cambia por claves y solo viajan las
+que cambian, con los mismos límites y condiciones (<code>&quot;Observers&quot;</code> incluida, con <code>SetObservers</code>).</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+using System.Collections.Generic;
+
+public class Tablero : Script
+{
+    [Replicated(OnChange = nameof(AlCambiarCasillas))]
+    public ReplicatedTable Casillas;
+    [Replicated(Condition = "Observers")]
+    public ReplicatedTable Cartas; // solo lo reciben los jugadores de SetObservers
+
+    // En el servidor
+    public void Marcar(int casilla, string jugador)
+    {
+        if (!IsServer()) return;
+        Casillas[casilla] = jugador; // solo viaja esta clave
+        Cartas["mano"] = LuaValue.From(new List&lt;string&gt; { "as", "rey" });
+        SetObservers(new List&lt;int&gt; { Network.GetOwner(Entity) });
+    }
+
+    // En los clientes
+    void AlCambiarCasillas()
+    {
+        foreach (KeyValuePair&lt;LuaValue, LuaValue&gt; kv in Casillas)
+            Log.Info(kv.Key + " = " + kv.Value);
+    }
+
+    void OnReplicated()
+    {
+        Log.Info("Casillas: " + Casillas.Count + " (seguidas desde la 1: " + Casillas.Length + ")");
+    }
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>ReplicatedTable</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>t[clave]</code>, <code>t[clave] = valor</code></td>
+  <td>Leer y cambiar una clave (texto o número); <code>null</code>/<code>LuaValue.Nil</code> la borra</td>
+</tr>
+<tr>
+  <td><code>t.Get(k)</code>, <code>t.Set(k, v)</code>, <code>t.Remove(k)</code></td>
+  <td>Lo mismo con métodos</td>
+</tr>
+<tr>
+  <td><code>t.Count</code></td>
+  <td>Cuántas claves tiene</td>
+</tr>
+<tr>
+  <td><code>t.Length</code></td>
+  <td><code>#t</code> de Lua: los elementos 1..n seguidos</td>
+</tr>
+<tr>
+  <td><code>foreach (var kv in t)</code></td>
+  <td>Recorrerla (<code>kv.Key</code>, <code>kv.Value</code>, como <code>LuaValue</code>)</td>
+</tr>
+<tr>
+  <td><code>t.Assign(lista o diccionario)</code>, <code>t.Clear()</code></td>
+  <td>Sustituirla entera (se envía entera) o vaciarla</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Eventos</strong> (sección <a href="scripts-lua.html#11-eventos">11</a> de Lua): <code>RegisterNetEvent</code>,
+<code>AddEventHandler</code>, <code>TriggerEvent</code>, <code>TriggerServerEvent</code>, <code>TriggerClientEvent</code>... con los argumentos como
+<code>LuaValue[]</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+[Global]
+public class Saludo : Script
+{
+    void Awake()
+    {
+        AddEventHandler("playerJoined", args =&gt;
+        {
+            int id = args[0].AsInt();
+            TriggerClientEvent("saludo:bienvenida", id, "hola " + GetPlayerName(id));
+        });
+        RegisterNetEvent("saludo:bienvenida", args =&gt; Log.Info("Bienvenida: " + args[0].AsString()));
+    }
+}</code></pre></div>
+<h2 id="10-async-y-await">10. <code>async</code> y <code>await</code><a class="ancla" href="#10-async-y-await" aria-label="Enlace a esta sección">#</a></h2>
+<p>En Lua se espera con <code>Wait(ms)</code> dentro de <code>CreateThread</code>. En C#, con <strong><code>await Wait(segundos)</code></strong> en un método <code>async</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class Semaforo : Script
+{
+    public string Luz = "Verde";
+
+    async void Start()
+    {
+        while (true)
+        {
+            Luz = "Verde";
+            await Wait(5);
+            Luz = "Ámbar";
+            await Wait(1.5f);
+            Luz = "Rojo";
+            await Wait(5);
+        }
+    }
+}</code></pre></div>
+<ul>
+<li><code>Wait</code> cuenta <strong>tiempo de juego</strong> (se para en pausa y con <code>Time.TimeScale</code>).</li>
+<li>Lo que va después de un <code>await</code> sigue <strong>en el hilo principal</strong>, en un frame siguiente, con su script como siempre
+(sus campos al día y la API disponible).</li>
+<li>Si el script o su entidad se destruyen (o se para el juego), lo que estaba esperando <strong>no sigue</strong>.</li>
+<li><code>SetTimeout(ms, () =&gt; ...)</code> y <code>Tasks.Delay(segundos, () =&gt; ...)</code> también valen, como en Lua.</li>
+<li><code>await Task.Delay(ms)</code> de .NET también vuelve al hilo principal con su script, pero cuenta <strong>tiempo real</strong> (no se
+para en pausa ni con <code>Time.TimeScale</code>): para el juego, mejor <code>Wait</code>. <code>Task.Run</code> (y <code>ConfigureAwait(false)</code>) siguen en
+otro hilo, donde no se puede usar la API del motor (es un error claro): sirve para cálculos que no tocan la escena.</li>
+<li><code>CreateThread(() =&gt; ...)</code> existe, pero dentro no se puede usar el <code>Wait</code> de Lua (y <code>Task.Wait</code> de Lua, <code>Tasks.Wait</code> en
+C#, no está): para esperar, <code>async</code> y <code>await Wait(segundos)</code>.</li>
+</ul>
+<h2 id="11-lua-y-c-en-el-mismo-proyecto">11. Lua y C# en el mismo proyecto<a class="ancla" href="#11-lua-y-c-en-el-mismo-proyecto" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los dos lenguajes conviven: una entidad puede llevar scripts Lua y C#, y cada uno usa al otro con <code>GetScript</code>.</p>
+<p><strong>Desde C#, un script Lua</strong> es un <code>LuaScript</code>: con <code>dynamic</code> se usa como en Lua (sus campos y sus funciones por
+nombre), o con <code>Get</code>, <code>Set</code> y <code>Call</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class Lector : Script
+{
+    void Update(float dt)
+    {
+        dynamic vida = GetScript("Vida"); // scripts/Vida.luau
+        if (vida == null) return;
+        vida.salud -= 10;                  // campo de Lua (los números llegan como double)
+        double queda = vida.Curar(5);      // función de Lua: vida:Curar(5)
+
+        LuaScript mismo = GetScript("Vida");
+        float salud = mismo.Get("salud").AsFloat();
+        mismo.Set("salud", salud + 1);
+        mismo.Call("Curar", 1);
+    }
+}</code></pre></div>
+<p><strong>Desde Lua, un script C#</strong> es como cualquier otro: <code>self:GetScript(&quot;Contador&quot;)</code> da su instancia, con sus campos
+<code>public</code> (con el nombre de C#) y sus métodos. Con este script C#:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class Contador : Script
+{
+    public int Count;
+
+    void Update(float dt) { Count++; }
+
+    public int Double(int x) =&gt; x * 2;
+}</code></pre></div>
+<p>uno Lua de la misma entidad lo lee y lo llama así:</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua language-lua"><span class="hl-k">local</span> <span class="hl-t">PuenteCs</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">PuenteCs</span>.leido = <span class="hl-n">0</span> <span class="hl-a">--[Int]</span>
+<span class="hl-t">PuenteCs</span>.doble = <span class="hl-n">0</span> <span class="hl-a">--[Int]</span>
+
+<span class="hl-k">function</span> <span class="hl-t">PuenteCs</span>:<span class="hl-f">Update</span>(dt: number)
+    <span class="hl-k">local</span> c = <span class="hl-b">self</span>:<span class="hl-f">GetScript</span>(<span class="hl-s">"Contador"</span>) <span class="hl-c">-- scripts/Contador.cs</span>
+    <span class="hl-k">if</span> c <span class="hl-k">then</span>
+        <span class="hl-b">self</span>.leido = c.Count <span class="hl-c">-- campo public de C#</span>
+        <span class="hl-b">self</span>.doble = c:<span class="hl-f">Double</span>(<span class="hl-n">21</span>) <span class="hl-c">-- método public de C#</span>
+    <span class="hl-k">end</span>
+<span class="hl-k">end</span>
+
+<span class="hl-k">return</span> <span class="hl-t">PuenteCs</span></code></pre></div>
+<p><strong>Entre scripts C#</strong>, con su clase: <code>GetScript&lt;Contador&gt;()</code> (o <code>Global&lt;T&gt;()</code>, <code>Instance&lt;T&gt;()</code>). Lo que escribes en
+los campos de otro script C# lo ven Lua, el Inspector y la red en cuanto termina la función que se está ejecutando.</p>
+<h2 id="12-el-editor-de-scripts-integrado">12. El editor de scripts integrado<a class="ancla" href="#12-el-editor-de-scripts-integrado" aria-label="Enlace a esta sección">#</a></h2>
+<p><strong>Nuevo script...</strong> (en <strong>Contenido</strong>, clic derecho, y en <strong>Añadir script</strong> del Inspector) pregunta el lenguaje:
+<strong>Lua</strong>, <strong>C#</strong> o <strong>C++ (avanzado)</strong>. El de C# sale con la plantilla de una clase <code>Script</code> con <code>Start</code> y <code>Update</code>.</p>
+<p>Los <code>.cs</code> se abren en el editor de scripts del motor (doble clic en <strong>Contenido</strong>, o desde un error) con lo mismo que
+los <code>.luau</code> (<a href="editor-scripts.html">editor-scripts.md</a>): números de línea, buscar y reemplazar, varias pestañas y guardar
+con <strong>Ctrl+S</strong>. Para C#, además:</p>
+<ul>
+<li><strong>Colores de C#</strong> y <strong>plegado</strong> por llaves y por <code>#region</code>.</li>
+<li><strong>Autocompletado</strong> (con Roslyn, el compilador de C#) de la API del motor y de tus propias clases y sus miembros, de
+las palabras clave y de los atributos. Dentro de la clase, los métodos del ciclo de vida (<code>Update</code>, <code>OnTriggerEnter</code>...)
+salen como fragmentos con su firma.</li>
+<li><strong>Ayuda de los parámetros</strong> al escribir <code>(</code> y <code>,</code>: la firma, el parámetro que toca y su documentación.</li>
+<li><strong>Ayuda al pasar el ratón</strong>: la documentación en español de cada función (la misma que la de Lua).</li>
+<li><strong>Errores mientras escribes</strong>: los del compilador, subrayados en su sitio, sin guardar.</li>
+<li><strong>Ir a la definición</strong>, <strong>buscar referencias</strong>, <strong>renombrar</strong> y el <strong>esquema</strong> del fichero (sus clases, campos y
+métodos).</li>
+<li><strong>Cada vez que guardas se compila y se recarga</strong> (sección <a href="#8-errores-y-recarga-en-caliente">8</a>).</li>
+</ul>
+<p>Los <strong>puntos de parada</strong> y el depurador paso a paso son solo de Lua: en un <code>.cs</code>, el editor lo dice en la barra de
+estado.</p>
+<h2 id="13-vs-code-visual-studio-y-rider">13. VS Code, Visual Studio y Rider<a class="ancla" href="#13-vs-code-visual-studio-y-rider" aria-label="Enlace a esta sección">#</a></h2>
+<p>Cuando el proyecto tiene scripts <code>.cs</code>, el editor escribe en su carpeta un <strong><code>Scripts.csproj</code></strong> (y una carpeta oculta
+<code>.csharp/</code> para lo que se genera al compilarlo) que incluye <code>scripts/**/*.cs</code> y referencia el <code>Nova.Runtime.dll</code> de tu
+instalación del motor (con su documentación en español). Ábrelo (o la carpeta del proyecto)
+en VS Code con la extensión <strong>C# Dev Kit</strong>, en Visual Studio o en Rider y tendrás el autocompletado, los errores y la
+ayuda de toda la API.</p>
+<ul>
+<li>Para eso sí hace falta el <strong>SDK de .NET 10</strong> en tu PC (es lo que usan esos editores para entender un <code>.csproj</code>). Para
+jugar, compilar y publicar con Nova <strong>no</strong> hace falta: el motor lleva el suyo.</li>
+<li>El <code>.csproj</code> es solo para los editores externos: el que compila los scripts es Nova al guardar. Si compilas con
+<code>dotnet build</code>, lo de <code>.csharp/</code> es tuyo (no se usa).</li>
+<li>Si mueves el motor de carpeta, el editor rehace el <code>.csproj</code> al abrir el proyecto.</li>
+<li>Para C# en VS Code, la extensión <strong>C# Dev Kit</strong> de Microsoft da el autocompletado. La extensión de <strong>Nova Engine</strong>
+(<a href="scripts-lua.html#13-vs-code-y-autocompletado">scripts-lua.md</a>) añade la orden <strong>«Nova: Nuevo script C#»</strong> y
+fragmentos para C#: <code>novascript</code> (un script entero), <code>Update</code>, <code>server</code>, <code>client</code>, <code>multicast</code>, <code>replicado</code>,
+<code>tablareplicada</code> y <code>esperar</code> (<code>await Wait(...)</code>).</li>
+</ul>
+<h2 id="14-publicar">14. Publicar<a class="ancla" href="#14-publicar" aria-label="Enlace a esta sección">#</a></h2>
+<p>Al publicar (<a href="publicar-juego.html">publicar-juego.md</a>), si el proyecto tiene scripts C#, el juego lleva además:</p>
+<ul>
+<li><code>data/scripts/Jugador.csc</code>: la clase sombra de cada script en bytecode, como el <code>.luauc</code> de los de Lua — <strong>sin el
+código fuente</strong>;</li>
+<li><code>csharp/</code>, junto al ejecutable: <code>Nova.Runtime.dll</code> y tus scripts compilados en modo Release (<code>Scripts.dll</code>), su
+<code>Scripts.pdb</code> (para que las excepciones digan fichero y línea) y <code>Scripts.json</code>;</li>
+<li><code>dotnet/</code>, junto al ejecutable: el runtime de .NET 10 (unos 70 MB). Un juego sin scripts C# no lo lleva.</li>
+</ul>
+<p><code>NovaGame.exe</code> y <code>NovaServer.exe</code> los cargan sin compilar nada (no llevan el compilador). Si un <code>.cs</code> no compila,
+publicar se para y dice cuál y en qué línea.</p>
+<h2 id="15-lo-que-todavía-no-hay-en-c">15. Lo que todavía no hay en C#<a class="ancla" href="#15-lo-que-todavía-no-hay-en-c" aria-label="Enlace a esta sección">#</a></h2>
+<p>La lista completa, miembro a miembro, está en <a href="csharp-paridad.html">csharp-paridad.md</a> (se comprueba sola al compilar
+el motor). Lo que hay que saber:</p>
+<ul>
+<li><strong>Datos de juego como campos</strong>: <code>Struct({...})</code>, <code>List(...)</code>, <code>Dict(...)</code> y los atributos <code>--[List(...)]</code> y
+<code>--[Dict(...)]</code> de <a href="datos.html">datos.md</a> no tienen versión C# todavía. Sí puedes <strong>leer</strong> Data Tables y Data Assets
+(<code>DataTable.Get(&quot;Armas&quot;)</code>, un campo <code>Asset</code> con <code>[AssetType(&quot;DataAsset&quot;)]</code>).</li>
+<li><strong>El depurador paso a paso del editor</strong> (puntos de parada, variables) es solo de Lua (en un <code>.cs</code>, la barra de
+estado lo dice). En C#, usa <code>Log.Info</code> y las
+excepciones (con fichero, línea y pila). Adjuntar Visual Studio al proceso de <code>NovaEditor.exe</code> (Depurar &gt; Asociar
+al proceso, código administrado) puede servir, pero no está probado: los scripts se cargan desde memoria.</li>
+<li><strong>Los arreglos rápidos</strong> (la bombilla del editor de scripts) y el aviso de los textos obsoletos son de Lua.</li>
+<li><strong>Los tipos de tus scripts Lua en C#</strong>: <code>GetScript(&quot;Vida&quot;)</code> da un <code>LuaScript</code> sin tipo (con <code>dynamic</code>), no una
+clase con sus campos.</li>
+<li><strong>Un bucle infinito en C# no se puede cortar</strong>: en Lua el motor detiene el script a los 2 segundos; el código C#
+corre en el proceso del editor y lo deja colgado (cierra el editor desde el Administrador de tareas; lo guardado no
+se pierde).</li>
+<li><strong>Sin límite de memoria por script</strong> (el de Lua es de 256 MB por partida).</li>
+<li><strong>Algunas páginas de la documentación</strong> solo tienen ejemplos en Lua: con C# elegido en el selector de lenguaje, cada
+ejemplo sin versión C# lo dice (sección <a href="#18-la-documentación-en-c">18</a>).</li>
+</ul>
+<h2 id="16-errores-comunes">16. Errores comunes<a class="ancla" href="#16-errores-comunes" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Lo que pasa</th>
+  <th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>El script no sale en <strong>Añadir script</strong></td>
+  <td>La clase no hereda de <code>Script</code>, no se llama como el fichero, es <code>abstract</code> o el proyecto no compila (mira la Consola)</td>
+</tr>
+<tr>
+  <td><code>La API del motor solo se puede usar dentro de las funciones del script</code></td>
+  <td>La usas en el constructor, en un inicializador de campo o en un <code>static</code> antes de jugar</td>
+</tr>
+<tr>
+  <td><code>La API del motor solo se puede usar desde el hilo principal</code></td>
+  <td>Desde <code>Task.Run</code>, un <code>Timer</code> de .NET o después de un <code>ConfigureAwait(false)</code>: usa <code>await Wait(...)</code></td>
+</tr>
+<tr>
+  <td>Un campo <code>public</code> no sale en el Inspector</td>
+  <td>Su tipo no puede ser campo (<code>List&lt;T&gt;</code>, una clase tuya): el compilador lo avisa</td>
+</tr>
+<tr>
+  <td><code>NullReferenceException</code> con un <code>Entity</code> o un <code>Asset</code></td>
+  <td>No se ha elegido nada en el Inspector: comprueba <code>!= null</code></td>
+</tr>
+<tr>
+  <td><code>[Server] X solo la puede llamar el dueño de 'Y'</code></td>
+  <td>Llamas a la <code>[Server]</code> desde un cliente que no es el dueño de esa entidad</td>
+</tr>
+<tr>
+  <td><code>'Random' es una referencia ambigua</code></td>
+  <td>Tienes <code>using System;</code>: escribe <code>Nova.Random</code></td>
+</tr>
+<tr>
+  <td>Un <code>static</code> sigue con el valor de la partida anterior</td>
+  <td>Los <code>static</code> duran toda la sesión del editor: límpialos en <code>OnDestroy</code></td>
+</tr>
+<tr>
+  <td><code>Update</code> no se llama</td>
+  <td>Lo escribiste con otro nombre (<code>update</code>, <code>OnUpdate</code>): los del ciclo de vida van con su nombre exacto</td>
+</tr>
+<tr>
+  <td>Al recargar se pierde una lista de objetos tuyos</td>
+  <td>La recarga conserva lo sencillo; lo de tus clases vuelve a su valor inicial (rellénalo en <code>Start</code> o guárdalo en campos)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="17-consejos-de-rendimiento">17. Consejos de rendimiento<a class="ancla" href="#17-consejos-de-rendimiento" aria-label="Enlace a esta sección">#</a></h2>
+<ul>
+<li><strong>Cada llamada a la API cruza a la máquina de Lua de la escena</strong>: es rápida, pero no gratis. Guarda lo que repites
+(<code>var cuerpo = GetComponent&lt;RigidBody&gt;();</code> en <code>Start</code>, no en cada <code>Update</code>) y lee una vez lo que usas varias
+(<code>Vec3 p = Entity.Position;</code>).</li>
+<li><strong>Los campos <code>public</code> se copian</strong> entre el motor y el objeto C# en cada llamada del motor (solo los que cambian):
+diez campos no se notan; trescientos en mil entidades, sí. Lo interno, mejor <code>private</code>.</li>
+<li><strong>La matemática es C# puro</strong> (<code>Vec3</code>, <code>Quat</code>, <code>Mathf.Lerp</code>...) salvo las funciones de ángulos: en bucles grandes,
+usa las de C#.</li>
+<li><strong>Para muchas entidades a la vez</strong>, las funciones por lotes de la API (<code>Scene.GetPositions</code>, <code>Physics</code> por lotes,
+<code>Spatial</code>) hacen el trabajo en el motor con una sola llamada (<a href="nativas-juego.html">nativas-juego.md</a>).</li>
+<li>El primer guardado tras abrir el editor tarda un par de segundos (el compilador arranca); los siguientes, una
+fracción.</li>
+</ul>
+<h2 id="18-la-documentación-en-c">18. La documentación en C#<a class="ancla" href="#18-la-documentación-en-c" aria-label="Enlace a esta sección">#</a></h2>
+<p>La documentación en HTML (la del editor, <strong>Ayuda &gt; Documentación</strong>, y la web) tiene arriba un <strong>selector de lenguaje</strong>:
+<strong>C#</strong>, <strong>Lua</strong> o <strong>C++</strong>. Lo que eliges se recuerda en el navegador:</p>
+<ul>
+<li><strong>El buscador</strong> (<strong>Ctrl+K</strong>) solo da resultados del lenguaje elegido, más las páginas que valen para todos (el
+editor, la interfaz, las físicas...).</li>
+<li><strong>Los bloques de código</strong> salen en el lenguaje elegido; si un ejemplo todavía no tiene versión en ese lenguaje, el
+bloque lo dice (y enseña el que hay).</li>
+<li><strong>La referencia de Lua</strong> es la de <strong>la API</strong>: en C# es la misma, con los nombres en PascalCase (sección
+<a href="#7-la-api-del-motor-en-c">7</a>).</li>
+</ul>
+<h2 id="apéndice-lo-que-cambia-respecto-a-lua">Apéndice: lo que cambia respecto a Lua<a class="ancla" href="#apéndice-lo-que-cambia-respecto-a-lua" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Lua</th>
+  <th>C#</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>local X = Script()</code> ... <code>return X</code></td>
+  <td><code>public class X : Script { }</code></td>
+</tr>
+<tr>
+  <td><code>X.vida = 100 --[Int]</code></td>
+  <td><code>public int Vida = 100;</code></td>
+</tr>
+<tr>
+  <td><code>X._interno = {}</code></td>
+  <td><code>List&lt;int&gt; _interno = new();</code> (cualquier campo no <code>public</code>)</td>
+</tr>
+<tr>
+  <td><code>--[Range(0, 10)]</code> encima</td>
+  <td><code>[Range(0, 10)]</code> encima</td>
+</tr>
+<tr>
+  <td><code>function X:Update(dt) ... end</code></td>
+  <td><code>void Update(float dt) { ... }</code></td>
+</tr>
+<tr>
+  <td><code>self.campo</code>, <code>self:Metodo()</code></td>
+  <td><code>Campo</code>, <code>Metodo()</code> (o <code>this.</code>)</td>
+</tr>
+<tr>
+  <td><code>self.entity</code>, <code>self.transform</code>, <code>self.name</code></td>
+  <td><code>Entity</code>, <code>Transform</code>, <code>Name</code></td>
+</tr>
+<tr>
+  <td><code>self:GetComponent(&quot;RigidBody&quot;)</code></td>
+  <td><code>GetComponent&lt;RigidBody&gt;()</code></td>
+</tr>
+<tr>
+  <td><code>self:GetScript(&quot;Vida&quot;)</code></td>
+  <td><code>GetScript&lt;Vida&gt;()</code> (C#) o <code>GetScript(&quot;Vida&quot;)</code> (<code>dynamic</code>)</td>
+</tr>
+<tr>
+  <td><code>Global(&quot;Rondas&quot;)</code>, <code>Instances.GameManager</code></td>
+  <td><code>Global&lt;Rondas&gt;()</code>, <code>Instance&lt;GameManager&gt;()</code></td>
+</tr>
+<tr>
+  <td><code>Vec3.new(1, 2, 3)</code>, <code>Vec3.up</code></td>
+  <td><code>new Vec3(1, 2, 3)</code>, <code>Vec3.Up</code></td>
+</tr>
+<tr>
+  <td><code>entidad.position</code></td>
+  <td><code>entidad.Position</code></td>
+</tr>
+<tr>
+  <td><code>UI(&quot;HUD/Vida&quot;)</code>, <code>UI()</code></td>
+  <td><code>UI.Get(&quot;HUD/Vida&quot;)</code>, <code>UI.Get()</code></td>
+</tr>
+<tr>
+  <td><code>Task.Delay(...)</code></td>
+  <td><code>Tasks.Delay(...)</code></td>
+</tr>
+<tr>
+  <td><code>Time.time</code></td>
+  <td><code>Time.Elapsed</code></td>
+</tr>
+<tr>
+  <td><code>source</code></td>
+  <td><code>Globals.Source</code></td>
+</tr>
+<tr>
+  <td><code>self:To(jugador):Aviso(&quot;x&quot;)</code></td>
+  <td><code>To(jugador).Call(nameof(Aviso), &quot;x&quot;)</code></td>
+</tr>
+<tr>
+  <td><code>CreateThread(function() Wait(1000) ... end)</code></td>
+  <td><code>async void ... { await Wait(1); ... }</code></td>
+</tr>
+<tr>
+  <td><code>pcall(f)</code></td>
+  <td><code>try { ... } catch (LuaException e) { ... }</code></td>
+</tr>
+<tr>
+  <td><code>Random.new(42)</code></td>
+  <td><code>Random.New(42)</code> (un <code>RandomGenerator</code>)</td>
+</tr>
+<tr>
+  <td><code>{ volume = 0.5 }</code></td>
+  <td><code>new OneShotOptions { Volume = 0.5f }</code></td>
+</tr>
+<tr>
+  <td><code>function(e) ... end</code></td>
+  <td><code>e =&gt; { ... }</code></td>
+</tr>
+<tr>
+  <td><code>Enum({&quot;A&quot;, &quot;B&quot;}, &quot;A&quot;)</code></td>
+  <td><code>public enum Modo { A, B }</code> + <code>public Modo Estado = Modo.A;</code></td>
+</tr>
+<tr>
+  <td><code>Asset(&quot;Prefab&quot;)</code></td>
+  <td><code>[AssetType(&quot;Prefab&quot;)] public Asset Bala;</code></td>
+</tr>
+<tr>
+  <td><code>Entity()</code></td>
+  <td><code>public Entity Objetivo;</code></td>
+</tr>
+<tr>
+  <td><code>--[Replicated] X.t = {}</code></td>
+  <td><code>[Replicated] public ReplicatedTable T;</code></td>
+</tr>
+<tr>
+  <td>Un error al ejecutar</td>
+  <td>Muchos, al compilar (y los demás, como excepciones con fichero y línea)</td>
+</tr>
+<tr>
+  <td>Sandbox: tiempo y memoria limitados</td>
+  <td>Sin límite: un bucle infinito cuelga el editor</td>
+</tr>
+</tbody>
+</table></div>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="scripts-cpp.html"><small>Anterior</small>Scripts en C++ (avanzado, opcional)</a><a class="sig" href="ejemplo-inventario-csharp.html"><small>Siguiente</small>Ejemplo: inventario tipo Rust (C#)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-por-qué-c-y-cuándo-lua-o-c">1. Por qué C# (y cuándo Lua o C++)</a></li><li class="n2"><a href="#2-tu-primer-script-en-cinco-minutos">2. Tu primer script en cinco minutos</a></li><li class="n2"><a href="#3-cómo-funciona-por-dentro">3. Cómo funciona por dentro</a></li><li class="n2"><a href="#4-anatomía-de-un-script">4. Anatomía de un script</a></li><li class="n3"><a href="#la-clase-y-lo-que-hereda-de-script">La clase y lo que hereda de Script</a></li><li class="n3"><a href="#ciclo-de-vida">Ciclo de vida</a></li><li class="n2"><a href="#5-atributos">5. Atributos</a></li><li class="n2"><a href="#6-campos-en-el-inspector">6. Campos en el Inspector</a></li><li class="n2"><a href="#7-la-api-del-motor-en-c">7. La API del motor en C#</a></li><li class="n2"><a href="#8-errores-y-recarga-en-caliente">8. Errores y recarga en caliente</a></li><li class="n2"><a href="#9-multijugador">9. Multijugador</a></li><li class="n2"><a href="#10-async-y-await">10. async y await</a></li><li class="n2"><a href="#11-lua-y-c-en-el-mismo-proyecto">11. Lua y C# en el mismo proyecto</a></li><li class="n2"><a href="#12-el-editor-de-scripts-integrado">12. El editor de scripts integrado</a></li><li class="n2"><a href="#13-vs-code-visual-studio-y-rider">13. VS Code, Visual Studio y Rider</a></li><li class="n2"><a href="#14-publicar">14. Publicar</a></li><li class="n2"><a href="#15-lo-que-todavía-no-hay-en-c">15. Lo que todavía no hay en C#</a></li><li class="n2"><a href="#16-errores-comunes">16. Errores comunes</a></li><li class="n2"><a href="#17-consejos-de-rendimiento">17. Consejos de rendimiento</a></li><li class="n2"><a href="#18-la-documentación-en-c">18. La documentación en C#</a></li><li class="n2"><a href="#apéndice-lo-que-cambia-respecto-a-lua">Apéndice: lo que cambia respecto a Lua</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>
