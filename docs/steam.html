@@ -23,7 +23,7 @@ del jugador, los lobbies con invitaciones, las partidas por Steam (sin abrir pue
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 <header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
 <div class="marco con-lateral con-toc">
-<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Scripts en C#</summary><ul><li><a href="scripts-csharp.html">Scripts en C#</a></li><li><a href="ejemplo-inventario-csharp.html">Ejemplo: inventario tipo Rust (C#)</a></li><li><a href="csharp-paridad.html">Paridad de la API: Lua y C#</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="terreno-voxel.html">Terreno de vóxeles (cavar, picar y esculpir)</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="base-de-datos.html">Base de datos (tablas, filas y columnas)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html" aria-current="page">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="asistentes-ia.html">Asistentes de IA (Claude Code y otros)</a></li><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Scripts en C#</summary><ul><li><a href="scripts-csharp.html">Scripts en C#</a></li><li><a href="utilidades-csharp.html">Utilidades de código en C#: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="herramientas-csharp.html">Herramientas de prueba y de editor en C# (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="ejemplo-inventario-csharp.html">Ejemplo: inventario tipo Rust (C#)</a></li><li><a href="csharp-paridad.html">Paridad de la API: Lua y C#</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="terreno-voxel.html">Terreno de vóxeles (cavar, picar y esculpir)</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo" open><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="base-de-datos.html">Base de datos (tablas, filas y columnas)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html" aria-current="page">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="asistentes-ia.html">Asistentes de IA (Claude Code y otros)</a></li><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <div class="lenguajes" id="lenguajes" role="group" aria-label="Lenguaje de los scripts">Lenguaje: <button type="button" data-lenguaje="csharp">C#</button><button type="button" data-lenguaje="lua">Lua</button><button type="button" data-lenguaje="cpp">C++</button></div><article class="doc"><h1 id="steam-en-nova-engine">Steam en Nova Engine</h1>
 <details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#1-lo-que-necesitas">1. Lo que necesitas</a></li><li class="n2"><a href="#2-el-sdk-de-steamworks">2. El SDK de Steamworks</a></li><li class="n2"><a href="#3-activar-steam-en-tu-proyecto">3. Activar Steam en tu proyecto</a></li><li class="n2"><a href="#4-probar-sin-steam-el-steam-simulado">4. Probar sin Steam: el Steam simulado</a></li><li class="n2"><a href="#5-probar-con-tu-steam---steam-prueba">5. Probar con tu Steam (--steam-prueba)</a></li><li class="n2"><a href="#6-el-jugador-nombre-avatar-idioma-y-dlc">6. El jugador: nombre, avatar, idioma y DLC</a></li><li class="n2"><a href="#7-lobbies-e-invitaciones">7. Lobbies e invitaciones</a></li><li class="n3"><a href="#cómo-funciona">Cómo funciona</a></li><li class="n3"><a href="#un-menú-de-ejemplo">Un menú de ejemplo</a></li><li class="n3"><a href="#datos-del-lobby">Datos del lobby</a></li><li class="n2"><a href="#8-partidas-por-steam-sin-abrir-puertos">8. Partidas por Steam (sin abrir puertos)</a></li><li class="n3"><a href="#la-edición-en-equipo-también-va-por-steam">La edición en equipo también va por Steam</a></li><li class="n2"><a href="#9-estado-para-los-amigos-rich-presence">9. Estado para los amigos (rich presence)</a></li><li class="n2"><a href="#10-overlay">10. Overlay</a></li><li class="n2"><a href="#11-logros-estadísticas-y-tablas">11. Logros, estadísticas y tablas</a></li><li class="n3"><a href="#en-steamworks">En Steamworks</a></li><li class="n3"><a href="#en-los-scripts">En los scripts</a></li><li class="n2"><a href="#12-eventos-de-steam">12. Eventos de Steam</a></li><li class="n2"><a href="#13-referencia-de-la-tabla-steam">13. Referencia de la tabla Steam</a></li><li class="n2"><a href="#14-probar-con-dos-cuentas-de-steam">14. Probar con dos cuentas de Steam</a></li><li class="n2"><a href="#15-publicar-en-steam">15. Publicar en Steam</a></li><li class="n3"><a href="#la-carpeta-del-juego">La carpeta del juego</a></li><li class="n3"><a href="#depots-opciones-de-lanzamiento-y-subida">Depots, opciones de lanzamiento y subida</a></li><li class="n3"><a href="#antes-del-lanzamiento">Antes del lanzamiento</a></li><li class="n2"><a href="#16-servidor-dedicado">16. Servidor dedicado</a></li><li class="n2"><a href="#17-qué-está-probado-y-qué-no">17. Qué está probado y qué no</a></li><li class="n2"><a href="#18-problemas-comunes">18. Problemas comunes</a></li><li class="n2"><a href="#ver-también">Ver también</a></li></ul></details><p>Esta guía explica cómo llevar tu juego a Steam con Nova Engine: el App ID, el SDK de Steamworks, el nombre y el avatar
@@ -184,7 +184,12 @@ sección 9; si no, en «Ver información del juego»).</p>
     <span class="hl-t">Log</span>.<span class="hl-f">Info</span>(<span class="hl-s">"Hola, "</span> .. <span class="hl-t">Steam</span>.<span class="hl-f">GetPersonaName</span>())
     <span class="hl-k">local</span> yo = <span class="hl-t">Steam</span>.<span class="hl-f">GetSteamID</span>() <span class="hl-c">-- texto: "76561198..."</span>
 <span class="hl-k">end</span></code></pre></div>
-<p>Los <strong>SteamID y los ids de lobby son textos</strong> en Lua (son números de 64 bits y un número de Lua perdería cifras).</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">if (Steam.IsAvailable())
+{
+    Log.Info("Hola, " + Steam.GetPersonaName());
+    string yo = Steam.GetSteamID(); // texto: "76561198..."
+}</code></pre></div>
+<p>Los <strong>SteamID y los ids de lobby son textos</strong> en Lua y en C# (son números de 64 bits y un número de Lua perdería cifras).</p>
 <p><strong>Avatar</strong> para la interfaz. Lo más cómodo (0.9.40) es <code>Steam.GetAvatarAsync</code>: pide el avatar y llama a tu función con
 la textura cuando llega (enseguida si ya estaba), y con <code>nil</code> si no llega (sin Steam, la persona no tiene o 15 s). Queda
 en caché: pedirlo otra vez es instantáneo.</p>
@@ -200,6 +205,20 @@ en caché: pedirlo otra vez es instantáneo.</p>
 <span class="hl-k">end</span>
 
 <span class="hl-k">return</span> <span class="hl-t">AvatarAsincrono</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class AvatarAsincrono : Script
+{
+    void Start()
+    {
+        // Sin id: el tuyo. Con el SteamID de otro (Steam.GetFriends, Lobby.GetSteamId...): el suyo
+        Steam.GetAvatarAsync(null, "medium", (avatar, _) =&gt;
+        {
+            if (avatar != null)
+                UI.Get("Lobby/Avatar").SetSprite(avatar);
+        });
+    }
+}</code></pre></div>
 <p>Para el avatar de un <strong>compañero de partida</strong> (también en las partidas por código o en la red local) usa
 <code>Lobby.GetAvatarAsync(jugador, tamaño, función)</code> con su id de jugador: cada uno dice su SteamID al entrar en la sala
 (<a href="lobby-y-escenas.html#37-datos-de-cada-jugador-líder-y-avatares">lobby-y-escenas.md</a>).</p>
@@ -222,6 +241,26 @@ mientras Steam la descarga; cuando llega, avisa con <code>steam:avatarLoaded</co
 <span class="hl-k">end</span>
 
 <span class="hl-k">return</span> <span class="hl-t">AvatarJugador</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class AvatarJugador : Script
+{
+    void Start()
+    {
+        Pintar();
+        AddEventHandler("steam:avatarLoaded", args =&gt;
+        {
+            if (args[0].AsString() == Steam.GetSteamID()) Pintar();
+        });
+    }
+
+    void Pintar()
+    {
+        Asset avatar = Steam.GetAvatar(null, "medium");
+        if (avatar != null)
+            UI.Get("Lobby/Avatar").SetSprite(avatar);
+    }
+}</code></pre></div>
 <p>Tamaños: <code>&quot;small&quot;</code> (32), <code>&quot;medium&quot;</code> (64) y <code>&quot;large&quot;</code> (184).</p>
 <blockquote>
 <p><strong>Por qué a veces no salía el avatar de otro jugador</strong> (arreglado en la 0.9.40). Steam solo avisa cuando descarga el
@@ -316,6 +355,54 @@ anuncia en cuanto escucha.</li>
 <span class="hl-k">end</span>
 
 <span class="hl-k">return</span> <span class="hl-t">MenuSteam</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+using System.Collections.Generic;
+
+public class MenuSteam : Script
+{
+    List&lt;SteamLobby&gt; _encontrados = new();
+
+    void Start()
+    {
+        AddEventHandler("steam:lobbyEntered", args =&gt; Log.Info("Dentro del lobby " + args[0].AsString()));
+        AddEventHandler("steam:lobbyFailed", args =&gt; Log.Warn("Steam: " + args[0].AsString()));
+        // Argumentos: id y nombre
+        AddEventHandler("steam:lobbyMemberJoined", args =&gt; Log.Info(args[1].AsString() + " ha entrado"));
+    }
+
+    void OnGUI()
+    {
+        if (!Steam.IsAvailable()) return;
+        GUI.Begin("Mi Juego", 40, 40);
+        GUI.Text("Hola, " + Steam.GetPersonaName());
+        SteamLobby lobby = Steam.GetLobby();
+        if (lobby == null)
+        {
+            if (GUI.Button("Crear partida con amigos"))
+                Steam.CreateLobby(new SteamLobbyOptions { Type = "friends", MaxPlayers = 8, Invite = true });
+            if (GUI.Button("Buscar partidas"))
+                Steam.FindLobbies(new SteamLobbyFilter { FreeSlots = true }, lista =&gt; _encontrados = lista);
+            foreach (SteamLobby l in _encontrados)
+            {
+                if (GUI.Button($"{l.Name} ({l.Members}/{l.MaxMembers})"))
+                    Steam.JoinLobby(l.Id);
+            }
+        }
+        else
+        {
+            GUI.Text($"Lobby: {lobby.Members}/{lobby.MaxMembers}");
+            foreach (SteamLobbyMember m in Steam.GetLobbyMembers())
+                GUI.Text((m.IsOwner ? "* " : "  ") + m.Name);
+            if (GUI.Button("Invitar amigos")) Steam.InviteFriends();
+            if (GUI.Button("Salir"))
+            {
+                Steam.LeaveLobby();
+                Network.Disconnect();
+            }
+        }
+        GUI.End();
+    }
+}</code></pre></div>
 <h3 id="datos-del-lobby">Datos del lobby<a class="ancla" href="#datos-del-lobby" aria-label="Enlace a esta sección">#</a></h3>
 <ul>
 <li>El dueño guarda datos que ven todos y las búsquedas: <code>Steam.SetLobbyData(&quot;piso&quot;, &quot;7&quot;)</code>; los demás los leen con
@@ -400,6 +487,22 @@ juego».</p>
 <span class="hl-k">end</span>
 
 <span class="hl-k">return</span> <span class="hl-t">PausaOverlay</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+[Global]
+public class PausaOverlay : Script
+{
+    void Awake()
+    {
+        AddEventHandler("steam:overlay", args =&gt;
+        {
+            bool abierto = args[0].AsBool();
+            // Solo en una partida de un jugador: en red el tiempo no se para por uno
+            if (!Network.IsRunning())
+                Time.TimeScale = abierto ? 0 : 1;
+        });
+    }
+}</code></pre></div>
 <ul>
 <li><code>Steam.IsOverlayEnabled()</code>: el overlay funciona (el jugador puede desactivarlo en Steam &gt; Parámetros &gt; En la
 partida). <code>Steam.IsOverlayOpen()</code>: está abierto ahora.</li>
@@ -434,6 +537,26 @@ script usa un logro que no está ahí y da los nombres a <code>Steam.GetAchievem
 <span class="hl-k">end</span>
 
 <span class="hl-k">return</span> <span class="hl-t">LogrosPisos</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class LogrosPisos : Script
+{
+    public void SubirPiso(int piso)
+    {
+        Steam.AddStat("pisos", 1);
+        if (piso == 10)
+            Steam.UnlockAchievement("PISO_10"); // sale la notificación de Steam
+    }
+
+    public void FinDeRonda(int pisos)
+    {
+        Steam.StoreStats(); // guarda en Steam las estadísticas cambiadas
+        Steam.UploadScore("Pisos", pisos, callback: r =&gt;
+        {
+            if (r.Ok) Log.Info("Puesto " + r.Rank + " en la tabla");
+        });
+    }
+}</code></pre></div>
 <ul>
 <li><code>Steam.UnlockAchievement(id)</code> desbloquea <strong>y guarda</strong> (sale la notificación). <code>Steam.IsAchievementUnlocked(id)</code>,
 <code>Steam.GetAchievements()</code> (con nombre, descripción y si está desbloqueado) y

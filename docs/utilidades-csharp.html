@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="es" data-sec="docs" data-lenguaje="csharp" data-equivalentes='{&quot;lua&quot;:&quot;utilidades-lua.html&quot;}'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utilidades de código en C#: etiquetas, interfaces, eventos, temporizadores y pools · Nova Engine</title>
+<meta name="description" content="Esta es la versión en C# de utilidades-lua.md: las mismas herramientas, con todos los ejemplos
+en C#. Si quieres comparar con Lua, la guía de Lua tiene los mismos apartados en el mismo orden.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#121318">
+<meta property="og:title" content="Utilidades de código en C#: etiquetas, interfaces, eventos, temporizadores y pools · Nova Engine">
+<meta property="og:description" content="Esta es la versión en C# de utilidades-lua.md: las mismas herramientas, con todos los ejemplos
+en C#. Si quieres comparar con Lua, la guía de Lua tiene los mismos apartados en el mismo orden.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/utilidades-csharp.html">
+<link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/utilidades-csharp.html">
+<link rel="icon" href="../assets/img/nova.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/sitio.css">
+<script>(function(){var t;try{t=localStorage.getItem("nova-tema")}catch(e){}if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)})();</script>
+</head>
+<body class="pagina-doc">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
+<div class="marco con-lateral con-toc">
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo"><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo" open><summary>Scripts en C#</summary><ul><li><a href="scripts-csharp.html">Scripts en C#</a></li><li><a href="utilidades-csharp.html" aria-current="page">Utilidades de código en C#: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="herramientas-csharp.html">Herramientas de prueba y de editor en C# (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="ejemplo-inventario-csharp.html">Ejemplo: inventario tipo Rust (C#)</a></li><li><a href="csharp-paridad.html">Paridad de la API: Lua y C#</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="terreno-voxel.html">Terreno de vóxeles (cavar, picar y esculpir)</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="base-de-datos.html">Base de datos (tablas, filas y columnas)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="asistentes-ia.html">Asistentes de IA (Claude Code y otros)</a></li><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<main id="contenido" tabindex="-1">
+<div class="lenguajes" id="lenguajes" role="group" aria-label="Lenguaje de los scripts">Lenguaje: <button type="button" data-lenguaje="csharp">C#</button><button type="button" data-lenguaje="lua">Lua</button><button type="button" data-lenguaje="cpp">C++</button></div><article class="doc"><h1 id="utilidades-de-código-en-c-etiquetas-interfaces-eventos-temporizadores-y-pools">Utilidades de código en C#: etiquetas, interfaces, eventos, temporizadores y pools</h1>
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-gameplay-tags-etiquetas-jerárquicas">1. Gameplay Tags: etiquetas jerárquicas</a></li><li class="n3"><a href="#son-las-etiquetas-de-siempre">Son las etiquetas de siempre</a></li><li class="n3"><a href="#declararlas-en-el-proyecto">Declararlas en el proyecto</a></li><li class="n3"><a href="#en-el-inspector">En el Inspector</a></li><li class="n3"><a href="#campos-de-etiquetas-tagset">Campos de etiquetas (TagSet)</a></li><li class="n3"><a href="#contenedores-de-etiquetas-tagcontainer">Contenedores de etiquetas (TagContainer)</a></li><li class="n3"><a href="#en-las-entidades">En las entidades</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n2"><a href="#2-interfaces">2. Interfaces</a></li><li class="n3"><a href="#declarar-e-implementar">Declarar e implementar</a></li><li class="n3"><a href="#llamar-sin-saber-qué-script-es">Llamar sin saber qué script es</a></li><li class="n3"><a href="#que-el-motor-y-lua-la-vean-interface-e-implements">Que el motor (y Lua) la vean: [Interface] e [Implements]</a></li><li class="n3"><a href="#con-scripts-lua-en-el-mismo-proyecto">Con scripts Lua en el mismo proyecto</a></li><li class="n2"><a href="#3-eventos-en-el-inspector-y-por-código">3. Eventos en el Inspector y por código</a></li><li class="n3"><a href="#paso-a-paso-una-puerta-que-enciende-una-alarma">Paso a paso: una puerta que enciende una alarma</a></li><li class="n3"><a href="#suscribirse-por-código">Suscribirse por código</a></li><li class="n3"><a href="#con-prefabs">Con prefabs</a></li><li class="n3"><a href="#en-red-dónde-se-lanza">En red: dónde se lanza</a></li><li class="n2"><a href="#4-temporizadores-con-mango">4. Temporizadores con mango</a></li><li class="n2"><a href="#5-pools-de-objetos">5. Pools de objetos</a></li><li class="n3"><a href="#en-red-pools-de-objetos-de-red">En red: pools de objetos de red</a></li><li class="n3"><a href="#cuánto-se-gana">Cuánto se gana</a></li><li class="n2"><a href="#6-resumen-de-la-api">6. Resumen de la API</a></li></ul></details><p>Esta es la versión en <strong>C#</strong> de <a href="utilidades-lua.html">utilidades-lua.md</a>: las mismas herramientas, con todos los ejemplos
+en C#. Si quieres comparar con Lua, la guía de Lua tiene los mismos apartados en el mismo orden.</p>
+<p>Herramientas para programar juegos en C# sin repetir código: <strong>Gameplay Tags</strong> (etiquetas
+jerárquicas), <strong>interfaces</strong> (contratos que cumplen varios scripts), <strong>eventos</strong>, <strong>temporizadores con mango</strong> y <strong>pools de objetos</strong> (también de objetos de red).</p>
+<p>Todo funciona igual en el editor, en <code>NovaGame.exe</code> y en <code>NovaServer.exe</code>, y tiene su autocompletado y su documentación
+en el editor de scripts integrado y en VS Code, Visual Studio o Rider (<a href="scripts-csharp.html#13-vs-code-visual-studio-y-rider">scripts-csharp.md</a>).
+Lo que en C# se escribe distinto que en Lua está en cada apartado; lo que todavía no hay en C# se dice donde toca y en
+<a href="csharp-paridad.html">csharp-paridad.md</a>.</p>
+<h2 id="índice">Índice<a class="ancla" href="#índice" aria-label="Enlace a esta sección">#</a></h2>
+<ol>
+<li><a href="#1-gameplay-tags-etiquetas-jerárquicas">Gameplay Tags: etiquetas jerárquicas</a></li>
+<li><a href="#2-interfaces">Interfaces</a></li>
+<li><a href="#3-eventos-en-el-inspector-y-por-código">Eventos en el Inspector y por código</a></li>
+<li><a href="#4-temporizadores-con-mango">Temporizadores con mango</a></li>
+<li><a href="#5-pools-de-objetos">Pools de objetos</a></li>
+<li><a href="#6-resumen-de-la-api">Resumen de la API</a></li>
+</ol>
+<h2 id="1-gameplay-tags-etiquetas-jerárquicas">1. Gameplay Tags: etiquetas jerárquicas<a class="ancla" href="#1-gameplay-tags-etiquetas-jerárquicas" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una etiqueta de juego es un nombre con partes separadas por puntos: <code>Estado.Herido</code>, <code>Objeto.Botin.Oro</code>, <code>Arma.Pistola</code>.
+<code>Objeto.Botin.Oro</code> es <strong>hija</strong> de <code>Objeto.Botin</code>, que es hija de <code>Objeto</code>. Preguntar por una etiqueta encaja con ella
+<strong>y con todas sus hijas</strong>:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">entidad.HasTag("Objeto.Botin");      // true si tiene Objeto.Botin, Objeto.Botin.Oro, Objeto.Botin.Plata...
+entidad.HasTagExact("Objeto.Botin"); // solo Objeto.Botin
+Tags.Matches("Objeto.Botin.Oro", "Objeto.Botin"); // true</code></pre></div>
+<p>Se compara por partes: <code>Objeto.Bot</code> no encaja con <code>Objeto.Botin</code>.</p>
+<h3 id="son-las-etiquetas-de-siempre">Son las etiquetas de siempre<a class="ancla" href="#son-las-etiquetas-de-siempre" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las etiquetas de juego son las del componente <strong>Etiquetas</strong> (<code>Tags</code>) que ya usabas con <code>Scene.FindByTag</code>. Una etiqueta sin
+puntos (<code>&quot;Enemigo&quot;</code>) funciona exactamente igual que antes. Lo que cambia:</p>
+<ul>
+<li><code>entidad.HasTag(&quot;X&quot;)</code> también es <code>true</code> si la entidad tiene una hija de <code>X</code> (<code>X.Algo</code>). Con etiquetas sin puntos no
+cambia nada.</li>
+<li><code>Scene.FindByTag</code> y <code>Scene.FindAllByTag</code> siguen siendo <strong>exactas</strong> (como siempre). Las jerárquicas son
+<code>Scene.FindWithTag</code> y <code>Scene.FindAllWithTag</code>.</li>
+<li>Las IA, los decals y la vegetación siguen comparando sus etiquetas exactas.</li>
+</ul>
+<h3 id="declararlas-en-el-proyecto">Declararlas en el proyecto<a class="ancla" href="#declararlas-en-el-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p>En <strong>Ventana &gt; Scripts &gt; Etiquetas de juego</strong> se ve el árbol de las etiquetas del proyecto. Se guardan en
+<code>assets/etiquetas.json</code> (va con el juego publicado). Es la misma ventana para Lua y para C#:</p>
+<ul>
+<li><strong>+ Etiqueta</strong> añade una en la raíz; <strong>+ Hija</strong>, una dentro de la elegida.</li>
+<li><strong>Renombrar</strong> enseña antes en qué escenas, prefabs y scripts se usa (y cuántas veces). Con <strong>Cambiar también sus usos</strong>
+se cambian a la vez en esos ficheros (dentro de comillas en los scripts) y en la escena abierta, con deshacer.</li>
+<li><strong>Borrar</strong> quita la etiqueta y sus hijas del proyecto. Los usos no se tocan: siguen funcionando en los scripts, pero ya no
+salen en el selector.</li>
+<li>Cada etiqueta puede llevar un comentario (para qué sirve), que sale al pasar el ratón.</li>
+</ul>
+<p>Declararlas no es obligatorio: un script puede usar cualquier nombre válido. Las declaradas salen en el selector del
+Inspector y viajan más cortas por la red. (El autocompletado de las etiquetas <strong>dentro de las comillas</strong> mientras
+escribes, <code>HasTag(&quot;</code>, de momento es solo de Lua.)</p>
+<h3 id="en-el-inspector">En el Inspector<a class="ancla" href="#en-el-inspector" aria-label="Enlace a esta sección">#</a></h3>
+<p>El componente <strong>Etiquetas</strong> se ve como «chips» (clic para quitar una) y un botón <strong>+</strong> con el árbol de las del proyecto
+(con buscador) y una caja para escribir otra. Una etiqueta que no está declarada se ve en amarillo. Todo tiene deshacer
+(Ctrl+Z).</p>
+<h3 id="campos-de-etiquetas-tagset">Campos de etiquetas (<code>TagSet</code>)<a class="ancla" href="#campos-de-etiquetas-tagset" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un campo <strong><code>TagSet</code></strong> es lo que en Lua es un campo <code>Tags()</code>: un conjunto de etiquetas que se edita con chips en el
+Inspector y se guarda con la escena. Sus preguntas son jerárquicas (<code>Estado.Has(&quot;Estado&quot;)</code> encaja con <code>Estado.Vivo</code>) y se
+responden en C#, sin llamar al motor; lo que le cambies se guarda en el campo al terminar la llamada:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class EstadosConCampos : Script
+{
+    public TagSet Estado = new("Estado.Vivo");
+    [Tooltip("De lo que es inmune (p. ej. Estado.Envenenado)")]
+    public TagSet Inmune = new(); // se rellena en el Inspector
+
+    public void Herir(float cantidad)
+    {
+        if (Estado.HasAny("Estado.Muerto", "Estado.Invulnerable"))
+            return;
+        Estado.Add("Estado.Herido");
+        if (cantidad &gt; 50)
+        {
+            Estado.Remove("Estado.Vivo", "Estado.Herido");
+            Estado.Add("Estado.Muerto");
+        }
+    }
+
+    public bool Envenenar() =&gt; !Inmune.Has("Estado.Envenenado") &amp;&amp; Estado.Add("Estado.Envenenado");
+}</code></pre></div>
+<p><code>TagSet</code>: <code>Has</code>, <code>HasExact</code>, <code>HasAny(...)</code>, <code>HasAll(...)</code>, <code>Add(...)</code> y <code>Remove(...)</code> (<code>true</code> si cambió algo), <code>Clear()</code>,
+<code>GetAll()</code>, <code>Count</code> y <code>Copy()</code>, con <code>string</code>s.</p>
+<h3 id="contenedores-de-etiquetas-tagcontainer">Contenedores de etiquetas (<code>TagContainer</code>)<a class="ancla" href="#contenedores-de-etiquetas-tagcontainer" aria-label="Enlace a esta sección">#</a></h3>
+<p>Un <code>TagContainer</code> es el conjunto de etiquetas del motor, con las mismas preguntas: es lo que devuelve <code>e.GetTags()</code> (las
+etiquetas de la entidad) y se crea suelto con <code>Tags.Container(...)</code> (o <code>Tags.New(...)</code>) dentro de <code>Awake</code> o <code>Start</code> (no en
+el inicializador del campo: ahí todavía no se puede usar la API). Para un campo del Inspector, <code>TagSet</code> (arriba).</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// Estados con etiquetas: un solo sitio con todo lo que le pasa al jugador
+public class EstadosDelJugador : Script
+{
+    [Tooltip("Etiquetas de las que es inmune, separadas por comas (p. ej. Estado.Envenenado)")]
+    public string Inmune = "";
+
+    TagContainer _estado;
+    TagContainer _inmune;
+
+    void Awake()
+    {
+        _estado = Tags.Container("Estado.Vivo");
+        _inmune = Tags.Container(LuaValue.From(Inmune.Split(',', System.StringSplitOptions.RemoveEmptyEntries | System.StringSplitOptions.TrimEntries)));
+    }
+
+    public void Herir(float cantidad)
+    {
+        if (_estado.HasAny(LuaValue.From(new[] { "Estado.Muerto", "Estado.Invulnerable" })))
+            return;
+        _estado.Add("Estado.Herido");
+        if (cantidad &gt; 50)
+        {
+            _estado.Remove(LuaValue.From(new[] { "Estado.Vivo", "Estado.Herido" }));
+            _estado.Add("Estado.Muerto");
+        }
+    }
+
+    public void Envenenar()
+    {
+        if (_inmune.Has("Estado.Envenenado"))
+            return; // inmune
+        _estado.Add("Estado.Envenenado");
+        // Las etiquetas de la entidad (componente Etiquetas) también: se replican si tiene Identidad de red
+        Entity.AddTag("Estado.Envenenado");
+    }
+
+    public bool PuedeCorrer() =&gt; _estado.Has("Estado.Vivo") &amp;&amp; !_estado.Has("Estado.Herido");
+}</code></pre></div>
+<p>Donde la API acepta «una etiqueta o una lista» (<code>HasAny</code>, <code>HasAll</code>, <code>Add</code>, <code>Remove</code>, <code>Tags.Container</code>), el parámetro es
+un <code>LuaValue</code>: un <code>string</code> vale tal cual, una lista se pasa con <code>LuaValue.From(new[] { &quot;A&quot;, &quot;B&quot; })</code> (o una
+<code>List&lt;string&gt;</code>), y otro <code>TagContainer</code> también vale.</p>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>TagContainer</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>c.Has(etiqueta)</code></td>
+  <td>Alguna encaja (jerárquico)</td>
+</tr>
+<tr>
+  <td><code>c.HasExact(etiqueta)</code></td>
+  <td>Tiene exactamente esa</td>
+</tr>
+<tr>
+  <td><code>c.HasAny(lista)</code> / <code>c.HasAll(lista)</code></td>
+  <td>Encaja con alguna / con todas (jerárquico). La lista puede ser una etiqueta, una lista u otro contenedor</td>
+</tr>
+<tr>
+  <td><code>c.Add(...)</code> / <code>c.Remove(...)</code></td>
+  <td>Añade las que falten / quita esas (exactas). <code>true</code> si cambió algo</td>
+</tr>
+<tr>
+  <td><code>c.Clear()</code>, <code>c.GetAll()</code>, <code>c.Count()</code>, <code>c.Copy()</code></td>
+  <td>Vaciar, <code>List&lt;string&gt;</code> con las etiquetas, cuántas, copia suelta</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="en-las-entidades">En las entidades<a class="ancla" href="#en-las-entidades" aria-label="Enlace a esta sección">#</a></h3>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Entity</code></th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>e.HasTag(t)</code></td>
+  <td>Tiene <code>t</code> o una hija suya</td>
+</tr>
+<tr>
+  <td><code>e.HasTagExact(t)</code></td>
+  <td>Tiene exactamente <code>t</code></td>
+</tr>
+<tr>
+  <td><code>e.HasAnyTag(lista)</code> / <code>e.HasAllTags(lista)</code></td>
+  <td>Alguna / todas (jerárquico)</td>
+</tr>
+<tr>
+  <td><code>e.AddTag(t)</code> / <code>e.RemoveTag(t)</code></td>
+  <td>Como siempre</td>
+</tr>
+<tr>
+  <td><code>e.GetTags()</code></td>
+  <td>Sus etiquetas como <code>TagContainer</code> unido a la entidad (<code>e.GetTags().Add(&quot;X&quot;)</code> cambia la entidad)</td>
+</tr>
+<tr>
+  <td><code>e.Tags</code></td>
+  <td>Sus etiquetas como <code>List&lt;string&gt;</code>; se puede asignar una lista nueva (<code>e.Tags = new List&lt;string&gt; { ... }</code>)</td>
+</tr>
+<tr>
+  <td><code>Scene.FindAllWithTag(t)</code> / <code>Scene.FindWithTag(t)</code></td>
+  <td>Las entidades con <code>t</code> o una hija (jerárquico)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Y en la tabla <code>Tags</code>: <code>Tags.Matches(etiqueta, consulta)</code>, <code>Tags.IsValid(nombre)</code>, <code>Tags.Exists(nombre)</code> (declarada en el
+proyecto), <code>Tags.Parent(etiqueta)</code> y <code>Tags.All()</code> (las del proyecto).</p>
+<h3 id="en-red">En red<a class="ancla" href="#en-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las etiquetas del componente <strong>Etiquetas</strong> de una entidad con <strong>Identidad de red</strong> se replican: lo que el servidor añade o
+quita (con <code>AddTag</code>, <code>RemoveTag</code>, <code>GetTags()</code>, <code>e.Tags = ...</code> o desde C++) llega a todos los clientes. Las del proyecto viajan por su número
+(<code>#3</code>) y las demás por su nombre; caben unos 256 bytes por entidad (de sobra para decenas de etiquetas del proyecto). Un
+<code>TagContainer</code> suelto (como <code>_estado</code> del ejemplo) <strong>no</strong> se replica: si los clientes lo necesitan, usa las etiquetas de la
+entidad o una tabla replicada (<a href="scripts-csharp.html#9-multijugador">scripts-csharp.md</a>).</p>
+<h2 id="2-interfaces">2. Interfaces<a class="ancla" href="#2-interfaces" aria-label="Enlace a esta sección">#</a></h2>
+<p>Una interfaz es un contrato: una lista de funciones. Varios scripts distintos la cumplen y el que llama no necesita saber
+cuál es. Sirve para «cualquier cosa que se pueda recoger», «cualquier cosa que reciba daño»...</p>
+<p>En C# una interfaz es una <strong><code>interface</code> de C#</strong>, con sus tipos: el compilador comprueba que el script tiene todas sus
+funciones, con los parámetros y lo que devuelven. Es la diferencia más grande con Lua, donde se declara con
+<code>Interface(...)</code> y el motor avisa al cargar el script.</p>
+<h3 id="declarar-e-implementar">Declarar e implementar<a class="ancla" href="#declarar-e-implementar" aria-label="Enlace a esta sección">#</a></h3>
+<p>La interfaz va en su propio fichero de <code>scripts/</code> (todos los <code>.cs</code> se compilan juntos, así que la ven todos los scripts sin
+<code>require</code>). En el mismo fichero va un pequeño registro para encontrarla en una entidad (ver el apartado siguiente):</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">// scripts/IRecogible.cs: lo que tiene que tener todo lo que se puede recoger
+using Nova;
+using System.Collections.Generic;
+
+public interface IRecogible
+{
+    int AlCoger(Entity jugador);
+    string Descripcion();
+}
+
+// Qué script de cada entidad se puede recoger: lo rellenan los propios scripts (Awake y OnDestroy)
+public static class Recogibles
+{
+    static readonly Dictionary&lt;Entity, IRecogible&gt; s_deLaEntidad = new();
+
+    public static void Registrar(Entity e, IRecogible r) =&gt; s_deLaEntidad[e] = r;
+    public static void Quitar(Entity e) =&gt; s_deLaEntidad.Remove(e);
+    public static IRecogible De(Entity e) =&gt; e != null &amp;&amp; s_deLaEntidad.TryGetValue(e, out IRecogible r) ? r : null;
+}</code></pre></div>
+<p>El script dice que la implementa en su declaración (<code>: Script, IRecogible</code>) y se apunta en el registro:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class BotinOro : Script, IRecogible
+{
+    public int Valor = 250;
+
+    void Awake() =&gt; Recogibles.Registrar(Entity, this);
+    void OnDestroy() =&gt; Recogibles.Quitar(Entity);
+
+    public int AlCoger(Entity jugador)
+    {
+        Log.Info(jugador.Name + " recoge oro");
+        Destroy();
+        return Valor;
+    }
+
+    public string Descripcion() =&gt; "Lingote de oro (" + Valor + ")";
+}</code></pre></div>
+<p>Si al script <strong>le falta una función</strong> (o la tiene con otros tipos), no compila: al guardar sale el error con el fichero y
+la línea, en la Consola y en <strong>Problemas</strong> (<code>error CS0535: 'BotinOro' no implementa el miembro de interfaz 'IRecogible.Descripcion()'</code>), y el juego sigue con la versión anterior de los scripts.</p>
+<h3 id="llamar-sin-saber-qué-script-es">Llamar sin saber qué script es<a class="ancla" href="#llamar-sin-saber-qué-script-es" aria-label="Enlace a esta sección">#</a></h3>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// El jugador recoge lo que toca, sea lo que sea (oro, armas, llaves...)
+public class RecolectorBotin : Script
+{
+    public int Total;
+
+    void OnTriggerEnter(Entity otra)
+    {
+        IRecogible recogible = Recogibles.De(otra);
+        if (recogible == null)
+            return;
+        // Una llamada normal de C#: devuelve lo que devuelva la función del script que sea
+        Total += recogible.AlCoger(Entity);
+    }
+
+    public void Mirar(Entity otra)
+    {
+        IRecogible recogible = Recogibles.De(otra);
+        if (recogible != null)
+            Log.Info("Ves: " + recogible.Descripcion());
+    }
+}</code></pre></div>
+<p>El registro es C# puro (llamadas con tipos, sin pasar por el motor). Como todo lo <code>static</code>, se vacía al recargar los
+scripts con el juego en marcha (los objetos que ya existen no vuelven a pasar por <code>Awake</code>): para probarlo después de un
+cambio, vuelve a pulsar <strong>Jugar</strong>.</p>
+<h3 id="que-el-motor-y-lua-la-vean-interface-e-implements">Que el motor (y Lua) la vean: <code>[Interface]</code> e <code>[Implements]</code><a class="ancla" href="#que-el-motor-y-lua-la-vean-interface-e-implements" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con <strong><code>[Interface(&quot;Nombre&quot;)]</code></strong> encima, una <code>interface</code> de C# es también una interfaz del motor (la de
+<code>Interface(&quot;Nombre&quot;, {...})</code> de Lua, con sus métodos como funciones): los scripts C# que la implementan los encuentran
+<code>e.Implements</code>, <code>e.GetInterface</code> e <code>Interfaces.Call</code>, desde C# y desde Lua, sin registro:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+[Interface("Vendible")]
+public interface IVendible
+{
+    int Precio();
+}
+
+public class Joya : Script, IVendible
+{
+    public int Valor = 900;
+    public int Precio() =&gt; Valor;
+}</code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">// Sin saber qué script es (en Lua: Interfaces.Call(otra, "Vendible", "Precio"))
+LuaValue[] precio = Interfaces.Call(otra, "Vendible", "Precio");</code></pre></div>
+<p>Para una interfaz declarada en <strong>Lua</strong> (<code>return Interface(&quot;Recogible&quot;, { &quot;AlCoger&quot;, &quot;Descripcion&quot; })</code>), el script C# dice
+que la cumple con <strong><code>[Implements(&quot;Recogible&quot;)]</code></strong> encima de su clase (como <code>Clase:Implements(...)</code>), y tiene que tener sus
+funciones como métodos (el motor avisa al cargarlo si le falta alguna).</p>
+<h3 id="con-scripts-lua-en-el-mismo-proyecto">Con scripts Lua en el mismo proyecto<a class="ancla" href="#con-scripts-lua-en-el-mismo-proyecto" aria-label="Enlace a esta sección">#</a></h3>
+<p>Las interfaces del motor (las de Lua, <code>Interface(&quot;Recogible&quot;, { ... })</code>) también se usan desde C#: un script C# puede
+preguntar y llamar a los scripts <strong>Lua</strong> de una entidad que las implementan.</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">// Una entidad con un script Lua que hace BotinOro:Implements(Recogible)
+if (otra.Implements("Recogible"))
+{
+    LuaValue[] devuelto = Interfaces.Call(otra, "Recogible", "AlCoger", Entity);
+    Total += devuelto.Length &gt; 0 ? devuelto[0].AsInt() : 0;
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Lua</th>
+  <th>C#</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Interface(nombre?, { funciones })</code></td>
+  <td><code>public interface IRecogible { ... }</code></td>
+  <td>Declara el contrato (en C#, con tipos y comprobado al compilar). <code>Interface(...)</code> también existe en C#, para declarar una interfaz que cumplan scripts Lua</td>
+</tr>
+<tr>
+  <td><code>Clase:Implements(interfaz)</code></td>
+  <td><code>class BotinOro : Script, IRecogible</code> (con <code>[Interface]</code> en la interface, o <code>[Implements(&quot;Recogible&quot;)]</code> en la clase para una de Lua)</td>
+  <td>La clase la cumple (si le falta algo, no compila)</td>
+</tr>
+<tr>
+  <td><code>e:Implements(interfaz)</code></td>
+  <td><code>e.Implements(&quot;Recogible&quot;)</code></td>
+  <td>Algún script de la entidad implementa esa interfaz del motor (Lua, o C# con <code>[Interface]</code>/<code>[Implements]</code>)</td>
+</tr>
+<tr>
+  <td><code>Interfaces.Call(e, interfaz, &quot;Funcion&quot;, ...)</code></td>
+  <td><code>Interfaces.Call(e, &quot;Recogible&quot;, &quot;Funcion&quot;, ...)</code></td>
+  <td>La función del primer script que la implementa; devuelve un <code>LuaValue[]</code></td>
+</tr>
+<tr>
+  <td><code>Interfaces.CallAll(e, interfaz, &quot;Funcion&quot;, ...)</code></td>
+  <td><code>Interfaces.CallAll(...)</code></td>
+  <td>En todos los scripts que la implementan; devuelve cuántos</td>
+</tr>
+<tr>
+  <td><code>Interfaces.Get(nombre)</code>, <code>interfaz:IsImplementedBy(e)</code></td>
+  <td><code>Interfaces.Get(&quot;Recogible&quot;)</code> (un <code>InterfaceInfo</code>: <code>Name</code>, <code>Functions</code>), <code>info.IsImplementedBy(e)</code></td>
+  <td>La interfaz del motor registrada con ese nombre</td>
+</tr>
+</tbody>
+</table></div>
+<p>En red funciona como cualquier llamada: si la función que llamas a través de la interfaz es <code>[Server]</code> o <code>[Multicast]</code>,
+viaja por la red como siempre.</p>
+<h2 id="3-eventos-en-el-inspector-y-por-código">3. Eventos en el Inspector y por código<a class="ancla" href="#3-eventos-en-el-inspector-y-por-código" aria-label="Enlace a esta sección">#</a></h2>
+<p>Un evento es una lista de funciones que se llaman a la vez con <code>Invoke(...)</code>. Un campo <strong><code>Event</code></strong> (el <code>Event()</code> de Lua) es
+además una lista de <strong>enlaces</strong> que se rellena en el Inspector, sin código («<strong>entidad</strong> + <strong>script</strong> + <strong>función</strong> (+ un
+<strong>argumento</strong>)»): quien monta la escena conecta el evento sin tocar el código. La función de un enlace puede ser de un
+script C# o de uno Lua.</p>
+<h3 id="paso-a-paso-una-puerta-que-enciende-una-alarma">Paso a paso: una puerta que enciende una alarma<a class="ancla" href="#paso-a-paso-una-puerta-que-enciende-una-alarma" aria-label="Enlace a esta sección">#</a></h3>
+<p>La puerta tiene dos eventos (<code>AlAbrir</code> y <code>AlCerrar</code>) y los lanza al abrirse y al cerrarse. Se declaran <strong>sin <code>new</code></strong>: el
+motor une cada campo a su evento al crear el script.</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class PuertaConEvento : Script
+{
+    [Tooltip("Lo que pasa al abrirla (rellénalo en el Inspector)")]
+    public Event AlAbrir;
+    [Hide]
+    public Event AlCerrar; // solo por código: no sale en el Inspector
+    public bool Abierta;
+
+    public void Abrir(Entity quien)
+    {
+        if (Abierta)
+            return;
+        Abierta = true;
+        AlAbrir.Invoke(quien); // llama a los enlaces del Inspector y a las suscripciones
+    }
+
+    public void Cerrar()
+    {
+        Abierta = false;
+        AlCerrar.Invoke();
+    }
+}</code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class LuzDeAlarma : Script
+{
+    public void Encender(Entity quien)
+    {
+        Log.Info("¡Alarma! " + (quien != null ? quien.Name : "alguien") + " ha abierto la puerta");
+    }
+
+    public void Parpadear(int veces)
+    {
+        Log.Info("Parpadea " + veces + " veces");
+    }
+}</code></pre></div>
+<ol>
+<li>Pon <code>PuertaConEvento</code> en la puerta y <code>LuzDeAlarma</code> en la luz.</li>
+<li>En el Inspector de la puerta, el campo <strong>Al Abrir</strong> es una lista: pulsa <strong>+</strong>.</li>
+<li>En el enlace nuevo, arrastra la luz desde la Jerarquía a <strong>Entidad</strong>; <strong>Script</strong>, <code>LuzDeAlarma</code>; <strong>Función</strong>,
+<code>Encender</code> (recibe los argumentos de <code>Invoke</code>: aquí, <code>quien</code>). Un segundo enlace a <code>Parpadear</code> con <strong>Argumento</strong> <code>3</code>
+recibe solo ese valor.</li>
+<li>Pulsa <strong>Jugar</strong>: cuando algo llame a <code>Abrir</code> de la puerta, la luz escribe «¡Alarma!» en la Consola.</li>
+</ol>
+<p>Las mismas puertas y luces valen mezcladas con Lua: una puerta Lua (<code>alAbrir = Event()</code>) puede enlazar con <code>Encender</code> de
+la luz C#, y una puerta C# con una función de un script Lua.</p>
+<h3 id="suscribirse-por-código">Suscribirse por código<a class="ancla" href="#suscribirse-por-código" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Connect</code> recibe los argumentos de <code>Invoke</code> como <code>LuaValue[]</code> y devuelve la conexión:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">EventConnection conexion = puerta.GetScript&lt;PuertaConEvento&gt;().AlAbrir.Connect(args =&gt;
+{
+    Log.Info("se abrió");
+});
+conexion.Disconnect(); // deja de recibirlo</code></pre></div>
+<p>El evento de un script <strong>Lua</strong> se lee de su campo y se usa igual:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">ScriptEvent alAbrir = puerta.GetScript("PuertaConEvento")?.Get("alAbrir").As&lt;ScriptEvent&gt;();
+alAbrir?.Connect(args =&gt; Log.Info("se abrió la puerta de Lua"));</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th><code>Event</code> (y <code>ScriptEvent</code>)</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ev.Invoke(...)</code></td>
+  <td>Llama a las suscripciones y después a los enlaces del Inspector. Devuelve cuántas funciones se llamaron</td>
+</tr>
+<tr>
+  <td><code>ev.Connect(args =&gt; ...)</code>, <code>ev.Connect((Entity quien) =&gt; ...)</code></td>
+  <td>La función en cada <code>Invoke</code> (<code>args</code> es un <code>LuaValue[]</code>; con el tipo del primer argumento, ese valor). Devuelve una <code>EventConnection</code> con <code>Disconnect()</code> e <code>IsConnected()</code></td>
+</tr>
+<tr>
+  <td><code>ev.Once(args =&gt; ...)</code></td>
+  <td>Como <code>Connect</code>, solo la próxima vez</td>
+</tr>
+<tr>
+  <td><code>ev.DisconnectAll()</code></td>
+  <td>Quita las suscripciones por código (los enlaces del Inspector se quedan)</td>
+</tr>
+<tr>
+  <td><code>ev.ListenerCount</code> (<code>ListenerCount()</code> en <code>ScriptEvent</code>)</td>
+  <td>Suscripciones más enlaces</td>
+</tr>
+<tr>
+  <td><code>Event.New()</code></td>
+  <td>Un evento suelto, sin Inspector (dentro de <code>Awake</code> o <code>Start</code>); un campo <code>public Event X;</code> no lo necesita</td>
+</tr>
+</tbody>
+</table></div>
+<p>Una suscripción se quita sola al destruirse <strong>quien se suscribió</strong> o <strong>el dueño del evento</strong>: nunca llama a un script que
+ya no existe. Una excepción dentro de una función suscrita se escribe en la Consola y las demás se siguen llamando.</p>
+<p>Si el evento es solo de C# a C# y no te hacen falta los enlaces de Lua ni la desconexión automática, un <code>event</code> de C#
+(<code>public event System.Action&lt;Entity&gt; AlAbrir;</code>) también vale; acuérdate entonces de quitar las suscripciones en
+<code>OnDestroy</code> (<code>puerta.AlAbrir -= ...</code>).</p>
+<h3 id="con-prefabs">Con prefabs<a class="ancla" href="#con-prefabs" aria-label="Enlace a esta sección">#</a></h3>
+<p>Los enlaces de los eventos de Lua guardan la entidad por su identificador, como los campos <code>Entity</code>. Dentro de un prefab
+(la puerta con su luz hija), cada instancia enlaza con <strong>su</strong> luz: al instanciar, las referencias internas pasan a las
+entidades nuevas. Lo mismo vale para un campo <code>Entity</code> de C# como <code>Puerta</code>: dentro del prefab apunta a la puerta de esa
+instancia. Un enlace o un campo a una entidad de la escena (fuera del prefab) se queda apuntando a esa entidad.</p>
+<h3 id="en-red-dónde-se-lanza">En red: dónde se lanza<a class="ancla" href="#en-red-dónde-se-lanza" aria-label="Enlace a esta sección">#</a></h3>
+<p><code>Invoke</code> se ejecuta <strong>en la máquina que lo llama</strong>, como una llamada normal: no envía nada por sí mismo. Lo normal en un
+juego en red:</p>
+<ul>
+<li>Lanza el evento <strong>en el servidor</strong> (que es quien decide si la puerta se abre).</li>
+<li>Las funciones que tienen que verse en todos (la luz, el sonido) llévalas con <strong><code>[Multicast]</code></strong>: una función <code>[Multicast]</code>
+llamada desde la suscripción llega a todos y una <code>[Server]</code> llamada desde un cliente viaja al servidor, igual que si la
+llamaras desde cualquier otro sitio (<a href="scripts-csharp.html#9-multijugador">scripts-csharp.md</a>). Así funciona en anfitrión
+y cliente y en servidor dedicado.</li>
+<li>Lo que solo es visual y local (un efecto en la pantalla de un jugador) puede lanzarse en el cliente.</li>
+</ul>
+<h2 id="4-temporizadores-con-mango">4. Temporizadores con mango<a class="ancla" href="#4-temporizadores-con-mango" aria-label="Enlace a esta sección">#</a></h2>
+<p><code>Timer</code> es un temporizador que se puede parar, seguir, consultar y cancelar desde fuera:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class VenenoTemporizado : Script
+{
+    public float Vida = 100;
+
+    Timer _veneno;
+    Timer _cura;
+
+    public void Envenenar()
+    {
+        if (_veneno != null &amp;&amp; _veneno.IsActive())
+            return;
+        // Cada 0,5 s quita 5 de vida; a los 4 s se cura solo
+        _veneno = Timer.Every(0.5f, t =&gt; Vida -= 5);
+        _cura = Timer.After(4, t =&gt; _veneno.Cancel());
+    }
+
+    public void Pausar(bool pausado)
+    {
+        foreach (Timer t in new[] { _veneno, _cura })
+        {
+            if (t == null)
+                continue;
+            if (pausado) t.Pause(); else t.Resume();
+        }
+    }
+
+    void OnGUI()
+    {
+        if (_cura != null &amp;&amp; _cura.IsActive())
+        {
+            GUI.Begin("Veneno", 20, 20);
+            GUI.Text($"Curación en {_cura.Remaining():0.0} s");
+            GUI.End();
+        }
+    }
+}</code></pre></div>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Función</th>
+  <th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>Timer.After(segundos, t =&gt; ..., opciones?)</code></td>
+  <td>Llama a la función una vez (también <code>Timer.Create</code>, que es el <code>Timer(...)</code> de Lua)</td>
+</tr>
+<tr>
+  <td><code>Timer.Every(segundos, t =&gt; ..., opciones?)</code></td>
+  <td>La llama cada tantos segundos</td>
+</tr>
+<tr>
+  <td><code>t.Cancel()</code></td>
+  <td>Lo cancela (<code>true</code> si seguía activo)</td>
+</tr>
+<tr>
+  <td><code>t.Pause()</code> / <code>t.Resume()</code></td>
+  <td>Lo para guardando lo que le falta / sigue desde ahí</td>
+</tr>
+<tr>
+  <td><code>t.Remaining()</code></td>
+  <td>Segundos que faltan para la próxima llamada</td>
+</tr>
+<tr>
+  <td><code>t.IsActive()</code> / <code>t.IsPaused()</code></td>
+  <td>Si va a volver a llamar (en pausa también) / si está en pausa</td>
+</tr>
+<tr>
+  <td><code>t.SetTimeScale(x)</code> / <code>t.GetTimeScale()</code></td>
+  <td>Escala propia: <code>2</code> el doble de rápido, <code>0</code> congelado</td>
+</tr>
+</tbody>
+</table></div>
+<p>Opciones (<code>TimerOptions</code>): <code>new TimerOptions { Unscaled = true }</code> sigue con el juego en pausa (<code>Time.TimeScale = 0</code>;
+menús), <code>{ TimeScale = 2 }</code> es la escala propia y <code>{ Owner = entidad }</code> lo ata a otra entidad (se cancela si se destruye).</p>
+<ul>
+<li>Se cancela solo al <strong>destruirse el script que lo crea</strong>. A diferencia de <code>Tasks.*</code>, no se cancela al desactivar el
+script.</li>
+<li>La función se llama directamente y recibe el propio <code>Timer</code> (<code>t</code>). Para esperar dentro de una secuencia, mejor un
+método <code>async</code> con <code>await Wait(segundos)</code> (<a href="scripts-csharp.html#10-async-y-await">scripts-csharp.md</a>).</li>
+<li><code>SetTimeout</code>, <code>await Wait(...)</code> y <code>Tasks.*</code> no cambian: <code>Timer</code> va sobre el mismo planificador.</li>
+</ul>
+<h2 id="5-pools-de-objetos">5. Pools de objetos<a class="ancla" href="#5-pools-de-objetos" aria-label="Enlace a esta sección">#</a></h2>
+<p>Crear y destruir entidades cuesta (instanciar el prefab, <code>Awake</code>, cuerpos de físicas...). Un pool las reutiliza: al
+«destruir» una, se desactiva y se guarda para la siguiente.</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// En el prefab de la bala: se reinicia al salir del pool
+public class BalaReutilizable : Script
+{
+    public float Velocidad = 40;
+
+    float _vida;
+
+    void OnPoolGet()
+    {
+        _vida = 0;
+        Physics.SetVelocity(Entity, Transform.Forward * Velocidad);
+    }
+
+    void OnPoolRelease()
+    {
+        // lo que haya que limpiar (sus tareas de Tasks.* y sus tweens se cancelan solos)
+    }
+
+    void OnCollisionEnter(Collision c)
+    {
+        Pool.ReleaseStatic(Entity); // vuelve al pool en lugar de destruirse
+    }
+}</code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class ArmaConPool : Script
+{
+    [AssetType("Prefab"), Tooltip("Prefab de la bala (con BalaReutilizable y, si quieres, el componente Devolver al pool)")]
+    public Asset Bala;
+
+    Pool _pool;
+
+    void Start()
+    {
+        if (Bala != null)
+            _pool = Pool.Create(Bala, new PoolSettings { Initial = 20, Max = 200 });
+    }
+
+    void Update(float dt)
+    {
+        if (_pool != null &amp;&amp; Input.WasActionPressed("Disparar"))
+        {
+            Vec3 canon = Entity.Position + Transform.Forward;
+            _pool.Get(canon, Entity.Rotation);
+        }
+    }
+}</code></pre></div>
+<ul>
+<li><code>Pool.Create(prefab, new PoolSettings { Initial = 20, Max = 200 })</code> crea el pool con 20 ya creadas (desactivadas).
+<code>Max</code> es cuántas libres guarda como mucho (las demás se destruyen al devolverlas). Es lo mismo que
+<code>Pool.Create(prefab, 20, new PoolOptions { MaxSize = 200 })</code>.</li>
+<li><code>pool.Get(posicion, rotacion)</code> saca una (o crea otra si no queda ninguna), con su cuerpo parado en el sitio nuevo, y llama
+a <code>OnPoolGet()</code> de sus scripts y de los de sus hijos.</li>
+<li><code>pool.Release(e)</code> o <code>Pool.ReleaseStatic(e, segundos?)</code> (la <code>Pool.Release</code> de Lua; en C# lleva <code>Static</code> porque el pool
+tiene un método <code>Release</code> con los mismos parámetros) llama a <code>OnPoolRelease()</code>, cancela sus tareas y tweens, la
+desactiva y la guarda. Una devolución con espera solo vale para esa salida: si la bala se devolvió y se volvió a sacar
+antes, no la devuelve.</li>
+<li>El componente <strong>Devolver al pool</strong> (<code>PoolReturn</code>, en «Scripts») devuelve la entidad sola pasados N segundos desde que
+sale: perfecto para impactos, casquillos y balas perdidas.</li>
+<li>Más: <code>pool.Prewarm(n)</code>, <code>pool.CountActive()</code>, <code>pool.CountInactive()</code>, <code>pool.Clear()</code>, <code>Pool.IsPooled(e)</code>
+(<a href="nativas-juego.html">nativas-juego.md</a>).</li>
+</ul>
+<h3 id="en-red-pools-de-objetos-de-red">En red: pools de objetos de red<a class="ancla" href="#en-red-pools-de-objetos-de-red" aria-label="Enlace a esta sección">#</a></h3>
+<p>Con un prefab con <strong>Identidad de red</strong>, el pool es de objetos de red y se crea <strong>en el servidor</strong> (en un cliente es un
+error que lo dice):</p>
+<ul>
+<li>Las entidades se crean una vez con <code>Spawn</code> (en el servidor y en todos los clientes) y después <strong>solo se activan y
+desactivan</strong>: el estado activo se replica, así que los clientes las ven aparecer y desaparecer sin crear ni destruir
+entidades de red.</li>
+<li>Al sacarla hay un teletransporte de red: los clientes no ven el salto interpolado desde donde se devolvió.</li>
+<li><code>OnPoolGet</code> y <code>OnPoolRelease</code> se llaman en el servidor. Si los clientes necesitan reiniciar algo, usa campos
+<code>[Replicated]</code>.</li>
+<li>Sin red (o jugando solo) funciona como un pool local.</li>
+</ul>
+<h3 id="cuánto-se-gana">Cuánto se gana<a class="ancla" href="#cuánto-se-gana" aria-label="Enlace a esta sección">#</a></h3>
+<p>Lo medido en las pruebas del motor con 1000 balas está en <a href="utilidades-lua.html#cuánto-se-gana">utilidades-lua.md</a>: crear y
+destruir cuesta unas 33 veces más que sacar y devolver de un pool (≈ 195 ms frente a ≈ 6 ms en local), y un pool de red
+evita las 2000 altas y bajas de entidades de red en los clientes. Las libres de un pool de red siguen siendo entidades de
+red (desactivadas) que la red recorre en cada envío: dimensiona los pools de red a lo que de verdad se usa a la vez (con
+<code>Max</code>), y para balas que solo se ven, usa un pool <strong>local</strong> en cada máquina (el servidor decide los impactos con rayos).
+Desde C# cuesta lo mismo: el trabajo lo hace el motor.</p>
+<h2 id="6-resumen-de-la-api">6. Resumen de la API<a class="ancla" href="#6-resumen-de-la-api" aria-label="Enlace a esta sección">#</a></h2>
+<div class="tabla"><table>
+<thead>
+<tr>
+  <th>Qué</th>
+  <th>Dónde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Etiquetas</td>
+  <td>campos <code>TagSet</code>, <code>Tags.Matches</code>, <code>Tags.IsValid</code>, <code>Tags.Exists</code>, <code>Tags.Parent</code>, <code>Tags.All</code>, <code>Tags.Container</code> / <code>Tags.New</code>, <code>TagContainer</code>, <code>e.HasTag</code> (jerárquico), <code>e.HasTagExact</code>, <code>e.HasAnyTag</code>, <code>e.HasAllTags</code>, <code>e.GetTags</code>, <code>Scene.FindAllWithTag</code>, <code>Scene.FindWithTag</code></td>
+</tr>
+<tr>
+  <td>Interfaces</td>
+  <td><code>interface</code> de C# y <code>class X : Script, IInterfaz</code> (<code>[Interface]</code> y <code>[Implements]</code> para el motor); con scripts Lua: <code>e.Implements</code>, <code>e.GetInterface</code>, <code>Interfaces.Call</code>, <code>Interfaces.CallAll</code>, <code>Interfaces.Implements</code>, <code>Interfaces.Get</code>, <code>Interface(...)</code></td>
+</tr>
+<tr>
+  <td>Eventos</td>
+  <td>campos <code>Event</code> (enlaces del Inspector), <code>Event.New</code>, <code>Invoke</code>, <code>Connect</code>, <code>Once</code>, <code>DisconnectAll</code>, <code>ListenerCount</code>, <code>ScriptEvent</code>, <code>EventConnection</code> (<code>Disconnect</code>, <code>IsConnected</code>)</td>
+</tr>
+<tr>
+  <td>Temporizadores</td>
+  <td><code>Timer.After</code> / <code>Timer.Create</code>, <code>Timer.Every</code>, <code>t.Cancel</code>, <code>t.Pause</code>, <code>t.Resume</code>, <code>t.Remaining</code>, <code>t.IsActive</code>, <code>t.IsPaused</code>, <code>t.SetTimeScale</code>, <code>TimerOptions</code></td>
+</tr>
+<tr>
+  <td>Pools</td>
+  <td><code>Pool.Create(prefab, new PoolSettings { ... })</code>, <code>pool.Get</code>, <code>pool.Release</code>, <code>Pool.ReleaseStatic</code>, <code>Pool.IsPooled</code>, <code>OnPoolGet</code>, <code>OnPoolRelease</code>, componente <strong>Devolver al pool</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Los campos <code>Tags()</code> y <code>Event()</code> de Lua son en C# campos <code>TagSet</code> y <code>Event</code>, y <code>Clase:Implements(...)</code> es <code>[Interface]</code> en la
+interface (o <code>[Implements(&quot;...&quot;)]</code> en la clase). Toda la API, miembro a miembro, en <a href="csharp-paridad.html">csharp-paridad.md</a>.</p>
+<nav class="ant-sig" aria-label="Páginas"><a class="ant" href="scripts-csharp.html"><small>Anterior</small>Scripts en C#</a><a class="sig" href="herramientas-csharp.html"><small>Siguiente</small>Herramientas de prueba y de editor en C# (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></nav></article>
+</main>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#índice">Índice</a></li><li class="n2"><a href="#1-gameplay-tags-etiquetas-jerárquicas">1. Gameplay Tags: etiquetas jerárquicas</a></li><li class="n3"><a href="#son-las-etiquetas-de-siempre">Son las etiquetas de siempre</a></li><li class="n3"><a href="#declararlas-en-el-proyecto">Declararlas en el proyecto</a></li><li class="n3"><a href="#en-el-inspector">En el Inspector</a></li><li class="n3"><a href="#campos-de-etiquetas-tagset">Campos de etiquetas (TagSet)</a></li><li class="n3"><a href="#contenedores-de-etiquetas-tagcontainer">Contenedores de etiquetas (TagContainer)</a></li><li class="n3"><a href="#en-las-entidades">En las entidades</a></li><li class="n3"><a href="#en-red">En red</a></li><li class="n2"><a href="#2-interfaces">2. Interfaces</a></li><li class="n3"><a href="#declarar-e-implementar">Declarar e implementar</a></li><li class="n3"><a href="#llamar-sin-saber-qué-script-es">Llamar sin saber qué script es</a></li><li class="n3"><a href="#que-el-motor-y-lua-la-vean-interface-e-implements">Que el motor (y Lua) la vean: [Interface] e [Implements]</a></li><li class="n3"><a href="#con-scripts-lua-en-el-mismo-proyecto">Con scripts Lua en el mismo proyecto</a></li><li class="n2"><a href="#3-eventos-en-el-inspector-y-por-código">3. Eventos en el Inspector y por código</a></li><li class="n3"><a href="#paso-a-paso-una-puerta-que-enciende-una-alarma">Paso a paso: una puerta que enciende una alarma</a></li><li class="n3"><a href="#suscribirse-por-código">Suscribirse por código</a></li><li class="n3"><a href="#con-prefabs">Con prefabs</a></li><li class="n3"><a href="#en-red-dónde-se-lanza">En red: dónde se lanza</a></li><li class="n2"><a href="#4-temporizadores-con-mango">4. Temporizadores con mango</a></li><li class="n2"><a href="#5-pools-de-objetos">5. Pools de objetos</a></li><li class="n3"><a href="#en-red-pools-de-objetos-de-red">En red: pools de objetos de red</a></li><li class="n3"><a href="#cuánto-se-gana">Cuánto se gana</a></li><li class="n2"><a href="#6-resumen-de-la-api">6. Resumen de la API</a></li></ul></div></aside>
+</div>
+<footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
+<script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>
+</body>
+</html>

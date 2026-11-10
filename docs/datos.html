@@ -6,13 +6,13 @@
 <title>Datos de juego: structs, listas, Data Assets, tablas, enums y curvas · Nova Engine</title>
 <meta name="description" content="Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
 escritos dentro del código. Nova Engine tiene herramientas para separarlos,
-todas declaradas en Lua y ">
+todas declaradas en Lua o ">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#121318">
 <meta property="og:title" content="Datos de juego: structs, listas, Data Assets, tablas, enums y curvas · Nova Engine">
 <meta property="og:description" content="Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
 escritos dentro del código. Nova Engine tiene herramientas para separarlos,
-todas declaradas en Lua y ">
+todas declaradas en Lua o ">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ericue5.github.io/nova-engine-releases/docs/datos.html">
 <link rel="canonical" href="https://ericue5.github.io/nova-engine-releases/docs/datos.html">
@@ -25,42 +25,49 @@ todas declaradas en Lua y ">
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 <header class="cabecera"><div class="cabecera-in"><button type="button" class="boton-menu" aria-label="Abrir el índice" aria-expanded="false" aria-controls="lateral"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="marca" href="../index.html"><img src="../assets/img/nova.svg" alt="" width="28" height="28"><span>Nova Engine</span></a><nav class="nav-principal" aria-label="Principal"><a href="../index.html" data-sec="inicio">Inicio</a><a href="indice.html" data-sec="docs">Documentación</a><a href="../tutoriales.html" data-sec="tutoriales">Tutoriales</a><a href="lua.html" data-sec="ref">Referencia de Lua</a><a href="../novedades.html" data-sec="novedades">Novedades</a></nav><div class="buscador" role="search"><input id="buscador-entrada" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar…" aria-label="Buscar en la documentación" aria-controls="buscador-resultados" aria-expanded="false"><kbd class="atajo">Ctrl K</kbd><div id="buscador-resultados" class="resultados" role="listbox" hidden></div></div><button type="button" class="boton-tema" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar entre tema claro y oscuro"><svg class="sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="luna" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg></button><a class="boton boton-primario boton-descarga js-descarga" href="https://github.com/EricUE5/nova-engine-releases/releases/latest">Descargar</a></div></header>
 <div class="marco con-lateral con-toc">
-<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html" aria-current="page">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Scripts en C#</summary><ul><li><a href="scripts-csharp.html">Scripts en C#</a></li><li><a href="ejemplo-inventario-csharp.html">Ejemplo: inventario tipo Rust (C#)</a></li><li><a href="csharp-paridad.html">Paridad de la API: Lua y C#</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="terreno-voxel.html">Terreno de vóxeles (cavar, picar y esculpir)</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="base-de-datos.html">Base de datos (tablas, filas y columnas)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="asistentes-ia.html">Asistentes de IA (Claude Code y otros)</a></li><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
+<nav id="lateral" class="lateral" aria-label="Documentación"><details class="grupo" open><summary>Empezar</summary><ul><li><a href="indice.html">Índice de la documentación</a></li><li><a href="instalar.html">Instalar Nova Engine</a></li><li><a href="empezar.html">Empezar con Nova Engine</a></li><li><a href="editor.html">El editor (NovaEditor.exe)</a></li><li><a href="tutoriales.html">Tutoriales interactivos y vídeos</a></li><li><a href="editor-scripts.html">Editor de scripts integrado</a></li></ul></details><details class="grupo" open><summary>Scripts en Lua</summary><ul><li><a href="scripts-lua.html">Scripts en Lua</a></li><li><a href="escenas-y-componentes.html">Escenas y componentes</a></li><li><a href="utilidades-lua.html">Utilidades de código: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="nativas-juego.html">Funciones nativas de juego (Lua)</a></li><li><a href="matematicas.html">Matemáticas, geometría y ruido</a></li><li><a href="herramientas-lua.html">Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="datos.html" aria-current="page">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</a></li><li><a href="ejemplo-inventario.html">Ejemplo: inventario tipo Rust (Lua)</a></li><li><a href="scripts-cpp.html">Scripts en C++ (avanzado, opcional)</a></li></ul></details><details class="grupo"><summary>Scripts en C#</summary><ul><li><a href="scripts-csharp.html">Scripts en C#</a></li><li><a href="utilidades-csharp.html">Utilidades de código en C#: etiquetas, interfaces, eventos, temporizadores y pools</a></li><li><a href="herramientas-csharp.html">Herramientas de prueba y de editor en C# (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a></li><li><a href="ejemplo-inventario-csharp.html">Ejemplo: inventario tipo Rust (C#)</a></li><li><a href="csharp-paridad.html">Paridad de la API: Lua y C#</a></li></ul></details><details class="grupo"><summary>Gráficos y mundo</summary><ul><li><a href="render-y-materiales.html">Render y materiales</a></li><li><a href="materiales-nodos.html">Materiales por nodos</a></li><li><a href="render.html">Render realista: reflejos, antialiasing temporal, cielos HDRI y de noche, texturas comprimidas</a></li><li><a href="filtros-camara.html">Filtros de cámara: que el juego se vea antiguo, con píxeles y con otras formas</a></li><li><a href="juegos-2d.html">Juegos 2D: plataformas con disparos, jefes y dibujos con vida</a></li><li><a href="fisicas-2d.html">Físicas 2D</a></li><li><a href="mundo-2d.html">Mundo 2D: parallax, cámara de plataformas, tilemap y vista 2D</a></li><li><a href="luces-2d.html">Luces 2D con sombras</a></li><li><a href="iluminacion-horneada.html">Iluminación horneada: lightmaps y sondas de luz</a></li><li><a href="niebla-volumetrica.html">Niebla y luz volumétrica</a></li><li><a href="nubes.html">Nubes volumétricas</a></li><li><a href="terreno.html">Terreno</a></li><li><a href="terreno-voxel.html">Terreno de vóxeles (cavar, picar y esculpir)</a></li><li><a href="vegetacion.html">Vegetación pintada: árboles, rocas, hierba y flores</a></li><li><a href="splines-carreteras-rios.html">Splines, carreteras y ríos</a></li><li><a href="particulas.html">Partículas</a></li><li><a href="decals.html">Decals (calcomanías)</a></li><li><a href="rendimiento.html">Rendimiento</a></li></ul></details><details class="grupo"><summary>Animación</summary><ul><li><a href="modelos-y-animaciones.html">Modelos y animaciones</a></li><li><a href="animar-huesos.html">Animar huesos: posar personajes, crear animaciones y poner eventos</a></li><li><a href="animacion-objetos.html">Animación de objetos: puertas, ascensores y luces con claves</a></li></ul></details><details class="grupo"><summary>Jugabilidad</summary><ul><li><a href="prefabs.html">Prefabs</a></li><li><a href="fisicas.html">Físicas</a></li><li><a href="ragdoll.html">Ragdoll y Physics Asset</a></li><li><a href="vehiculos.html">Vehículos: coches, motos, orugas, helicópteros y aviones</a></li><li><a href="destruccion.html">Destrucción de objetos</a></li><li><a href="ia-arboles.html">IA: árboles de comportamiento, pizarra y sentidos</a></li><li><a href="navegacion.html">Navegación: bots que encuentran el camino</a></li><li><a href="audio.html">Audio</a></li><li><a href="voz.html">Chat de voz: proximidad, llamadas y radios</a></li><li><a href="interfaz-ui.html">Interfaz del juego (HUD y menús)</a></li><li><a href="idiomas.html">Idiomas</a></li></ul></details><details class="grupo"><summary>Multijugador</summary><ul><li><a href="multijugador.html">Multijugador: tutorial y guía</a></li><li><a href="lobby-y-escenas.html">Sala, escenas sincronizadas, pantalla de carga, chat e Interactuables</a></li><li><a href="paquetes.html">Paquetes del motor: primera y tercera persona listas para multijugador</a></li><li><a href="servidor-dedicado.html">Servidor dedicado (NovaServer.exe)</a></li><li><a href="enlace.html">Nova Enlace: por Internet con un código</a></li><li><a href="seguridad-red.html">Seguridad de la red</a></li><li><a href="datos-persistentes.html">Datos persistentes con cuentas (Nova Datos)</a></li><li><a href="base-de-datos.html">Base de datos (tablas, filas y columnas)</a></li><li><a href="emparejamiento.html">Emparejamiento y servidores bajo demanda</a></li><li><a href="steam.html">Steam en Nova Engine</a></li><li><a href="edicion-en-equipo.html">Edición en equipo</a></li></ul></details><details class="grupo"><summary>Publicar</summary><ul><li><a href="publicar-juego.html">Publicar el juego</a></li><li><a href="publicar.html">Publicar en Steam</a></li><li><a href="errores.html">Informe de errores</a></li><li><a href="terceros.html">Licencias de terceros</a></li></ul></details><details class="grupo"><summary>Integraciones</summary><ul><li><a href="asistentes-ia.html">Asistentes de IA (Claude Code y otros)</a></li><li><a href="enlace-ia.html">Enlace con Nova IA</a></li></ul></details><p class="lateral-ref"><a href="lua.html">Referencia de Lua</a></p></nav>
 <main id="contenido" tabindex="-1">
 <div class="lenguajes" id="lenguajes" role="group" aria-label="Lenguaje de los scripts">Lenguaje: <button type="button" data-lenguaje="csharp">C#</button><button type="button" data-lenguaje="lua">Lua</button><button type="button" data-lenguaje="cpp">C++</button></div><article class="doc"><h1 id="datos-de-juego-structs-listas-data-assets-tablas-enums-y-curvas">Datos de juego: structs, listas, Data Assets, tablas, enums y curvas</h1>
-<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos</a></li><li class="n3"><a href="#1-el-tipo-de-datos-struct">1. El tipo de datos: Struct</a></li><li class="n3"><a href="#2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector</a></li><li class="n3"><a href="#3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto</a></li><li class="n3"><a href="#4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)</a></li><li class="n3"><a href="#5-un-enum-compartido">5. Un enum compartido</a></li><li class="n3"><a href="#6-curvas">6. Curvas</a></li><li class="n3"><a href="#7-todo-junto">7. Todo junto</a></li><li class="n2"><a href="#valores-en-lua-copias">Valores en Lua: copias</a></li><li class="n2"><a href="#multijugador">Multijugador</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#ficheros">Ficheros</a></li><li class="n2"><a href="#avisos-y-límites">Avisos y límites</a></li></ul></details><p>Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
+<details class="toc-movil"><summary>En esta página</summary><ul><li class="n2"><a href="#paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos</a></li><li class="n3"><a href="#1-el-tipo-de-datos-struct">1. El tipo de datos: Struct</a></li><li class="n3"><a href="#2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector</a></li><li class="n3"><a href="#3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto</a></li><li class="n3"><a href="#4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)</a></li><li class="n3"><a href="#5-un-enum-compartido">5. Un enum compartido</a></li><li class="n3"><a href="#6-curvas">6. Curvas</a></li><li class="n3"><a href="#7-todo-junto">7. Todo junto</a></li><li class="n2"><a href="#valores-en-lua-copias">Valores en Lua: copias</a></li><li class="n2"><a href="#multijugador">Multijugador</a></li><li class="n2"><a href="#lua-y-c-en-el-mismo-proyecto">Lua y C# en el mismo proyecto</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#ficheros">Ficheros</a></li><li class="n2"><a href="#avisos-y-límites">Avisos y límites</a></li></ul></details><p>Los datos de un juego (los objetos que se pueden robar, las armas, los niveles, las recompensas...) no deberían estar
 escritos dentro del código. Nova Engine tiene herramientas para separarlos,
-todas declaradas en Lua y editables en el editor:</p>
+todas declaradas en Lua o en C# y editables en el editor:</p>
 <div class="tabla"><table>
 <thead>
 <tr>
-  <th>En Nova</th>
+  <th>En Nova (Lua)</th>
+  <th>En C#</th>
   <th>Para qué</th>
 </tr>
 </thead>
 <tbody>
 <tr>
   <td><code>Struct({...})</code></td>
+  <td>una clase o struct con campos <code>public</code></td>
   <td>un tipo de datos con sus campos (nombre, precio, peso, icono...)</td>
 </tr>
 <tr>
   <td><code>List(...)</code>, <code>Dict(...)</code></td>
+  <td><code>List&lt;T&gt;</code>, <code>Dictionary&lt;string, T&gt;</code></td>
   <td>listas y diccionarios en el Inspector</td>
 </tr>
 <tr>
   <td><strong>Data Asset</strong> (<code>.datos</code>)</td>
+  <td>lo mismo, leído con su tipo (<code>Get&lt;T&gt;</code>)</td>
   <td>un asset con los valores de un struct: <code>Lingote.datos</code></td>
 </tr>
 <tr>
   <td><strong>Data Table</strong> (<code>.tabla</code>)</td>
+  <td>lo mismo, con el tipo de sus filas (<code>Get&lt;T&gt;</code>)</td>
   <td>filas de un struct, como una hoja de cálculo, con CSV</td>
 </tr>
 <tr>
   <td><strong>Enum</strong> (<code>.enum</code>)</td>
+  <td><code>enum</code> de C# o <code>[EnumAsset(&quot;...&quot;)]</code></td>
   <td>una lista de valores con nombre que comparten varios scripts</td>
 </tr>
 <tr>
   <td><strong>Curva</strong> (<code>.curva</code>, <code>Curve()</code>)</td>
+  <td><code>CurveData</code></td>
   <td>una función y = f(x) dibujada con puntos</td>
 </tr>
 </tbody>
@@ -69,7 +76,8 @@ todas declaradas en Lua y editables en el editor:</p>
 <a href="edicion-en-equipo.html">edición en equipo</a>, se recarga en caliente al cambiarlo, viaja en el <code>.novapak</code> al publicar y sale
 en el autocompletado de VS Code y del <a href="editor-scripts.html">editor de scripts</a>.</p>
 <p>El ejemplo completo de esta guía está en <code>game/botin_lua</code>, en el código del motor (ábrelo con <strong>Archivo &gt; Abrir proyecto</strong>). Con el
-motor instalado, los pasos de abajo lo montan desde un proyecto «Vacío (Lua)» en unos minutos.</p>
+motor instalado, los pasos de abajo lo montan desde un proyecto «Vacío (Lua)» en unos minutos. Su versión en C# está en
+<code>game/botin_lua/variante-csharp</code> (el proyecto «Vacío (C#)» con los mismos pasos).</p>
 <h2 id="paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos<a class="ancla" href="#paso-a-paso-el-botín-de-un-juego-de-robos" aria-label="Enlace a esta sección">#</a></h2>
 <h3 id="1-el-tipo-de-datos-struct">1. El tipo de datos: Struct<a class="ancla" href="#1-el-tipo-de-datos-struct" aria-label="Enlace a esta sección">#</a></h3>
 <p>Un objeto del botín tiene un nombre, un precio, un peso, un tipo y un icono. Se declara una vez, en un <strong>módulo</strong> (un
@@ -87,6 +95,23 @@ script que no es una clase y que otros piden con <code>require</code>), por ejem
 })
 
 <span class="hl-k">return</span> <span class="hl-t">Objeto</span></code></pre></div>
+<p>En C# un tipo de datos es una <strong>clase (o un struct) con campos <code>public</code></strong>, en su propio fichero (<code>scripts/datos/Objeto.cs</code>):</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// [Struct]: sale en Contenido &gt; Crear aunque todavía no lo use ningún script
+[Struct]
+public class Objeto
+{
+    public string Nombre = "";
+    [Tooltip("Lo que paga el perista")]
+    public int Precio;
+    [Range(0, 50)]
+    public float Peso = 1.0f;
+    [EnumAsset("TipoObjeto")] public string Tipo = "Botín"; // el enum compartido (paso 5)
+    [AssetType("Texture")] public Asset Icono;
+    [Range(0, 1)]
+    public float Rareza = 0.5f;
+}</code></pre></div>
 <ul>
 <li>Cada campo es como un campo de un script: el tipo sale del valor (número, texto, booleano, <code>Vec3</code>, <code>Color</code>,
 <code>Entity()</code>, <code>Asset(&quot;Tipo&quot;)</code>, <code>Enum(...)</code>, otro struct, <code>List(...)</code>, <code>Curve()</code>...) y el valor es el de por defecto.</li>
@@ -98,6 +123,22 @@ línea del campo o en la línea de encima.</li>
 guardados se conservan <strong>por nombre</strong>: un campo nuevo sale con su valor por defecto y uno que desaparece se ignora.</li>
 <li>Se ve <strong>al momento</strong> al guardar el script: la tabla abierta gana o pierde la columna, el Inspector de sus Data Assets
 enseña el campo y el autocompletado lo conoce, sin reabrir nada ni reiniciar el editor.</li>
+</ul>
+<p>En C#:</p>
+<ul>
+<li>Los campos son sus campos <code>public</code> (de instancia y sin <code>readonly</code>), en el orden del código; el valor por defecto es el
+de su inicializador. Valen los mismos tipos que en un script (<code>int</code>, <code>float</code>, <code>string</code>, <code>bool</code>, <code>Vec3</code>, <code>Color</code>,
+<code>Entity</code>, <code>Asset</code>, enums...), otros tipos de datos, <code>List&lt;T&gt;</code>, <code>Dictionary&lt;string, T&gt;</code>, <code>CurveData</code> y <code>TagSet</code>.</li>
+<li>Los atributos son los de C# (<code>[Range]</code>, <code>[Tooltip]</code>, <code>[AssetType]</code>...); un <code>int</code> ya es entero (no hace falta <code>[Int]</code>).
+Un valor de un enum compartido (<code>.enum</code>) es un <code>string</code> con <code>[EnumAsset(&quot;TipoObjeto&quot;)]</code>; un <code>enum</code> de C# es un desplegable
+con sus valores (y <code>[Option(&quot;Tercera persona&quot;)]</code> en un valor le pone ese texto, con espacios o tildes).</li>
+<li>Una clase que usa un campo de un script <strong>ya es un tipo de datos</strong>; <code>[Struct]</code> lo es aunque no la use nadie (para crear
+sus Data Assets y tablas antes de escribir el script). <code>[Struct(&quot;Nombre&quot;)]</code> le da otro nombre. Necesita un constructor
+sin argumentos (el de por defecto vale) y no puede contenerse a sí misma.</li>
+<li>Una clase de ayuda sin <code>[Struct]</code> que no usa ningún campo (<code>public class Calculos { ... }</code> con métodos, en su <code>.cs</code>) no es
+un tipo de datos: los scripts la usan como cualquier clase de C#.</li>
+<li>Al guardar el <code>.cs</code>, lo mismo que en Lua: los scripts que lo usan, sus tablas y sus Data Assets se ponen al día al
+momento y los valores guardados se conservan por nombre.</li>
 </ul>
 <h3 id="2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector<a class="ancla" href="#2-una-lista-de-structs-en-el-inspector" aria-label="Enlace a esta sección">#</a></h3>
 <p>En el script de la furgoneta de la banda (<code>scripts/Botin.luau</code>):</p>
@@ -112,6 +153,17 @@ enseña el campo y el autocompletado lo conoce, sin reabrir nada ni reiniciar el
 <span class="hl-t">Botin</span>.pagoSegunCalor = <span class="hl-f">Curve</span>(<span class="hl-s">"EaseIn"</span>) <span class="hl-c">-- paso 6</span>
 
 <span class="hl-k">return</span> <span class="hl-t">Botin</span></code></pre></div>
+<p>En C# (<code>scripts/Botin.cs</code>) no hace falta <code>require</code>: los tipos de los otros <code>.cs</code> se ven directamente.</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class Botin : Script
+{
+    [Header("Botín")]
+    public List&lt;Objeto&gt; Furgoneta = new();                     // lo que lleva la banda
+    [AssetType("Objeto")] public Asset Destacado;               // un Data Asset de tipo Objeto (paso 3)
+    [Range(0, 1)] public float Calor = 0.2f;
+    public CurveData PagoSegunCalor = CurveData.Preset("EaseIn"); // paso 6
+}</code></pre></div>
 <p>En el Inspector, <strong>Furgoneta</strong> es una lista plegable:</p>
 <ul>
 <li><strong>+</strong> añade un elemento (con los valores por defecto del struct) y <strong>×</strong> vacía la lista.</li>
@@ -130,22 +182,39 @@ enseña el campo y el autocompletado lo conoce, sin reabrir nada ni reiniciar el
 <span class="hl-t">Botin</span>.precios = { <span class="hl-n">10</span>, <span class="hl-n">20</span> } <span class="hl-a">--[List(number)] -- una tabla con su tipo en un atributo</span>
 <span class="hl-t">Botin</span>.extras = {} <span class="hl-a">--[List(Objeto)]           -- (también --[List(Asset, "Texture")] y --[Dict(number)])</span>
 <span class="hl-t">Botin</span>.especial = <span class="hl-f">Objeto</span>({ nombre = <span class="hl-s">"Corona"</span>, precio = <span class="hl-n">5000</span> }) <span class="hl-c">-- un struct con otros valores por defecto</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">public List&lt;float&gt; Pesos = new();                            // lista de números
+public List&lt;string&gt; Nombres = new() { "a", "b" };             // de textos, con valores iniciales
+public List&lt;Entity&gt; Puertas = new();                         // de entidades
+[AssetType("Texture")] public List&lt;Asset&gt; Iconos = new();    // de assets
+public Dictionary&lt;string, float&gt; Multiplicadores = new();    // diccionario texto -&gt; número
+public Dictionary&lt;string, Objeto&gt; PorTienda = new();         // texto -&gt; tipo de datos
+public List&lt;int&gt; Precios = new() { 10, 20 };                 // int: enteros
+[List("ObjetoLua")] public List&lt;LuaTable&gt; Extras = new();    // un struct declarado en Lua, por su nombre (--[List(ObjetoLua)])
+public Objeto Especial = new() { Nombre = "Corona", Precio = 5000 }; // un tipo de datos con otros valores por defecto</code></pre></div>
+<p>Con <code>[List(&quot;Nombre&quot;)]</code> (y <code>[Dict(&quot;Nombre&quot;)]</code>) un script C# usa un struct declarado en Lua: cada elemento es una <code>LuaTable</code>
+con sus campos (<code>(string)Extras[0][&quot;nombre&quot;]</code>), o una clase tuya con algunos de esos campos (los demás vuelven a su valor
+por defecto al guardarlo). Un <code>T[]</code> no es un campo: usa <code>List&lt;T&gt;</code>.</p>
 <h3 id="3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto<a class="ancla" href="#3-data-assets-un-asset-por-objeto" aria-label="Enlace a esta sección">#</a></h3>
 <p>Un <strong>Data Asset</strong> es un fichero <code>.datos</code> con los valores de un struct: <code>Lingote.datos</code>, <code>Corona.datos</code>... Así un
 diseñador cambia el precio del lingote sin tocar ningún script ni ninguna escena.</p>
 <ol>
 <li>En <strong>Contenido</strong>, entra en la carpeta donde lo quieres (por ejemplo <code>datos/objetos</code>).</li>
-<li><strong>Crear &gt; Datos (Data Asset) &gt; Objeto</strong>. El menú lista los structs de tus scripts.</li>
+<li><strong>Crear &gt; Datos (Data Asset) &gt; Objeto</strong>. El menú lista los structs de tus scripts (los de Lua y los tipos de datos de C#).</li>
 <li>Elígelo: el <strong>Inspector</strong> enseña sus campos, como un componente. Cada cambio se guarda al soltar el campo, con
 deshacer.</li>
 <li>Para usarlo, arrástralo a un campo <code>Asset(&quot;Objeto&quot;)</code> de un script (el selector solo ofrece Data Assets de ese tipo;
-<code>Asset(&quot;DataAsset&quot;)</code> acepta cualquiera).</li>
+<code>Asset(&quot;DataAsset&quot;)</code> acepta cualquiera). En C#, un campo <code>Asset</code> con <code>[AssetType(&quot;Objeto&quot;)]</code>.</li>
 </ol>
 <p>En Lua, el asset se lee como una tabla:</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua language-lua"><span class="hl-k">local</span> d = <span class="hl-b">self</span>.destacado      <span class="hl-c">-- campo Asset("Objeto")</span>
 <span class="hl-f">print</span>(d.nombre, d.precio)     <span class="hl-c">-- sus valores</span>
 <span class="hl-k">local</span> todo = d:<span class="hl-f">Get</span>()          <span class="hl-c">-- la tabla entera</span>
 <span class="hl-k">local</span> lingote = <span class="hl-f">DataAsset</span>(<span class="hl-s">"Lingote"</span>)          <span class="hl-c">-- por su nombre (o su ruta: "datos/objetos/Lingote.datos")</span></code></pre></div>
+<p>En C#, como el tipo de datos (una <strong>copia</strong>: cambiarla no cambia el asset):</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">Objeto d = Destacado.Get&lt;Objeto&gt;();                 // campo [AssetType("Objeto")] Asset
+Log.Info($"{d.Nombre} {d.Precio}");                 // sus valores
+Objeto lingote = DataAsset.Get&lt;Objeto&gt;("Lingote");  // por su nombre (o su ruta: "datos/objetos/Lingote.datos")
+LuaValue precio = Destacado["Precio"];              // un valor suelto, sin tipo (como en Lua)</code></pre></div>
 <h3 id="4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)<a class="ancla" href="#4-la-data-table-del-botín-y-excel" aria-label="Enlace a esta sección">#</a></h3>
 <p>Con muchos objetos es más cómodo una <strong>tabla</strong>: una fila por objeto, una columna por campo.</p>
 <ol>
@@ -178,14 +247,27 @@ pegadas); sin cabecera, las celdas van por orden desde la fila elegida.</li>
 <span class="hl-k">local</span> caros = t:<span class="hl-f">Filter</span>(<span class="hl-k">function</span>(f) <span class="hl-k">return</span> f.precio &gt;= <span class="hl-n">1000</span> <span class="hl-k">end</span>)
 <span class="hl-k">local</span> barato = t:<span class="hl-f">Find</span>(<span class="hl-k">function</span>(f, clave) <span class="hl-k">return</span> f.precio &lt; <span class="hl-n">100</span> <span class="hl-k">end</span>)
 <span class="hl-f">print</span>(t:<span class="hl-f">Count</span>(), t:<span class="hl-f">Has</span>(<span class="hl-s">"Reloj"</span>), <span class="hl-t">table</span>.<span class="hl-f">concat</span>(t:<span class="hl-f">Keys</span>(), <span class="hl-s">", "</span>))</code></pre></div>
+<p>En C#, con el tipo de sus filas (el autocompletado sabe sus campos):</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">DataTable&lt;Objeto&gt; t = DataTable.Get&lt;Objeto&gt;("Botin");   // por su nombre o su ruta
+Log.Info($"{t.Row("Corona").Precio}");                  // una fila (null si no existe)
+foreach (var (clave, fila) in t.Rows())                 // todas, en su orden, cada una con su clave
+    Log.Info($"{clave} {fila.Precio}");
+List&lt;Objeto&gt; caros = t.Filter(f =&gt; f.Precio &gt;= 1000);
+Objeto barato = t.Find((f, clave) =&gt; f.Precio &lt; 100);
+Log.Info($"{t.Count} {t.Has("Reloj")} {string.Join(", ", t.Keys())}");
+LuaValue sinTipo = DataTable.Get("Botin");              // sin tipo, como en Lua (Row, Rows... por nombre)</code></pre></div>
 <p>Las filas son <strong>de solo lectura</strong> (las comparten todos los scripts). Para cambiar algo en la partida, cópialo:
-<code>local mio = table.clone(t:Row(&quot;Corona&quot;))</code>.</p>
+<code>local mio = table.clone(t:Row(&quot;Corona&quot;))</code>. En C#, <code>Row</code>, <code>Rows</code>, <code>Find</code> y <code>Filter</code> ya devuelven <strong>copias</strong> (objetos tuyos
+que puedes cambiar sin tocar la tabla); el motor convierte cada fila a C# una sola vez por versión del asset, así que
+leer la tabla muchas veces es barato. Con un struct (no una clase), <code>Row</code> de una clave que no existe da el valor por
+defecto: mira antes <code>Has</code> o usa <code>TryRow(clave, out fila)</code>.</p>
 <h3 id="5-un-enum-compartido">5. Un enum compartido<a class="ancla" href="#5-un-enum-compartido" aria-label="Enlace a esta sección">#</a></h3>
 <p>El tipo de objeto (Arma, Botín, Consumible) lo usan varios structs y scripts. En vez de escribir la lista en cada sitio:</p>
 <ol>
 <li><strong>Contenido &gt; Crear &gt; Enum</strong> y renómbralo <code>TipoObjeto.enum</code>.</li>
 <li>En el Inspector, <strong>Añadir valor</strong>, cambia los nombres y ordénalos.</li>
-<li>Úsalo con su nombre: <code>Enum(&quot;TipoObjeto&quot;)</code> o con otro valor por defecto: <code>Enum(&quot;TipoObjeto&quot;, &quot;Arma&quot;)</code>.</li>
+<li>Úsalo con su nombre: <code>Enum(&quot;TipoObjeto&quot;)</code> o con otro valor por defecto: <code>Enum(&quot;TipoObjeto&quot;, &quot;Arma&quot;)</code>. En C#, un
+<code>string</code> con <code>[EnumAsset(&quot;TipoObjeto&quot;)]</code> (su valor por defecto, el del inicializador).</li>
 </ol>
 <p>El Inspector enseña un desplegable y en Lua el valor es el texto (<code>if o.tipo == &quot;Arma&quot; then</code>). Cambiar el nombre de un
 valor no cambia los que ya estaban guardados.</p>
@@ -203,15 +285,28 @@ enum falta) y carga solo en cuanto el <code>.enum</code> existe con ese nombre, 
 <span class="hl-k">local</span> <span class="hl-t">Tipos</span> = <span class="hl-f">require</span>(<span class="hl-s">"./datos/Tipos"</span>)
 <span class="hl-t">Arma</span>.rareza = <span class="hl-t">Tipos</span>.Rareza                 <span class="hl-c">-- el primero por defecto</span>
 <span class="hl-t">Arma</span>.rarezaJefe = <span class="hl-t">Tipos</span>.Rareza:<span class="hl-f">Default</span>(<span class="hl-s">"Épica"</span>)</code></pre></div>
+<p>En C# es un <code>enum</code> (lo ven todos los scripts C#); <code>[Option(&quot;...&quot;)]</code> le da el texto que se ve y se guarda:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// scripts/datos/Rareza.cs (o en cualquier .cs)
+public enum Rareza { [Option("Común")] Comun, Rara, [Option("Épica")] Epica }
+
+public class Arma : Script
+{
+    public Rareza RarezaNormal;                            // el primero por defecto
+    public Rareza RarezaJefe = Rareza.Epica;
+    [EnumAsset("TipoObjeto")] public string Tipo = "Arma"; // un enum compartido (.enum)
+}</code></pre></div>
 <h3 id="6-curvas">6. Curvas<a class="ancla" href="#6-curvas" aria-label="Enlace a esta sección">#</a></h3>
 <p>Cuánto paga el perista según lo «caliente» que esté el botín: poco recién robado, el precio entero cuando ya nadie lo
 busca. Eso es una curva.</p>
 <ul>
 <li>Como campo: <code>Botin.pagoSegunCalor = Curve()</code> (o un preajuste: <code>Curve(&quot;Smooth&quot;)</code>, <code>&quot;Linear&quot;</code>, <code>&quot;EaseIn&quot;</code>, <code>&quot;EaseOut&quot;</code>,
 <code>&quot;Constant&quot;</code>, <code>&quot;Flat&quot;</code>, <code>&quot;Bell&quot;</code>; o puntos: <code>Curve({ {0, 0.2}, {1, 1} })</code>). En el Inspector se ve en pequeño y,
-desplegada, se edita.</li>
+desplegada, se edita. En C#, un campo <code>CurveData</code>: <code>= CurveData.Preset(&quot;Smooth&quot;)</code>, <code>= new()</code> (la recta) o
+<code>= new((0, 0.2f), (1, 1))</code> (puntos).</li>
 <li>Como asset compartido: <strong>Contenido &gt; Crear &gt; Curva</strong> (<code>.curva</code>); se edita en el Inspector y se usa en un campo
-<code>Asset(&quot;Curve&quot;)</code>.</li>
+<code>Asset(&quot;Curve&quot;)</code> (en C#, <code>[AssetType(&quot;Curve&quot;)] public Asset ...</code>).</li>
 </ul>
 <p>En el editor de curvas: <strong>arrastra</strong> los puntos, <strong>doble clic</strong> en un hueco añade uno y el <strong>clic derecho</strong> en un punto
 cambia su interpolación hasta el siguiente (constante, lineal, Bézier, entrada suave, salida suave, suave), sus tangentes
@@ -220,8 +315,10 @@ Son las mismas curvas que la <a href="animacion-objetos.html">Línea de tiempo</
 <p>En Lua:</p>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua language-lua"><span class="hl-k">local</span> factor = <span class="hl-b">self</span>.pagoSegunCalor:<span class="hl-f">Evaluate</span>(<span class="hl-n">1</span> - <span class="hl-b">self</span>.calor)   <span class="hl-c">-- campo Curve()</span>
 <span class="hl-k">local</span> f2 = <span class="hl-b">self</span>.curvaDelPerista:<span class="hl-f">Evaluate</span>(<span class="hl-n">0.5</span>)                 <span class="hl-c">-- campo Asset("Curve")</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">float factor = PagoSegunCalor.Evaluate(1 - Calor);          // campo CurveData (se evalúa en C#, sin llamar al motor)
+float f2 = CurvaDelPerista.Get&lt;CurveData&gt;().Evaluate(0.5f); // campo [AssetType("Curve")] Asset</code></pre></div>
 <p>Antes del primer punto vale lo del primero y después del último, lo del último. <code>curva.minX</code>, <code>curva.maxX</code>,
-<code>curva.count</code> y <code>curva:Points()</code> dan sus puntos.</p>
+<code>curva.count</code> y <code>curva:Points()</code> dan sus puntos (en C#, <code>MinX</code>, <code>MaxX</code>, <code>Count</code> y <code>Keys</code>, que se pueden cambiar).</p>
 <h3 id="7-todo-junto">7. Todo junto<a class="ancla" href="#7-todo-junto" aria-label="Enlace a esta sección">#</a></h3>
 <div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua language-lua"><span class="hl-k">function</span> <span class="hl-t">Botin</span>:<span class="hl-f">Valor</span>(objeto)
     <span class="hl-k">local</span> curva = <span class="hl-b">self</span>.curvaDelPerista <span class="hl-k">or</span> <span class="hl-b">self</span>.pagoSegunCalor
@@ -236,6 +333,19 @@ Son las mismas curvas que la <a href="animacion-objetos.html">Línea de tiempo</
     <span class="hl-k">end</span>
     <span class="hl-f">print</span>(<span class="hl-s">"La furgoneta vale"</span>, total)
 <span class="hl-k">end</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">public int Valor(Objeto objeto)
+{
+    CurveData curva = CurvaDelPerista != null ? CurvaDelPerista.Get&lt;CurveData&gt;() : PagoSegunCalor;
+    return (int)System.Math.Floor(objeto.Precio * (double)curva.Evaluate(1 - Calor) + 0.5);
+}
+
+void Start()
+{
+    DataTable&lt;Objeto&gt; tabla = DataTable.Get&lt;Objeto&gt;("Botin");
+    int total = 0;
+    foreach (Objeto objeto in Furgoneta) total += Valor(tabla.Row(objeto.Nombre) ?? objeto);
+    Log.Info($"La furgoneta vale {total}");
+}</code></pre></div>
 <h2 id="valores-en-lua-copias">Valores en Lua: copias<a class="ancla" href="#valores-en-lua-copias" aria-label="Enlace a esta sección">#</a></h2>
 <p><code>self.furgoneta</code>, <code>self.destacado</code> (de un struct) y los demás campos compuestos devuelven <strong>una copia</strong> como tabla de
 Lua. Cambiarla no cambia el campo: hay que <strong>volver a asignarla</strong>.</p>
@@ -245,6 +355,13 @@ Lua. Cambiarla no cambia el campo: hay que <strong>volver a asignarla</strong>.<
 <span class="hl-b">self</span>.precios = { oro = <span class="hl-n">11</span> }          <span class="hl-c">-- un diccionario entero</span></code></pre></div>
 <p>Guarda la copia en un <code>local</code> si la usas varias veces en el mismo frame (cada lectura crea una tabla). <code>Objeto()</code> crea un
 valor con los valores por defecto y <code>Objeto({ precio = 5 })</code>, con esos cambios.</p>
+<p><strong>En C# no hay copias</strong>: el campo es tu objeto y se cambia directamente, también lo de dentro de un elemento. El motor lo
+guarda al terminar la llamada (<code>Update</code>, <code>Start</code>, una función de red...) solo si ha cambiado: compara una huella de cada
+valor, sin copiarlo. Lo que cambia el Inspector, el deshacer o la edición en equipo llega a C# al principio de la
+siguiente llamada (en su sitio: tus referencias a los elementos siguen valiendo).</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">Furgoneta.Add(new Objeto { Nombre = "Cuadro", Precio = 900 }); // ya está: no hay que volver a asignarla
+Furgoneta[0].Precio = 1200;                                     // también un campo de un elemento
+Precios = new() { ["oro"] = 11 };                               // un diccionario entero</code></pre></div>
 <h2 id="multijugador">Multijugador<a class="ancla" href="#multijugador" aria-label="Enlace a esta sección">#</a></h2>
 <p>Los structs y las listas no se replican como campos (no caben en las instantáneas de la red, que llevan valores
 pequeños): si pones <code>--[Replicated]</code> encima, el motor avisa. Para enviarlos a los clientes, guárdalos en una
@@ -258,8 +375,58 @@ pequeños): si pones <code>--[Replicated]</code> encima, el motor avisa. Para en
         <span class="hl-b">self</span>.contenido.lista = { <span class="hl-f">Objeto</span>({ nombre = <span class="hl-s">"A"</span> }), <span class="hl-f">Objeto</span>({ nombre = <span class="hl-s">"B"</span> }) }
     <span class="hl-k">end</span>
 <span class="hl-k">end</span></code></pre></div>
+<p>En C#, <code>[Replicated]</code> sí vale en una <code>List&lt;T&gt;</code>, un <code>Dictionary&lt;string, T&gt;</code> y un tipo de datos: el servidor cambia el campo
+como cualquier otro (también un campo de un elemento: <code>Contenido[2].Precio = 5</code>) y llegan a los clientes <strong>solo los
+elementos que cambian</strong>, con su <code>OnChange</code>:</p>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+public class Caja : Script
+{
+    [Replicated(OnChange = nameof(AlCambiar))] public List&lt;Objeto&gt; Contenido = new();
+    public Objeto Principal = new();
+
+    void Start()
+    {
+        if (!IsServer()) return;
+        Contenido.Add(Principal);
+        Contenido.Add(new Objeto { Nombre = "A" });
+    }
+
+    void AlCambiar() =&gt; Log.Info($"La caja tiene {Contenido.Count} objetos");
+}</code></pre></div>
+<p>Por dentro van en una tabla replicada (<code>Contenido__rep</code>), así que tienen sus mismos límites: una lista de hasta 1023
+elementos, un diccionario de hasta 1024 claves y 64 KB entre todo; si se pasa, la Consola lo dice una vez y no se envía
+(detalles en <a href="scripts-csharp.html#listas-diccionarios-y-datos-replicados">scripts-csharp.md</a>).</p>
 <p>Las Data Tables, los Data Assets, los enums y las curvas son assets: los tienen todos los jugadores (van en el juego), así
 que no hace falta enviarlos.</p>
+<h2 id="lua-y-c-en-el-mismo-proyecto">Lua y C# en el mismo proyecto<a class="ancla" href="#lua-y-c-en-el-mismo-proyecto" aria-label="Enlace a esta sección">#</a></h2>
+<p>Los structs son del motor, no de un lenguaje: un tipo de datos de C# (uno que usa algún campo de un script C#, o con
+<code>[Struct]</code>) es un struct más (para las tablas, los Data Assets, <code>Asset(&quot;ItemData&quot;)</code> y <code>--[List(ItemData)]</code> de Lua) y un
+struct de Lua se usa desde C# por su nombre.</p>
+<div class="codigo"><div class="codigo-cab"><span>Lua</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-lua language-lua"><span class="hl-c">-- Lua con el tipo de datos de C# de scripts/ItemData.cs</span>
+<span class="hl-k">local</span> <span class="hl-t">ItemData</span> = <span class="hl-f">require</span>(<span class="hl-s">"./ItemData.cs"</span>)      <span class="hl-c">-- el struct (un .cs con un solo tipo de datos)</span>
+
+<span class="hl-k">local</span> <span class="hl-t">Mochila</span> = <span class="hl-f">Script</span>()
+<span class="hl-t">Mochila</span>.objetos = {} <span class="hl-a">--[List(ItemData)]         -- también sin require: el motor carga ItemData.cs</span>
+<span class="hl-t">Mochila</span>.favorito = <span class="hl-f">ItemData</span>({ <span class="hl-t">ID</span> = <span class="hl-n">3</span> })
+
+<span class="hl-k">return</span> <span class="hl-t">Mochila</span></code></pre></div>
+<div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
+
+// C# con el struct Objeto de Lua (scripts/datos/Objeto.luau)
+public class ObjetoVista { public string nombre = ""; public int precio; } // los campos que usa este script
+
+public class Mochila : Script
+{
+    [List("Objeto")] public List&lt;LuaTable&gt; Objetos = new();      // cada elemento, con todos sus campos
+    [Dict("Objeto")] public Dictionary&lt;string, ObjetoVista&gt; PorTienda = new();
+
+    void Start()
+    {
+        List&lt;ObjetoVista&gt; caros = DataTable.Get&lt;ObjetoVista&gt;("Botin").Filter(o =&gt; o.precio &gt;= 1000);
+        Log.Info($"{caros.Count} caros; el primero de la mochila: {(Objetos.Count &gt; 0 ? (string)Objetos[0]["nombre"] : "-")}");
+    }
+}</code></pre></div>
 <h2 id="publicar">Publicar<a class="ancla" href="#publicar" aria-label="Enlace a esta sección">#</a></h2>
 <p>No hay que hacer nada: los <code>.datos</code>, <code>.tabla</code>, <code>.enum</code> y <code>.curva</code> van en el <code>.novapak</code> como cualquier otro asset, y los
 scripts guardan en su bytecode el orden de los campos de sus structs.</p>
@@ -273,7 +440,8 @@ scripts guardan en su bytecode el orden de los campos de sus structs.</p>
 <code>Enum({...})</code> y <code>Enum(&quot;TipoObjeto&quot;)</code> sus valores y <code>Curve()</code> una <code>CurveValue</code> con <code>Evaluate</code>.</li>
 </ul>
 <p>Se rehace solo al guardar un script, al crear una tabla o un enum o al cambiar los valores de un enum (si el proyecto ya
-usa <code>nova.d.luau</code>). El editor de scripts integrado se pone al día igual.</p>
+usa <code>nova.d.luau</code>). El editor de scripts integrado se pone al día igual. En C# el autocompletado es el del propio C#:
+<code>DataTable.Get&lt;Objeto&gt;(&quot;Botin&quot;).Row(&quot;Corona&quot;).</code> completa sus campos y <code>DataTable.Get&lt;Objeto&gt;(&quot;</code> ofrece las tablas.</p>
 <h2 id="ficheros">Ficheros<a class="ancla" href="#ficheros" aria-label="Enlace a esta sección">#</a></h2>
 <p>Son JSON (se pueden revisar en git o editar con un editor de texto; el motor los recarga al guardarlos):</p>
 <div class="codigo"><div class="codigo-cab"><span>JSON</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-json language-json">// datos/objetos/Lingote.datos
@@ -290,12 +458,15 @@ usa <code>nova.d.luau</code>). El editor de scripts integrado se pone al día ig
 // datos/PagoSegunCalor.curva
 { <span class="hl-k">"formato"</span>: <span class="hl-s">"nova-curva"</span>, <span class="hl-k">"version"</span>: <span class="hl-n">1</span>,
   <span class="hl-k">"claves"</span>: [ { <span class="hl-k">"t"</span>: <span class="hl-n">0</span>, <span class="hl-k">"v"</span>: <span class="hl-n">0.25</span>, <span class="hl-k">"entrada"</span>: <span class="hl-n">0</span>, <span class="hl-k">"salida"</span>: <span class="hl-n">0</span>, <span class="hl-k">"interp"</span>: <span class="hl-s">"Smooth"</span>, <span class="hl-k">"tangentes"</span>: <span class="hl-s">"Auto"</span> } ] }</code></pre></div>
-<p>Un campo que falta toma su valor por defecto y uno que sobra se ignora.</p>
+<p>Un campo que falta toma su valor por defecto y uno que sobra se ignora. Los de C# son iguales: las claves son los nombres
+de sus campos (<code>&quot;Precio&quot;</code>), y un script C# guarda sus listas y sus tipos de datos en las escenas como el script Lua
+equivalente.</p>
 <h2 id="avisos-y-límites">Avisos y límites<a class="ancla" href="#avisos-y-límites" aria-label="Enlace a esta sección">#</a></h2>
 <ul>
 <li>Un <code>Struct</code> sin nombre (sin <code>local</code> ni nombre a mano) se llama <code>Struct&lt;línea&gt;</code> y avisa: dale un nombre para usarlo en
 Data Assets y tablas.</li>
-<li>Dos structs con el mismo nombre en scripts distintos: gana el último que se carga.</li>
+<li>Dos structs con el mismo nombre en scripts distintos: gana el último que se carga. Dos tipos de datos de C# con el mismo
+nombre (en distintos <code>namespace</code> o como clases anidadas): la Consola lo avisa; cambia uno con <code>[Struct(&quot;OtroNombre&quot;)]</code>.</li>
 <li>Si un Data Asset o una tabla son de un struct que ya no existe (renombrado, o un script con errores), el editor lo dice y
 no los toca: los valores siguen en el fichero.</li>
 <li><code>Enum(&quot;Nombre&quot;)</code> necesita que exista <code>Nombre.enum</code> en <code>assets/</code>: si no, el script no carga y la Consola lo dice. En
@@ -304,10 +475,12 @@ decir y lo ya cargado sigue como estaba.</li>
 <li><code>Asset(&quot;DataAsset&quot;)</code>, <code>Asset(&quot;DataTable&quot;)</code> y <code>Asset(&quot;Curve&quot;)</code> (hasta la 0.9.36, <code>&quot;Datos&quot;</code>, <code>&quot;Tabla&quot;</code> y <code>&quot;Curva&quot;</code>, que siguen valiendo con un aviso) aceptan cualquier asset de esa clase; <code>Asset(&quot;Objeto&quot;)</code>, solo Data
 Assets de ese struct.</li>
 <li>En un asset, <code>id</code>, <code>path</code> y <code>valid</code> son del asset: si tu struct tiene un campo con ese nombre, léelo con <code>asset:Get().id</code>.</li>
+<li>En C#, un campo que no puede ser de un tipo de datos (un array, un <code>Dictionary&lt;int, T&gt;</code>, una lista de listas, un objeto del
+motor...) se queda fuera con un aviso en la Consola que dice por qué; el resto del tipo sigue valiendo.</li>
 </ul>
 <nav class="ant-sig" aria-label="Páginas"><a class="ant" href="herramientas-lua.html"><small>Anterior</small>Herramientas de prueba y de editor (consola, CVars, OnValidate, botones, Problemas y Visual Logger)</a><a class="sig" href="ejemplo-inventario.html"><small>Siguiente</small>Ejemplo: inventario tipo Rust (Lua)</a></nav></article>
 </main>
-<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos</a></li><li class="n3"><a href="#1-el-tipo-de-datos-struct">1. El tipo de datos: Struct</a></li><li class="n3"><a href="#2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector</a></li><li class="n3"><a href="#3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto</a></li><li class="n3"><a href="#4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)</a></li><li class="n3"><a href="#5-un-enum-compartido">5. Un enum compartido</a></li><li class="n3"><a href="#6-curvas">6. Curvas</a></li><li class="n3"><a href="#7-todo-junto">7. Todo junto</a></li><li class="n2"><a href="#valores-en-lua-copias">Valores en Lua: copias</a></li><li class="n2"><a href="#multijugador">Multijugador</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#ficheros">Ficheros</a></li><li class="n2"><a href="#avisos-y-límites">Avisos y límites</a></li></ul></div></aside>
+<aside class="en-pagina" aria-label="En esta página"><div class="en-pagina-in"><p>En esta página</p><ul><li class="n2"><a href="#paso-a-paso-el-botín-de-un-juego-de-robos">Paso a paso: el botín de un juego de robos</a></li><li class="n3"><a href="#1-el-tipo-de-datos-struct">1. El tipo de datos: Struct</a></li><li class="n3"><a href="#2-una-lista-de-structs-en-el-inspector">2. Una lista de structs en el Inspector</a></li><li class="n3"><a href="#3-data-assets-un-asset-por-objeto">3. Data Assets: un asset por objeto</a></li><li class="n3"><a href="#4-la-data-table-del-botín-y-excel">4. La Data Table del botín (y Excel)</a></li><li class="n3"><a href="#5-un-enum-compartido">5. Un enum compartido</a></li><li class="n3"><a href="#6-curvas">6. Curvas</a></li><li class="n3"><a href="#7-todo-junto">7. Todo junto</a></li><li class="n2"><a href="#valores-en-lua-copias">Valores en Lua: copias</a></li><li class="n2"><a href="#multijugador">Multijugador</a></li><li class="n2"><a href="#lua-y-c-en-el-mismo-proyecto">Lua y C# en el mismo proyecto</a></li><li class="n2"><a href="#publicar">Publicar</a></li><li class="n2"><a href="#autocompletado">Autocompletado</a></li><li class="n2"><a href="#ficheros">Ficheros</a></li><li class="n2"><a href="#avisos-y-límites">Avisos y límites</a></li></ul></div></aside>
 </div>
 <footer class="pie"><div class="pie-in"><p>Nova Engine. Las capturas son del propio motor. Fuentes Inter y JetBrains Mono (SIL Open Font License).</p><p><a href="terceros.html">Licencias de terceros</a> · <a href="../novedades.html">Novedades</a> · <a href="https://github.com/EricUE5/nova-engine-releases/releases" rel="noopener">GitHub</a></p></div></footer>
 <script src="../assets/js/sitio.js" defer></script><script src="buscador.js" defer></script><script src="../assets/js/descarga.js" defer></script>

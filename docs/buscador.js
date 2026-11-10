@@ -349,6 +349,14 @@
     // "lua", "csharp", "cpp", "api" (la API de los scripts: Lua y C#) o "" (de todos)
     var LENGUAJES = { csharp: "C#", lua: "Lua", cpp: "C++" };
     function lenguajeElegido() {
+        // ?lenguaje=csharp (el editor abre la documentacion con el lenguaje del proyecto): ese, y se recuerda
+        try {
+            var q = /[?&]lenguaje=([a-z]+)/.exec(window.location.search || "");
+            if (q && LENGUAJES[q[1]]) {
+                guardarLenguaje(q[1]);
+                return q[1];
+            }
+        } catch (e) { /* sin location */ }
         try {
             var l = window.localStorage.getItem("nova-docs-lenguaje");
             if (l && LENGUAJES[l]) return l;
