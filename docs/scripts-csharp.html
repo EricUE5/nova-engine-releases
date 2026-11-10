@@ -775,6 +775,11 @@ el del código. Los tipos que pueden ser campos:</p>
   <td><code>Asset(&quot;...&quot;)</code></td>
 </tr>
 <tr>
+  <td><code>UiElement</code></td>
+  <td>un elemento de la interfaz: se arrastra desde la <strong>Jerarquía</strong> (o se elige en su lista, por su ruta). Se guarda por su UUID (<code>null</code> si está vacío); no se replica (<a href="interfaz-ui.html#un-inventario-en-pocas-líneas-c">interfaz-ui.md</a>)</td>
+  <td><code>UiElement()</code></td>
+</tr>
+<tr>
   <td><code>List&lt;T&gt;</code> (de cualquiera de estos o de un tipo de datos)</td>
   <td>lista plegable (+, quitar, mover, duplicar)</td>
   <td><code>List(...)</code>, <code>--[List(...)]</code></td>
@@ -1201,7 +1206,8 @@ ellas. Cópialo a una variable si lo necesitas después de un <code>await</code>
 (<a href="scripts-lua.html#914-dónde-se-ejecuta-una-función">9.14</a>): donde no toca, la llamada no hace nada y devuelve el valor
 por defecto (<code>0</code>, <code>null</code>, <code>false</code>).</li>
 <li><strong><code>OnChange</code></strong> se llama en los clientes (no en el servidor ni en el anfitrión): si hace falta, llámalo tú después
-de cambiar el campo.</li>
+de cambiar el campo. Para pintar casillas de inventario no hace falta: <code>UI.BindSlots</code> pinta lo que cambia también en el
+anfitrión (<a href="interfaz-ui.html#un-inventario-en-pocas-líneas-c">interfaz-ui.md</a>).</li>
 </ul>
 <div class="codigo"><div class="codigo-cab"><span>C#</span><button type="button" class="copiar" data-copiado="Copiado">Copiar</button></div><pre><code class="lang-csharp language-csharp">using Nova;
 
